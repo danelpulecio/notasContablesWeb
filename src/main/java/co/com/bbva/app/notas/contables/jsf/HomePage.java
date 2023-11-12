@@ -14,6 +14,7 @@ import co.com.bbva.app.notas.contables.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
@@ -26,6 +27,8 @@ import javax.naming.ldap.InitialLdapContext;
 import javax.naming.ldap.LdapContext;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Hashtable;
@@ -38,7 +41,8 @@ import java.util.List;
  * </p>
  * 
  */
-
+//@Named
+//@RequestScoped
 public class HomePage extends GeneralPage implements IPages {
 
 	

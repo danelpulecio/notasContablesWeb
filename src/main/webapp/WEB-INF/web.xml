@@ -29,6 +29,12 @@
 
     <context-param>
         <param-name>primefaces.THEME</param-name>
-        <param-value>saga</param-value>
+        <param-value>start</param-value>
     </context-param>
+    
+  	<mime-mapping>
+	    <extension>xcss</extension>
+	    <mime-type>css/theme.xcss</mime-type>
+	</mime-mapping>	
+  	
 </web-app>
