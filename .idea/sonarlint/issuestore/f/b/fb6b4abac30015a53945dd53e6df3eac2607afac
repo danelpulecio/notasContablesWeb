@@ -1,0 +1,43 @@
+
+MWeb:TableWithoutCaptionCheck" Add a description to this table.(İü«âùÿÿÿÿ
+?	Web:S5256"%Add "<th>" headers to this "<table>".(İü«âùÿÿÿÿ
+I	Web:S1827"/Remove this deprecated "cellpadding" attribute.(İü«âùÿÿÿÿ
+I	Web:S1827"/Remove this deprecated "cellspacing" attribute.(İü«âùÿÿÿÿ
+MWeb:TableWithoutCaptionCheck
+" Add a description to this table.(‡¸ßøıÿÿÿÿ
+?	Web:S5256
+"%Add "<th>" headers to this "<table>".(‡¸ßøıÿÿÿÿ
+I	Web:S1827
+"/Remove this deprecated "cellpadding" attribute.(‡¸ßøıÿÿÿÿ
+I	Web:S1827
+"/Remove this deprecated "cellspacing" attribute.(‡¸ßøıÿÿÿÿ
+C	Web:S1827
+")Remove this deprecated "width" attribute.(‡¸ßøıÿÿÿÿ
+E	Web:S1827
+"+Remove this deprecated "bgcolor" attribute.(‡¸ßøıÿÿÿÿ
+>	Web:S1827")Remove this deprecated "align" attribute.(áß€¨
+UWeb:AvoidCommentedOutCodeCheck1"Remove this commented out code.(ÜÏ¸êûÿÿÿÿ8Õğ·÷»1
+UWeb:AvoidCommentedOutCodeCheck2"Remove this commented out code.(ø‰şÿÿÿÿÿ8Õğ·÷»1
+UWeb:AvoidCommentedOutCodeCheck4"Remove this commented out code.(Ã®Àæşÿÿÿÿ8Õğ·÷»1
+PWeb:AvoidCommentedOutCodeCheck6"Remove this commented out code.(¨„Ô8Õğ·÷»1
+PWeb:AvoidCommentedOutCodeCheck7"Remove this commented out code.(ªË›¤8Õğ·÷»1
+PWeb:AvoidCommentedOutCodeCheck8"Remove this commented out code.(›ş¨8Õğ·÷»1
+PWeb:AvoidCommentedOutCodeCheck9"Remove this commented out code.(Ÿ´Œı8Õğ·÷»1
+PWeb:AvoidCommentedOutCodeCheck:"Remove this commented out code.(¡Æ¬Ñ8Õğ·÷»1
+OWeb:AvoidCommentedOutCodeCheck;"Remove this commented out code.(—Æµu8Õğ·÷»1
+PWeb:AvoidCommentedOutCodeCheck<"Remove this commented out code.(€Àñ¤8Õğ·÷»1
+UWeb:AvoidCommentedOutCodeCheck="Remove this commented out code.(üØœ¾üÿÿÿÿ8Õğ·÷»1
+PWeb:AvoidCommentedOutCodeCheck>"Remove this commented out code.(€Àñ¤8Õğ·÷»1
+PWeb:AvoidCommentedOutCodeCheck?"Remove this commented out code.(öù¦Î8Õğ·÷»1
+UWeb:AvoidCommentedOutCodeCheck@"Remove this commented out code.(âÆÕãùÿÿÿÿ8Õğ·÷»1
+PWeb:AvoidCommentedOutCodeCheckA"Remove this commented out code.(ŞÚÙ8Õğ·÷»1
+PWeb:AvoidCommentedOutCodeCheckB"Remove this commented out code.(£Ù¾Î8Õğ·÷»1
+OWeb:AvoidCommentedOutCodeCheckC"Remove this commented out code.(‘ş¹8Õğ·÷»1
+UWeb:AvoidCommentedOutCodeCheckD"Remove this commented out code.(¥ö·²ûÿÿÿÿ8Õğ·÷»1
+UWeb:AvoidCommentedOutCodeCheckE"Remove this commented out code.(ä†úÃÿÿÿÿÿ8Õğ·÷»1
+PWeb:AvoidCommentedOutCodeCheckF"Remove this commented out code.(¢¿¯·8Õğ·÷»1
+PWeb:AvoidCommentedOutCodeCheckG"Remove this commented out code.(£Ù¾Î8Õğ·÷»1
+OWeb:AvoidCommentedOutCodeCheckH"Remove this commented out code.(‘ş¹8Õğ·÷»1
+UWeb:AvoidCommentedOutCodeCheckI"Remove this commented out code.(¥ö·²ûÿÿÿÿ8Õğ·÷»1
+PWeb:AvoidCommentedOutCodeCheckJ"Remove this commented out code.(â¶—ş8Õğ·÷»1
+PWeb:AvoidCommentedOutCodeCheckK"Remove this commented out code.(á¡§¹8Õğ·÷»1

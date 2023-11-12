@@ -1,0 +1,316 @@
+.rich-table-row{
+
+}
+
+html,body {
+   height:100%;
+/* necesario para las sub-alturas */
+}
+
+body {
+   margin:0;
+   padding:0;
+   overflow-x: hidden;
+/* Para evitar el feo scroll horizontal de explorer 7 */
+   background:#fff;
+}
+
+body, div, p {
+   font-family: verdana;
+}
+
+div#layout {
+   position:relative;
+/* necesario para el posicionamiento */
+   margin:0 auto;
+/* lo centramos, aunque no funciona para explorer 5 */
+   width:1000px;
+   height:auto !important;
+/* para los navegadores de verdad */
+   height:100%;
+/* Para que explorer lo interprete como alto mnimo */
+   min-height:100%;
+/* para los navegadores de verdad */
+   background:#ffffff;
+}
+
+div#contenido {
+   font-size: 11px;
+   padding: 0px;
+   padding-bottom: 70px;
+/* Este padding debe ser igual a la altura del footer */
+   margin-left: 1px;
+/* 150px del ancho del lateral
+    ms 20px del padding del mismo */
+   background: #ffffff;
+}
+
+div#pie {
+   position:absolute;
+   width:100%;
+   bottom:0;
+   text-align:center;
+   font-size: 10px;
+/* lo encajamos al fondo de todo */
+   background:#ffffff;
+}
+
+a img {
+	border: none;
+}
+
+h1 {
+	font-size: 1.6em;
+	margin-top: 0;
+}
+
+.row1 {
+	background-color: #dbe2ef;
+}
+
+.row2 {
+	background-color: #ffffff;
+}
+
+input[type=submit],input[type=button] {
+	font-size: 11px;
+	margin: 5px 5px 5px 0;
+	cursor: pointer;
+}
+
+input[type=text],textarea {
+	font-size: 11px;
+	padding-left: 1px;
+	text-transform: uppercase;
+}
+
+select {
+	font-size: 11px;
+}
+
+.tableControl,.actionButtons {
+	width: 100%;
+}
+
+.tableControl a {
+	padding-left: 10px;
+}
+
+.tableControl {
+	text-align: right;
+}
+
+.footer {
+	text-align: center;
+	font-size: 9px;
+	margin-bottom: 10px;
+	height:45px; 
+}
+
+.rich-table {
+	width: 100%;
+}
+
+.rich-messages-marker img {
+	padding-right: 7px;
+}
+
+.rich-message-label {
+	color: red;
+}
+
+.top {
+	vertical-align: top;
+}
+
+.message {
+	padding: 5px;
+	list-style: none;
+	border: 0;
+	background: none;
+	padding: 0;
+	color: #ff0000;
+	margin: 5px 0 8px 0;
+	font-size: 11px;
+}
+
+.message li {
+	background: no-repeat left center;
+	padding-top: 1px;
+	padding-left: 20px;
+	margin-left: 3px;
+}
+
+.name {
+	vertical-align: top;
+	width: 200px;
+	font-weight: bold;
+	float: left;
+	padding: 5px;
+	margin-top: 3px;
+	clear: left;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+.center {
+	text-align: center;
+}
+
+.value {
+	float: left;
+	padding: 5px;
+}
+
+.error {
+	float: left;
+	padding: 5px;
+}
+
+.errors {
+	color: #FF0000;
+	vertical-align: middle;
+}
+
+img.errors {
+	padding-right: 5px;
+}
+
+.errors input,.errors textarea,.errors select {
+	border: 1px solid red !important;
+}
+
+.required {
+	color: #FF0000;
+	padding-left: 2px;
+}
+
+.rich-stglpanel-body {
+	overflow: auto;
+}
+
+/* the specificity here is necessary to override the defaults */
+.rich-panel .rich-panel-header,.rich-stglpanel .rich-stglpanel-header {
+	padding: 2px 3px;
+}
+
+.rich-panel input[type=submit],.rich-panel input[type=button],.rich-tabpanel input[type=submit],.rich-tabpanel input[type=button]
+	{
+	margin-bottom: 0;
+}
+
+.tableControl input[type=submit],.tableControl input[type=button],.tableControl select
+	{
+	margin: 2px 0 2px 2px;
+}
+
+/* I don't know why this is necessary, but the select is off by a pixel on the top and is padding too much on the left */
+.tableControl select {
+	margin-left: 2px;
+	position: relative;
+	top: 1px;
+}
+
+.actionButtons {
+	padding-left: 1px;
+}
+
+.actionButtons select {
+	margin: 2px 2px 2px 2px;
+	vertical-align: middle;
+}
+
+div.info {
+	font-size:11px;
+}
+
+ul.bullets {
+	list-style: square;
+}
+
+ul.bullets li {
+	padding-bottom: 2px;
+}
+
+td.action {
+	text-align: center;
+	width: 8em;
+	white-space: nowrap;
+}
+
+td.action a {
+	padding-left: 1px;
+	padding-right: 1px;
+}
+
+table.radio {
+	border: 0;
+}
+
+table.radio td {
+	padding: 0 2px;
+}
+
+table.radio input[type=radio] {
+	vertical-align: bottom;
+}
+
+.rich-messages-marker img {
+	padding-right: 7px;
+}
+
+.rich-message-label {
+	color: red;
+}
+
+.top {
+	vertical-align: top;
+}
+
+rich-ddmenu-label {
+	
+}
+
+rich-ddmenu-label-select {
+	
+}
+
+.disabledItem{
+	color:black;
+	background-color:white;  
+}
+
+.msgInfo{
+	color:#4a75b5;
+	font-size: 11px;
+}
+
+.msgError{
+	color:red;
+	font-weight:bold;  
+	font-size: 11px;
+}
+
+.msgWarn{
+	color:#ff8000;
+	font-size: 11px;
+}
+
+.propertie{
+	font-weight:bold;
+}
+
+.dr-mpnl-pnl {overflow:auto!important}
+
+.rich-table-cell{
+	padding-left: 2px;
+	padding-right: 2px;
+	padding-bottom: 0px;
+	padding-top: 0px;
+}
+
+.aligntop td {
+    vertical-align: top; 
+} 

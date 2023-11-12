@@ -1,0 +1,15 @@
+
+`	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(îª»ûşÿÿÿÿ
+t
+java:S2293]"YReplace the type specification in this constructor call with the diamond operator ("<>").(¦±Øùıÿÿÿÿ
+o
+java:S2293d"YReplace the type specification in this constructor call with the diamond operator ("<>").(ªî©‹
+T
+java:S5993""9Change the visibility of this constructor to "protected".(ıÚÿùÿÿÿÿ
+h	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(îª»ûşÿÿÿÿ
+V	java:S1252"<This block of commented-out lines of code should be removed.(‹„ÍÚÿÿÿÿÿ
+]
+java:S1858f"G"item" is already a string, there's no need to call "toString()" on it.(¦½Íä
+@	java:S106l"+Replace this use of System.out by a logger.(±¤ª¹
+@
+java:S1068"*Remove this unused "LOGGER" private field.(»‹§í

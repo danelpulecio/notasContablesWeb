@@ -1,0 +1,24 @@
+
+[	java:S112,"FDefine and throw a dedicated exception instead of using a generic one.(ˆÈðæ
+Z	java:S1125"FDefine and throw a dedicated exception instead of using a generic one.(³…À 
+o
+java:S2293*"YReplace the type specification in this constructor call with the diamond operator ("<>").(Þ¹ÖÑ
+t
+java:S2293U"YReplace the type specification in this constructor call with the diamond operator ("<>").(“”Ÿ«ÿÿÿÿÿ
+t
+java:S2293W"YReplace the type specification in this constructor call with the diamond operator ("<>").(ƒ­öàþÿÿÿÿ
+t
+java:S2293j"YReplace the type specification in this constructor call with the diamond operator ("<>").(ƒ­öàþÿÿÿÿ
+t
+java:S2293p"YReplace the type specification in this constructor call with the diamond operator ("<>").(ƒ­öàþÿÿÿÿ
+G
+java:S2387"2"session" is the name of a field in "GeneralPage".(‰ž÷
+T
+java:S5993<"9Change the visibility of this constructor to "protected".(é‘¢¦ÿÿÿÿÿ
+F
+java:S1948 "+Make "objActual" transient or serializable.(»åº‚þÿÿÿÿ
+=
+java:S1948*"'Make "datos" transient or serializable.(Þ¹ÖÑ
+c	java:S100,"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ˆÈðæ
+h	java:S100."NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(·Âûåûÿÿÿÿ
+b	java:S1005"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³…À 

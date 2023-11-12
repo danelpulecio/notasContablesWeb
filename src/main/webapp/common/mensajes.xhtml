@@ -1,0 +1,19 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <p:messages globalOnly="true" infoClass="msgInfo" warnClass="msgWarn" errorClass="msgError" showDetail="true">
+        <f:facet name="infoMarker">
+            <h:graphicImage value="/common/images/msginfo.png" alt="info"/>
+        </f:facet>
+        <f:facet name="errorMarker">
+            <h:graphicImage value="/common/images/msgerror.png" alt="error"/>
+        </f:facet>
+        <f:facet name="warnMarker">
+            <h:graphicImage value="/common/images/msgwarn.png" alt="warn"/>
+        </f:facet>
+    </p:messages>
+
+</ui:composition>
