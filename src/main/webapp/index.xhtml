@@ -3,13 +3,10 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui" template="WEB-INF/layouts/template.xhtml">
-
-    <!--                    template="./common/images/header.jpg">-->
     <ui:param name="title" value="Autenticación"/>
     <ui:define name="body">
         <div style="width: 100%;">
             <p:panel header="Datos de usuario" style="width: 420px" id="loginform">
-                <!--                <p:graphicImage height="96" width="700" value="./common/images/header.jpg"/>-->
                 <p:panelGrid columns="2">
                     <h:outputText value="Usuario: " rendered="#{contablesSessionBean.loginUser==null}"/>
                     <h:inputText id="Usuario" value="#{homePage.username}" required="true"
