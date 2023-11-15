@@ -1,0 +1,7 @@
+
+‡
+java:S1319´"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(¼¸«ä
+‡
+java:S1319¸"kThe type of "actividades" should be an interface such as "List" rather than the implementation "ArrayList".(ê¥×¤þÿÿÿÿ
+p
+java:S4144½"YUpdate this method so that its implementation is not identical to "getCodigo" on line 74.(ïÖ¦õ

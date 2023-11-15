@@ -6,6 +6,7 @@
 package co.com.bbva.app.notas.contables.jsf.beans;
 
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 
@@ -27,10 +28,10 @@ import java.io.Serializable;
 @SessionScoped
 public class ContablesRequestBean implements Serializable {
 
-	
+	@Inject
 	private ContablesSessionBean contablesSessionBean;
 
-	
+	@Inject
 	private ContablesApplicationBean contablesApplicationBean;
 
 

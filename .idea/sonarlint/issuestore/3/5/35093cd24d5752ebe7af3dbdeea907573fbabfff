@@ -1,14 +1,24 @@
 
 {
-java:S2293&"YReplace the type specification in this constructor call with the diamond operator ("<>").(À¿¨Ûúÿÿÿÿ8÷áğÙ»1
+java:S22939"YReplace the type specification in this constructor call with the diamond operator ("<>").(À¿¨Ûúÿÿÿÿ8÷áğÙ»1
 {
-java:S2293'"YReplace the type specification in this constructor call with the diamond operator ("<>").(İıÙÛùÿÿÿÿ8÷áğÙ»1
-
-java:S1319K"sThe return type of this method should be an interface such as "SortedMap" rather than the implementation "TreeMap".(¡ÊÇû8÷áğÙ»1
+java:S2293:"YReplace the type specification in this constructor call with the diamond operator ("<>").(İıÙÛùÿÿÿÿ8÷áğÙ»1
 „
-java:S1319O"gThe type of "menu" should be an interface such as "SortedMap" rather than the implementation "TreeMap".(Œ¯ëò8øáğÙ»1
+java:S1319"gThe type of "menu" should be an interface such as "SortedMap" rather than the implementation "TreeMap".(æ€ƒÊ8øáğÙ»1
+‰
+java:S1319"lThe type of "opcionesMenu" should be an interface such as "List" rather than the implementation "ArrayList".(æ€ƒÊ8øáğÙ»1
+
+java:S1319^"sThe return type of this method should be an interface such as "SortedMap" rather than the implementation "TreeMap".(¡ÊÇû8÷áğÙ»1
+„
+java:S1319b"gThe type of "menu" should be an interface such as "SortedMap" rather than the implementation "TreeMap".(Œ¯ëò8é×ıš½1
 
-java:S1319U"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(İ•ÉÍ8øáğÙ»1
+java:S1319h"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(İ•ÉÍ8é×ıš½1
 O
-java:S1948 "-Make "application" transient or serializable.(£šß™şÿÿÿÿ8şáğÙ»1
-]	java:S125p"<This block of commented-out lines of code should be removed.(ÈëÛ­ùÿÿÿÿ8†âğÙ»1
+java:S19483"-Make "application" transient or serializable.(£šß™şÿÿÿÿ8şáğÙ»1
+]	java:S107"AConstructor has 9 parameters, which is greater than 7 authorized.(æ€ƒÊ8ø×ıš½1
+X	java:S125"<This block of commented-out lines of code should be removed.(ˆÕÅÓ8‡¬şš½1
+V
+java:S2864k"4Iterate over the "entrySet" instead of the "keySet".(ğ·´ğÿÿÿÿÿ8æ¸—‚½1
+^	java:S125ƒ"<This block of commented-out lines of code should be removed.(ÈëÛ­ùÿÿÿÿ8†âğÙ»1
+h
+java:S1128"FRemove this unused import 'org.primefaces.model.menu.DefaultMenuItem'.(¨òö¼ÿÿÿÿÿ8è¸—‚½1

@@ -2,51 +2,54 @@ package co.com.bbva.app.notas.contables.jsf;
 
 import co.com.bbva.app.notas.contables.jsf.beans.ContablesApplicationBean;
 import co.com.bbva.app.notas.contables.jsf.beans.ContablesRequestBean;
+import co.com.bbva.app.notas.contables.jsf.beans.ContablesSessionBean;
 import co.com.bbva.app.notas.contables.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
 
-
 public abstract class GeneralPage extends BasePage {
 
-	
-	private ContablesRequestBean contablesRequestBean;
 
-	
-	private ContablesApplicationBean contablesApplicationBean;
+    @Inject
+    private ContablesRequestBean contablesRequestBean;
 
-	private static final long serialVersionUID = 1L;
+    @Inject
+    private ContablesApplicationBean contablesApplicationBean;
 
-	protected abstract void _init() throws Exception;
+    private static final long serialVersionUID = 1L;
 
-	protected Integer codigo = 0;
+    protected abstract void _init() throws Exception;
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(GeneralPage.class);
+    protected Integer codigo = 0;
 
-	Session session = getContablesSessionBean().getSessionTrace();
+    private static final Logger LOGGER = LoggerFactory.getLogger(GeneralPage.class);
 
-	public GeneralPage() {
-		super();
-	}
+    Session session = getContablesSessionBean().getSessionTrace();
 
-	/**
-	 * <p>
-	 * Callback method that is called whenever a page is navigated to, either directly via a URL, or indirectly via page navigation. Customize this method to acquire resources that will be needed for event handlers and lifecycle methods, whether or
-	 * not this page is performing post back processing.
-	 * </p>
-	 *
-	 * <p>
-	 * Note that, if the current request is a postback, the property values of the components do <strong>not</strong> represent any values submitted with this request. Instead, they represent the property values that were saved for this view when it
-	 * was rendered.
-	 * </p>
-	 */
-//	@Override
+    public GeneralPage() {
+        super();
+    }
+
+    /**
+     * <p>
+     * Callback method that is called whenever a page is navigated to, either directly via a URL, or indirectly via page navigation. Customize this method to acquire resources that will be needed for event handlers and lifecycle methods, whether or
+     * not this page is performing post back processing.
+     * </p>
+     *
+     * <p>
+     * Note that, if the current request is a postback, the property values of the components do <strong>not</strong> represent any values submitted with this request. Instead, they represent the property values that were saved for this view when it
+     * was rendered.
+     * </p>
+     */
+//	@PostConstruct
 //	public void init() {
 //		super.init();
 //		try {
@@ -62,58 +65,58 @@ public abstract class GeneralPage extends BasePage {
 //		}
 //	}
 
-	/**
-	 * <p>
-	 * Return a reference to the scoped data bean.
-	 * </p>
-	 *
-	 * @return reference to the scoped data bean
-	 */
-	public final ContablesRequestBean getContablesRequestBean() {
-		return contablesRequestBean;
-	}
+    /**
+     * <p>
+     * Return a reference to the scoped data bean.
+     * </p>
+     *
+     * @return reference to the scoped data bean
+     */
+    public ContablesRequestBean getContablesRequestBean() {
+        return contablesRequestBean;
+    }
 
-	/**
-	 * <p>
-	 * Return a reference to the scoped data bean.
-	 * </p>
-	 *
-	 * @return reference to the scoped data bean
-	 */
-	public final ContablesApplicationBean getContablesApplicationBean() {
-		return contablesApplicationBean;
-	}
+    /**
+     * <p>
+     * Return a reference to the scoped data bean.
+     * </p>
+     *
+     * @return reference to the scoped data bean
+     */
+    public ContablesApplicationBean getContablesApplicationBean() {
+        return contablesApplicationBean;
+    }
 
-//	@Override
-	protected FacesContext getFacesContext() {
-		return FacesContext.getCurrentInstance();
-	}
+    //	@Override
+    protected FacesContext getFacesContext() {
+        return FacesContext.getCurrentInstance();
+    }
 
-	public List<SelectItem> getSelectItemSiNo() {
-		final List<SelectItem> lista = new ArrayList<SelectItem>();
-		lista.add(new SelectItem("S", "Si"));
-		lista.add(new SelectItem("N", "No"));
-		return lista;
-	}
+    public List<SelectItem> getSelectItemSiNo() {
+        final List<SelectItem> lista = new ArrayList<SelectItem>();
+        lista.add(new SelectItem("S", "Si"));
+        lista.add(new SelectItem("N", "No"));
+        return lista;
+    }
 
-	public List<Integer> getKeys(final List<String> items) {
-		final List<Integer> lista = new ArrayList<Integer>();
-		for (final String item : items) {
-			lista.add(Integer.valueOf(item.toString()));
-		}
-		return lista;
-	}
+    public List<Integer> getKeys(final List<String> items) {
+        final List<Integer> lista = new ArrayList<Integer>();
+        for (final String item : items) {
+            lista.add(Integer.valueOf(item.toString()));
+        }
+        return lista;
+    }
 
-	protected void println(String string) {
-		System.out.println(string);
-	}
+    protected void println(String string) {
+        System.out.println(string);
+    }
 
-	public Integer getCodigo() {
-		return codigo;
-	}
+    public Integer getCodigo() {
+        return codigo;
+    }
 
-	public void setCodigo(Integer codigo) {
-		this.codigo = codigo;
-	}
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
+    }
 
 }

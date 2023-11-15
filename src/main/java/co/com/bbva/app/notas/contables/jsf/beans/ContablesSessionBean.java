@@ -1,9 +1,11 @@
 package co.com.bbva.app.notas.contables.jsf.beans;
 
+import co.com.bbva.app.notas.contables.dto.UsuarioModulo;
 import co.com.bbva.app.notas.contables.session.Session;
 import co.com.bbva.app.notas.contables.util.StringUtils;
 
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.Date;
@@ -26,7 +28,7 @@ import java.util.Date;
 @SessionScoped
 public class ContablesSessionBean implements Serializable {
 
-	
+	@Inject
 	ContablesApplicationBean contablesApplicationBean;
 
 	private static final long serialVersionUID = -7578896067766477600L;

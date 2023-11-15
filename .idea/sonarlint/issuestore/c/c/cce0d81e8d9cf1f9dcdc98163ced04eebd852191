@@ -1,18 +1,16 @@
 
-m	java:S1163"XRename this field "DIR_AUTH_LDAP" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ëÂ’§
-¬
-java:S18457"Rename field "roles" to prevent any misunderstanding/clash with field "ROLES" defined in interface "co.com.bbva.app.notas.contables.jsf.IPages".(‚Ãñ‰øÿÿÿÿ
-®
-java:S1845"‘Rename method "login" to prevent any misunderstanding/clash with field "LOGIN" defined in interface "co.com.bbva.app.notas.contables.jsf.IPages".(ûÆÀ“ùÿÿÿÿ
-S
-java:S19481"8Make "cargaAltamiraScheduled" transient or serializable.(åÔ’³şÿÿÿÿ
-D
-java:S19482".Make "sessionTrace" transient or serializable.(ÚİŒÁ
-l
-java:S1149q"VReplace the synchronized class "Hashtable" by an unsynchronized one such as "HashMap".(ìõÔ×
-n
-java:S3776Ó"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(¢Å»ıÿÿÿÿ
-`
-java:S1128"CRemove this unused import 'javax.enterprise.context.SessionScoped'.(¦€ê8‚˜§£¼1
-L
-java:S1128"/Remove this unused import 'javax.inject.Named'.(»ßáŸ8‚˜§£¼1
+t	java:S1165"XRename this field "DIR_AUTH_LDAP" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ëÂ’§8—¼ùƒ½1
+d
+java:S6813."BRemove this field injection and use constructor injection instead.(Áº–üÿÿÿÿ8˜¼ùƒ½1
+³
+java:S18459"Rename field "roles" to prevent any misunderstanding/clash with field "ROLES" defined in interface "co.com.bbva.app.notas.contables.jsf.IPages".(‚Ãñ‰øÿÿÿÿ8™¼ùƒ½1
+µ
+java:S1845ƒ"‘Rename method "login" to prevent any misunderstanding/clash with field "LOGIN" defined in interface "co.com.bbva.app.notas.contables.jsf.IPages".(ûÆÀ“ùÿÿÿÿ8™¼ùƒ½1
+Z
+java:S19483"8Make "cargaAltamiraScheduled" transient or serializable.(åÔ’³şÿÿÿÿ8™¼ùƒ½1
+K
+java:S19484".Make "sessionTrace" transient or serializable.(ÚİŒÁ8™¼ùƒ½1
+s
+java:S1149s"VReplace the synchronized class "Hashtable" by an unsynchronized one such as "HashMap".(ìõÔ×8š¼ùƒ½1
+u
+java:S3776Õ"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(¢Å»ıÿÿÿÿ8«¼ùƒ½1

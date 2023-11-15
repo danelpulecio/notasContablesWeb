@@ -73,3 +73,13 @@ W
 'src/main/webapp/WEB-INF/primefaces.yaml,9/f/9fa7308baad5d14481e413e22e4ffeed4e2b35b1
 k
 ;src/main/java/co/com/bbva/app/notas/contables/dto/Menu.java,6/2/6253651b267ddb5b8cfd95bc6f0236f326a59f31
+Q
+!src/main/webapp/WEB-INF/beans.xml,8/3/83008b1a88ba03a2548bb5b9ad0768c6c307d36c
+~
+Nsrc/main/java/co/com/bbva/app/notas/contables/jsf/adminnota/PendientePage.java,9/d/9d8465d0886a540a0e670e9d39a76418b46afbb2
+t
+Dsrc/main/java/co/com/bbva/app/notas/contables/dto/UsuarioModulo.java,f/a/fa74ac3fef90caecbc3a04bf5405f87884819893
+]
+-.idea/sonarlint/securityhotspotstore/index.pb,8/8/88a9255124c95bdc913197c120a8d560edc59c8e
+S
+#.idea/sonarlint/issuestore/index.pb,9/f/9fe84ebb15faf917b7def6236dba604453cc61e0

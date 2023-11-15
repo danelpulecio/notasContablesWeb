@@ -3,10 +3,17 @@ package co.com.bbva.app.notas.contables.jsf.beans;
 import co.com.bbva.app.notas.contables.dto.Menu;
 import org.primefaces.component.menuitem.UIMenuItem;
 
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.List;
 
+@Named
+@SessionScoped
 public class MenuVisual implements java.io.Serializable, Comparable<MenuVisual> {
+
+	public MenuVisual() {
+	}
 
 	private static final long serialVersionUID = -4411745472093058822L;
 
