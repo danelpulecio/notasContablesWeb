@@ -14,24 +14,10 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.*;
 
-@Named
-@SessionScoped
+//@Named
+//@SessionScoped
 public class UsuarioLogueado implements Serializable {
 
-//	public UsuarioLogueado() {
-//	}
-
-	public UsuarioLogueado(UsuarioModulo usuario, UsuarioAltamira usuAltamira, Sucursal sucursal, CentroEspecial centroEspecial, Rol rolActual, TreeMap<Menu, TreeSet<SubMenu>> menu, ArrayList<MenuVisual> opcionesMenu, Collection<Rol> roles, Application application) {
-		this.usuario = usuario;
-		this.usuAltamira = usuAltamira;
-		this.sucursal = sucursal;
-		this.centroEspecial = centroEspecial;
-		this.rolActual = rolActual;
-		this.menu = menu;
-		this.opcionesMenu = opcionesMenu;
-		this.roles = roles;
-		this.application = application;
-	}
 
 	/**
 	 * 

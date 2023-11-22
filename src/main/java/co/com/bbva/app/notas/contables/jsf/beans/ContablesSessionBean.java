@@ -1,8 +1,11 @@
 package co.com.bbva.app.notas.contables.jsf.beans;
 
 import co.com.bbva.app.notas.contables.dto.UsuarioModulo;
+import co.com.bbva.app.notas.contables.jsf.BasePage;
 import co.com.bbva.app.notas.contables.session.Session;
 import co.com.bbva.app.notas.contables.util.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -27,6 +30,8 @@ import java.util.Date;
 @Named
 @SessionScoped
 public class ContablesSessionBean implements Serializable {
+	private static final Logger LOGGER = LoggerFactory.getLogger(ContablesSessionBean.class);
+
 
 	@Inject
 	ContablesApplicationBean contablesApplicationBean;
@@ -34,6 +39,7 @@ public class ContablesSessionBean implements Serializable {
 	private static final long serialVersionUID = -7578896067766477600L;
 
 	UsuarioLogueado loginUser = null;
+
 	private Session sessionTrace = new Session();
 
 	/**
@@ -53,6 +59,7 @@ public class ContablesSessionBean implements Serializable {
 	 * </p>
 	 */
 	public ContablesSessionBean() {
+		LOGGER.info("este es el constructor contable session ben");
 	}
 
 	/**
@@ -140,10 +147,12 @@ public class ContablesSessionBean implements Serializable {
 	}
 
 	public Session getSessionTrace() {
+		LOGGER.info("getSessionTrace session trace");
 		return sessionTrace;
 	}
 
 	public void setSessionTrace(Session sessionTrace) {
+		LOGGER.info("setSessionTrace set session trace");
 		this.sessionTrace = sessionTrace;
 	}
 }

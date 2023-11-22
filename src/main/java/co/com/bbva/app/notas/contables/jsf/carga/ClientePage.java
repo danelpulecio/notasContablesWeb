@@ -29,7 +29,7 @@ public class ClientePage extends GeneralCargaPage<Cliente> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ClientePage.class);
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
 
 	/**
 	 * <p>
@@ -58,7 +58,7 @@ public class ClientePage extends GeneralCargaPage<Cliente> {
 	@Override
 	public Collection<Cliente> _buscarPorFiltro() throws Exception {
 		if(!param.isEmpty()){
-			LOGGER.info("{} Buscar cliente: {}", session.getTraceLog(),param );
+//			LOGGER.info("{} Buscar cliente: {}", session.getTraceLog(),param );
 		}
 		return cargaAltamiraManager.searchCliente(param);
 	}

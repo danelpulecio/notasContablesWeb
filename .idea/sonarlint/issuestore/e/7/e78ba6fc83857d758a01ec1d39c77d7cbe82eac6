@@ -1,6 +1,17 @@
 
 a	Web:S5254
 "@Add "lang" and/or "xml:lang" attributes to this "<html>" element(œ÷Ãûÿÿÿÿ8å¸Ù ¼1
+PWeb:AvoidCommentedOutCodeCheckZ"Remove this commented out code.(ÀçÀ—8¿Ù¿¿1
+PWeb:AvoidCommentedOutCodeCheck["Remove this commented out code.(ªÒ’Ò8¿Ù¿¿1
+PWeb:AvoidCommentedOutCodeCheck\"Remove this commented out code.(¹Ô…÷8¿Ù¿¿1
+UWeb:AvoidCommentedOutCodeCheck]"Remove this commented out code.(ŞÑ½ãÿÿÿÿÿ8¿Ù¿¿1
+PWeb:AvoidCommentedOutCodeCheck^"Remove this commented out code.(’±õŒ8¿Ù¿¿1
+UWeb:AvoidCommentedOutCodeCheck_"Remove this commented out code.(Ç”Îğÿÿÿÿÿ8¿Ù¿¿1
+PWeb:AvoidCommentedOutCodeCheck`"Remove this commented out code.(™½ç8¿Ù¿¿1
+PWeb:AvoidCommentedOutCodeChecka"Remove this commented out code.(–ıï¹8¿Ù¿¿1
+UWeb:AvoidCommentedOutCodeCheckb"Remove this commented out code.(ÓÀ­ üÿÿÿÿ8ÀÙ¿¿1
+PWeb:AvoidCommentedOutCodeCheckc"Remove this commented out code.(‹ü­½8ÀÙ¿¿1
+PWeb:AvoidCommentedOutCodeCheckd"Remove this commented out code.(ıô¥À8ÀÙ¿¿1
 TWeb:TableWithoutCaptionCheckh" Add a description to this table.(õáÍĞüÿÿÿÿ8öß‘¡¼1
 F	Web:S5256h"%Add "<th>" headers to this "<table>".(õáÍĞüÿÿÿÿ8øß‘¡¼1
 P	Web:S1827h"/Remove this deprecated "cellpadding" attribute.(õáÍĞüÿÿÿÿ8ùß‘¡¼1

@@ -1,0 +1,79 @@
+
+F
+java:S3740€"/Provide the parametrized type for this generic.(—«»¥
+p
+java:S2293ô"YReplace the type specification in this constructor call with the diamond operator ("<>").(êÚêĞ
+p
+java:S2293‚"YReplace the type specification in this constructor call with the diamond operator ("<>").(¿¥´ø
+u
+java:S2293•"YReplace the type specification in this constructor call with the diamond operator ("<>").(äĞğ¢ıÿÿÿÿ
+u
+java:S2293–"YReplace the type specification in this constructor call with the diamond operator ("<>").(Î¥İ›ıÿÿÿÿ
+u
+java:S2293›"YReplace the type specification in this constructor call with the diamond operator ("<>").(º¼—øÿÿÿÿ
+p
+java:S2293œ"YReplace the type specification in this constructor call with the diamond operator ("<>").(€ÅùÜ
+p
+java:S2293¹"YReplace the type specification in this constructor call with the diamond operator ("<>").(õÓÔ·
+u
+java:S2293ç"YReplace the type specification in this constructor call with the diamond operator ("<>").(í™‚úÿÿÿÿ
+o
+java:S2293è"YReplace the type specification in this constructor call with the diamond operator ("<>").(²±í.
+u
+java:S2293é"YReplace the type specification in this constructor call with the diamond operator ("<>").(¢§Úöøÿÿÿÿ
+K
+java:S1066"/Merge this if statement with the enclosing one.(ŠªÚêøÿÿÿÿ
+F
+java:S1066£"/Merge this if statement with the enclosing one.(İ‰†
+F
+java:S1066©"/Merge this if statement with the enclosing one.(ÌÓôÍ
+F
+java:S1066ª"/Merge this if statement with the enclosing one.(Õ‰…í
+F
+java:S1066«"/Merge this if statement with the enclosing one.(å‡¬â
+F
+java:S1066¬"/Merge this if statement with the enclosing one.(†¨™½
+K
+java:S1066­"/Merge this if statement with the enclosing one.(ŠÇœ×şÿÿÿÿ
+K
+java:S1066®"/Merge this if statement with the enclosing one.(È¬£ÿÿÿÿÿ
+K
+java:S1066¯"/Merge this if statement with the enclosing one.(†º¢¦ûÿÿÿÿ
+F
+java:S1066Æ"/Merge this if statement with the enclosing one.(ªãêœ
+D
+java:S1604õ"(Make this anonymous inner class a lambda(Ö…Í×ûÿÿÿÿ
+D
+java:S1604ƒ"(Make this anonymous inner class a lambda(Ö…Í×ûÿÿÿÿ
+J
+java:S1874Š"3Remove this use of "newInstance"; it is deprecated.(Õ‘ü“
+I
+java:S1874"3Remove this use of "newInstance"; it is deprecated.(¤ò–R
+i
+java:S3776”"RRefactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.(®Ê£
+Y
+java:S1854—"BRemove this useless assignment to local variable "centroEspecial".(•²ı‚
+Y
+java:S1854–"=Remove this useless assignment to local variable "conceptos".(Î¥İ›ıÿÿÿÿ
+i
+java:S3776¡"RRefactor this method to reduce its Cognitive Complexity from 46 to the 15 allowed.(ŠÁ
+^
+java:S1854¢"GRemove this useless assignment to local variable "partidaPendienteAux".(ğ›¬ö
+“
+java:S1130û"wRemove the declaration of thrown exception 'javax.naming.NamingException' which is a subclass of 'java.lang.Exception'.(Í£¨¯øÿÿÿÿ
+
+java:S1130û"tRemove the declaration of thrown exception 'javax.ejb.CreateException' which is a subclass of 'java.lang.Exception'.(Í£¨¯øÿÿÿÿ
+
+java:S1130û"sRemove the declaration of thrown exception 'java.rmi.RemoteException' which is a subclass of 'java.lang.Exception'.(Í£¨¯øÿÿÿÿ
+Z
+java:S1155„">Use isEmpty() to check whether the collection is empty or not.(æ“¨Ùúÿÿÿÿ
+\
+java:S1854"ERemove this useless assignment to local variable "usuarioInstancias".(ŸÖ‡ğ
+\
+java:S1854œ"ERemove this useless assignment to local variable "instanciasUsuario".(€ÅùÜ
+\
+java:S1854»"ERemove this useless assignment to local variable "usuarioInstancias".(ŸÖ‡ğ
+^
+java:S1854¹"GRemove this useless assignment to local variable "instanciasEstadoRol".(õÓÔ·
+Z
+java:S1155À">Use isEmpty() to check whether the collection is empty or not.(üĞ—Ãşÿÿÿÿ

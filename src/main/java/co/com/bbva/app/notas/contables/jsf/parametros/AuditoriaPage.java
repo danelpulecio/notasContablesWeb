@@ -28,7 +28,7 @@ public class AuditoriaPage extends GeneralParametrosPage<Auditoria, Auditoria> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AuditoriaPage.class);
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
 
 	public AuditoriaPage() {
 		super(true);

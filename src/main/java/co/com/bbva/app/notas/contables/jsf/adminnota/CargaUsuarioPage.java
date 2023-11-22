@@ -43,7 +43,7 @@ public class CargaUsuarioPage extends GeneralConsultaPage<UsuarioInstancias> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CargaUsuarioPage.class);
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
 
 	public CargaUsuarioPage() {
 		super();
@@ -63,7 +63,7 @@ public class CargaUsuarioPage extends GeneralConsultaPage<UsuarioInstancias> {
 			}
 		} catch (final Exception e) {
 
-			LOGGER.error("{} Ocurrio un error al inicializar el mdulo de carga por usuario ", session.getTraceLog(), e);
+//			LOGGER.error("{} Ocurrio un error al inicializar el mdulo de carga por usuario ", session.getTraceLog(), e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Ocurrio un error al inicializar el mdulo de carga por usuario");
 
 		}

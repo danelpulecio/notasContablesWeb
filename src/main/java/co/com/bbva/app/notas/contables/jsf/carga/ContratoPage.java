@@ -30,7 +30,7 @@ public class ContratoPage extends GeneralCargaPage<Contrato> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ContratoPage.class);
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	//Session session = getContablesSessionBean().getSessionTrace();
 
 	/**
 	 * <p>
@@ -60,7 +60,7 @@ public class ContratoPage extends GeneralCargaPage<Contrato> {
 	public Collection<Contrato> _buscarPorFiltro() throws Exception {
 
 		if(!param.isEmpty()){
-			LOGGER.info("{} Buscar Contrato: {}", session.getTraceLog(),param );
+//			LOGGER.info("{} Buscar Contrato: {}", session.getTraceLog(),param );
 		}
 		return cargaAltamiraManager.searchContrato(param);
 	}

@@ -30,19 +30,19 @@ public class PendientePage extends GeneralConsultaPage<Instancia> {
 	}
 
 	public void cargarPendientes() {
-		Session session = getContablesSessionBean().getSessionTrace();
+//		Session session = getContablesSessionBean().getSessionTrace();
 		try {
 			Instancia instancia = new Instancia();
 			instancia.setCodigoUsuarioActual(getUsuarioLogueado().getUsuario().getCodigo());
-			LOGGER.info("{} Consultando de pendientes", session.getTraceLog());
+//			LOGGER.info("{} Consultando de pendientes", session.getTraceLog());
 			ArrayList<Instancia> instancias = new ArrayList<>(notasContablesManager.getInstanciasPorUsuario(instancia));
 			setDatos(instancias);
 			if (esUltimaFase() && getDatos().isEmpty() && !hayMensajes()) {
 				nuevoMensaje(FacesMessage.SEVERITY_INFO, "Usted no tiene pendientes");
-				LOGGER.info("{} El usuario no tiene pendientes ", session.getTraceLog());
+//				LOGGER.info("{} El usuario no tiene pendientes ", session.getTraceLog());
 			}
 		} catch (final Exception e) {
-			LOGGER.error("{} Error al consultar los pendientes ", session.getTraceLog() , e);
+//			LOGGER.error("{} Error al consultar los pendientes ", session.getTraceLog() , e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema al realizar la consulta de pendientes" );
 		}
 	}

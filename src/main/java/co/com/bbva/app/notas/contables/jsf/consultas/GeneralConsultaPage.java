@@ -25,7 +25,7 @@ public abstract class GeneralConsultaPage<T> extends GeneralPage implements IPag
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(GeneralConsultaPage.class);
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
 
 
 
@@ -90,7 +90,7 @@ public abstract class GeneralConsultaPage<T> extends GeneralPage implements IPag
 				nuevoMensaje(FacesMessage.SEVERITY_INFO, "No se encontraron resultados para las caractersticas seleccionadas");
 			}
 		} catch (final Exception e) {
-			LOGGER.error("{} Ocurrio un error al realizar la consulta : {}", session.getTraceLog() , e );
+//			LOGGER.error("{} Ocurrio un error al realizar la consulta : {}", session.getTraceLog() , e );
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Ocurrio un error al realizar la consulta ");
 
 		}

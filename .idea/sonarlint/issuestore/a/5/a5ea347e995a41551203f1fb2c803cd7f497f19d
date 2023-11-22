@@ -3,10 +3,14 @@ v
 java:S2293%"YReplace the type specification in this constructor call with the diamond operator ("<>").(ŠÖ‡É8‘ØÖ»1
 v
 java:S2293&"YReplace the type specification in this constructor call with the diamond operator ("<>").(Ôé8‘ØÖ»1
-V
-java:S2387.":"session" is the name of a field in "GeneralConsultaPage".(‰÷8ú´×»1
 d
 java:S6813"BRemove this field injection and use constructor injection instead.(Áº–üÿÿÿÿ8”‘ØÖ»1
+]	java:S125."<This block of commented-out lines of code should be removed.(‘ÆÎÓûÿÿÿÿ8­Ñ¸Ÿ¿1
+X	java:S125B"<This block of commented-out lines of code should be removed.(Ğ¬Ãï8ãô¸Ÿ¿1
 X	java:S125S"<This block of commented-out lines of code should be removed.(·°«£8˜‘ØÖ»1
+n
+java:S1128"LRemove this unused import 'co.com.bbva.app.notas.contables.session.Session'.(•Ö¥åøÿÿÿÿ8äô¸Ÿ¿1
 G
 java:S1068"*Remove this unused "saludo" private field.(ø±…Ò8™‘ØÖ»1
+G
+java:S1068,"*Remove this unused "LOGGER" private field.(­®× 8åô¸Ÿ¿1

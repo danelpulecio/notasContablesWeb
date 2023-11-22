@@ -1,0 +1,54 @@
+
+`	java:S112%"FDefine and throw a dedicated exception instead of using a generic one.(Ïã¡İşÿÿÿÿ
+`	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(Ç±Úõıÿÿÿÿ
+`	java:S112A"FDefine and throw a dedicated exception instead of using a generic one.(Ïã¡İşÿÿÿÿ
+`	java:S1123"FDefine and throw a dedicated exception instead of using a generic one.(ºÅ”ÿøÿÿÿÿ
+[	java:S112Á"FDefine and throw a dedicated exception instead of using a generic one.(ù»©E
+t
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(äÚ‡’úÿÿÿÿ
+t
+java:S22934"YReplace the type specification in this constructor call with the diamond operator ("<>").(õÁşùÿÿÿÿ
+t
+java:S2293H"YReplace the type specification in this constructor call with the diamond operator ("<>").(—Çîıÿÿÿÿÿ
+o
+java:S2293T"YReplace the type specification in this constructor call with the diamond operator ("<>").(“ä¬Ò
+S
+java:S1163f"=Refactor this code to not throw exceptions in finally blocks.(ö™û
+J
+java:S1143f"4Remove this throw statement from this finally block.(ö™û
+j
+java:S2095M"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(İ³³Îûÿÿÿÿ
+[
+java:S1124"EReorder the modifiers to comply with the Java Language Specification.(ÎÍæŠ
+`
+java:S1124"EReorder the modifiers to comply with the Java Language Specification.(äÚ‡’úÿÿÿÿ
+h	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ç±Úõıÿÿÿÿ
+N
+java:S1874"3Remove this use of "newInstance"; it is deprecated.(³øóúÿÿÿÿ
+J
+java:S2864 "4Iterate over the "entrySet" instead of the "keySet".(ªŒÛñ
+h	java:S1003"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ºÅ”ÿøÿÿÿÿ
+I
+java:S1874:"3Remove this use of "newInstance"; it is deprecated.(Å©¬­
+O
+java:S2864;"4Iterate over the "entrySet" instead of the "keySet".(§–âÿÿÿÿÿ
+r
+java:S2737\"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(õ˜£ùÿÿÿÿ
+m
+java:S2737f"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û
+G
+java:S1172k",Remove this unused method parameter "query".(âÎß™ùÿÿÿÿ
+E	java:S106o"+Replace this use of System.out by a logger.(µîô‰øÿÿÿÿ
+E	java:S106r"+Replace this use of System.out by a logger.(ªÓ¼áşÿÿÿÿ
+h
+java:S3776z"RRefactor this method to reduce its Cognitive Complexity from 23 to the 15 allowed.(‹êƒÎ
+8
+java:S2129’"!Remove this "Boolean" constructor(•ëø¨
+_
+java:S5738’"HRemove this call to a deprecated method, it has been marked for removal.(•ëø¨
+8
+java:S2129”"!Remove this "Boolean" constructor(­¬¾
+_
+java:S5738”"HRemove this call to a deprecated method, it has been marked for removal.(­¬¾
+_
+java:S5361¥"HReplace this call to "replaceAll()" by a call to the "replace()" method.(¦÷¹Ü

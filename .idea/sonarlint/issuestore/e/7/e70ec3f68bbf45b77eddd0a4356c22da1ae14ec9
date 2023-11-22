@@ -1,0 +1,18 @@
+
+X
+java:S2259 "BA "NullPointerException" could be thrown; "conn" is nullable here.(çè˜Ò
+X
+java:S2259/"BA "NullPointerException" could be thrown; "conn" is nullable here.(çè˜Ò
+f
+java:S3008
+"PRename this field "TABLE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Øƒ·Š
+m
+java:S3008"RRename this field "COLUMNS" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(´´¼‡ÿÿÿÿÿ
+l
+java:S3008"VRename this field "PRIMARY_KEY" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(À¦¾Ý
+t
+java:S3008"^Rename this field "SQL_INSERT_SENTENCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ãý¨Ï
+t
+java:S3008"^Rename this field "SQL_UPDATE_SENTENCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Œµºô
+Ç
+java:S1845"°Rename field "SQL_INSERT_SENTENCE" to prevent any misunderstanding/clash with field "sql_INSERT_SENTENCE" defined in superclass "co.com.bbva.app.notas.contables.dao.CommonDAO".(ãý¨Ï

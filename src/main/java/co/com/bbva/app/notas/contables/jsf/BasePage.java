@@ -7,6 +7,8 @@ import co.com.bbva.app.notas.contables.facade.impl.NotasContablesSessionBean;
 import co.com.bbva.app.notas.contables.jsf.beans.ContablesSessionBean;
 import co.com.bbva.app.notas.contables.jsf.beans.UsuarioLogueado;
 import co.com.bbva.app.notas.contables.util.EMailSender;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
@@ -23,7 +25,7 @@ import java.util.TreeSet;
 
 
 public abstract class BasePage implements Serializable  {
-
+	private static final Logger LOGGER = LoggerFactory.getLogger(BasePage.class);
 	@Inject
 	private ContablesSessionBean contablesSessionBean;
 
@@ -43,6 +45,7 @@ public abstract class BasePage implements Serializable  {
 
 	public BasePage() {
 		super();
+		LOGGER.info("constructor base page");
 		validador = new Validador(this);
 		ServletContext context = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
 		DIR_SOPORTES = context.getInitParameter("DIR_SOPORTES");
@@ -52,6 +55,7 @@ public abstract class BasePage implements Serializable  {
 		DIR_CARGA = context.getInitParameter("DIR_CARGA");
 		ACTIVAR_LDAP = context.getInitParameter("ACTIVAR_LDAP");
 		DIR_SIRO = context.getInitParameter("DIR_SIRO");
+		LOGGER.info("constructor finaliza");
 	}
 
 	/**
@@ -62,6 +66,7 @@ public abstract class BasePage implements Serializable  {
 	 * @return reference to the scoped data bean
 	 */
 	public ContablesSessionBean getContablesSessionBean() {
+		LOGGER.info("llamando el getContableSesionBean");
 		return contablesSessionBean;
 	}
 

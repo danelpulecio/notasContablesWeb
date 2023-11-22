@@ -1,0 +1,14 @@
+
+s
+java:S2095]"QUse try-with-resources or close this "ReadableByteChannel" in a "finally" clause.(Ø–øÿÿÿÿ8³ïñÃ¿1
+V	java:S125%"<This block of commented-out lines of code should be removed.(æÈ–úøÿÿÿÿ
+V	java:S125,"<This block of commented-out lines of code should be removed.(ÄóÁÿÿÿÿÿ
+V	java:S125K"<This block of commented-out lines of code should be removed.(õ‹‚¥úÿÿÿÿ
+X	java:S125X"<This block of commented-out lines of code should be removed.(Œ­Ú¹8„¼¦Ÿ¿1
+]	java:S125_"<This block of commented-out lines of code should be removed.(½£“ëşÿÿÿÿ8…¼¦Ÿ¿1
+7	java:S131u""Add a default case to this switch.(ÜŸ•
+p	java:S100˜"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨ßùôıÿÿÿÿ8ÄïñÃ¿1
+p	java:S100œ"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¡™éÒşÿÿÿÿ8ÄïñÃ¿1
+p	java:S100 "NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(†™ãÿÿÿÿÿ8ÅïñÃ¿1
+n
+java:S1128"LRemove this unused import 'co.com.bbva.app.notas.contables.session.Session'.(•Ö¥åøÿÿÿÿ8ÅïñÃ¿1

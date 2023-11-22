@@ -28,7 +28,7 @@ public class DivisaPage extends GeneralCargaPage<Divisa> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DivisaPage.class);
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
 
 	/**
 	 * <p>
@@ -57,7 +57,7 @@ public class DivisaPage extends GeneralCargaPage<Divisa> {
 	@Override
 	public Collection<Divisa> _buscarPorFiltro() throws Exception {
 		if(!param.isEmpty()){
-			LOGGER.info("{} Buscar Divisas: {}", session.getTraceLog(),param );
+//			LOGGER.info("{} Buscar Divisas: {}", session.getTraceLog(),param );
 
 		}
 		return cargaAltamiraManager.searchDivisa(param);

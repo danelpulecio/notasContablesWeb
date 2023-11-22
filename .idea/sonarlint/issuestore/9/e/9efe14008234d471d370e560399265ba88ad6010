@@ -1,24 +1,27 @@
 
-g	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(îª»ûşÿÿÿÿ8‚Áæ„½1
+g	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(îª»ûşÿÿÿÿ8ÿÏÊ¼¿1
 {
-java:S2293`"YReplace the type specification in this constructor call with the diamond operator ("<>").(¦±Øùıÿÿÿÿ8ƒÁæ„½1
+java:S2293b"YReplace the type specification in this constructor call with the diamond operator ("<>").(¦±Øùıÿÿÿÿ8ì¢÷¾1
 v
-java:S2293g"YReplace the type specification in this constructor call with the diamond operator ("<>").(ªî©‹8ƒÁæ„½1
+java:S2293i"YReplace the type specification in this constructor call with the diamond operator ("<>").(ªî©‹8ì¢÷¾1
 d
-java:S6813"BRemove this field injection and use constructor injection instead.(Áº–üÿÿÿÿ8‹Áæ„½1
+java:S6813"BRemove this field injection and use constructor injection instead.(Áº–üÿÿÿÿ8ò¢÷¾1
 d
-java:S6813"BRemove this field injection and use constructor injection instead.(Áº–üÿÿÿÿ8‹Áæ„½1
+java:S6813"BRemove this field injection and use constructor injection instead.(Áº–üÿÿÿÿ8ò¢÷¾1
 [
-java:S5993%"9Change the visibility of this constructor to "protected".(ıÚÿùÿÿÿÿ8‹Áæ„½1
-o	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(îª»ûşÿÿÿÿ8Áæ„½1
-]	java:S1255"<This block of commented-out lines of code should be removed.(‹„ÍÚÿÿÿÿÿ8Áæ„½1
+java:S5993'"9Change the visibility of this constructor to "protected".(ıÚÿùÿÿÿÿ8ó¢÷¾1
+o	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(îª»ûşÿÿÿÿ8‹ĞÊ¼¿1
+]	java:S125#"<This block of commented-out lines of code should be removed.(‘ÆÎÓûÿÿÿÿ8Á„‹Ÿ¿1
+]	java:S1257"<This block of commented-out lines of code should be removed.(‹„ÍÚÿÿÿÿÿ8õ¢÷¾1
 d
-java:S1858i"G"item" is already a string, there's no need to call "toString()" on it.(¦½Íä8Áæ„½1
-G	java:S106o"+Replace this use of System.out by a logger.(±¤ª¹8Áæ„½1
+java:S1858k"G"item" is already a string, there's no need to call "toString()" on it.(¦½Íä8÷¢÷¾1
+G	java:S106q"+Replace this use of System.out by a logger.(±¤ª¹8÷¢÷¾1
 x
-java:S1128"[Remove this unused import 'co.com.bbva.app.notas.contables.jsf.beans.ContablesSessionBean'.(ÛÊÍù8øç„½1
+java:S1128"[Remove this unused import 'co.com.bbva.app.notas.contables.jsf.beans.ContablesSessionBean'.(ÛÊÍù8ĞÊ¼¿1
+n
+java:S1128"LRemove this unused import 'co.com.bbva.app.notas.contables.session.Session'.(•Ö¥åøÿÿÿÿ8ĞÊ¼¿1
 X
 java:S1128
-";Remove this unused import 'javax.annotation.PostConstruct'.(›ÅÁ8‡ôæ„½1
+";Remove this unused import 'javax.annotation.PostConstruct'.(›ÅÁ8ĞÊ¼¿1
 G
-java:S1068!"*Remove this unused "LOGGER" private field.(»‹§í8Áæ„½1
+java:S1068!"*Remove this unused "LOGGER" private field.(»‹§í8ØŞû‘¿1

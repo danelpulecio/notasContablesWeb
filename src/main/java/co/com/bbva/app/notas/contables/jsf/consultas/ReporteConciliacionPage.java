@@ -29,7 +29,7 @@ public class ReporteConciliacionPage extends GeneralConsultaPage<Instancia> {
     protected boolean mostrarArchExc = false;
     protected List<SelectItem> anios = new ArrayList<>();
     private final FileGenerator fileGenerator;
-    private final Session session = getContablesSessionBean().getSessionTrace();
+//    private final Session session = getContablesSessionBean().getSessionTrace();
     private String anio = "";
     private String mes = "";
 
@@ -101,9 +101,9 @@ public class ReporteConciliacionPage extends GeneralConsultaPage<Instancia> {
 
                 if (Integer.valueOf(hour) <= 21) {
                     File directory = new File(DIR_TRANSMISION_ALTAMIRA);
-                    deleteFiles(session.getTraceLog(), directory);
+//                    deleteFiles(session.getTraceLog(), directory);
                     fileGenerator.generarArchivoConciliacion(DIR_TRANSMISION_ALTAMIRA + INTERFAZ_CONTABLE_FILE_NAME,this.DIR_TRANSMISION_ALTAMIRA , fecha1String ,fecha2String );
-                    LOGGER.info("{} Generar Archivo Conciliacin : {}", session.getTraceLog(), fecha1String +" "+ fecha2String );
+//                    LOGGER.info("{} Generar Archivo Conciliacin : {}", session.getTraceLog(), fecha1String +" "+ fecha2String );
                     nuevoMensaje(FacesMessage.SEVERITY_INFO, "Inicio el proceso y el archivo se ha  generado en: " + DIR_TRANSMISION_ALTAMIRA+ INTERFAZ_CONTABLE_FILE_NAME);
                 } else {
                     nuevoMensaje(FacesMessage.SEVERITY_WARN, "La generacin de la conciliacin puede ejecutarse los das hbiles antes de las 10 pm, en caso contrario el procesamiento no ser exitoso.");
@@ -112,7 +112,7 @@ public class ReporteConciliacionPage extends GeneralConsultaPage<Instancia> {
                 nuevoMensaje(FacesMessage.SEVERITY_WARN, "La generacin de la conciliacin puede ejecutarse los das hbiles antes de las 10 pm, en caso contrario el procesamiento no ser exitoso.");
             }
         } catch (Exception e) {
-            LOGGER.error("{} Ocurrio un error al generar el archivo de Interfaz Contable", session.getTraceLog() , e);
+//            LOGGER.error("{} Ocurrio un error al generar el archivo de Interfaz Contable", session.getTraceLog() , e);
             nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Ocurrio un error al generar el archivo de Interfaz Contable");
         }
         return REPORTE_CONCILIACION;

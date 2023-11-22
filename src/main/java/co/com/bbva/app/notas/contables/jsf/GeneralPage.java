@@ -32,7 +32,9 @@ public abstract class GeneralPage extends BasePage {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GeneralPage.class);
 
-    Session session = getContablesSessionBean().getSessionTrace();
+//    Session session = getContablesSessionBean().getSessionTrace();
+
+
 
     public GeneralPage() {
         super();

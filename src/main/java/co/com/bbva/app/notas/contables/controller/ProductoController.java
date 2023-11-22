@@ -5,6 +5,8 @@ package co.com.bbva.app.notas.contables.controller;
 //import co.com.bbva.app.notas.contables.entities.Producto;
 
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Model;
+import javax.enterprise.inject.Produces;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.Arrays;
@@ -18,10 +20,11 @@ import java.util.List;
 //@Model esterotipo que junta rquestscoped y name, lo unico es q el nombre del bean queda por defecto el nombre de la clase
 public class ProductoController extends CategoriaController implements Serializable {
 
+    public ProductoController() {
+    }
 
-
-    //@Produces
-    //@Model
+    @Produces
+    @Model
     public String titulo() {
         return "Hola mundo JavaServer Face 3.0";
     }

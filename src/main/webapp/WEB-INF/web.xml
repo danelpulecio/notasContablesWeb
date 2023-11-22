@@ -7,6 +7,17 @@
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
+
+    <context-param>
+        <description>Direccion del LDAP para autenticación de usuarios</description>
+        <param-name>DIR_AUTH_LDAP</param-name>
+        <param-value>ldap://82.255.50.77:389</param-value>
+    </context-param>
+    <context-param>
+        <description>Indica si se deja activa la validacion por LDAP (0 -> Inactiva, 1 -> Activa)</description>
+        <param-name>ACTIVAR_LDAP</param-name>
+        <param-value>0</param-value>
+    </context-param>
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -31,4 +42,8 @@
         <param-name>primefaces.THEME</param-name>
         <param-value>saga</param-value>
     </context-param>
+    <mime-mapping>
+        <extension>xcss</extension>
+        <mime-type>css/theme.xcss</mime-type>
+    </mime-mapping>
 </web-app>

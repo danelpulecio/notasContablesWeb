@@ -26,7 +26,7 @@ public class ActividadEconomicaPage extends GeneralCargaPage<ActividadEconomica>
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ActividadEconomicaPage.class);
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
 
 	/**
 	 * <p>
@@ -55,7 +55,7 @@ public class ActividadEconomicaPage extends GeneralCargaPage<ActividadEconomica>
 	@Override
 	public Collection<ActividadEconomica> _buscarPorFiltro() throws Exception {
 		if(!param.isEmpty()){
-			LOGGER.info("{} Buscar Actividad Economica: {}", session.getTraceLog(),param );
+//			LOGGER.info("{} Buscar Actividad Economica: {}", session.getTraceLog(),param );
 		}
 		return cargaAltamiraManager.searchActividadEconomica(param);
 	}

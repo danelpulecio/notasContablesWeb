@@ -36,7 +36,7 @@ public class CierreMensualPage extends GeneralPage implements IPages, Serializab
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CierreMensualPage.class);
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
 
 	/**
 	 * <p>
@@ -60,7 +60,7 @@ public class CierreMensualPage extends GeneralPage implements IPages, Serializab
 	public String mostrar() {
 		try {
 
-			LOGGER.info("{} Ingreso a Cierre mensual ", session.getTraceLog() );
+//			LOGGER.info("{} Ingreso a Cierre mensual ", session.getTraceLog() );
 			Collection<CierreMensual> datos = cargaAltamiraManager.getCierresMensuales();
 			if (datos.isEmpty()) {
 				nuevoMensaje(FacesMessage.SEVERITY_INFO, "No se encontr informacin de cierre mensual ");
@@ -76,7 +76,7 @@ public class CierreMensualPage extends GeneralPage implements IPages, Serializab
 				diasDesdeCierre = notasContablesManager.getDiasHabilesDesdeUltimoCierre();
 			}
 		} catch (final Exception e) {
-			LOGGER.info("{} Ocurrio un error al realizar la consulta de cierres mensuales", session.getTraceLog() , e );
+//			LOGGER.info("{} Ocurrio un error al realizar la consulta de cierres mensuales", session.getTraceLog() , e );
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Ocurrio un error al realizar la consulta de cierres mensuales");
 
 		}

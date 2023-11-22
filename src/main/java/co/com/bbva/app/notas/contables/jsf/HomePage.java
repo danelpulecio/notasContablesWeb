@@ -14,7 +14,10 @@ import co.com.bbva.app.notas.contables.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.enterprise.inject.Model;
+import javax.enterprise.inject.Produces;
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -26,7 +29,9 @@ import javax.naming.NamingException;
 import javax.naming.ldap.InitialLdapContext;
 import javax.naming.ldap.LdapContext;
 import javax.servlet.ServletContext;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Hashtable;
@@ -38,9 +43,11 @@ import java.util.List;
  * behavior to respond to incoming events.
  * </p>
  */
-@Named
 @SessionScoped
-public class HomePage extends GeneralPage implements IPages {
+@Named
+public class HomePage extends GeneralPage implements Serializable, IPages {
+
+
 
 
     @Inject
@@ -55,6 +62,25 @@ public class HomePage extends GeneralPage implements IPages {
     private String pwd;
     private String rolActual;
     private List<SelectItem> roles = null;
+
+    private String start;
+    private String logout;
+
+    public String getLogout() {
+        return logout;
+    }
+
+    public void setLogout(String logout) {
+        this.logout = logout;
+    }
+
+    public String getStart() {
+        return INICIO;
+    }
+
+    public void setStart(String start) {
+        this.start = start;
+    }
 
     public String cronCierreHist() {
         cargaAltamiraScheduled.procesarHistorico();
@@ -87,6 +113,7 @@ public class HomePage extends GeneralPage implements IPages {
      */
     public HomePage() {
         super();
+        LOGGER.info("HOME PAGE CONSTRUCTOR ");
         ServletContext context = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
         DIR_AUTH_LDAP = context.getInitParameter("DIR_AUTH_LDAP");
         _init();
@@ -106,8 +133,9 @@ public class HomePage extends GeneralPage implements IPages {
 
     }
 
+
     public String start() {
-        return LOGIN;
+        return INICIO;
     }
 
     private boolean ldapAuthenticate(String user, String password, String traceLog) {
@@ -154,22 +182,24 @@ public class HomePage extends GeneralPage implements IPages {
 
     public String logout() {
         UsuarioLogueado usrLoggedIn = getContablesSessionBean().getLoginUser();
-        Session session = getContablesSessionBean().getSessionTrace();
+//        Session session = getContablesSessionBean().getSessionTrace();
         try {
             notasContablesManager.addRegistroAuditoriaIngreso(usrLoggedIn.getUsuario().getCodigo().intValue(), "Salir de la aplicacin", "Logout", "0");
         } catch (Exception e) {
-            LOGGER.error("{} Error al cerrar la sesin", session.getTraceLog(), e);
+//            LOGGER.error("{} Error al cerrar la sesin", session.getTraceLog(), e);
         }
-        LOGGER.info("{} El usuario {} cerro la sesin de forma exitosa", session.getTraceLog(), session.getUser());
+//        LOGGER.info("{} El usuario {} cerro la sesin de forma exitosa", session.getTraceLog(), session.getUser());
         getContablesSessionBean().setLoginUser(null);
         return INICIO;
     }
 
     public String setRol() {
         UsuarioLogueado usrLoggedIn = getContablesSessionBean().getLoginUser();
-        Session session = getContablesSessionBean().getSessionTrace();
-        SessionTraceDto sTrace = new SessionTraceDto(session);
-        LOGGER.info("{} Configurando el rol para el usuario: {}", session.getTraceLog(), session.getUser());
+        LOGGER.info("setRol HomePage ");
+        LOGGER.info("setRol HomePage .. usuario logueado{}", usrLoggedIn);
+//        Session session = getContablesSessionBean().getSessionTrace();
+//        SessionTraceDto sTrace = new SessionTraceDto(session);
+//        LOGGER.info("{} Configurando el rol para el usuario: {}", session.getTraceLog(), session.getUser());
         if (usrLoggedIn != null) {
             Rol rol = new Rol();
             rol.setCodigo(Integer.valueOf(rolActual));
@@ -186,27 +216,27 @@ public class HomePage extends GeneralPage implements IPages {
                 centroEspecial = notasContablesManager.getCentroEspecialPorSucursal(centroEspecial);
                 usrLoggedIn.setCentroEspecial(centroEspecial);
                 // end of the new code to fix deploy  temas and conceptos
-                LOGGER.info("{} Persistiendo datos del inicio de sesin", session.getTraceLog());
-                sTrace.setUserId(usrLoggedIn.getUsuario().getCodigo().intValue());
-                sTrace.setLoginSuccess(Boolean.TRUE);
-                sessionTrace.updateTrace(sTrace);
-                LOGGER.info("{} Verificando accesos para el Rol {} - Usuario: {}", session.getTraceLog(), rol.getNombre(), session.getUser());
+//                LOGGER.info("{} Persistiendo datos del inicio de sesin", session.getTraceLog());
+//                sTrace.setUserId(usrLoggedIn.getUsuario().getCodigo().intValue());
+//                sTrace.setLoginSuccess(Boolean.TRUE);
+//                sessionTrace.updateTrace(sTrace);
+//                LOGGER.info("{} Verificando accesos para el Rol {} - Usuario: {}", session.getTraceLog(), rol.getNombre(), session.getUser());
                 FacesContext facesContext = FacesContext.getCurrentInstance();
                 Application application = (Application) facesContext.getExternalContext().getApplicationMap().get("yourApplicationName");
                 usrLoggedIn.setMenu(notasContablesManager.getMenu(rol.getCodigo().intValue()), application);
                 notasContablesManager.addRegistroAuditoriaIngreso(usrLoggedIn.getUsuario().getCodigo().intValue(), "Ingres a la aplicacin", "Login", "1");
-                LOGGER.info("{} Obteniendo los pendientes para el usuario {}", session.getTraceLog(), session.getUser());
+//                LOGGER.info("{} Obteniendo los pendientes para el usuario {}", session.getTraceLog(), session.getUser());
                 PendientePage bean = pendientePage;
                 bean.cargarPendientes();
                 if (!bean.getDatos().isEmpty()) {
-                    LOGGER.info("{} Inicio de sesin exitoso", session.getTraceLog());
+//                    LOGGER.info("{} Inicio de sesin exitoso", session.getTraceLog());
                     return ADMIN_PENDIENTES;
                 }
             } catch (Exception e) {
-                LOGGER.error("{} Error al establecer la configuracin del rol", session.getTraceLog(), e);
+//                LOGGER.error("{} Error al establecer la configuracin del rol", session.getTraceLog(), e);
             }
         }
-        LOGGER.info("{} Inicio de sesin exitoso", session.getTraceLog());
+//        LOGGER.info("{} Inicio de sesin exitoso", session.getTraceLog());
         return BIENVENIDO;
     }
 

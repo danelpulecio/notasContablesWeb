@@ -34,14 +34,14 @@ public class DownloadGeneralPage extends BasePage {
 
 	private String file;
 	private Integer type;
-	private Session session = getContablesSessionBean().getSessionTrace();
+//	private Session session = getContablesSessionBean().getSessionTrace();
 
 	public DownloadGeneralPage() {
 		super();
 	}
 
 	public String download() throws IOException {
-		LOGGER.info("{} Intentando realizar la descarga", session.getTraceLog());
+//		LOGGER.info("{} Intentando realizar la descarga", session.getTraceLog());
 
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
@@ -85,14 +85,14 @@ public class DownloadGeneralPage extends BasePage {
 			return;
 		}
 		try {
-			LOGGER.info("{} Descargando el archivo: {}", session.getTraceLog(), theFilename);
+//			LOGGER.info("{} Descargando el archivo: {}", session.getTraceLog(), theFilename);
 			res.setHeader("Pragma", "no-cache");
 			res.setDateHeader("Expires", 0);
 			res.setContentType("application/force-download");
 			res.setHeader("Content-disposition", "attachment; filename=" + theFilename);
 			fastChannelCopy(Channels.newChannel(new FileInputStream(content)), Channels.newChannel(res.getOutputStream()));
 		} catch (final IOException e) {
-			LOGGER.info("{} Error al descargar el archivo: {}", session.getTraceLog(), theFilename, e);
+//			LOGGER.info("{} Error al descargar el archivo: {}", session.getTraceLog(), theFilename, e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema descargando el archivo: " + getPath() + theFilename);
 		}
 	}

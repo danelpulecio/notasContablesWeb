@@ -28,7 +28,7 @@ public class DepartamentoPage extends GeneralCargaPage<Departamento> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DepartamentoPage.class);
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
 
 	/**
 	 * <p>
@@ -57,7 +57,7 @@ public class DepartamentoPage extends GeneralCargaPage<Departamento> {
 	@Override
 	public Collection<Departamento> _buscarPorFiltro() throws Exception {
 		if(!param.isEmpty()){
-			LOGGER.info("{} Buscar Departamento: {}", session.getTraceLog(),param );
+//			LOGGER.info("{} Buscar Departamento: {}", session.getTraceLog(),param );
 		}
 		return cargaAltamiraManager.searchDepartamento(param);
 	}

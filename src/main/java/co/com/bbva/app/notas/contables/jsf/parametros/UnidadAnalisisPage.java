@@ -33,7 +33,7 @@ public class UnidadAnalisisPage extends GeneralParametrosPage<UnidadAnalisis, Un
 	private List<SelectItem> sucursales;
 	private List<SelectItem> autorizaciones;
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
 
 	public UnidadAnalisisPage() {
 		super(true);

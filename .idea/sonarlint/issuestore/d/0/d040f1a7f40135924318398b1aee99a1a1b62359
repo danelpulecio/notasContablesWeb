@@ -1,0 +1,35 @@
+
+k	java:S117T"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(÷­¿ºıÿÿÿÿ
+f	java:S117X"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¡ ¹ì
+f	java:S117]"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ì‘¼
+k	java:S117^"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¢¾‚ˆÿÿÿÿÿ
+k	java:S117~"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(õ¤ñûÿÿÿÿ
+l	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‹é— şÿÿÿÿ
+œ
+java:S1186-"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ÿ¦Ûÿÿÿÿÿÿ
+?
+java:S1948""Make "anios" private or transient.(¹§Íø8çíñÃ¿1
+L
+java:S1948"/Make "fileGenerator" transient or serializable.(‘µ»†8çíñÃ¿1
+X	java:S125 "<This block of commented-out lines of code should be removed.(ÂÆ8áŸ·Ÿ¿1
+\
+java:S11615":Add the "@Override" annotation above this method signature(³Âï£ıÿÿÿÿ8êíñÃ¿1
+_
+java:S1854g"=Remove this useless assignment to local variable "directory".(°—²šùÿÿÿÿ8Şİ·Ÿ¿1
+P
+java:S1481g".Remove this unused "directory" local variable.(°—²šùÿÿÿÿ8àİ·Ÿ¿1
+]	java:S125h"<This block of commented-out lines of code should be removed.(”Ò×úÿÿÿÿ8àİ·Ÿ¿1
+]	java:S125j"<This block of commented-out lines of code should be removed.(¾òˆûÿÿÿÿ8àİ·Ÿ¿1
+W	java:S125s"<This block of commented-out lines of code should be removed.(¾–G8±ò·Ÿ¿1
+R
+java:S1854~"7Remove this useless assignment to local variable "Arc".(õ¤ñûÿÿÿÿ
+C
+java:S1481~"(Remove this unused "Arc" local variable.(õ¤ñûÿÿÿÿ
+>	java:S108")Either remove or fill this block of code.(¾€óÔ
+V	java:S899ƒ";Do something with the "boolean" value returned by "delete".(ÿšÊ•ùÿÿÿÿ
+j
+java:S4042ƒ"NUse "java.nio.file.Files#delete" here for better messages on error conditions.(ÿšÊ•ùÿÿÿÿ
+n
+java:S1128"LRemove this unused import 'co.com.bbva.app.notas.contables.session.Session'.(•Ö¥åøÿÿÿÿ8òíñÃ¿1
+R
+java:S1144y"0Remove this unused private "deleteFiles" method.(‹•Œ€şÿÿÿÿ8âİ·Ÿ¿1

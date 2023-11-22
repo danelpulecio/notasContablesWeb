@@ -1,0 +1,151 @@
+
+`	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(ª¤ùÿÿÿÿÿ
+Z	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(Øãä6
+[	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(¼ŸÍÒ
+\	java:S112•"FDefine and throw a dedicated exception instead of using a generic one.(§½‚×
+\	java:S112·"FDefine and throw a dedicated exception instead of using a generic one.(§½‚×
+\	java:S112ç"FDefine and throw a dedicated exception instead of using a generic one.(§½‚×
+\	java:S112˜"FDefine and throw a dedicated exception instead of using a generic one.(§½‚×
+\	java:S112¹"FDefine and throw a dedicated exception instead of using a generic one.(§½‚×
+\	java:S112Ó"FDefine and throw a dedicated exception instead of using a generic one.(ÈÕß£
+\	java:S112Ø"FDefine and throw a dedicated exception instead of using a generic one.(§½‚×
+a	java:S112í"FDefine and throw a dedicated exception instead of using a generic one.(Ï˜œøÿÿÿÿ
+a	java:S112ì"FDefine and throw a dedicated exception instead of using a generic one.(ëêìîÿÿÿÿÿ
+u
+java:S2293‚"YReplace the type specification in this constructor call with the diamond operator ("<>").(½Àñ øÿÿÿÿ
+u
+java:S2293¸"YReplace the type specification in this constructor call with the diamond operator ("<>").(ôäùƒÿÿÿÿÿ
+u
+java:S2293å"YReplace the type specification in this constructor call with the diamond operator ("<>").(€’Ñ¶ûÿÿÿÿ
+p
+java:S2293¯"YReplace the type specification in this constructor call with the diamond operator ("<>").(…âô
+
+java:S1192•"yDefine a constant instead of duplicating this literal "Se debe definir la llave primaria para realizar la accin" 6 times.(§½‚×
+f
+java:S1192É"JDefine a constant instead of duplicating this literal "duracin: " 5 times.(¢±§şÿÿÿÿ
+K
+java:S1066€"/Merge this if statement with the enclosing one.(®Ù­øÿÿÿÿ
+Q
+java:S1141©"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+Q
+java:S1141‘"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+k	java:S117;"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¯òîÄıÿÿÿÿ
+7
+java:S1643*"Use a StringBuilder instead.(îÕ†¤ıÿÿÿÿ
+k
+java:S2095£"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(î•Íüÿÿÿÿ
+k
+java:S2095Š"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(î•Íüÿÿÿÿ
+k
+java:S2095À"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(î•Íüÿÿÿÿ
+|	java:S116"gRename this field "sql_SELECT_MAX_CODE_SENTENCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ğ·şÈ
+|	java:S116"gRename this field "sql_SELECT_SEQUENCE_SENTENCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(á¸Ÿ®
+x	java:S116"^Rename this field "sql_INSERT_SENTENCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÔÏóÿÿÿÿÿ
+x	java:S116"^Rename this field "sql_DELETE_SENTENCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(˜úÍ¤ûÿÿÿÿ
+|	java:S116"bRename this field "sql_DELETE_ALL_SENTENCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŸëÇıÿÿÿÿ
+Á
+java:S1845?"¥Rename method "getDataSource" to prevent any misunderstanding/clash with method "getDatasource" defined in superclass "co.com.bbva.app.notas.contables.dao.SuperDAO".(®¢àøùÿÿÿÿ
+P
+java:S6397)"5Replace this character class by the character itself.(¨äò¿üÿÿÿÿ
+L
+java:S2696<"6Make the enclosing method "static" or remove this set.(‘ã¦”
+`
+java:S1124["EReorder the modifiers to comply with the Java Language Specification.(Çÿ‘Ÿúÿÿÿÿ
+[
+java:S1124_"EReorder the modifiers to comply with the Java Language Specification.(ÏÑ€ß
+`
+java:S1124c"EReorder the modifiers to comply with the Java Language Specification.(¿áªÚıÿÿÿÿ
+Z
+java:S1124y"EReorder the modifiers to comply with the Java Language Specification.(Ôì„
+a
+java:S1124˜"EReorder the modifiers to comply with the Java Language Specification.(‹ïÌßùÿÿÿÿ
+\
+java:S1124œ"EReorder the modifiers to comply with the Java Language Specification.(şëçï
+a
+java:S1124 "EReorder the modifiers to comply with the Java Language Specification.(ÑİÚ»ıÿÿÿÿ
+K
+java:S1172­"4Remove this unused method parameter "codigoUsuario".(¶Ÿ¨ÿ
+\
+java:S1124­"EReorder the modifiers to comply with the Java Language Specification.(¶Ÿ¨ÿ
+\
+java:S1124»"EReorder the modifiers to comply with the Java Language Specification.(€İÌà
+\
+java:S1124¿"EReorder the modifiers to comply with the Java Language Specification.(“—“
+a
+java:S1124Ã"EReorder the modifiers to comply with the Java Language Specification.(ô‰©”şÿÿÿÿ
+_
+java:S1854Ü"CRemove this useless assignment to local variable "xmlDataOriginal".(Ó–®ùÿÿÿÿ
+a
+java:S1124×"EReorder the modifiers to comply with the Java Language Specification.(‰É”æşÿÿÿÿ
+K
+java:S1481Ù"4Remove this unused "xmlDataOriginal" local variable.(Ô¥µ‘
+\
+java:S1124ë"EReorder the modifiers to comply with the Java Language Specification.(»­åï
+\
+java:S1124ï"EReorder the modifiers to comply with the Java Language Specification.(•Á…¨
+a
+java:S1124ó"EReorder the modifiers to comply with the Java Language Specification.(ªŸ§æÿÿÿÿÿ
+_
+java:S1854‹"CRemove this useless assignment to local variable "xmlDataOriginal".(Ó–®ùÿÿÿÿ
+a
+java:S1124‡"EReorder the modifiers to comply with the Java Language Specification.(Ú–®Åÿÿÿÿÿ
+K
+java:S1481‰"4Remove this unused "xmlDataOriginal" local variable.(Ô¥µ‘
+R	java:S125’"<This block of commented-out lines of code should be removed.(â‚í
+W	java:S125”"<This block of commented-out lines of code should be removed.(¨†²™ùÿÿÿÿ
+\
+java:S1124œ"EReorder the modifiers to comply with the Java Language Specification.(çË¾€
+_
+java:S1854­"CRemove this useless assignment to local variable "xmlDataOriginal".(Ó–®ùÿÿÿÿ
+a
+java:S1124©"EReorder the modifiers to comply with the Java Language Specification.(“¢‰—ıÿÿÿÿ
+K
+java:S1481«"4Remove this unused "xmlDataOriginal" local variable.(Ô¥µ‘
+R	java:S125´"<This block of commented-out lines of code should be removed.(â‚í
+n
+java:S2737Ä"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û
+O
+java:S1874Ğ"3Remove this use of "newInstance"; it is deprecated.(€¢ÓÜúÿÿÿÿ
+n
+java:S2737â"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û
+n
+java:S2737ó"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û
+n
+java:S2737„"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û
+n
+java:S2737•"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û
+s
+java:S2737¶"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(Ï·¡üÿÿÿÿ
+n
+java:S2737È"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û
+n
+java:S2737Ù"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û
+n
+java:S2737ê"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û
+n
+java:S2737û"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û
+s
+java:S2737Ÿ"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(Ï·¡üÿÿÿÿ
+n
+java:S2737±"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û
+s
+java:S2737Ì"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(Ï·¡üÿÿÿÿ
+n
+java:S2737Ş"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û
+n
+java:S2737ù"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û
+W	java:S125ö"<This block of commented-out lines of code should be removed.(°É©úÿÿÿÿ
+s
+java:S2737Š"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(Ï·¡üÿÿÿÿ
+n
+java:S2737"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û
+s
+java:S2737±"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(Ï·¡üÿÿÿÿ
+D
+java:S1172Ã"-Remove this unused method parameter "string".(Ÿó»°
+R	java:S125Ä"<This block of commented-out lines of code should be removed.(Ïª˜Ê
+Q	java:S125Æ"<This block of commented-out lines of code should be removed.(å‹ÃQ
+D
+java:S1172Î"-Remove this unused method parameter "string".(ÿàö
+R	java:S125Ï"<This block of commented-out lines of code should be removed.(Îœ°¡
+Q	java:S125Ñ"<This block of commented-out lines of code should be removed.(å‹ÃQ

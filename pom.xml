@@ -39,6 +39,12 @@
             <artifactId>primefaces-extensions</artifactId>
             <version>12.0.0</version>
         </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>org.jboss.weld.servlet</groupId>-->
+<!--            <artifactId>weld-servlet-core</artifactId>-->
+<!--            <version>4.0.1.SP1</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
