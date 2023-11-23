@@ -1,0 +1,7 @@
+
+‹
+java:S1319+"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(‹Ô­Ðúÿÿÿÿ
+ƒ
+java:S1319/"hThe type of "opciones" should be an interface such as "List" rather than the implementation "ArrayList".(©„®ãøÿÿÿÿ
+t
+java:S1210'"YOverride "equals(Object obj)" to comply with the contract of the "compareTo(T o)" method.(“ïÇ¾ùÿÿÿÿ

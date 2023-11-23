@@ -1,9 +1,14 @@
 package co.com.bbva.app.notas.contables.jsf.beans;
 
+import co.com.bbva.app.notas.contables.carga.dto.MenuItem;
 import co.com.bbva.app.notas.contables.carga.dto.Sucursal;
 import co.com.bbva.app.notas.contables.carga.dto.UsuarioAltamira;
 import co.com.bbva.app.notas.contables.dto.*;
+import co.com.bbva.app.notas.contables.jsf.HomePage;
+
 import org.primefaces.model.menu.DefaultMenuItem;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.primefaces.component.menuitem.UIMenuItem;
 
 import javax.el.MethodExpression;
@@ -23,7 +28,8 @@ public class UsuarioLogueado implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 7935040122801785429L;
-
+	private static final Logger LOGGER = LoggerFactory.getLogger(HomePage.class);
+	
 	private UsuarioModulo usuario;
 	private UsuarioAltamira usuAltamira;
 	private Sucursal sucursal;
@@ -92,23 +98,24 @@ public class UsuarioLogueado implements Serializable {
 			opcionesMenu = new ArrayList<>();
 			for (Menu m : menu.keySet()) {
 				MenuVisual menuVisual = new MenuVisual(m);
-				menuVisual.setMenuItems(getMenuList(menu.get(m)));
+				//menuVisual.setMenuItems(getMenuList(menu.get(m)));
+				menuVisual.setMenuItemsNC(getMenuList(menu.get(m)));
 				opcionesMenu.add(menuVisual);
 			}
 		}
 		return opcionesMenu;
 	}
 
-	private List<UIMenuItem> getMenuList(TreeSet<SubMenu> opciones) {
-		LinkedList<UIMenuItem> menuList = new LinkedList<>();
+	private List<MenuItem> getMenuList(TreeSet<SubMenu> opciones) {
+		LinkedList<MenuItem> menuList = new LinkedList<>();
 		for (SubMenu sm : opciones) {
 			// make binding
-			UIMenuItem menuItem = new UIMenuItem();
+			MenuItem menuItem = new MenuItem();
 			Class<?>[] params = {};
-			MethodExpression actionExpression = application.getExpressionFactory().createMethodExpression(FacesContext.getCurrentInstance().getELContext(), sm.getAccion(), String.class, params);
-			menuItem.setActionExpression(actionExpression);
-			menuItem.setDisabled(false);
-			menuItem.setValue(sm.getNombre());
+			LOGGER.info(":::::::::::getMenuList:::::::::::"+sm.getAccion());
+			menuItem.setActionNC(sm.getAccion());
+			menuItem.setDisabledNC(false);
+			menuItem.setValueNC(sm.getNombre());
 			menuList.add(menuItem);
 		}
 		return menuList;

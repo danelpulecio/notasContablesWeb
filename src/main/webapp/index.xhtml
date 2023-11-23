@@ -34,7 +34,8 @@
                 <ui:include src="./common/mensajes.xhtml" />
                 <h:panelGrid columns="1" width="100%" style="text-align:center;">
                     <p:commandButton action="#{homePage.login}" value="Ingresar" rendered="#{contablesSessionBean.loginUser==null}" reRender="loginform"/>
-                    <p:commandButton action="#{homePage.setRol}" value="Asignar rol" rendered="#{contablesSessionBean.loginUser!=null}" reRender="loginform"/>
+                    <p:commandButton action="#{homePage.setRol}" value="Asignar rol" 
+                    rendered="#{contablesSessionBean.loginUser!=null}" reRender="loginform" ajax="false" />
 
                 </h:panelGrid>
             </p:panel>
