@@ -1,0 +1,85 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../WEB-INF/layouts/template.xhtml">
+    <ui:param name="title" value="Clientes"/>
+    <ui:define name="body">
+
+        <!--Filtro de busqueda	-->
+        <div style="width: 850px;">
+            <h:panelGrid columns="1" width="100%"><h1 align="center">Clientes</h1></h:panelGrid>
+
+            <h:panelGrid columns="2" id="filtro">
+                <h:inputText id="param" value="#{clientePage.param}"/>
+                <h:commandButton action="#{clientePage.buscarPorFiltro}" value="Filtrar"
+                                 onclick="Richfaces.showModalPanel('statusPanel')"/>
+            </h:panelGrid>
+
+            <ui:include src="../../common/mensajes.xhtml"/>
+
+            <!--	Tabla de resultados	-->
+            <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
+
+                <p:dataTable value="#{clientePage.datos}" var="dato" id="table" rows="15"
+                                rendered="#{! empty clientePage.datos}" rowKeyVar="rowKey"
+                                footerClass="row2" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
+                                onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"
+                                rowClasses="row1, row2">
+                    <f:facet name="header">
+                        <p:dataScroller fastControls="false" pageIndexVar="pageIndex" pagesVar="pages"
+                                           style="color:black;" for="table" maxPages="5" renderIfSinglePage="false"
+                                           page="#{clientePage.scrollPage}" id="up" reRender="lista, filtro"
+                                           limitToList="true" ajaxSingle="true">
+                        </p:dataScroller>
+                    </f:facet>
+                    <p:column>
+                        <f:facet name="header"><h:outputText value="Fila"/></f:facet>
+                        <h:outputText value="#{rowKey+1}"/>
+                    </p:column>
+                    <p:column sortable="true" sortBy="#{dato.numeroCliente}">
+                        <f:facet name="header"><h:outputText value="Código"/></f:facet>
+                        <h:outputText value="#{dato.numeroCliente} "/>
+                    </p:column>
+                    <p:column sortable="true" sortBy="#{dato.tipoIdentificacion}">
+                        <f:facet name="header"><h:outputText value="Tipo Identificación"/></f:facet>
+                        <h:outputText value="#{dato.tipoIdentificacion}"/>
+                    </p:column>
+                    <p:column sortable="true" sortBy="#{dato.numeroIdentificacion}">
+                        <f:facet name="header"><h:outputText value="Número Identificación"/></f:facet>
+                        <h:outputText value="#{dato.numeroIdentificacion}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header"><h:outputText value="DV"/></f:facet>
+                        <h:outputText value="#{dato.digitoVerificacion}"/>
+                    </p:column>
+                    <p:column sortable="true" sortBy="#{dato.primerApellido}">
+                        <f:facet name="header"><h:outputText value="Primer Apellido"/></f:facet>
+                        <h:outputText value="#{dato.primerApellido}"/>
+                    </p:column>
+                    <p:column sortable="true" sortBy="#{dato.segundoApellido}">
+                        <f:facet name="header"><h:outputText value="Segundo Apellido"/></f:facet>
+                        <h:outputText value="#{dato.segundoApellido}"/>
+                    </p:column>
+                    <p:column sortable="true" sortBy="#{dato.primerNombre}">
+                        <f:facet name="header"><h:outputText value="Primer Nombre"/></f:facet>
+                        <h:outputText value="#{dato.primerNombre}"/>
+                    </p:column>
+
+                    <!--	Se muestra la información de la cantidad de registros y la pagina actual	-->
+                    <f:facet name="footer">
+                        <p:dataScroller style="color:black;" align="center" for="table"
+                                           page="#{clientePage.scrollPage}" boundaryControls="hide" fastControls="hide"
+                                           stepControls="hide">
+                            <f:facet name="pages">
+                                <h:outputText
+                                        value="Visualizando del #{((pageIndex-1)*15)+1 } al #{(pages!=pageIndex)?(pageIndex*15):clientePage.totalFilas} de un total de #{clientePage.totalFilas} registros."/>
+                            </f:facet>
+                        </p:dataScroller>
+                    </f:facet>
+                </p:dataTable>
+            </h:panelGrid>
+        </div>
+    </ui:define>
+</ui:composition>

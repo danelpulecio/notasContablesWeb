@@ -7,6 +7,13 @@
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
+    <context-param>
+        <description>Comma-delimited list of context-relative resource paths under which the JSF implementation
+            will look for application configuration resources, before loading a configuration resource
+            named /WEB-INF/facesconfig.xml (if such a resource exists).</description>
+        <param-name>javax.faces.CONFIG_FILES</param-name>
+        <param-value>/WEB-INF/faces-config.xml,/WEB-INF/faces-config-carga.xml,/WEB-INF/faces-config.xml,/WEB-INF/faces-config-adminnotacontable.xml,/WEB-INF/faces-config-parametros.xml,/WEB-INF/faces-config-navegacion.xml,/WEB-INF/faces-config-notacontable.xml,/WEB-INF/faces-config-consultas.xml</param-value>
+    </context-param>
 
     <context-param>
         <description>Direccion del LDAP para autenticación de usuarios</description>
@@ -35,7 +42,7 @@
     </servlet-mapping>
 
     <welcome-file-list>
-        <welcome-file>/index.xhtml</welcome-file>
+        <welcome-file>/loginPage.xhtml</welcome-file>
     </welcome-file-list>
 
     <context-param>

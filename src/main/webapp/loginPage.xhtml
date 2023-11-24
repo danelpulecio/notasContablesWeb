@@ -31,11 +31,12 @@
                         <f:selectItems value="#{homePage.roles}"/>
                     </h:selectOneMenu>
                 </p:panelGrid>
-                <ui:include src="./common/mensajes.xhtml" />
+                <ui:include src="./common/mensajes.xhtml"/>
                 <h:panelGrid columns="1" width="100%" style="text-align:center;">
-                    <p:commandButton action="#{homePage.login}" value="Ingresar" rendered="#{contablesSessionBean.loginUser==null}" reRender="loginform"/>
-                    <p:commandButton action="#{homePage.setRol}" value="Asignar rol" 
-                    rendered="#{contablesSessionBean.loginUser!=null}" reRender="loginform" ajax="false" />
+                    <p:commandButton action="#{homePage.login}" value="Ingresar"
+                                     rendered="#{contablesSessionBean.loginUser==null}" update="loginform"/>
+                    <p:commandButton action="#{homePage.setRol}" value="Asignar rol"
+                                     rendered="#{contablesSessionBean.loginUser!=null}" update="loginform"/>
 
                 </h:panelGrid>
             </p:panel>

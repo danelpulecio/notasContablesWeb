@@ -56,7 +56,7 @@ public class LifeCycleListener implements PhaseListener {
 
 	private static final long serialVersionUID = 4375570851197813777L;
 	private static final String LOGIN_PAGE = "/loginPage.xhtml";
-	private static final String INDEX = "/index.xhtml";
+	private static final String INDEX = "/loginPage.xhtml";
 	private static final String INICIO = "/inicio.xhtml";
 
 	public LifeCycleListener() {
