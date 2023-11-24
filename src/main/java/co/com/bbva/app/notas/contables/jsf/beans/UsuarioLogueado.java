@@ -105,21 +105,38 @@ public class UsuarioLogueado implements Serializable {
 		}
 		return opcionesMenu;
 	}
-
+	
 	private List<MenuItem> getMenuList(TreeSet<SubMenu> opciones) {
-		LinkedList<MenuItem> menuList = new LinkedList<>();
-		for (SubMenu sm : opciones) {
-			// make binding
-			MenuItem menuItem = new MenuItem();
-			Class<?>[] params = {};
-			LOGGER.info(":::::::::::getMenuList:::::::::::"+sm.getAccion());
-			menuItem.setActionNC(sm.getAccion());
-			menuItem.setDisabledNC(false);
-			menuItem.setValueNC(sm.getNombre());
-			menuList.add(menuItem);
-		}
-		return menuList;
+	LinkedList<MenuItem> menuList = new LinkedList<>();
+	for (SubMenu sm : opciones) {
+		// make binding
+		MenuItem menuItem = new MenuItem();
+		Class<?>[] params = {};
+		LOGGER.info(":::::::::::getMenuList:::::::::::"+sm.getAccion());
+		menuItem.setActionNC(sm.getAccion());
+		menuItem.setDisabledNC(false);
+		menuItem.setValueNC(sm.getNombre());
+		menuList.add(menuItem);
 	}
+	return menuList;
+}	
+
+//########### funcional #################################
+	
+//	private List<MenuItem> getMenuList(TreeSet<SubMenu> opciones) {
+//		LinkedList<MenuItem> menuList = new LinkedList<>();
+//		for (SubMenu sm : opciones) {
+//			// make binding
+//			MenuItem menuItem = new MenuItem();
+//			Class<?>[] params = {};
+//			LOGGER.info(":::::::::::getMenuList:::::::::::"+sm.getAccion());
+//			menuItem.setActionNC(sm.getAccion());
+//			menuItem.setDisabledNC(false);
+//			menuItem.setValueNC(sm.getNombre());
+//			menuList.add(menuItem);
+//		}
+//		return menuList;
+//	}
 
 //	private List<HtmlMenuItem> getMenuList(TreeSet<SubMenu> opciones) {
 //		LinkedList<HtmlMenuItem> menuList = new LinkedList<HtmlMenuItem>();
