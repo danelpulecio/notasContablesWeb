@@ -249,3 +249,9 @@ Ssrc/main/java/co/com/bbva/app/notas/contables/jsf/parametros/GeneralCentroPage.
 Osrc/main/java/co/com/bbva/app/notas/contables/carga/dto/ActividadEconomica.java,5/3/538091817ea514c0a3ecf5f57d524a8ef51fc5e8
 o
 ?src/main/java/co/com/bbva/app/notas/contables/dto/CommonVO.java,f/d/fd48bb4b28c7fcffd9a68950a26e66c83965986f
+‡
+Wsrc/main/java/co/com/bbva/app/notas/contables/jsf/parametros/GeneralParametrosPage.java,a/c/acdf81bbdddd4fc23fea283bfea925bcf75ffea7
+‚
+Rsrc/main/java/co/com/bbva/app/notas/contables/carga/dao/ActividadEconomicaDAO.java,6/6/66445efe4de65d005b1991733e79b31f836c4c84
+x
+Hsrc/main/java/co/com/bbva/app/notas/contables/jsf/carga/TerceroPage.java,0/9/09401ece8b3822b08576d27ec58c650faec0b2e0

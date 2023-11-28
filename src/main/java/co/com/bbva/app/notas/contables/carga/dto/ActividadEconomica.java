@@ -62,4 +62,14 @@ public class ActividadEconomica extends CommonVO<ActividadEconomica> implements 
 	public int hashCode() {
 		return Objects.hash(getCodigo(), getNombre(), getEstadoCarga(), getFechaUltimaCarga());
 	}
+
+	@Override
+	public String toString() {
+		return "ActividadEconomica{" +
+				"codigo='" + codigo + '\'' +
+				", nombre='" + nombre + '\'' +
+				", estadoCarga='" + estadoCarga + '\'' +
+				", fechaUltimaCarga=" + fechaUltimaCarga +
+				'}';
+	}
 }

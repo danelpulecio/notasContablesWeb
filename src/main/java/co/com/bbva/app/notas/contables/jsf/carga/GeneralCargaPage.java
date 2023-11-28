@@ -31,12 +31,12 @@ public abstract class GeneralCargaPage<T extends CommonVO<T>> extends GeneralPag
 	/**
 	 * usado para filtrar los datos a mostrar
 	 */
-	private String param = "";
+	protected String param = "";
 
 	/**
 	 * indica el numero de pagina del scroller
 	 */
-	private Integer scrollPage = 1;
+	protected Integer scrollPage = 1;
 
 	/**
 	 * Lista de datos a mostrar en la tabla
@@ -112,6 +112,7 @@ public abstract class GeneralCargaPage<T extends CommonVO<T>> extends GeneralPag
 	 */
 	public String buscarTodos() {
 		try {
+			LOGGER.info("<<< buscarTodos generalCargapage>>>>");
 			long time = System.currentTimeMillis();
 			// solo se realiza la busqueda si se est en la ultima fase del ciclo de vida de faces
 			if (esUltimaFase()) {
@@ -138,7 +139,7 @@ public abstract class GeneralCargaPage<T extends CommonVO<T>> extends GeneralPag
 		try {
 			if (!buscarTodos) {
 				if (param == null || param.isEmpty()) {
-					nuevoMensaje(FacesMessage.SEVERITY_WARN, "El filtro no puede ser vaco" + param);
+					nuevoMensaje(FacesMessage.SEVERITY_WARN, "El filtro no puede ser vacio" + param);
 					return _getPage();
 				} else if (param != null && param.length() < 4) {
 					nuevoMensaje(FacesMessage.SEVERITY_WARN, "Se deben ingresar mnimo 4 caracteres en el filtro de bsqueda " + param);
@@ -173,6 +174,7 @@ public abstract class GeneralCargaPage<T extends CommonVO<T>> extends GeneralPag
 		if (datos == null) {
 			datos = new ArrayList<T>();
 		}
+		LOGGER.info("<<< getDatos >>>>");
 		return datos;
 	}
 

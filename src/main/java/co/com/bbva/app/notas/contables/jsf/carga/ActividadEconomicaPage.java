@@ -23,7 +23,7 @@ import java.util.Collection;
 public class ActividadEconomicaPage extends GeneralCargaPage<ActividadEconomica> implements Serializable {
 
 
-	String param = getParam();
+
 	private static final long serialVersionUID = -2215153957937462919L;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ActividadEconomicaPage.class);
@@ -57,9 +57,12 @@ public class ActividadEconomicaPage extends GeneralCargaPage<ActividadEconomica>
 	@Override
 	public Collection<ActividadEconomica> _buscarPorFiltro() throws Exception {
 		if(!param.isEmpty()){
+			LOGGER.info("<<<buscar por filtro en actividad Eco Page>>>");
 //			LOGGER.info("{} Buscar Actividad Economica: {}", session.getTraceLog(),param );
-		}
-		return cargaAltamiraManager.searchActividadEconomica(param);
+		}LOGGER.info("<<<param {} >>>", param);
+		Collection<ActividadEconomica> actividadEco = cargaAltamiraManager.searchActividadEconomica(param);
+		LOGGER.info("<<<respuesta actividadEconomica {} >>>", actividadEco);
+		return actividadEco;
 	}
 
 	@Override
