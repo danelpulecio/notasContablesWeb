@@ -28,7 +28,7 @@ public class TipoTelefonoPage extends GeneralCargaPage<TipoTelefono> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(TipoTelefonoPage.class);
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
 
 	/**
 	 * <p>
@@ -57,7 +57,7 @@ public class TipoTelefonoPage extends GeneralCargaPage<TipoTelefono> {
 	@Override
 	public Collection<TipoTelefono> _buscarPorFiltro() throws Exception {
 		if(!param.isEmpty()){
-			LOGGER.info("{} Buscar tipo telefono: {}", session.getTraceLog(),param );
+//			LOGGER.info("{} Buscar tipo telefono: {}", session.getTraceLog(),param );
 		}
 		return cargaAltamiraManager.searchTipoTelefono(param);
 	}

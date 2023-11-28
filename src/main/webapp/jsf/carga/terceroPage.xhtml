@@ -1,0 +1,326 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui"
+				template="../../common/template.xhtml">
+    <ui:param name="title" value="Terceros"/>
+    <ui:define name="body">
+
+        <!-- Formulario Modal de creacion y edicion de nuevos registros-->
+<!--        <p:dialog id="editor" widgetVar="editorDlg" resizable="false" modal="true" closable="true" draggable="true" showEffect="fade" hideEffect="fade">-->
+
+        <p:dialog id="editor" autosized="true" domElementAttachment="form">
+            <f:facet name="header">
+                <h:panelGroup><h:outputText value="Formulario"/></h:panelGroup>
+            </f:facet>
+
+            <!-- Campos del formulario -->
+            <h:panelGrid columns="1" width="820" id="informacion" cellpadding="0" cellspacing="0">
+                <h:outputText>
+                    <div style="height:320px;overflow:auto;width: 100%;">
+                        <h:panelGrid columns="1" width="800">
+                            <h:panelGrid columns="8" width="100%" id="identificacion">
+                                <h:outputText value="Sexo"/>
+                                <h:selectOneMenu value="#{terceroPage.objActual.sexo}">
+                                    <f:selectItem itemValue="M" itemLabel="Masculino"/>
+                                    <f:selectItem itemValue="F" itemLabel="Femenino"/>
+                                </h:selectOneMenu>
+                                <h:outputText value="Tipo de Identificación" style="width: 100px;"/>
+                                <h:selectOneMenu value="#{terceroPage.objActual.tipoIdentificacion}">
+                                    <f:selectItems value="#{terceroPage.tiposIdentificacion}"/>
+                                    <a4j:support event="onchange" reRender="identificacion" limitToList="true"/>
+                                </h:selectOneMenu>
+
+                                <h:outputText value="Número de Identificación" style="width: 100px;"/>
+                                <h:inputText value="#{terceroPage.objActual.numeroIdentificacion}" maxlength="15"/>
+
+                                <h:outputText value="Dígito de Verificación" style="width: 100px;"
+                                              rendered="#{terceroPage.objActual.tipoIdentificacion eq 3 or terceroPage.objActual.tipoIdentificacion eq 9}"/>
+                                <h:inputText value="#{terceroPage.objActual.digitoVerificacion}" maxlength="1" size="1"
+                                             onkeypress="return onKeyPressNumbersNoZero(event,this.value);"
+                                             rendered="#{terceroPage.objActual.tipoIdentificacion eq 3 or terceroPage.objActual.tipoIdentificacion eq 9}"/>
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="8" width="100%">
+                                <h:outputText value="Primer Apellido" style="width: 100px;"/>
+                                <h:inputText value="#{terceroPage.objActual.primerApellido}" maxlength="20"/>
+                                <h:outputText value="Segundo Apellido" style="width: 100px;"/>
+                                <h:inputText value="#{terceroPage.objActual.segundoApellido}" maxlength="20"/>
+                                <h:outputText value="Primer Nombre" style="width: 100px;"/>
+                                <h:inputText value="#{terceroPage.objActual.primerNombre}" maxlength="20"/>
+                                <h:outputText value="Segundo Nombre" style="width: 100px;"/>
+                                <h:inputText value="#{terceroPage.objActual.segundoNombre}" maxlength="20"/>
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="4" width="100%">
+                                <h:outputText value="Correo electrónico"/>
+                                <h:inputText value="#{terceroPage.objActual.EMail}" maxlength="40"/>
+
+                                <h:outputText value="Dirección"/>
+                                <h:inputText value="#{terceroPage.objActual.direccion}" maxlength="50"/>
+
+                            </h:panelGrid>
+                            <h:panelGrid columns="6" width="100%">
+                                <h:outputText value="País"/>
+                                <h:selectOneMenu value="#{terceroPage.objActual.pais}" immediate="true">
+                                    <f:selectItems value="#{terceroPage.paises}"/>
+                                    <a4j:support event="onchange" action="#{terceroPage.cargarDepartamentos }"
+                                                 reRender="municipioPanel,departamentosPanel" ajaxSingle="true"/>
+                                </h:selectOneMenu>
+
+                                <h:panelGroup id="departamentosPanel">
+                                    <h:outputText value="Departamento" rendered="#{!empty terceroPage.departamentos}"/>
+                                    <h:selectOneMenu value="#{terceroPage.objActual.departamento}"
+                                                     rendered="#{!empty terceroPage.departamentos}" immediate="true">
+                                        <f:selectItems value="#{terceroPage.departamentos}"/>
+                                        <a4j:support event="onchange" action="#{terceroPage.cargarMunicipios }"
+                                                     reRender="municipioPanel" ajaxSingle="true"/>
+                                    </h:selectOneMenu>
+                                </h:panelGroup>
+                                <h:panelGroup id="municipioPanel">
+                                    <h:outputText value="Municipio" rendered="#{!empty terceroPage.municipios}"/>
+                                    <h:selectOneMenu value="#{terceroPage.objActual.municipio}"
+                                                     rendered="#{!empty terceroPage.municipios}">
+                                        <f:selectItems value="#{terceroPage.municipios}"/>
+                                    </h:selectOneMenu>
+                                </h:panelGroup>
+
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="8" width="100%">
+                                <h:outputText value="Tipo de Teléfono" style="width: 50px;"/>
+                                <h:selectOneMenu value="#{terceroPage.objActual.tipoTelefono}">
+                                    <f:selectItems value="#{terceroPage.tiposTelefono}"/>
+                                    <a4j:support event="onchange" reRender="indicativo1"/>
+                                </h:selectOneMenu>
+                                <h:outputText value="Indicativo" style="width: 50px;"/>
+                                <h:panelGroup id="indicativo1">
+                                    <h:selectOneMenu value="#{terceroPage.objActual.indicativo}"
+                                                     rendered="#{terceroPage.mostrarListaIndicativos1}">
+                                        <f:selectItems value="#{terceroPage.indicativos}"/>
+                                    </h:selectOneMenu>
+                                    <h:inputText value="#{terceroPage.objActual.indicativo}" maxlength="3"
+                                                 rendered="#{!terceroPage.mostrarListaIndicativos1}"
+                                                 onkeypress="return onKeyPressNumbersNoZero(event,this.value);"/>
+                                </h:panelGroup>
+                                <h:outputText value="Teléfono" style="width: 50px;"/>
+                                <h:inputText value="#{terceroPage.objActual.telefono}" maxlength="7"/>
+                                <h:outputText value="Extensión" style="width: 50px;"/>
+                                <h:inputText value="#{terceroPage.objActual.extension}" maxlength="3"
+                                             converter="javax.faces.Integer" style="width: 50px;"/>
+
+                                <h:outputText value="Tipo de Teléfono 2" style="width: 50px;"/>
+                                <h:selectOneMenu value="#{terceroPage.objActual.tipoTelefono2}">
+                                    <f:selectItems value="#{terceroPage.tiposTelefono}"/>
+                                    <a4j:support event="onchange" reRender="indicativo2"/>
+                                </h:selectOneMenu>
+                                <h:outputText value="Indicativo 2" style="width: 50px;"/>
+                                <h:panelGroup id="indicativo2">
+                                    <h:selectOneMenu value="#{terceroPage.objActual.indicativo2}"
+                                                     rendered="#{terceroPage.mostrarListaIndicativos2}">
+                                        <f:selectItems value="#{terceroPage.indicativos}"/>
+                                    </h:selectOneMenu>
+                                    <h:inputText value="#{terceroPage.objActual.indicativo2}" maxlength="3"
+                                                 rendered="#{!terceroPage.mostrarListaIndicativos2}"
+                                                 onkeypress="return onKeyPressNumbersNoZero(event,this.value);"/>
+                                </h:panelGroup>
+                                <h:outputText value="Teléfono 2" style="width: 50px;"/>
+                                <h:inputText value="#{terceroPage.objActual.telefono2}" maxlength="7"/>
+                                <h:outputText value="Extensión 2" style="width: 50px;"/>
+                                <h:inputText value="#{terceroPage.objActual.extension2}" maxlength="3"
+                                             converter="javax.faces.Integer" style="width: 50px;"/>
+                            </h:panelGrid>
+                            <h:panelGrid columns="2" width="100%">
+                                <h:outputText value="Actividad Económica"/>
+                                <h:panelGrid columns="2" id="tipoActividad">
+                                    <h:inputText value="#{terceroPage.actividad}" size="70"/>
+                                    <a4j:commandButton action="#{terceroPage.buscarActividades}"
+                                                       value="Buscar Actividad" reRender="tipoActividad"/>
+                                    <h:selectOneMenu value="#{terceroPage.objActual.actividadEconomica}"
+                                                     style="max-width: 400px;" immediate="true" id="paramActividad"
+                                                     disabledClass="disabledItem"
+                                                     rendered="#{! empty terceroPage.actividades}">
+                                        <f:selectItem itemValue="-1" itemLabel="Seleccione una opcion"/>
+                                        <f:selectItems value="#{terceroPage.actividades}"/>
+                                    </h:selectOneMenu>
+                                </h:panelGrid>
+                            </h:panelGrid>
+                        </h:panelGrid>
+                        <ui:include src="../../common/mensajes.xhtml"/>
+                    </div>
+                </h:outputText>
+                <!-- Seccion de mensajes y botones de envio y cancelacion-->
+                <h:panelGrid columns="2" styleClass="center" width="100%">
+                    <a4j:commandButton action="#{terceroPage.guardar}" reRender="informacion,lista" value="Guardar"
+                                       oncomplete="if (#{terceroPage.ocultarPopupGuardar}) #{rich:component('editor')}.hide();"/>
+                    <a4j:commandButton oncomplete="#{rich:component('popupCancel')}.show()" value="Cancelar"/>
+
+                    <!-- Modal para cancelacion de datos de riesgo-->
+                    <p:dialog id="popupCancel" autosized="true" domElementAttachment="form" width="450">
+                        <f:facet name="header">
+                            <h:panelGroup><h:outputText styleClass="bold"
+                                                        value="Confirmación de cancelación de registro"/></h:panelGroup>
+                        </f:facet>
+
+                        <h:panelGrid columns="1" width="100%">
+
+                            <h:outputText styleClass="bold"
+                                          value="Si cancela se perderá toda la información registrada en el formulario actual"/>
+                            <h:outputText styleClass="bold"
+                                          value="Está seguro que desea cancelar y borrar la información?"/>
+
+                            <!-- Seccion de mensajes y botones de envio y cancelacion-->
+                            <h:panelGrid columns="2" styleClass="center" width="100%">
+                                <a4j:commandButton action="#{terceroPage.cancelar}" value="Si"
+                                                   oncomplete="#{rich:component('editor')}.hide(); #{rich:component('popupCancel')}.hide();"
+                                                   reRender="editor"/>
+                                <a4j:commandButton onclick="#{rich:component('popupCancel')}.hide()" value="No"
+                                                   ajaxSingle="true" immediate="true"/>
+                            </h:panelGrid>
+                        </h:panelGrid>
+                    </p:dialog>
+
+                </h:panelGrid>
+            </h:panelGrid>
+        </p:dialog>
+
+        <!--Filtro de busqueda	-->
+        <div style="width: 850px;">
+            <h:panelGrid columns="1" width="100%"><h1 align="center">Terceros</h1></h:panelGrid>
+
+
+            <!-- Panel de opciones -->
+            <p:panel header="Opciones" style="width: 600px;">
+                <h:panelGrid columns="2" id="filtro">
+                    <h:panelGrid columns="1" width="380">
+                        <!-- Funcionalidad para abrir el editor y crear un nuevo registro-->
+                        <a4j:commandButton action="#{terceroPage.editar}"
+                                           oncomplete="#{rich:component('editor')}.show()" reRender="editor,informacion"
+                                           value="Nuevo Registro"
+                                           rendered="#{terceroPage.usuarioLogueado.rolActual.codigo eq 6 or  terceroPage.usuarioLogueado.rolActual.codigo eq 7}"/>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="2">
+                        <h:inputText id="param" value="#{terceroPage.param}"/>
+                        <h:commandButton action="#{terceroPage.buscarPorFiltro}" value="Filtrar"
+                                         onclick="Richfaces.showModalPanel('statusPanel')"/>
+                    </h:panelGrid>
+
+                </h:panelGrid>
+            </p:panel>
+
+            <ui:include src="../../common/mensajes.xhtml"/>
+
+            <!--	Tabla de resultados	-->
+            <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
+
+                <p:dataTable value="#{terceroPage.datos}" var="dato" id="table" rows="15"
+                                rendered="#{! empty terceroPage.datos}" rowKeyVar="rowKey"
+                                footerClass="row2" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
+                                onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"
+                                rowClasses="row1, row2">
+                    <f:facet name="header">
+                        <p:dataScroller fastControls="false" pageIndexVar="pageIndex" pagesVar="pages"
+                                           style="color:black;" for="table" maxPages="5" renderIfSinglePage="false"
+                                           page="#{terceroPage.scrollPage}" id="up" reRender="lista, filtro"
+                                           limitToList="true" ajaxSingle="true">
+						</p:dataScroller>
+                    </f:facet>
+                    <p:column>
+                        <f:facet name="header"><h:outputText value="Fila"/></f:facet>
+                        <h:outputText value="#{rowKey+1}"/>
+                    </p:column>
+                    <p:column sortable="true" sortBy="#{dato.tipoIdentificacionStr}">
+                        <f:facet name="header">
+                            <h:panelGroup>
+                                <h:outputText value="Tipo"/><br/>
+                                <h:outputText value="Identificación"/>
+                            </h:panelGroup>
+                        </f:facet>
+                        <h:outputText value="#{dato.tipoIdentificacionStr} "/>
+                    </p:column>
+                    <p:column sortable="true" sortBy="#{dato.numeroIdentificacion}">
+                        <f:facet name="header">
+                            <h:panelGroup>
+                                <h:outputText value="Número de"/><br/>
+                                <h:outputText value="Identificación"/>
+                            </h:panelGroup>
+                        </f:facet>
+                        <h:outputText value="#{dato.numeroIdentificacion}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header"><h:outputText value="DV"/></f:facet>
+                        <h:outputText value="#{dato.digitoVerificacion}"/>
+                    </p:column>
+                    <p:column sortable="true" sortBy="#{dato.primerApellido}">
+                        <f:facet name="header">
+                            <h:panelGroup>
+                                <h:outputText value="Primer "/><br/>
+                                <h:outputText value="Apellido"/>
+                            </h:panelGroup>
+                        </f:facet>
+                        <h:outputText value="#{dato.primerApellido}"/>
+                    </p:column>
+                    <p:column sortable="true" sortBy="#{dato.segundoApellido}">
+                        <f:facet name="header">
+                            <h:panelGroup>
+                                <h:outputText value="Segundo"/><br/>
+                                <h:outputText value="Apellido"/>
+                            </h:panelGroup>
+                        </f:facet>
+                        <h:outputText value="#{dato.segundoApellido}"/>
+                    </p:column>
+                    <p:column sortable="true" sortBy="#{dato.primerNombre}">
+                        <f:facet name="header">
+                            <h:panelGroup>
+                                <h:outputText value="Primer"/><br/>
+                                <h:outputText value="Nombre"/>
+                            </h:panelGroup>
+                        </f:facet>
+                        <h:outputText value="#{dato.primerNombre}"/>
+                    </p:column>
+                    <p:column sortable="true" sortBy="#{dato.segundoNombre}">
+                        <f:facet name="header">
+                            <h:panelGroup>
+                                <h:outputText value="Segundo"/><br/>
+                                <h:outputText value="Nombre"/>
+                            </h:panelGroup>
+                        </f:facet>
+                        <h:outputText value="#{dato.segundoNombre}"/>
+                    </p:column>
+                    <p:column sortable="true" sortBy="#{dato.actividadEconomica}">
+                        <f:facet name="header">
+                            <h:panelGroup>
+                                <h:outputText value="Actividad "/><br/>
+                                <h:outputText value="Económica"/>
+                            </h:panelGroup>
+                        </f:facet>
+                        <h:outputText value="#{dato.actividadEconomica}"/>
+                    </p:column>
+                    <p:column sortable="true" sortBy="#{dato.ingresoApp}">
+                        <f:facet name="header">
+                            <h:panelGroup>
+                                <h:outputText value="Ingreso "/><br/>
+                                <h:outputText value="Manual"/>
+                            </h:panelGroup>
+                        </f:facet>
+                        <h:outputText value="#{dato.ingresoApp == 0 ? 'No' : 'Si'}"/>
+                    </p:column>
+
+                    <!--	Se muestra la información de la cantidad de registros y la pagina actual	-->
+                    <f:facet name="footer">
+                        <p:dataScroller style="color:black;" align="center" for="table"
+                                           page="#{terceroPage.scrollPage}" boundaryControls="hide" fastControls="hide"
+                                           stepControls="hide">
+                            <f:facet name="pages">
+                                <h:outputText
+                                        value="Visualizando del #{((pageIndex-1)*15)+1 } al #{(pages!=pageIndex)?(pageIndex*15):terceroPage.totalFilas} de un total de #{terceroPage.totalFilas} registros."/>
+                            </f:facet>
+						</p:dataScroller>
+                    </f:facet>
+                </p:dataTable>
+            </h:panelGrid>
+        </div>
+    </ui:define>
+</ui:composition>

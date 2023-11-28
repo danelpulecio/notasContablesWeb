@@ -29,7 +29,7 @@ public class TipoIndicativoPage extends GeneralCargaPage<TipoIndicativo> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(TipoIndicativoPage.class);
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
 
 	/**
 	 * <p>
@@ -58,7 +58,7 @@ public class TipoIndicativoPage extends GeneralCargaPage<TipoIndicativo> {
 	@Override
 	public Collection<TipoIndicativo> _buscarPorFiltro() throws Exception {
 		if(!param.isEmpty()){
-			LOGGER.info("{} Buscar tipo Indicativo: {}", session.getTraceLog(),param );
+//			LOGGER.info("{} Buscar tipo Indicativo: {}", session.getTraceLog(),param );
 		}
 		return cargaAltamiraManager.searchTipoIndicativo(param);
 	}

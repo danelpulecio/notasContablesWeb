@@ -1,9 +1,8 @@
 
-X	java:S125"<This block of commented-out lines of code should be removed.(‰½Ï8Ú –Ù»1
-£
-java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ĞÕ¬–şÿÿÿÿ8¼éã¼¿1
-X	java:S125#"<This block of commented-out lines of code should be removed.(¢Ñ‡8—ù•Ù»1
+X	java:S125"<This block of commented-out lines of code should be removed.(‰½Ï8åîË²Á1
+[
+java:S1128"9Remove this unused import 'javax.annotation.ManagedBean'.(¾¦®Ãúÿÿÿÿ8ş€³Á1
+`
+java:S1128"CRemove this unused import 'javax.enterprise.context.SessionScoped'.(¦€ê8ş€³Á1
 O
-java:S1128"-Remove this unused import 'java.util.Arrays'.(î–˜Éüÿÿÿÿ8ñññÃ¿1
-M
-java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8ñññÃ¿1
+java:S1128"-Remove this unused import 'java.util.Arrays'.(î–˜Éüÿÿÿÿ8ş€³Á1

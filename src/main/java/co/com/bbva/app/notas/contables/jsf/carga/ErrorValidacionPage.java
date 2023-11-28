@@ -28,7 +28,7 @@ public class ErrorValidacionPage extends GeneralCargaPage<ErrorValidacion> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ErrorValidacionPage.class);
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
 
 	/**
 	 * <p>
@@ -57,7 +57,7 @@ public class ErrorValidacionPage extends GeneralCargaPage<ErrorValidacion> {
 	@Override
 	public Collection<ErrorValidacion> _buscarPorFiltro() throws Exception {
 		if(!param.isEmpty()){
-			LOGGER.info("{} Buscar error Validacion: {}", session.getTraceLog(),param );
+//			LOGGER.info("{} Buscar error Validacion: {}", session.getTraceLog(),param );
 		}
 		return cargaAltamiraManager.searchErrorValidacion(param);
 	}

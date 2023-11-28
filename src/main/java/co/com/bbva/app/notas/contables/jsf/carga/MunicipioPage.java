@@ -28,7 +28,7 @@ public class MunicipioPage extends GeneralCargaPage<Municipio> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(MunicipioPage.class);
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
 
 
 
@@ -59,7 +59,7 @@ public class MunicipioPage extends GeneralCargaPage<Municipio> {
 	@Override
 	public Collection<Municipio> _buscarPorFiltro() throws Exception {
 		if(!param.isEmpty()){
-			LOGGER.info("{} Buscar Municipio: {}", session.getTraceLog(),param );
+//			LOGGER.info("{} Buscar Municipio: {}", session.getTraceLog(),param );
 		}
 		return cargaAltamiraManager.searchMunicipio(param);
 	}

@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import java.io.Serializable;
 import java.util.Collection;
 
 /**
@@ -19,7 +20,7 @@ import java.util.Collection;
  */
 @RequestScoped
 @Named
-public class ActividadEconomicaPage extends GeneralCargaPage<ActividadEconomica> {
+public class ActividadEconomicaPage extends GeneralCargaPage<ActividadEconomica> implements Serializable {
 
 
 	String param = getParam();

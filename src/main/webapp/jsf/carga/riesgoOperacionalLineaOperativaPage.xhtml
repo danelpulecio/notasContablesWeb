@@ -4,16 +4,17 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
                 template="../../common/template.xhtml">
-    <ui:param name="title" value="Contratos"/>
+    <ui:param name="title" value="Riesgo Operacional - Línea Operativa"/>
     <ui:define name="body">
 
         <!--Filtro de busqueda	-->
         <div style="width: 400px;">
-            <h:panelGrid columns="1" width="100%"><h1 align="center">Contratos</h1></h:panelGrid>
+            <h:panelGrid columns="1" width="100%"><h1 align="center">Riesgo Operacional - Línea Operativa</h1>
+            </h:panelGrid>
 
             <h:panelGrid columns="2" id="filtro">
-                <h:inputText id="param" value="#{contratoPage.param}"/>
-                <h:commandButton action="#{contratoPage.buscarPorFiltro}" value="Filtrar"
+                <h:inputText id="param" value="#{riesgoOperacionalLineaOperativaPage.param}"/>
+                <h:commandButton action="#{riesgoOperacionalLineaOperativaPage.buscarPorFiltro}" value="Filtrar"
                                  onclick="Richfaces.showModalPanel('statusPanel')"/>
             </h:panelGrid>
 
@@ -22,39 +23,39 @@
             <!--	Tabla de resultados	-->
             <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
 
-                <p:dataTable value="#{contratoPage.datos}" var="dato" id="table" rows="15"
-                                rendered="#{! empty contratoPage.datos}" rowKeyVar="rowKey"
+                <p:dataTable value="#{riesgoOperacionalLineaOperativaPage.datos}" var="dato" id="table" rows="15"
+                                rendered="#{! empty riesgoOperacionalLineaOperativaPage.datos}" rowKeyVar="rowKey"
                                 footerClass="row2" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
                                 onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"
                                 rowClasses="row1, row2">
                     <f:facet name="header">
                         <p:dataScroller fastControls="false" pageIndexVar="pageIndex" pagesVar="pages"
                                            style="color:black;" for="table" maxPages="5" renderIfSinglePage="false"
-                                           page="#{contratoPage.scrollPage}" id="up" reRender="lista, filtro"
-                                           limitToList="true" ajaxSingle="true">
+                                           page="#{riesgoOperacionalLineaOperativaPage.scrollPage}" id="up"
+                                           reRender="lista, filtro" limitToList="true" ajaxSingle="true">
                         </p:dataScroller>
                     </f:facet>
                     <p:column>
                         <f:facet name="header"><h:outputText value="Fila"/></f:facet>
                         <h:outputText value="#{rowKey+1}"/>
                     </p:column>
-                    <p:column sortable="true" sortBy="#{dato.numeroContrato}">
-                        <f:facet name="header"><h:outputText value="Contrato"/></f:facet>
-                        <h:outputText value="#{dato.numeroContrato}"/>
+                    <p:column sortable="true" comparator="#{riesgoOperacionalLineaOperativaPage.pkComparator }">
+                        <f:facet name="header"><h:outputText value="Código"/></f:facet>
+                        <h:outputText value="#{dato.codigo}"/>
                     </p:column>
-                    <p:column sortable="true" sortBy="#{dato.numeroCliente}">
-                        <f:facet name="header"><h:outputText value="Cliente"/></f:facet>
-                        <h:outputText value="#{dato.numeroCliente} "/>
+                    <p:column sortable="true" sortBy="#{dato.nombre}">
+                        <f:facet name="header"><h:outputText value="Nombre"/></f:facet>
+                        <h:outputText value="#{dato.nombre}"/>
                     </p:column>
 
-                    <!--	Se muestra la información de la cantidad de registros y la pagina actual	-->
+                    <!--	Se muestra la informacion de la cantidad de registros y la pagina actual	-->
                     <f:facet name="footer">
                         <p:dataScroller style="color:black;" align="center" for="table"
-                                           page="#{contratoPage.scrollPage}" boundaryControls="hide" fastControls="hide"
-                                           stepControls="hide">
+                                           page="#{riesgoOperacionalLineaOperativaPage.scrollPage}"
+                                           boundaryControls="hide" fastControls="hide" stepControls="hide">
                             <f:facet name="pages">
                                 <h:outputText
-                                        value="Visualizando del #{((pageIndex-1)*15)+1 } al #{(pages!=pageIndex)?(pageIndex*15):contratoPage.totalFilas} de un total de #{contratoPage.totalFilas} registros."/>
+                                        value="Visualizando del #{((pageIndex-1)*15)+1 } al #{(pages!=pageIndex)?(pageIndex*15):riesgoOperacionalLineaOperativaPage.totalFilas} de un total de #{riesgoOperacionalLineaOperativaPage.totalFilas} registros."/>
                             </f:facet>
                         </p:dataScroller>
                     </f:facet>

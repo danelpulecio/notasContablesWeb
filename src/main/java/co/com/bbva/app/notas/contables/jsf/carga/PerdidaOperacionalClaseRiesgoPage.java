@@ -28,7 +28,7 @@ public class PerdidaOperacionalClaseRiesgoPage extends GeneralCargaPage<ClaseRie
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(PerdidaOperacionalClaseRiesgoPage.class);
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
 
 	/**
 	 * <p>
@@ -57,7 +57,7 @@ public class PerdidaOperacionalClaseRiesgoPage extends GeneralCargaPage<ClaseRie
 	@Override
 	public Collection<ClaseRiesgo> _buscarPorFiltro() throws Exception {
 		if(!param.isEmpty()){
-			LOGGER.info("{} Buscar Clase Riesgo: {}", session.getTraceLog(),param );
+//			LOGGER.info("{} Buscar Clase Riesgo: {}", session.getTraceLog(),param );
 		}
 		return cargaAltamiraManager.searchClaseRiesgo(param);
 	}

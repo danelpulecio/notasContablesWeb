@@ -29,7 +29,7 @@ public class PartidaPendientePage extends GeneralCargaPage<PartidaPendiente> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(PartidaPendientePage.class);
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
 
 	/**
 	 * <p>
@@ -59,7 +59,7 @@ public class PartidaPendientePage extends GeneralCargaPage<PartidaPendiente> {
 	public Collection<PartidaPendiente> _buscarPorFiltro() throws Exception {
 
 		if(!param.isEmpty()){
-			LOGGER.info("{} Buscar Partida Pendiente: {}", session.getTraceLog(),param );
+//			LOGGER.info("{} Buscar Partida Pendiente: {}", session.getTraceLog(),param );
 		}
 		return cargaAltamiraManager.searchPartidaPendiente(param);
 	}
