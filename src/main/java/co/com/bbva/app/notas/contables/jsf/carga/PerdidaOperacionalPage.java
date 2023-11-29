@@ -20,8 +20,6 @@ import java.util.Collection;
 @Named
 public class PerdidaOperacionalPage extends GeneralCargaPage<PerdidaOperacional> {
 
-
-	String param = getParam();
 	/**
 	 * 
 	 */

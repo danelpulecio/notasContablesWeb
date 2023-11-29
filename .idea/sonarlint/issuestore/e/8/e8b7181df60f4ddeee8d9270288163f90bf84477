@@ -1,3 +1,7 @@
 
 ]	java:S125"<This block of commented-out lines of code should be removed.(‘ÆÎÓûÿÿÿÿ8ô³ù½Á1
 X	java:S125="<This block of commented-out lines of code should be removed.(œ“ÙÅ8ö³ù½Á1
+n
+java:S1128"LRemove this unused import 'co.com.bbva.app.notas.contables.session.Session'.(•Ö¥åøÿÿÿÿ8œö¨ŞÁ1
+`
+java:S1128	"CRemove this unused import 'javax.enterprise.context.SessionScoped'.(¦€ê8ö¨ŞÁ1

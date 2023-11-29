@@ -14,64 +14,90 @@
                 <h:panelGrid columns="1" width="100%"><h1 align="center">Actividades Económicas</h1></h:panelGrid>
 
                 <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
-
                     <h:panelGrid columns="2" id="filtro" style="text-align: center; margin: 0 auto;">
                         <h:inputText id="param" value="#{actividadEconomicaPage.param}"/>
                         <h:commandButton action="#{actividadEconomicaPage.buscarPorFiltro}" value="Filtrar"/>
                     </h:panelGrid>
                     <!--                        onclick="Richfaces.showModalPanel('statusPanel')"-->
+                    <ui:include src="../../common/mensajes.xhtml"/>
 
                     <!--	Tabla de resultados	-->
-                    <ui:include src="../../common/mensajes.xhtml"/>
                     <!--                                 rendered="#{! empty actividadEconomicaPage.datos}"-->
-<!--                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">-->
+                    <!--                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">-->
 
                     <p:dataTable value="#{actividadEconomicaPage.datos}" var="actividad" rowIndexVar="rowIndex"
-                                 widgetVar="economicActivityTable"
-                                 rows="15" paginator="true">
-                        <f:facet name="header">
+                                 widgetVar="economicActivityTable" rows="3">
+                        <!--                                 rows="3" paginator="true">-->
+                        <!--                        <f:facet name="header">-->
+                        <!--                            <p:dataScroller fastControls="false" pageIndexVar="pageIndex" pagesVar="pages"-->
+                        <!--                                            style="color:black;" for="table" maxPages="5" renderIfSinglePage="false"-->
+                        <!--                                            page="#{actividadEconomicaPage.scrollPage}" id="up" reRender="lista, filtro"-->
+                        <!--                                            limitToList="true" ajaxSingle="true">-->
+                        <!--                            </p:dataScroller>-->
+                        <!--                        </f:facet>-->
 
-                            <p:dataScroller fastControls="false" pageIndexVar="pageIndex" pagesVar="pages"
-                                            style="color:black;" for="table" maxPages="5" renderIfSinglePage="false"
-                                            page="#{actividadEconomicaPage.scrollPage}" id="up" reRender="lista, filtro"
-                                            limitToList="true" ajaxSingle="true">
+                        <f:facet name="header">
+                            <p:dataScroller value="#{actividadEconomicaPage.scrollPage}" pageIndexVar="pageIndex"
+                                            pageCountVar="pages"
+                                            style="color: black;" for="table" maxPages="5"
+                                            page="#{actividadEconomicaPage.scrollPage}" id="up" update="lista filtro"
+                                            widgetVar="scroller">
                             </p:dataScroller>
                         </f:facet>
                         <p:column headerText="Fila">
-                            <!--                            <f:facet name="header">-->
-                            <!--                                <h:outputText value="Fila"/>-->
-                            <!--                            </f:facet>-->
                             <h:outputText value="#{rowIndex + 1}"/>
                         </p:column>
                         <p:column headerText="Codigo" sortable="true" sortBy="#{actividad.codigo}">
-                            <!--                            <f:facet name="header">-->
-                            <!--                                <h:outputText value="Código" />-->
-                            <!--                            </f:facet>-->
                             <h:outputText value="#{actividad.codigo} "/>
                         </p:column>
                         <p:column headerText="Nombre" sortable="true" sortBy="#{actividad.nombre}">
-                            <!--                            <f:facet name="header">-->
-                            <!--                                <h:outputText value="Nombre"/>-->
-                            <!--                            </f:facet>-->
                             <h:outputText value="#{actividad.nombre}"/>
                         </p:column>
 
                         <!--	Se muestra la información de la cantidad de registros y la pagina actual	-->
+                        <!--                        <f:facet name="footer">-->
+                        <!--                            &lt;!&ndash;                            esto es para la paginacion que ya se esta controlando&ndash;&gt;-->
+                        <!--                            <p:dataScroller style="color:black;" align="center" for="table"-->
+                        <!--                                            page="#{actividadEconomicaPage.scrollPage}"-->
+                        <!--                                            boundaryControls="hide"-->
+                        <!--                                            fastControls="hide" stepControls="hide">-->
+                        <!--                                <f:facet name="pages">-->
+                        <!--                                    <h:outputText-->
+                        <!--                                            value="Visualizando del #{((pageIndex-1)*15)+1 } al #{(pages!=pageIndex)?(pageIndex*15):actividadEconomicaPage.totalFilas} de un total de #{actividadEconomicaPage.totalFilas} registros."/>-->
+                        <!--                                </f:facet>-->
+                        <!--                            </p:dataScroller>-->
+                        <!--                        </f:facet>-->
                         <f:facet name="footer">
-                            <!--                            esto es para la paginacion que ya se esta controlando-->
-                            <p:dataScroller style="color:black;" align="center" for="table"
+                            <p:dataScroller style="color: black;" for="table"
                                             page="#{actividadEconomicaPage.scrollPage}"
-                                            boundaryControls="hide"
-                                            fastControls="hide" stepControls="hide">
+                                            boundaryControls="hide" fastControls="hide" stepControls="hide"
+                                            widgetVar="scroller">
                                 <f:facet name="pages">
                                     <h:outputText
-                                            value="Visualizando del #{((pageIndex-1)*15)+1 } al #{(pages!=pageIndex)?(pageIndex*15):actividadEconomicaPage.totalFilas} de un total de #{actividadEconomicaPage.totalFilas} registros."/>
+                                            value="Visualizando del #{((scroller.pageIndex-1)*15)+1} al #{(scroller.pages!=scroller.pageIndex)?(scroller.pageIndex*15):actividadEconomicaPage.totalFilas} de un total de #{actividadEconomicaPage.totalFilas} registros."/>
                                 </f:facet>
                             </p:dataScroller>
                         </f:facet>
+
+
                     </p:dataTable>
 
                 </h:panelGrid>
+
+                <p:dataScroller style="color: black;" for="table" page="#{productoController.scrollPage}"
+                                boundaryControls="hide" fastControls="hide" stepControls="hide" widgetVar="scroller">
+                    <f:facet name="pages">
+                        <h:outputText
+                                value="Visualizando del #{((scroller.pageIndex-1)*15)+1} al #{(scroller.pages!=scroller.pageIndex)?(scroller.pageIndex*15):actividadEconomicaPage.totalFilas} de un total de #{actividadEconomicaPage.totalFilas} registros."/>
+                    </f:facet>
+                </p:dataScroller>
+
+                <p:dataScroller value="#{productoController.scrollPage}" var="actividad" rows="3" paginator="true"
+                                paginatorPosition="bottom" update=":form:economicActivityTable">
+                    <!-- Contenido del dataScroller -->
+                    <h:outputText
+                            value="Número de registros en productoController.lista: #{productoController.lista.size()}"/>
+                </p:dataScroller>
             </h:form>
         </div>
 

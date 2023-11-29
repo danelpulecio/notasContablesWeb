@@ -186,6 +186,7 @@ public abstract class GeneralCargaPage<T extends CommonVO<T>> extends GeneralPag
 		if (scrollPage == null) {
 			scrollPage = 1;
 		}
+		LOGGER.info("<<<<scrollPage {}>>>>", scrollPage);
 		return scrollPage;
 	}
 
@@ -194,6 +195,7 @@ public abstract class GeneralCargaPage<T extends CommonVO<T>> extends GeneralPag
 	}
 
 	public int getTotalFilas() {
+		LOGGER.info("<<<datos size {}>>>",datos.size());
 		return datos == null ? 0 : datos.size();
 	}
 

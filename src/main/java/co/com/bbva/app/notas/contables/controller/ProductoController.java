@@ -28,6 +28,16 @@ public class ProductoController extends CategoriaController implements Serializa
 
     private int count = 0;
 
+    private int scrollPage = 100;
+
+    public int getScrollPage() {
+        return scrollPage;
+    }
+
+    public void setScrollPage(int scrollPage) {
+        this.scrollPage = scrollPage;
+    }
+
     public ProductoController() {
         //default
     }
