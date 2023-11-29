@@ -2,16 +2,8 @@
 t	java:S116<"XRename this field "DIR_AUTH_LDAP" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ëÂ’§8íË—À¿1
 d
 java:S68135"BRemove this field injection and use constructor injection instead.(Áº–üÿÿÿÿ8îË—À¿1
-³
-java:S1845@"Rename field "roles" to prevent any misunderstanding/clash with field "ROLES" defined in interface "co.com.bbva.app.notas.contables.jsf.IPages".(‚Ãñ‰øÿÿÿÿ8îË—À¿1
-µ
-java:S1845Ÿ"‘Rename method "login" to prevent any misunderstanding/clash with field "LOGIN" defined in interface "co.com.bbva.app.notas.contables.jsf.IPages".(ûÆÀ“ùÿÿÿÿ8îË—À¿1
 q
 java:S1450B"TRemove the "start" field and declare it as a local variable in the relevant methods.(Ğ×Õ†8ïË—À¿1
-Z
-java:S1948:"8Make "cargaAltamiraScheduled" transient or serializable.(åÔ’³şÿÿÿÿ8ïË—À¿1
-K
-java:S1948;".Make "sessionTrace" transient or serializable.(ÚİŒÁ8ïË—À¿1
 t
 java:S1149"VReplace the synchronized class "Hashtable" by an unsynchronized one such as "HashMap".(ìõÔ×8ğË—À¿1
 g
@@ -27,13 +19,5 @@ Y	java:S125ì"<This block of commented-out lines of code should be removed.(å´
 ^	java:S125ï"<This block of commented-out lines of code should be removed.(‡ËØàşÿÿÿÿ8€Ì—À¿1
 u
 java:S3776ó"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(¢Å»ıÿÿÿÿ8€Ì—À¿1
-`
-java:S1128"CRemove this unused import 'javax.enterprise.context.RequestScoped'.(‚Õ…½8úÀ¿1
-\
-java:S1128":Remove this unused import 'javax.enterprise.inject.Model'.(˜·šÜÿÿÿÿÿ8úÀ¿1
-_
-java:S1128"=Remove this unused import 'javax.enterprise.inject.Produces'.(··éßıÿÿÿÿ8úÀ¿1
-b
-java:S1128 "@Remove this unused import 'javax.servlet.annotation.WebServlet'.(™ì¢´şÿÿÿÿ8úÀ¿1
 F
 java:S1068B")Remove this unused "start" private field.(Ğ×Õ†8‡Ì—À¿1

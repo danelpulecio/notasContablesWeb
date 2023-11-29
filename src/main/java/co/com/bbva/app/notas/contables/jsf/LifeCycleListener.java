@@ -4,6 +4,8 @@ import co.com.bbva.app.notas.contables.jsf.beans.ContablesSessionBean;
 import co.com.bbva.app.notas.contables.jsf.beans.MenuVisual;
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.MenuItem;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -56,8 +58,10 @@ public class LifeCycleListener implements PhaseListener {
 
 	private static final long serialVersionUID = 4375570851197813777L;
 	private static final String LOGIN_PAGE = "/loginPage.xhtml";
-	private static final String INDEX = "/index.xhtml";
+	private static final String INDEX = "/loginPage.xhtml";
 	private static final String INICIO = "/inicio.xhtml";
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(HomePage.class);
 
 	public LifeCycleListener() {
 	}
@@ -141,14 +145,17 @@ public class LifeCycleListener implements PhaseListener {
 
 	private boolean authorizePageAccess(String viewId, ContablesSessionBean c) {
 		String filtro = viewId.substring(viewId.lastIndexOf('/') + 1, viewId.lastIndexOf('.'));
+		LOGGER.info(":::::::::::filtro ::::::::::: "+ filtro);
 		if (c != null) {
 			for (MenuVisual m : c.getLoginUser().getOpcionesMenu()) {
 				for (MenuItem item : m.getMenuItems()) {
 					if (item instanceof DefaultMenuItem) {
 						DefaultMenuItem defaultMenuItem = (DefaultMenuItem) item;
 						String action = defaultMenuItem.getCommand(); // Obtener la accin del elemento de men
+						LOGGER.info(":::::::::::action del defaultMenuItem.getCommand()::::::::::: "+ action);
 						if (action != null) {
 							String actActual = action.substring(action.indexOf('{') + 1, action.lastIndexOf('.'));
+							LOGGER.info(":::::::::::actActual::::::::::: "+ actActual);
 							if (actActual.equals(filtro)) {
 								return true;
 							}

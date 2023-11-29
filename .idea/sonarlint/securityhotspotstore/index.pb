@@ -3,8 +3,6 @@
 pom.xml,4/4/442292b8a7efeabbe4cc176709b833b1792140ec
 O
 src/main/webapp/WEB-INF/web.xml,2/e/2e22b6edd746fa3dc40ad7276c87c8d87d72a392
-K
-src/main/webapp/index.xhtml,b/b/bb585a12746e3c58077a000cb566d3b2b7ff11e3
 Å
 Qsrc/main/java/co/com/bbva/app/notas/contables/controller/CategoriaController.java,7/6/76d163fe494d8419e99c0fc6cb6dc626f70e98a5
 Ä
@@ -124,8 +122,6 @@ Gsrc/main/java/co/com/bbva/app/notas/contables/dao/UsuarioModuloDAO.java,d/6/d6
 Usrc/main/java/co/com/bbva/app/notas/contables/datos/interfaces/IConsultasUsuario.java,3/c/3ccbcd679c7335e913220c65d9a8306213924125
 |
 Lsrc/main/java/co/com/bbva/app/notas/contables/carga/dto/UsuarioAltamira.java,3/4/34707814206b658ae589f49f5fbdd06cd1aeb474
-W
-'src/main/webapp/WEB-INF/principal.xhtml,b/e/be13a488ae6601f30d6c5918eaf3ec0227fb701e
 O
 src/main/webapp/principal.xhtml,3/1/314d0791bd1196c7ba4c07aaaeece225b46d0213
 Ñ
@@ -134,3 +130,22 @@ Tsrc/main/java/co/com/bbva/app/notas/contables/jsf/parametros/UnidadAnalisisPage
 Osrc/main/java/co/com/bbva/app/notas/contables/jsf/parametros/AuditoriaPage.java,b/d/bd81d4849c845a7e8b611cb061b22d8b73af95e8
 Ö
 Usrc/main/java/co/com/bbva/app/notas/contables/jsf/parametros/FechaHabilitadaPage.java,b/4/b44f3949ea82efc8ca277374d3e9f80cc462bfd7
+c
+3src/main/webapp/WEB-INF/faces-config-navegacion.xml,6/f/6f3de59de389dbf6f5d1df6291ac1b8f86b79e82
+O
+src/main/webapp/loginPage.xhtml,2/7/27f1f3c63c80673c363f10b5e19705f599ded7d6
+x
+Hsrc/main/java/co/com/bbva/app/notas/contables/jsf/LifeCycleListener.java,9/3/9399758b13821d0c3de3ae65c183f353e946c6ce
+f
+6src/main/webapp/jsf/carga/actividadEconomicaPage.xhtml,e/9/e9e4c8d5bc956ce4b33efe9c41f6f1255b819870
+}
+Msrc/main/java/co/com/bbva/app/notas/contables/jsf/carga/GeneralCargaPage.java,2/d/2deacad8a29de82438f0b2b168597d8a021718bc
+a
+1src/main/webapp/jsf/carga/cierreMensualPage.xhtml,e/e/ee9fdceb3188a74a8f6be449a5d3860fe119a502
+[
++src/main/webapp/jsf/carga/clientePage.xhtml,7/3/73cd835930e5be015016a237f7deed40982ee962
+\
+,src/main/webapp/jsf/carga/contratoPage.xhtml,0/0/00196141150fd2fb80b272c25f9fea83188f47d9
+:
+
+.gitignore,a/5/a5cc2925ca8258af241be7e5b0381edf30266302

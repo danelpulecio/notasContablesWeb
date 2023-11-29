@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui" template="WEB-INF/layouts/template.xhtml"
+                xmlns:c="http://java.sun.com/jstl/core">
+    <ui:param name="title" value="Autenticación"/>
+    <ui:define name="body">
+        <div style="width: 100%;">
+            <p:panel header="Datos de usuario" style="width: 420px" id="loginform">
+                <!--                <p:graphicImage height="96" width="700" value="./common/images/header.jpg"/>-->
+                <p:panelGrid columns="2">
+                    <h:outputText value="Usuario: " rendered="#{contablesSessionBean.loginUser==null}"/>
+                    <h:inputText id="Usuario" value="#{homePage.username}" required="true"
+                                 rendered="#{contablesSessionBean.loginUser==null}"
+                                 validatorMessage="El usuario es requerido y debe tener mínimo 3 caracteres"
+                                 requiredMessage="El usuario es requerido y debe tener mínimo 3 caracteres">
+                        <f:validateLength minimum="3" maximum="30"/>
+                    </h:inputText>
+                    <h:outputText value="Clave: " rendered="#{contablesSessionBean.loginUser==null}"/>
+                    <h:inputSecret id="Clave" value="#{homePage.pwd}" required="true"
+                                   rendered="#{contablesSessionBean.loginUser==null}"
+                                   validatorMessage="La clave es requerida y debe tener mínimo 3 caracteres"
+                                   requiredMessage="La clave es requerida y debe tener mínimo 3 caracteres">
+                        <f:validateLength minimum="3" maximum="30"/>
+                    </h:inputSecret>
+                    <h:outputText value="Rol a usar:" rendered="#{contablesSessionBean.loginUser!=null}"/>
+                    <h:selectOneMenu value="#{homePage.rolActual}" rendered="#{contablesSessionBean.loginUser!=null}">
+                        <f:selectItem itemValue="-1" itemLabel="Seleccione una opción"/>
+                        <f:selectItems value="#{homePage.roles}"/>
+                    </h:selectOneMenu>
+                </p:panelGrid>
+                <ui:include src="./common/mensajes.xhtml"/>
+                <h:panelGrid columns="1" width="100%" style="text-align:center;">
+                    <p:commandButton action="#{homePage.login}" value="Ingresar"
+                                     rendered="#{contablesSessionBean.loginUser==null}" update="loginform"/>
+                    <p:commandButton action="#{homePage.setRol}" value="Asignar rol"
+                                     rendered="#{contablesSessionBean.loginUser!=null}" update="loginform"/>
+
+                </h:panelGrid>
+                
+            </p:panel>
+        </div>
+    </ui:define>
+</ui:composition>
+
+

@@ -18,7 +18,7 @@ public class ConsultaMovimientosContablesPage extends ReporteGeneralPage {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ConsultaMovimientosContablesPage.class);
 
-	Session session = getContablesSessionBean().getSessionTrace();
+	//Session session = getContablesSessionBean().getSessionTrace();
 
 	public ConsultaMovimientosContablesPage() {
 		super();
