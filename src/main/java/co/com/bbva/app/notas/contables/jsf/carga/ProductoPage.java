@@ -29,7 +29,7 @@ public class ProductoPage extends GeneralCargaPage<Producto> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductoPage.class);
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
 
 
 	/**
@@ -59,7 +59,7 @@ public class ProductoPage extends GeneralCargaPage<Producto> {
 	@Override
 	public Collection<Producto> _buscarPorFiltro() throws Exception {
 		if(!param.isEmpty()){
-			LOGGER.info("{} Buscar producto: {}", session.getTraceLog(),param );
+//			LOGGER.info("{} Buscar producto: {}", session.getTraceLog(),param );
 		}
 		return cargaAltamiraManager.searchProducto(param);
 	}

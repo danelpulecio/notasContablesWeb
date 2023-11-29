@@ -4,6 +4,7 @@
     <option name="state">
       <map>
         <entry key="file://$PROJECT_DIR$/src/main/webapp/common/template.xhtml" value="file://$PROJECT_DIR$/src/main/webapp/common" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/jsf/carga/actividadEconomicaPage.xhtml" value="file://$PROJECT_DIR$/src/main/webapp/jsf/carga" />
       </map>
     </option>
   </component>

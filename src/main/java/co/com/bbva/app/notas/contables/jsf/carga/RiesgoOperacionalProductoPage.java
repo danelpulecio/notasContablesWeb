@@ -29,7 +29,7 @@ public class RiesgoOperacionalProductoPage extends GeneralCargaPage<RiesgoOperac
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(RiesgoOperacionalProductoPage.class);
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
 
 	/**
 	 * <p>
@@ -58,7 +58,7 @@ public class RiesgoOperacionalProductoPage extends GeneralCargaPage<RiesgoOperac
 	@Override
 	public Collection<RiesgoOperacionalProducto> _buscarPorFiltro() throws Exception {
 		if(!param.isEmpty()){
-			LOGGER.info("{} Buscar riesgo operacional producto: {}", session.getTraceLog(),param );
+//			LOGGER.info("{} Buscar riesgo operacional producto: {}", session.getTraceLog(),param );
 		}
 		return cargaAltamiraManager.searchRiesgoOperacionalProducto(param);
 	}

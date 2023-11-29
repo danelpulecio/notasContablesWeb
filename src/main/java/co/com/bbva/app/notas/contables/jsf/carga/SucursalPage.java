@@ -28,7 +28,7 @@ public class SucursalPage extends GeneralCargaPage<Sucursal> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(SucursalPage.class);
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
 
 	/**
 	 * <p>
@@ -57,7 +57,7 @@ public class SucursalPage extends GeneralCargaPage<Sucursal> {
 	@Override
 	public Collection<Sucursal> _buscarPorFiltro() throws Exception {
 		if(!param.isEmpty()){
-			LOGGER.info("{} Buscar sucursal: {}", session.getTraceLog(),param );
+//			LOGGER.info("{} Buscar sucursal: {}", session.getTraceLog(),param );
 		}
 		return cargaAltamiraManager.searchSucursal(param);
 	}

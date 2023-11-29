@@ -29,7 +29,7 @@ public class PerdidaOperacionalPage extends GeneralCargaPage<PerdidaOperacional>
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(PerdidaOperacionalPage.class);
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
 
 	/**
 	 * <p>
@@ -58,7 +58,7 @@ public class PerdidaOperacionalPage extends GeneralCargaPage<PerdidaOperacional>
 	@Override
 	public Collection<PerdidaOperacional> _buscarPorFiltro() throws Exception {
 		if(!param.isEmpty()){
-			LOGGER.info("{} Buscar perdida de operacion: {}", session.getTraceLog(),param );
+//			LOGGER.info("{} Buscar perdida de operacion: {}", session.getTraceLog(),param );
 		}
 		return cargaAltamiraManager.searchPerdidaOperacional(param);
 	}

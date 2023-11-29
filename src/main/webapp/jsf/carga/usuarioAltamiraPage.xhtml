@@ -1,0 +1,89 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../common/template.xhtml">
+    <ui:param name="title" value="Usuarios Altamíra"/>
+    <ui:define name="body">
+
+        <!--Filtro de busqueda	-->
+        <div style="width: 850px;">
+            <h:panelGrid columns="1" width="100%"><h1 align="center">Usuarios Altamíra</h1></h:panelGrid>
+
+            <h:panelGrid columns="2" id="filtro">
+                <h:inputText id="param" value="#{usuarioAltamiraPage.param}"/>
+                <h:commandButton action="#{usuarioAltamiraPage.buscarPorFiltro}" value="Filtrar"
+                                 onclick="Richfaces.showModalPanel('statusPanel')"/>
+            </h:panelGrid>
+
+            <ui:include src="../../common/mensajes.xhtml"/>
+
+            <!--	Tabla de resultados	-->
+            <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
+
+                <p:dataTable value="#{usuarioAltamiraPage.datos}" var="dato" id="table" rows="15"
+                                rendered="#{! empty usuarioAltamiraPage.datos}" rowKeyVar="rowKey"
+                                footerClass="row2" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
+                                onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"
+                                rowClasses="row1, row2">
+                    <f:facet name="header">
+                        <p:dataScroller fastControls="false" pageIndexVar="pageIndex" pagesVar="pages"
+                                           style="color:black;" for="table" maxPages="5" renderIfSinglePage="false"
+                                           page="#{usuarioAltamiraPage.scrollPage}" id="up" reRender="lista, filtro"
+                                           limitToList="true" ajaxSingle="true">
+                        </p:dataScroller>
+                    </f:facet>
+                    <p:column>
+                        <f:facet name="header"><h:outputText value="Fila"/></f:facet>
+                        <h:outputText value="#{rowKey+1}"/>
+                    </p:column>
+                    <p:column sortable="true" sortBy="#{dato.codigoEmpleado}">
+                        <f:facet name="header"><h:outputText value="Código Empleado"/></f:facet>
+                        <h:outputText value="#{dato.codigoEmpleado} "/>
+                    </p:column>
+                    <p:column sortable="true" sortBy="#{dato.nombreEmpleado}">
+                        <f:facet name="header"><h:outputText value="Nombre Empleado"/></f:facet>
+                        <h:outputText value="#{dato.nombreEmpleado}"/>
+                    </p:column>
+                    <p:column sortable="true" sortBy="#{dato.codigoArea}">
+                        <f:facet name="header"><h:outputText value="Código Área"/></f:facet>
+                        <h:outputText value="#{dato.codigoArea}"/>
+                    </p:column>
+                    <p:column sortable="true" sortBy="#{dato.nombreArea}">
+                        <f:facet name="header"><h:outputText value="Nombre Área"/></f:facet>
+                        <h:outputText value="#{dato.nombreArea}"/>
+                    </p:column>
+                    <p:column sortable="true" sortBy="#{dato.codigoPerfil}">
+                        <f:facet name="header"><h:outputText value="Código Perfil"/></f:facet>
+                        <h:outputText value="#{dato.codigoPerfil}"/>
+                    </p:column>
+                    <p:column sortable="true" sortBy="#{dato.nombrePerfil}">
+                        <f:facet name="header"><h:outputText value="Nombre Perfil"/></f:facet>
+                        <h:outputText value="#{dato.nombrePerfil}"/>
+                    </p:column>
+                    <p:column sortable="true" sortBy="#{dato.correoElectronico}">
+                        <f:facet name="header"><h:outputText value="Correo Electrónico"/></f:facet>
+                        <h:outputText value="#{dato.correoElectronico}"/>
+                    </p:column>
+                    <p:column sortable="true" sortBy="#{dato.estadoCarga}">
+                        <f:facet name="header"><h:outputText value="Estado Altamira"/></f:facet>
+                        <h:outputText value="#{dato.estadoCarga eq 'A'? 'Activo': 'Inactivo'}"/>
+                    </p:column>
+
+                    <!--	Se muestra la información de la cantidad de registros y la pagina actual	-->
+                    <f:facet name="footer">
+                        <p:dataScroller style="color:black;" align="center" for="table"
+                                           page="#{usuarioAltamiraPage.scrollPage}" boundaryControls="hide"
+                                           fastControls="hide" stepControls="hide">
+                            <f:facet name="pages">
+                                <h:outputText
+                                        value="Visualizando del #{((pageIndex-1)*15)+1 } al #{(pages!=pageIndex)?(pageIndex*15):usuarioAltamiraPage.totalFilas} de un total de #{usuarioAltamiraPage.totalFilas} registros."/>
+                            </f:facet>
+                        </p:dataScroller>
+                    </f:facet>
+                </p:dataTable>
+            </h:panelGrid>
+        </div>
+    </ui:define>
+</ui:composition>

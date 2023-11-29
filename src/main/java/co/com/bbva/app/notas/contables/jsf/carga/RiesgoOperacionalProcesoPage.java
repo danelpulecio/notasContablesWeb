@@ -28,7 +28,7 @@ public class RiesgoOperacionalProcesoPage extends GeneralCargaPage<RiesgoOperaci
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(RiesgoOperacionalProcesoPage.class);
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
 
 	/**
 	 * <p>
@@ -57,7 +57,7 @@ public class RiesgoOperacionalProcesoPage extends GeneralCargaPage<RiesgoOperaci
 	@Override
 	public Collection<RiesgoOperacionalProceso> _buscarPorFiltro() throws Exception {
 		if(!param.isEmpty()){
-			LOGGER.info("{} Buscar riesgo operacional: {}", session.getTraceLog(),param );
+//			LOGGER.info("{} Buscar riesgo operacional: {}", session.getTraceLog(),param );
 		}
 		return cargaAltamiraManager.searchRiesgoOperacionalProceso(param);
 	}

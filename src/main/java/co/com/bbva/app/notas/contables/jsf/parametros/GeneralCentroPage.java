@@ -57,14 +57,14 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
 		return new PUC();
 	}
 
-	@Override
-	public String buscarPorFiltro() {
-		selectedAll = false;
-		for (PUC p : getDatos()) {
-			p.setSelected(selectedAll);
-		}
-		return super.buscarPorFiltro();
-	}
+//	@Override
+//	public String buscarPorFiltro() {
+//		selectedAll = false;
+//		for (PUC p : getDatos()) {
+//			p.setSelected(selectedAll);
+//		}
+//		return super.buscarPorFiltro();
+//	}
 
 	@Override
 	protected void _init() {

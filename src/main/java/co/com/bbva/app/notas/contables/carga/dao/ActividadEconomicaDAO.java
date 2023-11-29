@@ -6,6 +6,9 @@ package co.com.bbva.app.notas.contables.carga.dao;
 
 import co.com.bbva.app.notas.contables.carga.dto.ActividadEconomica;
 import co.com.bbva.app.notas.contables.dao.CommonDAO;
+import co.com.bbva.app.notas.contables.jsf.carga.ActividadEconomicaPage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -14,6 +17,8 @@ import java.util.Collection;
 import java.util.List;
 
 public class ActividadEconomicaDAO extends CommonDAO<ActividadEconomica> {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(ActividadEconomicaDAO.class);
 
 	private static String cs_COLUMNAS = "CODIGO, NOMBRE, ESTADO_CARGA, FECHA_ULTIMA_CARGA";
 
@@ -55,6 +60,7 @@ public class ActividadEconomicaDAO extends CommonDAO<ActividadEconomica> {
 	}
 
 	public Collection<ActividadEconomica> findBy(String palabraClave) throws Exception {
+		LOGGER.info("<<<palabra clave {} >>>", palabraClave);
 		List<Object> params = new ArrayList<Object>();
 		for (int count = 1; count <= NUMERO_COLUMNAS_BUSQUEDA; count++) {
 			if (count != 1) {

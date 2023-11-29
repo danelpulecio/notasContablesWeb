@@ -28,7 +28,7 @@ public class UsuarioAltamiraPage extends GeneralCargaPage<UsuarioAltamira> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(UsuarioAltamiraPage.class);
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
 
 	/**
 	 * <p>
@@ -57,7 +57,7 @@ public class UsuarioAltamiraPage extends GeneralCargaPage<UsuarioAltamira> {
 	@Override
 	public Collection<UsuarioAltamira> _buscarPorFiltro() throws Exception {
 		if(!param.isEmpty()){
-			LOGGER.info("{} Buscar usuario altamira: {}", session.getTraceLog(),param );
+//			LOGGER.info("{} Buscar usuario altamira: {}", session.getTraceLog(),param );
 		}
 		return cargaAltamiraManager.searchUsuarioAltamira(param);
 	}

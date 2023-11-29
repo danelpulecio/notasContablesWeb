@@ -28,7 +28,7 @@ public class TipoIdentificacionPage extends GeneralCargaPage<TipoIdentificacion>
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(TipoIdentificacionPage.class);
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
 
 	/**
 	 * <p>
@@ -57,7 +57,7 @@ public class TipoIdentificacionPage extends GeneralCargaPage<TipoIdentificacion>
 	@Override
 	public Collection<TipoIdentificacion> _buscarPorFiltro() throws Exception {
 		if(!param.isEmpty()){
-			LOGGER.info("{} Buscar tipo de identificacion: {}", session.getTraceLog(),param );
+//			LOGGER.info("{} Buscar tipo de identificacion: {}", session.getTraceLog(),param );
 		}
 		return cargaAltamiraManager.searchTipoIdentificacion(param);
 	}
