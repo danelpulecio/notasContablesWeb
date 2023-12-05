@@ -24,11 +24,11 @@ import java.util.List;
 public class ProductoController extends CategoriaController implements Serializable {
 
 
-    private static List<Producto> lista = new ArrayList<>();
+
 
     private int count = 0;
 
-    private int scrollPage = 100;
+    private int scrollPage = 1;
 
     public int getScrollPage() {
         return scrollPage;
@@ -50,29 +50,9 @@ public class ProductoController extends CategoriaController implements Serializa
         this.count = count;
     }
 
-    public List<Producto> getLista() {
-        listar();
-        return lista;
-    }
 
-    public void listar() {
-        if (lista.isEmpty()) {
-            Producto pr1 = new Producto("Pera", "10");
-            Producto pr2 = new Producto("Manzana", "20");
-            Producto pr4 = new Producto("Naranja", "30");
-            Producto pr5 = new Producto("Mango", "40");
-            Producto pr6 = new Producto("Limon", "50");
-            Producto pr7 = new Producto("Papaya", "60");
-            Producto pr8 = new Producto("mandarina", "70");
-            lista.add(pr1);
-            lista.add(pr2);
-            lista.add(pr4);
-            lista.add(pr5);
-            lista.add(pr6);
-            lista.add(pr7);
-            lista.add(pr8);
-        }
-    }
+
+
 
 
     @Produces

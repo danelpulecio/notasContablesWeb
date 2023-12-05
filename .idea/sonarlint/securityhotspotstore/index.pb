@@ -247,3 +247,9 @@ Hsrc/main/java/co/com/bbva/app/notas/contables/jsf/carga/TerceroPage.java,0/9/0
 Msrc/main/java/co/com/bbva/app/notas/contables/carga/dao/CierreMensualDAO.java,d/d/ddf4be629eeba00af5208614c9eaa308c151b3d7
 
 Osrc/main/java/co/com/bbva/app/notas/contables/carga/dto/PerdidaOperacional.java,b/1/b1e7cb7ca1682f94e6b21b3018de52c5262ce280
+M
+src/main/webapp/menuBar.xhtml,a/7/a7fff6cb58b7de51f829c0d0849903133605de3e
+t
+Dsrc/main/java/co/com/bbva/app/notas/contables/carga/dto/Cliente.java,5/9/591e7c675fdace23a616c5c8e4182d264d7c367b
+u
+Esrc/main/java/co/com/bbva/app/notas/contables/carga/dto/Contrato.java,6/e/6e64d5df9a846fa2e7a8065f78ed76630a1eae66

@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,8 +18,8 @@ import java.util.Collection;
  * </p>
  * 
  */
-@SessionScoped
 @Named
+@ViewScoped
 public class ContratoPage extends GeneralCargaPage<Contrato> {
 
 

@@ -6,7 +6,6 @@
                 template="../../common/template.xhtml">
     <ui:param name="title" value="Riesgo Operacional"/>
     <ui:define name="body">
-
         <!--Filtro de busqueda	-->
         <div style="width: 850px;">
             <h:form>
@@ -14,26 +13,18 @@
                 <h:panelGrid columns="1" width="100%"><h1 align="center">Riesgo Operacional</h1></h:panelGrid>
 
                 <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
-                <h:panelGrid columns="2" id="filtro" style="text-align: center; margin: 0 auto;">
-                    <h:inputText id="param" value="#{perdidaOperacionalPage.param}"/>
-                    <h:commandButton action="#{perdidaOperacionalPage.buscarPorFiltro}" value="Filtrar"/>
-                </h:panelGrid>
-<!--                                     onclick="Richfaces.showModalPanel('statusPanel')"/>-->
-                <ui:include src="../../common/mensajes.xhtml"/>
+                    <h:panelGrid columns="2" id="filtro" style="text-align: center; margin: 0 auto;">
+                        <h:inputText id="param" value="#{perdidaOperacionalPage.param}"/>
+                        <h:commandButton action="#{perdidaOperacionalPage.buscarPorFiltro}" value="Filtrar"/>
+                    </h:panelGrid>
+                    <ui:include src="../../common/mensajes.xhtml"/>
 
-                <!--	Tabla de resultados	-->
-<!--                                 rendered="#{! empty perdidaOperacionalPage.datos}" -->
                     <p:dataTable value="#{perdidaOperacionalPage.datos}" var="dato" rowIndexVar="rowIndex"
-                                 rows="15"
-                                 footerClass="row2"
-                                 rowClasses="row1, row2">
-                        <f:facet name="header">
-                            <p:dataScroller fastControls="false" pageIndexVar="pageIndex" pagesVar="pages"
-                                            style="color:black;" for="table" maxPages="5" renderIfSinglePage="false"
-                                            page="#{perdidaOperacionalPage.scrollPage}" id="up" reRender="lista, filtro"
-                                            limitToList="true" ajaxSingle="true">
-                            </p:dataScroller>
-                        </f:facet>
+                                 widgetVar="perdidaOperacionalTable" rows="15" paginator="true"
+                                 currentPageReportTemplate=" Visualizando del {startRecord} al {endRecord} de un total de {totalRecords} registros"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 paginatorPosition="top">
+                        <!-- Contenido de la tabla -->
                         <p:column headerText="Fila">
                             <h:outputText value="#{rowIndex+1}"/>
                         </p:column>
@@ -43,18 +34,6 @@
                         <p:column headerText="Nombre" sortable="true" sortBy="#{dato.descripcion}">
                             <h:outputText value="#{dato.descripcion}"/>
                         </p:column>
-
-                        <!--	Se muestra la información de la cantidad de registros y la pagina actual	-->
-                        <f:facet name="footer">
-                            <p:dataScroller style="color:black;" align="center" for="table"
-                                            page="#{perdidaOperacionalPage.scrollPage}" boundaryControls="hide"
-                                            fastControls="hide" stepControls="hide">
-                                <f:facet name="pages">
-                                    <h:outputText
-                                            value="Visualizando del #{((pageIndex-1)*15)+1 } al #{(pages!=pageIndex)?(pageIndex*15):perdidaOperacionalPage.totalFilas} de un total de #{perdidaOperacionalPage.totalFilas} registros."/>
-                                </f:facet>
-                            </p:dataScroller>
-                        </f:facet>
                     </p:dataTable>
                 </h:panelGrid>
             </h:form>

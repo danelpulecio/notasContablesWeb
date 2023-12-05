@@ -4,23 +4,27 @@ import co.com.bbva.app.notas.contables.carga.dto.MenuItem;
 import co.com.bbva.app.notas.contables.carga.dto.Sucursal;
 import co.com.bbva.app.notas.contables.carga.dto.UsuarioAltamira;
 import co.com.bbva.app.notas.contables.dto.*;
-import co.com.bbva.app.notas.contables.jsf.HomePage;
+
 
 import org.primefaces.model.menu.DefaultMenuItem;
+import org.primefaces.model.menu.DefaultMenuModel;
+import org.primefaces.model.menu.DefaultSubMenu;
+import org.primefaces.model.menu.MenuModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.primefaces.component.menuitem.UIMenuItem;
 
-import javax.el.MethodExpression;
-import javax.enterprise.context.SessionScoped;
-import javax.faces.application.Application;
-import javax.faces.context.FacesContext;
-import javax.inject.Named;
+
+
 import java.io.Serializable;
 import java.util.*;
 
-//@Named
-//@SessionScoped
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.application.Application;
+import javax.inject.Named;
+
+@Named
+@SessionScoped
 public class UsuarioLogueado implements Serializable {
 
 
@@ -28,7 +32,8 @@ public class UsuarioLogueado implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 7935040122801785429L;
-	private static final Logger LOGGER = LoggerFactory.getLogger(HomePage.class);
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(UsuarioLogueado.class);
 	
 	private UsuarioModulo usuario;
 	private UsuarioAltamira usuAltamira;
@@ -39,10 +44,14 @@ public class UsuarioLogueado implements Serializable {
 	private TreeMap<Menu, TreeSet<SubMenu>> menu;
 	private ArrayList<MenuVisual> opcionesMenu;
 	private Collection<Rol> roles;
+	
+
+	private MenuModel model;
 
 	private Application application;
 
 	public UsuarioLogueado(UsuarioModulo usuario) {
+		
 		this.usuario = usuario;
 		usuAltamira = new UsuarioAltamira();
 		rolActual = null;
@@ -50,7 +59,7 @@ public class UsuarioLogueado implements Serializable {
 		menu = new TreeMap<Menu, TreeSet<SubMenu>>();
 		sucursal = new Sucursal(); 
 	}
-
+	
 	public UsuarioModulo getUsuario() {
 		return usuario;
 	}
@@ -91,51 +100,6 @@ public class UsuarioLogueado implements Serializable {
 		this.menu = menu;
 		this.application = application;
 	}
-
-
-	public ArrayList<MenuVisual> getOpcionesMenu() {
-		if (opcionesMenu == null || opcionesMenu.isEmpty()) {
-			opcionesMenu = new ArrayList<>();
-			for (Menu m : menu.keySet()) {
-				MenuVisual menuVisual = new MenuVisual(m);
-				//menuVisual.setMenuItems(getMenuList(menu.get(m)));
-				menuVisual.setMenuItemsNC(getMenuList(menu.get(m)));
-				opcionesMenu.add(menuVisual);
-			}
-		}
-		return opcionesMenu;
-	}
-
-	private List<MenuItem> getMenuList(TreeSet<SubMenu> opciones) {
-		LinkedList<MenuItem> menuList = new LinkedList<>();
-		for (SubMenu sm : opciones) {
-			// make binding
-			MenuItem menuItem = new MenuItem();
-			Class<?>[] params = {};
-			LOGGER.info(":::::::::::getMenuList:::::::::::"+sm.getAccion());
-			menuItem.setActionNC(sm.getAccion());
-			menuItem.setDisabledNC(false);
-			menuItem.setValueNC(sm.getNombre());
-			menuList.add(menuItem);
-		}
-		return menuList;
-	}
-
-//	private List<HtmlMenuItem> getMenuList(TreeSet<SubMenu> opciones) {
-//		LinkedList<HtmlMenuItem> menuList = new LinkedList<HtmlMenuItem>();
-//		for (SubMenu sm : opciones) {
-//			// make binding
-//			HtmlMenuItem htmlMenuItem = new HtmlMenuItem();
-//			Class<?>[] params = {};
-//			MethodExpression actionExpression = application.getExpressionFactory().createMethodExpression(FacesContext.getCurrentInstance().getELContext(), sm.getAccion(), String.class, params);
-//			htmlMenuItem.setActionExpression(actionExpression);
-//			htmlMenuItem.setDisabled(false);
-//			htmlMenuItem.setValue(sm.getNombre());
-//			menuList.add(htmlMenuItem);
-//		}
-//		return menuList;
-//	}
-
 	public Sucursal getSucursal() {
 		return sucursal;
 	}
@@ -151,5 +115,62 @@ public class UsuarioLogueado implements Serializable {
 	public void setCentroEspecial(CentroEspecial centroEspecial) {
 		this.centroEspecial = centroEspecial;
 	}
+	
+	public MenuModel getModel() {
+		
+		model = new DefaultMenuModel();
+        
+		for (Menu m : menu.keySet()) {
+			DefaultSubMenu submenu = DefaultSubMenu.builder().label(m.getNombre()).build();
 
+			for (SubMenu sm : menu.get(m)) {
+
+				DefaultMenuItem item = DefaultMenuItem.builder()
+					.value(sm.getNombre())
+	                .command(sm.getAccion())
+	                .id(Integer.toString(sm.getCodigo()))
+	                .build();
+					submenu.getElements().add(item);
+			}
+			submenu.setId(Integer.toString(m.getCodigo()));
+			model.getElements().add(submenu);
+			//model.generateUniqueIds();
+
+		}
+		
+		return model;
+	}
+
+	public void setModel(MenuModel model) {
+		this.model = model;
+	}
+
+	public ArrayList<MenuVisual> getOpcionesMenu() {
+		if (opcionesMenu == null || opcionesMenu.isEmpty()) {
+			opcionesMenu = new ArrayList<MenuVisual>();
+			for (Menu m : menu.keySet()) {
+				MenuVisual menuVisual = new MenuVisual(m);
+				//menuVisual.setMenuItems(getMenuList(menu.get(m)));
+				opcionesMenu.add(menuVisual);
+			}
+		}
+		return opcionesMenu;
+	} 
+  
+//	private List<HtmlMenuItem> getMenuList(TreeSet<SubMenu> opciones) {
+//		LinkedList<HtmlMenuItem> menuList = new LinkedList<HtmlMenuItem>();
+//		for (SubMenu sm : opciones) {
+//			// make binding
+//			HtmlMenuItem htmlMenuItem = new HtmlMenuItem();
+//			Class<?>[] params = {};
+//			MethodExpression actionExpression = application.getExpressionFactory().createMethodExpression(FacesContext.getCurrentInstance().getELContext(), sm.getAccion(), String.class, params);
+//			htmlMenuItem.setActionExpression(actionExpression);  
+//			htmlMenuItem.setDisabled(false);
+//			htmlMenuItem.setValue(sm.getNombre());
+//			menuList.add(htmlMenuItem);
+//		}
+//		return menuList;
+//	}
+//	
+	
 }

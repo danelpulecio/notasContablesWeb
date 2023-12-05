@@ -6,6 +6,7 @@ import co.com.bbva.app.notas.contables.jsf.IPages;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public abstract class GeneralCargaPage<T extends CommonVO<T>> extends GeneralPag
 	/**
 	 * indica el numero de pagina del scroller
 	 */
-	protected Integer scrollPage = 1;
+	protected Integer scrollPage = 2;
 
 	/**
 	 * Lista de datos a mostrar en la tabla
@@ -66,7 +67,9 @@ public abstract class GeneralCargaPage<T extends CommonVO<T>> extends GeneralPag
 			long time = System.currentTimeMillis();
 			//println("Ejecutando el constructor de la clase " + getClass().getSimpleName());
 			// solo se realiza la busqueda si se est en la ultima fase del ciclo de vida de faces y se quieren buscar todos los datos
+			LOGGER.info("esUltimaFase {}", buscarTodos);
 			if (esUltimaFase() && buscarTodos /* && (getDatos() == null || getDatos().isEmpty()) */) {
+				LOGGER.info("entro al if {}");
 				setDatos(new ArrayList<T>(_buscarTodos()));
 			}
 			//println("Finalizado el constructor en " + (System.currentTimeMillis() - time));
@@ -77,6 +80,7 @@ public abstract class GeneralCargaPage<T extends CommonVO<T>> extends GeneralPag
 	}
 
 	private void initComparators() {
+		LOGGER.info("Init comparators");
 		pkComparator = new Comparator<T>() {
 
 			@Override
@@ -117,6 +121,7 @@ public abstract class GeneralCargaPage<T extends CommonVO<T>> extends GeneralPag
 			// solo se realiza la busqueda si se est en la ultima fase del ciclo de vida de faces
 			if (esUltimaFase()) {
 				datos = new ArrayList<T>(_buscarTodos());
+				LOGGER.info("datos cargados busqueda {} ", datos);
 			}
 		} catch (final Exception e) {
 			LOGGER.error("Error al realizar la consulta", e);
@@ -174,7 +179,7 @@ public abstract class GeneralCargaPage<T extends CommonVO<T>> extends GeneralPag
 		if (datos == null) {
 			datos = new ArrayList<T>();
 		}
-		LOGGER.info("<<< getDatos >>>>");
+		LOGGER.info("<<< getDatos size{}>>>>", datos.size());
 		return datos;
 	}
 

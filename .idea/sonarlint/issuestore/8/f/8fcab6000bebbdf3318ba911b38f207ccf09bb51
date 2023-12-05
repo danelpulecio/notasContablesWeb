@@ -1,8 +1,11 @@
 
-]	java:S125'"<This block of commented-out lines of code should be removed.(‘ÆÎÓûÿÿÿÿ8´ÅêÁÁ1
-X	java:S125?"<This block of commented-out lines of code should be removed.(Ë¬øô8µÅêÁÁ1
+]	java:S125("<This block of commented-out lines of code should be removed.(‘ÆÎÓûÿÿÿÿ8´ÅêÁÁ1
+X	java:S125@"<This block of commented-out lines of code should be removed.(Ë¬øô8µÅêÁÁ1
 R
-java:S1751L"5Remove this "break" statement or make it conditional.(›ûä·8·ÅêÁÁ1
-W	java:S125Q"<This block of commented-out lines of code should be removed.(÷æ#8·ÅêÁÁ1
+java:S1751M"5Remove this "break" statement or make it conditional.(›ûä·8·ÅêÁÁ1
+W	java:S125R"<This block of commented-out lines of code should be removed.(÷æ#8·ÅêÁÁ1
 n
 java:S1128"LRemove this unused import 'co.com.bbva.app.notas.contables.session.Session'.(•Ö¥åøÿÿÿÿ8Ù†ëÁÁ1
+`
+java:S1128
+"CRemove this unused import 'javax.enterprise.context.SessionScoped'.(¦€ê8ìë¶ºÃ1

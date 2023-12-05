@@ -5,10 +5,14 @@ import co.com.bbva.app.notas.contables.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.ManagedBean;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -18,8 +22,8 @@ import java.util.Collection;
  * </p>
  * 
  */
-@RequestScoped
 @Named
+@SessionScoped
 public class ActividadEconomicaPage extends GeneralCargaPage<ActividadEconomica> implements Serializable {
 
 
@@ -29,6 +33,12 @@ public class ActividadEconomicaPage extends GeneralCargaPage<ActividadEconomica>
 	private static final Logger LOGGER = LoggerFactory.getLogger(ActividadEconomicaPage.class);
 
 //	Session session = getContablesSessionBean().getSessionTrace();
+
+	@PostConstruct
+	public void init() throws Exception {
+		setDatos(new ArrayList<>(_buscarTodos()));
+		LOGGER.info("postConstructo datos {}", getDatos().size());
+	}
 
 	/**
 	 * <p>
@@ -46,6 +56,7 @@ public class ActividadEconomicaPage extends GeneralCargaPage<ActividadEconomica>
 	 */
 	@Override
 	public Collection<ActividadEconomica> _buscarTodos() throws Exception {
+		LOGGER.info("metodo buscar todos actividad");
 		return cargaAltamiraManager.getActividadesEconomicas();
 	}
 

@@ -15,6 +15,17 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
+    <dependencyManagement>
+		<dependencies>
+			<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+			<dependency>
+				<groupId>org.junit.jupiter</groupId>
+				<artifactId>junit-jupiter-api</artifactId>
+				<version>5.10.1</version>
+				<scope>test</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement> 
     <dependencies>
         <dependency>
             <groupId>jakarta.platform</groupId>
@@ -22,29 +33,51 @@
             <version>8.0.0</version>
             <scope>provided</scope>
         </dependency>
+		<!-- https://mvnrepository.com/artifact/jakarta.faces/jakarta.faces-api -->
+		<dependency>
+		    <groupId>jakarta.faces</groupId>
+		    <artifactId>jakarta.faces-api</artifactId>
+		    <version>4.0.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api -->
+		<dependency>
+		    <groupId>jakarta.servlet</groupId>
+		    <artifactId>jakarta.servlet-api</artifactId>
+		    <version>6.0.0</version>
+		    <scope>provided</scope>
+		</dependency>
+				        
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
             <version>12.0.0</version>
 <!--            <classifier>jakarta</classifier>-->
         </dependency>
+        
         <dependency>
             <groupId>javax.faces</groupId>
             <artifactId>javax.faces-api</artifactId>
             <version>2.3</version>
             <scope>provided</scope>
         </dependency>
+        
+<!--        <dependency>-->
+<!--            <groupId>org.primefaces.extensions</groupId>-->
+<!--            <artifactId>all-themes</artifactId>-->
+<!--            <version>1.0.8</version>-->
+<!--        </dependency>-->
+        <!-- https://mvnrepository.com/artifact/org.primefaces.themes/afterdark -->
+        <!-- https://mvnrepository.com/artifact/org.primefaces.extensions/all-themes -->
+
+
+
+
         <dependency>
             <groupId>org.primefaces.extensions</groupId>
             <artifactId>primefaces-extensions</artifactId>
             <version>12.0.0</version>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>org.jboss.weld.servlet</groupId>-->
-<!--            <artifactId>weld-servlet-core</artifactId>-->
-<!--            <version>4.0.1.SP1</version>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -75,7 +108,7 @@
 		    <artifactId>jstl</artifactId>
 		    <version>1.2</version>
 		</dependency>
-
+       
 
     </dependencies>
     <build>

@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -23,8 +24,8 @@ import java.util.Locale;
  * </p>
  * 
  */
-@SessionScoped
 @Named
+@ViewScoped
 public class CierreMensualPage extends GeneralPage implements IPages, Serializable {
 
 	private String cierreMensual;
