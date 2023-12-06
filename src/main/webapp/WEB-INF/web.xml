@@ -45,10 +45,15 @@
         <welcome-file>/loginPage.xhtml</welcome-file>
     </welcome-file-list>
 
-    <context-param>
-        <param-name>primefaces.THEME</param-name>
-        <param-value>start</param-value>
-    </context-param>
+<!--    <context-param>-->
+<!--        <param-name>primefaces.THEME</param-name>-->
+<!--        <param-value>start</param-value>-->
+<!--    </context-param>-->
+
+<!--    <context-param>-->
+<!--        <param-name>primefaces.THEME</param-name>-->
+<!--        <param-value>luna-blue</param-value> &lt;!&ndash; Reemplaza con el nombre del tema que estás utilizando &ndash;&gt;-->
+<!--    </context-param>-->
     <mime-mapping>
         <extension>xcss</extension>
         <mime-type>css/theme.xcss</mime-type>

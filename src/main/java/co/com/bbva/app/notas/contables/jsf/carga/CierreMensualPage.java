@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -23,8 +24,8 @@ import java.util.Locale;
  * </p>
  * 
  */
-@SessionScoped
 @Named
+@ViewScoped
 public class CierreMensualPage extends GeneralPage implements IPages, Serializable {
 
 	private String cierreMensual;
@@ -61,7 +62,9 @@ public class CierreMensualPage extends GeneralPage implements IPages, Serializab
 		try {
 
 //			LOGGER.info("{} Ingreso a Cierre mensual ", session.getTraceLog() );
+			LOGGER.info("Mostrar ->");
 			Collection<CierreMensual> datos = cargaAltamiraManager.getCierresMensuales();
+			LOGGER.info("Mostrar -datos altamira {}", datos);
 			if (datos.isEmpty()) {
 				nuevoMensaje(FacesMessage.SEVERITY_INFO, "No se encontr informacin de cierre mensual ");
 			} else {

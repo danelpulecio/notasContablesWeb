@@ -1,10 +1,11 @@
 
-V	java:S125'"<This block of commented-out lines of code should be removed.(‘ÆÎÓûÿÿÿÿ
-X	java:S125?"<This block of commented-out lines of code should be removed.(Ë¬øô8•‘½Ÿ¿1
-K
-java:S1751J"5Remove this "break" statement or make it conditional.(›ûä·
-W	java:S125O"<This block of commented-out lines of code should be removed.(÷æ#8ÿ°½Ÿ¿1
+]	java:S125("<This block of commented-out lines of code should be removed.(‘ÆÎÓûÿÿÿÿ8´ÅêÁÁ1
+X	java:S125@"<This block of commented-out lines of code should be removed.(Ë¬øô8µÅêÁÁ1
+R
+java:S1751M"5Remove this "break" statement or make it conditional.(›ûä·8·ÅêÁÁ1
+W	java:S125R"<This block of commented-out lines of code should be removed.(÷æ#8·ÅêÁÁ1
 n
-java:S1128"LRemove this unused import 'co.com.bbva.app.notas.contables.session.Session'.(•Ö¥åøÿÿÿÿ8€±½Ÿ¿1
-G
-java:S1068%"*Remove this unused "LOGGER" private field.(ï¾ûÕ8€±½Ÿ¿1
+java:S1128"LRemove this unused import 'co.com.bbva.app.notas.contables.session.Session'.(•Ö¥åøÿÿÿÿ8Ù†ëÁÁ1
+`
+java:S1128
+"CRemove this unused import 'javax.enterprise.context.SessionScoped'.(¦€ê8ìë¶ºÃ1

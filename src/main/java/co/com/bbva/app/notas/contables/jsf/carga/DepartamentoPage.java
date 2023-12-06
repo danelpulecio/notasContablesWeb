@@ -20,7 +20,6 @@ import java.util.Collection;
 @Named
 public class DepartamentoPage extends GeneralCargaPage<Departamento> {
 
-	String param = getParam();
 	/**
 	 * 
 	 */
