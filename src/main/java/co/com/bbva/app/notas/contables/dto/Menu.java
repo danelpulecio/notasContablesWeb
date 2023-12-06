@@ -48,4 +48,13 @@ public class Menu implements java.io.Serializable, Comparable<Menu> {
 		this.opciones = opciones;
 	}
 
+	@Override
+	public String toString() {
+		return "Menu{" +
+				"codigo=" + codigo +
+				", ordenVisual=" + ordenVisual +
+				", nombre='" + nombre + '\'' +
+				", opciones=" + opciones +
+				'}';
+	}
 }

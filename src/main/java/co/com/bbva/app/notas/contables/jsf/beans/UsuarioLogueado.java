@@ -14,149 +14,150 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-
 import java.io.Serializable;
 import java.util.*;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.Application;
 import javax.inject.Named;
-
 @Named
-@SessionScoped
+@RequestScoped
 public class UsuarioLogueado implements Serializable {
 
+    public UsuarioLogueado() {
+    }
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7935040122801785429L;
-	
-	private static final Logger LOGGER = LoggerFactory.getLogger(UsuarioLogueado.class);
-	
-	private UsuarioModulo usuario;
-	private UsuarioAltamira usuAltamira;
-	private Sucursal sucursal;
-	private CentroEspecial centroEspecial;
-	private Rol rolActual;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7935040122801785429L;
 
-	private TreeMap<Menu, TreeSet<SubMenu>> menu;
-	private ArrayList<MenuVisual> opcionesMenu;
-	private Collection<Rol> roles;
-	
+    private static final Logger LOGGER = LoggerFactory.getLogger(UsuarioLogueado.class);
 
-	private MenuModel model;
+    private UsuarioModulo usuario;
+    private UsuarioAltamira usuAltamira;
+    private Sucursal sucursal;
+    private CentroEspecial centroEspecial;
+    private Rol rolActual;
 
-	private Application application;
+    private TreeMap<Menu, TreeSet<SubMenu>> menu;
+    private ArrayList<MenuVisual> opcionesMenu;
+    private Collection<Rol> roles;
 
-	public UsuarioLogueado(UsuarioModulo usuario) {
-		
-		this.usuario = usuario;
-		usuAltamira = new UsuarioAltamira();
-		rolActual = null;
-		roles = new ArrayList<Rol>();
-		menu = new TreeMap<Menu, TreeSet<SubMenu>>();
-		sucursal = new Sucursal(); 
-	}
-	
-	public UsuarioModulo getUsuario() {
-		return usuario;
-	}
 
-	public void setUsuario(UsuarioModulo usuario) {
-		this.usuario = usuario;
-	}
+    private MenuModel model;
 
-	public Rol getRolActual() {
-		return rolActual;
-	}
+    private Application application;
 
-	public void setRolActual(Rol rolActual) {
-		this.rolActual = rolActual;
-	} 
+    public UsuarioLogueado(UsuarioModulo usuario) {
 
-	public Collection<Rol> getRoles() {
-		return roles;
-	}
+        this.usuario = usuario;
+        usuAltamira = new UsuarioAltamira();
+        rolActual = null;
+        roles = new ArrayList<Rol>();
+        menu = new TreeMap<Menu, TreeSet<SubMenu>>();
+        sucursal = new Sucursal();
+    }
 
-	public void setRoles(Collection<Rol> roles) {
-		this.roles = roles;
-	}
+    public UsuarioModulo getUsuario() {
+        return usuario;
+    }
 
-	public UsuarioAltamira getUsuAltamira() {
-		return usuAltamira;
-	}
+    public void setUsuario(UsuarioModulo usuario) {
+        this.usuario = usuario;
+    }
 
-	public void setUsuAltamira(UsuarioAltamira usuAltamira) {
-		this.usuAltamira = usuAltamira;
-	}
+    public Rol getRolActual() {
+        return rolActual;
+    }
 
-	public TreeMap<Menu, TreeSet<SubMenu>> getMenu() {
-		return menu;
-	}
+    public void setRolActual(Rol rolActual) {
+        this.rolActual = rolActual;
+    }
 
-	public void setMenu(TreeMap<Menu, TreeSet<SubMenu>> menu, Application application) {
-		this.menu = menu;
-		this.application = application;
-	}
-	public Sucursal getSucursal() {
-		return sucursal;
-	}
+    public Collection<Rol> getRoles() {
+        return roles;
+    }
 
-	public void setSucursal(Sucursal sucursal) {
-		this.sucursal = sucursal;
-	}
+    public void setRoles(Collection<Rol> roles) {
+        this.roles = roles;
+    }
 
-	public CentroEspecial getCentroEspecial() {
-		return centroEspecial;
-	}
+    public UsuarioAltamira getUsuAltamira() {
+        return usuAltamira;
+    }
 
-	public void setCentroEspecial(CentroEspecial centroEspecial) {
-		this.centroEspecial = centroEspecial;
-	}
-	
-	public MenuModel getModel() {
-		
-		model = new DefaultMenuModel();
-        
-		for (Menu m : menu.keySet()) {
-			DefaultSubMenu submenu = DefaultSubMenu.builder().label(m.getNombre()).build();
+    public void setUsuAltamira(UsuarioAltamira usuAltamira) {
+        this.usuAltamira = usuAltamira;
+    }
 
-			for (SubMenu sm : menu.get(m)) {
+    public TreeMap<Menu, TreeSet<SubMenu>> getMenu() {
+        return menu;
+    }
 
-				DefaultMenuItem item = DefaultMenuItem.builder()
-					.value(sm.getNombre())
-	                .command(sm.getAccion())
-	                .id(Integer.toString(sm.getCodigo()))
-	                .build();
-					submenu.getElements().add(item);
-			}
-			submenu.setId(Integer.toString(m.getCodigo()));
-			model.getElements().add(submenu);
-			//model.generateUniqueIds();
+    public void setMenu(TreeMap<Menu, TreeSet<SubMenu>> menu, Application application) {
+        this.menu = menu;
+        this.application = application;
+    }
 
-		}
-		
-		return model;
-	}
+    public Sucursal getSucursal() {
+        return sucursal;
+    }
 
-	public void setModel(MenuModel model) {
-		this.model = model;
-	}
+    public void setSucursal(Sucursal sucursal) {
+        this.sucursal = sucursal;
+    }
 
-	public ArrayList<MenuVisual> getOpcionesMenu() {
-		if (opcionesMenu == null || opcionesMenu.isEmpty()) {
-			opcionesMenu = new ArrayList<MenuVisual>();
-			for (Menu m : menu.keySet()) {
-				MenuVisual menuVisual = new MenuVisual(m);
-				//menuVisual.setMenuItems(getMenuList(menu.get(m)));
-				opcionesMenu.add(menuVisual);
-			}
-		}
-		return opcionesMenu;
-	} 
-  
+    public CentroEspecial getCentroEspecial() {
+        return centroEspecial;
+    }
+
+    public void setCentroEspecial(CentroEspecial centroEspecial) {
+        this.centroEspecial = centroEspecial;
+    }
+
+    public MenuModel getModel() {
+
+        model = new DefaultMenuModel();
+
+        for (Menu m : menu.keySet()) {
+            DefaultSubMenu submenu = DefaultSubMenu.builder().label(m.getNombre()).build();
+            for (SubMenu sm : menu.get(m)) {
+                LOGGER.info("model SM usuario logueado{}", sm);
+                DefaultMenuItem item = DefaultMenuItem.builder()
+                        .value(sm.getNombre())
+                        .command(sm.getAccion())
+                        .id(Integer.toString(sm.getCodigo()))
+                        .build();
+                submenu.getElements().add(item);
+            }
+            submenu.setId(Integer.toString(m.getCodigo()));
+            model.getElements().add(submenu);
+            //model.generateUniqueIds();
+
+        }
+        LOGGER.info("model usuario logueado{}", model.toString());
+        return model;
+    }
+
+    public void setModel(MenuModel model) {
+        this.model = model;
+    }
+
+    public ArrayList<MenuVisual> getOpcionesMenu() {
+        if (opcionesMenu == null || opcionesMenu.isEmpty()) {
+            opcionesMenu = new ArrayList<MenuVisual>();
+            for (Menu m : menu.keySet()) {
+                MenuVisual menuVisual = new MenuVisual(m);
+                //menuVisual.setMenuItems(getMenuList(menu.get(m)));
+                opcionesMenu.add(menuVisual);
+            }
+        }
+        return opcionesMenu;
+    }
+
 //	private List<HtmlMenuItem> getMenuList(TreeSet<SubMenu> opciones) {
 //		LinkedList<HtmlMenuItem> menuList = new LinkedList<HtmlMenuItem>();
 //		for (SubMenu sm : opciones) {
@@ -172,5 +173,5 @@ public class UsuarioLogueado implements Serializable {
 //		return menuList;
 //	}
 //	
-	
+
 }

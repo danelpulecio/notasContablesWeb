@@ -19,10 +19,9 @@ import java.util.Collection;
  * 
  */
 @Named
-@ViewScoped
+@SessionScoped
 public class ClientePage extends GeneralCargaPage<Cliente> {
 
-	String param = getParam();
 	/**
 	 * 
 	 */
@@ -38,7 +37,7 @@ public class ClientePage extends GeneralCargaPage<Cliente> {
 	 * </p>
 	 */
 	public ClientePage() {
-		super(false);
+		super(true);
 	}
 
 	/**
@@ -48,6 +47,10 @@ public class ClientePage extends GeneralCargaPage<Cliente> {
 	 */
 	@Override
 	public Collection<Cliente> _buscarTodos() throws Exception {
+//		LOGGER.info("Buscar todos los clientes");
+//		Collection<Cliente> responseDbCustomer =cargaAltamiraManager.getClientes();
+//		LOGGER.info("Respuesta buscoar todos los clientes {}", responseDbCustomer.size());
+//		return responseDbCustomer;
 		return new ArrayList<Cliente>();
 	}
 

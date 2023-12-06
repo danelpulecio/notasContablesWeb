@@ -20,7 +20,6 @@ import java.util.Collection;
 @Named
 public class DivisaPage extends GeneralCargaPage<Divisa> {
 
-	String param = getParam();
 	/**
 	 * 
 	 */

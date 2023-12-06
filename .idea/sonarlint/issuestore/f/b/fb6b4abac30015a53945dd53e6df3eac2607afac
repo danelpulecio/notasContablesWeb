@@ -1,18 +1,12 @@
 
-MWeb:TableWithoutCaptionCheck" Add a description to this table.(Ýü«âùÿÿÿÿ
-?	Web:S5256"%Add "<th>" headers to this "<table>".(Ýü«âùÿÿÿÿ
-I	Web:S1827"/Remove this deprecated "cellpadding" attribute.(Ýü«âùÿÿÿÿ
-I	Web:S1827"/Remove this deprecated "cellspacing" attribute.(Ýü«âùÿÿÿÿ
-MWeb:TableWithoutCaptionCheck
-" Add a description to this table.(‡¸ßøýÿÿÿÿ
-?	Web:S5256
-"%Add "<th>" headers to this "<table>".(‡¸ßøýÿÿÿÿ
-I	Web:S1827
-"/Remove this deprecated "cellpadding" attribute.(‡¸ßøýÿÿÿÿ
-I	Web:S1827
-"/Remove this deprecated "cellspacing" attribute.(‡¸ßøýÿÿÿÿ
-C	Web:S1827
-")Remove this deprecated "width" attribute.(‡¸ßøýÿÿÿÿ
-E	Web:S1827
-"+Remove this deprecated "bgcolor" attribute.(‡¸ßøýÿÿÿÿ
->	Web:S1827")Remove this deprecated "align" attribute.(áß€¨
+MWeb:TableWithoutCaptionCheck" Add a description to this table.(Ýü«âùÿÿÿÿ
+?	Web:S5256"%Add "<th>" headers to this "<table>".(Ýü«âùÿÿÿÿ
+I	Web:S1827"/Remove this deprecated "cellpadding" attribute.(Ýü«âùÿÿÿÿ
+I	Web:S1827"/Remove this deprecated "cellspacing" attribute.(Ýü«âùÿÿÿÿ
+MWeb:TableWithoutCaptionCheck" Add a description to this table.(‡¸ßøýÿÿÿÿ
+?	Web:S5256"%Add "<th>" headers to this "<table>".(‡¸ßøýÿÿÿÿ
+I	Web:S1827"/Remove this deprecated "cellpadding" attribute.(‡¸ßøýÿÿÿÿ
+I	Web:S1827"/Remove this deprecated "cellspacing" attribute.(‡¸ßøýÿÿÿÿ
+C	Web:S1827")Remove this deprecated "width" attribute.(‡¸ßøýÿÿÿÿ
+E	Web:S1827"+Remove this deprecated "bgcolor" attribute.(‡¸ßøýÿÿÿÿ
+>	Web:S1827")Remove this deprecated "align" attribute.(áß€¨

@@ -1,23 +1,34 @@
 
 {
-java:S2293+"YReplace the type specification in this constructor call with the diamond operator ("<>").(À¿¨Ûúÿÿÿÿ8÷áğÙ»1
+java:S2293;"YReplace the type specification in this constructor call with the diamond operator ("<>").(À¿¨Ûúÿÿÿÿ8À•ÿÃ1
 {
-java:S2293,"YReplace the type specification in this constructor call with the diamond operator ("<>").(İıÙÛùÿÿÿÿ8÷áğÙ»1
+java:S2293<"YReplace the type specification in this constructor call with the diamond operator ("<>").(İıÙÛùÿÿÿÿ8‚À•ÿÃ1
+w
+java:S2293—"YReplace the type specification in this constructor call with the diamond operator ("<>").(êğñô8‚À•ÿÃ1
 
-java:S1319P"sThe return type of this method should be an interface such as "SortedMap" rather than the implementation "TreeMap".(¡ÊÇû8÷áğÙ»1
+java:S1319`"sThe return type of this method should be an interface such as "SortedMap" rather than the implementation "TreeMap".(¡ÊÇû8‚À•ÿÃ1
 „
-java:S1319T"gThe type of "menu" should be an interface such as "SortedMap" rather than the implementation "TreeMap".(Œ¯ëò8é×ıš½1
-
-java:S1319Z"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(İ•ÉÍ8é×ıš½1
+java:S1319d"gThe type of "menu" should be an interface such as "SortedMap" rather than the implementation "TreeMap".(Œ¯ëò8‚À•ÿÃ1
+
+java:S1319•"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(İ•ÉÍ8‚À•ÿÃ1
+G
+java:S2629"$Invoke method(s) only conditionally.(’‡ğßøÿÿÿÿ8ƒÀ•ÿÃ1
+|
+java:S14504"ZRemove the "application" field and declare it as a local variable in the relevant methods.(£šß™şÿÿÿÿ8†À•ÿÃ1
+I
+java:S19482"'Make "model" transient or serializable.(Ïù¥ÿÿÿÿÿ8†À•ÿÃ1
 O
-java:S1948%"-Make "application" transient or serializable.(£šß™şÿÿÿÿ8şáğÙ»1
+java:S19484"-Make "application" transient or serializable.(£šß™şÿÿÿÿ8†À•ÿÃ1
 V
-java:S2864]"4Iterate over the "entrySet" instead of the "keySet".(ğ·´ğÿÿÿÿÿ8æ¸—‚½1
-]	java:S125u"<This block of commented-out lines of code should be removed.(ÈëÛ­ùÿÿÿÿ8†âğÙ»1
-h
-java:S1128"FRemove this unused import 'org.primefaces.model.menu.DefaultMenuItem'.(¨òö¼ÿÿÿÿÿ8¾öÂ¿1
+java:S2864}"4Iterate over the "entrySet" instead of the "keySet".(ğ·´ğÿÿÿÿÿ8ÎÃ®ÿÃ1
+Y	java:S125Š"<This block of commented-out lines of code should be removed.(¿åŞ8‹À•ÿÃ1
+„
+java:S3457"aNo need to call "toString()" method as formatting and string conversion is done by the Formatter.(’‡ğßøÿÿÿÿ8‹À•ÿÃ1
+^	java:S125š"<This block of commented-out lines of code should be removed.(˜ğúŒúÿÿÿÿ8‹À•ÿÃ1
+^	java:S125¡"<This block of commented-out lines of code should be removed.(ÈëÛ­ùÿÿÿÿ8ŒÀ•ÿÃ1
+q
+java:S1128"ORemove this unused import 'co.com.bbva.app.notas.contables.carga.dto.MenuItem'.(®Ï–¼ıÿÿÿÿ8ËÖ®ÿÃ1
+X
+java:S1128";Remove this unused import 'javax.annotation.PostConstruct'.(›ÅÁ8ËÖ®ÿÃ1
 `
-java:S1128
-"CRemove this unused import 'javax.enterprise.context.SessionScoped'.(¦€ê8¾öÂ¿1
-L
-java:S1128"/Remove this unused import 'javax.inject.Named'.(»ßáŸ8¾öÂ¿1
+java:S1128"CRemove this unused import 'javax.enterprise.context.SessionScoped'.(¦€ê8ÌÖ®ÿÃ1
