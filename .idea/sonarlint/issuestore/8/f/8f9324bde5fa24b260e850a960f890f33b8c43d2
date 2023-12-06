@@ -1,9 +1,13 @@
 
 o
-java:S22933"YReplace the type specification in this constructor call with the diamond operator ("<>").(¬ÙøÍ
-Q	java:S125!"<This block of commented-out lines of code should be removed.(¦õ½
-W	java:S125?"<This block of commented-out lines of code should be removed.(Ğ”É>8Èè½Ÿ¿1
+java:S22934"YReplace the type specification in this constructor call with the diamond operator ("<>").(¬ÙøÍ
+R
+java:S2387"5"param" is the name of a field in "GeneralCargaPage".(¨¬“£8ÉĞúºÃ1
+Q	java:S125""<This block of commented-out lines of code should be removed.(¦õ½
+W	java:S125@"<This block of commented-out lines of code should be removed.(Ğ”É>8Èè½Ÿ¿1
 n
 java:S1128"LRemove this unused import 'co.com.bbva.app.notas.contables.session.Session'.(•Ö¥åøÿÿÿÿ8Éè½Ÿ¿1
+`
+java:S1128"CRemove this unused import 'javax.enterprise.context.SessionScoped'.(¦€ê8ÀûºÃ1
 L
-java:S1068"*Remove this unused "LOGGER" private field.(«Ğ¹üüÿÿÿÿ8Éè½Ÿ¿1
+java:S1068 "*Remove this unused "LOGGER" private field.(«Ğ¹üüÿÿÿÿ8Éè½Ÿ¿1

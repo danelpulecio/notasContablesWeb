@@ -1,8 +1,12 @@
 
-X	java:S125"<This block of commented-out lines of code should be removed.(‰½Ï8åîË²Á1
+X	java:S125"<This block of commented-out lines of code should be removed.(‰½Ï8´²£µÃ1
 [
-java:S1128"9Remove this unused import 'javax.annotation.ManagedBean'.(¾¦®Ãúÿÿÿÿ8±¹û·Á1
+java:S1128"9Remove this unused import 'javax.annotation.ManagedBean'.(¾¦®Ãúÿÿÿÿ8à†¤µÃ1
 `
-java:S1128"CRemove this unused import 'javax.enterprise.context.SessionScoped'.(¦€ê8±¹û·Á1
+java:S1128"CRemove this unused import 'javax.enterprise.context.SessionScoped'.(¦€ê8à†¤µÃ1
+M
+java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8à†¤µÃ1
 O
-java:S1128"-Remove this unused import 'java.util.Arrays'.(î–˜Éüÿÿÿÿ8±¹û·Á1
+java:S1128"-Remove this unused import 'java.util.Arrays'.(î–˜Éüÿÿÿÿ8à†¤µÃ1
+M
+java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8à†¤µÃ1

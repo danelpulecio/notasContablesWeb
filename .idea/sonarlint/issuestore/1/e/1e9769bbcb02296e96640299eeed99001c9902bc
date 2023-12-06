@@ -1,7 +1,5 @@
 
-V	java:S125"<This block of commented-out lines of code should be removed.(‘ÆÎÓûÿÿÿÿ
-X	java:S125<"<This block of commented-out lines of code should be removed.(•”ƒİ8üª¹Ÿ¿1
-n
-java:S1128"LRemove this unused import 'co.com.bbva.app.notas.contables.session.Session'.(•Ö¥åøÿÿÿÿ8ıª¹Ÿ¿1
+V	java:S125"<This block of commented-out lines of code should be removed.(‘ÆÎÓûÿÿÿÿ
+X	java:S125;"<This block of commented-out lines of code should be removed.(•”ƒİ8üª¹Ÿ¿1
 G
-java:S1068"*Remove this unused "LOGGER" private field.(ÚÅÃ8ıª¹Ÿ¿1
+java:S1068"*Remove this unused "LOGGER" private field.(ÚÅÃ8ıª¹Ÿ¿1
