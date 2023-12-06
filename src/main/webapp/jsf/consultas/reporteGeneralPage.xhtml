@@ -1,0 +1,263 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui"
+				template="../../WEB-INF/layouts/template.xhtml">
+	<ui:param name="title" value="Reporte General" />
+	<ui:define name="body">
+
+	<!--	<ui:include src="../common/flujoSubPage.xhtml" />
+		<ui:include src="../notacontable/flujoNotaContablePage.xhtml" />
+		<ui:include src="../notacontable/flujoNotaContableLibrePage.xhtml"/>
+		<ui:include src="../notacontable/flujoNotaRefCrucePage.xhtml"/>-->
+
+		<!--Filtro de busqueda	-->
+		<div style="width: 990px;">
+			<h:panelGrid columns="1" width="100%">
+				<h1 align="center">Reporte General</h1>
+			</h:panelGrid> 
+		
+			<!-- Panel de opciones --> 
+			<h:panelGrid id="informacion" columns="1" width="60%" cellpadding="0" cellspacing="0">
+				<p:accordionPanel label="Filtro de búsqueda" width="100%" switchType="client">
+					<h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="5">
+	
+						<h:panelGrid columns="2">
+							<h:outputText value="Tipo de Nota" />
+							<h:selectOneMenu value="tipoNota" immediate="true">
+								<!--<a4j:support event="onchange" ajaxSingle="true" reRender="filtro" />-->
+								<f:selectItem itemValue="" itemLabel="Cualquiera"/>
+								<f:selectItem itemValue="R" itemLabel="Registro Normal"/>
+							    <f:selectItem itemValue="L" itemLabel="Registro Libre"/>
+							    <f:selectItem itemValue="C" itemLabel="Cruce de Referencia"/>
+							</h:selectOneMenu>
+						</h:panelGrid>
+						<h:panelGrid columns="2" id="filtro">
+							<h:outputText value="Sucursal Origen"/>
+							<h:selectOneMenu value="sucOrigen">
+							    <f:selectItem itemValue="" itemLabel="Cualquiera"/>
+							    <f:selectItems value="sucursales"/>
+							</h:selectOneMenu>
+	
+							<h:outputText value="Sucursal Destino"/>
+							<h:selectOneMenu value="sucDestino">
+							    <f:selectItem itemValue="" itemLabel="Cualquiera"/>
+							    <f:selectItems value="sucursales"/>
+							</h:selectOneMenu>
+	
+							<h:outputText value="Concepto"/>
+							<h:selectOneMenu value="concepto">
+							    <f:selectItem itemValue="0" itemLabel="Cualquiera"/>
+							    <f:selectItems value="conceptos"/>
+							   <!-- <a4j:support event="onchange" action="#{reporteGeneralPage.buscarTemas}" reRender="panelTemas"/>-->
+							</h:selectOneMenu>
+	
+							<h:outputText value="Tema"/>
+							<h:panelGroup id="panelTemas">
+								<h:selectOneMenu value="tema">
+								    <f:selectItem itemValue="0" itemLabel="Cualquiera"/>
+								    <f:selectItems value="temas"/>
+								</h:selectOneMenu>
+								<h:outputText value=""  />
+							</h:panelGroup>	
+	
+							<h:outputText value="Tipo de Evento"/>
+							<h:selectOneMenu value="tipoEvento">
+							    <f:selectItem itemValue="0" itemLabel="Cualquiera"/>
+							    <f:selectItems value="tiposEvento"/>
+							</h:selectOneMenu>
+	
+							<h:outputText value="Cuenta Contable" />
+							<h:inputText value="partida"/>
+	
+							<h:outputText value="Número Identificación" />
+							<h:inputText value="numIdentificacion"/>
+	
+							<h:outputText value="Desde" />
+							<p:calendar value="desde"/>
+	
+							<h:outputText value="Hasta" />
+							<p:calendar value="hasta"/>
+							
+							<h:outputText value="Divisa" />
+							<h:selectOneMenu value="divisa" >
+							    <f:selectItem itemValue="" itemLabel="Cualquiera"/>
+							    <f:selectItems value="divisas"/>
+							</h:selectOneMenu>
+	
+							<h:outputText value="Estado" />
+							<h:selectOneMenu value="estado" >
+							    <f:selectItem itemValue="" itemLabel="Cualquiera"/>
+							    <f:selectItem itemValue="0" itemLabel="Pendiente de aprobación por Subgenrente, Gerente, Área Central" />
+								<f:selectItem itemValue="1" itemLabel="Pendiente de Revisión" />
+								<f:selectItem itemValue="2" itemLabel="Pendiente de aprobación por Padrino - Unidad de Análisis" />
+								<f:selectItem itemValue="3" itemLabel="Pendiente de aprobación ente Autorizador" />
+								<f:selectItem itemValue="4" itemLabel="En Precierre" />
+								<f:selectItem itemValue="5" itemLabel="En Cierre" />
+								<f:selectItem itemValue="6" itemLabel="Cerrada" />
+								<f:selectItem itemValue="9" itemLabel="Anulada" />
+							</h:selectOneMenu>
+							
+							<h:outputText value="Descripción"/>
+							<h:inputText value="descripcion"/>
+	
+						</h:panelGrid>
+	
+						<h:panelGrid columns="1" styleClass="center">
+							<h:commandButton reRender="informacion,lista" value="Buscar" />
+						</h:panelGrid>
+					</h:panelGrid>
+				</p:accordionPanel>
+			</h:panelGrid> 
+			
+			<!--<ui:include src="../../common/mensajes.xhtml" /> -->
+			
+			<!-- Tabla de registros --> 
+			
+			<h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
+				<h:commandButton value="Generar Archivo Excel" reRender="lista"/>
+				<p:commandLink styleClass="bold" value="excelFileName" target="_blank" >
+					<f:param name="type1" value="REPORTE_EXCEL" />
+					<f:param name="file1" value="excelFileName" />
+				</p:commandLink>
+				<p:dataTable value="datos" var="dato" id="table" rows="15" rowKeyVar="rowKey" width="100%" footerClass="row2" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
+					onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'" rowClasses="row1, row2">
+					<f:facet name="header">
+						<p:dataScroller fastControls="false" pageIndexVar="pageIndex" pagesVar="pages" style="color:black;" for="table" maxPages="5" renderIfSinglePage="false" page="10" id="up" reRender="lista, filtro"
+							limitToList="true" ajaxSingle="true">
+						</p:dataScroller>
+					</f:facet>
+	
+					<p:column sortable="true" sortBy="#{dato.NC.numeroRadicacion}">
+						<f:facet name="header">
+							<h:panelGroup><h:outputText value="Número" /><br /><h:outputText value="Radicación" /></h:panelGroup>
+						</f:facet>
+						<h:outputText value="numeroRadicacion" />
+					</p:column>
+					<p:column sortable="true" sortBy="#{dato.sucursal.codigo}">
+						<f:facet name="header">
+							<h:outputText value="Sucursal Origen" />
+						</f:facet>
+						<h:panelGrid columns="2">
+							<h:outputText value="codigo}" />
+							<h:outputText value="nombre}" />
+						</h:panelGrid>
+					</p:column>
+					<p:column sortable="true" sortBy="#{dato.estado}">
+						<f:facet name="header">
+							<h:outputText value="Estado" />
+						</f:facet>
+						<h:outputText value="nombreEstado}" />
+					</p:column>
+					<p:column style="text-align: right;">
+						<f:facet name="header">
+							<h:outputText value="Detalle de la nota contable" />
+						</f:facet>
+						<h:panelGrid columns="1" width="100%">
+							<p:dataTable style="border-width: 0px; background-color: transparent;" var="tema" value=".NC.temas">
+								<p:column style="border-width: 0px; text-align: left;" >
+									<h:outputText value="nombre" />
+								</p:column>
+								<p:column style="border-width: 0px; text-align: left;" width="80" >
+									<h:panelGrid columns="1" cellpadding="0" cellspacing="0">
+										<h:outputText value="partidaContable} " />
+										<h:outputText value="contrapartidaContable}" />
+									</h:panelGrid>
+								</p:column>
+								<p:column style="border-width: 0px; text-align: left;" width="20" >
+									<h:panelGrid columns="1" cellpadding="0" cellspacing="0">
+										<h:outputText value="naturalezaPartidaContable" />
+										<h:outputText value="naturalezaContrapartidaContable" />
+									</h:panelGrid>
+								</p:column>
+								<p:column style="border-width: 0px; text-align: left;" width="30" >
+									<h:outputText value="codigoDivisa" />
+								</p:column>
+								<p:column style="border-width: 0px; text-align:right;" width="140" >
+									<h:outputText ><f:convertNumber type="currency" /></h:outputText>
+								</p:column>
+							</p:dataTable>
+						</h:panelGrid>
+						<h:panelGrid columns="1" style="width: 100%">
+							<p:dataTable style="border-width: 0px; background-color: transparent;" var="temaCruce" value="temasCruce" cellpadding="0" cellspacing="0">
+								<p:column style="border-width: 0px; text-align: left;" >
+									<h:outputText value="REFERENCIA DE CRUCE" />
+								</p:column>
+								<p:column style="border-width: 0px; text-align: left;" width="80">
+									<h:outputText value="cuentaContable" />
+								</p:column>
+								<p:column style="border-width: 0px; text-align: left;" width="20">
+									<h:outputText value="naturaleza" />
+								</p:column>
+								<p:column style="border-width: 0px; text-align: left;" width="30">
+									<h:outputText value="divisa" />
+								</p:column>
+								<p:column style="border-width: 0px; text-align:right;" width="140">
+									<h:outputText ><f:convertNumber type="currency" /></h:outputText>
+								</p:column>
+			
+							</p:dataTable>
+						</h:panelGrid>
+						<h:panelGrid columns="1" width="100%">
+							<p:dataTable style="border-width: 0px; background-color: transparent; " var="temaLibre" value="temasLibre" cellpadding="0" cellspacing="0">
+								<p:column style="border-width: 0px; text-align: left;" >
+									<h:outputText value="CONTABILIDAD LIBRE"/>
+								</p:column>
+								<p:column  style="border-width: 0px; text-align: left;" width="80">
+									<h:outputText value="cuentaContable" />
+								</p:column>
+								<p:column style="border-width: 0px; text-align: left;" width="20">
+									<h:outputText value="naturalezaCuentaContable" />
+								</p:column>
+								<p:column style="border-width: 0px; text-align: left;" width="30">
+									<h:outputText value="codigoDivisa" />
+								</p:column>
+								<p:column style="border-width: 0px; text-align:right;" width="140">
+									<h:outputText><f:convertNumber type="currency" /></h:outputText>
+								</p:column>
+							</p:dataTable>
+						</h:panelGrid>
+					</p:column>
+	
+					<p:column style="text-align: center;">
+						<f:facet name="header">
+							<h:panelGroup>
+								<h:outputText value="Ver Nota" /><br/>
+								<h:outputText value="Contable" />
+							</h:panelGroup>
+						</f:facet>
+						<h:commandButton value="Ver"  reRender="popupFlujoNotaContableVer" >
+							<f:param name="codNotaVer" converter="javax.faces.Integer" />
+						</h:commandButton>
+						<h:commandButton value="Ver" reRender="notaContableLibreVer" >
+							<f:param name="codNotaLibreVer"  converter="javax.faces.Integer" />
+						</h:commandButton>
+						<h:commandButton value="Ver" reRender="popupFlujoNotaContableRefCruceVer" >
+							<f:param name="codNotaRefCruceVer"  converter="javax.faces.Integer" />
+						</h:commandButton>
+					</p:column>
+					<p:column style="text-align: center;">
+						<f:facet name="header">
+							<h:panelGroup>
+								<h:outputText value="Flujo Nota" /><br/>
+								<h:outputText value="Contable" />
+							</h:panelGroup>
+						</f:facet>
+						<h:commandButton value="Consultar" reRender="popupFlujo" >
+							<f:param name="codConsultar"  converter="javax.faces.Integer" />
+						</h:commandButton>
+					</p:column>
+	
+					<f:facet name="footer">
+						<p:dataScroller style="color:black;" align="center" for="table" boundaryControls="hide" fastControls="hide" stepControls="hide" renderIfSinglePage="true">
+							<f:facet name="pages">
+								<h:outputText value="Visualizando del  de un total de registros." />
+							</f:facet>
+						</p:dataScroller>
+					</f:facet>
+				</p:dataTable>
+			</h:panelGrid>
+		</div>
+	</ui:define>
+</ui:composition>

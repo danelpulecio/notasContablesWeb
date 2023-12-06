@@ -1,0 +1,40 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui"
+				template="../../WEB-INF/layouts/template.xhtml">
+	<ui:param name="title" value="Notas Contables Cerradas" />
+	<ui:define name="body">
+
+		<!--<ui:include src="../common/flujoSubPage.xhtml" />
+		<ui:include src="../notacontable/flujoNotaContablePage.xhtml" />
+		<ui:include src="../notacontable/flujoNotaContableLibrePage.xhtml"/>
+		<ui:include src="../notacontable/flujoNotaRefCrucePage.xhtml"/>-->
+
+		<!--Filtro de busqueda	-->
+		<div style="width: 950px;">
+			<h:panelGrid columns="1" width="100%">
+				<h1 align="center">Notas Contables Cerradas</h1>
+			</h:panelGrid> 
+			
+			<ui:include src="../../common/mensajes.xhtml" /> 
+			
+			<!-- Tabla de registros --> 
+			<h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
+				<p:poll reRender="lista" interval="0"/>
+				<h:panelGrid columns="2" width="100%" style="text-align:center;">
+					<h:commandButton value="Generar Archivo Altamira"  reRender="lista" />
+					<h:commandButton value="Generar Archivo Excel"  reRender="lista" />
+				</h:panelGrid>
+				<h:panelGrid columns="4" width="100%" style="align:center;">
+					<h:outputLink target="_blank" > <h:outputText  styleClass="bold" /> </h:outputLink>
+					<h:outputLink target="_blank"> <h:outputText  styleClass="bold" /> </h:outputLink>
+					<h:outputLink target="_blank" > <h:outputText  styleClass="bold" /> </h:outputLink>
+					<h:outputLink target="_blank" > <h:outputText  styleClass="bold" /> </h:outputLink>
+				</h:panelGrid>
+				<!--<ui:include src="precierreCierreFormPage.xhtml" />-->
+			</h:panelGrid>
+		</div>
+	</ui:define>
+</ui:composition>

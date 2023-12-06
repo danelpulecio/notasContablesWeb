@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
+	template="../../common/template.xhtml">
+	<ui:param name="title" value="Centros de origen" />
+	<ui:define name="body">
+	
+	<!-- Formulario Modal de creacion y edicion de nuevos registros-->
+	<rich:modalPanel id="editor" autosized="true" domElementAttachment="form">
+		<f:facet name="header">
+			<h:panelGroup><h:outputText value="Formulario"/></h:panelGroup>
+		</f:facet>
+		<f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink" id="hidelink" height="20" width="20" />
+				<rich:componentControl for="editor" attachTo="hidelink" operation="hide" event="onclick" />
+			</h:panelGroup>
+		</f:facet>
+		
+		<!-- Campos del formulario -->
+        <h:panelGrid columns="1" width="850" id="informacion">
+			<h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="5">
+				<rich:simpleTogglePanel opened="true" style="width: 100%" label="Cuentas Seleccionadas" switchType="client">
+					<h:panelGrid width="100%" cellpadding="0" cellspacing="0">
+						<rich:dataGrid value="#{centroOrigenPage.seleccionados}"  var="cuenta" columns="6" width="100%">
+							<h:outputText value="#{cuenta.numeroCuenta}" />
+						</rich:dataGrid>
+					</h:panelGrid>
+				</rich:simpleTogglePanel>
+				
+				<rich:panel style="width: 100%" header="Tipos de Centros Autorizados" >
+					<h:selectManyCheckbox value="#{centroOrigenPage.tipoCentrosSel}" immediate="true" >
+						<a4j:support event="onchange" action="#{centroOrigenPage.selccionarTipoCentro}" ajaxSingle="true" status="status" reRender="informacion"/>
+						<f:selectItems value="#{centroOrigenPage.tiposCentrosAut}" />
+					</h:selectManyCheckbox>
+				</rich:panel>
+				
+				<rich:panel style="width: 100%" header="Indicador" >
+					<h:selectOneRadio value="#{centroOrigenPage.indicadorSel}" immediate="true" >
+						<a4j:support event="onchange" action="#{centroOrigenPage.selccionarTipoCentro}" ajaxSingle="true" status="status" reRender="informacion"/>
+						<f:selectItems value="#{centroOrigenPage.indicadores}" />
+					</h:selectOneRadio>
+				</rich:panel>
+
+				<rich:panel style="width: 100%" header="Centros Autorizados" rendered="#{!empty centroOrigenPage.centrosAut}">
+					<rich:pickList value="#{centroOrigenPage.centrosAutSel}" listsHeight="150" sourceListWidth="370" targetListWidth="370" showButtonsLabel="false" >
+						<a4j:support event="onlistchanged" action="#{centroOrigenPage.validarCentrosAut}" ajaxSingle="true" status="status" reRender="informacion"/>
+	            		<f:selectItems value="#{centroOrigenPage.centrosAut}"/>
+	        		</rich:pickList>
+        		</rich:panel>				
+			</h:panelGrid>
+			
+			<!-- Seccion de mensajes y botones de envio y cancelacion-->
+			<ui:include src="../../common/mensajes.xhtml" /> 
+			<h:panelGrid columns="2" styleClass="center" width="100%">
+				<a4j:commandButton action="#{centroOrigenPage.guardar}" reRender="informacion,lista"  value="Guardar" oncomplete="if (#{centroOrigenPage.ocultarPopupGuardar}) #{rich:component('editor')}.hide();" />
+				<a4j:commandButton onclick="#{rich:component('editor')}.hide()" value="Cerrar" />
+			</h:panelGrid>
+		</h:panelGrid>
+	</rich:modalPanel>
+	
+		<!--Filtro de busqueda	-->
+		<div style="width: 950px;" >
+			<h:panelGrid columns="1" width="100%"><h1 align="center">Centros de origen</h1></h:panelGrid>
+			
+			<!-- Panel de opciones -->
+			<rich:panel header="Opciones" style="width: 600px;">
+				<h:panelGrid columns="2" id="filtro">
+					
+					<h:panelGrid columns="2" width="380" id="cambio">
+						<a4j:commandButton action="#{centroOrigenPage.selecccionar}" rendered="#{!empty centroOrigenPage.datos}" reRender="lista,cambio" value="#{centroOrigenPage.selectedAll?'Limpiar Selección':'Seleccionar Todos'}" ajaxSingle="true" immediate="true" />
+						<a4j:commandButton action="#{centroOrigenPage.editar}" oncomplete="if (#{facesContext.maximumSeverity==null}) #{rich:component('editor')}.show()" reRender="editor" value="Modificar Seleccionados" />
+					</h:panelGrid>
+					
+					<h:panelGrid columns="2" >
+						<h:inputText value="#{centroOrigenPage.param}" maxlength="15" />
+						<h:commandButton action="#{centroOrigenPage.buscarPorFiltro}" value="Filtrar" onclick="Richfaces.showModalPanel('statusPanel')" />
+					</h:panelGrid>
+				</h:panelGrid> 
+			</rich:panel>
+			
+			<ui:include src="../../common/mensajes.xhtml" /> 
+							
+			<!-- Tabla de registros -->
+			<h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
+				
+				<rich:dataTable value="#{centroOrigenPage.datos}" var="dato" id="table" rows="15" rendered="#{! empty centroOrigenPage.datos}" rowKeyVar="rowKey" width="100%"
+				footerClass="row2" onRowMouseOver="this.style.backgroundColor='#9fbdeb'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'" rowClasses="row1, row2">
+					<f:facet name="header">
+						<rich:datascroller fastControls="false" pageIndexVar="pageIndex" pagesVar="pages" style="color:black;" for="table" maxPages="5" renderIfSinglePage="false" 
+						page="#{centroOrigenPage.scrollPage}" id="up" reRender="lista, filtro" limitToList="true" ajaxSingle="true">
+						</rich:datascroller>
+					</f:facet>
+					<rich:column>
+						<f:facet name="header"><h:outputText value="Fila" /></f:facet>
+						<h:outputText value="#{rowKey+1}"/>
+						<h:selectBooleanCheckbox value="#{dato.selected}" immediate="true">
+						</h:selectBooleanCheckbox>
+					</rich:column>
+					
+					<rich:column>
+                        <f:facet name="header"><h:outputText value="Cuenta" /></f:facet>
+                        <h:outputText value="#{dato.numeroCuenta}" />
+                    </rich:column>
+                    
+					<rich:column>
+                        <f:facet name="header"><h:outputText value="Descripción" /></f:facet>
+                        <h:outputText value="#{dato.descripcion}" />
+                    </rich:column>
+                    
+					<rich:column>
+                        <f:facet name="header"><h:outputText value="Tipo Centro Autorizado" /></f:facet>
+                        <h:outputText value="#{dato.tipoCentroOrigenAutorizado}" />
+                    </rich:column>
+                    
+					<rich:column>
+                        <f:facet name="header"><h:outputText value="Indicador" /></f:facet>
+                        <h:outputText value="#{dato.indicadorCentroOrigen eq 'T' ? 'Todas':(dato.indicadorCentroOrigen eq 'I' ? 'Incluir' : (dato.indicadorCentroOrigen eq 'E' ? 'Excluir' : ''))}" />
+                    </rich:column>
+                    
+					<rich:column>
+                        <f:facet name="header"><h:outputText value="Centros Autorizados" /></f:facet>
+                        <h:outputText value="#{dato.centrosOrigenAutorizados}" />
+                    </rich:column>
+                    
+					<!--	Se muestra la información de la cantidad de registros y la pagina actual	-->
+					<f:facet name="footer">
+						<rich:datascroller style="color:black;" align="center" for="table" page="#{centroOrigenPage.scrollPage}" boundaryControls="hide" fastControls="hide" stepControls="hide">
+							<f:facet name="pages">
+								<h:outputText value="Visualizando del #{((pageIndex-1)*15)+1 } al #{(pages!=pageIndex)?(pageIndex*15):centroOrigenPage.totalFilas} de un total de #{centroOrigenPage.totalFilas} registros." />
+							</f:facet>
+						</rich:datascroller>
+					</f:facet>
+				</rich:dataTable>
+			</h:panelGrid>
+		</div>
+	</ui:define>
+</ui:composition>
