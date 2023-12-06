@@ -20,7 +20,7 @@
                         <h:commandButton action="#{actividadEconomicaPage.buscarPorFiltro}" value="Filtrar"/>
                     </h:panelGrid>
 
-                    <p:dataTable value="#{actividadEconomicaPage.datos}" var="actividad" rowIndexVar="rowIndex"
+                    <p:dataTable value="#{productoController.lista}" var="actividad" rowIndexVar="rowIndex"
                                  widgetVar="economicActivityTable"
                                  rows="15" paginator="true">
                         <f:facet name="header">
@@ -37,17 +37,17 @@
                             <!--                            </f:facet>-->
                             <h:outputText value="#{rowIndex + 1}"/>
                         </p:column>
-                        <p:column headerText="Codigo" sortable="true" sortBy="#{actividad.codigo}">
+                        <p:column headerText="Codigo" sortable="true" sortBy="#{actividad.fruta}">
                             <!--                            <f:facet name="header">-->
                             <!--                                <h:outputText value="Código" />-->
                             <!--                            </f:facet>-->
-                            <h:outputText value="#{actividad.codigo} "/>
+                            <h:outputText value="#{actividad.fruta} "/>
                         </p:column>
-                        <p:column headerText="Nombre" sortable="true" sortBy="#{actividad.nombre}">
+                        <p:column headerText="Nombre" sortable="true" sortBy="#{actividad.precio}">
                             <!--                            <f:facet name="header">-->
                             <!--                                <h:outputText value="Nombre"/>-->
                             <!--                            </f:facet>-->
-                            <h:outputText value="#{actividad.nombre}"/>
+                            <h:outputText value="#{actividad.precio}"/>
                         </p:column>
 
                         <!--	Se muestra la información de la cantidad de registros y la pagina actual	-->

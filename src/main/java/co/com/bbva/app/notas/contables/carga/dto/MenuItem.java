@@ -10,29 +10,28 @@ import co.com.bbva.app.notas.contables.jsf.HomePage;
 public class MenuItem implements Serializable {
 
 	private static final long serialVersionUID = -6568299162456667984L;
-	private static final Logger LOGGER = LoggerFactory.getLogger(HomePage.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(MenuItem.class);
 	
-	private String actionNC 	= "";
-	private boolean disabledNC;
-	private String valueNC	= "";
-	public String getActionNC() {
-		LOGGER.info("::::::::::: ENTRANDO A REDIRECCIONAR MENU:::::::::::");
-		return actionNC;
-	}
-	public void setActionNC(String actionNC) {
-		this.actionNC = actionNC;
-	}
-	public boolean isDisabledNC() {
-		return disabledNC;
-	}
-	public void setDisabledNC(boolean disabledNC) {
-		this.disabledNC = disabledNC;
-	}
-	public String getValueNC() {
-		return valueNC;
-	}
-	public void setValueNC(String valueNC) {
-		this.valueNC = valueNC;
-	}
+	private String action 	= "";
+	private boolean disabled;
+	private String value	= "";
 	
+	public String getAction() {
+		return action;
+	}
+	public void setAction(String action) {
+		this.action = action;
+	}
+	public boolean isDisabled() {
+		return disabled;
+	}
+	public void setDisabled(boolean disabled) {
+		this.disabled = disabled;
+	}
+	public String getValue() {
+		return value;
+	}
+	public void setValue(String value) {
+		this.value = value;
+	}
 }

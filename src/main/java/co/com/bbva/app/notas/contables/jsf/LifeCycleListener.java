@@ -3,7 +3,7 @@ package co.com.bbva.app.notas.contables.jsf;
 import co.com.bbva.app.notas.contables.jsf.beans.ContablesSessionBean;
 import co.com.bbva.app.notas.contables.jsf.beans.MenuVisual;
 import org.primefaces.model.menu.DefaultMenuItem;
-import org.primefaces.model.menu.MenuItem;
+//import org.primefaces.model.menu.MenuItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -145,27 +145,27 @@ public class LifeCycleListener implements PhaseListener {
 
 	private boolean authorizePageAccess(String viewId, ContablesSessionBean c) {
 		String filtro = viewId.substring(viewId.lastIndexOf('/') + 1, viewId.lastIndexOf('.'));
-		LOGGER.info(":::::::::::filtro ::::::::::: "+ filtro);
-		if (c != null) {
-			for (MenuVisual m : c.getLoginUser().getOpcionesMenu()) {
-				for (MenuItem item : m.getMenuItems()) {
-					if (item instanceof DefaultMenuItem) {
-						DefaultMenuItem defaultMenuItem = (DefaultMenuItem) item;
-						String action = defaultMenuItem.getCommand(); // Obtener la accin del elemento de men
-						LOGGER.info(":::::::::::action del defaultMenuItem.getCommand()::::::::::: "+ action);
-						if (action != null) {
-							String actActual = action.substring(action.indexOf('{') + 1, action.lastIndexOf('.'));
-							LOGGER.info(":::::::::::actActual::::::::::: "+ actActual);
-							if (actActual.equals(filtro)) {
-								return true;
-							}
-						}
-					}
-					// Puedes agregar un bloque similar para DefaultSubMenu si lo necesitas
-				}
-			}
-		}
-		return false;
+//		LOGGER.info(":::::::::::filtro ::::::::::: "+ filtro);
+//		if (c != null) {
+//			for (MenuVisual m : c.getLoginUser().getOpcionesMenu()) {
+//				for (MenuItem item : m.getMenuItems()) {
+//					if (item instanceof DefaultMenuItem) {
+//						DefaultMenuItem defaultMenuItem = (DefaultMenuItem) item;
+//						String action = defaultMenuItem.getCommand(); // Obtener la accin del elemento de men
+//						LOGGER.info(":::::::::::action del defaultMenuItem.getCommand()::::::::::: "+ action);
+//						if (action != null) {
+//							String actActual = action.substring(action.indexOf('{') + 1, action.lastIndexOf('.'));
+//							LOGGER.info(":::::::::::actActual::::::::::: "+ actActual);
+//							if (actActual.equals(filtro)) {
+//								return true;
+//							}
+//						}
+//					}
+//					// Puedes agregar un bloque similar para DefaultSubMenu si lo necesitas
+//				}
+//			}
+//		}
+		return true;
 	}
 
 //	private boolean authorizePageAccess(String viewId, ContablesSessionBean c) {

@@ -1,10 +1,16 @@
 package co.com.bbva.app.notas.contables.jsf.beans;
 
-import co.com.bbva.app.notas.contables.carga.dto.MenuItem;
-import co.com.bbva.app.notas.contables.carga.dto.Sucursal;
-import co.com.bbva.app.notas.contables.carga.dto.UsuarioAltamira;
-import co.com.bbva.app.notas.contables.dto.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.application.Application;
+import javax.inject.Named;
 
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
@@ -13,15 +19,14 @@ import org.primefaces.model.menu.MenuModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
-
-import java.io.Serializable;
-import java.util.*;
-
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
-import javax.faces.application.Application;
-import javax.inject.Named;
+import co.com.bbva.app.notas.contables.carga.dto.MenuItem;
+import co.com.bbva.app.notas.contables.carga.dto.Sucursal;
+import co.com.bbva.app.notas.contables.carga.dto.UsuarioAltamira;
+import co.com.bbva.app.notas.contables.dto.CentroEspecial;
+import co.com.bbva.app.notas.contables.dto.Menu;
+import co.com.bbva.app.notas.contables.dto.Rol;
+import co.com.bbva.app.notas.contables.dto.SubMenu;
+import co.com.bbva.app.notas.contables.dto.UsuarioModulo;
 
 @Named
 @SessionScoped
@@ -46,10 +51,13 @@ public class UsuarioLogueado implements Serializable {
 	private Collection<Rol> roles;
 	
 
-	private MenuModel model;
+	private MenuModel model = new DefaultMenuModel();
 
 	private Application application;
-
+	
+	private MenuModel menuButton = new DefaultMenuModel();
+	
+	
 	public UsuarioLogueado(UsuarioModulo usuario) {
 		
 		this.usuario = usuario;
@@ -58,8 +66,97 @@ public class UsuarioLogueado implements Serializable {
 		roles = new ArrayList<Rol>();
 		menu = new TreeMap<Menu, TreeSet<SubMenu>>();
 		sucursal = new Sucursal(); 
+		
 	}
 	
+	@PostConstruct
+	public void init() {
+		this.cargarMenu();
+		this.cargarMenuButton();
+	}
+	
+	public MenuModel getModel() {
+		this.cargarMenu();
+		//this.cargarMenuButton();
+
+		return this.model;
+	}
+	
+	public MenuModel cargarMenu() {
+		if(this.model == null || this.model.getElements().isEmpty()) {
+			for (Menu m : menu.keySet()) {
+
+				DefaultSubMenu submenu = new DefaultSubMenu();
+				submenu.setId( String.valueOf(m.getCodigo()) );
+				submenu.setLabel(m.getNombre());
+				for (SubMenu sm : menu.get(m)) {
+					DefaultMenuItem item = new DefaultMenuItem();
+					item.setId(sm.getNombre());
+					item.setValue(sm.getNombre());
+					item.setAjax(false);
+					item.setUpdate("globalForm");
+					item.setCommand(sm.getAccion());
+					
+					submenu.getElements().add(item);
+				}
+
+				this.model.getElements().add(submenu);
+				this.model.generateUniqueIds();
+				
+			}
+		}
+		return model;
+	}
+	
+	
+	public MenuModel getMenuButton() {
+		
+		if(this.menuButton == null || this.menuButton.getElements().isEmpty()) {
+			for (Menu m : menu.keySet()) {
+				DefaultSubMenu submenu = DefaultSubMenu.builder().label(m.getNombre()).build();
+				for (SubMenu sm : menu.get(m)) {
+					DefaultMenuItem itemButton = new DefaultMenuItem();
+					itemButton.setCommand(sm.getAccion());
+					itemButton.setValue(sm.getNombre());
+					itemButton.setUpdate("globalForm");
+					itemButton.setAjax(true);
+					submenu.getElements().add(itemButton);
+				}
+				this.menuButton.getElements().add(submenu);
+			}
+		}
+		
+		return menuButton;
+	}
+	
+	public MenuModel cargarMenuButton() {
+		
+		if(this.menuButton == null || this.menuButton.getElements().isEmpty()) {
+			for (Menu m : menu.keySet()) {
+				DefaultSubMenu submenu = DefaultSubMenu.builder().label(m.getNombre()).build();
+				submenu.setId( String.valueOf(m.getCodigo()) );
+				for (SubMenu sm : menu.get(m)) {
+					DefaultMenuItem ajaxAction = new DefaultMenuItem();
+					ajaxAction.setCommand(sm.getAccion());
+					ajaxAction.setValue(sm.getNombre());
+					ajaxAction.setUpdate("globalForm");
+					ajaxAction.setAjax(true);
+					submenu.getElements().add(ajaxAction);
+				}
+				this.menuButton.getElements().add(submenu);
+			}
+		}
+		return this.menuButton;
+	}
+
+
+
+	public void setMenuButton(MenuModel menuButton) {
+		this.menuButton = menuButton;
+	}
+
+
+
 	public UsuarioModulo getUsuario() {
 		return usuario;
 	}
@@ -116,31 +213,6 @@ public class UsuarioLogueado implements Serializable {
 		this.centroEspecial = centroEspecial;
 	}
 	
-	public MenuModel getModel() {
-		
-		model = new DefaultMenuModel();
-        
-		for (Menu m : menu.keySet()) {
-			DefaultSubMenu submenu = DefaultSubMenu.builder().label(m.getNombre()).build();
-
-			for (SubMenu sm : menu.get(m)) {
-
-				DefaultMenuItem item = DefaultMenuItem.builder()
-					.value(sm.getNombre())
-	                .command(sm.getAccion())
-	                .id(Integer.toString(sm.getCodigo()))
-	                .build();
-					submenu.getElements().add(item);
-			}
-			submenu.setId(Integer.toString(m.getCodigo()));
-			model.getElements().add(submenu);
-			//model.generateUniqueIds();
-
-		}
-		
-		return model;
-	}
-
 	public void setModel(MenuModel model) {
 		this.model = model;
 	}
@@ -150,13 +222,27 @@ public class UsuarioLogueado implements Serializable {
 			opcionesMenu = new ArrayList<MenuVisual>();
 			for (Menu m : menu.keySet()) {
 				MenuVisual menuVisual = new MenuVisual(m);
-				//menuVisual.setMenuItems(getMenuList(menu.get(m)));
+				menuVisual.setMenuItems(getMenuButtonList(menu.get(m)));
 				opcionesMenu.add(menuVisual);
 			}
 		}
 		return opcionesMenu;
-	} 
-  
+	}
+	
+	private List<MenuItem> getMenuButtonList(TreeSet<SubMenu> opciones){
+		ArrayList<MenuItem> menuList = new ArrayList<>();
+		for (SubMenu sm : opciones) {
+			MenuItem menuItem = new MenuItem();
+			Class<?>[] params = {};
+			//MethodExpression actionExpression = application.getExpressionFactory().createMethodExpression(FacesContext.getCurrentInstance().getELContext(), sm.getAccion(), String.class, params);
+			//menuItem.setActionNC(actionExpression.toString());  
+			menuItem.setAction(sm.getAccion());
+			menuItem.setValue(sm.getNombre());
+			menuList.add(menuItem);			
+		}
+		return menuList;
+	}
+
 //	private List<HtmlMenuItem> getMenuList(TreeSet<SubMenu> opciones) {
 //		LinkedList<HtmlMenuItem> menuList = new LinkedList<HtmlMenuItem>();
 //		for (SubMenu sm : opciones) {

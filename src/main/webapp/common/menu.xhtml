@@ -2,7 +2,8 @@
 				xmlns:ui="http://java.sun.com/jsf/facelets"
 				xmlns:h="http://java.sun.com/jsf/html"
 				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:p="http://primefaces.org/ui">             
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:c="http://java.sun.com/jstl/core">             
 	    <table class="barraHeader" border="0" cellpadding="0" cellspacing="0">
 	        <tr>
 	            <td><p:graphicImage value="/common/images/header.jpg" alt="Banner - Notas Contables"/></td>
@@ -23,5 +24,23 @@
 	                    update="#{! empty contablesSessionBean.loginUser.opcionesMenu}"/></td>
 	        </tr>
 	    </table>
-		<p:menubar model="#{contablesSessionBean.loginUser.model}"/>
+	    
+	    <p:menubar model="#{contablesSessionBean.loginUser.model}"/>
+
+<!--     	<p:panel border="0" cellpadding="0" cellspacing="0" width="100%"> -->
+<!-- 		    <div align="left"> -->
+<!-- 		    	<c:forEach items="#{contablesSessionBean.loginUser.opcionesMenu}" var="entry"> -->
+<!-- 			    	<p:menuButton  value="#{entry.nombre}"> -->
+<!-- 			    		<c:forEach items="#{entry.menuItems}" var="menuItem"> -->
+<!-- 				        	<p:menuitem value="#{menuItem.value}" action="#{menuItem.action}" -->
+<!-- 				        	update="globalForm" ajax="false" /> -->
+<!-- 								<p:menuitem> -->
+<!-- 									<p:commandLink value="#{menuItem.value}"  actionListener="#{menuItem.action}"/> -->
+<!-- 								</p:menuitem> -->
+<!-- 				        </c:forEach> -->
+<!-- 				    </p:menuButton> -->
+<!-- 			    </c:forEach> -->
+<!-- 		    </div>	 -->
+<!-- 	    </p:panel> -->
+	    
 </ui:composition>
