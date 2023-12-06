@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui"
+				template="../../common/template.xhtml">
+	<p:dialog id="popupAnexosNotaContableVer" autosized="true" domElementAttachment="form" minWidth="900" >
+		<f:facet name="header"><h:outputText value="Soportes" /></f:facet>
+		
+		<f:facet name="controls">
+ 			<h:panelGroup>
+ 				<h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink" id="hidelinkCerrarAnexosVer" height="20" width="20" />
+ 				<p:remoteCommand for="popupAnexosNotaContableVer" attachTo="hidelinkCerrarAnexosVer" operation="hide" event="onclick" />
+ 			</h:panelGroup>
+ 		</f:facet>
+ 		
+ 		<h:outputText value="No existen anexos." rendered="#{empty flujoNotaContablePage.anexos}"/>
+ 		
+		<h:panelGrid columns="1" cellpadding="0" cellspacing="2" style="text-align: center;" width="100%" rendered="#{! empty flujoNotaContablePage.anexos}">
+			<p:dataTable value="#{flujoNotaContablePage.anexos}" var="anexo" rowKeyVar="rowKeyAnexos"
+			onRowMouseOver="this.style.backgroundColor='#9fbdeb'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'" rowClasses="row1, row2">
+	 		
+				<p:column width="150" style="text-align: left;">
+					<f:facet name="header"><h:outputText value="Fecha" /></f:facet>
+					<h:outputText value="#{anexo.fechaHora}" /> 
+				</p:column>
+				
+				<p:column style="text-align: right;">
+					<f:facet name="header"><h:outputText value="Usuario" /></f:facet>
+					<h:outputText value="#{anexo.usuNombre}" /> 
+				</p:column>
+				
+				<p:column style="text-align: right;">
+					<f:facet name="header"><h:outputText value="Archivo" /></f:facet>
+					<p:commandLink action="#{downloadGeneralPage.download}" styleClass="bold" value="#{anexo.nombre}" target="_blank">
+						<f:param name="type2" value="#{downloadGeneralPage.SOPORTE}" assignTo="#{downloadGeneralPage.type}"/>
+						<f:param name="file2" value="#{anexo.archivo}" assignTo="#{downloadGeneralPage.file}"/>
+					</p:commandLink>
+				</p:column>
+			</p:dataTable>
+		</h:panelGrid>
+	</p:dialog>
+</ui:composition>

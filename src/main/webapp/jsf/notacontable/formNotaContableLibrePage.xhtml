@@ -1,0 +1,764 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui"
+				template="../../common/template.xhtml">
+	<head>
+<script type="text/javascript">
+				function isDayEnabled(day){
+					var fechaMin = document.getElementById('globalForm:fechaMinLibre').value;
+					var fechaMax = document.getElementById('globalForm:fechaMaxLibre').value;
+				   	var min=new Date();
+				   	min.setFullYear(parseInt(fechaMin.substring(6, 10), 10),parseInt(fechaMin.substring(3, 5), 10)-1,parseInt(fechaMin.substring(0, 2), 10)-1);
+				   	var max=new Date();
+				   	max.setFullYear(parseInt(fechaMax.substring(6, 10), 10),parseInt(fechaMax.substring(3, 5), 10)-1,parseInt(fechaMax.substring(0, 2), 10));
+				   	var date = new Date(day.date);
+				   	if(date.getDay() == 6){
+						return false;	
+					}
+				   	if(date.getDay() == 0){
+						return false;	
+					}
+				   	if(date &gt; min){
+						if(max &gt; date){ //solo fechas entre min y max
+							return true;
+						} 
+					} 
+					return false;
+				}
+				
+				function isDayEnabledRiesgo(day){
+				   	var max=new Date();
+				   	var date = new Date(day.date);
+					if(max &gt; date){ //solo fechas menores o iguales a hoy
+						return true;
+					}
+					return false;
+				}
+				
+				function getDisabledStyle(day){
+				   if (!isDayEnabled(day)) return 'rich-calendar-boundary-dates disabledDay';
+				}
+
+				function getDisabledStyleRiesgo(day){
+				   if (!isDayEnabledRiesgo(day)) return 'rich-calendar-boundary-dates disabledDay';
+				}
+				
+				function validarMontoLibreAlert(value){
+					var alertCOP = parseFloat(document.getElementById('globalForm:montoAlertaCOPLibre').value);
+					var alertEXT = parseFloat(document.getElementById('globalForm:montoAlertaEXTLibre').value);
+					var divisa = document.getElementById('globalForm:codDivisaNotaContableLibre').value;
+					var warn=false;
+					if(divisa == 'COP'){
+						warn=value &gt; alertCOP;
+					}else{
+						warn=value &gt; alertEXT;
+					}
+					if(warn){
+						alert('Por favor verifique si el importe ingresado es el adecuado.');
+					}
+				}
+		</script>
+<style>
+.disabledDay {
+	background-color: #dedede;
+}
+</style>
+	</head>
+	<!-- Formulario de confirmacion de anulacion-->
+	<p:dialog id="popupAnularNotaLibre" autosized="true" domElementAttachment="form" width="250">
+		<f:facet name="header">
+			<h:panelGroup>
+				<h:outputText value="Confirmación de anulación" />
+			</h:panelGroup>
+		</f:facet>
+		<f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink" id="hidelinkAnularNotaLibre" height="20" width="20" />
+				<p:remoteCommand for="popupAnularNotaLibre" attachTo="hidelinkAnularNotaLibre" operation="hide" event="onclick" />
+			</h:panelGroup>
+		</f:facet>
+
+		<h:panelGrid columns="1" width="100%">
+
+			<h:outputText value="¿Está seguro que desea anular la nota actual y borrar toda la información relacionada?" />
+
+			<!-- Seccion de mensajes y botones de envio y cancelacion-->
+			<ui:include src="../../common/mensajes.xhtml" />
+			<h:panelGrid columns="2" styleClass="center" width="100%">
+				<h:commandButton action="#{notaContableLibrePage.anular}" value="Si"
+					oncomplete="if (#{!notaContableLibrePage.nota.puedeAnular}) {#{p:remoteCommand('popupAnularNotaLibre')}.hide(); #{p:remoteCommand('popupNotaContableLibre')}.hide();}"
+					reRender="botonesNotaRegLibre,lista" />
+				<h:commandButton onclick="#{p:remoteCommand('popupAnularNotaLibre')}.hide()" value="No" />
+			</h:panelGrid>
+		</h:panelGrid>
+	</p:dialog>
+	<!-- Formulario Modal de creacion y edicion de temas por concepto-->
+	<p:dialog id="editorRegLibre" domElementAttachment="form" autosized="true">
+		<f:facet name="header">
+			<h:panelGroup>
+				<h:outputText value="Registro Nota Contable Libre " />
+			</h:panelGroup>
+		</f:facet>
+		<h:inputHidden id="fechaMinLibre" value="#{notaContableLibrePage.minFecha}" />
+		<h:inputHidden id="fechaMaxLibre" value="#{notaContableLibrePage.maxFecha}" />
+		<h:inputHidden id="montoAlertaCOPLibre" value="#{notaContableLibrePage.montoAlertaCOP}" />
+		<h:inputHidden id="montoAlertaEXTLibre" value="#{notaContableLibrePage.montoAlertaEXT}" />
+
+		<!-- Campos del formulario -->
+		<h:panelGrid columns="1" width="600" id="informacionRegLibre" cellpadding="0" cellspacing="0">
+			<h:outputText>
+				<div style="height: 450px; overflow: auto; width: 100%;">
+					<h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="0">
+
+						<h:panelGrid columns="2" cellpadding="0" cellspacing="2">
+							<h:outputText value="Cuenta Contable" styleClass="propertie" />
+							<h:panelGrid columns="1" id="cuentaContableRegLibre">
+								<h:panelGrid columns="2" style="border-collapse: collapse;">
+									<h:inputText value="#{notaContableLibrePage.cuentaContable}" immediate="true" />
+									<h:commandButton action="#{notaContableLibrePage.buscarCuentaContable}" value="Buscar cuenta" reRender="cuentaContableRegLibre,informacionRegLibre" style="margin-left: 8px;" />
+								</h:panelGrid>
+								<h:selectOneMenu value="#{notaContableLibrePage.temaActual.cuentaContable}" immediate="true" rendered="#{! empty notaContableLibrePage.cuentas}" style="width: 400px;">
+									<!--
+									<a4j:support event="onchange" action="#{notaContableLibrePage.seleccionarCuenta}" reRender="informacionRegLibre" status="status" />
+									-->
+									<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
+									<f:selectItems value="#{notaContableLibrePage.cuentas}" />
+								</h:selectOneMenu>
+							</h:panelGrid>
+
+							<h:commandButton action="#{notaContableLibrePage.cargarModalRiesgo}" value="Riesgo Operacional" oncomplete="#{p:remoteCommand('modalRiesgoRegLibre')}.show()"
+								reRender="modalRiesgoRegLibre" rendered="#{notaContableLibrePage.temaActual.pucCuenta.indicadorSIRO eq 'T'}" />
+						</h:panelGrid>
+						<h:panelGrid columns="1" width="580" cellpadding="0" cellspacing="3" id="panelCuentaRegLibreEd">
+							<p:panel header="Cuenta Contable" style="width: 100%; height:100%" rendered="#{notaContableLibrePage.temaActual.pucCuenta.numeroCuenta != ''}">
+
+								<h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="0">
+									<h:panelGrid columns="2">
+										<h:outputText value="Cuenta" styleClass="propertie" />
+										<h:outputText value="#{notaContableLibrePage.temaActual.cuentaContable}" />
+
+										<h:outputText value="Naturaleza" styleClass="propertie" />
+										<h:selectOneMenu value="#{notaContableLibrePage.temaActual.naturalezaCuentaContable}" immediate="true">
+											<f:selectItem itemValue="D" itemLabel="Debe" />
+											<f:selectItem itemValue="H" itemLabel="Haber" />
+										</h:selectOneMenu>
+
+										<h:outputText value="Sucursal Destino" styleClass="propertie" />
+										<h:selectOneMenu value="#{notaContableLibrePage.temaActual.codigoSucursalDestino}" immediate="true">
+											<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
+											<f:selectItems value="#{notaContableLibrePage.sucursalesPartida}" />
+										</h:selectOneMenu>
+
+										<h:outputText value="Referencia de Cruce" styleClass="propertie" />
+										<h:inputText value="#{notaContableLibrePage.temaActual.referencia}" maxlength="12" size="12" onkeypress="return onKeyPressNumbersNoZero(event, this.value)" />
+
+										<h:outputText value="Divisa" styleClass="propertie" />
+										<h:selectOneMenu value="#{notaContableLibrePage.temaActual.codigoDivisa}" immediate="true" style="width:180px;" id="codDivisaNotaContableLibre">
+											<f:selectItems value="#{notaContableLibrePage.divisas}" />
+										</h:selectOneMenu>
+
+										<h:outputText value="Importe" styleClass="propertie" />
+										<h:inputText value="#{notaContableLibrePage.temaActual.monto}" size="16" maxlength="16" onkeypress="return onKeyPressNumbers(event,this.value);"
+											converter="javax.faces.Double" immediate="true" converterMessage="Valor inválido para el Importe"
+											onblur="if(this.value==''){this.value='0'}validarMontoLibreAlert(this.value);">
+											<f:convertNumber maxFractionDigits="2" />
+											<!--
+											<a4j:support event="onkeyup" reRender="importeRegLibre" status="none" limitToList="true" />
+											-->
+										</h:inputText>
+
+										<h:outputText value="Importe" styleClass="propertie" />
+										<h:panelGrid columns="1" id="importeRegLibre" cellpadding="0" cellspacing="0">
+											<h:outputText value="#{notaContableLibrePage.temaActual.monto}" styleClass="propertie">
+												<f:convertNumber type="currency" />
+											</h:outputText>
+										</h:panelGrid>
+									</h:panelGrid>
+									<p:panel header="Tercero" style="width:100%;"
+										rendered="#{notaContableLibrePage.temaActual.pucCuenta.tipoApunte eq 'T' or notaContableLibrePage.temaActual.pucCuenta.indicadorTercero eq 'X' or notaContableLibrePage.temaActual.hadtapl.indicadorContrato eq 'S'}">
+										<h:panelGrid columns="2" id="documentoTerceroRegLibreEd">
+											<h:outputText value="Tipo de documento" styleClass="propertie" />
+											<h:selectOneMenu value="#{notaContableLibrePage.temaActual.tipoIdentificacion}" immediate="true">
+												<!--
+												<a4j:support event="onchange" reRender="filtroTerceroRegLibre,terceroRegLibre" status="status">
+													<f:param value="" assignTo="#{notaContableLibrePage.temaActual.nombreCompleto}" />
+												</a4j:support>
+												-->
+												<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
+												<f:selectItems value="#{notaContableLibrePage.tiposDoc}" />
+											</h:selectOneMenu>
+
+											<h:outputText value="Numero Documento" styleClass="propertie" />
+											<h:panelGrid columns="2" border="0" cellspacing="0">
+												<h:inputText value="#{notaContableLibrePage.temaActual.numeroIdentificacion}" size="20" immediate="true">
+													<!--
+													<a4j:support event="onkeyup" reRender="filtroTerceroRegLibre,terceroRegLibre" status="none">
+														<f:param name="numDocRenLibre" value="" assignTo="#{notaContableLibrePage.temaActual.nombreCompleto}" />
+													</a4j:support>
+													-->
+												</h:inputText>
+												<h:panelGrid columns="1" id="filtroTerceroRegLibre" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
+													<h:commandButton action="#{notaContableLibrePage.buscarTercero}" reRender="documentoTerceroRegLibreEd,terceroRegLibre" style="margin: 0; margin-left: 8px;"
+																						 value="Buscar" status="status" rendered="#{!empty notaContableLibrePage.temaActual.tipoIdentificacion and !empty notaContableLibrePage.temaActual.numeroIdentificacion}" />
+												</h:panelGrid>
+											</h:panelGrid>
+										</h:panelGrid>
+
+										<h:panelGrid columns="1" id="terceroRegLibre">
+											<h:panelGrid columns="2" rendered="#{! empty notaContableLibrePage.temaActual.nombreCompleto}">
+
+												<h:outputText value="Digito de Verificacion:" styleClass="propertie" />
+												<h:outputText value="#{notaContableLibrePage.temaActual.digitoVerificacion}" />
+
+												<h:outputText value="Nombre:" styleClass="propertie" />
+												<h:outputText value="#{notaContableLibrePage.temaActual.nombreCompleto}" />
+
+												<h:outputText value="Contrato" styleClass="propertie" rendered="#{notaContableLibrePage.temaActual.hadtapl.indicadorContrato eq 'S'}" />
+												<h:selectOneMenu value="#{notaContableLibrePage.temaActual.contrato}" immediate="true" rendered="#{notaContableLibrePage.temaActual.hadtapl.indicadorContrato eq 'S'}">
+													<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
+													<f:selectItems value="#{notaContableLibrePage.contratos1}" />
+												</h:selectOneMenu>
+											</h:panelGrid>
+										</h:panelGrid>
+
+									</p:panel>
+								</h:panelGrid>
+
+							</p:panel>
+						</h:panelGrid>
+						<ui:include src="../../common/mensajes.xhtml" />
+					</h:panelGrid>
+				</div>
+			</h:outputText>
+			<h:panelGrid columns="2" styleClass="center" width="100%">
+				<h:commandButton action="#{notaContableLibrePage.guardarTema}" reRender="formRegLibre" rendered="#{notaContableLibrePage.temaActual.pucCuenta.numeroCuenta != ''}"
+					value="Guardar" oncomplete="if (#{notaContableLibrePage.ocultarPopupTema}) #{p:remoteCommand('editorRegLibre')}.hide();" />
+				<h:commandButton oncomplete="#{p:remoteCommand('popupCancelTemaRegLibre')}.show()" value="Cancelar" />
+
+				<!-- Modal para cancelación -->
+				<p:dialog id="popupCancelTemaRegLibre" autosized="true" domElementAttachment="form" width="450">
+					<f:facet name="header">
+						<h:panelGroup>
+							<h:outputText styleClass="bold" value="Confirmación de cancelación de registro" />
+						</h:panelGroup>
+					</f:facet>
+
+					<h:panelGrid columns="1" width="100%">
+
+						<h:outputText styleClass="bold" value="Si cancela se perderá toda la informacion registrada asociada al registro actual" />
+						<h:outputText styleClass="bold" value="¿Está seguro que desea cancelar y borrar la información?" />
+
+						<!-- Seccion de mensajes y botones de envio y cancelacion-->
+						<h:panelGrid columns="2" styleClass="center" width="100%">
+							<h:commandButton action="#{notaContableLibrePage.cancelarTema}" value="Si"
+								oncomplete="#{p:remoteCommand('editorRegLibre')}.hide(); #{p:remoteCommand('popupCancelTemaRegLibre')}.hide();" reRender="informacionRegLibre,formRegLibre" />
+							<h:commandButton onclick="#{p:remoteCommand('popupCancelTemaRegLibre')}.hide()" value="No" immediate="true" />
+						</h:panelGrid>
+					</h:panelGrid>
+				</p:dialog>
+
+				<!-- seccion de riesgo operacional -->
+				<p:dialog id="modalRiesgoRegLibre" domElementAttachment="form" autosized="true">
+					<f:facet name="header">
+						<h:panelGroup>
+							<h:outputText value="Riesgo operacional" />
+						</h:panelGroup>
+					</f:facet>
+					<h:panelGrid width="500">
+						<h:panelGrid columns="3" width="100%" id="selectsRiesgoRegLibre">
+							<h:outputText value="Importe Total" styleClass="propertie" />
+							<h:inputText value="#{notaContableLibrePage.temaActual.riesgoOperacional.importeTotal}" size="16" maxlength="16" onkeypress="return onKeyPressNumbers(event,this.value);"
+								converter="javax.faces.Double" immediate="true" converterMessage="Valor no válido para el Importe Total">
+								<f:convertNumber maxFractionDigits="2" />
+								<!--
+								<a4j:support event="onkeyup" reRender="importeTotalLibre" status="none" />
+								-->
+							</h:inputText>
+							<h:panelGrid columns="1" id="importeTotalLibre" width="250" cellpadding="0" cellspacing="0">
+								<h:outputText styleClass="propertie" value="#{notaContableLibrePage.temaActual.riesgoOperacional.importeTotal}">
+									<f:convertNumber type="currency" />
+								</h:outputText>
+							</h:panelGrid>
+
+							<h:outputText value="Importe Parcial" styleClass="propertie" />
+							<h:inputText value="#{notaContableLibrePage.temaActual.riesgoOperacional.importeParcial}" size="16" maxlength="16" onkeypress="return onKeyPressNumbers(event,this.value);"
+								converter="javax.faces.Double" immediate="true" converterMessage="Valor no válido para el Importe Parcial">
+								<f:convertNumber maxFractionDigits="2" />
+								<!--
+								<a4j:support event="onkeyup" reRender="importeParcialLibre" status="none" />
+								-->
+							</h:inputText>
+							<h:panelGrid columns="1" id="importeParcialLibre" width="250" cellpadding="0" cellspacing="0">
+								<h:outputText styleClass="propertie" value="#{notaContableLibrePage.temaActual.riesgoOperacional.importeParcial}">
+									<f:convertNumber type="currency" />
+								</h:outputText>
+							</h:panelGrid>
+						</h:panelGrid>
+						<h:panelGrid columns="2" width="100%" id="fechasRiesgoLibre">
+							<h:outputText styleClass="propertie" value="Fecha del Evento" />
+							<p:calendar value="#{notaContableLibrePage.temaActual.riesgoOperacional.fechaEvento}" isDayEnabled="isDayEnabledRiesgo" dayStyleClass="getDisabledStyleRiesgo"
+								immediate="true" id="fechaEventoRegLibre" />
+
+							<h:outputText styleClass="propertie" value="Fecha Finalización del Evento" />
+							<p:calendar value="#{notaContableLibrePage.temaActual.riesgoOperacional.fechaFinEvento}" isDayEnabled="isDayEnabledRiesgo" dayStyleClass="getDisabledStyleRiesgo"
+								immediate="true" id="idfechaFinEventoLibre" />
+
+							<h:outputText value="Fecha del Descubrimiento" styleClass="propertie" />
+							<p:calendar value="#{notaContableLibrePage.temaActual.riesgoOperacional.fechaDescubrimientoEvento}" isDayEnabled="isDayEnabledRiesgo"
+								dayStyleClass="getDisabledStyleRiesgo" immediate="true" id="fechaDescubrimientoRegLibre" />
+						</h:panelGrid>
+
+						<h:panelGrid columns="4" width="90%" id="selectsTiempoLibre">
+							<h:outputText styleClass="bold" value="Hora Inicio Evento" />
+							<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.horaInicioEvento}" immediate="true">
+
+								<h:outputText styleClass="bold" value="hh" />
+								<f:selectItem itemValue="" itemLabel="00" />
+								<f:selectItems value="#{notaContableLibrePage.horas}" />
+							</h:selectOneMenu>
+
+
+							<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.minutosInicioEvento}" immediate="true">
+								<h:outputText styleClass="bold" value="mm" />
+								<f:selectItem itemValue="" itemLabel="--" />
+								<f:selectItems value="#{notaContableLibrePage.minutos}" />
+							</h:selectOneMenu>
+
+
+							<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.horario}" immediate="true">
+								<h:outputText styleClass="bold" value="A.M/P.M" />
+								<f:selectItem itemValue="" itemLabel="--" />
+								<f:selectItems value="#{notaContableLibrePage.horario}" />
+							</h:selectOneMenu>
+
+
+							<h:outputText styleClass="bold" value="Hora Finalizacion Evento" />
+							<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.horaFinalEvento}" immediate="true">
+								<h:outputText styleClass="bold" value="hh" />
+								<f:selectItem itemValue="" itemLabel="00" />
+								<f:selectItems value="#{notaContableLibrePage.horas}" />
+							</h:selectOneMenu>
+
+
+							<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.minutosFinalEvento}" immediate="true">
+								<h:outputText styleClass="bold" value="mm" />
+								<f:selectItem itemValue="" itemLabel="--" />
+								<f:selectItems value="#{notaContableLibrePage.minutos}" />
+							</h:selectOneMenu>
+
+							<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.horarioFinal}" immediate="true">
+								<h:outputText styleClass="bold" value="A.M/P.M" />
+								<f:selectItem itemValue="" itemLabel="--" />
+								<f:selectItems value="#{notaContableLibrePage.horario}" />
+							</h:selectOneMenu>
+
+							<h:outputText styleClass="bold" value="Hora Descubrimiento" />
+							<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.horaDescubrimiento}" immediate="true">
+								<h:outputText styleClass="bold" value="hh" />
+								<f:selectItem itemValue="" itemLabel="00" />
+								<f:selectItems value="#{notaContableLibrePage.horas}" />
+							</h:selectOneMenu>
+
+							<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.minutosDescubrimiento}" immediate="true">
+								<h:outputText styleClass="bold" value="mm" />
+								<f:selectItem itemValue="" itemLabel="--" />
+								<f:selectItems value="#{notaContableLibrePage.minutos}" />
+							</h:selectOneMenu>
+
+							<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.horarioDescubre}" immediate="true">
+								<h:outputText styleClass="bold" value="A.M/P.M" />
+								<f:selectItem itemValue="" itemLabel="--" />
+								<f:selectItems value="#{notaContableLibrePage.horario}" />
+							</h:selectOneMenu>
+						</h:panelGrid>
+						<h:panelGrid columns="2" width="100%" id="selectsRiesgoLibreDos">
+							<h:outputText value="Clase de Riesgo" styleClass="propertie" />
+							<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoClaseRiesgo}" immediate="true">
+								<!--
+								<a4j:support event="onchange" action="#{notaContableLibrePage.buscarPerdidasCuenta}" reRender="IdPanelPartida,panelClaseRiesgoN2Libre" />
+								-->
+								<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
+								<f:selectItems value="#{notaContableLibrePage.clasesRiesgo}" />
+							</h:selectOneMenu>
+
+							<h:outputText value="Perdida Operacional"  styleClass="propertie" />
+							<p:outputPanel id="IdPanelPartida">
+								<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoTipoPerdida}" immediate="true" >
+									<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
+									<f:selectItems value="#{notaContableLibrePage.perdidaOper}" />
+								</h:selectOneMenu>
+							</p:outputPanel>
+
+							<h:outputText value="Proceso" styleClass="propertie" />
+							<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoProceso}" immediate="true">
+								<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
+								<f:selectItems value="#{notaContableLibrePage.procesos}" />
+							</h:selectOneMenu>
+
+							<h:outputText value="Línea Operativa" styleClass="propertie" />
+							<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoLineaOperativa}" immediate="true">
+								<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
+								<f:selectItems value="#{notaContableLibrePage.lineasOperativas}" />
+							</h:selectOneMenu>
+
+							<h:outputText value="Producto Afectado" styleClass="propertie" />
+							<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoProducto}" immediate="true">
+								<!--
+								<a4j:support event="onchange" action="#{notaContableLibrePage.buscarSubProducto}" reRender="panelSubProductoLibre" />
+								-->
+								<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
+								<f:selectItems value="#{notaContableLibrePage.productos}" />
+							</h:selectOneMenu>
+
+
+							<h:outputText styleClass="propertie" value="SubProducto Afectado" />
+							<p:outputPanel id="panelSubProductoLibre">
+								<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoSubProducto}" immediate="true">
+									<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
+									<f:selectItems value="#{notaContableLibrePage.subProductos}" />
+								</h:selectOneMenu>
+							</p:outputPanel>
+
+							<h:outputText styleClass="propertie" value="Canal" />
+							<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoCanal}" immediate="true">
+								<!--
+								<a4j:support event="onchange" action="#{notaContableLibrePage.buscarSubCanal}" reRender="panelSubCanalLibre" />
+								-->
+								<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
+								<f:selectItems value="#{notaContableLibrePage.canales}" />
+							</h:selectOneMenu>
+
+							<h:outputText styleClass="propertie" value="subCanal" />
+							<p:outputPanel id="panelSubCanalLibre">
+								<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoSubCanal}" immediate="true">
+									<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
+									<f:selectItems value="#{notaContableLibrePage.subcanales}" />
+								</h:selectOneMenu>
+							</p:outputPanel>
+
+							<h:outputText styleClass="propertie" value="Sfc Clase Riesgo N2" />
+							<p:outputPanel id="panelClaseRiesgoN2Libre">
+								<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoClaseRiesgoN2}" immediate="true">
+									<!--
+									<a4j:support event="onchange" action="#{notaContableLibrePage.buscarClaseRiesgoN3}" reRender="panelClaseRiesgoN3Libre" />
+									-->
+									<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
+									<f:selectItems value="#{notaContableLibrePage.clasesRiesgoN2}" />
+								</h:selectOneMenu>
+							</p:outputPanel>
+
+							<h:outputText styleClass="propertie" value="Sfc Clase Riesgo N3" />
+							<p:outputPanel id="panelClaseRiesgoN3Libre">
+								<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoClaseRiesgoN3}" immediate="true">
+									<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
+									<f:selectItems value="#{notaContableLibrePage.clasesRiesgoN3}" />
+								</h:selectOneMenu>
+							</p:outputPanel>
+
+							<h:outputText styleClass="bold" value="Nombre Outsourcing" />
+							<h:inputTextarea value="#{notaContableLibrePage.temaActual.riesgoOperacional.nombreOutSource}" cols="50" rows="2" />
+
+							<h:outputText styleClass="bold" value="Aplica Recuperación" rendered="#{notaContableLibrePage.aplicaRecuperacion}" />
+							<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.appRecuperacion}" rendered="#{notaContableLibrePage.aplicaRecuperacion}" immediate="true">
+								<!--
+								<a4j:support event="onchange" ajaxSingle="true"
+								-->
+									reRender="panelFechaTxtLibre, panelFechaValueLibre, panelHoraTxtLibre, panelHoraValueLibre, panelTipoRLibre, panelTipoRecValueLibre" />
+								<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
+								<f:selectItem itemValue="S" itemLabel="SI" />
+								<f:selectItem itemValue="N" itemLabel="NO" />
+							</h:selectOneMenu>
+
+							<p:outputPanel id="panelFechaTxtLibre" ajaxRendered="true">
+								<h:outputText styleClass="bold" value="Fecha Recuperación" rendered="#{notaContableLibrePage.temaActual.riesgoOperacional.appRecuperacion eq 'S'}" />
+							</p:outputPanel>
+							<p:outputPanel id="panelFechaValueLibre" ajaxRendered="true">
+								<p:calendar value="#{notaContableLibrePage.temaActual.riesgoOperacional.fechaRecuperacion}" isDayEnabled="isDayEnabledRiesgo" dayStyleClass="getDisabledStyleRiesgo"
+									immediate="true" id="fechaRecuperacionLibre" rendered="#{notaContableLibrePage.temaActual.riesgoOperacional.appRecuperacion eq 'S'}" />
+							</p:outputPanel>
+
+							<p:outputPanel id="panelHoraTxtLibre" ajaxRendered="true">
+								<h:outputText styleClass="bold" value="Hora de Recuperación" rendered="#{notaContableLibrePage.temaActual.riesgoOperacional.appRecuperacion eq 'S'}" />
+							</p:outputPanel>
+							<p:outputPanel id="panelHoraValueLibre" ajaxRendered="true">
+								<h:panelGrid columns="4" width="90%" id="selectsTiempoRecuperacionLibre" rendered="#{notaContableLibrePage.temaActual.riesgoOperacional.appRecuperacion eq 'S'}">
+									<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.horaRecuperacion}" immediate="true">
+										<h:outputText styleClass="bold" value="hh" />
+										<f:selectItem itemValue="" itemLabel="00" />
+										<f:selectItems value="#{notaContableLibrePage.horas}" />
+									</h:selectOneMenu>
+
+									<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.minutosRecuperacion}" immediate="true">
+										<h:outputText styleClass="bold" value="mm" />
+										<f:selectItem itemValue="" itemLabel="--" />
+										<f:selectItems value="#{notaContableLibrePage.minutos}" />
+									</h:selectOneMenu>
+
+									<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.horarioRecuperacion}" immediate="true">
+										<h:outputText styleClass="bold" value="A.M/P.M" />
+										<f:selectItem itemValue="" itemLabel="--" />
+										<f:selectItems value="#{notaContableLibrePage.horario}" />
+									</h:selectOneMenu>
+								</h:panelGrid>
+							</p:outputPanel>
+							<p:outputPanel id="panelTipoRLibre" ajaxRendered="true">
+								<h:outputText styleClass="bold" value="Tipo Recuperación" rendered="#{notaContableLibrePage.temaActual.riesgoOperacional.appRecuperacion eq 'S'}" />
+							</p:outputPanel>
+							<p:outputPanel id="panelTipoRecValueLibre" ajaxRendered="true">
+								<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.tipoRecuperacion}" immediate="true"
+									rendered="#{notaContableLibrePage.temaActual.riesgoOperacional.appRecuperacion eq 'S'}">
+									<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
+									<f:selectItem itemValue="R_SEGURO" itemLabel="RECUPERACIÓN POR SEGURO" />
+									<f:selectItem itemValue="R_DIRECTA" itemLabel="RECUPERACIÓN DIRECTA" />
+								</h:selectOneMenu>
+							</p:outputPanel>
+
+						</h:panelGrid>
+						<ui:include src="../../common/mensajes.xhtml" />
+						<h:panelGrid columns="3" width="100%" style="text-align: center;">
+							<h:commandButton value="Guardar" action="#{notaContableLibrePage.guardarRiesgo}"
+								oncomplete="if (#{notaContableLibrePage.ocultarPopupRiesgo}) #{p:remoteCommand('modalRiesgoRegLibre')}.hide();" />
+							<h:commandButton oncomplete="#{p:remoteCommand('popupCancelRiesgoRegLibre')}.show()" value="Cancelar" />
+
+							<!-- Modal para cancelación de datos de riesgo-->
+							<p:dialog id="popupCancelRiesgoRegLibre" autosized="true" domElementAttachment="form" width="450">
+								<f:facet name="header">
+									<h:panelGroup>
+										<h:outputText styleClass="bold" value="Confirmación de cancelación de registro de información" />
+									</h:panelGroup>
+								</f:facet>
+
+								<h:panelGrid columns="1" width="100%">
+
+									<h:outputText styleClass="bold" value="Si cancela se perderá toda la información registrada asociada a riesgo operacional" />
+									<h:outputText styleClass="bold" value="¿Está seguro que desea cancelar y borrar la información?" />
+
+									<!-- Seccion de mensajes y botones de envio y cancelacion-->
+									<h:panelGrid columns="2" styleClass="center" width="100%">
+										<h:commandButton action="#{notaContableLibrePage.cancelarRiesgo}" value="Si" reRender="formRegLibre"
+											oncomplete="#{p:remoteCommand('modalRiesgoRegLibre')}.hide(); #{p:remoteCommand('popupCancelRiesgoRegLibre')}.hide();" />
+										<h:commandButton onclick="#{p:remoteCommand('popupCancelRiesgoRegLibre')}.hide()" value="No" immediate="true" />
+									</h:panelGrid>
+								</h:panelGrid>
+							</p:dialog>
+						</h:panelGrid>
+
+					</h:panelGrid>
+				</p:dialog>
+			</h:panelGrid>
+		</h:panelGrid>
+	</p:dialog>
+
+	<!-- seccion de soportes -->
+	<p:dialog id="modalSoportesRegLibre" domElementAttachment="form" autosized="true">
+		<f:facet name="header">
+			<h:panelGroup>
+				<h:outputText value="Subir soportes para la nota contable" />
+			</h:panelGroup>
+		</f:facet>
+		<f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink" id="hidelinkSoportesRegLibre" height="20" width="20" />
+				<p:remoteCommand for="modalSoportesRegLibre" attachTo="hidelinkSoportesRegLibre" operation="hide" event="onclick" />
+			</h:panelGroup>
+		</f:facet>
+		<h:panelGrid width="550">
+			<h:panelGrid columns="1" width="100%">
+				<p:fileUpload listWidth="100%" fileUploadListener="#{notaContableLibrePage.listener}" id="uploadLibre" acceptedTypes="*" uploadControlLabel="Enviar"
+					cancelEntryControlLabel="Cancelar" immediateUpload="true" addControlLabel="Agregar" clearAllControlLabel="" clearControlLabel=""
+					doneLabel="El archivo ha sido enviado satisfactoriamente al servidor" progressLabel="Procesando..." transferErrorLabel="Error transfiriendo el archivo"
+					sizeErrorLabel="El archivo supera el límite permitido (200 KB)">
+					<!--
+					<a4j:support event="onfileuploadcomplete" reRender="formRegLibre" />
+					-->
+				</p:fileUpload>
+			</h:panelGrid>
+		</h:panelGrid>
+	</p:dialog>
+	<!--Formulario principal	-->
+	<h:panelGrid columns="1" id="formRegLibre" width="100%">
+		<p:panel header="Información básica">
+			<h:panelGrid columns="2">
+				<h:outputText value="Sucursal de Origen" styleClass="propertie" />
+				<h:outputText value="#{notaContableLibrePage.usuarioLogueado.sucursal.codigo} - #{notaContableLibrePage.usuarioLogueado.sucursal.nombre}" />
+
+				<h:outputText value="Fecha Contable" styleClass="propertie" />
+				<p:calendar value="#{notaContableLibrePage.fechaNota}" isDayEnabled="isDayEnabled" dayStyleClass="getDisabledStyle" immediate="true">
+					<!--
+					<a4j:support event="onchanged" action="#{notaContableLibrePage.validarFecha}" status="none" reRender="formRegLibre" />
+					-->
+				</p:calendar>
+
+				<h:outputText value="Descripción" styleClass="propertie" />
+				<h:inputText value="#{notaContableLibrePage.nota.descripcion}" onkeyup="this.value=removeAccents(this.value)" onkeypress="return characterRestriction(event)" maxlength="500" immediate="true" size="80" />
+
+				<h:commandButton action="#{notaContableLibrePage.editar}" oncomplete="#{p:remoteCommand('editorRegLibre')}.show()" reRender="editorRegLibre" value="Agregar Registro"
+					rendered="#{notaContableLibrePage.fechaNota !=null}" />
+				<h:commandButton value="Agregar Soportes" oncomplete="#{p:remoteCommand('modalSoportesRegLibre')}.show()" reRender="modalSoportesRegLibre"
+					rendered="#{!empty notaContableLibrePage.temasNotaContable}" />
+			</h:panelGrid>
+		</p:panel>
+		<p:panel header="Registros de la Nota" style="width: 100%;" rendered="#{! empty notaContableLibrePage.temasNotaContable}">
+			<p:dataTable value="#{notaContableLibrePage.temasNotaContable}" var="temaNota" id="tableTemasLibre" rendered="#{! empty notaContableLibrePage.temasNotaContable}"
+				rowKeyVar="rowKey" width="100%" onRowMouseOver="this.style.backgroundColor='#9fbdeb'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"
+				rowClasses="row1, row2">
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Cod Sucursal Destino" />
+					</f:facet>
+					<h:outputText value="#{temaNota.codigoSucursalDestino}" />
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Cuenta Contable" />
+					</f:facet>
+					<h:outputText value="#{temaNota.cuentaContable}" />
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Naturaleza" />
+					</f:facet>
+					<h:outputText value="#{temaNota.naturalezaCuentaContable eq 'D'?'Debe':'Haber'}" />
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Divisa" />
+					</f:facet>
+					<h:outputText value="#{temaNota.codigoDivisa}" />
+				</p:column>
+
+				<p:column style="text-align: right;">
+					<f:facet name="header">
+						<h:outputText value="Importe" />
+					</f:facet>
+					<h:outputText value="#{temaNota.monto}">
+						<f:convertNumber type="currency" />
+					</h:outputText>
+				</p:column>
+
+				<p:column style="text-align: center;">
+					<f:facet name="header">
+						<h:outputText value="Editar" />
+					</f:facet>
+					<h:commandButton action="#{notaContableLibrePage.editar}" oncomplete="#{p:remoteCommand('editorRegLibre')}.show()" reRender="editorRegLibre" image="/common/images/edit.png"
+						alt="Editar">
+						<f:param name="codigoTemaRegLibre" value="#{temaNota.codigo}" assignTo="#{notaContableLibrePage.codigo}" />
+					</h:commandButton>
+				</p:column>
+				<f:facet name="footer">
+					<p:columnGroup rendered="#{! empty notaContableLibrePage.totalesNota}">
+						<p:column colspan="3" style="text-align:right;">
+							<h:outputText value="Totales" />
+						</p:column>
+						<p:column style="padding: 0px;">
+							<p:dataTable style="border-width: 0px; background-color: transparent;" value="#{notaContableLibrePage.totalesNota}" var="total">
+								<p:column style="border-width: 0px;">
+									<h:outputText value="#{total.codigoDivisa }" />
+								</p:column>
+							</p:dataTable>
+						</p:column>
+						<p:column style="padding: 0px;">
+							<p:dataTable style="border-width: 0px; background-color: transparent;" value="#{notaContableLibrePage.totalesNota}" var="total">
+								<p:column style="border-width: 0px; text-align:right;">
+									<h:outputText value="#{total.total}">
+										<f:convertNumber type="currency" />
+									</h:outputText>
+								</p:column>
+							</p:dataTable>
+						</p:column>
+						<p:column></p:column>
+					</p:columnGroup>
+				</f:facet>
+			</p:dataTable>
+		</p:panel>
+		<p:panel header="Soportes de la nota contable" cellpadding="0" cellspacing="2" id="anexosLibre" style="text-align: center;" width="100%"
+			rendered="#{! empty notaContableLibrePage.anexos}">
+			<p:dataTable value="#{notaContableLibrePage.anexos}" var="anexo" id="tableAnexosNotaLibre" rowKeyVar="rowKeyAnexos" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
+				onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'" rowClasses="row1, row2">
+
+				<p:column width="150" style="text-align: left;">
+					<f:facet name="header">
+						<h:outputText value="Fecha" />
+					</f:facet>
+					<h:outputText value="#{anexo.fechaHora}" />
+				</p:column>
+
+				<p:column style="text-align: right;">
+					<f:facet name="header">
+						<h:outputText value="Usuario" />
+					</f:facet>
+					<h:outputText value="#{anexo.usuNombre}" />
+				</p:column>
+
+				<p:column style="text-align: right;">
+					<f:facet name="header">
+						<h:outputText value="Archivo" />
+					</f:facet>
+					<p:commandLink action="#{downloadGeneralPage.download}" styleClass="bold" value="#{anexo.nombre}" target="_blank">
+						<f:param name="type1" value="#{downloadGeneralPage.SOPORTE}" assignTo="#{downloadGeneralPage.type}" />
+						<f:param name="file1" value="#{anexo.archivo}" assignTo="#{downloadGeneralPage.file}" />
+					</p:commandLink>
+				</p:column>
+
+				<p:column width="80" style="text-align: center;">
+					<f:facet name="header">
+						<h:outputText value="Eliminar" />
+					</f:facet>
+					<h:commandButton image="/common/images/delete.png" alt="Borrar" onclick="#{p:remoteCommand('popupBorrarAnexoRegLibre')}.show()" />
+
+					<!-- Formulario de confirmacion de borrado de anexos-->
+					<p:dialog id="popupBorrarAnexoRegLibre" autosized="true" domElementAttachment="form" minWidth="250">
+						<f:facet name="header">
+							<h:panelGroup>
+								<h:outputText value="Confirmación de borrado de anexo" />
+							</h:panelGroup>
+						</f:facet>
+						<f:facet name="controls">
+							<h:panelGroup>
+								<h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink" id="hidelinkBorrarAnexoRegLibre" height="20" width="20" />
+								<p:remoteCommand for="popupBorrarAnexoRegLibre" attachTo="hidelinkBorrarAnexoRegLibre" operation="hide" event="onclick" />
+							</h:panelGroup>
+						</f:facet>
+
+						<h:panelGrid columns="1" width="100%">
+
+							<h:outputText value="¿Está seguro que desea borrar el anexo actual?" />
+
+							<!-- Seccion de mensajes y botones de envio y cancelacion-->
+
+							<h:panelGrid columns="2" styleClass="center" width="100%">
+								<h:commandButton action="#{notaContableLibrePage.borrarAnexo}" value="Si" oncomplete="#{p:remoteCommand('popupBorrarAnexoRegLibre')}.hide()" immediate="true"
+									reRender="formRegLibre">
+									<f:param name="anexoBorrarAnexoRegLibre" value="true" assignTo="#{anexo.borrar}" converter="javax.faces.Boolean" />
+								</h:commandButton>
+								<h:commandButton onclick="#{p:remoteCommand('popupBorrarAnexoRegLibre')}.hide()" value="No" />
+							</h:panelGrid>
+						</h:panelGrid>
+					</p:dialog>
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+		<ui:include src="../../common/mensajes.xhtml" />
+		<h:panelGrid columns="3" styleClass="center" width="100%" id="botonesNotaRegLibre">
+			<h:commandButton action="#{notaContableLibrePage.guardarNota}" reRender="formRegLibre,botonesNotaRegLibre" value="Enviar a Visto Bueno"
+				rendered="#{notaContableLibrePage.nota.codigo le 0 and !empty notaContableLibrePage.temasNotaContable and !empty notaContableLibrePage.anexos}" />
+			<h:commandButton action="#{notaContableLibrePage.guardarNota}"
+				oncomplete="if (#{notaContableLibrePage.ocultarPopupGuardarNota}) #{p:remoteCommand('popupNotaContableLibre')}.hide()" reRender="lista,botonesNotaRegLibre"
+				value="Enviar a Visto Bueno"
+				rendered="#{notaContableLibrePage.nota.codigo gt 0 and notaContableLibrePage.nota.puedeEditar and !empty notaContableLibrePage.temasNotaContable and !empty notaContableLibrePage.anexos}" />
+			<h:commandButton value="Anular" rendered="#{notaContableLibrePage.nota.codigo gt 0 and notaContableLibrePage.nota.puedeAnular}"
+				oncomplete="#{p:remoteCommand('popupAnularNotaLibre')}.show()" />
+			<h:commandButton value="Cancelar" action="#{notaContableLibrePage.cancelarNota}" reRender="formRegLibre"
+				rendered="#{notaContableLibrePage.nota.codigo le 0 and !empty notaContableLibrePage.temasNotaContable}" />
+			<h:commandButton value="Cerrar" oncomplete="#{p:remoteCommand('popupNotaContableLibre')}.hide()" reRender="lista" rendered="#{notaContableLibrePage.nota.codigo gt 0}" />
+		</h:panelGrid>
+	</h:panelGrid>
+</ui:composition>
