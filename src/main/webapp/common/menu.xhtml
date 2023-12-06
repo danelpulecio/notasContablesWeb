@@ -1,4 +1,5 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
+<<<<<<< HEAD
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
@@ -25,3 +26,50 @@
     </table>
     <p:menubar model="#{contablesSessionBean.loginUser.model}"/>
 </ui:composition>
+=======
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:c="http://java.sun.com/jstl/core">             
+	    <table class="barraHeader" border="0" cellpadding="0" cellspacing="0">
+	        <tr>
+	            <td><p:graphicImage value="/common/images/header.jpg" alt="Banner - Notas Contables"/></td>
+	            <td><p:graphicImage value="/common/images/logo.jpg" alt="Logo - BBVA"/></td>
+	        </tr>
+	    </table>
+	    <table class="barraHeader" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#93c4e5"
+	           style="color: #4a75aa; font-weight: 8; font-weight: bold; font-family: sans-serif;">
+	        <tr>
+	            <td><h:outputText value="#{contablesSessionBean.fecha}"/></td>
+	            <td><h:outputText
+	                    value="#{contablesSessionBean.loginUser.usuario.codigoEmpleado} - #{contablesSessionBean.loginUser.usuAltamira.nombreEmpleado}"
+	                    update="#{! empty contablesSessionBean.loginUser.opcionesMenu}"/></td>
+	            <td><h:outputText value="#{contablesSessionBean.loginUser.rolActual.nombre}"
+	                              rendered="#{! empty contablesSessionBean.loginUser.opcionesMenu}"/></td>
+	            <td align="right"><h:outputText
+	                    value="#{contablesSessionBean.loginUser.usuario.codigoAreaModificado} - #{contablesSessionBean.loginUser.usuario.nombreAreaModificado}"
+	                    update="#{! empty contablesSessionBean.loginUser.opcionesMenu}"/></td>
+	        </tr>
+	    </table>
+	    
+	    <p:menubar model="#{contablesSessionBean.loginUser.model}"/>
+
+<!--     	<p:panel border="0" cellpadding="0" cellspacing="0" width="100%"> -->
+<!-- 		    <div align="left"> -->
+<!-- 		    	<c:forEach items="#{contablesSessionBean.loginUser.opcionesMenu}" var="entry"> -->
+<!-- 			    	<p:menuButton  value="#{entry.nombre}"> -->
+<!-- 			    		<c:forEach items="#{entry.menuItems}" var="menuItem"> -->
+<!-- 				        	<p:menuitem value="#{menuItem.value}" action="#{menuItem.action}" -->
+<!-- 				        	update="globalForm" ajax="false" /> -->
+<!-- 								<p:menuitem> -->
+<!-- 									<p:commandLink value="#{menuItem.value}"  actionListener="#{menuItem.action}"/> -->
+<!-- 								</p:menuitem> -->
+<!-- 				        </c:forEach> -->
+<!-- 				    </p:menuButton> -->
+<!-- 			    </c:forEach> -->
+<!-- 		    </div>	 -->
+<!-- 	    </p:panel> -->
+	    
+</ui:composition>
+>>>>>>> 6bf8c488e0aff442960f59b676b00d591371150c

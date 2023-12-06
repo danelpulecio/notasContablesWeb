@@ -22,7 +22,9 @@ public class MenuVisual implements java.io.Serializable, Comparable<MenuVisual> 
 	private int ordenVisual = 0;
 	private String nombre = "";
 
-	private List<UIMenuItem> menuItems = new ArrayList<>();
+	private List<MenuItem> menuItems = new ArrayList<>();
+	
+	
 
 	public MenuVisual(Menu m) {
 		this.codigo = m.getCodigo();
@@ -57,11 +59,14 @@ public class MenuVisual implements java.io.Serializable, Comparable<MenuVisual> 
 		return o.getOrdenVisual() - getOrdenVisual();
 	}
 
-	public List<UIMenuItem> getMenuItems() {
+	public List<MenuItem> getMenuItems() {
 		return menuItems;
 	}
 
-	public void setMenuItems(List<UIMenuItem> menuItems) {
+	public void setMenuItems(List<MenuItem> menuItems) {
 		this.menuItems = menuItems;
 	}
+
+
+	
 }
