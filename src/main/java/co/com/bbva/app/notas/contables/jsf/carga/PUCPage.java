@@ -27,7 +27,7 @@ public class PUCPage extends GeneralCargaPage<PUC> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(PUCPage.class);
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
 
 	/**
 	 * <p>
@@ -56,7 +56,7 @@ public class PUCPage extends GeneralCargaPage<PUC> {
 	@Override
 	public Collection<PUC> _buscarPorFiltro() throws Exception {
 		if(!param.isEmpty()){
-			LOGGER.info("{} Buscar puc : {}", session.getTraceLog(),param );
+//			LOGGER.info("{} Buscar puc : {}", session.getTraceLog(),param );
 		}
 		return cargaAltamiraManager.searchPUC(param);
 	}

@@ -275,3 +275,5 @@ t
 Dsrc/main/java/co/com/bbva/app/notas/contables/jsf/carga/PUCPage.java,1/6/1630ec102526c32fc6d0fd45387cf034dd8cb4f8
 ‰
 Ysrc/main/java/co/com/bbva/app/notas/contables/carga/dao/RiesgoOperacionalProductoDAO.java,a/c/acdc385e464dac172946fa3de82718b7fcbfc350
+|
+Lsrc/main/java/co/com/bbva/app/notas/contables/carga/dao/TipoTelefonoDAO.java,d/4/d4ba5ff687fefeaf508539bb55812d1be6a51e35
