@@ -11,54 +11,28 @@
         <div style="width: 400px;">
             <h:panelGrid columns="1" width="100%"><h1 align="center">Riesgo Operacional - Línea Operativa</h1>
             </h:panelGrid>
-
-            <h:panelGrid columns="2" id="filtro">
-                <h:inputText id="param" value="#{riesgoOperacionalLineaOperativaPage.param}"/>
-                <h:commandButton action="#{riesgoOperacionalLineaOperativaPage.buscarPorFiltro}" value="Filtrar"
-                                 onclick="Richfaces.showModalPanel('statusPanel')"/>
-            </h:panelGrid>
-
-            <ui:include src="../../common/mensajes.xhtml"/>
-
-            <!--	Tabla de resultados	-->
             <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
+                <h:panelGrid columns="2" id="filtro">
+                    <h:inputText id="param" value="#{riesgoOperacionalLineaOperativaPage.param}"/>
+                    <h:commandButton action="#{riesgoOperacionalLineaOperativaPage.buscarPorFiltro}" value="Filtrar"/>
+                </h:panelGrid>
+                <ui:include src="../../common/mensajes.xhtml"/>
 
-                <p:dataTable value="#{riesgoOperacionalLineaOperativaPage.datos}" var="dato" id="table" rows="15"
-                                rendered="#{! empty riesgoOperacionalLineaOperativaPage.datos}" rowKeyVar="rowKey"
-                                footerClass="row2" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
-                                onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"
-                                rowClasses="row1, row2">
-                    <f:facet name="header">
-                        <p:dataScroller fastControls="false" pageIndexVar="pageIndex" pagesVar="pages"
-                                           style="color:black;" for="table" maxPages="5" renderIfSinglePage="false"
-                                           page="#{riesgoOperacionalLineaOperativaPage.scrollPage}" id="up"
-                                           reRender="lista, filtro" limitToList="true" ajaxSingle="true">
-                        </p:dataScroller>
-                    </f:facet>
-                    <p:column>
-                        <f:facet name="header"><h:outputText value="Fila"/></f:facet>
+                <!--	Tabla de resultados	-->
+                <p:dataTable id="table" value="#{riesgoOperacionalLineaOperativaPage.datos}" var="dato" rowIndexVar="rowIndex"
+                             widgetVar="riesgoTable" rows="15" paginator="true"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                             paginatorPosition="top">
+                    <p:column headerText="Fila">
                         <h:outputText value="#{rowKey+1}"/>
                     </p:column>
-                    <p:column sortable="true" comparator="#{riesgoOperacionalLineaOperativaPage.pkComparator }">
-                        <f:facet name="header"><h:outputText value="Código"/></f:facet>
+                    <p:column headerText="Codigo" sortable="true" comparator="#{riesgoOperacionalLineaOperativaPage.pkComparator }">
                         <h:outputText value="#{dato.codigo}"/>
                     </p:column>
-                    <p:column sortable="true" sortBy="#{dato.nombre}">
-                        <f:facet name="header"><h:outputText value="Nombre"/></f:facet>
+                    <p:column headerText="Nombre" sortable="true" sortBy="#{dato.nombre}">
                         <h:outputText value="#{dato.nombre}"/>
                     </p:column>
-
-                    <!--	Se muestra la informacion de la cantidad de registros y la pagina actual	-->
-                    <f:facet name="footer">
-                        <p:dataScroller style="color:black;" align="center" for="table"
-                                           page="#{riesgoOperacionalLineaOperativaPage.scrollPage}"
-                                           boundaryControls="hide" fastControls="hide" stepControls="hide">
-                            <f:facet name="pages">
-                                <h:outputText
-                                        value="Visualizando del #{((pageIndex-1)*15)+1 } al #{(pages!=pageIndex)?(pageIndex*15):riesgoOperacionalLineaOperativaPage.totalFilas} de un total de #{riesgoOperacionalLineaOperativaPage.totalFilas} registros."/>
-                            </f:facet>
-                        </p:dataScroller>
-                    </f:facet>
                 </p:dataTable>
             </h:panelGrid>
         </div>

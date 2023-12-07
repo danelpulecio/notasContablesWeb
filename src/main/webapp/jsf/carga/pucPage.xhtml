@@ -1,95 +1,108 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-				xmlns:ui="http://java.sun.com/jsf/facelets"
-				xmlns:h="http://java.sun.com/jsf/html"
-				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:p="http://primefaces.org/ui"
-				template="../../common/template.xhtml">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../common/template.xhtml">
     <ui:param name="title" value="Plan Único de Cuentas (PUC)"/>
     <ui:define name="body">
 
         <!--Filtro de busqueda	-->
         <div style="width: 850px;">
-            <h:panelGrid columns="1" width="100%"><h1 align="center">Plan Único de Cuentas (PUC)</h1></h:panelGrid>
+            <h:form>
+                <h:panelGrid columns="1" width="100%"><h1 align="center">Plan Único de Cuentas (PUC)</h1></h:panelGrid>
+                <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
+                    <h:panelGrid columns="2" id="filtro">
+                        <h:inputText id="param" value="#{pucPage.param}"/>
+                        <h:commandButton action="#{pucPage.buscarPorFiltro}" value="Filtrar"/>
+                    </h:panelGrid>
+                    <ui:include src="../../common/mensajes.xhtml"/>
 
-            <h:panelGrid columns="2" id="filtro">
-                <h:inputText id="param" value="#{pucPage.param}"/>
-                <h:commandButton action="#{pucPage.buscarPorFiltro}" value="Filtrar"
-                                 onclick="Richfaces.showModalPanel('statusPanel')"/>
-            </h:panelGrid>
-
-            <ui:include src="../../common/mensajes.xhtml"/>
-
-            <!--	Tabla de resultados	-->
-            <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
-
-                <p:dataTable value="#{pucPage.datos}" var="dato" id="table" rows="15"
-                                rendered="#{! empty pucPage.datos}" rowKeyVar="rowKey"
-                                footerClass="row2" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
-                                onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"
-                                rowClasses="row1, row2">
-                    <f:facet name="header">
-                        <p:dataScroller fastControls="false" pageIndexVar="pageIndex" pagesVar="pages"
-                                           style="color:black;" for="table" maxPages="5" renderIfSinglePage="false"
-                                           page="#{pucPage.scrollPage}" id="up" reRender="lista, filtro"
-                                           limitToList="true" ajaxSingle="true">
-                        </p:dataScroller>
-                    </f:facet>
-                    <p:column>
-                        <f:facet name="header"><h:outputText value="Fila"/></f:facet>
-                        <h:outputText value="#{rowKey+1}"/>
-                    </p:column>
-                    <p:column sortable="true" sortBy="#{dato.numeroCuenta}">
-                        <f:facet name="header"><h:panelGroup><h:outputText value="Número"/><br/><h:outputText
-                                value="Cuenta"/></h:panelGroup></f:facet>
-                        <h:outputText value="#{dato.numeroCuenta} "/>
-                    </p:column>
-                    <p:column width="250" sortable="true" sortBy="#{dato.descripcion}">
-                        <f:facet name="header"><h:outputText value="Descripción"/></f:facet>
-                        <h:outputText value="#{dato.descripcion}"/>
-                    </p:column>
-                    <p:column sortable="true" sortBy="#{dato.tipoCentroOrigenAutorizado}">
-                        <f:facet name="header"><h:panelGroup> <h:outputText value="Tipo Cent."/><br/><h:outputText
-                                value="Aut. Ori."/></h:panelGroup> </f:facet>
-                        <h:outputText value="#{dato.tipoCentroOrigenAutorizado}"/>
-                    </p:column>
-                    <p:column sortable="true" sortBy="#{dato.indicadorCentroOrigen}">
-                        <f:facet name="header"><h:panelGroup><h:outputText value="Indicador"/><br/><h:outputText
-                                value="Cent. Orig."/></h:panelGroup></f:facet>
-                        <h:outputText value="#{dato.indicadorCentroOrigen}"/>
-                    </p:column>
-                    <p:column sortable="true" sortBy="#{dato.centrosOrigenAutorizados}">
-                        <f:facet name="header"><h:panelGroup><h:outputText value="Cent. Orig."/><br/><h:outputText
-                                value="Autorizados"/></h:panelGroup></f:facet>
-                        <h:outputText value="#{dato.centrosOrigenAutorizados}"/>
-                    </p:column>
-                    <p:column sortable="true" sortBy="#{dato.tipoCentroDestinoAutorizado}">
-                        <f:facet name="header"><h:panelGroup><h:outputText value="Tipo Cent."/><br/><h:outputText
-                                value="Aut. Dest."/></h:panelGroup></f:facet>
-                        <h:outputText value="#{dato.tipoCentroDestinoAutorizado}"/>
-                    </p:column>
-                    <p:column sortable="true" sortBy="#{dato.indicadorCentroDestino}">
-                        <f:facet name="header"><h:panelGroup><h:outputText value="Indicador"/><br/><h:outputText
-                                value="Cent. Dest."/></h:panelGroup></f:facet>
-                        <h:outputText value="#{dato.indicadorCentroDestino}"/>
-                    </p:column>
-                    <p:column sortable="true" sortBy="#{dato.centrosDestinoAutorizados}">
-                        <f:facet name="header"><h:panelGroup><h:outputText value="Cent, Dest."/><br/><h:outputText
-                                value="Autorizados"/></h:panelGroup></f:facet>
-                        <h:outputText value="#{dato.centrosDestinoAutorizados}"/>
-                    </p:column>
-
-                    <!--	Se muestra la información de la cantidad de registros y la pagina actual	-->
-                    <f:facet name="footer">
-                        <p:dataScroller style="color:black;" align="center" for="table" page="#{pucPage.scrollPage}"
-                                           boundaryControls="hide" fastControls="hide" stepControls="hide">
-                            <f:facet name="pages">
-                                <h:outputText
-                                        value="Visualizando del #{((pageIndex-1)*15)+1 } al #{(pages!=pageIndex)?(pageIndex*15):pucPage.totalFilas} de un total de #{pucPage.totalFilas} registros."/>
-                            </f:facet>
-                        </p:dataScroller>
-                    </f:facet>
-                </p:dataTable>
-            </h:panelGrid>
+                    <!--	Tabla de resultados	-->
+                    <p:dataTable id="table" value="#{pucPage.datos}" var="dato" rowIndexVar="rowIndex"
+                                 widgetVar="pucPageTable" rows="15" paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                                 paginatorPosition="top">
+                        <p:column headerText="Fila">
+                            <h:outputText value="#{rowKey+1}"/>
+                        </p:column>
+                        <p:column headerText="" sortable="true" sortBy="#{dato.numeroCuenta}">
+                            <!--<f:facet name="header">-->
+                                <h:panelGroup>
+                                    <h:outputText value="Número"/>
+                                    <br/>
+                                    <h:outputText value="Cuenta"/>
+                                </h:panelGroup>
+                            <!--</f:facet>-->
+                            <h:outputText value="#{dato.numeroCuenta} "/>
+                        </p:column>
+                        <p:column headerText="Descripcion" width="250" sortable="true" sortBy="#{dato.descripcion}">
+                            <h:outputText value="#{dato.descripcion}"/>
+                        </p:column>
+                        <p:column headerText="" sortable="true" sortBy="#{dato.tipoCentroOrigenAutorizado}">
+                            <!--<f:facet name="header">-->
+                                <h:panelGroup>
+                                    <h:outputText value="Tipo Cent."/>
+                                    <br/>
+                                    <h:outputText value="Aut. Ori."/>
+                                </h:panelGroup>
+                            <!--</f:facet>-->
+                            <h:outputText value="#{dato.tipoCentroOrigenAutorizado}"/>
+                        </p:column>
+                        <p:column headerText="" sortable="true" sortBy="#{dato.indicadorCentroOrigen}">
+                            <!--<f:facet name="header">-->
+                                <h:panelGroup>
+                                    <h:outputText value="Indicador"/>
+                                    <br/>
+                                    <h:outputText value="Cent. Orig."/>
+                                </h:panelGroup>
+                            <!--</f:facet>-->
+                            <h:outputText value="#{dato.indicadorCentroOrigen}"/>
+                        </p:column>
+                        <p:column headerText="" sortable="true" sortBy="#{dato.centrosOrigenAutorizados}">
+                            <!--<f:facet name="header">-->
+                                <h:panelGroup>
+                                    <h:outputText value="Cent. Orig."/>
+                                    <br/>
+                                    <h:outputText value="Autorizados"/>
+                                </h:panelGroup>
+                            <!--</f:facet>-->
+                            <h:outputText value="#{dato.centrosOrigenAutorizados}"/>
+                        </p:column>
+                        <p:column headerText="" sortable="true" sortBy="#{dato.tipoCentroDestinoAutorizado}">
+                            <!--<f:facet name="header">-->
+                                <h:panelGroup>
+                                    <h:outputText value="Tipo Cent."/>
+                                    <br/>
+                                    <h:outputText value="Aut. Dest."/>
+                                </h:panelGroup>
+                            <!--</f:facet>-->
+                            <h:outputText value="#{dato.tipoCentroDestinoAutorizado}"/>
+                        </p:column>
+                        <p:column headerText="" sortable="true" sortBy="#{dato.indicadorCentroDestino}">
+                            <!--<f:facet name="header">-->
+                                <h:panelGroup>
+                                    <h:outputText value="Indicador"/>
+                                    <br/>
+                                    <h:outputText value="Cent. Dest."/>
+                                </h:panelGroup>
+                            <!--</f:facet>-->
+                            <h:outputText value="#{dato.indicadorCentroDestino}"/>
+                        </p:column>
+                        <p:column headerText="" sortable="true" sortBy="#{dato.centrosDestinoAutorizados}">
+                            <!--<f:facet name="header">-->
+                                <h:panelGroup>
+                                    <h:outputText value="Cent, Dest."/>
+                                    <br/>
+                                    <h:outputText value="Autorizados"/>
+                                </h:panelGroup>
+                            <!--</f:facet>-->
+                            <h:outputText value="#{dato.centrosDestinoAutorizados}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:panelGrid>
+            </h:form>
         </div>
     </ui:define>
 </ui:composition>
