@@ -20,7 +20,6 @@ import java.util.Collection;
 @Named
 public class PUCPage extends GeneralCargaPage<PUC> {
 
-	String param = getParam();
 	/**
 	 * 
 	 */

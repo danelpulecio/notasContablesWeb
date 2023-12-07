@@ -267,3 +267,11 @@ w
 Gsrc/main/java/co/com/bbva/app/notas/contables/carga/dao/FestivoDAO.java,b/a/ba66ce8e8bde2435d072929e2411d13071b11237
 w
 Gsrc/main/java/co/com/bbva/app/notas/contables/carga/dao/HADTAPLDAO.java,6/a/6a1261dfdeb5e5332d370217ffc9ea44044d5b32
+‚
+Rsrc/main/java/co/com/bbva/app/notas/contables/carga/dao/PerdidaOperacionalDAO.java,d/d/dd559ea603f63fe184e2361078e252ec81f97a58
+x
+Hsrc/main/java/co/com/bbva/app/notas/contables/carga/dao/ProductoDAO.java,e/3/e37d3b589dac2c15bcad8caa1b7d903f4ce00dbe
+t
+Dsrc/main/java/co/com/bbva/app/notas/contables/jsf/carga/PUCPage.java,1/6/1630ec102526c32fc6d0fd45387cf034dd8cb4f8
+‰
+Ysrc/main/java/co/com/bbva/app/notas/contables/carga/dao/RiesgoOperacionalProductoDAO.java,a/c/acdc385e464dac172946fa3de82718b7fcbfc350

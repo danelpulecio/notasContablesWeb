@@ -593,6 +593,7 @@ public class CargaAltamiraSessionBean implements CargaAltamiraSession {
 
 	@Override
 	public Collection<PerdidaOperacional> searchPerdidaOperacional(String palabraClave) throws Exception {
+		LOGGER.info("<<<Palabra clave {}>>>", palabraClave);
 		return perdidaOperacionalDAO.findBy(palabraClave);
 	}
 
