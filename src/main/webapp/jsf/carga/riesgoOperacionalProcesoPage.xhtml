@@ -24,7 +24,7 @@
                              currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
                              paginatorPosition="top">
                     <p:column headerText="Fila">
-                        <h:outputText value="#{rowKey+1}"/>
+                        <h:outputText value="#{rowIndex+1}"/>
                     </p:column>
                     <p:column headerText="Codigo" sortable="true" comparator="#{riesgoOperacionalProcesoPage.pkComparator }">
                         <h:outputText value="#{dato.codigo}"/>
