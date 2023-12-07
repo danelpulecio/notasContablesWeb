@@ -20,7 +20,6 @@ import java.util.Collection;
 @Named
 public class PerdidaOperacionalClaseRiesgoPage extends GeneralCargaPage<ClaseRiesgo> {
 
-	String param = getParam();
 	/**
 	 * 
 	 */

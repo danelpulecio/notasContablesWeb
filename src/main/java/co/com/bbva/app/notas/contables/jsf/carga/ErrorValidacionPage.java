@@ -20,7 +20,6 @@ import java.util.Collection;
 @Named
 public class ErrorValidacionPage extends GeneralCargaPage<ErrorValidacion> {
 
-	String param = getParam();
 	/**
 	 * 
 	 */

@@ -20,7 +20,6 @@ import java.util.Collection;
 @Named
 public class PerdidaOperacionalClaseRiesgoTipoPerdidaPage extends GeneralCargaPage<PerdidaOperacionalClaseRiesgo> {
 
-	String param = getParam();
 	private static final long serialVersionUID = -7767388810824414064L;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(PerdidaOperacionalClaseRiesgoTipoPerdidaPage.class);
