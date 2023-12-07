@@ -273,7 +273,10 @@ public class CargaAltamiraSessionBean implements CargaAltamiraSession {
 
 	@Override
 	public Collection<Cliente> searchCliente(String palabraClave) throws Exception {
-		return clienteDAO.findBy(palabraClave);
+		LOGGER.info("Palabra clave buscar filtro cliente {}", palabraClave);
+		Collection<Cliente> clienteDato =clienteDAO.findBy(palabraClave);
+		LOGGER.info("respuesta cliente dao por filtro {}", clienteDato);
+		return clienteDato;
 	}
 
 	@Override

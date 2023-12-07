@@ -27,14 +27,17 @@ import javax.inject.Named;
 @SessionScoped
 public class UsuarioLogueado implements Serializable {
 
+	public UsuarioLogueado() {
+		//default
+	}
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 7935040122801785429L;
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(UsuarioLogueado.class);
-	
+
 	private UsuarioModulo usuario;
 	private UsuarioAltamira usuAltamira;
 	private Sucursal sucursal;
@@ -44,22 +47,22 @@ public class UsuarioLogueado implements Serializable {
 	private TreeMap<Menu, TreeSet<SubMenu>> menu;
 	private ArrayList<MenuVisual> opcionesMenu;
 	private Collection<Rol> roles;
-	
+
 
 	private MenuModel model;
 
 	private Application application;
 
 	public UsuarioLogueado(UsuarioModulo usuario) {
-		
+
 		this.usuario = usuario;
 		usuAltamira = new UsuarioAltamira();
 		rolActual = null;
 		roles = new ArrayList<Rol>();
 		menu = new TreeMap<Menu, TreeSet<SubMenu>>();
-		sucursal = new Sucursal(); 
+		sucursal = new Sucursal();
 	}
-	
+
 	public UsuarioModulo getUsuario() {
 		return usuario;
 	}
@@ -74,7 +77,7 @@ public class UsuarioLogueado implements Serializable {
 
 	public void setRolActual(Rol rolActual) {
 		this.rolActual = rolActual;
-	} 
+	}
 
 	public Collection<Rol> getRoles() {
 		return roles;
@@ -115,29 +118,29 @@ public class UsuarioLogueado implements Serializable {
 	public void setCentroEspecial(CentroEspecial centroEspecial) {
 		this.centroEspecial = centroEspecial;
 	}
-	
+
 	public MenuModel getModel() {
-		
+
 		model = new DefaultMenuModel();
-        
+
 		for (Menu m : menu.keySet()) {
 			DefaultSubMenu submenu = DefaultSubMenu.builder().label(m.getNombre()).build();
 
 			for (SubMenu sm : menu.get(m)) {
 
 				DefaultMenuItem item = DefaultMenuItem.builder()
-					.value(sm.getNombre())
-	                .command(sm.getAccion())
-	                .id(Integer.toString(sm.getCodigo()))
-	                .build();
-					submenu.getElements().add(item);
+						.value(sm.getNombre())
+						.command(sm.getAccion())
+						.id(Integer.toString(sm.getCodigo()))
+						.build();
+				submenu.getElements().add(item);
 			}
 			submenu.setId(Integer.toString(m.getCodigo()));
 			model.getElements().add(submenu);
 			//model.generateUniqueIds();
 
 		}
-		
+
 		return model;
 	}
 
@@ -155,8 +158,8 @@ public class UsuarioLogueado implements Serializable {
 			}
 		}
 		return opcionesMenu;
-	} 
-  
+	}
+
 //	private List<HtmlMenuItem> getMenuList(TreeSet<SubMenu> opciones) {
 //		LinkedList<HtmlMenuItem> menuList = new LinkedList<HtmlMenuItem>();
 //		for (SubMenu sm : opciones) {
@@ -164,13 +167,13 @@ public class UsuarioLogueado implements Serializable {
 //			HtmlMenuItem htmlMenuItem = new HtmlMenuItem();
 //			Class<?>[] params = {};
 //			MethodExpression actionExpression = application.getExpressionFactory().createMethodExpression(FacesContext.getCurrentInstance().getELContext(), sm.getAccion(), String.class, params);
-//			htmlMenuItem.setActionExpression(actionExpression);  
+//			htmlMenuItem.setActionExpression(actionExpression);
 //			htmlMenuItem.setDisabled(false);
 //			htmlMenuItem.setValue(sm.getNombre());
 //			menuList.add(htmlMenuItem);
 //		}
 //		return menuList;
 //	}
-//	
-	
+//
+
 }

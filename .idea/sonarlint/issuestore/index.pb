@@ -253,3 +253,15 @@ t
 Dsrc/main/java/co/com/bbva/app/notas/contables/carga/dto/Cliente.java,5/9/591e7c675fdace23a616c5c8e4182d264d7c367b
 u
 Esrc/main/java/co/com/bbva/app/notas/contables/carga/dto/Contrato.java,6/e/6e64d5df9a846fa2e7a8065f78ed76630a1eae66
+x
+Hsrc/main/java/co/com/bbva/app/notas/contables/jsf/carga/FestivoPage.java,c/4/c416b5e85ece95291ceea878199119d1b8c553c3
+w
+Gsrc/main/java/co/com/bbva/app/notas/contables/carga/dao/ClienteDAO.java,9/7/978ab501f394cdfaf31755a4cf0d00381dcfe179
+x
+Hsrc/main/java/co/com/bbva/app/notas/contables/carga/dao/ContratoDAO.java,5/9/59b05db4f221ba00e0c29087bc676dfbc0b24f9e
+n
+>src/main/java/co/com/bbva/app/notas/contables/dto/SubMenu.java,5/d/5d6a1226c98c7056c3a5c8ee7eceb3772499f90a
+x
+Hsrc/main/java/co/com/bbva/app/notas/contables/jsf/carga/HADTAPLPage.java,4/7/47a548bc7f114888fb9c585665a99a8f83116629
+w
+Gsrc/main/java/co/com/bbva/app/notas/contables/carga/dao/FestivoDAO.java,b/a/ba66ce8e8bde2435d072929e2411d13071b11237
