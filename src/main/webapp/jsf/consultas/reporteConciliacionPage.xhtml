@@ -1,0 +1,36 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../WEB-INF/layouts/template.xhtml">
+    <ui:param name="title" value="Conciliación Automática" />
+    <ui:define name="body">
+
+        <!--Filtro de busqueda	-->
+        <div style="width: 990px;">
+            <h:panelGrid columns="1" width="100%">
+                <h1 align="center">Conciliación Automatica</h1>
+            </h:panelGrid>
+
+            <!-- Tabla de registros -->
+            <h:panelGrid id="filtro" columns="1" width="60%" cellpadding="0" cellspacing="0">
+                <p:accordionPanel label="Filtro" width="100%" switchType="client">
+                    <h:panelGrid columns="2" width="100%" cellpadding="0" cellspacing="5">
+
+                        <h:outputText value="Período" />
+                        <h:selectOneMenu value="años" immediate="true">
+                            <f:selectItems value="años" />
+                        </h:selectOneMenu>
+
+                        <h:commandButton value="Ejecutar" reRender="filtro"  />
+
+                    </h:panelGrid>
+                </p:accordionPanel>
+            </h:panelGrid>
+
+            <!--<ui:include src="../../common/mensajes.xhtml" />-->
+
+        </div>
+    </ui:define>
+</ui:composition>

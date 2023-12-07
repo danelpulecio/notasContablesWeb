@@ -20,7 +20,6 @@ import java.util.Collection;
 @Named
 public class HADTAPLPage extends GeneralCargaPage<HADTAPL> {
 
-	String param = getParam();
 	/**
 	 * 
 	 */

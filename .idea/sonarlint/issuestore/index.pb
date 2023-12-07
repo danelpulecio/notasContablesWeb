@@ -265,3 +265,5 @@ x
 Hsrc/main/java/co/com/bbva/app/notas/contables/jsf/carga/HADTAPLPage.java,4/7/47a548bc7f114888fb9c585665a99a8f83116629
 w
 Gsrc/main/java/co/com/bbva/app/notas/contables/carga/dao/FestivoDAO.java,b/a/ba66ce8e8bde2435d072929e2411d13071b11237
+w
+Gsrc/main/java/co/com/bbva/app/notas/contables/carga/dao/HADTAPLDAO.java,6/a/6a1261dfdeb5e5332d370217ffc9ea44044d5b32

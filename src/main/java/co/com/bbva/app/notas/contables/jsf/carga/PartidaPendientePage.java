@@ -21,7 +21,7 @@ import java.util.Collection;
 public class PartidaPendientePage extends GeneralCargaPage<PartidaPendiente> {
 
 
-	String param = getParam();
+
 	/**
 	 * 
 	 */
