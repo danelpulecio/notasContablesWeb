@@ -25,7 +25,7 @@ import java.util.Locale;
  * 
  */
 @Named
-@ViewScoped
+@SessionScoped
 public class CierreMensualPage extends GeneralPage implements IPages, Serializable {
 
 	private String cierreMensual;

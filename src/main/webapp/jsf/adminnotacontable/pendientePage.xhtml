@@ -1,0 +1,127 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui"
+				template="../../WEB-INF/layouts/template.xhtml">
+	<ui:param name="title" value="Consulta de notas contables" />
+	<ui:define name="body">
+
+		<!--<ui:include src="../common/flujoSubPage.xhtml" />
+		<ui:include src="../common/notaContableModalPage.xhtml"/>
+		<ui:include src="../common/notaContableLibreModalPage.xhtml"/>
+		<ui:include src="../notacontable/flujoNotaContablePage.xhtml"/>
+		<ui:include src="../notacontable/flujoNotaContableLibrePage.xhtml"/>
+		<ui:include src="../notacontable/flujoNotaRefCrucePage.xhtml"/>-->
+
+		<!--Filtro de busqueda	-->
+		<div style="width: 950px;"><h:panelGrid columns="1" width="100%">
+			<h1 align="center">Mis Pendientes</h1>
+		</h:panelGrid>
+		
+		<!--<ui:include src="../../common/mensajes.xhtml" />-->
+		
+		<!-- Tabla de registros --> 
+		<h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
+
+			<p:dataTable value="datos" var="dato" id="tablePendiente" rows="10" rowKeyVar="rowKey" width="100%" footerClass="row2" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
+				onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'" rowClasses="row1, row2">
+				<f:facet name="header">
+					<p:dataScroller fastControls="false" pageIndexVar="pageIndex" pagesVar="pages" style="color:black;" for="tablePendiente" maxPages="5" renderIfSinglePage="false" page="10" id="up" reRender="lista, filtro"
+						limitToList="true" ajaxSingle="true">
+					</p:dataScroller>
+				</f:facet>
+
+				<p:column sortable="true" sortBy="#{dato.NC.numeroRadicacion}">
+					<f:facet name="header">
+						<h:panelGroup>
+							<h:outputText value="Número"/>
+							<br />
+							<h:outputText value="Radicación" />
+						</h:panelGroup>
+					</f:facet>
+					<h:outputText value="numeroRadicacion" />
+				</p:column>
+				<p:column sortable="true" sortBy="#{dato.sucursal.codigo}">
+					<f:facet name="header">
+							<h:outputText value="Sucursal Origen" />
+					</f:facet>
+					<h:panelGrid columns="2">
+						<h:outputText value="sucursalcodigo" />
+						<h:outputText value="sucursalnombre" />
+					</h:panelGrid>
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Concepto" />
+					</f:facet>
+					<h:outputText value="Contabilidad Libre" />
+				</p:column>
+				<p:column sortable="true" sortBy="#{dato.ultimaActualizacionTs}">
+					<f:facet name="header">
+						<h:panelGroup>
+							<h:outputText value="Fecha" />
+							<br />
+							<h:outputText value="Asignación" />
+						</h:panelGroup>
+					</f:facet>
+					<h:outputText >
+						<f:convertDateTime timeZone="GMT-5" pattern="dd-MMM-yyyy hh:mm:ss" />
+					</h:outputText>
+				</p:column>
+				<p:column sortable="true" sortBy="#{dato.nombreEstado}">
+					<f:facet name="header">
+						<h:outputText value="Estado" />
+					</f:facet>
+					<h:outputText value="nombreEstado" />
+				</p:column>
+
+				<p:column style="text-align: center;">
+					<f:facet name="header">
+						<h:panelGroup>
+							<h:outputText value="Ver Nota" /><br/>
+							<h:outputText value="Contable" />
+						</h:panelGroup>
+					</f:facet>
+					<h:commandButton value="Ver" reRender="popupFlujoNotaContableVer" >
+						<f:param name="codNotaVer" value="codigoNotaContable" converter="javax.faces.Integer" />
+						<f:param name="codUsuVer" value="codigo" converter="javax.faces.Integer" />
+					</h:commandButton>
+					<h:commandButton value="Ver" reRender="notaContableLibreVer">
+						<f:param name="codNotaLibreVer" value="codigoNotaContable" converter="javax.faces.Integer" />
+						<f:param name="codUsuLibreVer" value="codigo" converter="javax.faces.Integer" />
+					</h:commandButton>
+					<h:commandButton value="Editar" reRender="popupFlujoNotaContableRefCruceVer">
+						<f:param name="codNotaRefCruceVer" value="codigoNotaContable" converter="javax.faces.Integer" />
+						<f:param name="codUsuRefCruceVer" value="codigo" assignTo="codUsuAsignado" converter="javax.faces.Integer" />
+					</h:commandButton>
+					<h:commandButton value="Editar"  reRender="popupNotaContable">
+						<f:param name="codNotaEditar" value="codigoNotaContable" converter="javax.faces.Integer" />
+					</h:commandButton>
+					<h:commandButton value="Editar" reRender="popupNotaContableLibre">
+						<f:param name="codNotaLibreEditar" value="codigoNotaContable" converter="javax.faces.Integer" />
+					</h:commandButton>
+				</p:column>
+				<p:column style="text-align: center;">
+					<f:facet name="header">
+						<h:panelGroup>
+							<h:outputText value="Flujo Nota" /><br/>
+							<h:outputText value="Contable" />
+						</h:panelGroup>
+					</f:facet>
+					<h:commandButton value="Consultar" reRender="popupFlujo" >
+						<f:param name="codConsultar" value="codigo" converter="javax.faces.Integer" />
+					</h:commandButton>
+				</p:column>
+
+				<f:facet name="footer">
+					<p:dataScroller style="color:black;" align="center" for="tablePendiente" page="10" boundaryControls="hide" fastControls="hide" stepControls="hide" renderIfSinglePage="true">
+						<f:facet name="pages">
+							<h:outputText value="Visualizando del al de un total de  registros." />
+						</f:facet>
+					</p:dataScroller>
+				</f:facet>
+			</p:dataTable>
+		</h:panelGrid></div>
+	</ui:define>
+</ui:composition>

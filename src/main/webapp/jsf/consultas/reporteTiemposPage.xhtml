@@ -1,0 +1,150 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui"
+				template="../../WEB-INF/layouts/template.xhtml">
+	<ui:param name="title" value="Reporte de Tiempos por Usuario" />
+	<ui:define name="body">
+
+		<!--Filtro de busqueda	-->
+		<div style="width: 990px;">
+			<h:panelGrid columns="1" width="100%">
+				<h1 align="center">Reporte de Tiempos por Usuario</h1>
+			</h:panelGrid> 
+		
+		
+			<p:dialog id="popupDetalle" autosized="true" domElementAttachment="form" minWidth="550">
+				<f:facet name="header">
+					<h:panelGroup>
+						<h:outputText value="Detalle por Usuario" />
+					</h:panelGroup>
+				</f:facet>
+				<f:facet name="controls">
+					<h:panelGroup>
+						<h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink" id="hidelink" height="20" width="20" />
+						<p:remoteCommand for="popupDetalle" attachTo="hidelink" operation="hide" event="onclick" />
+					</h:panelGroup>
+				</f:facet>
+				
+				<h:panelGrid columns="1" id="detalleAct" cellspacing="0" cellpadding="0">
+		
+					<p:dataTable value="reporteTiemposPage" var="act" id="tableAct"  rowKeyVar="rowKeyAct" width="970px"
+						onRowMouseOver="this.style.backgroundColor='#9fbdeb'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'" rowClasses="row1, row2">
+		
+						<p:column >
+							<f:facet name="header"><h:outputText value="Num Radicación" /></f:facet>
+							<h:outputText value="numeroRadicacionNC"/>
+						</p:column>
+
+						<p:column >
+							<f:facet name="header"><h:outputText value="Recepción" /></f:facet>
+							<h:outputText value="fechaHora" />
+						</p:column>
+
+						<p:column >
+							<f:facet name="header"><h:outputText value="Cierre" /></f:facet>
+							<h:outputText value="fechaHoraCierre" />
+						</p:column>
+
+						<p:column >
+							<f:facet name="header"><h:outputText value="Duración" /></f:facet>
+							<h:outputText value="duracionActividad" />
+						</p:column>
+		
+					</p:dataTable>
+				</h:panelGrid>
+			</p:dialog>
+			
+			<!-- Tabla de registros --> 
+			<h:panelGrid id="filtro" columns="1" width="60%" cellpadding="0" cellspacing="0">
+				<p:accordionPanel label="Filtro de búsqueda" width="100%" switchType="client">
+					<h:panelGrid columns="2" width="100%" cellpadding="0" cellspacing="5">
+	
+						<h:outputText value="Año" />
+						<h:selectOneMenu value="años" immediate="true">
+							<f:selectItems value="años" />
+						</h:selectOneMenu>
+	
+						<h:outputText value="Mes" />
+						<h:selectOneMenu value="mes" immediate="true">
+							<f:selectItems value="mes" />
+						</h:selectOneMenu>
+	
+						<h:commandButton reRender="filtro" value="Buscar" />
+					</h:panelGrid>
+				</p:accordionPanel>
+			</h:panelGrid> 
+			
+			<!--<ui:include src="../../common/mensajes.xhtml" />-->
+			
+			<h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
+				<h:commandButton value="Generar Archivo Excel" action="#{reporteTiemposPage.generarArchivoExcel}" reRender="lista"/>
+				<p:commandLink action="download" styleClass="bold" value="excelFileName" target="_blank" >
+					<f:param name="type1" value="REPORTE_EXCEL" />
+					<f:param name="file1" value="excelFileName" />
+				</p:commandLink>
+				<p:dataTable value="datos" var="dato" id="table" rows="15"  rowKeyVar="rowKey" width="100%" footerClass="row2" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
+					onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'" rowClasses="row1, row2">
+					<f:facet name="header">
+						<p:dataScroller fastControls="false" pageIndexVar="pageIndex" pagesVar="pages" style="color:black;" for="table" maxPages="5" renderIfSinglePage="false" page="10" id="up"
+							limitToList="true" ajaxSingle="true" reRender="lista" fastStep="3">
+						</p:dataScroller>
+					</f:facet>
+	
+					<p:column sortable="true" sortBy="#{dato.codigoEmpleado}">
+						<f:facet name="header">
+							<h:panelGroup><h:outputText value="Código" /><br /><h:outputText value="Empleado" /></h:panelGroup>
+						</f:facet>
+						<h:outputText value="codigoEmpleado" />
+					</p:column>
+					<p:column sortable="true" sortBy="#{dato.usuAlt.nombreEmpleado}">
+						<f:facet name="header">
+							<h:panelGroup><h:outputText value="Nombre" /><br /><h:outputText value="Empleado" /></h:panelGroup>
+						</f:facet>
+						<h:outputText value="nombreEmpleado" />
+					</p:column>
+
+					<p:column sortable="true" sortBy="#{dato.codigoAreaModificado}">
+						<f:facet name="header">
+							<h:panelGroup><h:outputText value="Código" /><br /><h:outputText value="Área" /></h:panelGroup>
+						</f:facet>
+						<h:outputText value="codigoAreaModificado" />
+					</p:column>
+
+					<p:column sortable="true" sortBy="#{dato.nombreAreaModificado}">
+						<f:facet name="header">
+							<h:panelGroup><h:outputText value="Nombre" /><br /><h:outputText value="Área" /></h:panelGroup>
+						</f:facet>
+						<h:outputText value="nombreAreaModificado" />
+					</p:column>
+
+					<p:column sortable="true" sortBy="#{dato.Rol}">
+						<f:facet name="header"><h:outputText value="Rol"/></f:facet>
+						<h:outputText value="nombre" />
+					</p:column>
+
+					<p:column sortable="true" sortBy="#{dato.duracionPromedio}" style="text-align: right;">
+						<f:facet name="header"><h:panelGroup><h:outputText value="Promedio"/><br/><h:outputText value="(Minutos)"/></h:panelGroup></f:facet>
+						<h:outputText ><f:convertNumber maxFractionDigits="2"/></h:outputText>
+					</p:column>
+
+					<p:column style="text-align: center;">
+						<f:facet name="header"><h:outputText value="Detalle" /></f:facet>
+						<h:commandButton value="Ver"  reRender="popupDetalle" >
+							<f:param name="codUsuario" value="codigo" converter="javax.faces.Integer" />
+						</h:commandButton>
+					</p:column>
+	
+					<f:facet name="footer">
+						<p:dataScroller style="color:black;" align="center" for="table" boundaryControls="hide" fastControls="hide" stepControls="hide" renderIfSinglePage="true">
+							<f:facet name="pages">
+								<h:outputText value="Visualizando del al  de un total de  registros." />
+							</f:facet>
+						</p:dataScroller>
+					</f:facet>
+				</p:dataTable>
+			</h:panelGrid>
+		</div>
+	</ui:define>
+</ui:composition>

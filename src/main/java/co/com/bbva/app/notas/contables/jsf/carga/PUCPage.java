@@ -21,7 +21,6 @@ import java.util.Collection;
 @SessionScoped
 public class PUCPage extends GeneralCargaPage<PUC> {
 
-	String param = getParam();
 	/**
 	 * 
 	 */
@@ -57,9 +56,15 @@ public class PUCPage extends GeneralCargaPage<PUC> {
 	 */
 	@Override
 	public Collection<PUC> _buscarPorFiltro() throws Exception {
+
 //		if(!param.isEmpty()){
 //			LOGGER.info("{} Buscar puc : {}", session.getTraceLog(),param );
 //		}
+
+		if(!param.isEmpty()){
+//			LOGGER.info("{} Buscar puc : {}", session.getTraceLog(),param );
+		}
+
 		return cargaAltamiraManager.searchPUC(param);
 	}
 

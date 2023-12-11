@@ -19,7 +19,7 @@
 
                 <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
 
-                    <p:dataTable value="#{clientePage.datos}" var="dato" rowIndexVar="rowIndex"
+                    <p:dataTable value="#{clientePage.datos}" var="dato" rowIndexVar="rowIndex" rendered="#{! empty clientePage.datos}"
                                  widgetVar="clienteTable" rows="15" paginator="true"
                                  currentPageReportTemplate=" Visualizando del {startRecord} al {endRecord} de un total de {totalRecords} registros"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"

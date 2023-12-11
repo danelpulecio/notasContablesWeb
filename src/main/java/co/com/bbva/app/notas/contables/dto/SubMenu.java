@@ -54,4 +54,14 @@ public class SubMenu implements java.io.Serializable, Comparable<SubMenu> {
 		this.accion = accion;
 	}
 
+	@Override
+	public String toString() {
+		return "SubMenu{" +
+				"codigo=" + codigo +
+				", ordenVisual=" + ordenVisual +
+				", nombre='" + nombre + '\'' +
+				", accion='" + accion + '\'' +
+				", menu=" + menu +
+				'}';
+	}
 }

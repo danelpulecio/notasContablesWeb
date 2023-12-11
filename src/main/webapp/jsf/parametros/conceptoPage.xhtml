@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
+	template="../../common/template.xhtml">
+	<ui:param name="title" value="Conceptos" />
+	<ui:define name="body">
+	
+	<!-- Formulario de confirmacion de cambio de estado-->
+	<rich:modalPanel id="popupEstado" autosized="true" domElementAttachment="form"  width="250">
+		<f:facet name="header">
+			<h:panelGroup><h:outputText value="Confirmación de cambio de estado"/></h:panelGroup>
+		</f:facet>
+		<f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink" id="hidelinkEstado" height="20" width="20" />
+				<rich:componentControl for="popupEstado" attachTo="hidelinkEstado" operation="hide" event="onclick" />
+			</h:panelGroup>
+		</f:facet>
+		
+		<h:panelGrid columns="1" width="100%">
+			
+			<h:outputText value="Está seguro que desea cambiar el estado del registro actual?" />
+
+			<!-- Seccion de mensajes y botones de envio y cancelacion-->
+			<ui:include src="../../common/mensajes.xhtml" /> 
+			<h:panelGrid columns="2" styleClass="center" width="100%">
+				<a4j:commandButton action="#{conceptoPage.cambiarEstado}" value="Si" oncomplete="#{rich:component('popupEstado')}.hide()" reRender="lista" />
+				<a4j:commandButton onclick="#{rich:component('popupEstado')}.hide()" value="No" />
+			</h:panelGrid>
+		</h:panelGrid>
+	</rich:modalPanel>
+	
+	<!-- Formulario Modal de creacion y edicion de nuevos registros-->
+	<rich:modalPanel id="editor" autosized="true" domElementAttachment="form">
+		<f:facet name="header">
+			<h:panelGroup><h:outputText value="Formulario"/></h:panelGroup>
+		</f:facet>
+		<f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink" id="hidelink" height="20" width="20" />
+				<rich:componentControl for="editor" attachTo="hidelink" operation="hide" event="onclick" />
+			</h:panelGroup>
+		</f:facet>
+		
+		<!-- Campos del formulario -->
+        <h:panelGrid columns="1" width="650" id="informacion">
+			<h:panelGrid columns="2" width="650" columnClasses="name,value">
+
+				<h:outputText value="Nombre" />
+				<h:inputText value="#{conceptoPage.objActual.nombre}" size="70" immediate="true"/>
+			</h:panelGrid>
+			<h:panelGrid columns="3" id="uniAnalisis" >
+				<h:outputText value="Visto bueno de Unidad de Análisis" styleClass="name"/>
+				<h:selectBooleanCheckbox value="#{conceptoPage.objActual.boolVistoBuenoAnalisis}" immediate="true" >
+					<a4j:support event="onchange" reRender="uniAnalisis" status="none"/>
+				</h:selectBooleanCheckbox>
+				
+				<h:selectOneMenu value="#{conceptoPage.objActual.codigoUnidadAnalisis}" immediate="true" converter="javax.faces.Integer" rendered="#{conceptoPage.objActual.boolVistoBuenoAnalisis}">
+					<f:selectItem itemValue="-1" itemLabel="Seleccione una opcion" />
+					<f:selectItems value="#{conceptoPage.unidadesAnalisis}" />
+				</h:selectOneMenu>
+			</h:panelGrid>
+			
+			<h:panelGrid columns="2"  columnClasses="name,value" >
+				<h:outputText value="Tema de Autorización" />
+				<h:selectOneMenu value="#{conceptoPage.objActual.codigoTemaAutorizacion}" immediate="true" converter="javax.faces.Integer">
+					<f:selectItem itemValue="0" itemLabel="Ninguna" />
+					<f:selectItems value="#{conceptoPage.temasAut}" />
+				</h:selectOneMenu>
+				
+				<h:outputText value="Centros Autorizados" />
+				<h:panelGrid columns="6" width="100%" >
+					<h:outputText value="Sucursales" />
+					<h:selectBooleanCheckbox value="#{conceptoPage.objActual.boolCentrosAutSucursales}" converter="javax.faces.Character" />
+					<h:outputText value="Áreas Centrales" />
+					<h:selectBooleanCheckbox value="#{conceptoPage.objActual.boolCentrosAutAreasCentrales}" />
+					<h:outputText value="Centros Especiales" />
+					<h:selectBooleanCheckbox value="#{conceptoPage.objActual.boolCentrosAutCentroEspecial}" />
+				</h:panelGrid>
+			
+				
+			
+				<h:outputText value="Autorización terceros" />
+				<h:selectBooleanCheckbox value="#{conceptoPage.objActual.boolAutorizacionTercero}" />
+			
+				<h:outputText value="Soportes" />
+				<h:selectBooleanCheckbox value="#{conceptoPage.objActual.boolSoportes}" />
+			
+				<h:outputText value="Origen = Destino" />
+				<h:selectBooleanCheckbox value="#{conceptoPage.objActual.boolOrigenDestino}" />
+			</h:panelGrid>
+			
+			<!-- Seccion de mensajes y botones de envio y cancelacion-->
+			<ui:include src="../../common/mensajes.xhtml" /> 
+			<h:panelGrid columns="2" styleClass="center" width="100%">
+				<a4j:commandButton action="#{conceptoPage.guardar}" reRender="informacion,lista"  value="Guardar" oncomplete="if (#{conceptoPage.ocultarPopupGuardar}) #{rich:component('editor')}.hide();" />
+				<a4j:commandButton onclick="#{rich:component('editor')}.hide()" value="Cerrar" />
+			</h:panelGrid>
+		</h:panelGrid>
+	</rich:modalPanel>
+	
+		<!--Filtro de busqueda	-->
+		<div style="width: 950px;" >
+			<h:panelGrid columns="1" width="100%"><h1 align="center">Conceptos</h1></h:panelGrid>
+			
+			<!-- Panel de opciones -->
+			<rich:panel header="Opciones" style="width: 600px;">
+				<h:panelGrid columns="2" id="filtro">
+					
+					<h:panelGrid columns="1" width="200" >
+						<!-- Funcionalidad para abrir el editor y crear un nuevo registro-->
+						<a4j:commandButton action="#{conceptoPage.editar}" oncomplete="#{rich:component('editor')}.show()" reRender="editor" value="Nuevo Registro">
+							<a4j:actionparam name="codNuevo" value="0" assignTo="#{conceptoPage.objActual.codigo}" converter="javax.faces.Integer"/>
+						</a4j:commandButton>
+					</h:panelGrid>
+					
+					<h:panelGrid columns="4" >
+						<h:outputText value="Estado: "/>
+						<h:selectOneMenu value="#{conceptoPage.estado}" immediate="true">
+							<f:selectItem itemValue="" itemLabel="Todos" />
+							<f:selectItem itemValue="I" itemLabel="Inactivos" />
+							<f:selectItem itemValue="A" itemLabel="Activos" />
+						</h:selectOneMenu>
+						<h:inputText value="#{conceptoPage.param}" />
+						<h:commandButton action="#{conceptoPage.buscarPorFiltro}" value="Filtrar" onclick="Richfaces.showModalPanel('statusPanel')" />
+					</h:panelGrid>
+				</h:panelGrid> 
+			</rich:panel>
+			
+			<ui:include src="../../common/mensajes.xhtml" /> 
+							
+			<!-- Tabla de registros -->
+			<h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
+				
+				<rich:dataTable value="#{conceptoPage.datos}" var="dato" id="table" rows="15" rendered="#{! empty conceptoPage.datos}" rowKeyVar="rowKey" width="100%"
+				footerClass="row2" onRowMouseOver="this.style.backgroundColor='#9fbdeb'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'" rowClasses="row1, row2">
+					<f:facet name="header">
+						<rich:datascroller fastControls="false" pageIndexVar="pageIndex" pagesVar="pages" style="color:black;" for="table" maxPages="5" renderIfSinglePage="false" 
+						page="#{conceptoPage.scrollPage}" id="up" reRender="lista, filtro" limitToList="true" ajaxSingle="true">
+						</rich:datascroller>
+					</f:facet>
+					<rich:column>
+						<f:facet name="header"><h:outputText value="Fila" /></f:facet>
+						 <h:outputText value="#{rowKey+1}"/>
+					</rich:column>
+					
+					<rich:column sortable="true" sortBy="#{dato.codigo}">
+                        <f:facet name="header"><h:outputText value="Código" /></f:facet>
+                        <h:outputText value="#{dato.codigo}" />
+                    </rich:column>
+					
+					<rich:column sortable="true" sortBy="#{dato.nombre}">
+                        <f:facet name="header"><h:outputText value="Nombre" /></f:facet>
+                        <h:outputText value="#{dato.nombre}" />
+                    </rich:column>
+					
+					<rich:column sortable="true" sortBy="#{dato.codSucursal}">
+                        <f:facet name="header"><h:outputText value="Código Unidad Análisis" /></f:facet>
+                        <h:outputText value="#{dato.codSucursal}" />
+                    </rich:column>
+					
+					<rich:column sortable="true" sortBy="#{dato.nombreSucursal}">
+                        <f:facet name="header"><h:outputText value="Nombre Unidad Análisis" /></f:facet>
+                        <h:outputText value="#{dato.nombreSucursal}" />
+                    </rich:column>
+                    
+					<!-- Opcion de cambio de estado-->
+					<rich:column style="text-align: center;">
+						<f:facet name="header"><h:outputText value="Estado" /></f:facet>
+						<a4j:commandButton value="#{dato.estado eq 'A'? 'Activo': 'Inactivo'}" onclick="#{rich:component('popupEstado')}.show()">
+							<a4j:actionparam name="codCambio" value="#{dato.codigo}" assignTo="#{conceptoPage.objActual.codigo}" converter="javax.faces.Integer"/>
+							<a4j:actionparam name="estadoCambio" value="#{dato.estado}" assignTo="#{conceptoPage.objActual.estado}" />
+						</a4j:commandButton>
+					</rich:column>
+					
+					<!-- Opcion de cambio de editar informacion-->
+					<rich:column style="text-align: center;">
+						<f:facet name="header"><h:outputText value="Editar" /></f:facet>
+						<a4j:commandButton oncomplete="#{rich:component('editor')}.show()" reRender="editor" image="/common/images/edit.png" alt="Editar">
+							<a4j:actionparam name="codEdit" value="#{dato.codigo}" assignTo="#{conceptoPage.objActual.codigo}" converter="javax.faces.Integer"/>
+							<a4j:actionparam name="nombEdit" value="#{dato.nombre}" assignTo="#{conceptoPage.objActual.nombre}" />
+							<a4j:actionparam name="unAnEdit" value="#{dato.codigoUnidadAnalisis}" assignTo="#{conceptoPage.objActual.codigoUnidadAnalisis}" converter="javax.faces.Integer"/>
+							<a4j:actionparam name="teAuEdit" value="#{dato.codigoTemaAutorizacion}" assignTo="#{conceptoPage.objActual.codigoTemaAutorizacion}" converter="javax.faces.Integer"/>
+							<a4j:actionparam name="auSuEdit" value="#{dato.centrosAutSucursales eq 'S'}" assignTo="#{conceptoPage.objActual.boolCentrosAutSucursales}"/>
+							<a4j:actionparam name="auAcEdit" value="#{dato.centrosAutAreasCentrales eq 'S'}" assignTo="#{conceptoPage.objActual.boolCentrosAutAreasCentrales}"/>
+							<a4j:actionparam name="auCeEdit" value="#{dato.centrosAutCentroEspecial eq 'S'}" assignTo="#{conceptoPage.objActual.boolCentrosAutCentroEspecial}"/>
+							<a4j:actionparam name="vbAnEdit" value="#{dato.vistoBuenoAnalisis eq 'S'}" assignTo="#{conceptoPage.objActual.boolVistoBuenoAnalisis}"/>
+							<a4j:actionparam name="auTeEdit" value="#{dato.autorizacionTercero eq 'S'}" assignTo="#{conceptoPage.objActual.boolAutorizacionTercero}"/>
+							<a4j:actionparam name="sopEdit" value="#{dato.soportes eq 'S'}" assignTo="#{conceptoPage.objActual.boolSoportes}"/>
+							<a4j:actionparam name="ordEdit" value="#{dato.origenDestino eq 'S'}" assignTo="#{conceptoPage.objActual.boolOrigenDestino}"/>
+							<a4j:actionparam name="estEdit" value="#{dato.estado}" assignTo="#{conceptoPage.objActual.estado}"/>
+						</a4j:commandButton>
+					</rich:column>
+					
+					<!--	Se muestra la informacion de la cantidad de registros y la pagina actual	-->
+					<f:facet name="footer">
+						<rich:datascroller style="color:black;" align="center" for="table" page="#{conceptoPage.scrollPage}" boundaryControls="hide" fastControls="hide" stepControls="hide">
+							<f:facet name="pages">
+								<h:outputText value="Visualizando del #{((pageIndex-1)*15)+1 } al #{(pages!=pageIndex)?(pageIndex*15):conceptoPage.totalFilas} de un total de #{conceptoPage.totalFilas} registros." />
+							</f:facet>
+						</rich:datascroller>
+					</f:facet>
+				</rich:dataTable>
+			</h:panelGrid>
+		</div>
+	</ui:define>
+</ui:composition>

@@ -5,9 +5,11 @@ import co.com.bbva.app.notas.contables.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -18,7 +20,7 @@ import java.util.Collection;
  * 
  */
 @Named
-@ViewScoped
+@SessionScoped
 public class PerdidaOperacionalPage extends GeneralCargaPage<PerdidaOperacional> {
 
 	/**
@@ -27,6 +29,12 @@ public class PerdidaOperacionalPage extends GeneralCargaPage<PerdidaOperacional>
 	private static final long serialVersionUID = -8330009617976284212L;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(PerdidaOperacionalPage.class);
+
+	@PostConstruct
+	public void init() throws Exception {
+		setDatos(new ArrayList<>(_buscarTodos()));
+		LOGGER.info("postConstructo datos {}", getDatos().size());
+	}
 
 //	Session session = getContablesSessionBean().getSessionTrace();
 

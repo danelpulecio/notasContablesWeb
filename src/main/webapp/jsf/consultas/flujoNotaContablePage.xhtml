@@ -1,0 +1,491 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui"
+				template="../../WEB-INF/layouts/template.xhtml">
+	<!-- Formulario de flujo-->
+
+	<!-- Formulario Modal de visualizacion de temas por concepto-->
+	<p:dialog id="modalVer" domElementAttachment="form" autosized="true">
+		<f:facet name="header">
+			<h:panelGroup>
+				<h:outputText value="Tema: #{flujoNotaContablePage.temaActual.tema.nombre}" />
+			</h:panelGroup>
+		</f:facet>
+		<f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink" id="hidelinkCerrarEditorVer" height="20" width="20" />
+				<p:remoteCommand for="modalVer" attachTo="hidelinkCerrarEditorVer" operation="hide" event="onclick" />
+			</h:panelGroup>
+		</f:facet>
+
+		<!-- Campos del formulario -->
+		<h:panelGrid columns="1" width="820" id="informacionFlujoNotaContableVer" cellpadding="0" cellspacing="0">
+			<h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="0">
+				<h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="5" style="height: 100%;">
+					<p:panel header="Información básica" style="width: 100%;">
+						<h:panelGrid columns="2">
+							<h:outputText value="Sucursal de Origen" styleClass="propertie" />
+							<h:outputText value="#{flujoNotaContablePage.nota.codigoSucursalOrigen} - #{flujoNotaContablePage.nota.sucursalOrigen.nombre}" />
+
+							<h:outputText value="Concepto" styleClass="propertie" />
+							<h:outputText value="#{flujoNotaContablePage.nota.concepto.nombre}" />
+
+							<h:outputText value="Tipo de Evento" styleClass="propertie" />
+							<h:outputText value="#{flujoNotaContablePage.nota.tipoEvento.nombre}" />
+
+							<h:outputText value="Fecha Contable" styleClass="propertie" />
+							<h:panelGrid columns="3" cellpadding="0" cellspacing="0">
+								<h:outputText value="#{flujoNotaContablePage.temaActual.fechaContable}" />
+								<p:spacer width="200" />
+								<h:commandButton value="Riesgo Operacional" oncomplete="#{rich:component('modalRiesgoVer')}.show()" reRender="modalRiesgoVer"
+									rendered="#{flujoNotaContablePage.temaActual.tema.riesgoOperacional eq 'S'}" ajaxSingle="true" />
+							</h:panelGrid>
+
+							<h:outputText value="Descripción" styleClass="propertie" />
+							<h:outputText value="#{flujoNotaContablePage.temaActual.descripcion}" />
+
+							<h:outputText value="Divisa" styleClass="propertie" />
+							<h:panelGrid columns="4" cellspacing="0">
+								<h:outputText value="#{flujoNotaContablePage.temaActual.codigoDivisa}" />
+								<p:spacer width="50" />
+								<h:outputText value="Importe" styleClass="propertie" />
+								<h:outputText value="#{flujoNotaContablePage.temaActual.monto}">
+									<f:convertNumber type="currency" />
+								</h:outputText>
+							</h:panelGrid>
+						</h:panelGrid>
+					</p:panel>
+				</h:panelGrid>
+				<h:panelGrid columns="2" width="100%" cellpadding="0" cellspacing="5" styleClass="aligntop" style="height: 100%; vertical-align: super;">
+					<p:panel header="Partida" style="width: 400px;height: 100%; ">
+
+						<h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="0" style=" vertical-align: top;">
+							<h:panelGrid columns="5">
+								<h:outputText value="Cuenta" styleClass="propertie" />
+								<h:outputText value="#{flujoNotaContablePage.temaActual.tema.partidaContable}" />
+								<p:spacer width="50" />
+								<h:outputText value="Naturaleza" styleClass="propertie" />
+								<h:outputText value="#{flujoNotaContablePage.temaActual.tema.naturaleza1 eq 'D'?'Debe':'Haber'}" />
+							</h:panelGrid>
+							<h:panelGrid columns="2" id="sucursalPartidaVer">
+								<h:outputText value="Sucursal Destino" styleClass="propertie" />
+								<h:outputText value="#{flujoNotaContablePage.temaActual.codigoSucursalDestinoPartida} #{flujoNotaContablePage.temaActual.sucursalDestinoPartida.nombre}" />
+
+								<h:outputText value="Referencia" styleClass="propertie" rendered="#{flujoNotaContablePage.temaActual.tema.referencia1 eq 'S'}" />
+								<h:outputText value="#{flujoNotaContablePage.temaActual.referencia1}" rendered="#{flujoNotaContablePage.temaActual.tema.referencia1 eq 'S'}" />
+							</h:panelGrid>
+							<p:panel header="Tercero" rendered="#{flujoNotaContablePage.temaActual.tema.tercero1 eq 'S'}" style="width:100%; vertical-align: top;">
+								<h:panelGrid columns="2" id="documentoTercero1Ver">
+									<h:outputText value="Tipo de documento" styleClass="propertie" />
+									<h:outputText value="#{flujoNotaContablePage.temaActual.nombreTipoDoc1}" />
+
+									<h:outputText value="Número Documento" styleClass="propertie" />
+									<h:outputText value="#{flujoNotaContablePage.temaActual.numeroIdentificacion1}" />
+
+									<h:outputText value="Dígito de Verificación" styleClass="propertie" rendered="#{! empty flujoNotaContablePage.temaActual.nombreCompleto1}" />
+									<h:outputText value="#{flujoNotaContablePage.temaActual.digitoVerificacion1} " rendered="#{! empty flujoNotaContablePage.temaActual.nombreCompleto1}" />
+
+									<h:outputText value="Nombre" styleClass="propertie" rendered="#{! empty flujoNotaContablePage.temaActual.nombreCompleto1}" />
+									<h:outputText value="#{flujoNotaContablePage.temaActual.nombreCompleto1}" rendered="#{! empty flujoNotaContablePage.temaActual.nombreCompleto1}" />
+
+									<h:outputText value="Contrato" styleClass="propertie"
+										rendered="#{flujoNotaContablePage.temaActual.tema.contrato1 eq 'S' and ! empty flujoNotaContablePage.temaActual.nombreCompleto1}" />
+									<h:outputText value="#{flujoNotaContablePage.temaActual.contrato1}" rendered="#{! empty flujoNotaContablePage.temaActual.nombreCompleto1}" />
+								</h:panelGrid>
+
+							</p:panel>
+						</h:panelGrid>
+					</p:panel>
+					<p:panel header="Contra Partida" style="width: 400px; vertical-align: top; ">
+
+						<h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="0" style="vertical-align: top;">
+							<h:panelGrid columns="5">
+								<h:outputText value="Cuenta" styleClass="propertie" />
+								<h:outputText value="#{flujoNotaContablePage.temaActual.tema.contraPartidaContable}" />
+								<p:spacer width="50" />
+								<h:outputText value="Naturaleza" styleClass="propertie" />
+								<h:outputText value="#{flujoNotaContablePage.temaActual.tema.naturaleza2 eq 'D'?'Debe':'Haber'}" />
+							</h:panelGrid>
+							<h:panelGrid columns="2" width="100%" id="sucursalContraPartidaVer">
+								<h:outputText value="Sucursal Destino" styleClass="propertie" />
+								<h:outputText value="#{flujoNotaContablePage.temaActual.codigoSucursalDestinoContraPartida} #{flujoNotaContablePage.temaActual.sucursalDestinoContraPartida.nombre}" />
+
+								<h:outputText value="Referencia" styleClass="propertie" rendered="#{flujoNotaContablePage.temaActual.tema.referencia2 eq 'S'}" />
+								<h:outputText value="#{flujoNotaContablePage.temaActual.referencia2}" rendered="#{flujoNotaContablePage.temaActual.tema.referencia2 eq 'S'}" />
+							</h:panelGrid>
+							<p:panel header="Tercero" rendered="#{flujoNotaContablePage.temaActual.tema.tercero2 eq 'S'}" style="width:100%; vertical-align: top;">
+								<h:panelGrid columns="2" id="documentoTercero2Ver">
+									<h:outputText value="Tipo de documento" styleClass="propertie" />
+									<h:outputText value="#{flujoNotaContablePage.temaActual.nombreTipoDoc2}" />
+
+									<h:outputText value="Número Documento" styleClass="propertie" />
+									<h:outputText value="#{flujoNotaContablePage.temaActual.numeroIdentificacion2}" />
+								</h:panelGrid>
+
+								<h:panelGrid columns="1" id="tercero2Ver">
+									<h:panelGrid columns="2" rendered="#{! empty flujoNotaContablePage.temaActual.nombreCompleto2}">
+										<h:outputText value="Dígito de Verificación" styleClass="propertie" />
+										<h:outputText value="#{flujoNotaContablePage.temaActual.digitoVerificacion2}" />
+
+										<h:outputText value="Nombre" styleClass="propertie" />
+										<h:outputText value="#{flujoNotaContablePage.temaActual.nombreCompleto2}" />
+
+										<h:outputText value="Contrato" styleClass="propertie" rendered="#{flujoNotaContablePage.temaActual.tema.contrato2 eq 'S'}" />
+										<h:outputText value="#{flujoNotaContablePage.temaActual.contrato2}" />
+									</h:panelGrid>
+								</h:panelGrid>
+
+							</p:panel>
+						</h:panelGrid>
+					</p:panel>
+				</h:panelGrid>
+
+				<h:panelGrid columns="1" cellpadding="0" cellspacing="5" id="impuestosVer" style="text-align: center;" width="100%">
+					<p:dataTable value="#{flujoNotaContablePage.temaActual.impuestoTema}" var="imp" id="tableFlujoNotaContableVer" rowKeyVar="rowKey"
+						rendered="#{! empty flujoNotaContablePage.temaActual.impuestoTema}" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
+						onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'" rowClasses="row1, row2">
+
+						<f:facet name="header">
+							<h:outputText value="Liquidación de Impuestos" />
+						</f:facet>
+
+						<p:column width="150" style="text-align: left;" rendered="#{flujoNotaContablePage.mostrarAsientoImpuesto }">
+							<f:facet name="header">
+								<h:panelGroup>
+									<h:outputText value="Asiento" />
+									<br />
+									<h:outputText value="Contable" />
+									<br />
+									<h:outputText value="Altamira" />
+								</h:panelGroup>
+							</f:facet>
+							<h:outputText value="#{imp.numeroAsiento}" />
+						</p:column>
+
+						<p:column width="150" style="text-align: left;">
+							<f:facet name="header">
+								<h:outputText value="Nombre" />
+							</f:facet>
+							<h:outputText value="#{imp.impuestoTema.impuesto.nombre}" />
+						</p:column>
+
+						<p:column width="80" style="text-align: right;">
+							<f:facet name="header">
+								<h:outputText value="Porcentaje" />
+							</f:facet>
+							<h:outputText value="#{imp.impuestoTema.impuesto.valor}%" />
+						</p:column>
+
+						<p:column width="140" style="text-align: right;">
+							<f:facet name="header">
+								<h:outputText value="Base" />
+							</f:facet>
+							<h:outputText rendered="#{not imp.boolExonera}" value="#{imp.base}" converter="javax.faces.Double">
+								<f:convertNumber type="currency" maxFractionDigits="2" />
+							</h:outputText>
+							<h:outputText rendered="#{imp.boolExonera}" value="NA" />
+						</p:column>
+
+						<p:column width="140" style="text-align: right;">
+							<f:facet name="header">
+								<h:outputText value="Calculado" />
+							</f:facet>
+							<h:outputText rendered="#{not imp.boolExonera}" value="#{imp.calculado}" converter="javax.faces.Double">
+								<f:convertNumber type="currency" maxFractionDigits="2" />
+							</h:outputText>
+							<h:outputText rendered="#{imp.boolExonera}" value="NA" />
+						</p:column>
+
+						<p:column width="80" style="text-align: center;">
+							<f:facet name="header">
+								<h:outputText value="Exonerar" />
+							</f:facet>
+							<h:outputText value="#{imp.boolExonera?'Si':'No'}" />
+						</p:column>
+					</p:dataTable>
+				</h:panelGrid>
+
+				<h:panelGrid columns="1" cellpadding="0" cellspacing="2" id="anexosVer" style="text-align: center;" width="100%">
+					<p:dataTable value="#{flujoNotaContablePage.temaActual.anexoTema}" var="anexo" id="tableAnexosVer" rowKeyVar="rowKeyAnexos"
+						rendered="#{! empty flujoNotaContablePage.temaActual.anexoTema}" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
+						onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'" rowClasses="row1, row2">
+
+						<f:facet name="header">
+							<h:outputText value="Soportes del tema" />
+						</f:facet>
+
+						<p:column width="150" style="text-align: left;">
+							<f:facet name="header">
+								<h:outputText value="Fecha" />
+							</f:facet>
+							<h:outputText value="#{anexo.fechaHora}" />
+						</p:column>
+
+						<p:column style="text-align: right;">
+							<f:facet name="header">
+								<h:outputText value="Usuario" />
+							</f:facet>
+							<h:outputText value="#{anexo.usuNombre}" />
+						</p:column>
+
+						<p:column style="text-align: right;">
+							<f:facet name="header">
+								<h:outputText value="Archivo" />
+							</f:facet>
+							<p:commandLink action="#{downloadGeneralPage.download}" styleClass="bold" value="#{anexo.nombre}" target="_blank">
+								<f:param name="type2" value="#{downloadGeneralPage.SOPORTE}" assignTo="#{downloadGeneralPage.type}" />
+								<f:param name="file2" value="#{anexo.archivo}" assignTo="#{downloadGeneralPage.file}" />
+							</p:commandLink>
+						</p:column>
+					</p:dataTable>
+				</h:panelGrid>
+			</h:panelGrid>
+			<h:panelGrid columns="2" styleClass="center" width="100%">
+
+				<!-- seccion de <form></form>peracional -->
+				<p:dialog id="modalRiesgoVer" domElementAttachment="form" autosized="true">
+					<f:facet name="header">
+						<h:panelGroup>
+							<h:outputText value="Riesgo operacional para el tema: #{flujoNotaContablePage.temaActual.tema.nombre}" />
+						</h:panelGroup>
+					</f:facet>
+					<f:facet name="controls">
+						<h:panelGroup>
+							<h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink" id="hidelinkCerrarModalRiesgoVer" height="20" width="20" />
+							<p:remoteCommand for="modalRiesgoVer" attachTo="hidelinkCerrarModalRiesgoVer" operation="hide" event="onclick" />
+						</h:panelGroup>
+					</f:facet>
+					<h:panelGrid width="550">
+						<h:panelGrid columns="2" width="100%">
+							<h:outputText value="Importe Total" styleClass="propertie" reRender="selectsRiesgo" />
+							<h:outputText value="#{flujoNotaContablePage.temaActual.riesgoOperacional.importeTotal}">
+								<f:convertNumber type="currency" />
+							</h:outputText>
+
+							<h:outputText value="Importe Parcial" styleClass="propertie" reRender="selectsRiesgo" />
+							<h:outputText value="#{flujoNotaContablePage.temaActual.riesgoOperacional.importeParcial}">
+								<f:convertNumber type="currency" />
+							</h:outputText>
+
+							<h:outputText value="Fecha Inicio del Evento" styleClass="propertie" reRender="selectsRiesgo" />
+							<h:outputText value="#{flujoNotaContablePage.temaActual.riesgoOperacional.fechaEvento}" />
+
+							<h:outputText value="Hora Inicio Evento" styleClass="propertie" reRender="selectsRiesgo" />
+							<h:outputText value="#{flujoNotaContablePage.temaActual.riesgoOperacional.horaTotalInicio}" />
+
+							<h:outputText value="Fecha Fin Evento" styleClass="propertie" reRender="selectsRiesgo" />
+							<h:outputText value="#{flujoNotaContablePage.temaActual.riesgoOperacional.fechafinEvento}" />
+
+							<h:outputText value="Hora Fin Evento" styleClass="propertie" reRender="selectsRiesgo" />
+							<h:outputText value="#{flujoNotaContablePage.temaActual.riesgoOperacional.horaTotalFin}" />
+
+							<h:outputText value="Fecha del Descubrimiento" styleClass="propertie" reRender="selectsRiesgo" />
+							<h:outputText value="#{flujoNotaContablePage.temaActual.riesgoOperacional.fechaDescubrimientoEvento}" />
+
+							<h:outputText value="Hora del Descubrimiento" styleClass="propertie" reRender="selectsRiesgo" />
+							<h:outputText value="#{flujoNotaContablePage.temaActual.riesgoOperacional.horaTotalDescubre}" />
+
+							<h:outputText value="Clase de Riesgo" styleClass="propertie" reRender="selectsRiesgo" />
+							<h:outputText value="#{flujoNotaContablePage.temaActual.riesgoOperacional.claseRiesgo.nombre}" />
+
+							<h:outputText value="Perdida Operacional" styleClass="propertie" reRender="selectsRiesgo" />
+							<h:outputText value="#{flujoNotaContablePage.temaActual.riesgoOperacional.tipoPerdida.descripcion}" />
+
+							<h:outputText value="Proceso" styleClass="propertie" reRender="selectsRiesgo" />
+							<h:outputText value="#{flujoNotaContablePage.temaActual.riesgoOperacional.proceso.nombre}" />
+
+							<h:outputText value="Línea Operativa" styleClass="propertie" reRender="selectsRiesgo" />
+							<h:outputText value="#{flujoNotaContablePage.temaActual.riesgoOperacional.lineaOperativa.nombre}" />
+
+							<h:outputText value="Producto Afectado" styleClass="propertie" reRender="selectsRiesgo" />
+							<h:outputText value="#{flujoNotaContablePage.temaActual.riesgoOperacional.producto.nombre}" />
+
+							<h:outputText styleClass="propertie" value="SubProducto Afectado" />
+							<h:outputText value="#{flujoNotaContablePage.temaActual.riesgoOperacional.subProductoAfectado.nombre}" />
+
+							<h:outputText styleClass="propertie" value="Canal" />
+							<h:outputText value="#{flujoNotaContablePage.temaActual.riesgoOperacional.canal.descripcion}" />
+
+							<h:outputText styleClass="propertie" value="subCanal" />
+							<h:outputText value="#{flujoNotaContablePage.temaActual.riesgoOperacional.subCanal.descripcion}" />
+
+							<h:outputText styleClass="propertie" value="Sfc Clase Riesgo N2" />
+							<h:outputText value="#{flujoNotaContablePage.temaActual.riesgoOperacional.claseRiesgoN2.nombre}" />
+
+							<h:outputText styleClass="propertie" value="Sfc Clase Riesgo N3" />
+							<h:outputText value="#{flujoNotaContablePage.temaActual.riesgoOperacional.claseRiesgoN3.nombre}" />
+
+							<h:outputText styleClass="propertie" value="Nombre Outsourcing" />
+							<h:outputText value="#{flujoNotaContablePage.temaActual.riesgoOperacional.nombreOutSource}" />
+
+							<h:outputText styleClass="propertie" value="Aplica Recuperación" />
+							<h:outputText value="#{flujoNotaContablePage.temaActual.riesgoOperacional.appRecuperacion}" />
+
+							<h:outputText styleClass="propertie" value="Fecha Recuperación" />
+							<h:outputText value="#{flujoNotaContablePage.temaActual.riesgoOperacional.fechaRecuperacion}" />
+
+							<h:outputText styleClass="propertie" value="Tipo Recuperación" />
+							<h:outputText value="#{flujoNotaContablePage.temaActual.riesgoOperacional.tipoRecuperacion}" />
+						</h:panelGrid>
+
+					</h:panelGrid>
+				</p:dialog>
+			</h:panelGrid>
+		</h:panelGrid>
+	</p:dialog>
+
+	<p:dialog id="popupFlujoNotaContableVer" autosized="true" domElementAttachment="form" minWidth="700">
+		<f:facet name="header">
+			<h:panelGroup>
+				<h:outputText value="Nota Cotable" />
+			</h:panelGroup>
+		</f:facet>
+		<f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink" id="hidelinkCerrarFlujoVer" height="20" width="20" />
+				<p:remoteCommand for="popupFlujoNotaContableVer" attachTo="hidelinkCerrarFlujoVer" operation="hide" event="onclick" />
+			</h:panelGroup>
+		</f:facet>
+		<!--Formulario principal	-->
+		<h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="5">
+			<p:panel header="Información básica" style="width: 100%;">
+				<h:panelGrid columns="2">
+					<h:outputText value="Sucursal de Origen" styleClass="propertie" />
+					<h:outputText value="#{flujoNotaContablePage.nota.codigoSucursalOrigen} - #{flujoNotaContablePage.nota.sucursalOrigen.nombre}" />
+
+					<h:outputText value="Concepto" styleClass="propertie" />
+					<h:outputText value="#{flujoNotaContablePage.nota.concepto.nombre}" />
+
+					<h:outputText value="Tipo de Evento" styleClass="propertie" />
+					<h:outputText value="#{flujoNotaContablePage.nota.tipoEvento.nombre}" />
+				</h:panelGrid>
+			</p:panel>
+			<p:panel header="Temas del Concepto" style="width: 100%;" rendered="#{flujoNotaContablePage.nota.codigoConcepto gt 0}">
+				<p:dataTable value="#{flujoNotaContablePage.temasNotaContable}" var="temaNota" id="tableTemasVer" rendered="#{! empty flujoNotaContablePage.temasNotaContable}"
+					rowKeyVar="rowKey" width="100%" onRowMouseOver="this.style.backgroundColor='#9fbdeb'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"
+					rowClasses="row1, row2">
+
+					<p:column rendered="#{flujoNotaContablePage.mostrarAsiento}">
+						<f:facet name="header">
+							<h:outputText value="Asiento" />
+						</f:facet>
+						<h:outputText value="#{temaNota.numeroAsiento} " />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Nombre del Tema" />
+						</f:facet>
+						<h:outputText value="#{temaNota.tema.nombre} " />
+					</p:column>
+
+					<p:column style="text-align: center;">
+						<f:facet name="header">
+							<h:outputText value="Soportes" />
+						</f:facet>
+						<h:outputText value="#{flujoNotaContablePage.nota.concepto.soportes eq 'S'?'Si':'No'}" />
+					</p:column>
+
+					<p:column style="text-align: center;">
+						<f:facet name="header">
+							<h:outputText value="Riesgo" />
+						</f:facet>
+						<h:outputText value="#{temaNota.tema.riesgoOperacional eq 'S'?'Si':'No'}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Divisa" />
+						</f:facet>
+						<h:outputText value="#{temaNota.codigoDivisa}" />
+					</p:column>
+
+					<p:column style="text-align: right;">
+						<f:facet name="header">
+							<h:outputText value="Importe" />
+						</f:facet>
+						<h:outputText value="#{temaNota.monto}">
+							<f:convertNumber type="currency" />
+						</h:outputText>
+					</p:column>
+
+					<p:column style="text-align: center;">
+						<f:facet name="header">
+							<h:outputText value="Ver" />
+						</f:facet>
+						<h:commandButton action="#{flujoNotaContablePage.verNota}" oncomplete="#{rich:component('modalVer')}.show()" reRender="modalVer" image="/common/images/edit.png" alt="Ver"
+							rendered="#{temaNota.codigo gt 0 }">
+							<f:param name="codigoTema" value="#{temaNota.codigo}" assignTo="#{flujoNotaContablePage.codigo}" converter="javax.faces.Integer" />
+						</h:commandButton>
+					</p:column>
+					<f:facet name="footer">
+						<p:columnGroup rendered="#{! empty flujoNotaContablePage.totalesNota}">
+							<p:column colspan="#{flujoNotaContablePage.mostrarAsiento?4:3}" style="text-align:right;">
+								<h:outputText value="Totales" />
+							</p:column>
+							<p:column style="padding: 0px;">
+								<p:dataTable style="border-width: 0px; background-color: transparent;" value="#{flujoNotaContablePage.totalesNota}" var="total">
+									<p:column style="border-width: 0px;">
+										<h:outputText value="#{total.codigoDivisa }" />
+									</p:column>
+								</p:dataTable>
+							</p:column>
+							<p:column style="padding: 0px;">
+								<p:dataTable style="border-width: 0px; background-color: transparent;" value="#{flujoNotaContablePage.totalesNota}" var="total">
+									<p:column style="border-width: 0px; text-align:right;">
+										<h:outputText value="#{total.total}">
+											<f:convertNumber type="currency" />
+										</h:outputText>
+									</p:column>
+								</p:dataTable>
+							</p:column>
+							<p:column></p:column>
+						</p:columnGroup>
+					</f:facet>
+				</p:dataTable>
+			</p:panel>
+			<p:dialog id="popupRechazoVer" autosized="true" domElementAttachment="form" width="500">
+				<f:facet name="header">
+					<h:panelGroup>
+						<h:outputText value="Rechazar nota contable" />
+					</h:panelGroup>
+				</f:facet>
+
+				<h:panelGrid columns="1" width="100%">
+
+					<h:outputText value="Si esta seguro que desea rechazar la nota actual, por favor indique la causal de devolucion." />
+
+					<p:separator width="100%" />
+					<h:outputText value="Causal de devolución" />
+					<h:selectOneMenu value="#{flujoNotaContablePage.causalDevolucion}" immediate="true">
+						<f:selectItem itemValue="-1" itemLabel="Seleccione una opcion" />
+						<f:selectItems value="#{flujoNotaContablePage.causalesDev}" />
+						<!--<a4j:support event="onchange" reRender="otraCausalVer" />-->
+					</h:selectOneMenu>
+					<h:panelGrid columns="1" width="100%" id="otraCausalVer">
+						<h:outputText value="Descripción de la causal" rendered="#{flujoNotaContablePage.causalDevolucion eq 18}" />
+						<h:inputText value="#{flujoNotaContablePage.otraCausalDev}" rendered="#{flujoNotaContablePage.causalDevolucion eq 18}" size="80" />
+					</h:panelGrid>
+					<!-- Seccion de mensajes y botones de envio y cancelacion-->
+					<ui:include src="../../common/mensajes.xhtml" />
+					<h:panelGrid columns="2" styleClass="center" width="100%">
+						<h:commandButton action="#{flujoNotaContablePage.rechazar}" value="Confirmar rechazo"
+							oncomplete="if (#{flujoNotaContablePage.ocultarPopupAnular}) {#{rich:component('popupRechazoVer')}.hide();#{rich:component('popupFlujoNotaContableVer')}.hide();}"
+							reRender="lista,opcionesVer" />
+						<h:commandButton onclick="#{rich:component('popupRechazoVer')}.hide()" value="Cancelar" />
+					</h:panelGrid>
+				</h:panelGrid>
+			</p:dialog>
+
+			<ui:include src="../../common/mensajes.xhtml" />
+			<h:panelGrid id="opcionesVer" columns="2" styleClass="center" width="100%">
+				<h:commandButton action="#{flujoNotaContablePage.aprobar}"
+					oncomplete="if (#{flujoNotaContablePage.ocultarPopupAprobar}) #{rich:component('popupFlujoNotaContableVer')}.hide()" reRender="lista,opcionesVer" value="Aprobar"
+					rendered="#{flujoNotaContablePage.nota.puedeAprobar}" />
+				<h:commandButton value="Rechazar" rendered="#{flujoNotaContablePage.nota.puedeRechazar}" oncomplete="#{rich:component('popupRechazoVer')}.show()" />
+			</h:panelGrid>
+		</h:panelGrid>
+	</p:dialog>
+</ui:composition>

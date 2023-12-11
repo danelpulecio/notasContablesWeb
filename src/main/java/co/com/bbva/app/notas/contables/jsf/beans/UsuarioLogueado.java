@@ -34,12 +34,12 @@ public class UsuarioLogueado implements Serializable {
 
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 7935040122801785429L;
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(UsuarioLogueado.class);
-	
+
 	private UsuarioModulo usuario;
 	private UsuarioAltamira usuAltamira;
 	private Sucursal sucursal;
@@ -49,39 +49,39 @@ public class UsuarioLogueado implements Serializable {
 	private TreeMap<Menu, TreeSet<SubMenu>> menu;
 	private ArrayList<MenuVisual> opcionesMenu;
 	private Collection<Rol> roles;
-	
+
 
 	private MenuModel model = new DefaultMenuModel();
 
 	private Application application;
-	
+
 	private MenuModel menuButton = new DefaultMenuModel();
-	
-	
+
+
 	public UsuarioLogueado(UsuarioModulo usuario) {
-		
+
 		this.usuario = usuario;
 		usuAltamira = new UsuarioAltamira();
 		rolActual = null;
 		roles = new ArrayList<Rol>();
 		menu = new TreeMap<Menu, TreeSet<SubMenu>>();
-		sucursal = new Sucursal(); 
-		
+		sucursal = new Sucursal();
+
 	}
-	
+
 	@PostConstruct
 	public void init() {
 		this.cargarMenu();
 		this.cargarMenuButton();
 	}
-	
+
 	public MenuModel getModel() {
 		this.cargarMenu();
 		//this.cargarMenuButton();
 
 		return this.model;
 	}
-	
+
 	public MenuModel cargarMenu() {
 		if(this.model == null || this.model.getElements().isEmpty()) {
 			for (Menu m : menu.keySet()) {
@@ -89,8 +89,7 @@ public class UsuarioLogueado implements Serializable {
 				DefaultSubMenu submenu = new DefaultSubMenu();
 				submenu.setId( String.valueOf(m.getCodigo()) );
 				submenu.setLabel(m.getNombre());
-//				submenu.setStyle("overflow: auto;");
-				
+			
 				
 				for (SubMenu sm : menu.get(m)) {
 					DefaultMenuItem item = new DefaultMenuItem();
@@ -100,13 +99,10 @@ public class UsuarioLogueado implements Serializable {
 					item.setUpdate("globalForm");
 					item.setCommand(sm.getAccion());
 					item.setStyle("text-align: left;");
-					
 					submenu.getElements().add(item);
 				}
 				
 				this.model.getElements().add(submenu);
-//				this.model.generateUniqueIds();
-				
 			}
 			
 
@@ -128,10 +124,10 @@ public class UsuarioLogueado implements Serializable {
 		
 		return model;
 	}
-	
-	
+
+
 	public MenuModel getMenuButton() {
-		
+
 		if(this.menuButton == null || this.menuButton.getElements().isEmpty()) {
 			for (Menu m : menu.keySet()) {
 				DefaultSubMenu submenu = DefaultSubMenu.builder().label(m.getNombre()).build();
@@ -146,12 +142,12 @@ public class UsuarioLogueado implements Serializable {
 				this.menuButton.getElements().add(submenu);
 			}
 		}
-		
+
 		return menuButton;
 	}
-	
+
 	public MenuModel cargarMenuButton() {
-		
+
 		if(this.menuButton == null || this.menuButton.getElements().isEmpty()) {
 			for (Menu m : menu.keySet()) {
 				DefaultSubMenu submenu = DefaultSubMenu.builder().label(m.getNombre()).build();
@@ -192,7 +188,7 @@ public class UsuarioLogueado implements Serializable {
 
 	public void setRolActual(Rol rolActual) {
 		this.rolActual = rolActual;
-	} 
+	}
 
 	public Collection<Rol> getRoles() {
 		return roles;
@@ -233,7 +229,7 @@ public class UsuarioLogueado implements Serializable {
 	public void setCentroEspecial(CentroEspecial centroEspecial) {
 		this.centroEspecial = centroEspecial;
 	}
-	
+
 	public void setModel(MenuModel model) {
 		this.model = model;
 	}
@@ -249,17 +245,17 @@ public class UsuarioLogueado implements Serializable {
 		}
 		return opcionesMenu;
 	}
-	
+
 	private List<MenuItem> getMenuButtonList(TreeSet<SubMenu> opciones){
 		ArrayList<MenuItem> menuList = new ArrayList<>();
 		for (SubMenu sm : opciones) {
 			MenuItem menuItem = new MenuItem();
 			Class<?>[] params = {};
 			//MethodExpression actionExpression = application.getExpressionFactory().createMethodExpression(FacesContext.getCurrentInstance().getELContext(), sm.getAccion(), String.class, params);
-			//menuItem.setActionNC(actionExpression.toString());  
+			//menuItem.setActionNC(actionExpression.toString());
 			menuItem.setAction(sm.getAccion());
 			menuItem.setValue(sm.getNombre());
-			menuList.add(menuItem);			
+			menuList.add(menuItem);
 		}
 		return menuList;
 	}
@@ -271,13 +267,13 @@ public class UsuarioLogueado implements Serializable {
 //			HtmlMenuItem htmlMenuItem = new HtmlMenuItem();
 //			Class<?>[] params = {};
 //			MethodExpression actionExpression = application.getExpressionFactory().createMethodExpression(FacesContext.getCurrentInstance().getELContext(), sm.getAccion(), String.class, params);
-//			htmlMenuItem.setActionExpression(actionExpression);  
+//			htmlMenuItem.setActionExpression(actionExpression);
 //			htmlMenuItem.setDisabled(false);
 //			htmlMenuItem.setValue(sm.getNombre());
 //			menuList.add(htmlMenuItem);
 //		}
 //		return menuList;
 //	}
-//	
-	
+//
+
 }

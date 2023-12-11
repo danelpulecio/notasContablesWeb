@@ -21,7 +21,6 @@ import java.util.Collection;
 @SessionScoped
 public class HADTAPLPage extends GeneralCargaPage<HADTAPL> {
 
-	String param = getParam();
 	/**
 	 * 
 	 */
