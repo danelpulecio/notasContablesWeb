@@ -9,82 +9,58 @@
 
         <!--Filtro de busqueda	-->
         <div style="width: 850px;">
+            <h:form>
             <h:panelGrid columns="1" width="100%"><h1 align="center">Partidas Pendientes</h1></h:panelGrid>
 
             <h:panelGrid columns="2" id="filtro">
                 <h:inputText id="param" value="#{partidaPendientePage.param}"/>
-                <h:commandButton action="#{partidaPendientePage.buscarPorFiltro}" value="Filtrar"
-                                 onclick="Richfaces.showModalPanel('statusPanel')"/>
+                <h:commandButton action="#{partidaPendientePage.buscarPorFiltro}" value="Filtrar"/>
             </h:panelGrid>
 
             <ui:include src="../../common/mensajes.xhtml"/>
 
             <!--	Tabla de resultados	-->
-            <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
+           <!-- <h:panelGrid columns="1" width="100%" style="align:center;" id="lista"> -->
 
-                <p:dataTable value="#{partidaPendientePage.datos}" var="dato" id="table" rows="15"
-                                rendered="#{! empty partidaPendientePage.datos}" rowKeyVar="rowKey"
-                                footerClass="row2" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
-                                onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"
-                                rowClasses="row1, row2">
-                    <f:facet name="header">
-                        <p:dataScroller fastControls="false" pageIndexVar="pageIndex" pagesVar="pages"
-                                           style="color:black;" for="table" maxPages="5" renderIfSinglePage="false"
-                                           page="#{partidaPendientePage.scrollPage}" id="up" reRender="lista, filtro"
-                                           limitToList="true" ajaxSingle="true">
-                        </p:dataScroller>
-                    </f:facet>
-                    <p:column>
-                        <f:facet name="header"><h:outputText value="Fila"/></f:facet>
-                        <h:outputText value="#{rowKey+1}"/>
+                <p:dataTable value="#{partidaPendientePage.datos}" var="dato" id="table" rowIndexVar="rowIndex"
+                             widgetVar="economicActivityTable" rows="15" paginator="true"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                             paginatorPosition="top">
+
+                    <p:column headerText="Fila">
+                        <h:outputText value="#{rowIndex+1}"/>
                     </p:column>
-                    <p:column sortable="true" sortBy="#{dato.cuenta}">
-                        <f:facet name="header"><h:outputText value="Cuenta"/></f:facet>
+                    <p:column headerText="Cuenta" sortable="true" sortBy="#{dato.cuenta}">
                         <h:outputText value="#{dato.cuenta} "/>
                     </p:column>
-                    <p:column sortable="true" sortBy="#{dato.sucursalDestino}">
-                        <f:facet name="header"><h:outputText value="Sucursal Destino"/></f:facet>
+                    <p:column headerText="Sucursal_Destino" sortable="true" sortBy="#{dato.sucursalDestino}">
                         <h:outputText value="#{dato.sucursalDestino}"/>
                     </p:column>
-                    <p:column sortable="true" sortBy="#{dato.naturaleza}">
-                        <f:facet name="header"><h:outputText value="Naturaleza"/></f:facet>
+                    <p:column headerText="Naturaleza" sortable="true" sortBy="#{dato.naturaleza}">
                         <h:outputText value="#{dato.naturaleza}"/>
                     </p:column>
-                    <p:column sortable="true" sortBy="#{dato.referenciaCruce}">
-                        <f:facet name="header"><h:outputText value="Referencia Cruce"/></f:facet>
+                    <p:column headerText="Referencia_Cruce" sortable="true" sortBy="#{dato.referenciaCruce}">
                         <h:outputText value="#{dato.referenciaCruce}"/>
                     </p:column>
-                    <p:column style="text-align: right;" sortable="true" sortBy="#{dato.divisa}">
-                        <f:facet name="header"><h:outputText value="Divísa"/></f:facet>
+                    <p:column headerText="Divísa" style="text-align: right;" sortable="true" sortBy="#{dato.divisa}">
                         <h:outputText value="#{dato.divisa}"/>
                     </p:column>
-                    <p:column style="text-align: right;" sortable="true" sortBy="#{dato.importe}">
-                        <f:facet name="header"><h:outputText value="Importe"/></f:facet>
+                    <p:column headerText="Importe" style="text-align: right;" sortable="true" sortBy="#{dato.importe}">
                         <h:outputText value="#{dato.importe}"><f:convertNumber pattern="#,###,##0.00"/></h:outputText>
                     </p:column>
-                    <p:column sortable="true" sortBy="#{dato.concepto}">
-                        <f:facet name="header"><h:outputText value="Concepto"/></f:facet>
+                    <p:column headerText="Concepto" sortable="true" sortBy="#{dato.concepto}">
                         <h:outputText value="#{dato.concepto}"/>
                     </p:column>
-                    <p:column sortable="true" sortBy="#{dato.fechaContable}">
-                        <f:facet name="header"><h:outputText value="FechaContable"/></f:facet>
+                    <p:column headerText="FechaContable" sortable="true" sortBy="#{dato.fechaContable}">
                         <h:outputText value="#{dato.fechaContable}" style="text-transform: uppercase"><f:convertDateTime
                                 timeZone="GMT-5" locale="es-co" pattern="dd-MMM-yyyy"/></h:outputText>
                     </p:column>
 
-                    <!--	Se muestra la información de la cantidad de registros y la pagina actual	-->
-                    <f:facet name="footer">
-                        <p:dataScroller style="color:black;" align="center" for="table"
-                                           page="#{partidaPendientePage.scrollPage}" boundaryControls="hide"
-                                           fastControls="hide" stepControls="hide">
-                            <f:facet name="pages">
-                                <h:outputText
-                                        value="Visualizando del #{((pageIndex-1)*15)+1 } al #{(pages!=pageIndex)?(pageIndex*15):partidaPendientePage.totalFilas} de un total de #{partidaPendientePage.totalFilas} registros."/>
-                            </f:facet>
-                        </p:dataScroller>
-                    </f:facet>
+
                 </p:dataTable>
-            </h:panelGrid>
+            <!--</h:panelGrid>-->
+            </h:form>
         </div>
     </ui:define>
 </ui:composition>

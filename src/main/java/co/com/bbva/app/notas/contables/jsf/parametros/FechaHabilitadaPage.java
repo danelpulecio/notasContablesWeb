@@ -28,7 +28,7 @@ public class FechaHabilitadaPage extends GeneralParametrosPage<FechaHabilitada, 
 	private Boolean selectedAll = false;
 	private Integer nuevosDias = 2;
 
-//	Session session = getContablesSessionBean().getSessionTrace();
+	Session session = getContablesSessionBean().getSessionTrace();
 	public FechaHabilitadaPage() {
 		super(true);
 	}

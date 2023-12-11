@@ -1,0 +1,86 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui"
+				template="../../WEB-INF/layouts/template.xhtml">
+	<ui:param name="title" value="Carga de Instancias por Usuario" />
+	<ui:define name="body">
+
+		<!--Filtro de busqueda	-->
+		<div style="width: 990px;"><h:panelGrid columns="1" width="100%">
+			<h1 align="center">Carga de Instancias por Usuario</h1>
+		</h:panelGrid> 
+		<!-- Panel de opciones --> 
+		<!-- Campos del formulario --> 
+		<h:panelGrid id="informacion" columns="1" width="60%" cellpadding="0" cellspacing="0">
+			<p:accordionPanel label="Filtro de búsqueda" width="100%" switchType="client">
+				<h:panelGrid columns="2" width="100%" cellpadding="0" cellspacing="5">
+					<h:outputText value="Sucursal Origen" />
+					<h:selectOneMenu value="sucursal" immediate="true">
+						<f:selectItems value="sucursales" />
+					</h:selectOneMenu>
+					<h:outputText value="Rol" />
+					<h:selectOneMenu value="rol" immediate="true" converter="javax.faces.Integer">
+						<f:selectItems value="roles" />
+					</h:selectOneMenu>
+					<h:outputText value="Estado" />
+					<h:selectOneMenu value="estado" immediate="true" >
+						<f:selectItem itemValue="0" itemLabel="Pendiente de aprobación por Subgenrente, Gerente, Área Central" />
+						<f:selectItem itemValue="1" itemLabel="Pendiente de Revisión" />
+						<f:selectItem itemValue="2" itemLabel="Pendiente de aprobación por Padrino - Unidad de Análisis" />
+						<f:selectItem itemValue="3" itemLabel="Pendiente de aprobación ente Autorizador" />
+						<f:selectItem itemValue="4" itemLabel="Precierre" />
+					</h:selectOneMenu>
+				</h:panelGrid>
+				<h:panelGrid columns="1" styleClass="center">
+					<h:commandButton reRender="informacion,lista" value="Buscar" />
+				</h:panelGrid>
+			</p:accordionPanel>
+		</h:panelGrid> 
+		
+		<!--<ui:include src="../../common/mensajes.xhtml" /> -->
+		
+		<!-- Tabla de registros --> 
+		
+		<h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
+
+			<p:dataTable value="datos" var="dato" id="table" rows="15" rowKeyVar="rowKey" width="100%" footerClass="row2" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
+				onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'" rowClasses="row1, row2">
+				<f:facet name="header">
+					<p:dataScroller fastControls="false" pageIndexVar="pageIndex" pagesVar="pages" style="color:black;" for="table" maxPages="5" renderIfSinglePage="false" page="10" id="up" reRender="lista, filtro"
+						limitToList="true" ajaxSingle="true">
+					</p:dataScroller>
+				</f:facet>
+
+				<p:column sortable="true" sortBy="#{dato.usuarioModulo.codigoAreaModificado}">
+					<f:facet name="header"><h:outputText value="Área" /></f:facet>
+					<h:panelGrid columns="2">
+						<h:outputText value="codigoAreaModificado" />
+						<h:outputText value="nombreAreaModificado" />
+					</h:panelGrid>
+				</p:column>
+				<p:column sortable="true" sortBy="#{dato.usuarioModulo.codigoEmpleado}">
+					<f:facet name="header"><h:outputText value="Usuario" /></f:facet>
+					<h:outputText value="codigoEmpleado" />
+				</p:column>
+				<p:column sortable="true" sortBy="#{dato.usuarioModulo.rol.nombre}">
+					<f:facet name="header"><h:outputText value="Rol" /></f:facet>
+					<h:outputText value="nombre" />
+				</p:column>
+				<p:column sortable="true" sortBy="#{dato.cantInstancias}">
+					<f:facet name="header"><h:panelGroup><h:outputText value="Instancias" /><br/><h:outputText value="Asignadas" /></h:panelGroup></f:facet>
+					<h:outputText value="cantInstancias" />
+				</p:column>
+
+				<f:facet name="footer">
+					<p:dataScroller style="color:black;" align="center" for="table" page="10" boundaryControls="hide" fastControls="hide" stepControls="hide" renderIfSinglePage="true">
+						<f:facet name="pages">
+							<h:outputText value="Visualizando del al  de un total de registros." />
+						</f:facet>
+					</p:dataScroller>
+				</f:facet>
+			</p:dataTable>
+		</h:panelGrid></div>
+	</ui:define>
+</ui:composition>

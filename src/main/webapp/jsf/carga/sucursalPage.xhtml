@@ -10,67 +10,38 @@
         <!--Filtro de busqueda	-->
         <div style="width: 850px;">
             <h:panelGrid columns="1" width="100%"><h1 align="center">Sucursales</h1></h:panelGrid>
-
-            <h:panelGrid columns="2" id="filtro">
-                <h:inputText id="param" value="#{sucursalPage.param}"/>
-                <h:commandButton action="#{sucursalPage.buscarPorFiltro}" value="Filtrar"
-                                 onclick="Richfaces.showModalPanel('statusPanel')"/>
-            </h:panelGrid>
-
-
-            <!--	Tabla de resultados	-->
             <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
+                <h:panelGrid columns="2" id="filtro" style="text-align: center; margin: 0 auto;">
+                    <h:inputText id="param" value="#{sucursalPage.param}"/>
+                    <h:commandButton action="#{sucursalPage.buscarPorFiltro}" value="Filtrar"/>
+                </h:panelGrid>
 
+                <!--	Tabla de resultados	-->
                 <ui:include src="../../common/mensajes.xhtml"/>
 
-                <p:dataTable value="#{sucursalPage.datos}" var="dato" id="table" rows="15"
-                                rendered="#{! empty sucursalPage.datos}" rowKeyVar="rowKey"
-                                footerClass="row2" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
-                                onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"
-                                rowClasses="row1, row2">
-                    <f:facet name="header">
-                        <p:dataScroller fastControls="false" pageIndexVar="pageIndex" pagesVar="pages"
-                                           style="color:black;" for="table" maxPages="5" renderIfSinglePage="false"
-                                           page="#{sucursalPage.scrollPage}" id="up" reRender="lista, filtro"
-                                           limitToList="true" ajaxSingle="true">
-                        </p:dataScroller>
-                    </f:facet>
-                    <p:column>
-                        <f:facet name="header"><h:outputText value="Fila"/></f:facet>
-                        <h:outputText value="#{rowKey+1}"/>
+                <p:dataTable id="table" value="#{sucursalPage.datos}" var="dato" rowIndexVar="rowIndex"
+                             widgetVar="sucursalPageTable" rows="15" paginator="true"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                             paginatorPosition="top">
+                    <p:column headerText="Fila">
+                        <h:outputText value="#{rowIndex+1}"/>
                     </p:column>
-                    <p:column sortable="true" sortBy="#{dato.codigo}">
-                        <f:facet name="header"><h:outputText value="Código"/></f:facet>
+                    <p:column headerText="Codigo" sortable="true" sortBy="#{dato.codigo}">
                         <h:outputText value="#{dato.codigo} "/>
                     </p:column>
-                    <p:column sortable="true" sortBy="#{dato.nombre}">
-                        <f:facet name="header"><h:outputText value="Nombre"/></f:facet>
+                    <p:column headerText="Nombre" sortable="true" sortBy="#{dato.nombre}">
                         <h:outputText value="#{dato.nombre}"/>
                     </p:column>
-                    <p:column sortable="true" sortBy="#{dato.tipoCentro}">
-                        <f:facet name="header"><h:outputText value="Tipo Centro"/></f:facet>
+                    <p:column headerText="Tipo Centro" sortable="true" sortBy="#{dato.tipoCentro}">
                         <h:outputText value="#{dato.tipoCentro}"/>
                     </p:column>
-                    <p:column sortable="true" sortBy="#{dato.codigoCentroSuperior}">
-                        <f:facet name="header"><h:outputText value="Código Centro Superior"/></f:facet>
+                    <p:column headerText="Codigo Centro Superior" sortable="true" sortBy="#{dato.codigoCentroSuperior}">
                         <h:outputText value="#{dato.codigoCentroSuperior}"/>
                     </p:column>
-                    <p:column sortable="true" sortBy="#{dato.nombreCentroSuperior}">
-                        <f:facet name="header"><h:outputText value="Nombre Centro Superior"/></f:facet>
+                    <p:column headerText="Nombre Centro Superior" sortable="true" sortBy="#{dato.nombreCentroSuperior}">
                         <h:outputText value="#{dato.nombreCentroSuperior}"/>
                     </p:column>
-
-                    <!--	Se muestra la información de la cantidad de registros y la pagina actual	-->
-                    <f:facet name="footer">
-                        <p:dataScroller style="color:black;" align="center" for="table"
-                                           page="#{sucursalPage.scrollPage}" boundaryControls="hide" fastControls="hide"
-                                           stepControls="hide">
-                            <f:facet name="pages">
-                                <h:outputText
-                                        value="Visualizando del #{((pageIndex-1)*15)+1 } al #{(pages!=pageIndex)?(pageIndex*15):sucursalPage.totalFilas} de un total de #{sucursalPage.totalFilas} registros."/>
-                            </f:facet>
-                        </p:dataScroller>
-                    </f:facet>
                 </p:dataTable>
             </h:panelGrid>
         </div>

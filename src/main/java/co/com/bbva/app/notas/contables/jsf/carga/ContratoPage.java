@@ -22,8 +22,6 @@ import java.util.Collection;
 @ViewScoped
 public class ContratoPage extends GeneralCargaPage<Contrato> {
 
-
-	String param = getParam();
 	/**
 	 * 
 	 */

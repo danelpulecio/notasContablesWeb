@@ -347,6 +347,13 @@
   </navigation-case>
  </navigation-rule>
  <navigation-rule>
+  <from-view-id>/jsf/consultas/flujoNotaContablePage.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>flujoNotaContablePage</from-outcome>
+   <to-view-id>/jsf/consultas/flujoNotaContablePage.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ <navigation-rule>
   <from-view-id>/jsf/notacontable/notaContablePage.xhtml</from-view-id>
   <navigation-case>
    <from-outcome>notaContablePage</from-outcome>
@@ -368,10 +375,24 @@
   </navigation-case>
  </navigation-rule>
  <navigation-rule>
+ <from-view-id>/jsf/adminnotacontable/cerradasPage.xhtml</from-view-id>
+ <navigation-case>
+  <from-outcome>pendientePage</from-outcome>
+  <to-view-id>/jsf/adminnotacontable/cerradasPage.xhtml</to-view-id>
+ </navigation-case>
+ </navigation-rule>
+ <navigation-rule>
   <from-view-id>/jsf/adminnotacontable/pendientePage.xhtml</from-view-id>
   <navigation-case>
    <from-outcome>pendientePage</from-outcome>
    <to-view-id>/jsf/adminnotacontable/pendientePage.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ <navigation-rule>
+  <from-view-id>/jsf/adminnotacontable/precierreCierreFormPage.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>precierrePage</from-outcome>
+   <to-view-id>/jsf/adminnotacontable/precierreCierreFormPage.xhtml</to-view-id>
   </navigation-case>
  </navigation-rule>
  <navigation-rule>

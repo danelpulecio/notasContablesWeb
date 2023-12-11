@@ -12,8 +12,8 @@
         <link rel="icon" type="image/jpg" href="${pageContext.request.contextPath}/./common/images/bbva_logo_icon.jpg"/>
 
         <title>::: SISTEMA DE CONTABILIDAD -- BBVA - Seccion #{title} :::</title>
-        <h:outputStylesheet name="css/theme.css"/>
-        <h:outputStylesheet name="css/theme.xcss"/>
+        <h:outputStylesheet library = "css" name = "theme.css" /> 
+        <h:outputStylesheet library = "css" name = "theme.xcss" />
         <script type="text/javascript">
 
             function onKeyPressNumbers(e, value) {
@@ -82,7 +82,6 @@
                 document.all ? k = e.key : k = e.which;
                 return ((k &gt; 64 &amp;&amp; k &lt; 91) || (k &gt; 96 &amp;&amp; k &lt; 123) || k == 46 || k == 44 || k == 45 || k == 95 || k == 8 || k == 225 || k == 193 || k == 233 || k == 237 || k == 243 || k == 201 || k == 250 || k == 205 || k == 211 || k == 209 || k == 241 || k == 218 || k == 32 || (k &gt;= 48 &amp;&amp; k &lt;= 57));
             }
-
         </script>
         <ui:insert name="head"/>
     </h:head>

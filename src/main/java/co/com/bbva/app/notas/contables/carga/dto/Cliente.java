@@ -94,4 +94,18 @@ public class Cliente extends CommonVO<Cliente> implements java.io.Serializable {
 		return numeroCliente;
 	}
 
+	@Override
+	public String toString() {
+		return "Cliente{" +
+				"numeroCliente='" + numeroCliente + '\'' +
+				", tipoIdentificacion='" + tipoIdentificacion + '\'' +
+				", numeroIdentificacion='" + numeroIdentificacion + '\'' +
+				", digitoVerificacion='" + digitoVerificacion + '\'' +
+				", primerApellido='" + primerApellido + '\'' +
+				", segundoApellido='" + segundoApellido + '\'' +
+				", primerNombre='" + primerNombre + '\'' +
+				", estadoCarga='" + estadoCarga + '\'' +
+				", fechaUltimaCarga=" + fechaUltimaCarga +
+				'}';
+	}
 }

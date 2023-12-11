@@ -27,7 +27,7 @@ public abstract class GeneralParametrosPage<T extends CommonVO<T>, D> extends Ge
 	private boolean ocultarPopupGuardar = false;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(GeneralCentroPage.class);
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
 
 	/**
 	 * Crea una instnacia del objeto a manejar
@@ -118,7 +118,7 @@ public abstract class GeneralParametrosPage<T extends CommonVO<T>, D> extends Ge
 		try {
 			_editar();
 		} catch (Exception e) {
-			LOGGER.error("{} Error al inicializar el editor", session.getTraceLog() , e );
+			LOGGER.error("{} Error al inicializar el editor" );
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al inicializar el editor");
 
 		}
@@ -138,7 +138,7 @@ public abstract class GeneralParametrosPage<T extends CommonVO<T>, D> extends Ge
 				ocultarPopupGuardar = true;
 			}
 		} catch (Exception e) {
-			LOGGER.error("{} Error guardar la informacin", session.getTraceLog() , e );
+			LOGGER.error("{} Error guardar la informacin");
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error guardar la informacin");
 
 		}
@@ -159,7 +159,7 @@ public abstract class GeneralParametrosPage<T extends CommonVO<T>, D> extends Ge
 				nuevoMensaje(FacesMessage.SEVERITY_WARN, "No es posible cambiar el estado de este registro");
 			}
 		} catch (Exception e) {
-			LOGGER.error("{} Error al cambiar el estado", session.getTraceLog() , e);
+			LOGGER.error("{} Error al cambiar el estado");
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al cambiar el estado");
 
 		}
@@ -178,7 +178,7 @@ public abstract class GeneralParametrosPage<T extends CommonVO<T>, D> extends Ge
 				nuevoMensaje(FacesMessage.SEVERITY_INFO, "La informacin ha sido borrada correctamente");
 			}
 		} catch (Exception e) {
-			LOGGER.error("{} Error al borrar la informacin", session.getTraceLog() , e );
+			LOGGER.error("{} Error al borrar la informacin");
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al borrar la informacin");
 
 		}

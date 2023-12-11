@@ -18,12 +18,12 @@
                         <h:commandButton action="#{actividadEconomicaPage.buscarPorFiltro}" value="Filtrar"/>
                     </h:panelGrid>
                     <ui:include src="../../common/mensajes.xhtml"/>
-
                     <p:dataTable id="actividadTable" value="#{actividadEconomicaPage.datos}" var="actividad" rowIndexVar="rowIndex"
                                  widgetVar="economicActivityTable" rows="15" paginator="true"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
                                  paginatorPosition="top">
+
                         <p:column headerText="Fila">
                             <h:outputText value="#{rowIndex + 1}"/>
                         </p:column>
