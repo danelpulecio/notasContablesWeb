@@ -73,7 +73,7 @@ public class UnidadAnalisisPage extends GeneralParametrosPage<UnidadAnalisis, Un
 	@Override
 	public Collection<UnidadAnalisis> _buscarPorFiltro() throws Exception {
 		if(!param.isEmpty()){
-			LOGGER.info("{} Buscar unidad analisis: {}", session.getTraceLog(),param );
+			LOGGER.info("{} Buscar unidad analisis: {}" );
 		}
 		return notasContablesManager.searchUnidadAnalisis(param);
 	}
@@ -93,16 +93,16 @@ public class UnidadAnalisisPage extends GeneralParametrosPage<UnidadAnalisis, Un
 		Number codInicial = objActual.getCodigo();
 		try {
 			if (objActual.getCodigo().intValue() <= 0) {
-				LOGGER.info("{} Crea unidad analisis: {}", session.getTraceLog(),objActual.getCodigoSucursal() +" "+ objActual.getAutorizaReferenciaCruce() );
+				LOGGER.info("{} Crea unidad analisis: {}",objActual.getCodigoSucursal() +" "+ objActual.getAutorizaReferenciaCruce() );
 				LOGGER.info("REMOTE_IP={} HOST={} [{}] Crea unidad analisis {}  usernme: {}", "ip", "localHost.getHostAddress()", "uuid", objActual.getCodigo()+ " "+ objActual.getNombreSucursal()  , "username");
 				notasContablesManager.addUnidadAnalisis(objActual, getCodUsuarioLogueado());
 			} else {
-				LOGGER.info("{} Actualiza unidad analisis: {}", session.getTraceLog(),objActual.getCodigo() +" "+objActual.getCodigoSucursal() +" "+ objActual.getAutorizaReferenciaCruce() );
+				LOGGER.info("{} Actualiza unidad analisis: {}",objActual.getCodigo() +" "+objActual.getCodigoSucursal() +" "+ objActual.getAutorizaReferenciaCruce() );
 				notasContablesManager.updateUnidadAnalisis(objActual, getCodUsuarioLogueado());
 			}
 		} catch (Exception e) {
 			objActual.setCodigo(codInicial);
-			LOGGER.error("{} Ya existe una Unidad de Anlisis con la misma sucursal: {}", session.getTraceLog(),codInicial ,e );
+			LOGGER.error("{} Ya existe una Unidad de Anlisis con la misma sucursal: {}", codInicial ,e );
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Ya existe una Unidad de Anlisis con la misma sucursal");
 			return false;
 		}
@@ -135,7 +135,7 @@ public class UnidadAnalisisPage extends GeneralParametrosPage<UnidadAnalisis, Un
 	@Override
 	public boolean _cambiarEstado() throws Exception {
 		if (cambioValido()) {
-			LOGGER.info("{} Cambio estado unidad analisis: {}", session.getTraceLog(),notasContablesManager.getUnidadAnalisis(objActual).getCodigo() +" "+objActual.getCodigoSucursal() +" "+ notasContablesManager.getUnidadAnalisis(objActual).getEstado() );
+			LOGGER.info("{} Cambio estado unidad analisis: {}",notasContablesManager.getUnidadAnalisis(objActual).getCodigo() +" "+objActual.getCodigoSucursal() +" "+ notasContablesManager.getUnidadAnalisis(objActual).getEstado() );
 			notasContablesManager.changeEstadoUnidadAnalisis(notasContablesManager.getUnidadAnalisis(objActual), getCodUsuarioLogueado());
 			return true;
 		}
@@ -150,10 +150,10 @@ public class UnidadAnalisisPage extends GeneralParametrosPage<UnidadAnalisis, Un
 	@Override
 	public boolean _borrar() throws Exception {
 		try {
-			LOGGER.info("{} Borra unidad analisis: {}", session.getTraceLog(),objActual.getCodigo() +" "+objActual.getCodigoSucursal() +" "+ objActual.getAutorizaReferenciaCruce() );
+			LOGGER.info("{} Borra unidad analisis: {}",objActual.getCodigo() +" "+objActual.getCodigoSucursal() +" "+ objActual.getAutorizaReferenciaCruce() );
 			notasContablesManager.deleteUnidadAnalisis(objActual, getCodUsuarioLogueado());
 		} catch (Exception e) {
-			LOGGER.error("{} No puede eliminar la Unidad de Anlisis porque contiene registros asociados ", session.getTraceLog(), e);
+			LOGGER.error("{} No puede eliminar la Unidad de Anlisis porque contiene registros asociados ", e);
 			nuevoMensaje(FacesMessage.SEVERITY_WARN, "No puede eliminar la Unidad de Anlisis porque contiene registros asociados");
 			return false;
 		}
@@ -170,7 +170,7 @@ public class UnidadAnalisisPage extends GeneralParametrosPage<UnidadAnalisis, Un
 				autorizaciones = getSelectItemList(autMap, false);
 			} catch (Exception e) {
 
-				LOGGER.error("{} Error consultar ListasAuxiliares ", session.getTraceLog(), e);
+				LOGGER.error("{} Error consultar ListasAuxiliares ", e);
 				nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al inicializar el mdulo de administracin de montos autorizados");
 			}
 		}

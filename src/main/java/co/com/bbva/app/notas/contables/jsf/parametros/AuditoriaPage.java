@@ -28,7 +28,7 @@ public class AuditoriaPage extends GeneralParametrosPage<Auditoria, Auditoria> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AuditoriaPage.class);
 
-//	Session session = getContablesSessionBean().getSessionTrace();
+	Session session = getContablesSessionBean().getSessionTrace();
 
 	public AuditoriaPage() {
 		super(true);
@@ -68,7 +68,7 @@ public class AuditoriaPage extends GeneralParametrosPage<Auditoria, Auditoria> {
 	@Override
 	public Collection<Auditoria> _buscarPorFiltro() throws Exception {
 		if(!param.isEmpty()){
-			LOGGER.info("{} Buscar Auditoria: {}", session.getTraceLog(),param );
+			LOGGER.info("{} Buscar Auditoria: {}");
 		}
 		return notasContablesManager.searchRegistrosAuditoria(param);
 	}

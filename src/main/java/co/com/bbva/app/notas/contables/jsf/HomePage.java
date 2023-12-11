@@ -113,7 +113,6 @@ public class HomePage extends GeneralPage implements Serializable, IPages {
      */
     public HomePage() {
         super();
-        LOGGER.info("HOME PAGE CONSTRUCTOR ");
         ServletContext context = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
         DIR_AUTH_LDAP = context.getInitParameter("DIR_AUTH_LDAP");
         _init();
@@ -190,7 +189,8 @@ public class HomePage extends GeneralPage implements Serializable, IPages {
         }
 //        LOGGER.info("{} El usuario {} cerro la sesin de forma exitosa", session.getTraceLog(), session.getUser());
         getContablesSessionBean().setLoginUser(null);
-        return INICIO;
+        //return INICIO;
+        return LOGIN;
     }
 
     public String setRol() {

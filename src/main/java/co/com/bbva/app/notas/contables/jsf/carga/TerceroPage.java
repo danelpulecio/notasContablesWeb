@@ -42,7 +42,7 @@ public class TerceroPage extends GeneralParametrosPage<Tercero, Tercero> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(TerceroPage.class);
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
 
 	/**
 	 * <p>
@@ -132,7 +132,8 @@ public class TerceroPage extends GeneralParametrosPage<Tercero, Tercero> {
 				}
 			}
 		} catch (Exception e) {
-			LOGGER.error("{} Error Cargando Departamentos: {}", session.getTraceLog(),e );
+//			LOGGER.error("{} Error Cargando Departamentos: {}", session.getTraceLog(),e );
+			LOGGER.error("{} Error Cargando Departamentos: {}");
 		}
 	}
 
@@ -150,7 +151,8 @@ public class TerceroPage extends GeneralParametrosPage<Tercero, Tercero> {
 				}
 			}
 		} catch (Exception e) {
-			LOGGER.error("{} Error Cargando Municipios: {}", session.getTraceLog(),e );
+//			LOGGER.error("{} Error Cargando Municipios: {}", session.getTraceLog(),e );
+			LOGGER.error("{} Error Cargando Municipios: {}");
 		}
 	}
 
@@ -195,7 +197,8 @@ public class TerceroPage extends GeneralParametrosPage<Tercero, Tercero> {
 				}
 			} catch (Exception e) {
 				tiposIdentificacion = new ArrayList<SelectItem>();
-				LOGGER.error("{} Error Iniciando pagina: {}", session.getTraceLog(),e );
+//				LOGGER.error("{} Error Iniciando pagina: {}", session.getTraceLog(),e );
+				LOGGER.error("{} Error Iniciando pagina: {}");
 			}
 		}
 	}
@@ -267,14 +270,16 @@ public class TerceroPage extends GeneralParametrosPage<Tercero, Tercero> {
 			objActual.setUsuario(getUsuarioLogueado().getUsuAltamira().getCodigoEmpleado());
 			objActual.setFecha(sdf.format(Calendar.getInstance().getTime()));
 			objActual.setNumeroIdentificacion(StringUtils.getStringLeftPaddingFixed(docInicial, 15, '0'));
-			LOGGER.info("{} Crea Tercero: {}", session.getTraceLog(),objActual.getNumeroIdentificacion() +" "+  objActual.getPrimerNombre() + " "+objActual.getPrimerApellido());
+//			LOGGER.info("{} Crea Tercero: {}", session.getTraceLog(),objActual.getNumeroIdentificacion() +" "+  objActual.getPrimerNombre() + " "+objActual.getPrimerApellido());
+			LOGGER.info("{} Crea Tercero: {}",objActual.getNumeroIdentificacion() +" "+  objActual.getPrimerNombre() + " "+objActual.getPrimerApellido());
 			cargaAltamiraManager.addTercero(objActual, getCodUsuarioLogueado());
 			actividad = "";
 			objActual = new Tercero();
 		} catch (Exception e) {
 			objActual.setNumeroIdentificacion(docInicial);
 			objActual.setTipoIdentificacion(tipoDocInicial);
-			LOGGER.error("{} Error Guardando tercero , Ya existe un Tercero con la misma identificacin: {}", session.getTraceLog(),tipoDocInicial +" "+  docInicial );
+//			LOGGER.error("{} Error Guardando tercero , Ya existe un Tercero con la misma identificacin: {}", session.getTraceLog(),tipoDocInicial +" "+  docInicial );
+			LOGGER.error("{} Error Guardando tercero , Ya existe un Tercero con la misma identificacin: {}", tipoDocInicial +" "+  docInicial );
 			//lanzarError(e, "Ya existe un Tercero con la misma identificacin" );
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Ya existe un Tercero con la misma identificacin");
 			return false;
@@ -337,7 +342,8 @@ public class TerceroPage extends GeneralParametrosPage<Tercero, Tercero> {
 			actividades = new ArrayList<SelectItem>();
 			actividad = "";
 		} catch (Exception e) {
-			LOGGER.error("{} Error Creando tercero: {}", session.getTraceLog(), param);
+//			LOGGER.error("{} Error Creando tercero: {}", session.getTraceLog(), param);
+			LOGGER.error("{} Error Creando tercero: {}");
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error procesando la solicitud");
 		}
 	}

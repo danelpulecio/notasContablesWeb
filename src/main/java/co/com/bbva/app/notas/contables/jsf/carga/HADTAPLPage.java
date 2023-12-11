@@ -16,8 +16,9 @@ import java.util.Collection;
  * </p>
  * 
  */
+
+@Named(value="hadtaplPage")
 @SessionScoped
-@Named
 public class HADTAPLPage extends GeneralCargaPage<HADTAPL> {
 
 	String param = getParam();
@@ -28,7 +29,7 @@ public class HADTAPLPage extends GeneralCargaPage<HADTAPL> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(HADTAPLPage.class);
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
 
 	/**
 	 * <p>
@@ -56,9 +57,9 @@ public class HADTAPLPage extends GeneralCargaPage<HADTAPL> {
 	 */
 	@Override
 	public Collection<HADTAPL> _buscarPorFiltro() throws Exception {
-		if(!param.isEmpty()){
-			LOGGER.info("{} Buscar  Cuenta: {}", session.getTraceLog(),param );
-		}
+//		if(!param.isEmpty()){
+//			LOGGER.info("{} Buscar  Cuenta: {}", session.getTraceLog(),param );
+//		}
 		return cargaAltamiraManager.searchHADTAPL(param);
 	}
 

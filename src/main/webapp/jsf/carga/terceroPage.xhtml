@@ -29,7 +29,7 @@
                                 <h:outputText value="Tipo de Identificación" style="width: 100px;"/>
                                 <h:selectOneMenu value="#{terceroPage.objActual.tipoIdentificacion}">
                                     <f:selectItems value="#{terceroPage.tiposIdentificacion}"/>
-                                    <a4j:support event="onchange" reRender="identificacion" limitToList="true"/>
+                                    <p:ajax event="onchange" reRender="identificacion" limitToList="true"/>
                                 </h:selectOneMenu>
 
                                 <h:outputText value="Número de Identificación" style="width: 100px;"/>
@@ -65,7 +65,7 @@
                                 <h:outputText value="País"/>
                                 <h:selectOneMenu value="#{terceroPage.objActual.pais}" immediate="true">
                                     <f:selectItems value="#{terceroPage.paises}"/>
-                                    <a4j:support event="onchange" action="#{terceroPage.cargarDepartamentos }"
+                                    <p:ajax event="onchange" action="#{terceroPage.cargarDepartamentos }"
                                                  reRender="municipioPanel,departamentosPanel" ajaxSingle="true"/>
                                 </h:selectOneMenu>
 
@@ -74,7 +74,7 @@
                                     <h:selectOneMenu value="#{terceroPage.objActual.departamento}"
                                                      rendered="#{!empty terceroPage.departamentos}" immediate="true">
                                         <f:selectItems value="#{terceroPage.departamentos}"/>
-                                        <a4j:support event="onchange" action="#{terceroPage.cargarMunicipios }"
+                                        <p:ajax event="onchange" action="#{terceroPage.cargarMunicipios }"
                                                      reRender="municipioPanel" ajaxSingle="true"/>
                                     </h:selectOneMenu>
                                 </h:panelGroup>
@@ -92,7 +92,7 @@
                                 <h:outputText value="Tipo de Teléfono" style="width: 50px;"/>
                                 <h:selectOneMenu value="#{terceroPage.objActual.tipoTelefono}">
                                     <f:selectItems value="#{terceroPage.tiposTelefono}"/>
-                                    <a4j:support event="onchange" reRender="indicativo1"/>
+                                    <p:ajax event="onchange" reRender="indicativo1"/>
                                 </h:selectOneMenu>
                                 <h:outputText value="Indicativo" style="width: 50px;"/>
                                 <h:panelGroup id="indicativo1">
@@ -113,7 +113,7 @@
                                 <h:outputText value="Tipo de Teléfono 2" style="width: 50px;"/>
                                 <h:selectOneMenu value="#{terceroPage.objActual.tipoTelefono2}">
                                     <f:selectItems value="#{terceroPage.tiposTelefono}"/>
-                                    <a4j:support event="onchange" reRender="indicativo2"/>
+                                    <p:ajax event="onchange" reRender="indicativo2"/>
                                 </h:selectOneMenu>
                                 <h:outputText value="Indicativo 2" style="width: 50px;"/>
                                 <h:panelGroup id="indicativo2">

@@ -85,10 +85,13 @@ public class UsuarioLogueado implements Serializable {
 	public MenuModel cargarMenu() {
 		if(this.model == null || this.model.getElements().isEmpty()) {
 			for (Menu m : menu.keySet()) {
-
+				
 				DefaultSubMenu submenu = new DefaultSubMenu();
 				submenu.setId( String.valueOf(m.getCodigo()) );
 				submenu.setLabel(m.getNombre());
+//				submenu.setStyle("overflow: auto;");
+				
+				
 				for (SubMenu sm : menu.get(m)) {
 					DefaultMenuItem item = new DefaultMenuItem();
 					item.setId(sm.getNombre());
@@ -96,15 +99,33 @@ public class UsuarioLogueado implements Serializable {
 					item.setAjax(false);
 					item.setUpdate("globalForm");
 					item.setCommand(sm.getAccion());
+					item.setStyle("text-align: left;");
 					
 					submenu.getElements().add(item);
 				}
-
+				
 				this.model.getElements().add(submenu);
-				this.model.generateUniqueIds();
+//				this.model.generateUniqueIds();
 				
 			}
+			
+
+			if(this.model.getElements().size() > 0){
+				
+				DefaultMenuItem itemOff = new DefaultMenuItem();
+				itemOff.setId("off");
+				itemOff.setValue("Salir");
+				itemOff.setAjax(false);
+				itemOff.setUpdate("globalForm");
+				itemOff.setCommand("#{homePage.logout}");
+				itemOff.setIcon("pi pi-fw pi-power-off");
+//				itemOff.setStyle("padding-left: 100px;");
+				
+				this.model.getElements().add(itemOff);
+			}
+				
 		}
+		
 		return model;
 	}
 	
