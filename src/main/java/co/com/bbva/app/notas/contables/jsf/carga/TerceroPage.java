@@ -21,8 +21,9 @@ import java.util.*;
  * </p>
  * 
  */
+
+@Named(value="terceroPage")
 @SessionScoped
-@Named
 public class TerceroPage extends GeneralParametrosPage<Tercero, Tercero> {
 
 	private static final long serialVersionUID = -8330009617976284212L;

@@ -19,7 +19,7 @@ import java.util.Collection;
  * 
  */
 @Named
-@ViewScoped
+@SessionScoped
 public class ContratoPage extends GeneralCargaPage<Contrato> {
 
 	/**
