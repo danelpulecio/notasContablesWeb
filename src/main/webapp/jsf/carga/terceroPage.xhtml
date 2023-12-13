@@ -8,9 +8,13 @@
     <ui:define name="body">
 
         <!-- Formulario Modal de creacion y edicion de nuevos registros-->
-<!--        <p:dialog id="editor" widgetVar="editorDlg" resizable="false" modal="true" closable="true" draggable="true" showEffect="fade" hideEffect="fade">-->
+<!--        <p:dialog id="editor" 
+			widgetVar="editorDlg" 
+			resizable="false" modal="true" 
+			closable="true" draggable="true" showEffect="fade" hideEffect="fade">-->
 
-        <p:dialog id="editor" autosized="true" domElementAttachment="form">
+        <p:dialog id="editor" widgetVar="editorDlg" resizable="false" modal="true" closable="true" draggable="true"
+        showEffect="fade" hideEffect="fade">
             <f:facet name="header">
                 <h:panelGroup><h:outputText value="Formulario"/></h:panelGroup>
             </f:facet>
@@ -18,7 +22,7 @@
             <!-- Campos del formulario -->
             <h:panelGrid columns="1" width="820" id="informacion" cellpadding="0" cellspacing="0">
                 <h:outputText>
-                    <div style="height:320px;overflow:auto;width: 100%;">
+                    <div style="height:320px; overflow:auto; width: 100%;">
                         <h:panelGrid columns="1" width="800">
                             <h:panelGrid columns="8" width="100%" id="identificacion">
                                 <h:outputText value="Sexo"/>
@@ -29,7 +33,7 @@
                                 <h:outputText value="Tipo de Identificación" style="width: 100px;"/>
                                 <h:selectOneMenu value="#{terceroPage.objActual.tipoIdentificacion}">
                                     <f:selectItems value="#{terceroPage.tiposIdentificacion}"/>
-                                    <p:ajax event="onchange" reRender="identificacion" limitToList="true"/>
+                                    <p:ajax event="change" update="identificacion" limitToList="true"/>
                                 </h:selectOneMenu>
 
                                 <h:outputText value="Número de Identificación" style="width: 100px;"/>
@@ -65,8 +69,8 @@
                                 <h:outputText value="País"/>
                                 <h:selectOneMenu value="#{terceroPage.objActual.pais}" immediate="true">
                                     <f:selectItems value="#{terceroPage.paises}"/>
-                                    <p:ajax event="onchange" action="#{terceroPage.cargarDepartamentos }"
-                                                 reRender="municipioPanel,departamentosPanel" ajaxSingle="true"/>
+                                    <p:ajax event="change" action="#{terceroPage.cargarDepartamentos }"
+                                                 update="municipioPanel,departamentosPanel"/>
                                 </h:selectOneMenu>
 
                                 <h:panelGroup id="departamentosPanel">
@@ -74,8 +78,8 @@
                                     <h:selectOneMenu value="#{terceroPage.objActual.departamento}"
                                                      rendered="#{!empty terceroPage.departamentos}" immediate="true">
                                         <f:selectItems value="#{terceroPage.departamentos}"/>
-                                        <p:ajax event="onchange" action="#{terceroPage.cargarMunicipios }"
-                                                     reRender="municipioPanel" ajaxSingle="true"/>
+                                        <p:ajax event="change" action="#{terceroPage.cargarMunicipios }"
+                                                     update="municipioPanel"/>
                                     </h:selectOneMenu>
                                 </h:panelGroup>
                                 <h:panelGroup id="municipioPanel">
@@ -92,7 +96,7 @@
                                 <h:outputText value="Tipo de Teléfono" style="width: 50px;"/>
                                 <h:selectOneMenu value="#{terceroPage.objActual.tipoTelefono}">
                                     <f:selectItems value="#{terceroPage.tiposTelefono}"/>
-                                    <p:ajax event="onchange" reRender="indicativo1"/>
+                                    <p:ajax event="change" update="indicativo1"/>
                                 </h:selectOneMenu>
                                 <h:outputText value="Indicativo" style="width: 50px;"/>
                                 <h:panelGroup id="indicativo1">
@@ -113,7 +117,7 @@
                                 <h:outputText value="Tipo de Teléfono 2" style="width: 50px;"/>
                                 <h:selectOneMenu value="#{terceroPage.objActual.tipoTelefono2}">
                                     <f:selectItems value="#{terceroPage.tiposTelefono}"/>
-                                    <p:ajax event="onchange" reRender="indicativo2"/>
+                                    <p:ajax event="change" update="indicativo2"/>
                                 </h:selectOneMenu>
                                 <h:outputText value="Indicativo 2" style="width: 50px;"/>
                                 <h:panelGroup id="indicativo2">
@@ -135,8 +139,8 @@
                                 <h:outputText value="Actividad Económica"/>
                                 <h:panelGrid columns="2" id="tipoActividad">
                                     <h:inputText value="#{terceroPage.actividad}" size="70"/>
-                                    <a4j:commandButton action="#{terceroPage.buscarActividades}"
-                                                       value="Buscar Actividad" reRender="tipoActividad"/>
+                                    <p:commandButton action="#{terceroPage.buscarActividades}"
+                                                       value="Buscar Actividad" update="tipoActividad"/>
                                     <h:selectOneMenu value="#{terceroPage.objActual.actividadEconomica}"
                                                      style="max-width: 400px;" immediate="true" id="paramActividad"
                                                      disabledClass="disabledItem"
@@ -152,12 +156,13 @@
                 </h:outputText>
                 <!-- Seccion de mensajes y botones de envio y cancelacion-->
                 <h:panelGrid columns="2" styleClass="center" width="100%">
-                    <a4j:commandButton action="#{terceroPage.guardar}" reRender="informacion,lista" value="Guardar"
-                                       oncomplete="if (#{terceroPage.ocultarPopupGuardar}) #{rich:component('editor')}.hide();"/>
-                    <a4j:commandButton oncomplete="#{rich:component('popupCancel')}.show()" value="Cancelar"/>
+                    <p:commandButton action="#{terceroPage.guardar}" update="informacion,lista" value="Guardar"
+                                       oncomplete="if (#{terceroPage.ocultarPopupGuardar}) PF('editorDlg').hide();"/>
+                    <p:commandButton oncomplete="PF('popupCancelDlg').show();" value="Cancelar"/>
+                    
 
                     <!-- Modal para cancelacion de datos de riesgo-->
-                    <p:dialog id="popupCancel" autosized="true" domElementAttachment="form" width="450">
+                    <p:dialog id="popupCancel" widgetVar="popupCancelDlg" autosized="true" domElementAttachment="form" width="450">
                         <f:facet name="header">
                             <h:panelGroup><h:outputText styleClass="bold"
                                                         value="Confirmación de cancelación de registro"/></h:panelGroup>
@@ -172,11 +177,11 @@
 
                             <!-- Seccion de mensajes y botones de envio y cancelacion-->
                             <h:panelGrid columns="2" styleClass="center" width="100%">
-                                <a4j:commandButton action="#{terceroPage.cancelar}" value="Si"
-                                                   oncomplete="#{rich:component('editor')}.hide(); #{rich:component('popupCancel')}.hide();"
-                                                   reRender="editor"/>
-                                <a4j:commandButton onclick="#{rich:component('popupCancel')}.hide()" value="No"
-                                                   ajaxSingle="true" immediate="true"/>
+                                <p:commandButton action="#{terceroPage.cancelar}" value="Si"
+                                                   oncomplete="PF('editorDlg').hide(); PF('popupCancelDlg').hide();"
+                                                   update="editor"/>
+                                <p:commandButton onclick="PF('popupCancelDlg').hide();" value="No"
+                                                   immediate="true"/>
                             </h:panelGrid>
                         </h:panelGrid>
                     </p:dialog>
@@ -195,8 +200,8 @@
                 <h:panelGrid columns="2" id="filtro">
                     <h:panelGrid columns="1" width="380">
                         <!-- Funcionalidad para abrir el editor y crear un nuevo registro-->
-                        <a4j:commandButton action="#{terceroPage.editar}"
-                                           oncomplete="#{rich:component('editor')}.show()" reRender="editor,informacion"
+                        <p:commandButton action="#{terceroPage.editar}"
+                                           oncomplete="PF('editorDlg').show();" update="editor, informacion"
                                            value="Nuevo Registro"
                                            rendered="#{terceroPage.usuarioLogueado.rolActual.codigo eq 6 or  terceroPage.usuarioLogueado.rolActual.codigo eq 7}"/>
                     </h:panelGrid>
@@ -204,7 +209,7 @@
                     <h:panelGrid columns="2">
                         <h:inputText id="param" value="#{terceroPage.param}"/>
                         <h:commandButton action="#{terceroPage.buscarPorFiltro}" value="Filtrar"
-                                         onclick="Richfaces.showModalPanel('statusPanel')"/>
+                                         onclick="PF('statusPanel').show();"/>
                     </h:panelGrid>
 
                 </h:panelGrid>
@@ -223,8 +228,8 @@
                     <f:facet name="header">
                         <p:dataScroller fastControls="false" pageIndexVar="pageIndex" pagesVar="pages"
                                            style="color:black;" for="table" maxPages="5" renderIfSinglePage="false"
-                                           page="#{terceroPage.scrollPage}" id="up" reRender="lista, filtro"
-                                           limitToList="true" ajaxSingle="true">
+                                           page="#{terceroPage.scrollPage}" id="up" update="lista, filtro"
+                                           limitToList="true">
 						</p:dataScroller>
                     </f:facet>
                     <p:column>

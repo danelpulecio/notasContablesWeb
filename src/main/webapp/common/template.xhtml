@@ -88,17 +88,17 @@
     <body>
 
     <div id="layout">
-<!--        <p:ajaxStatus onstart="PF('statusPanel').show();"-->
-<!--                      onsuccess="PF('statusPanel').hide();"-->
-<!--                      id="none"/>-->
-<!--        <p:dialog widgetVar="statusPanel" modal="true" draggable="false" resizable="false" closable="false"-->
-<!--                  height="100" width="220" appendToBody="true" dynamic="true">-->
-<!--            <h:outputText value="Procesando..."/>-->
-<!--            <div style="width: 100%; text-align: center">-->
-<!--                <p>Un momento por favor...</p>-->
-<!--                <p:graphicImage value="./common/images/loading.gif" alt="Logo - BBVA" width="200"/>-->
-<!--            </div>-->
-<!--        </p:dialog>-->
+       <p:ajaxStatus onstart="PF('statusPanel').show();"
+                     oncomplete="PF('statusPanel').hide();"
+                     id="none"/>
+       <p:dialog widgetVar="statusPanel" modal="true" draggable="false" resizable="false" closable="false"
+                 height="100" width="220" appendToBody="true" dynamic="true">
+           <h:outputText value="Procesando..."/>
+           <div style="width: 100%; text-align: center">
+               <p>Un momento por favor...</p>
+               <p:graphicImage value="images/loading.gif" alt="Logo - BBVA" width="200"/>
+           </div>
+       </p:dialog>
         <div id="contenido">
             <h:form id="globalForm">
                 <p:outputPanel>

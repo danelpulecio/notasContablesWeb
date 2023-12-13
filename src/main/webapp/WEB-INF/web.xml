@@ -25,6 +25,10 @@
         <param-name>ACTIVAR_LDAP</param-name>
         <param-value>0</param-value>
     </context-param>
+    <context-param>
+    <param-name>primefaces.LEGACY_WIDGET_NAMESPACE</param-name>
+    	<param-value>true</param-value>
+	</context-param>
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
