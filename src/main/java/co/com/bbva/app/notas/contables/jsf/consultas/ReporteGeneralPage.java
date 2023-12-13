@@ -49,7 +49,7 @@ public class ReporteGeneralPage extends GeneralConsultaPage<Instancia> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ReporteGeneralPage.class);
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
 
 	/**
 	 * indica el numero de pagina del scroller de actividades
@@ -71,7 +71,7 @@ public class ReporteGeneralPage extends GeneralConsultaPage<Instancia> {
 				tiposEvento = getSelectItemList(notasContablesManager.getCV(TipoEvento.class), false);
 				divisas = getSelectItemList(notasContablesManager.getCV(Divisa.class));
 			} catch (Exception e) {
-				LOGGER.error("{} EError inicializando filtro de busqueda", session.getTraceLog() ,e);
+//				LOGGER.error("{} EError inicializando filtro de busqueda", session.getTraceLog() ,e);
 				nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error inicializando filtro de busqueda ");
 			}
 		}
@@ -95,7 +95,7 @@ public class ReporteGeneralPage extends GeneralConsultaPage<Instancia> {
 			//System.out.println("getPage --> " + _getPage());
 			return bean.generarArchivoExcel(DIR_REPORTES_EXCEL, "NC_PRECIERRE_", "Reporte", REPORTE_GENERAL);
 		} catch (Exception e) {
-			LOGGER.error("{} Error generando el reporte Excel", session.getTraceLog() ,e);
+//			LOGGER.error("{} Error generando el reporte Excel", session.getTraceLog() ,e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error generando el reporte Excel");
 		}
 		return null;
@@ -118,7 +118,7 @@ public class ReporteGeneralPage extends GeneralConsultaPage<Instancia> {
 			bean.setDatos(getDatos());
 			return bean.generarArchivoExcel(DIR_REPORTES_EXCEL, "NC_PRECIERRE_", "Reporte", CONSULTA_MOVIMIENTOS_CONTABLES);
 		} catch (Exception e) {
-			LOGGER.error("{} Error generando el reporte ExcelMovimiento", session.getTraceLog() , e);
+//			LOGGER.error("{} Error generando el reporte ExcelMovimiento", session.getTraceLog() , e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error generando el reporte ExcelMovimiento");
 		}
 		return null;
@@ -142,7 +142,7 @@ public class ReporteGeneralPage extends GeneralConsultaPage<Instancia> {
 			sucOrigen = "";
 		}
 		if (tipoNota.trim().equals("")) {
-			LOGGER.info("{} Busca Instancias All ", session.getTraceLog() );
+//			LOGGER.info("{} Busca Instancias All ", session.getTraceLog() );
 			instancias = notasContablesManager.getInstanciasPor(sucOrigen, sucDestino, concepto, tema, tipoEvento, partida, numIdentificacion, desdeD, hastaD, divisa, estado,
 					descripcion, getUsuarioLogueado().getSucursal().getCodigo(), getUsuarioLogueado().getRolActual().getCodigo().intValue());
 			instancias.addAll(notasContablesManager.getInstanciasRegLibrePor(sucOrigen, sucDestino, partida, numIdentificacion, desdeD, hastaD, divisa, estado, descripcion,
@@ -151,15 +151,15 @@ public class ReporteGeneralPage extends GeneralConsultaPage<Instancia> {
 					getUsuarioLogueado().getSucursal().getCodigo(), getUsuarioLogueado().getRolActual().getCodigo().intValue()));
 		} else {
 			if (tipoNota.trim().equals(NotaContable.NORMAL)) {
-				LOGGER.info("{} Busca Instancias NORMAL ", session.getTraceLog() );
+//				LOGGER.info("{} Busca Instancias NORMAL ", session.getTraceLog() );
 				instancias = notasContablesManager.getInstanciasPor(sucOrigen, sucDestino, concepto, tema, tipoEvento, partida, numIdentificacion, desdeD, hastaD, divisa, estado,
 						descripcion, getUsuarioLogueado().getSucursal().getCodigo(), getUsuarioLogueado().getRolActual().getCodigo().intValue());
 			} else if (tipoNota.trim().equals(NotaContable.LIBRE)) {
-				LOGGER.info("{} Busca Instancias LIBRE ", session.getTraceLog() );
+//				LOGGER.info("{} Busca Instancias LIBRE ", session.getTraceLog() );
 				instancias = notasContablesManager.getInstanciasRegLibrePor(sucOrigen, sucDestino, partida, numIdentificacion, desdeD, hastaD, divisa, estado, descripcion,
 						getUsuarioLogueado().getSucursal().getCodigo(), getUsuarioLogueado().getRolActual().getCodigo().intValue());
 			} else {// if (tipoNota.equals(NotaContable.CRUCE_REFERENCIA)) {
-				LOGGER.info("{} Busca Instancias CRUCE REFERENCIA ", session.getTraceLog() );
+//				LOGGER.info("{} Busca Instancias CRUCE REFERENCIA ", session.getTraceLog() );
 				instancias = notasContablesManager.getInstanciasCruceRefPor(sucOrigen, sucDestino, partida, desdeD, hastaD, divisa, estado,
 						getUsuarioLogueado().getSucursal().getCodigo(), getUsuarioLogueado().getRolActual().getCodigo().intValue());
 			}
@@ -178,7 +178,7 @@ public class ReporteGeneralPage extends GeneralConsultaPage<Instancia> {
 					temas.add(new SelectItem(t.getCodigo(), t.getNombre()));
 				}
 			} catch (Exception e) {
-				LOGGER.error("{} Error Consultando los temas asociados al concepto seleccionado ", session.getTraceLog(), e);
+//				LOGGER.error("{} Error Consultando los temas asociados al concepto seleccionado ", session.getTraceLog(), e);
 				nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error Consultando los temas asociados al concepto seleccionado");
 
 			}
