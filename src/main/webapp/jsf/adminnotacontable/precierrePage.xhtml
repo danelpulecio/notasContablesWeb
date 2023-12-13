@@ -7,18 +7,22 @@
 	<ui:param name="title" value="Notas Contables en Precierre" />
 	<ui:define name="body">
 
-		<!--<ui:include src="../common/flujoSubPage.xhtml" />
+	<ui:include src="../common/flujoSubPage.xhtml" />
 		<ui:include src="../notacontable/flujoNotaContablePage.xhtml" />
 		<ui:include src="../notacontable/flujoNotaContableLibrePage.xhtml"/>
-		<ui:include src="../notacontable/flujoNotaRefCrucePage.xhtml"/>-->
+		<ui:include src="../notacontable/flujoNotaRefCrucePage.xhtml"/>
 
 		<!--Filtro de busqueda	-->
 		<div style="width: 1000px;">
+
+			<h:form>
+
+
 			<h:panelGrid columns="1" width="100%">
 				<h1 align="center">Notas Contables en Precierre</h1>
 			</h:panelGrid> 
 			
-			<!--<ui:include src="../../common/mensajes.xhtml" /> -->
+			<ui:include src="../../common/mensajes.xhtml" />
 			
 			<!-- Tabla de registros --> 
 			<h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
@@ -50,8 +54,9 @@
 					</p:commandLink>
 										
 				</h:panelGrid>
-				<!--<ui:include src="precierreCierreFormPage.xhtml" />-->
+				<ui:include src="precierreCierreFormPage.xhtml" />
 			</h:panelGrid>
+			</h:form>
 		</div>
 	</ui:define>
 </ui:composition>
