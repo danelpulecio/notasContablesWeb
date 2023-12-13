@@ -1,33 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-				xmlns:ui="http://java.sun.com/jsf/facelets"
-				xmlns:h="http://java.sun.com/jsf/html"
-				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:p="http://primefaces.org/ui"
-				template="../../common/template.xhtml">
-	<h:panelGrid columns="1" cellpadding="0" cellspacing="2" style="text-align: center;" width="100%">
-		<p:dataTable value="#{flujoNotaContablePage.temaActual.anexoTema}" var="anexo" rowKeyVar="rowKeyAnexos" rendered="#{! empty flujoNotaContablePage.temaActual.anexoTema}"
-		onRowMouseOver="this.style.backgroundColor='#9fbdeb'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'" rowClasses="row1, row2">
-			
-			<f:facet name="header"><h:outputText value="Soportes del tema" /></f:facet>
-			
-			<p:column width="150" style="text-align: left;">
-				<f:facet name="header"><h:outputText value="Fecha" /></f:facet>
-				<h:outputText value="#{anexo.fechaHora}" /> 
-			</p:column>
-			
-			<p:column style="text-align: right;">
-				<f:facet name="header"><h:outputText value="Usuario" /></f:facet>
-				<h:outputText value="#{anexo.usuNombre}" /> 
-			</p:column>
-			
-			<p:column style="text-align: right;">
-				<f:facet name="header"><h:outputText value="Archivo" /></f:facet>
-				<p:commandLink action="#{downloadGeneralPage.download}" styleClass="bold" value="#{anexo.nombre}" target="_blank">
-					<f:param name="type2" value="#{downloadGeneralPage.SOPORTE}" assignTo="#{downloadGeneralPage.type}"/>
-					<f:param name="file2" value="#{anexo.archivo}" assignTo="#{downloadGeneralPage.file}"/>
-				</p:commandLink>
-			</p:column>
-		</p:dataTable>
-	</h:panelGrid>
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../common/template.xhtml">
+    <h:form>
+        <h:panelGrid columns="1" cellpadding="0" cellspacing="2" style="text-align: center;" width="100%">
+            <p:dataTable id="anexo" value="#{flujoNotaContablePage.temaActual.anexoTema}" var="anexo"
+                         rowIndexVar="rowIndex"
+                         widgetVar="economicActivityTable" rows="15" paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                         paginatorPosition="top">
+
+                <h1 align="center">Soportes del tema</h1>
+
+                <!--<f:facet name="header">
+                    <h:outputText value="Soportes del tema"/>
+                </f:facet>-->
+
+                <p:column headerText="Fecha" width="150" style="text-align: left;">
+                    <h:outputText value="#{anexo.fechaHora}"/>
+                </p:column>
+
+                <p:column headerText="Usuario" style="text-align: right;">
+                    <h:outputText value="#{anexo.usuNombre}"/>
+                </p:column>
+
+                <p:column headerText="Archivo" style="text-align: right;">
+                    <p:commandLink action="#{downloadGeneralPage.download}" styleClass="bold" value="#{anexo.nombre}"
+                                   target="_blank">
+                        <f:param name="type2" value="#{downloadGeneralPage.SOPORTE}"
+                                 assignTo="#{downloadGeneralPage.type}"/>
+                        <f:param name="file2" value="#{anexo.archivo}" assignTo="#{downloadGeneralPage.file}"/>
+                    </p:commandLink>
+                </p:column>
+            </p:dataTable>
+        </h:panelGrid>
+    </h:form>
 </ui:composition>
