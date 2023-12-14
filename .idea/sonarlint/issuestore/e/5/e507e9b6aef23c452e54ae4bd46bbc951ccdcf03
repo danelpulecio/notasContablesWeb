@@ -1,6 +1,6 @@
 
 {
-java:S2293d"YReplace the type specification in this constructor call with the diamond operator ("<>").(¦±Øùıÿÿÿÿ8÷ÑÉ÷¾1
+java:S2293e"YReplace the type specification in this constructor call with the diamond operator ("<>").(¦±Øùıÿÿÿÿ8÷ÑÉ÷¾1
 s	java:S116&"WRename this field "DIR_SOPORTES" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ù”ëş8€ÒÉ÷¾1
 ~	java:S116'"]Rename this field "DIR_REPORTES_EXCEL" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ªúÒìûÿÿÿÿ8€ÒÉ÷¾1
 ‚	java:S116("aRename this field "DIR_RECEPCION_ALTAMIRA" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‰•ü™øÿÿÿÿ8€ÒÉ÷¾1
@@ -14,4 +14,4 @@ java:S6813"BRemove this field injection and use constructor injection instead.
 java:S5993."9Change the visibility of this constructor to "protected".(³Ì›¶şÿÿÿÿ8€ÒÉ÷¾1
 M
 java:S1948!"+Make "validador" transient or serializable.(¥æã·úÿÿÿÿ8ÒÉ÷¾1
-L	java:S106l"+Replace this use of System.out by a logger.(©şêÜúÿÿÿÿ8—ÒÉ÷¾1
+L	java:S106m"+Replace this use of System.out by a logger.(©şêÜúÿÿÿÿ8—ÒÉ÷¾1

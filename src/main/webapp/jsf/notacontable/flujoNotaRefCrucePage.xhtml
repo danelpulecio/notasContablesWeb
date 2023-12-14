@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui"
+				template="../../common/template.xhtml">
+
+	<!-- Formulario de confirmacion de anulacion-->
+	<p:dialog id="popupAnularRefCruce" autosized="true" domElementAttachment="form"  width="250">
+		<f:facet name="header">
+			<h:panelGroup><h:outputText value="Confirmación de anulación"/></h:panelGroup>
+		</f:facet>
+		<f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink" id="hidelinkAnularRefCruce" height="20" width="20" />
+				<p:remoteCommand for="popupAnularRefCruce" attachTo="hidelinkAnularRefCruce" operation="hide" event="onclick" />
+			</h:panelGroup>
+		</f:facet>
+		
+		<h:panelGrid columns="1" width="100%">
+			
+			<h:outputText value="Esta seguro que desea anular la nota actual y borrar toda la informacion relacionada?" />
+
+			<!-- Seccion de mensajes y botones de envio y cancelacion-->
+			<ui:include src="../../common/mensajes.xhtml" /> 
+			<h:panelGrid columns="2" styleClass="center" width="100%">
+				<h:commandButton action="#{notaRefCrucePage.anular}" value="Si" oncomplete="if (#{notaRefCrucePage.ocultarPopupAnular}) {#{p:remoteCommand('popupAnularRefCruce')}.hide();#{p:remoteCommand('popupFlujoNotaContableRefCruceVer')}.hide();}" reRender="lista,opcionesRefCruceVer" />
+				<h:commandButton onclick="#{p:remoteCommand('popupAnularRefCruce')}.hide()" value="No" />
+			</h:panelGrid>
+		</h:panelGrid>
+	</p:dialog>
+	<p:dialog id="popupFlujoNotaContableRefCruceVer" domElementAttachment="form" autosized="true" width="800">
+		<f:facet name="header">
+			<h:panelGroup>
+				<h:outputText value="Nota Cotable - Referencia de Cruce" />
+			</h:panelGroup>
+		</f:facet>
+		<f:facet name="controls">
+ 			<h:panelGroup>
+ 				<h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink" id="hidelinkCerrarFlujoRefCruceVer" height="20" width="20" />
+ 				<p:remoteCommand for="popupFlujoNotaContableRefCruceVer" attachTo="hidelinkCerrarFlujoRefCruceVer" operation="hide" event="onclick" />
+ 			</h:panelGroup>
+ 		</f:facet>
+		<p:dataTable value="#{notaRefCrucePage.partidasSeleccionadas}" var="partida" id="tablePartSelVer" rowKeyVar="rowKey" width="100%"
+		 onRowMouseOver="this.style.backgroundColor='#9fbdeb'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'" rowClasses="row1, row2">
+			
+			<p:column rendered="#{notaRefCrucePage.mostrarAsiento}">
+			    <f:facet name="header"><h:panelGroup><h:outputText value="Asiento" /><br/><h:outputText value="Contable" /><br/><h:outputText value="Altamira" /></h:panelGroup></f:facet>
+			    <h:outputText value="#{partida.numeroAsiento}" />
+			</p:column>
+			
+			<p:column>
+                   <f:facet name="header"><h:outputText value="Cuenta" /></f:facet>
+                   <h:outputText value="#{partida.cuenta} " />
+               </p:column>
+			
+			<p:column>
+                   <f:facet name="header"><h:outputText value="Suc Destino" /></f:facet>
+                   <h:outputText value="#{partida.sucursalDestino} " />
+               </p:column>
+			
+			<p:column>
+                   <f:facet name="header"><h:outputText value="Nat" /></f:facet>
+                   <h:outputText value="#{partida.naturaleza} " />
+               </p:column>
+			
+			<p:column>
+                   <f:facet name="header"><h:outputText value="Ref Cruce" /></f:facet>
+                   <h:outputText value="#{partida.referenciaCruce}" />
+               </p:column>
+			
+			<p:column>
+                   <f:facet name="header"><h:outputText value="Concepto" /></f:facet>
+                   <h:outputText value="#{partida.concepto}" />
+               </p:column>
+			
+			<p:column>
+                   <f:facet name="header"><h:outputText value="Fecha Contable" /></f:facet>
+                   <h:outputText value="#{partida.fechaContable}" />
+               </p:column>
+			
+			<p:column>
+                   <f:facet name="header"><h:outputText value="Div" /></f:facet>
+                   <h:outputText value="#{partida.divisa}" />
+               </p:column>
+               
+			<p:column style="text-align: right;">
+                   <f:facet name="header" ><h:outputText value="Importe" /></f:facet>
+                   <h:outputText value="#{partida.importe}" ><f:convertNumber type="currency" /></h:outputText>
+               </p:column>
+			
+			<f:facet name="footer" >
+				<p:columnGroup rendered="#{! empty notaRefCrucePage.totalesNota}">
+					<p:column colspan="#{notaRefCrucePage.mostrarAsiento?7:6}" style="text-align:right;"><h:outputText value="Totales" /></p:column>
+					<p:column style="padding: 0px;">
+						<p:dataTable style="border-width: 0px; background-color: transparent;" value="#{notaRefCrucePage.totalesNota}" var="total" >
+							<p:column style="border-width: 0px;"><h:outputText value="#{total.codigoDivisa }" /></p:column>
+						</p:dataTable>
+					</p:column>
+					<p:column style="padding: 0px;">
+						<p:dataTable style="border-width: 0px; background-color: transparent;" value="#{notaRefCrucePage.totalesNota}" var="total" >
+							<p:column  style="border-width: 0px; text-align:right;"><h:outputText value="#{total.total}" ><f:convertNumber type="currency" /></h:outputText></p:column>
+						</p:dataTable>
+					</p:column>
+				</p:columnGroup>
+			</f:facet>
+		</p:dataTable>
+		<p:dialog id="popupRechazoRefCruceVer" autosized="true" domElementAttachment="form"  width="500">
+			<f:facet name="header">
+				<h:panelGroup><h:outputText value="Rechazar nota contable"/></h:panelGroup>
+			</f:facet>
+			
+			<h:panelGrid columns="1" width="100%">
+				
+				<h:outputText value="Si esta seguro que desea rechazar la nota actual, por favor indique la causal de devolucion." />
+	
+				<p:separator width="100%"/>
+				<h:outputText value="Causal de devolución" />
+				<h:selectOneMenu value="#{notaRefCrucePage.causalDevolucion}" immediate="true">
+					<f:selectItem itemValue="-1" itemLabel="Seleccione una opcion" />
+					<f:selectItems value="#{notaRefCrucePage.causalesDev}" />
+					<!--
+					<a4j:support event="onchange" reRender="otraCausalRefCruceVer"/>
+					-->
+				</h:selectOneMenu>
+				<h:panelGrid columns="1" width="100%" id="otraCausalRefCruceVer">
+					<h:outputText value="Descripción de la causal" rendered="#{notaRefCrucePage.causalDevolucion eq 18}"/>
+					<h:inputText value="#{notaRefCrucePage.otraCausalDev}" rendered="#{notaRefCrucePage.causalDevolucion eq 18}" size="80"/>
+				</h:panelGrid>
+				<!-- Seccion de mensajes y botones de envio y cancelacion-->
+				<ui:include src="../../common/mensajes.xhtml" /> 
+				<h:panelGrid columns="2" styleClass="center" width="100%">
+					<h:commandButton action="#{notaRefCrucePage.rechazar}" value="Confirmar rechazo" oncomplete="if (#{notaRefCrucePage.ocultarPopupAnular}) {#{p:remoteCommand('popupRechazoRefCruceVer')}.hide();#{p:remoteCommand('popupFlujoNotaContableRefCruceVer')}.hide();}" reRender="lista,opcionesRefCruceVer" />
+					<h:commandButton onclick="#{p:remoteCommand('popupRechazoRefCruceVer')}.hide()" value="Cancelar" />
+				</h:panelGrid>
+			</h:panelGrid>
+		</p:dialog>
+
+		<ui:include src="../../common/mensajes.xhtml" /> 
+		<h:panelGrid id="opcionesRefCruceVer" columns="2" styleClass="center" width="100%">
+			<h:commandButton action="#{notaRefCrucePage.aprobar}" oncomplete="if (#{notaRefCrucePage.ocultarPopupAprobar}) #{p:remoteCommand('popupFlujoNotaContableRefCruceVer')}.hide()" reRender="lista,opcionesRefCruceVer" value="Aprobar" rendered="#{notaRefCrucePage.nota.puedeAprobar}" />
+			<h:commandButton value="Anular" rendered="#{notaRefCrucePage.nota.puedeAnular}" oncomplete="#{p:remoteCommand('popupAnularRefCruce')}.show()" />
+			<h:commandButton value="Rechazar" rendered="#{notaRefCrucePage.nota.puedeRechazar}" oncomplete="#{p:remoteCommand('popupRechazoRefCruceVer')}.show()" />
+		</h:panelGrid>
+	</p:dialog>
+</ui:composition>

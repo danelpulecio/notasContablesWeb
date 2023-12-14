@@ -28,7 +28,7 @@ public class FlujoSubPage extends BasePage {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(FlujoSubPage.class);
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
 
 	public FlujoSubPage() {
 		super();
@@ -61,7 +61,7 @@ public class FlujoSubPage extends BasePage {
 			}
 		} catch (Exception le_e) {
 			actividadesRealizadas = new ArrayList<ActividadRealizada>();
-			LOGGER.error("{} Error en ejecucin consulta flujo ", session.getTraceLog(), le_e);
+//			LOGGER.error("{} Error en ejecucin consulta flujo ", session.getTraceLog(), le_e);
 			nuevoMensaje(FacesMessage.SEVERITY_WARN, "Error en ejecucin " + le_e.getMessage());
 		}
 		return null;

@@ -4,15 +4,13 @@ java:S2293B"YReplace the type specification in this constructor call with the d
 {
 java:S2293C"YReplace the type specification in this constructor call with the diamond operator ("<>").(ÝýÙÛùÿÿÿÿ8¬¿ôˆÄ1
 w
-java:S2293Þ"YReplace the type specification in this constructor call with the diamond operator ("<>").(êðñô8¬¿ôˆÄ1
-m
-java:S1192a"KDefine a constant instead of duplicating this literal "globalForm" 3 times.(Ø¯íµþÿÿÿÿ8¬¿ôˆÄ1
+java:S2293ï"YReplace the type specification in this constructor call with the diamond operator ("<>").(êðñô8¬¿ôˆÄ1
 ‘
-java:S1319À"sThe return type of this method should be an interface such as "SortedMap" rather than the implementation "TreeMap".(¡ÊÇû8¬¿ôˆÄ1
+java:S1319Ñ"sThe return type of this method should be an interface such as "SortedMap" rather than the implementation "TreeMap".(¡ÊÇû8¬¿ôˆÄ1
 …
-java:S1319Ä"gThe type of "menu" should be an interface such as "SortedMap" rather than the implementation "TreeMap".(Œ¯ëò8¬¿ôˆÄ1
+java:S1319Õ"gThe type of "menu" should be an interface such as "SortedMap" rather than the implementation "TreeMap".(Œ¯ëò8¬¿ôˆÄ1
 Ž
-java:S1319Ü"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(Ý•ÉÍ8­¿ôˆÄ1
+java:S1319í"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(Ý•ÉÍ8­¿ôˆÄ1
 |
 java:S14508"ZRemove the "application" field and declare it as a local variable in the relevant methods.(£šß™þÿÿÿÿ8¾¿ôˆÄ1
 D
@@ -23,10 +21,10 @@ I
 java:S1948:",Make "menuButton" transient or serializable.(¸Ã—³8¾¿ôˆÄ1
 W	java:S125P"<This block of commented-out lines of code should be removed.(»Ô8Â¿ôˆÄ1
 ]
-java:S1854ì":Remove this useless assignment to local variable "params".(‚ÛÇûÿÿÿÿ8Ç¿ôˆÄ1
+java:S1854ý":Remove this useless assignment to local variable "params".(‚ÛÇûÿÿÿÿ8Ç¿ôˆÄ1
 N
-java:S1481ì"+Remove this unused "params" local variable.(‚ÛÇûÿÿÿÿ8Ç¿ôˆÄ1
-Y	java:S125í"<This block of commented-out lines of code should be removed.(Ò™Ë«8Ç¿ôˆÄ1
-^	java:S125ö"<This block of commented-out lines of code should be removed.(ÈëÛ­ùÿÿÿÿ8È¿ôˆÄ1
+java:S1481ý"+Remove this unused "params" local variable.(‚ÛÇûÿÿÿÿ8Ç¿ôˆÄ1
+Y	java:S125þ"<This block of commented-out lines of code should be removed.(Ò™Ë«8Ç¿ôˆÄ1
+^	java:S125‡"<This block of commented-out lines of code should be removed.(ÈëÛ­ùÿÿÿÿ8È¿ôˆÄ1
 L
 java:S1068)"*Remove this unused "LOGGER" private field.(‡ž¸×ÿÿÿÿÿ8È¿ôˆÄ1

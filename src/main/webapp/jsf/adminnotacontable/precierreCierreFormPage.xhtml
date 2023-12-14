@@ -2,37 +2,24 @@
 				xmlns:ui="http://java.sun.com/jsf/facelets"
 				xmlns:h="http://java.sun.com/jsf/html"
 				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:p="http://primefaces.org/ui"
-				template="../../WEB-INF/layouts/template.xhtml">
+				xmlns:p="http://primefaces.org/ui">
+	<h:form>
 
-	<p:dataTable value="precierreCierrePagedatos" var="dato" id="tablePendiente" rows="10" rowKeyVar="rowKey" width="100%" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
-		onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'" rowClasses="row1, row2">
-		<f:facet name="header">
-			<p:dataScroller fastControls="false" pageIndexVar="pageIndex" pagesVar="pages" style="color:black;" for="tablePendiente" maxPages="5" renderIfSinglePage="false" page="10" id="up" reRender="lista, filtro"
-				limitToList="true" ajaxSingle="true">
-			</p:dataScroller>
-		</f:facet>
+	<p:dataTable value="#{precierreCierrePage.datos}" var="dato" id="tablePendiente" rowIndexVar="rowIndex"
+				 widgetVar="economicActivityTable" rows="15" paginator="true"
+				 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+				 paginatorPosition="top">
 
-		<p:column sortable="true" sortBy="#{dato.NC.numeroRadicacion}">
-			<f:facet name="header">
-				<h:panelGroup>
-					<h:outputText value="Número" />
-					<br />
-					<h:outputText value="Radicación" />
-				</h:panelGroup>
-			</f:facet>
+
+		<p:column headerText="Número Radicación" sortable="true" sortBy="#{dato.NC.numeroRadicacion}">
 			<h:outputText value="numeroRadicacion" />
 		</p:column>
-		<p:column sortable="true" sortBy="#{dato.estado}">
-			<f:facet name="header">
-				<h:outputText value="Estado" />
-			</f:facet>
+		<p:column headerText="Estado" sortable="true" sortBy="#{dato.estado}">
 			<h:outputText value="nombreEstado" />
 		</p:column>
-		<p:column style="text-align: right;">
-			<f:facet name="header">
-				<h:outputText value="Detalle de la nota contable" />
-			</f:facet>
+		<p:column headerText="Detalle de la nota contable" style="text-align: right;">
+
 			<h:panelGrid columns="1" width="100%">
 				<p:dataTable style="border-width: 0px; background-color: transparent;" var="tema" value="temas">
 					<p:column style="border-width: 0px; text-align: left;" >
@@ -98,19 +85,10 @@
 				</p:dataTable>
 			</h:panelGrid>
 		</p:column>
-		<p:column >
-			<f:facet name="header">
-				<h:outputText value="Causales de Rechazo" />
-			</f:facet>
+		<p:column headerText="Causales de Rechazo">
 			<h:outputText value="causalDeRechazo" escape="false" />
 		</p:column>
-		<p:column style="text-align: center;">
-			<f:facet name="header">
-				<h:panelGroup>
-					<h:outputText value="Ver Nota" /><br/>
-					<h:outputText value="Contable" />
-				</h:panelGroup>
-			</f:facet>
+		<p:column headerText="Ver Nota Contable" style="text-align: center;">
 			<h:commandButton value="Ver" reRender="popupFlujoNotaContableVer">
 				<f:param name="codNotaVer" value="codigoNotaContable" converter="javax.faces.Integer" />
 			</h:commandButton>
@@ -121,14 +99,7 @@
 				<f:param name="codNotaRefCruceVer" value="codigoNotaContable" converter="javax.faces.Integer" />
 			</h:commandButton>
 		</p:column>
-		<p:column style="text-align: center;" rendered="false">
-			<f:facet name="header">
-				<h:panelGroup>
-					<h:outputText value="Ver Nota" />
-					<br />
-					<h:outputText value="Contable" />
-				</h:panelGroup>
-			</f:facet>
+		<p:column headerText="Ver Nota Contable" style="text-align: center;" rendered="false">
 			<h:commandButton value="Ver" reRender="popupFlujoNotaContableVer">
 				<f:param name="codEditar" value="codigoNotaContable" converter="javax.faces.Integer" />
 				<f:param name="codUsuEditar" value="usuariocodigo" converter="javax.faces.Integer" />
@@ -137,38 +108,14 @@
 				<f:param name="codConsultar" value="codigo" converter="javax.faces.Integer" />
 			</h:commandButton>
 		</p:column>
-		<p:column style="text-align: center;">
-			<f:facet name="header">
-				<h:panelGroup>
-					<h:outputText value="Consultar Nota" />
-					<br />
-					<h:outputText value="Contable" />
-				</h:panelGroup>
-			</f:facet>
+		<p:column headerText="Consultar Nota Contable" style="text-align: center;">
 			<h:commandButton value="Consultar" reRender="popupFlujo">
 				<f:param name="codConsultar" value="codigo" converter="javax.faces.Integer" />
 			</h:commandButton>
 		</p:column>
 
-		<f:facet name="footer">
-			<p:columnGroup>
-				<p:column colspan="2" style="text-align:right;"></p:column>
-				<p:column >
-						<p:dataTable style="border-width: 0px; background-color: transparent; width: 100%;" value="totales" var="total" id="tableTotales" rowKeyVar="rowKeyTot" >
-							<p:column style="border-width:0px; text-align: right;"><h:outputText value="Totales" /></p:column>
-							<p:column width="30" style="border-width:0px; text-align: left;"><h:outputText value="codigoDivisa" /></p:column>
-							<p:column width="140" style="border-width:0px; text-align:right;"><h:outputText  ><f:convertNumber type="currency" /></h:outputText></p:column>
-						</p:dataTable>
-				</p:column>
-				<p:column colspan="3"></p:column>
-				<p:column colspan="6" breakBefore="true">
-					<p:dataScroller style="color:black;" align="center" for="tablePendiente" page="10" boundaryControls="hide" fastControls="hide" stepControls="hide" renderIfSinglePage="true">
-						<f:facet name="pages">
-							<h:outputText value="Visualizando del  al  de un total de  registros." />
-						</f:facet>
-					</p:dataScroller>
-				</p:column>
-			</p:columnGroup>
-		</f:facet>
+
 	</p:dataTable>
+
+	</h:form>
 </ui:composition>

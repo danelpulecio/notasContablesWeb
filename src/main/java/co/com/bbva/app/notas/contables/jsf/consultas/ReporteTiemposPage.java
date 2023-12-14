@@ -45,7 +45,7 @@ public class ReporteTiemposPage extends GeneralConsultaPage<UsuarioModulo> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ReporteTiemposPage.class);
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
 
 	public ReporteTiemposPage() {
 		super();
@@ -87,11 +87,11 @@ public class ReporteTiemposPage extends GeneralConsultaPage<UsuarioModulo> {
 			excelFileName = "REPORTE_TIEMPOS_" + StringUtils.getString(DateUtils.getTimestamp(), "ddMMyyyyhhmmss") + ".xls";
 			reportesExcel.setNombreArchivo(excelFileName);
 			reportesExcel.getReporteTiempos("REP_TIEMPOS", getDatos());
-			LOGGER.info("{} Generar el archivo reporte tiempos: {}", session.getTraceLog() );
+//			LOGGER.info("{} Generar el archivo reporte tiempos: {}", session.getTraceLog() );
 			nuevoMensaje(FacesMessage.SEVERITY_INFO, "El archivo de excel ha sido generado y guardado en " + DIR_REPORTES_EXCEL + excelFileName);
 			mostrarArchExc = true;
 		} catch (Exception e) {
-			LOGGER.error("{} Ocurrio un error al generar el archivo de Excel: {}", session.getTraceLog() ,e );
+//			LOGGER.error("{} Ocurrio un error al generar el archivo de Excel: {}", session.getTraceLog() ,e );
 			lanzarError(e, "Ocurrio un error al generar el archivo de Excel ");
 		}
 		return null;
@@ -110,7 +110,7 @@ public class ReporteTiemposPage extends GeneralConsultaPage<UsuarioModulo> {
 		try {
 			objActual.setActividades(new ArrayList<ActividadRealizada>(notasContablesManager.getActividadesParaReporteTiempos(objActual.getCodigo().intValue())));
 		} catch (Exception e) {
-			LOGGER.error("{} Error consultando el detalle de tiempos para el usuario ", session.getTraceLog(), e);
+//			LOGGER.error("{} Error consultando el detalle de tiempos para el usuario ", session.getTraceLog(), e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error consultando el detalle de tiempos para el usuario");
 		}
 		return null;

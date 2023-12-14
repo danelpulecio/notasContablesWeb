@@ -48,7 +48,7 @@ public class ConsultaMovimientosContablesPage extends ReporteGeneralPage {
 				ins.setNC(nc);
 			}
 		} catch (Exception e) {
-			LOGGER.error("{} Error realizando la busqueda", session.getTraceLog() , e);
+//			LOGGER.error("{} Error realizando la busqueda", session.getTraceLog() , e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error realizando la busqueda");
 
 		}

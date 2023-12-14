@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui"
+				template="../../common/template.xhtml">
+	<ui:param name="title" value="Nota Contable" />
+	<ui:define name="body">
+	
+		<div style="width: 950px;" >
+			<h:panelGrid columns="1" width="100%" style="margin-top: 20px;"><h1 align="center">Nota Contable - Cancelacion Transitorias por Referencias de Cruce</h1></h:panelGrid>
+			<!--Formulario principal	-->
+			<h:panelGrid columns="1" width="100%" id="panelGridRefCruce" cellpadding="0" cellspacing="0">
+				<p:poll action="#{notaRefCrucePage.iniciarPagina}" rendered="#{empty notaRefCrucePage.cuentas and facesContext.maximumSeverity == null}" reRender="panelGridRefCruce" interval="0"/>
+				<ui:include src="../../common/mensajes.xhtml" />
+				<p:panel header="Nota Cotable - Cancelacion Transitorias por Referencias de Cruce" style="width: 100%;" rendered="#{!empty notaRefCrucePage.cuentas}">
+					<h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="5" >
+						<ui:include src="formNotaRefCrucePage.xhtml" />	
+					</h:panelGrid>
+				</p:panel>
+			</h:panelGrid>	
+		</div>
+	</ui:define>
+</ui:composition>

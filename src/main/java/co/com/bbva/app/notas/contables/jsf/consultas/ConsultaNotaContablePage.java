@@ -30,7 +30,7 @@ public class ConsultaNotaContablePage extends GeneralConsultaPage<Instancia> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ConsultaNotaContablePage.class);
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
 		
 	/**
 	 * indica el numero de pagina del scroller de actividades
@@ -60,16 +60,16 @@ public class ConsultaNotaContablePage extends GeneralConsultaPage<Instancia> {
 		switch (Integer.valueOf(criterio.trim())) {
 		case 1:
 			notaContable.setNumeroRadicacion(numRadicacion);
-			LOGGER.info("{} Consulta nota contable por numero radicacion : {}", session.getTraceLog(),numRadicacion );
+//			LOGGER.info("{} Consulta nota contable por numero radicacion : {}", session.getTraceLog(),numRadicacion );
 			return new ArrayList<>(notasContablesManager.getInstanciasPorNumeroRadicacion(notaContable, getUsuarioLogueado().getSucursal().getCodigo(), getUsuarioLogueado().getRolActual().getCodigo().intValue()));
 		case 2:
 			notaContable.setAsientoContable(asientoContable);
 			notaContable.setFechaRegistroAltamiraTs(new Timestamp(fecha.getTime()));
-			LOGGER.info("{} Consulta nota contable por asiento contable : {}", session.getTraceLog(),asientoContable );
+//			LOGGER.info("{} Consulta nota contable por asiento contable : {}", session.getTraceLog(),asientoContable );
 			return new ArrayList<>(notasContablesManager.getInstanciasPorAsientoContableAndFecha(notaContable, getUsuarioLogueado().getSucursal().getCodigo(), getUsuarioLogueado().getRolActual().getCodigo().intValue()));
 		case 3:
 			notaContable.setFechaRegistroAltamiraTs(new Timestamp(fecha.getTime()));
-			LOGGER.info("{} Consulta nota contable por instancia : {}", session.getTraceLog(),new Timestamp(fecha.getTime()) );
+//			LOGGER.info("{} Consulta nota contable por instancia : {}", session.getTraceLog(),new Timestamp(fecha.getTime()) );
 			return new ArrayList<>(notasContablesManager.getInstanciasPorNotaContable(notaContable, getUsuarioLogueado().getSucursal().getCodigo(), getUsuarioLogueado().getRolActual().getCodigo().intValue()));
 		}
 		return new ArrayList<>();

@@ -7,17 +7,19 @@
 	<ui:param name="title" value="Consulta de notas contables" />
 	<ui:define name="body">
 
-	<!--	<ui:include src="../common/flujoSubPage.xhtml" />
+	<ui:include src="../common/flujoSubPage.xhtml" />
 		<ui:include src="../notacontable/flujoNotaContablePage.xhtml" />
 		<ui:include src="../notacontable/flujoNotaContableLibrePage.xhtml"/>
-		<ui:include src="../notacontable/flujoNotaRefCrucePage.xhtml"/>-->
+		<ui:include src="../notacontable/flujoNotaRefCrucePage.xhtml"/>
 
 		<!-- gp12833 - aseguramiento anexos -->
 		<!--<ui:include src="../notacontable/flujoAnexoNotaContablePage.xhtml"/>-->
 		<!-- fin gp12833 - aseguramiento anexos -->
 		
 		<!--Filtro de busqueda	-->
-		<div style="width: 990px;"><h:panelGrid columns="1" width="100%">
+		<div style="width: 990px;">
+			<h:form>
+			<h:panelGrid columns="1" width="100%">
 			<h1 align="center">Notas Contables</h1>
 		</h:panelGrid> 
 		<!-- Panel de opciones --> 
@@ -34,12 +36,12 @@
 						</h:selectOneMenu>
 					</h:panelGrid>
 					<h:panelGrid columns="2" id="filtro">
-						<h:outputText value="Número de radicación"  />
-						<h:inputText  />
-						<h:outputText value="Asiento contable Altamira"  />
-						<h:inputText  />
-						<h:outputText value="Fecha Radicación Módulo"  />
-						<p:calendar  />
+						<h:outputText value="Número de radicación" rendered="#{consultaNotaContablePage.criterio eq '1'}" />
+						<h:inputText value="#{consultaNotaContablePage.numRadicacion}" rendered="#{consultaNotaContablePage.criterio eq '1'}" />
+						<h:outputText value="Asiento contable Altamira" rendered="#{consultaNotaContablePage.criterio eq '2'}" />
+						<h:inputText value="#{consultaNotaContablePage.asientoContable}" rendered="#{consultaNotaContablePage.criterio eq '2'}" />
+						<h:outputText value="Fecha Radicación Módulo" rendered="#{!(consultaNotaContablePage.criterio eq '1')}" />
+						<p:calendar value="#{consultaNotaContablePage.fecha}" rendered="#{!(consultaNotaContablePage.criterio eq '1')}" />
 					</h:panelGrid>
 
 					<h:panelGrid columns="1" styleClass="center">
@@ -53,99 +55,59 @@
 
             <!-- Tabla de registros -->
 		
-		<h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
+	<!--	<h:panelGrid columns="1" width="100%" style="align:center;" id="lista"> -->
 
-			<p:dataTable var="dato" id="table" rows="15" rowKeyVar="rowKey" width="100%" footerClass="row2" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
-				onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'" rowClasses="row1, row2">
-				<f:facet name="header">
-					<p:dataScroller fastControls="false" pageIndexVar="pageIndex" pagesVar="pages" style="color:black;" for="table" maxPages="5" renderIfSinglePage="false" id="up" reRender="lista, filtro"
-						limitToList="true" ajaxSingle="true">
-					</p:dataScroller>
-				</f:facet>
+				<p:dataTable value="#{consultaNotaContablePage.datos}" var="dato" id="table" rowIndexVar="rowIndex"
+							 widgetVar="economicActivityTable" rows="15" paginator="true"
+							 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+							 paginatorPosition="top">
 
-				<p:column sortable="true" sortBy="#{dato.NC.numeroRadicacion}">
-					<f:facet name="header">
-						<h:panelGroup>
-							<h:outputText value="Número" /><br /><h:outputText value="Radicación" />
-						</h:panelGroup>
-					</f:facet>
+
+
+				<p:column headerText="Radicación" sortable="true" sortBy="#{dato.NC.numeroRadicacion}">
 					<h:outputText value="#{dato.NC.numeroRadicacion}" />
 				</p:column>
-				<p:column sortable="true" sortBy="#{dato.sucursal.codigo}">
-					<f:facet name="header">
-						<h:outputText value="Sucursal Origen" />
-					</f:facet>
+				<p:column headerText="Sucursal Origen" sortable="true" sortBy="#{dato.sucursal.codigo}">
 					<h:panelGrid columns="2">
 						<h:outputText value="#{dato.sucursal.codigo}" />
 						<h:outputText value="#{dato.sucursal.nombre}" />
 					</h:panelGrid>
 				</p:column>
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="Concepto" />
-					</f:facet>
-					<h:outputText />
+				<p:column headerText="Concepto">
+					<h:outputText value="#{dato.NC.tipoNota eq 'C' ? 'Referencia de Cruce' : (dato.NC.tipoNota eq 'R' ? dato.concepto.nombre : 'Contabilidad Libre')}" />
 				</p:column>
-				<p:column sortable="true" sortBy="#{dato.usuMod.codigoEmpleado}">
-					<f:facet name="header">
-						<h:panelGroup>
-							<h:outputText value="Usuario" /><br /><h:outputText value="Asignado" />
-						</h:panelGroup>
-					</f:facet>
-					<h:outputText />
+				<p:column headerText="Asignado" sortable="true" sortBy="#{dato.usuMod.codigoEmpleado}">
+					<h:outputText value="#{dato.usuMod.codigoEmpleado}"/>
 				</p:column>
-				<p:column sortable="true" sortBy="#{dato.usuMod.codigoAreaModificado}">
-					<f:facet name="header">
-						<h:outputText value="area" />
-					</f:facet>
+				<p:column headerText="area" sortable="true" sortBy="#{dato.usuMod.codigoAreaModificado}">
 					<h:panelGrid columns="2">
-						<h:outputText />
-						<h:outputText />
+						<h:outputText value="#{dato.usuMod.codigoAreaModificado}"/>
+						<h:outputText value="#{dato.usuMod.nombreAreaModificado}"/>
 					</h:panelGrid>
 				</p:column>
-				<p:column sortable="true" sortBy="#{dato.rol.nombre}">
-					<f:facet name="header">
-						<h:outputText value="Perfil" />
-					</f:facet>
-					<h:outputText />
+				<p:column headerText="Perfil" sortable="true" sortBy="#{dato.rol.nombre}">
+					<h:outputText value="#{dato.rol.nombre}"/>
 				</p:column>
-				<p:column sortable="true" sortBy="#{dato.ultimaActualizacionTs}">
-					<f:facet name="header">
-						<h:panelGroup>
-							<h:outputText value="Fecha" />
-							<br />
-							<h:outputText value="Asignación" />
-						</h:panelGroup>
-					</f:facet>
+				<p:column headerText="Fecha Asignación" sortable="true" sortBy="#{dato.ultimaActualizacionTs}">
 					<h:outputText >
 						<f:convertDateTime timeZone="GMT-5" locale="es" pattern="dd-MMM-yyyy hh:mm:ss" />
 					</h:outputText>
 				</p:column>
-				<p:column sortable="true" sortBy="#{dato.nombreEstado}">
-					<f:facet name="header">
-						<h:outputText value="Estado" />
-					</f:facet>
-					<h:outputText />
+				<p:column headerText="Estado" sortable="true" sortBy="#{dato.nombreEstado}">
+					<h:outputText value="#{dato.nombreEstado}"/>
 				</p:column>
 
-				<p:column style="text-align: center;" sortable="true" sortBy="#{dato.nombreEstado}" >
-					<f:facet name="header">
-						<h:outputText value="Recuperar Anexos" />
-					</f:facet>
+				<p:column headerText="Recuperar Anexos" style="text-align: center;" sortable="true" sortBy="#{dato.nombreEstado}" >
 					<h:commandButton value="Ver" >
 						<f:param name="numRadicadoNotaVer" />
 					</h:commandButton>
 				</p:column>
 
-				<f:facet name="footer">
-					<p:dataScroller style="color:black;" align="center" for="table"  boundaryControls="hide" fastControls="hide" stepControls="hide" renderIfSinglePage="true">
-						<f:facet name="pages">
-							<h:outputText />
-						</f:facet>
-					</p:dataScroller>
-				</f:facet>
+
 			</p:dataTable>
-		</h:panelGrid>
+		<!--</h:panelGrid>-->
+			</h:form>
 		</div>
 	</ui:define>
 </ui:composition>

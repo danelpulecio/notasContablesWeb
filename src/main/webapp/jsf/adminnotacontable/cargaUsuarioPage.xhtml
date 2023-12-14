@@ -3,12 +3,16 @@
 				xmlns:h="http://java.sun.com/jsf/html"
 				xmlns:f="http://java.sun.com/jsf/core"
 				xmlns:p="http://primefaces.org/ui"
-				template="../../WEB-INF/layouts/template.xhtml">
+				template="../../common/template.xhtml">
 	<ui:param name="title" value="Carga de Instancias por Usuario" />
 	<ui:define name="body">
 
 		<!--Filtro de busqueda	-->
-		<div style="width: 990px;"><h:panelGrid columns="1" width="100%">
+		<div style="width: 990px;">
+			<h:form>
+
+
+			<h:panelGrid columns="1" width="100%">
 			<h1 align="center">Carga de Instancias por Usuario</h1>
 		</h:panelGrid> 
 		<!-- Panel de opciones --> 
@@ -37,50 +41,42 @@
 					<h:commandButton reRender="informacion,lista" value="Buscar" />
 				</h:panelGrid>
 			</p:accordionPanel>
-		</h:panelGrid> 
-		
-		<!--<ui:include src="../../common/mensajes.xhtml" /> -->
+		</h:panelGrid>
+
+		<ui:include src="../../common/mensajes.xhtml" />
 		
 		<!-- Tabla de registros --> 
 		
-		<h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
+		<!--<h:panelGrid columns="1" width="100%" style="align:center;" id="lista">-->
 
-			<p:dataTable value="datos" var="dato" id="table" rows="15" rowKeyVar="rowKey" width="100%" footerClass="row2" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
-				onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'" rowClasses="row1, row2">
-				<f:facet name="header">
-					<p:dataScroller fastControls="false" pageIndexVar="pageIndex" pagesVar="pages" style="color:black;" for="table" maxPages="5" renderIfSinglePage="false" page="10" id="up" reRender="lista, filtro"
-						limitToList="true" ajaxSingle="true">
-					</p:dataScroller>
-				</f:facet>
+				<p:dataTable value="#{cargaUsuarioPage.datos}" var="dato" id="table" rowIndexVar="rowIndex"
+							 widgetVar="economicActivityTable" rows="15" paginator="true"
+							 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+							 paginatorPosition="top">
 
-				<p:column sortable="true" sortBy="#{dato.usuarioModulo.codigoAreaModificado}">
-					<f:facet name="header"><h:outputText value="Área" /></f:facet>
+
+				<p:column headerText="Área" sortable="true" sortBy="#{dato.usuarioModulo.codigoAreaModificado}">
 					<h:panelGrid columns="2">
-						<h:outputText value="codigoAreaModificado" />
-						<h:outputText value="nombreAreaModificado" />
+						<h:outputText value="#{dato.usuarioModulo.codigoAreaModificado}" />
+						<h:outputText value="#{dato.usuarioModulo.nombreAreaModificado}" />
 					</h:panelGrid>
 				</p:column>
-				<p:column sortable="true" sortBy="#{dato.usuarioModulo.codigoEmpleado}">
-					<f:facet name="header"><h:outputText value="Usuario" /></f:facet>
-					<h:outputText value="codigoEmpleado" />
+				<p:column headerText="Usuario" sortable="true" sortBy="#{dato.usuarioModulo.codigoEmpleado}">
+					<h:outputText value="#{dato.usuarioModulo.codigoEmpleado}" />
 				</p:column>
-				<p:column sortable="true" sortBy="#{dato.usuarioModulo.rol.nombre}">
-					<f:facet name="header"><h:outputText value="Rol" /></f:facet>
-					<h:outputText value="nombre" />
+				<p:column headerText="Rol" sortable="true" sortBy="#{dato.usuarioModulo.rol.nombre}">
+					<h:outputText value="#{dato.usuarioModulo.rol.nombre}"/>
 				</p:column>
-				<p:column sortable="true" sortBy="#{dato.cantInstancias}">
-					<f:facet name="header"><h:panelGroup><h:outputText value="Instancias" /><br/><h:outputText value="Asignadas" /></h:panelGroup></f:facet>
-					<h:outputText value="cantInstancias" />
+				<p:column headerText="Instancias" sortable="true" sortBy="#{dato.cantInstancias}">
+					<h:outputText value="#{dato.cantInstancias}"/>
 				</p:column>
 
-				<f:facet name="footer">
-					<p:dataScroller style="color:black;" align="center" for="table" page="10" boundaryControls="hide" fastControls="hide" stepControls="hide" renderIfSinglePage="true">
-						<f:facet name="pages">
-							<h:outputText value="Visualizando del al  de un total de registros." />
-						</f:facet>
-					</p:dataScroller>
-				</f:facet>
+
 			</p:dataTable>
-		</h:panelGrid></div>
+		<!--</h:panelGrid>-->
+			</h:form>
+
+		</div>
 	</ui:define>
 </ui:composition>

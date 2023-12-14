@@ -25,7 +25,7 @@ public class TipoEventoPage extends GeneralParametrosPage<TipoEvento, TipoEvento
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(TipoEventoPage.class);
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
 	public TipoEventoPage() {
 		super(true);
 	}
@@ -63,7 +63,7 @@ public class TipoEventoPage extends GeneralParametrosPage<TipoEvento, TipoEvento
 	@Override
 	public Collection<TipoEvento> _buscarPorFiltro() throws Exception {
 		if(!param.isEmpty()){
-			LOGGER.info("{} Buscar tipo evento: {}", session.getTraceLog(),param );
+//			LOGGER.info("{} Buscar tipo evento: {}", session.getTraceLog(),param );
 		}
 		return notasContablesManager.searchTipoEvento(param);
 	}
@@ -84,16 +84,16 @@ public class TipoEventoPage extends GeneralParametrosPage<TipoEvento, TipoEvento
 		try {
 			// si se trata de un objeto nuevo
 			if (objActual.getCodigo().intValue() <= 0) {
-				LOGGER.info("{} Crea tipo evento: {}", session.getTraceLog(),objActual.getNombre() );
+//				LOGGER.info("{} Crea tipo evento: {}", session.getTraceLog(),objActual.getNombre() );
 				notasContablesManager.addTipoEvento(objActual, getCodUsuarioLogueado());
 			} else {// si se trata de una actualizacion y el cambio el valido
-				LOGGER.info("{} Actualiza tipo evento: {}", session.getTraceLog(),objActual.getCodigo() +" "+objActual.getNombre() );
+//				LOGGER.info("{} Actualiza tipo evento: {}", session.getTraceLog(),objActual.getCodigo() +" "+objActual.getNombre() );
 				notasContablesManager.updateTipoEvento(objActual, getCodUsuarioLogueado());
 			}
 			return true;
 		} catch (Exception e) {
 			objActual.setCodigo(codInicial);
-			LOGGER.error("{} Ya existe un tipo de evento con el mismo nombre: {}", session.getTraceLog(),codInicial , e );
+//			LOGGER.error("{} Ya existe un tipo de evento con el mismo nombre: {}", session.getTraceLog(),codInicial , e );
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Ya existe un tipo de evento con el mismo nombre");
 			return false;
 		}
@@ -111,7 +111,7 @@ public class TipoEventoPage extends GeneralParametrosPage<TipoEvento, TipoEvento
 	 */
 	@Override
 	public boolean _cambiarEstado() throws Exception {
-		LOGGER.info("{} Cambio estado tipo evento: {}", session.getTraceLog(),notasContablesManager.getTipoEvento(objActual).getCodigo() +" "+notasContablesManager.getTipoEvento(objActual).getEstado() );
+//		LOGGER.info("{} Cambio estado tipo evento: {}", session.getTraceLog(),notasContablesManager.getTipoEvento(objActual).getCodigo() +" "+notasContablesManager.getTipoEvento(objActual).getEstado() );
 		notasContablesManager.changeEstadoTipoEvento(notasContablesManager.getTipoEvento(objActual), getCodUsuarioLogueado());
 		return true;
 	}
@@ -123,7 +123,7 @@ public class TipoEventoPage extends GeneralParametrosPage<TipoEvento, TipoEvento
 	 */
 	@Override
 	public boolean _borrar() throws Exception {
-		LOGGER.info("{} Borra tipo evento: {}", session.getTraceLog(),objActual.getCodigo() +" "+objActual.getNombre() );
+//		LOGGER.info("{} Borra tipo evento: {}", session.getTraceLog(),objActual.getCodigo() +" "+objActual.getNombre() );
 		notasContablesManager.deleteTipoEvento(objActual, getCodUsuarioLogueado());
 		return true;
 	}

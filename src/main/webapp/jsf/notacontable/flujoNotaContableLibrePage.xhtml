@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../common/template.xhtml">
+
+    <!-- Formulario Modal de creacion y edicion de temas por concepto-->
+    <p:dialog id="editorRegLibreVer" domElementAttachment="form" autosized="true">
+        <f:facet name="header">
+            <h:panelGroup>
+                <h:outputText value="Registro Nota Contable Libre "/>
+            </h:panelGroup>
+        </f:facet>
+        <f:facet name="controls">
+            <h:panelGroup>
+                <h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink"
+                                id="hidelinkeditorRegLibreVer" height="20" width="20"/>
+                <p:remoteCommand for="editorRegLibreVer" attachTo="hidelinkeditorRegLibreVer" operation="hide"
+                                 event="onclick"/>
+            </h:panelGroup>
+        </f:facet>
+        <!-- Campos del formulario -->
+        <h:form>
+            <h:panelGrid columns="1" width="500" id="informacionRegLibreVer" cellpadding="0" cellspacing="0">
+                <h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="0">
+
+                    <h:panelGrid columns="3" cellpadding="0" cellspacing="2">
+                        <h:outputText value="Fecha Contable" styleClass="propertie"/>
+                        <h:outputText value="#{flujoNotaContableLibrePage.temaActual.fechaContable}"/>
+
+                        <h:commandButton value="Riesgo Operacional"
+                                         oncomplete="#{p:remoteCommand('modalRiesgoRegLibreVer')}.show()"
+                                         reRender="modalRiesgoRegLibreVer" ajaxSingle="true"
+                                         rendered="#{flujoNotaContableLibrePage.temaActual.pucCuenta.indicadorSIRO eq 'T'}"/>
+                        <h:outputText value=""
+                                      rendered="#{flujoNotaContableLibrePage.temaActual.pucCuenta.indicadorSIRO ne 'T'}"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="3" id="panelCuentaRegLibre">
+                        <p:panel header="Cuenta Contable" style="width: 100%; height:100%">
+
+                            <h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="0">
+                                <h:panelGrid columns="2" id="sucursalPartidaRegLibre">
+                                    <h:outputText value="Cuenta" styleClass="propertie"/>
+                                    <h:outputText value="#{flujoNotaContableLibrePage.temaActual.cuentaContable}"/>
+
+                                    <h:outputText value="Naturaleza" styleClass="propertie"/>
+                                    <h:outputText
+                                            value="#{flujoNotaContableLibrePage.temaActual.naturalezaCuentaContable eq 'D'?'Debe':'Haber'}"/>
+
+                                    <h:outputText value="Sucursal Destino" styleClass="propertie"/>
+                                    <h:outputText
+                                            value="#{flujoNotaContableLibrePage.temaActual.sucursalDestino.nombre}"/>
+
+                                    <h:outputText value="Referencia de cruce" styleClass="propertie"/>
+                                    <h:outputText value="#{flujoNotaContableLibrePage.temaActual.referencia}"
+                                                  maxlength="12" size="12"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="5" width="100%" cellpadding="0" cellspacing="2">
+                                    <h:outputText value="Divisa" styleClass="propertie"/>
+                                    <h:outputText value="#{flujoNotaContableLibrePage.temaActual.codigoDivisa}"/>
+
+                                    <h:outputText value="Importe" style="width:150px;" styleClass="propertie"/>
+                                    <h:outputText value="#{flujoNotaContableLibrePage.temaActual.monto}">
+                                        <f:convertNumber type="currency"/>
+                                    </h:outputText>
+                                </h:panelGrid>
+                                <p:panel header="Tercero" style="width:100%;"
+                                         rendered="#{flujoNotaContableLibrePage.temaActual.pucCuenta.tipoApunte eq 'T' or flujoNotaContableLibrePage.temaActual.pucCuenta.indicadorTercero eq 'X' or flujoNotaContableLibrePage.temaActual.hadtapl.indicadorContrato eq 'S'}">
+                                    <h:panelGrid columns="2" id="documentoTerceroRegLibre">
+                                        <h:outputText value="Tipo de documento" styleClass="propertie"/>
+                                        <h:outputText value="#{flujoNotaContableLibrePage.temaActual.nombreTipoDoc}"/>
+
+                                        <h:outputText value="Número Documento" styleClass="propertie"/>
+                                        <h:outputText
+                                                value="#{flujoNotaContableLibrePage.temaActual.numeroIdentificacion}"/>
+                                    </h:panelGrid>
+
+                                    <h:panelGrid columns="1">
+                                        <h:panelGrid columns="2">
+
+                                            <h:outputText value="Dígito de Verificación" styleClass="propertie"/>
+                                            <h:outputText
+                                                    value="#{flujoNotaContableLibrePage.temaActual.digitoVerificacion}"/>
+
+                                            <h:outputText value="Nombre" styleClass="propertie"/>
+                                            <h:outputText
+                                                    value="#{flujoNotaContableLibrePage.temaActual.nombreCompleto}"/>
+
+                                            <h:outputText value="Contrato"
+                                                          rendered="#{flujoNotaContableLibrePage.temaActual.hadtapl.indicadorContrato eq 'S'}"
+                                                          styleClass="propertie"/>
+                                            <h:outputText value="#{flujoNotaContableLibrePage.temaActual.contrato}"
+                                                          rendered="#{flujoNotaContableLibrePage.temaActual.hadtapl.indicadorContrato eq 'S'}"/>
+                                        </h:panelGrid>
+                                    </h:panelGrid>
+
+                                </p:panel>
+                            </h:panelGrid>
+
+                        </p:panel>
+                    </h:panelGrid>
+                </h:panelGrid>
+
+                <ui:include src="../../common/mensajes.xhtml"/>
+
+                <h:panelGrid columns="2" styleClass="center" width="100%">
+
+                    <!-- seccion de riesgo operacional -->
+                    <p:dialog id="modalRiesgoRegLibreVer" domElementAttachment="form" autosized="true">
+                        <f:facet name="header">
+                            <h:panelGroup>
+                                <h:outputText value="Riesgo operacional"/>
+                            </h:panelGroup>
+                        </f:facet>
+                        <f:facet name="controls">
+                            <h:panelGroup>
+                                <h:graphicImage value="../../../common/images/close.png" alt="cerrar"
+                                                styleClass="hidelink" id="hidelinkCerrarModalRiesgoRegLibreVer"
+                                                height="20" width="20"/>
+                                <p:remoteCommand for="modalRiesgoRegLibreVer"
+                                                 attachTo="hidelinkCerrarModalRiesgoRegLibreVer" operation="hide"
+                                                 event="onclick"/>
+                            </h:panelGroup>
+                        </f:facet>
+                        <h:panelGrid columns="2" width="500">
+                            <h:outputText value="Importe Total" styleClass="propertie"/>
+                            <h:outputText
+                                    value="#{flujoNotaContableLibrePage.temaActual.riesgoOperacional.importeTotal}">
+                                <f:convertNumber type="currency"/>
+                            </h:outputText>
+
+                            <h:outputText value="Importe Parcial" styleClass="propertie"/>
+                            <h:outputText
+                                    value="#{flujoNotaContableLibrePage.temaActual.riesgoOperacional.importeParcial}">
+                                <f:convertNumber type="currency"/>
+                            </h:outputText>
+
+                            <h:outputText value="Fecha Inicio del Evento" styleClass="propertie"/>
+                            <h:outputText
+                                    value="#{flujoNotaContableLibrePage.temaActual.riesgoOperacional.fechaEvento}"/>
+
+                            <h:outputText value="Hora Inicio del Evento" styleClass="propertie"/>
+                            <h:outputText
+                                    value="#{flujoNotaContableLibrePage.temaActual.riesgoOperacional.horaTotalInicio}"/>
+
+                            <h:outputText value="Fecha Fin del Evento" styleClass="propertie"/>
+                            <h:outputText
+                                    value="#{flujoNotaContableLibrePage.temaActual.riesgoOperacional.fechaFinEvento}"/>
+
+                            <h:outputText value="Hora Fin del Evento" styleClass="propertie"/>
+                            <h:outputText
+                                    value="#{flujoNotaContableLibrePage.temaActual.riesgoOperacional.horaTotalFin}"/>
+
+                            <h:outputText value="Fecha del Descubrimiento" styleClass="propertie"/>
+                            <h:outputText
+                                    value="#{flujoNotaContableLibrePage.temaActual.riesgoOperacional.fechaDescubrimientoEvento}"/>
+
+                            <h:outputText value="Hora del Descubrimiento" styleClass="propertie"/>
+                            <h:outputText
+                                    value="#{flujoNotaContableLibrePage.temaActual.riesgoOperacional.horaTotalDescubre}"/>
+
+                            <h:outputText value="Clase de Riesgo" styleClass="propertie"/>
+                            <h:outputText
+                                    value="#{flujoNotaContableLibrePage.temaActual.riesgoOperacional.claseRiesgo.nombre}"/>
+
+                            <h:outputText value="Pérdida Operacional" styleClass="propertie"/>
+                            <h:outputText
+                                    value="#{flujoNotaContableLibrePage.temaActual.riesgoOperacional.tipoPerdida.descripcion}"/>
+
+                            <h:outputText value="Proceso" styleClass="propertie"/>
+                            <h:outputText
+                                    value="#{flujoNotaContableLibrePage.temaActual.riesgoOperacional.proceso.nombre}"/>
+
+                            <h:outputText value="Línea Operativa" styleClass="propertie"/>
+                            <h:outputText
+                                    value="#{flujoNotaContableLibrePage.temaActual.riesgoOperacional.lineaOperativa.nombre}"/>
+
+                            <h:outputText value="Producto Afectado" styleClass="propertie"/>
+                            <h:outputText
+                                    value="#{flujoNotaContableLibrePage.temaActual.riesgoOperacional.producto.nombre}"/>
+
+                            <h:outputText styleClass="propertie" value="SubProducto Afectado"/>
+                            <h:outputText
+                                    value="#{flujoNotaContableLibrePage.temaActual.riesgoOperacional.subProductoAfectado.nombre}"/>
+
+                            <h:outputText styleClass="propertie" value="Canal"/>
+                            <h:outputText
+                                    value="#{flujoNotaContableLibrePage.temaActual.riesgoOperacional.canal.descripcion}"/>
+
+                            <h:outputText styleClass="propertie" value="subCanal"/>
+                            <h:outputText
+                                    value="#{flujoNotaContableLibrePage.temaActual.riesgoOperacional.subCanal.descripcion}"/>
+
+                            <h:outputText styleClass="propertie" value="Sfc Clase Riesgo N2"/>
+                            <h:outputText
+                                    value="#{flujoNotaContableLibrePage.temaActual.riesgoOperacional.claseRiesgoN2.nombre}"/>
+
+                            <h:outputText styleClass="propertie" value="Sfc Clase Riesgo N3"/>
+                            <h:outputText
+                                    value="#{flujoNotaContableLibrePage.temaActual.riesgoOperacional.claseRiesgoN3.nombre}"/>
+
+                            <h:outputText styleClass="propertie" value="Nombre Outsourcing"/>
+                            <h:outputText
+                                    value="#{flujoNotaContableLibrePage.temaActual.riesgoOperacional.nombreOutSource}"/>
+
+                            <h:outputText styleClass="propertie" value="Aplica Recuperación"/>
+                            <h:outputText
+                                    value="#{flujoNotaContableLibrePage.temaActual.riesgoOperacional.appRecuperacion}"/>
+
+                            <h:outputText styleClass="propertie" value="Fecha Recuperación"/>
+                            <h:outputText
+                                    value="#{flujoNotaContableLibrePage.temaActual.riesgoOperacional.fechaRecuperacion}"/>
+
+                            <h:outputText styleClass="propertie" value="Hora Recuperación"/>
+                            <h:outputText
+                                    value="#{flujoNotaContableLibrePage.temaActual.riesgoOperacional.horaTotalRecuperacion}"/>
+
+                            <h:outputText styleClass="propertie" value="Tipo Recuperación"/>
+                            <h:outputText
+                                    value="#{flujoNotaContableLibrePage.temaActual.riesgoOperacional.tipoRecuperacion}"/>
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:panelGrid>
+            </h:panelGrid>
+        </h:form>
+    </p:dialog>
+
+    <p:dialog id="notaContableLibreVer" autosized="true" domElementAttachment="form" minWidth="700">
+        <f:facet name="header">
+            <h:panelGroup>
+                <h:outputText value="Nota Cotable Libre"/>
+            </h:panelGroup>
+        </f:facet>
+        <f:facet name="controls">
+            <h:panelGroup>
+                <h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink"
+                                id="hidelinkCerrarNotaContableLibreVer" height="20" width="20"/>
+                <p:remoteCommand for="notaContableLibreVer" attachTo="hidelinkCerrarNotaContableLibreVer"
+                                 operation="hide" event="onclick"/>
+            </h:panelGroup>
+        </f:facet>
+        <!--Formulario principal	-->
+        <h:form>
+            <h:panelGrid columns="1" width="100%">
+                <p:panel header="Información básica" style="width: 100%;">
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Sucursal de Origen" styleClass="propertie"/>
+                        <h:outputText
+                                value="#{flujoNotaContableLibrePage.nota.codigoSucursalOrigen} - #{flujoNotaContableLibrePage.nota.sucursalOrigen.nombre}"/>
+                        <h:outputText value="Descripción" styleClass="propertie"/>
+                        <h:outputText value="#{flujoNotaContableLibrePage.nota.descripcion}"/>
+                    </h:panelGrid>
+                </p:panel>
+                <p:panel header="Registros de la Nota" style="width: 100%;"
+                         rendered="#{! empty flujoNotaContableLibrePage.temasNotaContable}">
+                    <p:dataTable id="temasNota" value="#{flujoNotaContableLibrePage.temasNotaContable}" var="temaNota" rowIndexVar="rowIndex"
+                                 widgetVar="economicActivityTable" rows="15" paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                                 paginatorPosition="top">
+
+                        <p:column headerText="" rendered="#{flujoNotaContableLibrePage.mostrarAsiento}">
+                            <f:facet name="header">
+                                <h:panelGroup>
+                                    <h:outputText value="Asiento"/>
+                                    <br/>
+                                    <h:outputText value="Contable"/>
+                                    <br/>
+                                    <h:outputText value="Altamira"/>
+                                </h:panelGroup>
+                            </f:facet>
+                            <h:outputText value="#{temaNota.numeroAsiento}"/>
+                        </p:column>
+
+                        <p:column headerText="Sucursal">
+                            <h:outputText value="#{temaNota.codigoSucursalDestino}"/>
+                        </p:column>
+
+
+                        <p:column headerText="Fecha Contable">
+                            <h:outputText value="#{temaNota.fechaContable}"/>
+                        </p:column>
+
+
+                        <p:column headerText="Cuenta Contable">
+                            <h:outputText value="#{temaNota.cuentaContable}"/>
+                        </p:column>
+
+                        <p:column headerText="Naturaleza">
+                            <h:outputText value="#{temaNota.naturalezaCuentaContable eq 'D'?'Debe':'Haber'}"/>
+                        </p:column>
+
+                        <p:column headerText="Divisa">
+                            <h:outputText value="#{temaNota.codigoDivisa}"/>
+                        </p:column>
+
+                        <p:column headerText="Importe" style="text-align: right;">
+                            <h:outputText value="#{temaNota.monto}">
+                                <f:convertNumber type="currency"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Editar" style="text-align: center;">
+                            <h:commandButton action="#{flujoNotaContableLibrePage.verNota}"
+                                             oncomplete="#{p:remoteCommand('editorRegLibreVer')}.show()"
+                                             reRender="editorRegLibreVer"
+                                             image="/common/images/edit.png" alt="Editar">
+                                <f:param name="codigoTema" value="#{temaNota.codigo}"
+                                         assignTo="#{flujoNotaContableLibrePage.codigo}"/>
+                            </h:commandButton>
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <p:columnGroup rendered="#{! empty flujoNotaContableLibrePage.totalesNota}">
+                                <p:column colspan="#{flujoNotaContableLibrePage.mostrarAsiento?5:4}"
+                                          style="text-align:right;">
+                                    <h:outputText value="Totales"/>
+                                </p:column>
+                                <p:column style="padding: 0px;">
+                                    <p:dataTable style="border-width: 0px; background-color: transparent;"
+                                                 value="#{flujoNotaContableLibrePage.totalesNota}" var="total">
+                                        <p:column style="border-width: 0px;">
+                                            <h:outputText value="#{total.codigoDivisa }"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:column>
+                                <p:column style="padding: 0px;">
+                                    <p:dataTable style="border-width: 0px; background-color: transparent;"
+                                                 value="#{flujoNotaContableLibrePage.totalesNota}" var="total">
+                                        <p:column style="border-width: 0px; text-align:right;">
+                                            <h:outputText value="#{total.total}">
+                                                <f:convertNumber type="currency"/>
+                                            </h:outputText>
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:column>
+                                <p:column></p:column>
+                            </p:columnGroup>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+                <p:panel header="Soportes de la nota contable" rendered="#{! empty flujoNotaContableLibrePage.anexos}">
+                    <p:dataTable id="anexos" value="#{flujoNotaContableLibrePage.anexos}" var="anexo" rowIndexVar="rowIndex"
+                                 widgetVar="economicActivityTable" rows="15" paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                                 paginatorPosition="top">
+
+                        <p:column headerText="Fecha" width="150" style="text-align: left;">
+                            <h:outputText value="#{anexo.fechaHora}"/>
+                        </p:column>
+
+                        <p:column headerText="Usuario" style="text-align: right;">
+                            <h:outputText value="#{anexo.usuNombre}"/>
+                        </p:column>
+
+                        <p:column headerText="Archivo" style="text-align: right;">
+                            <p:commandLink action="#{downloadGeneralPage.download}" styleClass="bold"
+                                           value="#{anexo.nombre}" target="_blank">
+                                <f:param name="type1" value="#{downloadGeneralPage.SOPORTE}"
+                                         assignTo="#{downloadGeneralPage.type}"/>
+                                <f:param name="file1" value="#{anexo.archivo}" assignTo="#{downloadGeneralPage.file}"/>
+                            </p:commandLink>
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+                <p:dialog id="popupRechazoNotaLibreVer" autosized="true" domElementAttachment="form" width="500">
+                    <f:facet name="header">
+                        <h:panelGroup>
+                            <h:outputText value="Rechazar nota contable Libre"/>
+                        </h:panelGroup>
+                    </f:facet>
+
+                    <h:panelGrid columns="1" width="100%">
+
+                        <h:outputText
+                                value="Si esta seguro que desea rechazar la nota actual, por favor indique la causal de devolucion."/>
+
+                        <p:separator width="100%"/>
+                        <h:outputText value="Causal de devolucion"/>
+                        <h:selectOneMenu value="#{flujoNotaContableLibrePage.causalDevolucion}" immediate="true">
+                            <f:selectItem itemValue="-1" itemLabel="Seleccione una opcion"/>
+                            <f:selectItems value="#{flujoNotaContableLibrePage.causalesDev}"/>
+                            <!--
+                            <a4j:support event="onchange" reRender="otraCausalNotaLibreVer" />
+                            -->
+                        </h:selectOneMenu>
+                        <h:panelGrid columns="1" width="100%" id="otraCausalNotaLibreVer">
+                            <h:outputText value="Descripción de la causal"
+                                          rendered="#{flujoNotaContableLibrePage.causalDevolucion eq 18}"/>
+                            <h:inputText value="#{flujoNotaContableLibrePage.otraCausalDev}"
+                                         rendered="#{flujoNotaContableLibrePage.causalDevolucion eq 18}" size="80"/>
+                        </h:panelGrid>
+                        <!-- Seccion de mensajes y botones de envio y cancelacion-->
+                        <ui:include src="../../common/mensajes.xhtml"/>
+                        <h:panelGrid columns="2" styleClass="center" width="100%">
+                            <h:commandButton action="#{flujoNotaContableLibrePage.rechazar}" value="Confirmar rechazo"
+                                             oncomplete="if (#{flujoNotaContableLibrePage.ocultarPopupAnular}) {#{p:remoteCommand('popupRechazoNotaLibreVer')}.hide();#{p:remoteCommand('notaContableLibreVer')}.hide();}"
+                                             reRender="lista,opcionesNotaLibreVer"/>
+                            <h:commandButton onclick="#{p:remoteCommand('popupRechazoNotaLibreVer')}.hide()"
+                                             value="Cancelar"/>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </p:dialog>
+                <ui:include src="../../common/mensajes.xhtml"/>
+                <h:panelGrid id="opcionesNotaLibreVer" columns="2" styleClass="center" width="100%">
+                    <h:commandButton action="#{flujoNotaContableLibrePage.aprobar}"
+                                     oncomplete="if (#{flujoNotaContableLibrePage.ocultarPopupAprobar}) #{p:remoteCommand('notaContableLibreVer')}.hide()"
+                                     reRender="lista,opcionesNotaLibreVer" value="Aprobar"
+                                     rendered="#{flujoNotaContableLibrePage.nota.puedeAprobar}"/>
+                    <h:commandButton value="Rechazar" rendered="#{flujoNotaContableLibrePage.nota.puedeRechazar}"
+                                     oncomplete="#{p:remoteCommand('popupRechazoNotaLibreVer')}.show()"/>
+                </h:panelGrid>
+            </h:panelGrid>
+        </h:form>
+    </p:dialog>
+</ui:composition>
