@@ -7,7 +7,7 @@
     <ui:param name="title" value="Clientes"/>
     <ui:define name="body">
         <!--Filtro de busqueda	-->
-        <div style="width: 850px;">
+        <div style="width: auto;">
             <h:form>
                 <h:panelGrid columns="1" width="100%"><h1 align="center">Clientes</h1></h:panelGrid>
 
@@ -23,7 +23,8 @@
                                  widgetVar="clienteTable" rows="15" paginator="true"
                                  currentPageReportTemplate=" Visualizando del {startRecord} al {endRecord} de un total de {totalRecords} registros"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                 paginatorPosition="top">
+                                 paginatorPosition="top"
+                                 resizableColumns="true" showGridlines="true">
                         <p:column headerText="Fila">
                             <h:outputText value="#{rowIndex+1}"/>
                         </p:column>
@@ -33,7 +34,7 @@
                         <p:column headerText="Tipo Identificación" sortable="true" sortBy="#{dato.tipoIdentificacion}">
                             <h:outputText value="#{dato.tipoIdentificacion}"/>
                         </p:column>
-                        <p:column headerText="Número Identificación" sortable="true"
+                        <p:column headerText="Número Identificación" width="120px;" sortable="true"
                                   sortBy="#{dato.numeroIdentificacion}">
                             <h:outputText value="#{dato.numeroIdentificacion}"/>
                         </p:column>

@@ -105,7 +105,6 @@ public abstract class BasePage implements Serializable  {
 	}
 
 	public  String lanzarError(final Exception e, final String msg) {
-		System.out.println(e.getMessage());
 		e.printStackTrace();
 		nuevoMensaje(FacesMessage.SEVERITY_ERROR, msg);
 		return "";

@@ -8,7 +8,7 @@
     <ui:define name="body">
 
         <!--Filtro de busqueda	-->
-        <div style="width: 850px;">
+        <div style="width: auto;">
             <h:form>
                 <h:panelGrid columns="1" width="100%"><h1 align="center">Plan Único de Cuentas (PUC)</h1></h:panelGrid>
                 <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
@@ -24,80 +24,31 @@
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
                                  paginatorPosition="top">
-                        <p:column headerText="Fila">
+                        <p:column width="30px;" headerText="Fila">
                             <h:outputText value="#{rowIndex+1}"/>
                         </p:column>
-                        <p:column headerText="" sortable="true" sortBy="#{dato.numeroCuenta}">
-                            <!--<f:facet name="header">-->
-                                <h:panelGroup>
-                                    <h:outputText value="Número"/>
-                                    <br/>
-                                    <h:outputText value="Cuenta"/>
-                                </h:panelGroup>
-                            <!--</f:facet>-->
+                        <p:column headerText="Número Cuenta" sortable="true" sortBy="#{dato.numeroCuenta}">
                             <h:outputText value="#{dato.numeroCuenta} "/>
                         </p:column>
                         <p:column headerText="Descripcion" width="250" sortable="true" sortBy="#{dato.descripcion}">
                             <h:outputText value="#{dato.descripcion}"/>
                         </p:column>
-                        <p:column headerText="" sortable="true" sortBy="#{dato.tipoCentroOrigenAutorizado}">
-                            <!--<f:facet name="header">-->
-                                <h:panelGroup>
-                                    <h:outputText value="Tipo Cent."/>
-                                    <br/>
-                                    <h:outputText value="Aut. Ori."/>
-                                </h:panelGroup>
-                            <!--</f:facet>-->
+                        <p:column headerText="Tipo Cent. Aut. Ori." sortable="true" sortBy="#{dato.tipoCentroOrigenAutorizado}">
                             <h:outputText value="#{dato.tipoCentroOrigenAutorizado}"/>
                         </p:column>
-                        <p:column headerText="" sortable="true" sortBy="#{dato.indicadorCentroOrigen}">
-                            <!--<f:facet name="header">-->
-                                <h:panelGroup>
-                                    <h:outputText value="Indicador"/>
-                                    <br/>
-                                    <h:outputText value="Cent. Orig."/>
-                                </h:panelGroup>
-                            <!--</f:facet>-->
+                        <p:column headerText="Indicador Cent. Orig." sortable="true" sortBy="#{dato.indicadorCentroOrigen}">
                             <h:outputText value="#{dato.indicadorCentroOrigen}"/>
                         </p:column>
-                        <p:column headerText="" sortable="true" sortBy="#{dato.centrosOrigenAutorizados}">
-                            <!--<f:facet name="header">-->
-                                <h:panelGroup>
-                                    <h:outputText value="Cent. Orig."/>
-                                    <br/>
-                                    <h:outputText value="Autorizados"/>
-                                </h:panelGroup>
-                            <!--</f:facet>-->
+                        <p:column headerText="Cent. Orig. Autorizados " sortable="true" sortBy="#{dato.centrosOrigenAutorizados}">
                             <h:outputText value="#{dato.centrosOrigenAutorizados}"/>
                         </p:column>
-                        <p:column headerText="" sortable="true" sortBy="#{dato.tipoCentroDestinoAutorizado}">
-                            <!--<f:facet name="header">-->
-                                <h:panelGroup>
-                                    <h:outputText value="Tipo Cent."/>
-                                    <br/>
-                                    <h:outputText value="Aut. Dest."/>
-                                </h:panelGroup>
-                            <!--</f:facet>-->
+                        <p:column headerText="Tipo Cent. Aut. Dest." sortable="true" sortBy="#{dato.tipoCentroDestinoAutorizado}">
                             <h:outputText value="#{dato.tipoCentroDestinoAutorizado}"/>
                         </p:column>
-                        <p:column headerText="" sortable="true" sortBy="#{dato.indicadorCentroDestino}">
-                            <!--<f:facet name="header">-->
-                                <h:panelGroup>
-                                    <h:outputText value="Indicador"/>
-                                    <br/>
-                                    <h:outputText value="Cent. Dest."/>
-                                </h:panelGroup>
-                            <!--</f:facet>-->
+                        <p:column headerText="Indicador Cent. Dest." sortable="true" sortBy="#{dato.indicadorCentroDestino}">
                             <h:outputText value="#{dato.indicadorCentroDestino}"/>
                         </p:column>
-                        <p:column headerText="" sortable="true" sortBy="#{dato.centrosDestinoAutorizados}">
-                            <!--<f:facet name="header">-->
-                                <h:panelGroup>
-                                    <h:outputText value="Cent, Dest."/>
-                                    <br/>
-                                    <h:outputText value="Autorizados"/>
-                                </h:panelGroup>
-                            <!--</f:facet>-->
+                        <p:column headerText="Cent, Dest. Autorizados" sortable="true" sortBy="#{dato.centrosDestinoAutorizados}">
                             <h:outputText value="#{dato.centrosDestinoAutorizados}"/>
                         </p:column>
                     </p:dataTable>

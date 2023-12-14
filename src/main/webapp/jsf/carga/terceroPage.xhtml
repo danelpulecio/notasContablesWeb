@@ -21,8 +21,9 @@
 
             <!-- Campos del formulario -->
             <h:panelGrid columns="1" width="820" id="informacion" cellpadding="0" cellspacing="0">
-                <h:outputText>
-                    <div style="height:320px; overflow:auto; width: 100%;">
+<!--                 <h:outputText> -->
+<!--                     <div style="height:320px; overflow:auto; width: 100%;"> -->
+						<div>
                         <h:panelGrid columns="1" width="800">
                             <h:panelGrid columns="8" width="100%" id="identificacion">
                                 <h:outputText value="Sexo"/>
@@ -153,7 +154,7 @@
                         </h:panelGrid>
                         <ui:include src="../../common/mensajes.xhtml"/>
                     </div>
-                </h:outputText>
+<!--                 </h:outputText> -->
                 <!-- Seccion de mensajes y botones de envio y cancelacion-->
                 <h:panelGrid columns="2" styleClass="center" width="100%">
                     <p:commandButton action="#{terceroPage.guardar}" update="informacion,lista" value="Guardar"
@@ -191,7 +192,7 @@
         </p:dialog>
 
         <!--Filtro de busqueda	-->
-        <div style="width: 850px;">
+        <div style="width: auto;">
             <h:panelGrid columns="1" width="100%"><h1 align="center">Terceros</h1></h:panelGrid>
 
 
@@ -232,84 +233,34 @@
                                            limitToList="true">
 						</p:dataScroller>
                     </f:facet>
-                    <p:column>
-                        <f:facet name="header"><h:outputText value="Fila"/></f:facet>
+                     <p:column width="30px;" headerText="Fila">
                         <h:outputText value="#{rowKey+1}"/>
                     </p:column>
-                    <p:column sortable="true" sortBy="#{dato.tipoIdentificacionStr}">
-                        <f:facet name="header">
-                            <h:panelGroup>
-                                <h:outputText value="Tipo"/><br/>
-                                <h:outputText value="Identificación"/>
-                            </h:panelGroup>
-                        </f:facet>
+                    <p:column sortable="true" width="140px;" headerText="Tipo Identificación" sortBy="#{dato.tipoIdentificacionStr}">
                         <h:outputText value="#{dato.tipoIdentificacionStr} "/>
                     </p:column>
-                    <p:column sortable="true" sortBy="#{dato.numeroIdentificacion}">
-                        <f:facet name="header">
-                            <h:panelGroup>
-                                <h:outputText value="Número de"/><br/>
-                                <h:outputText value="Identificación"/>
-                            </h:panelGroup>
-                        </f:facet>
+                    <p:column sortable="true" width="130px;" headerText="No. Identificación" sortBy="#{dato.numeroIdentificacion}">
                         <h:outputText value="#{dato.numeroIdentificacion}"/>
                     </p:column>
-                    <p:column>
-                        <f:facet name="header"><h:outputText value="DV"/></f:facet>
+                    <p:column width="20px;" headerText="DV">
                         <h:outputText value="#{dato.digitoVerificacion}"/>
                     </p:column>
-                    <p:column sortable="true" sortBy="#{dato.primerApellido}">
-                        <f:facet name="header">
-                            <h:panelGroup>
-                                <h:outputText value="Primer "/><br/>
-                                <h:outputText value="Apellido"/>
-                            </h:panelGroup>
-                        </f:facet>
+                    <p:column sortable="true" headerText="Primer Apellido" sortBy="#{dato.primerApellido}">
                         <h:outputText value="#{dato.primerApellido}"/>
                     </p:column>
-                    <p:column sortable="true" sortBy="#{dato.segundoApellido}">
-                        <f:facet name="header">
-                            <h:panelGroup>
-                                <h:outputText value="Segundo"/><br/>
-                                <h:outputText value="Apellido"/>
-                            </h:panelGroup>
-                        </f:facet>
+                    <p:column sortable="true" headerText="Segundo Apellido" sortBy="#{dato.segundoApellido}">
                         <h:outputText value="#{dato.segundoApellido}"/>
                     </p:column>
-                    <p:column sortable="true" sortBy="#{dato.primerNombre}">
-                        <f:facet name="header">
-                            <h:panelGroup>
-                                <h:outputText value="Primer"/><br/>
-                                <h:outputText value="Nombre"/>
-                            </h:panelGroup>
-                        </f:facet>
+                    <p:column sortable="true" headerText="Primer Nombre" sortBy="#{dato.primerNombre}">
                         <h:outputText value="#{dato.primerNombre}"/>
                     </p:column>
-                    <p:column sortable="true" sortBy="#{dato.segundoNombre}">
-                        <f:facet name="header">
-                            <h:panelGroup>
-                                <h:outputText value="Segundo"/><br/>
-                                <h:outputText value="Nombre"/>
-                            </h:panelGroup>
-                        </f:facet>
+                    <p:column sortable="true" headerText="Segundo Nombre" sortBy="#{dato.segundoNombre}">
                         <h:outputText value="#{dato.segundoNombre}"/>
                     </p:column>
-                    <p:column sortable="true" sortBy="#{dato.actividadEconomica}">
-                        <f:facet name="header">
-                            <h:panelGroup>
-                                <h:outputText value="Actividad "/><br/>
-                                <h:outputText value="Económica"/>
-                            </h:panelGroup>
-                        </f:facet>
+                    <p:column sortable="true" headerText="Actividad Economica" sortBy="#{dato.actividadEconomica}">
                         <h:outputText value="#{dato.actividadEconomica}"/>
                     </p:column>
-                    <p:column sortable="true" sortBy="#{dato.ingresoApp}">
-                        <f:facet name="header">
-                            <h:panelGroup>
-                                <h:outputText value="Ingreso "/><br/>
-                                <h:outputText value="Manual"/>
-                            </h:panelGroup>
-                        </f:facet>
+                    <p:column sortable="true" headerText="Ingreso Manual" sortBy="#{dato.ingresoApp}">
                         <h:outputText value="#{dato.ingresoApp == 0 ? 'No' : 'Si'}"/>
                     </p:column>
 
