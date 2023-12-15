@@ -37,7 +37,7 @@ public class ClientePage extends GeneralCargaPage<Cliente> {
 	 * </p>
 	 */
 	public ClientePage() {
-		super(true);
+		super(false);
 	}
 
 	/**
@@ -47,10 +47,6 @@ public class ClientePage extends GeneralCargaPage<Cliente> {
 	 */
 	@Override
 	public Collection<Cliente> _buscarTodos() throws Exception {
-//		LOGGER.info("Buscar todos los clientes");
-//		Collection<Cliente> responseDbCustomer =cargaAltamiraManager.getClientes();
-//		LOGGER.info("Respuesta buscoar todos los clientes {}", responseDbCustomer.size());
-//		return responseDbCustomer;
 		return new ArrayList<Cliente>();
 	}
 
@@ -62,7 +58,7 @@ public class ClientePage extends GeneralCargaPage<Cliente> {
 	@Override
 	public Collection<Cliente> _buscarPorFiltro() throws Exception {
 		if(!param.isEmpty()){
-//			LOGGER.info("{} Buscar cliente: {}", session.getTraceLog(),param );
+			LOGGER.info("{} Buscar cliente: {} : ",param);
 		}
 		return cargaAltamiraManager.searchCliente(param);
 	}

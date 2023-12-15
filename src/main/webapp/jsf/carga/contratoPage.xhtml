@@ -7,7 +7,7 @@
     <ui:param name="title" value="Contratos"/>
     <ui:define name="body">
         <!--Filtro de busqueda	-->
-        <div style="width: 400px;">
+        <div style="width: 600px;">
             <h:form>
 
                 <h:panelGrid columns="1" width="100%"><h1 align="center">Contratos</h1></h:panelGrid>
@@ -26,7 +26,7 @@
                                  currentPageReportTemplate=" Visualizando del {startRecord} al {endRecord} de un total de {totalRecords} registros"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  paginatorPosition="top">
-                        <p:column headerText="Fila">
+                        <p:column width="30px;" headerText="Fila">
                             <h:outputText value="#{rowIndex+1}"/>
                         </p:column>
                         <p:column headerText="Contrato" sortable="true" sortBy="#{dato.numeroContrato}">
