@@ -142,98 +142,61 @@
 					</p:panel>
 				</h:panelGrid>
 
-				<h:panelGrid columns="1" cellpadding="0" cellspacing="5" id="impuestosVer" style="text-align: center;" width="100%">
-					<p:dataTable value="#{flujoNotaContablePage.temaActual.impuestoTema}" var="imp" id="tableFlujoNotaContableVer" rowKeyVar="rowKey"
-						rendered="#{! empty flujoNotaContablePage.temaActual.impuestoTema}" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
-						onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'" rowClasses="row1, row2">
+			<!--	<h:panelGrid columns="1" cellpadding="0" cellspacing="5" id="impuestosVer" style="text-align: center;" width="100%">-->
+					<p:dataTable value="#{flujoNotaContablePage.temaActual.impuestoTema}" var="imp" id="tableFlujoNotaContableVer" rowIndexVar="rowIndex" widgetVar="economicActivityTable" rows="15" paginator="true"
+								 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+								 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+								 paginatorPosition="top">
 
-						<f:facet name="header">
-							<h:outputText value="Liquidación de Impuestos" />
-						</f:facet>
 
-						<p:column width="150" style="text-align: left;" rendered="#{flujoNotaContablePage.mostrarAsientoImpuesto }">
-							<f:facet name="header">
-								<h:panelGroup>
-									<h:outputText value="Asiento" />
-									<br />
-									<h:outputText value="Contable" />
-									<br />
-									<h:outputText value="Altamira" />
-								</h:panelGroup>
-							</f:facet>
+
+						<p:column headerText="Asiento Contable Altamira" width="150" style="text-align: left;" rendered="#{flujoNotaContablePage.mostrarAsientoImpuesto }">
 							<h:outputText value="#{imp.numeroAsiento}" />
 						</p:column>
 
-						<p:column width="150" style="text-align: left;">
-							<f:facet name="header">
-								<h:outputText value="Nombre" />
-							</f:facet>
+						<p:column headerText="Nombre" width="150" style="text-align: left;">
 							<h:outputText value="#{imp.impuestoTema.impuesto.nombre}" />
 						</p:column>
 
-						<p:column width="80" style="text-align: right;">
-							<f:facet name="header">
-								<h:outputText value="Porcentaje" />
-							</f:facet>
+						<p:column headerText="Porcentaje" width="80" style="text-align: right;">
 							<h:outputText value="#{imp.impuestoTema.impuesto.valor}%" />
 						</p:column>
 
-						<p:column width="140" style="text-align: right;">
-							<f:facet name="header">
-								<h:outputText value="Base" />
-							</f:facet>
+						<p:column headerText="Base" width="140" style="text-align: right;">
 							<h:outputText rendered="#{not imp.boolExonera}" value="#{imp.base}" converter="javax.faces.Double">
 								<f:convertNumber type="currency" maxFractionDigits="2" />
 							</h:outputText>
 							<h:outputText rendered="#{imp.boolExonera}" value="NA" />
 						</p:column>
 
-						<p:column width="140" style="text-align: right;">
-							<f:facet name="header">
-								<h:outputText value="Calculado" />
-							</f:facet>
+						<p:column headerText="Calculado" width="140" style="text-align: right;">
 							<h:outputText rendered="#{not imp.boolExonera}" value="#{imp.calculado}" converter="javax.faces.Double">
 								<f:convertNumber type="currency" maxFractionDigits="2" />
 							</h:outputText>
 							<h:outputText rendered="#{imp.boolExonera}" value="NA" />
 						</p:column>
 
-						<p:column width="80" style="text-align: center;">
-							<f:facet name="header">
-								<h:outputText value="Exonerar" />
-							</f:facet>
+						<p:column headerText="Exonerar" width="80" style="text-align: center;">
 							<h:outputText value="#{imp.boolExonera?'Si':'No'}" />
 						</p:column>
 					</p:dataTable>
 				</h:panelGrid>
 
-				<h:panelGrid columns="1" cellpadding="0" cellspacing="2" id="anexosVer" style="text-align: center;" width="100%">
-					<p:dataTable value="#{flujoNotaContablePage.temaActual.anexoTema}" var="anexo" id="tableAnexosVer" rowKeyVar="rowKeyAnexos"
-						rendered="#{! empty flujoNotaContablePage.temaActual.anexoTema}" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
-						onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'" rowClasses="row1, row2">
+				<!--<h:panelGrid columns="1" cellpadding="0" cellspacing="2" id="anexosVer" style="text-align: center;" width="100%">-->
+			<p:dataTable value="#{flujoNotaContablePage.temaActual.anexoTema}" var="anexo" id="tableAnexosVer" rowIndexVar="rowIndex" 										widgetVar="economicActivityTable" rows="15" paginator="true"
+						 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+						 paginatorPosition="top">
 
-						<f:facet name="header">
-							<h:outputText value="Soportes del tema" />
-						</f:facet>
-
-						<p:column width="150" style="text-align: left;">
-							<f:facet name="header">
-								<h:outputText value="Fecha" />
-							</f:facet>
+						<p:column headerText="Fecha" width="150" style="text-align: left;">
 							<h:outputText value="#{anexo.fechaHora}" />
 						</p:column>
 
-						<p:column style="text-align: right;">
-							<f:facet name="header">
-								<h:outputText value="Usuario" />
-							</f:facet>
+						<p:column headerText="Usuario" style="text-align: right;">
 							<h:outputText value="#{anexo.usuNombre}" />
 						</p:column>
 
-						<p:column style="text-align: right;">
-							<f:facet name="header">
-								<h:outputText value="Archivo" />
-							</f:facet>
+						<p:column headerText="Archivo" style="text-align: right;">
 							<p:commandLink action="#{downloadGeneralPage.download}" styleClass="bold" value="#{anexo.nombre}" target="_blank">
 								<f:param name="type2" value="#{downloadGeneralPage.SOPORTE}" assignTo="#{downloadGeneralPage.type}" />
 								<f:param name="file2" value="#{anexo.archivo}" assignTo="#{downloadGeneralPage.file}" />
@@ -241,7 +204,7 @@
 						</p:column>
 					</p:dataTable>
 				</h:panelGrid>
-			</h:panelGrid>
+			<!--</h:panelGrid>-->
 			<h:panelGrid columns="2" styleClass="center" width="100%">
 
 				<!-- seccion de <form></form>peracional -->
@@ -333,7 +296,7 @@
 					</h:panelGrid>
 				</p:dialog>
 			</h:panelGrid>
-		</h:panelGrid>
+	<!--	</h:panelGrid> -->
 	</p:dialog>
 
 	<p:dialog id="popupFlujoNotaContableVer" autosized="true" domElementAttachment="form" minWidth="700">
@@ -363,58 +326,38 @@
 				</h:panelGrid>
 			</p:panel>
 			<p:panel header="Temas del Concepto" style="width: 100%;" rendered="#{flujoNotaContablePage.nota.codigoConcepto gt 0}">
-				<p:dataTable value="#{flujoNotaContablePage.temasNotaContable}" var="temaNota" id="tableTemasVer" rendered="#{! empty flujoNotaContablePage.temasNotaContable}"
-					rowKeyVar="rowKey" width="100%" onRowMouseOver="this.style.backgroundColor='#9fbdeb'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"
-					rowClasses="row1, row2">
+				<p:dataTable value="#{flujoNotaContablePage.temasNotaContable}" var="temaNota" id="tableTemasVer" rowIndexVar="rowIndex" 										widgetVar="economicActivityTable" rows="15" paginator="true"
+							 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+							 paginatorPosition="top">
 
-					<p:column rendered="#{flujoNotaContablePage.mostrarAsiento}">
-						<f:facet name="header">
-							<h:outputText value="Asiento" />
-						</f:facet>
+					<p:column headerText="Asiento" rendered="#{flujoNotaContablePage.mostrarAsiento}">
 						<h:outputText value="#{temaNota.numeroAsiento} " />
 					</p:column>
 
-					<p:column>
-						<f:facet name="header">
-							<h:outputText value="Nombre del Tema" />
-						</f:facet>
+					<p:column headerText="Nombre del Tema">
 						<h:outputText value="#{temaNota.tema.nombre} " />
 					</p:column>
 
-					<p:column style="text-align: center;">
-						<f:facet name="header">
-							<h:outputText value="Soportes" />
-						</f:facet>
+					<p:column headerText="Soportes" style="text-align: center;">
 						<h:outputText value="#{flujoNotaContablePage.nota.concepto.soportes eq 'S'?'Si':'No'}" />
 					</p:column>
 
-					<p:column style="text-align: center;">
-						<f:facet name="header">
-							<h:outputText value="Riesgo" />
-						</f:facet>
+					<p:column headerText="Riesgo" style="text-align: center;">
 						<h:outputText value="#{temaNota.tema.riesgoOperacional eq 'S'?'Si':'No'}" />
 					</p:column>
 
-					<p:column>
-						<f:facet name="header">
-							<h:outputText value="Divisa" />
-						</f:facet>
+					<p:column headerText="Divisa">
 						<h:outputText value="#{temaNota.codigoDivisa}" />
 					</p:column>
 
-					<p:column style="text-align: right;">
-						<f:facet name="header">
-							<h:outputText value="Importe" />
-						</f:facet>
+					<p:column headerText="Importe" style="text-align: right;">
 						<h:outputText value="#{temaNota.monto}">
 							<f:convertNumber type="currency" />
 						</h:outputText>
 					</p:column>
 
-					<p:column style="text-align: center;">
-						<f:facet name="header">
-							<h:outputText value="Ver" />
-						</f:facet>
+					<p:column headerText="Ver" style="text-align: center;">
 						<h:commandButton action="#{flujoNotaContablePage.verNota}" oncomplete="#{rich:component('modalVer')}.show()" reRender="modalVer" image="/common/images/edit.png" alt="Ver"
 							rendered="#{temaNota.codigo gt 0 }">
 							<f:param name="codigoTema" value="#{temaNota.codigo}" assignTo="#{flujoNotaContablePage.codigo}" converter="javax.faces.Integer" />

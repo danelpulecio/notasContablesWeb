@@ -9,50 +9,40 @@
 
 		<!--Filtro de busqueda	-->
 		<div style="width: 990px;">
+			<h:form>
 			<h:panelGrid columns="1" width="100%">
 				<h1 align="center">Temas Inactivos por Altamira</h1>
 			</h:panelGrid> 
 		
 			<!-- Tabla de registros --> 
 			
-			<h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
-	
-				<p:dataTable value="cuentasInactivas" var="dato" id="table" rows="15" rendered="#{! empty temasCuentasInactivasPage.datos}" rowKeyVar="rowKey" width="100%" footerClass="row2" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
-					onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'" rowClasses="row1, row2">
-					<f:facet name="header">
-						<p:dataScroller fastControls="false" pageIndexVar="pageIndex" pagesVar="pages" style="color:black;" for="table" maxPages="5" renderIfSinglePage="false" page="10" id="up"
-							limitToList="true" ajaxSingle="true">
-						</p:dataScroller>
-					</f:facet>
-	
-					<p:column sortable="true" sortBy="#{dato.nombreConcepto}">
-						<f:facet name="header"><h:outputText value="Concepto" /></f:facet>
+		<!--	<h:panelGrid columns="1" width="100%" style="align:center;" id="lista">-->
+
+				<p:dataTable value="#{temasCuentasInactivasPage.datos}" var="dato" id="table" rowIndexVar="rowIndex" 															widgetVar="economicActivityTable" rows="15" paginator="true"
+							 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+							 paginatorPosition="top">
+
+
+					<p:column headerText="Concepto" sortable="true" sortBy="#{dato.nombreConcepto}">
 						<h:outputText value="#{dato.nombreConcepto}" />
 					</p:column>
-					<p:column sortable="true" sortBy="#{dato.nombre}">
-						<f:facet name="header"><h:outputText value="Tema"/></f:facet>
+					<p:column headerText="Tema" sortable="true" sortBy="#{dato.nombre}">
 						<h:outputText value="#{dato.nombre}" />
 					</p:column>
 
-					<p:column sortable="true" sortBy="#{dato.partidaContable}">
-						<f:facet name="header"><h:outputText value="Cuenta" /></f:facet>
+					<p:column headerText="Cuenta" sortable="true" sortBy="#{dato.partidaContable}">
 						<h:outputText value="#{dato.partidaContable}" />
 					</p:column>
 
-					<p:column sortable="true" sortBy="#{dato.naturaleza1}">
-						<f:facet name="header"><h:outputText value="Naturaleza"/></f:facet>
+					<p:column headerText="Naturaleza" sortable="true" sortBy="#{dato.naturaleza1}">
 						<h:outputText value="#{dato.naturaleza1}" />
 					</p:column>
 	
-					<f:facet name="footer">
-						<p:dataScroller style="color:black;" align="center" for="table" page="10" boundaryControls="hide" fastControls="hide" stepControls="hide" renderIfSinglePage="true">
-							<f:facet name="pages">
-								<h:outputText value="Visualizando del de un total de registros." />
-							</f:facet>
-						</p:dataScroller>
-					</f:facet>
+
 				</p:dataTable>
-			</h:panelGrid>
+			<!--</h:panelGrid>-->
+			</h:form>
 		</div>
 	</ui:define>
 </ui:composition>
