@@ -16,8 +16,8 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 
+@Named(value = "flujoSubPage")
 @SessionScoped
-@Named
 public class FlujoSubPage extends BasePage {
 
 	private static final long serialVersionUID = 8619143247087744064L;

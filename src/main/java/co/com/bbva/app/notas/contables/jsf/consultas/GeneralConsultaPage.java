@@ -6,6 +6,7 @@ import co.com.bbva.app.notas.contables.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public abstract class GeneralConsultaPage<T> extends GeneralPage implements IPag
 	/**
 	 * Lista de datos a mostrar en la tabla
 	 */
-	private List<T> datos = new ArrayList<T>();
+	protected List<T> datos = new ArrayList<T>();
 
 	protected abstract Collection<T> _buscar() throws Exception;
 
@@ -80,6 +81,7 @@ public abstract class GeneralConsultaPage<T> extends GeneralPage implements IPag
 	 * @return
 	 */
 	public String buscar() {
+		LOGGER.info("buscar Consulta Page datos");
 		try {
 			if (datosValidos()) {
 				datos = new ArrayList<T>(_buscar());
@@ -111,6 +113,7 @@ public abstract class GeneralConsultaPage<T> extends GeneralPage implements IPag
 		if (datos == null) {
 			datos = new ArrayList<T>();
 		}
+		LOGGER.info("datos general Consulta page {}", datos.size());
 		return datos;
 	}
 

@@ -8,14 +8,16 @@ import co.com.bbva.app.notas.contables.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.model.SelectItem;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.util.*;
 
-@SessionScoped
-@Named
+
 public class ReporteGeneralPage extends GeneralConsultaPage<Instancia> {
 
 	
@@ -23,8 +25,18 @@ public class ReporteGeneralPage extends GeneralConsultaPage<Instancia> {
 
 	private static final long serialVersionUID = -6709113217662690209L;
 
+	@PostConstruct
+	public void init() throws Exception {
+		sucursales = getSelectItemList(notasContablesManager.getCV(Sucursal.class));
+		setSucursales(new ArrayList<>(sucursales));
+		LOGGER.info("postConstructo sucursales {}", sucursales.size());
+		divisas = getSelectItemList(notasContablesManager.getCV(Divisa.class));
+		setDivisas(new ArrayList<>(divisas));
+		LOGGER.info("postConstructo sucursales {}", divisas.size());
+	}
+
 	// variables para combos
-	protected List<SelectItem> sucursales = new ArrayList<SelectItem>();
+	private List<SelectItem> sucursales = new ArrayList<SelectItem>();
 	protected List<SelectItem> conceptos = new ArrayList<SelectItem>();
 	protected List<SelectItem> temas = new ArrayList<SelectItem>();
 	protected List<SelectItem> tiposEvento = new ArrayList<SelectItem>();
@@ -66,6 +78,7 @@ public class ReporteGeneralPage extends GeneralConsultaPage<Instancia> {
 		if (sucursales == null || sucursales.isEmpty()) {
 			try {
 				sucursales = getSelectItemList(notasContablesManager.getCV(Sucursal.class));
+				LOGGER.info("Init sucursales if {}", sucursales.size());
 				conceptos = getSelectItemList(notasContablesManager.getCV(Concepto.class), false);
 				temas = new ArrayList<SelectItem>();
 				tiposEvento = getSelectItemList(notasContablesManager.getCV(TipoEvento.class), false);
@@ -126,6 +139,7 @@ public class ReporteGeneralPage extends GeneralConsultaPage<Instancia> {
 
 	@Override
 	protected Collection<Instancia> _buscar() throws Exception {
+		LOGGER.info("Buscar ReporteGeneralPage");
 		Collection<Instancia> instancias = new ArrayList<Instancia>();
 		java.sql.Date desdeD = desde != null ? new java.sql.Date(desde.getTime()) : null;
 		java.sql.Date hastaD = hasta != null ? new java.sql.Date(hasta.getTime()) : null;
@@ -196,10 +210,12 @@ public class ReporteGeneralPage extends GeneralConsultaPage<Instancia> {
 	}
 
 	public List<SelectItem> getSucursales() {
+		LOGGER.info("getSucursales {}", sucursales.size());
 		return sucursales;
 	}
 
 	public void setSucursales(List<SelectItem> sucursales) {
+		LOGGER.info("SetSucursales");
 		this.sucursales = sucursales;
 	}
 
@@ -228,6 +244,7 @@ public class ReporteGeneralPage extends GeneralConsultaPage<Instancia> {
 	}
 
 	public List<SelectItem> getDivisas() {
+		LOGGER.info("Divisa {}", divisas.size());
 		return divisas;
 	}
 
@@ -236,19 +253,23 @@ public class ReporteGeneralPage extends GeneralConsultaPage<Instancia> {
 	}
 
 	public String getSucOrigen() {
+		LOGGER.info("getSucOrigen {}", sucOrigen);
 		return sucOrigen;
 	}
 
 	public void setSucOrigen(String sucOrigen) {
 		this.sucOrigen = sucOrigen == null ? "" : sucOrigen;
+		LOGGER.info("setSucOrigen {}", sucOrigen);
 	}
 
 	public String getSucDestino() {
+		LOGGER.info("getSucDestino {}", sucDestino);
 		return sucDestino;
 	}
 
 	public void setSucDestino(String sucDestino) {
 		this.sucDestino = sucDestino == null ? "" : sucDestino;
+		LOGGER.info("setSucDestino {}", sucDestino);
 	}
 
 	public Integer getConcepto() {

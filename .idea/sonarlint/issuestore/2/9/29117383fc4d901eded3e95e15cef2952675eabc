@@ -1,19 +1,22 @@
 
-g	java:S1122"FDefine and throw a dedicated exception instead of using a generic one.(İøİÿÿÿÿÿÿ8áâôö¾1
+g	java:S1122"FDefine and throw a dedicated exception instead of using a generic one.(İøİÿÿÿÿÿÿ8¾ÂÇĞÆ1
 £
-java:S11862"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(İøİÿÿÿÿÿÿ8åâôö¾1
+java:S11862"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(İøİÿÿÿÿÿÿ8ÂÂÇĞÆ1
 d
-java:S6813$"BRemove this field injection and use constructor injection instead.(Áº–üÿÿÿÿ8åâôö¾1
-o	java:S1002"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(İøİÿÿÿÿÿÿ8çâôö¾1
+java:S6813$"BRemove this field injection and use constructor injection instead.(Áº–üÿÿÿÿ8ÂÂÇĞÆ1
+o	java:S1002"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(İøİÿÿÿÿÿÿ8ÄÂÇĞÆ1
 
-java:S11302"lRemove the declaration of thrown exception 'java.lang.Exception', as it cannot be thrown from method's body.(İøİÿÿÿÿÿÿ8çâôö¾1
-]	java:S125L"<This block of commented-out lines of code should be removed.(‹„ÍÚÿÿÿÿÿ8èâôö¾1
-X	java:S125a"<This block of commented-out lines of code should be removed.(†®ƒ8èâôö¾1
-X	java:S125n"<This block of commented-out lines of code should be removed.(®õÉ8èâôö¾1
-]	java:S125{"<This block of commented-out lines of code should be removed.(¤í Ìüÿÿÿÿ8èâôö¾1
+java:S11302"lRemove the declaration of thrown exception 'java.lang.Exception', as it cannot be thrown from method's body.(İøİÿÿÿÿÿÿ8ÄÂÇĞÆ1
+]	java:S125L"<This block of commented-out lines of code should be removed.(‹„ÍÚÿÿÿÿÿ8ÅÂÇĞÆ1
+X	java:S125a"<This block of commented-out lines of code should be removed.(†®ƒ8ÅÂÇĞÆ1
+X	java:S125n"<This block of commented-out lines of code should be removed.(®õÉ8ÅÂÇĞÆ1
+]	java:S125{"<This block of commented-out lines of code should be removed.(¤í Ìüÿÿÿÿ8ÅÂÇĞÆ1
 p
-java:S1128"NRemove this unused import 'co.com.bbva.app.notas.contables.dto.UsuarioModulo'.(—Ş’şÿÿÿÿ8¡¬÷¾1
+java:S1128"NRemove this unused import 'co.com.bbva.app.notas.contables.dto.UsuarioModulo'.(—Ş’şÿÿÿÿ8ÆÂÇĞÆ1
 k
-java:S1128"IRemove this unused import 'co.com.bbva.app.notas.contables.jsf.BasePage'.(´„÷Çÿÿÿÿÿ8¡¬÷¾1
+java:S1128"IRemove this unused import 'co.com.bbva.app.notas.contables.jsf.BasePage'.(´„÷Çÿÿÿÿÿ8ÆÂÇĞÆ1
+X
+java:S1128
+";Remove this unused import 'javax.annotation.PostConstruct'.(›ÅÁ8öÂ–ÑÆ1
 L
-java:S11442"*Remove this unused private "_init" method.(İøİÿÿÿÿÿÿ8éâôö¾1
+java:S11442"*Remove this unused private "_init" method.(İøİÿÿÿÿÿÿ8ÆÂÇĞÆ1

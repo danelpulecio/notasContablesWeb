@@ -1,20 +1,20 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-				xmlns:ui="http://java.sun.com/jsf/facelets"
-				xmlns:h="http://java.sun.com/jsf/html"
-				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:p="http://primefaces.org/ui"
-				template="../../common/template.xhtml">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../common/template.xhtml">
     <ui:param name="title" value="Terceros"/>
     <ui:define name="body">
 
         <!-- Formulario Modal de creacion y edicion de nuevos registros-->
-<!--        <p:dialog id="editor" 
-			widgetVar="editorDlg" 
-			resizable="false" modal="true" 
-			closable="true" draggable="true" showEffect="fade" hideEffect="fade">-->
+        <!--        <p:dialog id="editor"
+                    widgetVar="editorDlg"
+                    resizable="false" modal="true"
+                    closable="true" draggable="true" showEffect="fade" hideEffect="fade">-->
 
         <p:dialog id="editor" widgetVar="editorDlg" resizable="false" modal="true" closable="true" draggable="true"
-        showEffect="fade" hideEffect="fade">
+                  showEffect="fade" hideEffect="fade">
             <f:facet name="header">
                 <h:panelGroup><h:outputText value="Formulario"/></h:panelGroup>
             </f:facet>
@@ -70,7 +70,7 @@
                                 <h:selectOneMenu value="#{terceroPage.objActual.pais}" immediate="true">
                                     <f:selectItems value="#{terceroPage.paises}"/>
                                     <p:ajax event="change" action="#{terceroPage.cargarDepartamentos }"
-                                                 update="municipioPanel,departamentosPanel"/>
+                                            update="municipioPanel,departamentosPanel"/>
                                 </h:selectOneMenu>
 
                                 <h:panelGroup id="departamentosPanel">
@@ -79,7 +79,7 @@
                                                      rendered="#{!empty terceroPage.departamentos}" immediate="true">
                                         <f:selectItems value="#{terceroPage.departamentos}"/>
                                         <p:ajax event="change" action="#{terceroPage.cargarMunicipios }"
-                                                     update="municipioPanel"/>
+                                                update="municipioPanel"/>
                                     </h:selectOneMenu>
                                 </h:panelGroup>
                                 <h:panelGroup id="municipioPanel">
@@ -140,7 +140,7 @@
                                 <h:panelGrid columns="2" id="tipoActividad">
                                     <h:inputText value="#{terceroPage.actividad}" size="70"/>
                                     <p:commandButton action="#{terceroPage.buscarActividades}"
-                                                       value="Buscar Actividad" update="tipoActividad"/>
+                                                     value="Buscar Actividad" update="tipoActividad"/>
                                     <h:selectOneMenu value="#{terceroPage.objActual.actividadEconomica}"
                                                      style="max-width: 400px;" immediate="true" id="paramActividad"
                                                      disabledClass="disabledItem"
@@ -157,12 +157,13 @@
                 <!-- Seccion de mensajes y botones de envio y cancelacion-->
                 <h:panelGrid columns="2" styleClass="center" width="100%">
                     <p:commandButton action="#{terceroPage.guardar}" update="informacion,lista" value="Guardar"
-                                       oncomplete="if (#{terceroPage.ocultarPopupGuardar}) PF('editorDlg').hide();"/>
+                                     oncomplete="if (#{terceroPage.ocultarPopupGuardar}) PF('editorDlg').hide();"/>
                     <p:commandButton oncomplete="PF('popupCancelDlg').show();" value="Cancelar"/>
-                    
+
 
                     <!-- Modal para cancelacion de datos de riesgo-->
-                    <p:dialog id="popupCancel" widgetVar="popupCancelDlg" autosized="true" domElementAttachment="form" width="450">
+                    <p:dialog id="popupCancel" widgetVar="popupCancelDlg" autosized="true" domElementAttachment="form"
+                              width="450">
                         <f:facet name="header">
                             <h:panelGroup><h:outputText styleClass="bold"
                                                         value="Confirmación de cancelación de registro"/></h:panelGroup>
@@ -178,10 +179,10 @@
                             <!-- Seccion de mensajes y botones de envio y cancelacion-->
                             <h:panelGrid columns="2" styleClass="center" width="100%">
                                 <p:commandButton action="#{terceroPage.cancelar}" value="Si"
-                                                   oncomplete="PF('editorDlg').hide(); PF('popupCancelDlg').hide();"
-                                                   update="editor"/>
+                                                 oncomplete="PF('editorDlg').hide(); PF('popupCancelDlg').hide();"
+                                                 update="editor"/>
                                 <p:commandButton onclick="PF('popupCancelDlg').hide();" value="No"
-                                                   immediate="true"/>
+                                                 immediate="true"/>
                             </h:panelGrid>
                         </h:panelGrid>
                     </p:dialog>
@@ -201,9 +202,9 @@
                     <h:panelGrid columns="1" width="380">
                         <!-- Funcionalidad para abrir el editor y crear un nuevo registro-->
                         <p:commandButton action="#{terceroPage.editar}"
-                                           oncomplete="PF('editorDlg').show();" update="editor, informacion"
-                                           value="Nuevo Registro"
-                                           rendered="#{terceroPage.usuarioLogueado.rolActual.codigo eq 6 or  terceroPage.usuarioLogueado.rolActual.codigo eq 7}"/>
+                                         oncomplete="PF('editorDlg').show();" update="editor, informacion"
+                                         value="Nuevo Registro"
+                                         rendered="#{terceroPage.usuarioLogueado.rolActual.codigo eq 6 or  terceroPage.usuarioLogueado.rolActual.codigo eq 7}"/>
                     </h:panelGrid>
 
                     <h:panelGrid columns="2">
@@ -221,20 +222,23 @@
             <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
 
                 <p:dataTable value="#{terceroPage.datos}" var="dato" id="table" rows="15"
-                                rendered="#{! empty terceroPage.datos}" rowKeyVar="rowKey"
-                                footerClass="row2" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
-                                onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"
-                                rowClasses="row1, row2">
-                    <f:facet name="header">
-                        <p:dataScroller fastControls="false" pageIndexVar="pageIndex" pagesVar="pages"
-                                           style="color:black;" for="table" maxPages="5" renderIfSinglePage="false"
-                                           page="#{terceroPage.scrollPage}" id="up" update="lista, filtro"
-                                           limitToList="true">
-						</p:dataScroller>
-                    </f:facet>
+                             rendered="#{! empty terceroPage.datos}" rowIndexVar="rowIndex"
+                             footerClass="row2" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
+                             onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"
+                             rowClasses="row1, row2"  paginator="true"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                             paginatorPosition="top">
+<!--                    <f:facet name="header">-->
+                        <!--                        <p:dataScroller fastControls="false" pageIndexVar="pageIndex" pagesVar="pages"-->
+                        <!--                                           style="color:black;" for="table" maxPages="5" renderIfSinglePage="false"-->
+                        <!--                                           page="#{terceroPage.scrollPage}" id="up" update="lista, filtro"-->
+                        <!--                                           limitToList="true">-->
+                        <!--						</p:dataScroller>-->
+<!--                    </f:facet>-->
                     <p:column>
                         <f:facet name="header"><h:outputText value="Fila"/></f:facet>
-                        <h:outputText value="#{rowKey+1}"/>
+                        <h:outputText value="#{rowIndex+1}"/>
                     </p:column>
                     <p:column sortable="true" sortBy="#{dato.tipoIdentificacionStr}">
                         <f:facet name="header">
@@ -314,16 +318,6 @@
                     </p:column>
 
                     <!--	Se muestra la información de la cantidad de registros y la pagina actual	-->
-                    <f:facet name="footer">
-                        <p:dataScroller style="color:black;" align="center" for="table"
-                                           page="#{terceroPage.scrollPage}" boundaryControls="hide" fastControls="hide"
-                                           stepControls="hide">
-                            <f:facet name="pages">
-                                <h:outputText
-                                        value="Visualizando del #{((pageIndex-1)*15)+1 } al #{(pages!=pageIndex)?(pageIndex*15):terceroPage.totalFilas} de un total de #{terceroPage.totalFilas} registros."/>
-                            </f:facet>
-						</p:dataScroller>
-                    </f:facet>
                 </p:dataTable>
             </h:panelGrid>
         </div>

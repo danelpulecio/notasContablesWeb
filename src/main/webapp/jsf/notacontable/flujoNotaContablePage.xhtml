@@ -4,7 +4,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
-                template="../../common/template.xhtml">
+                >
     <!-- Formulario de flujo-->
 
 
@@ -44,11 +44,11 @@
                                 <h:panelGrid columns="3" cellpadding="0" cellspacing="0">
                                     <h:outputText value="#{flujoNotaContablePage.temaActual.fechaContable}"/>
                                     <p:spacer width="200"/>
-                                    <h:commandButton value="Riesgo Operacional"
-                                                     oncomplete="#{p:remoteCommand('modalRiesgoVer')}.show()"
-                                                     reRender="modalRiesgoVer"
-                                                     rendered="#{flujoNotaContablePage.temaActual.tema.riesgoOperacional eq 'S'}"
-                                                     ajaxSingle="true"/>
+                                    <h:commandButton value="Riesgo Operacional"/>
+<!--                                                     oncomplete="#{p:remoteCommand('modalRiesgoVer')}.show()"-->
+<!--                                                     reRender="modalRiesgoVer"-->
+<!--                                                     rendered="#{flujoNotaContablePage.temaActual.tema.riesgoOperacional eq 'S'}"-->
+<!--                                                     ajaxSingle="true"/>-->
                                 </h:panelGrid>
 
                                 <h:outputText value="Descripción" styleClass="propertie"/>
