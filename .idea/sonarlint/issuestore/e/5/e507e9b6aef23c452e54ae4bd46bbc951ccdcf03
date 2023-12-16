@@ -14,4 +14,3 @@ java:S6813"BRemove this field injection and use constructor injection instead.
 java:S5993."9Change the visibility of this constructor to "protected".(³Ì›¶þÿÿÿÿ8Õ··ÑÆ1
 M
 java:S1948!"+Make "validador" transient or serializable.(¥æã·úÿÿÿÿ8×··ÑÆ1
-L	java:S106m"+Replace this use of System.out by a logger.(©þêÜúÿÿÿÿ8ï··ÑÆ1

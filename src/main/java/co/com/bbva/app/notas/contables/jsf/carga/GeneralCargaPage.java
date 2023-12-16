@@ -61,8 +61,10 @@ public abstract class GeneralCargaPage<T extends CommonVO<T>> extends GeneralPag
 	 */
 	public GeneralCargaPage(boolean buscarTodos) {
 		super();
+		LOGGER.info("this.buscarTodos :::: inicial >>> ", this.buscarTodos);
 		this.buscarTodos = buscarTodos;
 		_init();
+		LOGGER.info("this.buscarTodos ::::  >>> ", this.buscarTodos);
 		try {
 			long time = System.currentTimeMillis();
 			//println("Ejecutando el constructor de la clase " + getClass().getSimpleName());
@@ -121,7 +123,7 @@ public abstract class GeneralCargaPage<T extends CommonVO<T>> extends GeneralPag
 			// solo se realiza la busqueda si se est en la ultima fase del ciclo de vida de faces
 			if (esUltimaFase()) {
 				datos = new ArrayList<T>(_buscarTodos());
-				LOGGER.info("datos cargados busqueda {} ", datos);
+				LOGGER.info("datos cargados busqueda {} ");
 			}
 		} catch (final Exception e) {
 			LOGGER.error("Error al realizar la consulta", e);
@@ -142,17 +144,22 @@ public abstract class GeneralCargaPage<T extends CommonVO<T>> extends GeneralPag
 	 */
 	public String buscarPorFiltro() {
 		try {
+			
+			LOGGER.info(":::: param :::::: >> " + this.param + " :::: buscarTodos ::: " + this.buscarTodos);
+			
 			if (!buscarTodos) {
-				if (param == null || param.isEmpty()) {
+				if (this.param == null || this.param.isEmpty()) {
 					nuevoMensaje(FacesMessage.SEVERITY_WARN, "El filtro no puede ser vacio" + param);
+					LOGGER.info("EN EL if (param == null || param.isEmpty()) .....");
 					return _getPage();
 				} else if (param != null && param.length() < 4) {
-					nuevoMensaje(FacesMessage.SEVERITY_WARN, "Se deben ingresar mnimo 4 caracteres en el filtro de bsqueda " + param);
+					nuevoMensaje(FacesMessage.SEVERITY_WARN, "Se deben ingresar minimo 4 caracteres en el filtro de busqueda " + param);
+					LOGGER.info("EN EL else if (param != null && param.length() < 4) { .....");
 					return _getPage();
 				}
 			}
 			long time = System.currentTimeMillis();
-			LOGGER.info("Ejecutando el mtodo buscarPorFiltro");
+			LOGGER.info("Ejecutando el metodo buscarPorFiltro");
 			datos = new ArrayList<T>(_buscarPorFiltro());
 			if (datos.isEmpty()) {
 				nuevoMensaje(FacesMessage.SEVERITY_INFO, "No se encontraron resultados para el filtro: " + param);

@@ -162,8 +162,7 @@
 
 
                     <!-- Modal para cancelacion de datos de riesgo-->
-                    <p:dialog id="popupCancel" widgetVar="popupCancelDlg" autosized="true" domElementAttachment="form"
-                              width="450">
+                    <p:dialog id="popupCancel" widgetVar="popupCancelDlg" autosized="true" domElementAttachment="form" width="450">
                         <f:facet name="header">
                             <h:panelGroup><h:outputText styleClass="bold"
                                                         value="Confirmación de cancelación de registro"/></h:panelGroup>
@@ -222,23 +221,20 @@
             <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
 
                 <p:dataTable value="#{terceroPage.datos}" var="dato" id="table" rows="15"
-                             rendered="#{! empty terceroPage.datos}" rowIndexVar="rowIndex"
+                             rendered="#{! empty terceroPage.datos}" rowKeyVar="rowKey"
                              footerClass="row2" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
                              onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"
-                             rowClasses="row1, row2"  paginator="true"
-                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
-                             paginatorPosition="top">
-<!--                    <f:facet name="header">-->
-                        <!--                        <p:dataScroller fastControls="false" pageIndexVar="pageIndex" pagesVar="pages"-->
-                        <!--                                           style="color:black;" for="table" maxPages="5" renderIfSinglePage="false"-->
-                        <!--                                           page="#{terceroPage.scrollPage}" id="up" update="lista, filtro"-->
-                        <!--                                           limitToList="true">-->
-                        <!--						</p:dataScroller>-->
-<!--                    </f:facet>-->
+                             rowClasses="row1, row2">
+                    <f:facet name="header">
+                        <p:dataScroller fastControls="false" pageIndexVar="pageIndex" pagesVar="pages"
+                                        style="color:black;" for="table" maxPages="5" renderIfSinglePage="false"
+                                        page="#{terceroPage.scrollPage}" id="up" update="lista, filtro"
+                                        limitToList="true">
+                        </p:dataScroller>
+                    </f:facet>
                     <p:column>
                         <f:facet name="header"><h:outputText value="Fila"/></f:facet>
-                        <h:outputText value="#{rowIndex+1}"/>
+                        <h:outputText value="#{rowKey+1}"/>
                     </p:column>
                     <p:column sortable="true" sortBy="#{dato.tipoIdentificacionStr}">
                         <f:facet name="header">
@@ -318,6 +314,16 @@
                     </p:column>
 
                     <!--	Se muestra la información de la cantidad de registros y la pagina actual	-->
+                    <f:facet name="footer">
+                        <p:dataScroller style="color:black;" align="center" for="table"
+                                        page="#{terceroPage.scrollPage}" boundaryControls="hide" fastControls="hide"
+                                        stepControls="hide">
+                            <f:facet name="pages">
+                                <h:outputText
+                                        value="Visualizando del #{((pageIndex-1)*15)+1 } al #{(pages!=pageIndex)?(pageIndex*15):terceroPage.totalFilas} de un total de #{terceroPage.totalFilas} registros."/>
+                            </f:facet>
+                        </p:dataScroller>
+                    </f:facet>
                 </p:dataTable>
             </h:panelGrid>
         </div>
