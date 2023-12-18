@@ -343,3 +343,11 @@ u
 Esrc/main/java/co/com/bbva/app/notas/contables/carga/dto/Sucursal.java,b/a/baba50d2c9247678a8ddbf79c71e6699049d2ed7
 o
 ?src/main/java/co/com/bbva/app/notas/contables/dao/SuperDAO.java,7/c/7ce838cbe40edf17661df5df7ffaa1a327ab363e
+a
+1src/main/webapp/WEB-INF/classes/config.properties,5/f/5faa59497692077d405df0832b5f7b01a6f614a5
+a
+1src/main/webapp/WEB-INF/classes/ConfigLoader.java,2/e/2ec25560605ecf4651466d91f3ed3b17b44f00db
+v
+Fsrc/main/java/co/com/bbva/app/notas/contables/config/ConfigLoader.java,5/7/57b65fdcd0f6bd5bd5c278becba68187e473668e
+X
+(src/main/webapp/config/ConfigLoader.java,0/5/05814ea1219f09877acca7811594c6bbc1732dfb

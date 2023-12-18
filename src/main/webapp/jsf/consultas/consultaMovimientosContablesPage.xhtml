@@ -11,6 +11,15 @@
         <!--        <ui:include src="../notacontable/flujoNotaContablePage.xhtml"/>-->
         <!--        <ui:include src="../notacontable/flujoNotaContableLibrePage.xhtml"/>-->
         <!--        <ui:include src="../notacontable/flujoNotaRefCrucePage.xhtml"/>-->
+        <script>
+            function abrirAcordeon() {
+                PF('miAcordeon').getJQ().accordion('option', 'active', 0);
+            }
+
+            function cerrarAcordeon() {
+                PF('miAcordeon').getJQ().accordion('option', 'active', false);
+            }
+        </script>
 
         <!--Filtro de busqueda	-->
         <div style="width: 990px;">
@@ -21,7 +30,7 @@
 
                 <!-- Panel de opciones -->
                 <h:panelGrid id="informacion" columns="1" width="100%" cellpadding="0" cellspacing="0">
-                    <p:accordionPanel>
+                    <p:accordionPanel widgetVar="miAcordeon" activeIndex="0">
                         <p:tab title="Filtro de búsqueda" closable="#{ empty consultaMovimientosContablesPage.datos }">
                             <h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="5">
                                 <h:panelGrid columns="2" id="filtro">
@@ -58,9 +67,10 @@
                                 </h:panelGrid>
 
                                 <h:panelGrid columns="1" styleClass="center">
-                                    <h:commandButton reRender="informacion,lista" value="Buscar"
-                                                     action="#{consultaMovimientosContablesPage.buscar}"/>
+                                    <p:commandButton reRender="informacion,lista" value="Buscar"
+                                                     action="#{consultaMovimientosContablesPage.buscar}" oncomplete="cerrarAcordeon();"/>
                                 </h:panelGrid>
+                                <p:commandButton value="Abrir Acordeón" onclick="cerrarAcordeon();" />
                             </h:panelGrid>
                         </p:tab>
                     </p:accordionPanel>
@@ -76,7 +86,7 @@
                     <f:param name="type1"/>
                     <f:param name="file1"/>
                 </p:commandLink>
-                <p:dataTable value="#{consultaMovimientosContablesPage.datos}" var="dato" id="table"
+                <p:dataTable value="#{consultaMovimientosContablesPage.datos}" rendered="#{!empty consultaMovimientosContablesPage.datos}" var="dato" id="table"
                              rowIndexVar="rowIndex"
                              widgetVar="economicActivityTable" rows="15" paginator="true"
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
