@@ -24,7 +24,7 @@
     <context-param>
         <description>Indica si se deja activa la validacion por LDAP (0 -> Inactiva, 1 -> Activa)</description>
         <param-name>ACTIVAR_LDAP</param-name>
-        <param-value>1</param-value>
+        <param-value>0</param-value>
     </context-param>
     <context-param>
     <param-name>primefaces.LEGACY_WIDGET_NAMESPACE</param-name>

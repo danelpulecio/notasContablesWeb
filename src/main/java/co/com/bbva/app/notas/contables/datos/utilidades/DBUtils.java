@@ -121,23 +121,38 @@ public class DBUtils<T> {
 
 	protected void setearValor(final Object o, String param, final Object value, String originalParam) {
 		if (value != null) {
+			LOGGER.info(" ::: O :::: " + o + " :::: param ::::" + param + " ::: VALUE :::: "+ value + " :::: originalParam ::  " + originalParam );
 			Method m = null;
 			try {
+				LOGGER.info(":::::: EN DBUtils PASO 1:::::: ");
 				if (param.contains(BREAKER)) {
+					LOGGER.info(":::::: EN DBUtils PASO 2:::::: ");
 					final String[] params = param.split(BREAKER);
+					LOGGER.info(":::::: EN DBUtils PASO 3:::::: ");
 					final String string = params[0];
+					LOGGER.info(":::::: EN DBUtils PASO 4:::::: ");
 					m = o.getClass().getMethod(PREFIJO_GET + string.substring(0, 1).toUpperCase() + string.substring(1));
+					LOGGER.info(":::::: EN DBUtils PASO 5:::::: ");
 					final Object n = m.invoke(o);
+					LOGGER.info(":::::: EN DBUtils PASO 6:::::: ");
 					param = param.replace(string + BREAKER, "");
+					LOGGER.info(":::::: EN DBUtils PASO 7:::::: ");
 					
 					setearValor(n, param, value, originalParam);
 				} else {
+					LOGGER.info(":::::: EN DBUtils PASO 8:::::: ");
 					final Class<?> tipo = o.getClass().getDeclaredField(param).getType();
+					LOGGER.info(":::::: EN DBUtils PASO 9:::::: ");
 					String key = o.getClass().getSimpleName() + BREAKER + originalParam;
+					LOGGER.info(":::::: EN DBUtils PASO 10:::::: ");
 					if (!cache.containsKey(key)) {
+						LOGGER.info(":::::: EN DBUtils PASO 11:::::: ");
 						final String fieldName = param.substring(0, 1).toUpperCase() + param.substring(1);
+						LOGGER.info(":::::: EN DBUtils PASO 12:::::: ");
 						m = o.getClass().getMethod(PREFIJO_SET + fieldName, tipo);
+						LOGGER.info(":::::: EN DBUtils PASO 13:::::: ");
 						cache.put(key, m);
+						LOGGER.info(":::::: EN DBUtils PASO 14:::::: ");
 					} else {
 						m = cache.get(key);
 					}

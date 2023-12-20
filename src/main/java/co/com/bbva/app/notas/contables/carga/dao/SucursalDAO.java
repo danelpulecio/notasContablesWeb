@@ -6,6 +6,9 @@ package co.com.bbva.app.notas.contables.carga.dao;
 
 import co.com.bbva.app.notas.contables.carga.dto.Sucursal;
 import co.com.bbva.app.notas.contables.dao.CommonDAO;
+import co.com.bbva.app.notas.contables.jsf.BasePage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -13,6 +16,8 @@ import java.util.Collection;
 import java.util.Map;
 
 public class SucursalDAO extends CommonDAO<Sucursal> {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(SucursalDAO.class);
 
 	private static String cs_COLUMNAS = "CODIGO, NOMBRE, TIPO_CENTRO, CODIGO_CENTRO_SUPERIOR, NOMBRE_CENTRO_SUPERIOR, ESTADO_CARGA, FECHA_ULTIMA_CARGA";
 
@@ -49,7 +54,9 @@ public class SucursalDAO extends CommonDAO<Sucursal> {
 	}
 
 	public Collection<Sucursal> findAll() throws Exception {
-		return findByGeneral(SQL_SELECT_ALL_SENTENCE);
+		Collection<Sucursal> sucursalesDb = findByGeneral(SQL_SELECT_ALL_SENTENCE);
+		LOGGER.info("sucursales db {}",sucursalesDb);
+		return sucursalesDb;
 	}
 
 	public Collection<Sucursal> findByEstadoCarga(String estadoCarga) throws Exception {
@@ -62,7 +69,10 @@ public class SucursalDAO extends CommonDAO<Sucursal> {
 	}
 
 	public Collection<Sucursal> findBy(String palabraClave) throws Exception {
-		return findByKeyWord(SQL_SELECT_BY_SENTENCE, palabraClave, NUMERO_COLUMNAS_BUSQUEDA);
+		LOGGER.info("Palabra clave sucursal {}",palabraClave);
+		Collection<Sucursal> responseSucursalesDB = findByKeyWord(SQL_SELECT_BY_SENTENCE, palabraClave, NUMERO_COLUMNAS_BUSQUEDA);
+		LOGGER.info("sucursales db {}",responseSucursalesDB);
+		return responseSucursalesDB;
 	}
 
 	public Map<String, String> getCVSucursal() throws Exception {

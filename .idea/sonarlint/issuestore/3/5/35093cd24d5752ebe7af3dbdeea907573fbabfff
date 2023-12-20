@@ -1,16 +1,26 @@
 
 {
-java:S2293B"YReplace the type specification in this constructor call with the diamond operator ("<>").(À¿¨Ûúÿÿÿÿ8¬¿ôˆÄ1
+java:S2293D"YReplace the type specification in this constructor call with the diamond operator ("<>").(À¿¨Ûúÿÿÿÿ8¬¿ôˆÄ1
 {
-java:S2293C"YReplace the type specification in this constructor call with the diamond operator ("<>").(İıÙÛùÿÿÿÿ8¬¿ôˆÄ1
+java:S2293E"YReplace the type specification in this constructor call with the diamond operator ("<>").(İıÙÛùÿÿÿÿ8¬¿ôˆÄ1
 w
-java:S2293ï"YReplace the type specification in this constructor call with the diamond operator ("<>").(êğñô8¬¿ôˆÄ1
+java:S2293ñ"YReplace the type specification in this constructor call with the diamond operator ("<>").(êğñô8¬¿ôˆÄ1
+m
+java:S1192e"KDefine a constant instead of duplicating this literal "globalForm" 4 times.(Ø¯íµşÿÿÿÿ8šö½­Æ1
 ‘
-java:S1319Ñ"sThe return type of this method should be an interface such as "SortedMap" rather than the implementation "TreeMap".(¡ÊÇû8¬¿ôˆÄ1
+java:S1319Ó"sThe return type of this method should be an interface such as "SortedMap" rather than the implementation "TreeMap".(¡ÊÇû8¬¿ôˆÄ1
 …
-java:S1319Õ"gThe type of "menu" should be an interface such as "SortedMap" rather than the implementation "TreeMap".(Œ¯ëò8¬¿ôˆÄ1
+java:S1319×"gThe type of "menu" should be an interface such as "SortedMap" rather than the implementation "TreeMap".(Œ¯ëò8¬¿ôˆÄ1
 
-java:S1319í"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(İ•ÉÍ8­¿ôˆÄ1
+java:S1319ï"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(İ•ÉÍ8­¿ôˆÄ1
+f
+java:S2259¥"HA "NullPointerException" could be thrown; "menuButton" is nullable here.(ÙóŠŞ8÷½­Æ1
+e
+java:S2259o"CA "NullPointerException" could be thrown; "model" is nullable here.(ÚÖİßúÿÿÿÿ8‡÷½­Æ1
+e
+java:S2259k"CA "NullPointerException" could be thrown; "model" is nullable here.(ÙÕ³”úÿÿÿÿ8Œ÷½­Æ1
+f
+java:S2259"HA "NullPointerException" could be thrown; "menuButton" is nullable here.(ÙóŠŞ8„÷½­Æ1
 |
 java:S14508"ZRemove the "application" field and declare it as a local variable in the relevant methods.(£šß™şÿÿÿÿ8¾¿ôˆÄ1
 D
@@ -19,12 +29,23 @@ O
 java:S19488"-Make "application" transient or serializable.(£šß™şÿÿÿÿ8¾¿ôˆÄ1
 I
 java:S1948:",Make "menuButton" transient or serializable.(¸Ã—³8¾¿ôˆÄ1
-W	java:S125P"<This block of commented-out lines of code should be removed.(»Ô8Â¿ôˆÄ1
+W	java:S125R"<This block of commented-out lines of code should be removed.(»Ô8Â¿ôˆÄ1
+V
+java:S2864Y"4Iterate over the "entrySet" instead of the "keySet".(ğ·´ğÿÿÿÿÿ8¦÷½­Æ1
+`
+java:S1155o">Use isEmpty() to check whether the collection is empty or not.(ÚÖİßúÿÿÿÿ8©÷½­Æ1
+X	java:S125x"<This block of commented-out lines of code should be removed.(Ø±Ó¶8«÷½­Æ1
+W
+java:S2864†"4Iterate over the "entrySet" instead of the "keySet".(ğ·´ğÿÿÿÿÿ8¬÷½­Æ1
+W
+java:S2864š"4Iterate over the "entrySet" instead of the "keySet".(ğ·´ğÿÿÿÿÿ8¯÷½­Æ1
+W
+java:S2864ò"4Iterate over the "entrySet" instead of the "keySet".(ğ·´ğÿÿÿÿÿ8±÷½­Æ1
 ]
-java:S1854ı":Remove this useless assignment to local variable "params".(‚ÛÇûÿÿÿÿ8Ç¿ôˆÄ1
+java:S1854ÿ":Remove this useless assignment to local variable "params".(‚ÛÇûÿÿÿÿ8Ç¿ôˆÄ1
 N
-java:S1481ı"+Remove this unused "params" local variable.(‚ÛÇûÿÿÿÿ8Ç¿ôˆÄ1
-Y	java:S125ş"<This block of commented-out lines of code should be removed.(Ò™Ë«8Ç¿ôˆÄ1
-^	java:S125‡"<This block of commented-out lines of code should be removed.(ÈëÛ­ùÿÿÿÿ8È¿ôˆÄ1
+java:S1481ÿ"+Remove this unused "params" local variable.(‚ÛÇûÿÿÿÿ8Ç¿ôˆÄ1
+Y	java:S125€"<This block of commented-out lines of code should be removed.(Ò™Ë«8Ç¿ôˆÄ1
+^	java:S125‰"<This block of commented-out lines of code should be removed.(ÈëÛ­ùÿÿÿÿ8È¿ôˆÄ1
 L
 java:S1068)"*Remove this unused "LOGGER" private field.(‡¸×ÿÿÿÿÿ8È¿ôˆÄ1

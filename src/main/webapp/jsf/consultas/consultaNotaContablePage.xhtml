@@ -3,21 +3,23 @@
 				xmlns:h="http://java.sun.com/jsf/html"
 				xmlns:f="http://java.sun.com/jsf/core"
 				xmlns:p="http://primefaces.org/ui"
-				template="../../WEB-INF/layouts/template.xhtml">
+				template="../../common/template.xhtml">
 	<ui:param name="title" value="Consulta de notas contables" />
 	<ui:define name="body">
 
-		<!--<ui:include src="../common/flujoSubPage.xhtml" />
+		<ui:include src="../common/flujoSubPage.xhtml" />
 		<ui:include src="../notacontable/flujoNotaContablePage.xhtml" />
 		<ui:include src="../notacontable/flujoNotaContableLibrePage.xhtml"/>
-		<ui:include src="../notacontable/flujoNotaRefCrucePage.xhtml"/>-->
+		<ui:include src="../notacontable/flujoNotaRefCrucePage.xhtml"/>
 		
 		<!-- gp12833 - aseguramiento anexos -->
-		<!--<ui:include src="../notacontable/flujoAnexoNotaContablePage.xhtml"/>-->
+		<ui:include src="../notacontable/flujoAnexoNotaContablePage.xhtml"/>
 		<!-- fin gp12833 - aseguramiento anexos -->
 		
 		<!--Filtro de busqueda	-->
-		<div style="width: 990px;"><h:panelGrid columns="1" width="100%">
+		<div style="width: 990px;">
+			<h:form>
+			<h:panelGrid columns="1" width="100%">
 			<h1 align="center">Notas Contables</h1>
 		</h:panelGrid> 
 		<!-- Panel de opciones --> 
@@ -27,23 +29,23 @@
 				<h:panelGrid columns="2" width="100%" cellpadding="0" cellspacing="5">
 
 					<h:panelGrid columns="2">
-						<h:outputText value="Criterio" />
-						<h:selectOneMenu  immediate="true">
+						<h:outputText  value="Criterio" />
+						<h:selectOneMenu value="#{consultaNotaContablePage.criterio}" immediate="true">
 							<!--<a4j:support event="onchange" ajaxSingle="true" reRender="filtro" />-->
 							<f:selectItems  />
 						</h:selectOneMenu>
 					</h:panelGrid>
 					<h:panelGrid columns="2" id="filtro">
-						<h:outputText value="Número de radicación"  />
-						<h:inputText   />
-						<h:outputText value="Asiento contable Altamira"  />
-						<h:inputText  />
-						<h:outputText value="Fecha Radicación Módulo"  />
-						<p:calendar  />
+						<h:outputText value="Número de radicación" rendered="#{consultaNotaContablePage.criterio eq '1'}" />
+						<h:inputText value="#{consultaNotaContablePage.numRadicacion}" rendered="#{consultaNotaContablePage.criterio eq '1'}" />
+						<h:outputText value="Asiento contable Altamira" rendered="#{consultaNotaContablePage.criterio eq '2'}" />
+						<h:inputText value="#{consultaNotaContablePage.asientoContable}" rendered="#{consultaNotaContablePage.criterio eq '2'}" />
+						<h:outputText value="Fecha Radicación Módulo" rendered="#{!(consultaNotaContablePage.criterio eq '1')}" />
+						<p:calendar value="#{consultaNotaContablePage.fecha}" rendered="#{!(consultaNotaContablePage.criterio eq '1')}" />
 					</h:panelGrid>
 
 					<h:panelGrid columns="1" styleClass="center">
-						<h:commandButton reRender="informacion,lista" value="Buscar" />
+						<h:commandButton action="#{consultaNotaContablePage.buscar}" reRender="informacion,lista" value="Buscar" />
 					</h:panelGrid>
 				</h:panelGrid>
 			</p:accordionPanel>
@@ -53,131 +55,77 @@
 		
 		<!-- Tabla de registros --> 
 		
-		<h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
+	<!--	<h:panelGrid columns="1" width="100%" style="align:center;" id="lista"> -->
 
-			<p:dataTable var="dato" id="table" rows="15" rowKeyVar="rowKey" width="100%" footerClass="row2" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
-				onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'" rowClasses="row1, row2">
-				<f:facet name="header">
-					<p:dataScroller fastControls="false" pageIndexVar="pageIndex" pagesVar="pages" style="color:black;" for="table" maxPages="5" renderIfSinglePage="false" id="up" reRender="lista, filtro"
-						limitToList="true" ajaxSingle="true">
-					</p:dataScroller>
-				</f:facet>
+			<p:dataTable value="#{consultaNotaContablePage.datos}" var="dato" id="table" rowIndexVar="rowIndex"
+						 widgetVar="economicActivityTable" rows="15" paginator="true"
+						 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+						 paginatorPosition="top">
 
-				<p:column sortable="true" sortBy="#{dato.NC.numeroRadicacion}">
-					<f:facet name="header">
-						<h:panelGroup>
-							<h:outputText value="Número" /><br /><h:outputText value="Radicación" />
-						</h:panelGroup>
-					</f:facet>
+				<p:column headerText="Número Radicación" sortable="true" sortBy="#{dato.NC.numeroRadicacion}">
 					<h:outputText value="#{dato.NC.numeroRadicacion}" />
 				</p:column>
-				<p:column sortable="true" sortBy="#{dato.sucursal.codigo}">
-					<f:facet name="header">
-						<h:outputText value="Sucursal Origen" />
-					</f:facet>
+				<p:column headerText="Sucursal Origen" sortable="true" sortBy="#{dato.sucursal.codigo}">
 					<h:panelGrid columns="2">
 						<h:outputText value="#{dato.sucursal.codigo}" />
 						<h:outputText value="#{dato.sucursal.nombre}" />
 					</h:panelGrid>
 				</p:column>
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="Concepto" />
-					</f:facet>
-					<h:outputText  />
+				<p:column headerText="Concepto">
+					<h:outputText value="#{dato.NC.tipoNota eq 'C' ? 'Referencia de Cruce' : (dato.NC.tipoNota eq 'R' ? dato.concepto.nombre : 'Contabilidad Libre')}" />
 				</p:column>
-				<p:column sortable="true" sortBy="#{dato.usuMod.codigoEmpleado}">
-					<f:facet name="header">
-						<h:panelGroup>
-							<h:outputText value="Usuario" /><br /><h:outputText value="Asignado" />
-						</h:panelGroup>
-					</f:facet>
+				<p:column headerText="Usuario Asignado" sortable="true" sortBy="#{dato.usuMod.codigoEmpleado}">
 					<h:outputText value="#{dato.usuMod.codigoEmpleado}" />
 				</p:column>
-				<p:column sortable="true" sortBy="#{dato.usuMod.codigoAreaModificado}">
-					<f:facet name="header">
-						<h:outputText value="Área" />
-					</f:facet>
+				<p:column headerText="Área" sortable="true" sortBy="#{dato.usuMod.codigoAreaModificado}">
 					<h:panelGrid columns="2">
 						<h:outputText value="#{dato.usuMod.codigoAreaModificado}" />
 						<h:outputText value="#{dato.usuMod.nombreAreaModificado}" />
 					</h:panelGrid>
 				</p:column>
-				<p:column sortable="true" sortBy="#{dato.rol.nombre}">
-					<f:facet name="header">
-						<h:outputText value="Perfil" />
-					</f:facet>
+				<p:column headerText="Perfil" sortable="true" sortBy="#{dato.rol.nombre}">
 					<h:outputText value="#{dato.rol.nombre}" />
 				</p:column>
-				<p:column sortable="true" sortBy="#{dato.ultimaActualizacionTs}">
-					<f:facet name="header">
-						<h:panelGroup>
-							<h:outputText value="Fecha" />
-							<br />
-							<h:outputText value="Asignación" />
-						</h:panelGroup>
-					</f:facet>
+				<p:column headerText="Fecha Asignación" sortable="true" sortBy="#{dato.ultimaActualizacionTs}">
 					<h:outputText value="#{dato.ultimaActualizacionTs}">
 						<f:convertDateTime timeZone="GMT-5" locale="es" pattern="dd-MMM-yyyy hh:mm:ss" />
 					</h:outputText>
 				</p:column>
-				<p:column sortable="true" sortBy="#{dato.nombreEstado}">
-					<f:facet name="header">
-						<h:outputText value="Estado" />
-					</f:facet>
+				<p:column headerText="Estado" sortable="true" sortBy="#{dato.nombreEstado}">
 					<h:outputText value="#{dato.nombreEstado}" />
 				</p:column>
 
 				<!-- gp12833 - aseguramiento anexos -->
-				<p:column style="text-align: center;" sortable="true" sortBy="#{dato.nombreEstado}" >
-					<f:facet name="header">
-						<h:outputText value="Recuperar Anexos" />
-					</f:facet>
-					<h:commandButton value="Ver" reRender="popupAnexosNotaContableVer">
-						<f:param name="numRadicadoNotaVer"   />
+				<p:column headerText="Recuperar Anexos" style="text-align: center;" sortable="true" sortBy="#{dato.nombreEstado}" rendered="#{consultaNotaContablePage.procesoRecuperarAnexos}">
+					<h:commandButton value="Ver" oncomplete="#{rich:component('popupAnexosNotaContableVer')}.show()" action="#{flujoNotaContablePage.cargarAnexos}" reRender="popupAnexosNotaContableVer">
+						<f:param name="numRadicadoNotaVer" value="#{dato.NC.numeroRadicacion}" assignTo="#{flujoNotaContablePage.numeroRadicacion}"  />
 					</h:commandButton>
 				</p:column>
 				<!-- FIN gp12833 - aseguramiento anexos -->
-				
-				<p:column style="text-align: center;"
-					>
-					<f:facet name="header">
-						<h:panelGroup>
-							<h:outputText value="Ver Nota" /><br/>
-							<h:outputText value="Contable" />
-						</h:panelGroup>
-					</f:facet>
-					<h:commandButton value="Ver" reRender="popupFlujoNotaContableVer" >
-						<f:param name="codNotaVer" converter="javax.faces.Integer" />
+
+				<p:column headerText="Ver Nota Contable" style="text-align: center;"
+							 rendered="#{!consultaNotaContablePage.procesoRecuperarAnexos}">
+					<h:commandButton value="Ver" oncomplete="#{rich:component('popupFlujoNotaContableVer')}.show()" action="#{flujoNotaContablePage.consultarFlujo}" reRender="popupFlujoNotaContableVer" rendered="#{dato.NC.tipoNota eq 'R'}">
+						<f:param name="codNotaVer" value="#{dato.codigoNotaContable}" assignTo="#{flujoNotaContablePage.nota.codigo}" converter="javax.faces.Integer" />
 					</h:commandButton>
-					<h:commandButton value="Ver" reRender="notaContableLibreVer" >
-						<f:param name="codNotaLibreVer" converter="javax.faces.Integer" />
+					<h:commandButton value="Ver" oncomplete="#{rich:component('notaContableLibreVer')}.show()" action="#{flujoNotaContableLibrePage.consultarFlujo}" reRender="notaContableLibreVer" rendered="#{dato.NC.tipoNota eq 'L'}">
+						<f:param name="codNotaLibreVer" value="#{dato.codigoNotaContable}" assignTo="#{flujoNotaContableLibrePage.nota.codigo}" converter="javax.faces.Integer" />
 					</h:commandButton>
-					<h:commandButton value="Ver" reRender="popupFlujoNotaContableRefCruceVer" >
-						<f:param name="codNotaRefCruceVer" converter="javax.faces.Integer" />
+					<h:commandButton value="Ver" oncomplete="#{rich:component('popupFlujoNotaContableRefCruceVer')}.show()" action="#{notaRefCrucePage.consultarFlujo}" reRender="popupFlujoNotaContableRefCruceVer" rendered="#{dato.NC.tipoNota eq 'C'}">
+						<f:param name="codNotaRefCruceVer" value="#{dato.codigoNotaContable}" assignTo="#{notaRefCrucePage.nota.codigo}" converter="javax.faces.Integer" />
 					</h:commandButton>
 				</p:column>
-				<p:column style="text-align: center;"
-					>
-					<f:facet name="header">
-						<h:panelGroup>
-							<h:outputText value="Flujo Nota" /><br/>
-							<h:outputText value="Contable" />
-						</h:panelGroup>
-					</f:facet>
-					<h:commandButton value="Consultar" reRender="popupFlujo" >
-						<f:param name="codConsultar" converter="javax.faces.Integer" />
+				<p:column headerText="Flujo Nota Contable" style="text-align: center;"
+							 rendered="#{!consultaNotaContablePage.procesoRecuperarAnexos}">
+					<h:commandButton value="Consultar" oncomplete="#{rich:component('popupFlujo')}.show()" action="#{flujoSubPage.consultarFlujo}" reRender="popupFlujo" >
+						<f:param name="codConsultar" value="#{dato.codigo}" assignTo="#{flujoSubPage.actividadRealizada.codigoInstancia}" converter="javax.faces.Integer" />
 					</h:commandButton>
 				</p:column>
 
-				<f:facet name="footer">
-					<p:dataScroller style="color:black;" align="center" for="table"  boundaryControls="hide" fastControls="hide" stepControls="hide" renderIfSinglePage="true">
-						<f:facet name="pages">
-							<h:outputText  />
-						</f:facet>
-					</p:dataScroller>
-				</f:facet>
-			</p:dataTable>
-		</h:panelGrid></div>
+			   </p:dataTable>
+		<!--</h:panelGrid>-->
+			</h:form>
+		</div>
 	</ui:define>
 </ui:composition>

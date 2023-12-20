@@ -57,6 +57,8 @@ public class UsuarioLogueado implements Serializable {
 
 	private MenuModel menuButton = new DefaultMenuModel();
 
+	public UsuarioLogueado() {
+	}
 
 	public UsuarioLogueado(UsuarioModulo usuario) {
 

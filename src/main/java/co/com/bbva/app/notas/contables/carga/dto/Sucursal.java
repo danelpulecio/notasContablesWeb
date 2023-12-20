@@ -81,4 +81,16 @@ public class Sucursal extends CommonVO<Sucursal> implements java.io.Serializable
 		return codigo;
 	}
 
+	@Override
+	public String toString() {
+		return "Sucursal{" +
+				"codigo='" + codigo + '\'' +
+				", nombre='" + nombre + '\'' +
+				", tipoCentro='" + tipoCentro + '\'' +
+				", codigoCentroSuperior='" + codigoCentroSuperior + '\'' +
+				", nombreCentroSuperior='" + nombreCentroSuperior + '\'' +
+				", estadoCarga='" + estadoCarga + '\'' +
+				", fechaUltimaCarga=" + fechaUltimaCarga +
+				'}';
+	}
 }

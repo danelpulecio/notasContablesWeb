@@ -6,6 +6,7 @@ import co.com.bbva.app.notas.contables.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -24,6 +25,12 @@ public abstract class GeneralConsultaPage<T> extends GeneralPage implements IPag
 	private static final long serialVersionUID = 4721210842962039085L;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(GeneralConsultaPage.class);
+	
+	@PostConstruct
+	public void init() throws Exception {
+	    setDatos(new ArrayList<>(_buscar()));
+	    LOGGER.info("postConstructo buscar datos movimientos{}", getDatos().size());
+	}
 
 //	Session session = getContablesSessionBean().getSessionTrace();
 
@@ -39,7 +46,7 @@ public abstract class GeneralConsultaPage<T> extends GeneralPage implements IPag
 	/**
 	 * Lista de datos a mostrar en la tabla
 	 */
-	private List<T> datos = new ArrayList<T>();
+	protected List<T> datos = new ArrayList<T>();
 
 	protected abstract Collection<T> _buscar() throws Exception;
 
@@ -80,12 +87,14 @@ public abstract class GeneralConsultaPage<T> extends GeneralPage implements IPag
 	 * @return
 	 */
 	public String buscar() {
+		LOGGER.info("buscar Consulta Page datos");
 		try {
-			if (datosValidos()) {
+//			if (datosValidos()) {
 				datos = new ArrayList<T>(_buscar());
-			} else {
-				datos = new ArrayList<T>();
-			}
+//			} else {
+//				datos = new ArrayList<T>();
+//			}
+			LOGGER.info("ARAY DATOS :::::: " + datos.size());
 			if (datos.isEmpty()) {
 				nuevoMensaje(FacesMessage.SEVERITY_INFO, "No se encontraron resultados para las caractersticas seleccionadas");
 			}
@@ -111,6 +120,7 @@ public abstract class GeneralConsultaPage<T> extends GeneralPage implements IPag
 		if (datos == null) {
 			datos = new ArrayList<T>();
 		}
+		LOGGER.info("datos general Consulta page {}", datos.size());
 		return datos;
 	}
 

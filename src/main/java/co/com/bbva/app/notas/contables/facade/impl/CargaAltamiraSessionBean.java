@@ -895,21 +895,25 @@ public class CargaAltamiraSessionBean implements CargaAltamiraSession {
 
 	@Override
 	public Collection<Sucursal> getSucursales() throws Exception {
+		LOGGER.info("getAllSucursales");
 		return sucursalDAO.findAll();
 	}
 
 	@Override
 	public Collection<Sucursal> searchSucursal(String palabraClave) throws Exception {
+		LOGGER.info("getSucursalesByFilter {}", palabraClave);
 		return sucursalDAO.findBy(palabraClave);
 	}
 
 	@Override
 	public Collection<Sucursal> getSucursalesPorTiposCentro(String tiposCentro) throws Exception {
+		LOGGER.info("getSucursalesByCenterType {}", tiposCentro);
 		return sucursalDAO.findByTipoCentro(tiposCentro);
 	}
 
 	@Override
 	public Collection<Sucursal> getSucursalesPorConcepto(Concepto concepto) throws Exception, RemoteException, NamingException, CreateException {
+		LOGGER.info("getSucursalesByConcept {}", concepto);
 		NotasContablesSessionBean notasContablesManager = new NotasContablesSessionBean();
 		ArrayList<Sucursal> sucursales;
 		Sucursal sucursal = new Sucursal();

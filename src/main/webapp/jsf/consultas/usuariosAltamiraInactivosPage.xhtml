@@ -3,84 +3,58 @@
 				xmlns:h="http://java.sun.com/jsf/html"
 				xmlns:f="http://java.sun.com/jsf/core"
 				xmlns:p="http://primefaces.org/ui"
-				template="../../WEB-INF/layouts/template.xhtml">
+				template="../../common/template.xhtml">
 	<ui:param name="title" value="Usuarios Altamira Inactivos" />
 	<ui:define name="body">
 
 		<!--Filtro de busqueda	-->
 		<div style="width: 990px;">
+			<h:form>
 			<h:panelGrid columns="1" width="100%">
 				<h1 align="center">Usuarios Altamira Inactivos</h1>
 			</h:panelGrid> 
 		
 			<!-- Tabla de registros --> 
 			
-			<h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
-	
-				<p:dataTable value="10" var="dato" id="table" rows="15" rowKeyVar="rowKey" width="100%" footerClass="row2" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
-					onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'" rowClasses="row1, row2">
-					<f:facet name="header">
-						<p:dataScroller fastControls="false" pageIndexVar="pageIndex" pagesVar="pages" style="color:black;" for="table" maxPages="5" renderIfSinglePage="false" page="#{usuariosAltamiraInactivosPage.scrollPage}" id="up"
-							limitToList="true" ajaxSingle="true">
-						</p:dataScroller>
-					</f:facet>
-	
-					<p:column sortable="true" sortBy="#{dato.usuAlt.codigoEmpleado}">
-						<f:facet name="header">
-							<h:panelGroup><h:outputText value="Código" /><br /><h:outputText value="Empleado" /></h:panelGroup>
-						</f:facet>
+			<!--<h:panelGrid columns="1" width="100%" style="align:center;" id="lista">-->
+
+				<p:dataTable value="#{usuariosAltamiraInactivosPage.datos}" var="dato" id="table" rowIndexVar="rowIndex" 														widgetVar="economicActivityTable" rows="15" paginator="true"
+							 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+							 paginatorPosition="top">
+
+					<p:column headerText="Código Empleado" sortable="true" sortBy="#{dato.usuAlt.codigoEmpleado}">
 						<h:outputText value="codigoEmpleado" />
 					</p:column>
-					<p:column sortable="true" sortBy="#{dato.usuAlt.nombreEmpleado}">
-						<f:facet name="header">
-							<h:panelGroup><h:outputText value="Nombre" /><br /><h:outputText value="Empleado" /></h:panelGroup>
-						</f:facet>
+					<p:column headerText="Nombre Empleado" sortable="true" sortBy="#{dato.usuAlt.nombreEmpleado}">
 						<h:outputText value="nombreEmpleado" />
 					</p:column>
 
-					<p:column sortable="true" sortBy="#{dato.codigoAreaModificado}">
-						<f:facet name="header">
-							<h:panelGroup><h:outputText value="Código" /><br /><h:outputText value="Área" /></h:panelGroup>
-						</f:facet>
+					<p:column headerText="Código Área" sortable="true" sortBy="#{dato.codigoAreaModificado}">
 						<h:outputText value="codigoAreaModificado" />
 					</p:column>
 
-					<p:column sortable="true" sortBy="#{dato.nombreAreaModificado}">
-						<f:facet name="header">
-							<h:panelGroup><h:outputText value="Nombre" /><br /><h:outputText value="Área" /></h:panelGroup>
-						</f:facet>
+					<p:column headerText="Nombre Área" sortable="true" sortBy="#{dato.nombreAreaModificado}">
 						<h:outputText value="nombreAreaModificado" />
 					</p:column>
 
-					<p:column sortable="true" sortBy="#{dato.codigoPerfilModificado}">
-						<f:facet name="header">
-							<h:panelGroup><h:outputText value="Código" /><br /><h:outputText value="Perfil" /></h:panelGroup>
-						</f:facet>
+					<p:column headerText="Código Perfil" sortable="true" sortBy="#{dato.codigoPerfilModificado}">
 						<h:outputText value="codigoPerfilModificado" />
 					</p:column>
 
-					<p:column sortable="true" sortBy="#{dato.nombrePerfilModificado}">
-						<f:facet name="header">
-							<h:panelGroup><h:outputText value="Nombre" /><br /><h:outputText value="Perfil" /></h:panelGroup>
-						</f:facet>
+					<p:column headerText="Nombre Perfil" sortable="true" sortBy="#{dato.nombrePerfilModificado}">
 						<h:outputText value="nombrePerfilModificado" />
 					</p:column>
 
-					<p:column sortable="true" sortBy="#{dato.Rol}">
-						<f:facet name="header"><h:outputText value="Rol"/></f:facet>
+					<p:column headerText="Rol" sortable="true" sortBy="#{dato.Rol}">
 						<h:outputText value="rol.nombre" />
 					</p:column>
 
 	
-					<f:facet name="footer">
-						<p:dataScroller style="color:black;" align="center" for="table" page="10" boundaryControls="hide" fastControls="hide" stepControls="hide" renderIfSinglePage="true">
-							<f:facet name="pages">
-								<h:outputText value="Visualizando del de un total de registros." />
-							</f:facet>
-						</p:dataScroller>
-					</f:facet>
+
 				</p:dataTable>
-			</h:panelGrid>
+			<!--</h:panelGrid>-->
+			</h:form>
 		</div>
 	</ui:define>
 </ui:composition>

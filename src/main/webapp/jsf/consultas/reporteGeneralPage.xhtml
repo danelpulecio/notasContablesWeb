@@ -3,17 +3,19 @@
 				xmlns:h="http://java.sun.com/jsf/html"
 				xmlns:f="http://java.sun.com/jsf/core"
 				xmlns:p="http://primefaces.org/ui"
-				template="../../WEB-INF/layouts/template.xhtml">
+				template="../../common/template.xhtml">
 	<ui:param name="title" value="Reporte General" />
 	<ui:define name="body">
 
-	<!--	<ui:include src="../common/flujoSubPage.xhtml" />
+	<ui:include src="../common/flujoSubPage.xhtml" />
 		<ui:include src="../notacontable/flujoNotaContablePage.xhtml" />
 		<ui:include src="../notacontable/flujoNotaContableLibrePage.xhtml"/>
-		<ui:include src="../notacontable/flujoNotaRefCrucePage.xhtml"/>-->
+		<ui:include src="../notacontable/flujoNotaRefCrucePage.xhtml"/>
 
 		<!--Filtro de busqueda	-->
 		<div style="width: 990px;">
+
+			<h:form>
 			<h:panelGrid columns="1" width="100%">
 				<h1 align="center">Reporte General</h1>
 			</h:panelGrid> 
@@ -115,45 +117,30 @@
 			
 			<!-- Tabla de registros --> 
 			
-			<h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
+			<!--<h:panelGrid columns="1" width="100%" style="align:center;" id="lista">-->
 				<h:commandButton value="Generar Archivo Excel" reRender="lista"/>
 				<p:commandLink styleClass="bold" value="excelFileName" target="_blank" >
 					<f:param name="type1" value="REPORTE_EXCEL" />
 					<f:param name="file1" value="excelFileName" />
 				</p:commandLink>
-				<p:dataTable value="datos" var="dato" id="table" rows="15" rowKeyVar="rowKey" width="100%" footerClass="row2" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
-					onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'" rowClasses="row1, row2">
-					<f:facet name="header">
-						<p:dataScroller fastControls="false" pageIndexVar="pageIndex" pagesVar="pages" style="color:black;" for="table" maxPages="5" renderIfSinglePage="false" page="10" id="up" reRender="lista, filtro"
-							limitToList="true" ajaxSingle="true">
-						</p:dataScroller>
-					</f:facet>
-	
-					<p:column sortable="true" sortBy="#{dato.NC.numeroRadicacion}">
-						<f:facet name="header">
-							<h:panelGroup><h:outputText value="Número" /><br /><h:outputText value="Radicación" /></h:panelGroup>
-						</f:facet>
+			<p:dataTable value="#{reporteGeneralPage.datos}" var="dato" id="table" rowIndexVar="rowIndex" 																	widgetVar="economicActivityTable" rows="15" paginator="true"
+						 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+						 paginatorPosition="top">
+
+					<p:column headerText="Número Radicación" sortable="true" sortBy="#{dato.NC.numeroRadicacion}">
 						<h:outputText value="numeroRadicacion" />
 					</p:column>
-					<p:column sortable="true" sortBy="#{dato.sucursal.codigo}">
-						<f:facet name="header">
-							<h:outputText value="Sucursal Origen" />
-						</f:facet>
+					<p:column headerText="Sucursal Origen" sortable="true" sortBy="#{dato.sucursal.codigo}">
 						<h:panelGrid columns="2">
 							<h:outputText value="codigo}" />
 							<h:outputText value="nombre}" />
 						</h:panelGrid>
 					</p:column>
-					<p:column sortable="true" sortBy="#{dato.estado}">
-						<f:facet name="header">
-							<h:outputText value="Estado" />
-						</f:facet>
+					<p:column headerText="Estado" sortable="true" sortBy="#{dato.estado}">
 						<h:outputText value="nombreEstado}" />
 					</p:column>
-					<p:column style="text-align: right;">
-						<f:facet name="header">
-							<h:outputText value="Detalle de la nota contable" />
-						</f:facet>
+					<p:column headerText="Detalle de la nota contable" style="text-align: right;">
 						<h:panelGrid columns="1" width="100%">
 							<p:dataTable style="border-width: 0px; background-color: transparent;" var="tema" value=".NC.temas">
 								<p:column style="border-width: 0px; text-align: left;" >
@@ -220,13 +207,7 @@
 						</h:panelGrid>
 					</p:column>
 	
-					<p:column style="text-align: center;">
-						<f:facet name="header">
-							<h:panelGroup>
-								<h:outputText value="Ver Nota" /><br/>
-								<h:outputText value="Contable" />
-							</h:panelGroup>
-						</f:facet>
+					<p:column headerText="Ver Nota Contable" style="text-align: center;">
 						<h:commandButton value="Ver"  reRender="popupFlujoNotaContableVer" >
 							<f:param name="codNotaVer" converter="javax.faces.Integer" />
 						</h:commandButton>
@@ -237,27 +218,16 @@
 							<f:param name="codNotaRefCruceVer"  converter="javax.faces.Integer" />
 						</h:commandButton>
 					</p:column>
-					<p:column style="text-align: center;">
-						<f:facet name="header">
-							<h:panelGroup>
-								<h:outputText value="Flujo Nota" /><br/>
-								<h:outputText value="Contable" />
-							</h:panelGroup>
-						</f:facet>
+					<p:column headerText="Flujo Nota Contable" style="text-align: center;">
 						<h:commandButton value="Consultar" reRender="popupFlujo" >
 							<f:param name="codConsultar"  converter="javax.faces.Integer" />
 						</h:commandButton>
 					</p:column>
 	
-					<f:facet name="footer">
-						<p:dataScroller style="color:black;" align="center" for="table" boundaryControls="hide" fastControls="hide" stepControls="hide" renderIfSinglePage="true">
-							<f:facet name="pages">
-								<h:outputText value="Visualizando del  de un total de registros." />
-							</f:facet>
-						</p:dataScroller>
-					</f:facet>
+
 				</p:dataTable>
-			</h:panelGrid>
+			<!--</h:panelGrid>-->
+			</h:form>
 		</div>
 	</ui:define>
 </ui:composition>
