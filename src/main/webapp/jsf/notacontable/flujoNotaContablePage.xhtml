@@ -19,7 +19,6 @@
             <h:panelGroup>
                 <h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink"
                                 id="hidelinkCerrarEditorVer" height="20" width="20"/>
-                <p:remoteCommand for="modalVer" attachTo="hidelinkCerrarEditorVer" operation="hide" event="onclick"/>
             </h:panelGroup>
         </f:facet>
 
@@ -45,10 +44,6 @@
                                     <h:outputText value="#{flujoNotaContablePage.temaActual.fechaContable}"/>
                                     <p:spacer width="200"/>
                                     <h:commandButton value="Riesgo Operacional"/>
-<!--                                                     oncomplete="#{p:remoteCommand('modalRiesgoVer')}.show()"-->
-<!--                                                     reRender="modalRiesgoVer"-->
-<!--                                                     rendered="#{flujoNotaContablePage.temaActual.tema.riesgoOperacional eq 'S'}"-->
-<!--                                                     ajaxSingle="true"/>-->
                                 </h:panelGrid>
 
                                 <h:outputText value="Descripción" styleClass="propertie"/>
@@ -284,8 +279,6 @@
                                 <h:graphicImage value="../../../common/images/close.png" alt="cerrar"
                                                 styleClass="hidelink"
                                                 id="hidelinkCerrarModalRiesgoVer" height="20" width="20"/>
-                                <p:remoteCommand for="modalRiesgoVer" attachTo="hidelinkCerrarModalRiesgoVer"
-                                                 operation="hide" event="onclick"/>
                             </h:panelGroup>
                         </f:facet>
                         <h:panelGrid width="550">
@@ -400,7 +393,7 @@
         </h:form>
     </p:dialog>
 
-    <p:dialog id="popupFlujoNotaContableVer" autosized="true" domElementAttachment="form" minWidth="700">
+    <p:dialog id="popupFlujoNotaContableVer" widgetVar="popupFlujoNotaContableVer" autosized="true" domElementAttachment="form" minWidth="700">
         <f:facet name="header">
             <h:panelGroup>
                 <h:outputText value="Nota Cotable"/>
@@ -410,8 +403,6 @@
             <h:panelGroup>
                 <h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink"
                                 id="hidelinkCerrarFlujoVer" height="20" width="20"/>
-                <p:remoteCommand for="popupFlujoNotaContableVer" attachTo="hidelinkCerrarFlujoVer" operation="hide"
-                                 event="onclick"/>
             </h:panelGroup>
         </f:facet>
         <!--Formulario principal	-->
@@ -465,13 +456,7 @@
                     </p:column>
 
                     <p:column headerText="Ver" style="text-align: center;">
-                        <h:commandButton action="#{flujoNotaContablePage.verNota}"
-                                         oncomplete="#{p:remoteCommand('modalVer')}.show()" reRender="modalVer"
-                                         image="/common/images/edit.png" alt="Ver"
-                                         rendered="#{temaNota.codigo gt 0 }">
-                            <f:param name="codigoTema" value="#{temaNota.codigo}"
-                                     assignTo="#{flujoNotaContablePage.codigo}" converter="javax.faces.Integer"/>
-                        </h:commandButton>
+                    	<h:commandButton alt="ver"/>
                     </p:column>
                     <f:facet name="footer">
                         <p:columnGroup rendered="#{! empty flujoNotaContablePage.totalesNota}">
@@ -531,22 +516,16 @@
                     <!-- Seccion de mensajes y botones de envio y cancelacion-->
                     <ui:include src="../../common/mensajes.xhtml"/>
                     <h:panelGrid columns="2" styleClass="center" width="100%">
-                        <h:commandButton action="#{flujoNotaContablePage.rechazar}" value="Confirmar rechazo"
-                                         oncomplete="if (#{flujoNotaContablePage.ocultarPopupAnular}) {#{p:remoteCommand('popupRechazoVer')}.hide();#{p:remoteCommand('popupFlujoNotaContableVer')}.hide();}"
-                                         reRender="lista,opcionesVer"/>
-                        <h:commandButton onclick="#{p:remoteCommand('popupRechazoVer')}.hide()" value="Cancelar"/>
+                    <h:commandButton value="Confirmar rechazo"/>
+                    <h:commandButton value="Cancelar"/>
                     </h:panelGrid>
                 </h:panelGrid>
             </p:dialog>
 
             <ui:include src="../../common/mensajes.xhtml"/>
             <h:panelGrid id="opcionesVer" columns="2" styleClass="center" width="100%">
-                <h:commandButton action="#{flujoNotaContablePage.aprobar}"
-                                 oncomplete="if (#{flujoNotaContablePage.ocultarPopupAprobar}) #{p:remoteCommand('popupFlujoNotaContableVer')}.hide()"
-                                 reRender="lista,opcionesVer" value="Aprobar"
-                                 rendered="#{flujoNotaContablePage.nota.puedeAprobar}"/>
-                <h:commandButton value="Rechazar" rendered="#{flujoNotaContablePage.nota.puedeRechazar}"
-                                 oncomplete="#{p:remoteCommand('popupRechazoVer')}.show()"/>
+            	<h:commandButton  value="Aprobar"/>
+            	<h:commandButton  value="Rechazar"/>
             </h:panelGrid>
         </h:panelGrid>
         </h:form>

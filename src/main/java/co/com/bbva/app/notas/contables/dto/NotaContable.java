@@ -2,6 +2,7 @@ package co.com.bbva.app.notas.contables.dto;
 
 import co.com.bbva.app.notas.contables.carga.dto.RechazoSalida;
 import co.com.bbva.app.notas.contables.carga.dto.Sucursal;
+import co.com.bbva.app.notas.contables.jsf.carga.GeneralCargaPage;
 import oracle.sql.TIMESTAMP;
 
 import java.sql.Timestamp;
@@ -9,14 +10,19 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class NotaContable extends CommonVO<NotaContable> implements java.io.Serializable {
 
 	private static final long serialVersionUID = -7165741470107519284L;
 	public static final String NORMAL = "R";
 	public static final String CRUCE_REFERENCIA = "C";
 	public static final String LIBRE = "L";
+	private static final Logger LOGGER = LoggerFactory.getLogger(NotaContable.class);
 
 	private Number codigo = 0;
+	//private TIMESTAMP fechaRegistroModulo = null;
 	private TIMESTAMP fechaRegistroModulo = null;
 	private TIMESTAMP fechaRegistroAltamira = null;
 	private String codigoSucursalOrigen = "";
@@ -182,6 +188,8 @@ public class NotaContable extends CommonVO<NotaContable> implements java.io.Seri
 	public void setFechaRegistroAltamira(TIMESTAMP fechaRegistroAltamira) {
 		this.fechaRegistroAltamira = fechaRegistroAltamira;
 	}
+
+
 
 	public Sucursal getSucursalOrigen() {
 		return sucursalOrigen;

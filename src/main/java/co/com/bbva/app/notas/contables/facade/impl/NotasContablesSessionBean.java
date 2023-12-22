@@ -644,12 +644,12 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 
 	private void addRiesgoOperacionalTemaNotaContable(Connection con, RiesgoOperacional row, int codigoNotaContable, int codigoTemaNotaContable, int codigoUsuario) throws Exception {
 		RiesgoOperacional notaContableTemaRiesgo = new RiesgoOperacional();
-	
+
 		notaContableTemaRiesgo = row;
-		
+
 		notaContableTemaRiesgo.setCodigoNotaContable(codigoNotaContable);
 		notaContableTemaRiesgo.setCodigoTemaNotaContable(codigoTemaNotaContable);
-		
+
 		addNotaContableTemaRiesgo(con, notaContableTemaRiesgo, codigoUsuario);
 	}
 
@@ -802,7 +802,7 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 		}
 	}
 
-	
+
 
 	/*
 	 * Nombre DTO: Anexo Nombre DAO: anexoDAO Plural: Anexos
@@ -871,7 +871,7 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 			instancia.setUltimaActualizacionTs(DateUtils.getTimestamp());
 
 			idRow = addInstancia(con, instancia, codigoUsuario);
-			
+
 			addTemasNotaContable(con, temasNotaContable, codigoNotaContable, codigoUsuario);
 			addTotalesNotaContable(con, totalesNotaContable, codigoNotaContable, codigoUsuario);
 		}
@@ -904,7 +904,7 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 
 			if (codigoUsuarioAsignadoInstancia != 0) {
 				notaContableDAO.update(con, row, codigoUsuario);
-				
+
 				deleteTemasPorNotaContable(con, row.getCodigo().intValue(), codigoUsuario);
 				deleteTotalesPorNotaContable(con, row.getCodigo().intValue(), codigoUsuario);
 				deleteAnexosPorNotaContable(con, row.getCodigo().intValue(), codigoUsuario);
@@ -1091,50 +1091,50 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 	@Override
 	public void reasignarMisPendientes(Connection con, int codigoUsuario, int codUsuarioLogueado) throws Exception {
 		//try {
-			Collection<Instancia> instanciasUsuario = new ArrayList<Instancia>();
-			Iterator<Instancia> itInstanciasUsuario;
-			Instancia instancia = new Instancia();
-			ArrayList<UsuarioModulo> usuariosIguales = new ArrayList<UsuarioModulo>();
-			UsuarioModulo usuarioModulo = new UsuarioModulo();
-			int numeroUsuariosIguales = 0;
-			int countUsuarios = 1;
+		Collection<Instancia> instanciasUsuario = new ArrayList<Instancia>();
+		Iterator<Instancia> itInstanciasUsuario;
+		Instancia instancia = new Instancia();
+		ArrayList<UsuarioModulo> usuariosIguales = new ArrayList<UsuarioModulo>();
+		UsuarioModulo usuarioModulo = new UsuarioModulo();
+		int numeroUsuariosIguales = 0;
+		int countUsuarios = 1;
 
-			usuarioModulo = new UsuarioModulo();
-			usuarioModulo.setCodigo(codigoUsuario);
-			usuarioModulo = getUsuarioModulo(usuarioModulo);
+		usuarioModulo = new UsuarioModulo();
+		usuarioModulo.setCodigo(codigoUsuario);
+		usuarioModulo = getUsuarioModulo(usuarioModulo);
 
-			usuariosIguales = new ArrayList<UsuarioModulo>(getUsuariosModuloPorAreaYRolYEstado(usuarioModulo.getCodigoAreaModificado(), usuarioModulo.getCodigoRol().intValue(), "A"));
-			numeroUsuariosIguales = usuariosIguales.size();
+		usuariosIguales = new ArrayList<UsuarioModulo>(getUsuariosModuloPorAreaYRolYEstado(usuarioModulo.getCodigoAreaModificado(), usuarioModulo.getCodigoRol().intValue(), "A"));
+		numeroUsuariosIguales = usuariosIguales.size();
 
-			for (countUsuarios = 0; countUsuarios < numeroUsuariosIguales; countUsuarios++) {
-				if (usuariosIguales.get(countUsuarios).getCodigo().intValue() == codigoUsuario) {
-					usuariosIguales.remove(countUsuarios);
-					break;
+		for (countUsuarios = 0; countUsuarios < numeroUsuariosIguales; countUsuarios++) {
+			if (usuariosIguales.get(countUsuarios).getCodigo().intValue() == codigoUsuario) {
+				usuariosIguales.remove(countUsuarios);
+				break;
+			}
+		}
+
+		numeroUsuariosIguales = usuariosIguales.size();
+
+		instancia.setCodigoUsuarioActual(codigoUsuario);
+		instanciasUsuario = getInstanciasPorUsuario(instancia);
+
+		countUsuarios = 0;
+		if (instanciasUsuario.size() != 0) {
+			itInstanciasUsuario = instanciasUsuario.iterator();
+			while (itInstanciasUsuario.hasNext()) {
+				instancia = itInstanciasUsuario.next();
+
+				instancia.setCodigoUsuarioActual(usuariosIguales.get(countUsuarios).getCodigo().intValue());
+
+				updateInstancia(con, instancia, codUsuarioLogueado);
+
+				if (countUsuarios < numeroUsuariosIguales - 1) {
+					countUsuarios++;
+				} else {
+					countUsuarios = 0;
 				}
 			}
-
-			numeroUsuariosIguales = usuariosIguales.size();
-
-			instancia.setCodigoUsuarioActual(codigoUsuario);
-			instanciasUsuario = getInstanciasPorUsuario(instancia);
-
-			countUsuarios = 0;
-			if (instanciasUsuario.size() != 0) {
-				itInstanciasUsuario = instanciasUsuario.iterator();
-				while (itInstanciasUsuario.hasNext()) {
-					instancia = itInstanciasUsuario.next();
-
-					instancia.setCodigoUsuarioActual(usuariosIguales.get(countUsuarios).getCodigo().intValue());
-
-					updateInstancia(con, instancia, codUsuarioLogueado);
-
-					if (countUsuarios < numeroUsuariosIguales - 1) {
-						countUsuarios++;
-					} else {
-						countUsuarios = 0;
-					}
-				}
-			}
+		}
 	}
 
 	@Override
@@ -1162,7 +1162,7 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 
 	@Override
 	public int crearInstanciaNotaContable(NotaContable notaContable, Collection<NotaContableTema> temasNotaContable, Collection<NotaContableRegistroLibre> registrosLibresNotaContable, Collection<Anexo> anexosNotaContable,
-			Collection<NotaContableTotal> totalesNotaContable, Collection<PartidaPendiente> partidasPendientes, int codigoUsuario) throws Exception, NamingException, CreateException, RemoteException {
+										  Collection<NotaContableTotal> totalesNotaContable, Collection<PartidaPendiente> partidasPendientes, int codigoUsuario) throws Exception, NamingException, CreateException, RemoteException {
 		Connection con = null;
 		try {
 			con = actividadRealizadaDAO.getConexion(false);
@@ -1221,7 +1221,7 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 		EnteAutorizador enteAutorizador = new EnteAutorizador();
 		MontoAutorizadoGeneral montoAutorizadoGeneral = new MontoAutorizadoGeneral();
 		MontoAutorizadoGeneralDAO objMontosAutorizadosGenerales = new MontoAutorizadoGeneralDAO();
-		
+
 		int posicionMontoAutorizado = 0;
 		int errorAsignacion = 0;
 		ArrayList<Object> posicionMontosAutorizadosGenerales;
@@ -1300,7 +1300,7 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 
 						if (!indExisteAutorizador) {
 							/* FLUJO ADICIONAL */
-							
+
 							montoAutorizadoGeneral.setCodigoTemaAutorizacion(concepto.getCodigoTemaAutorizacion());
 							montoAutorizadoGeneral.setCodigoTipoAutorizacion(notaContable.getCodigoTipoEvento());
 							montoAutorizadoGeneral.setEstado("A");
@@ -1309,7 +1309,7 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 							posicionMontosAutorizadosGenerales = objMontosAutorizadosGenerales.posicion(montoAutorizadoGeneral, totalNotaContable);
 							/**COL514313I001449 MODIFICACION PARA VALIDAR LOS NIVELES DE AUTORIZACION
 							 * SE CARGA EN UNA COLECCION LAS SUCURSALES AUTORIZADAS CON USUARIOS Y SE 
-							 * COMPARA COMTRA LA POSICION DEL MONTO AUTORIZADO GENERAL SEGUN POSICION posicionMontoAutorizado  ****/	
+							 * COMPARA COMTRA LA POSICION DEL MONTO AUTORIZADO GENERAL SEGUN POSICION posicionMontoAutorizado  ****/
 							if (montoAutorizadoGeneral.getCodigoRol().intValue() != 0) {
 								sucursal = new Sucursal();
 								sucursal.setCodigo(notaContable.getCodigoSucursalOrigen());
@@ -1321,18 +1321,18 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 										itAutorizacionMonto = posicionMontosAutorizadosGenerales.iterator();
 										montoAutorizadoGeneral =  (MontoAutorizadoGeneral) itAutorizacionMonto.next();
 										contadorMontoAutorizadoEncontrado = 0;
-											
+
 										while (itSucursalAutorizacion.hasNext()) {
 											sucursal = (Sucursal) itSucursalAutorizacion.next();
 											usuariosModulo = getUsuariosModuloPorAreaYRolYEstado(sucursal.getCodigo(), montoAutorizadoGeneral.getCodigoRol().intValue(), "A");
-												if (usuariosModulo.size() != 0) {
-													NuevaSucursalAutorizacion.add(sucursal);
-													if (itAutorizacionMonto.hasNext()){
-														montoAutorizadoGeneral =  (MontoAutorizadoGeneral) itAutorizacionMonto.next();	
-													}
+											if (usuariosModulo.size() != 0) {
+												NuevaSucursalAutorizacion.add(sucursal);
+												if (itAutorizacionMonto.hasNext()){
+													montoAutorizadoGeneral =  (MontoAutorizadoGeneral) itAutorizacionMonto.next();
 												}
+											}
 										}
-												
+
 										if (NuevaSucursalAutorizacion.size() == posicionMontosAutorizadosGenerales.size()){
 											sucursal = NuevaSucursalAutorizacion.get(posicionMontoAutorizado);
 											montoAutorizadoGeneral = (MontoAutorizadoGeneral) posicionMontosAutorizadosGenerales.get(posicionMontoAutorizado);
@@ -1342,26 +1342,26 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 											errorAsignacion=1;
 										}
 
-									if (indEstadoCentroSuperiorAutorizador) {
-										indExisteAutorizador = true;
+										if (indEstadoCentroSuperiorAutorizador) {
+											indExisteAutorizador = true;
+										}
 									}
+								} catch (Exception le_e) {
+									//System.out.println("error" + le_e);
 								}
-							} catch (Exception le_e) {
-								//System.out.println("error" + le_e);
 							}
-						}
 							/**COL514313I001449 MODIFICACION SI NO ESTA CONFIGURADA LA PARAMETRIA SE GENERA MENSAJE 
-							 * DE AVISO AL ADMINISTRADOR ****/		
-						if (!indExisteAutorizador) {
-							mensaje = "No existe ningn usuario con rol 'Autorizador' para autorizar la Nota Contable. Por favor consulte al Administrador del sistema.";
-							if(errorAsignacion==1)
-								mensaje = "No esta configurada la parametria para autorizar. Por favor consulte al Administrador del sistema.";
+							 * DE AVISO AL ADMINISTRADOR ****/
+							if (!indExisteAutorizador) {
+								mensaje = "No existe ningn usuario con rol 'Autorizador' para autorizar la Nota Contable. Por favor consulte al Administrador del sistema.";
+								if(errorAsignacion==1)
+									mensaje = "No esta configurada la parametria para autorizar. Por favor consulte al Administrador del sistema.";
+							}
+						} else {
+							indEstadoPrecierre = true;
 						}
-					} else {
-						indEstadoPrecierre = true;
 					}
 				}
-			}
 
 				if (indEstadoPrecierre || instancia.getEstado().equals("3")) {
 					if (getUsuariosModuloPorRolYEstado(cs_CODIGO_ADMINISTRADOR_CONSOLIDACION, "A").isEmpty()) {
@@ -1403,6 +1403,7 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 					NotaContable nota = new NotaContable();
 					nota.setCodigo(instancia.getCodigoNotaContable());
 					nota = getNotaContable(nota);
+					//nota.setFechaRegistroAltamira(new TIMESTAMP(new Timestamp(new Date().getTime())));
 					nota.setFechaRegistroAltamira(new TIMESTAMP(new Timestamp(new Date().getTime())));
 					updateNotaContable(con, nota, 0);
 				}
@@ -1410,19 +1411,19 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 				int tipoReg = Integer.valueOf(asiento.getConsecutivo().substring(0, 1));
 				int idReg = Integer.valueOf(asiento.getConsecutivo().substring(1));
 				switch (tipoReg) {
-				case IMP_PARTIDA:
-					updateImpPartida(con, asiento, idReg);
-					break;
-				case PARTIDA:
-					updatePartida(con, asiento, idReg);
-					break;
-				case REG_LIBRE:
-					updateRegLibre(con, asiento, idReg);
+					case IMP_PARTIDA:
+						updateImpPartida(con, asiento, idReg);
+						break;
+					case PARTIDA:
+						updatePartida(con, asiento, idReg);
+						break;
+					case REG_LIBRE:
+						updateRegLibre(con, asiento, idReg);
 
-					break;
-				case CRUCE_REF:
-					updateCruceRef(con, asiento, idReg);
-					break;
+						break;
+					case CRUCE_REF:
+						updateCruceRef(con, asiento, idReg);
+						break;
 				}
 			}
 			notas.put(numRadicacion, instancia);
@@ -1526,14 +1527,14 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 
 	@Override
 	public int siguienteActividad(Instancia instancia, Collection<NotaContableTema> temasNotaContableAux, Collection<NotaContableTotal> totalesNotaContableAux, int codigoUsuario, boolean aprobada, int codigoCausalDevolucion, String otraCausalDev,
-			boolean cheqeoReasignacion)
+								  boolean cheqeoReasignacion)
 			throws Exception {
 		Connection con = null;
 		try {
 			con = actividadRealizadaDAO.getConexion(false);
 			int codigoUsuarioAsignado = siguienteActividad(con, instancia, temasNotaContableAux, totalesNotaContableAux, codigoUsuario, aprobada, codigoCausalDevolucion, otraCausalDev,cheqeoReasignacion);
 			if(codigoUsuarioAsignado!=-1){
-			con.commit();
+				con.commit();
 			}
 			return codigoUsuarioAsignado;
 		} catch (final Exception e) {
@@ -1543,9 +1544,9 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 			actividadRealizadaDAO.closeConnection(con);
 		}
 	}
-	
+
 	public int siguienteActividad(Connection con, Instancia instancia, Collection<NotaContableTema> temasNotaContableAux, Collection<NotaContableTotal> totalesNotaContableAux, int codigoUsuario, boolean aprobada, int codigoCausalDevolucion,
-			String otraCausalDev) throws Exception {
+								  String otraCausalDev) throws Exception {
 		CargaAltamiraSessionBean cargaAltamiraManager = new CargaAltamiraSessionBean();
 		Instancia instanciaActualizada = new Instancia();
 
@@ -1693,27 +1694,27 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 											if (usuariosModulo.size() != 0) {
 												NuevaSucursalAutorizacion.add(sucursal);
 												if (itAutorizacionMonto.hasNext()){
-													montoAutorizadoGeneral =  (MontoAutorizadoGeneral) itAutorizacionMonto.next();	
+													montoAutorizadoGeneral =  (MontoAutorizadoGeneral) itAutorizacionMonto.next();
 												}
 											}
 										}
-										
+
 										if (NuevaSucursalAutorizacion.size() == posicionMontosAutorizadosGenerales.size()){
 											sucursal = NuevaSucursalAutorizacion.get(posicionMontoAutorizado);
 											montoAutorizadoGeneral = (MontoAutorizadoGeneral) posicionMontosAutorizadosGenerales.get(posicionMontoAutorizado);
 											usuariosModulo = getUsuariosModuloPorAreaYRolYEstado(sucursal.getCodigo(), montoAutorizadoGeneral.getCodigoRol().intValue(), "A");
 											indEstadoCentroSuperiorAutorizador = true;
 										}
-											/**if (!indEstadoCentroSuperiorAutorizador) {
-												usuariosModulo = getUsuariosModuloPorAreaYRolYEstado(sucursal.getCodigo(), montoAutorizadoGeneral.getCodigoRol().intValue(), "A");
-												if (!usuariosModulo.isEmpty()) {
-													usuarioModulo = usuariosModulo.iterator().next();
+										/**if (!indEstadoCentroSuperiorAutorizador) {
+										 usuariosModulo = getUsuariosModuloPorAreaYRolYEstado(sucursal.getCodigo(), montoAutorizadoGeneral.getCodigoRol().intValue(), "A");
+										 if (!usuariosModulo.isEmpty()) {
+										 usuarioModulo = usuariosModulo.iterator().next();
 
-													if (contadorMontoAutorizadoEncontrado == posicionMontoAutorizado) {
-														indEstadoCentroSuperiorAutorizador = true;
-													}
-												}
-											}**/
+										 if (contadorMontoAutorizadoEncontrado == posicionMontoAutorizado) {
+										 indEstadoCentroSuperiorAutorizador = true;
+										 }
+										 }
+										 }**/
 									}
 
 									if (indEstadoCentroSuperiorAutorizador) {
@@ -1776,7 +1777,7 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 							} catch (Exception le_e) {
 								codigoUsuarioAsignado = padrinos.get(0).getCodigoUsuario().intValue();
 							}
-							codigoUnidadAnalisisAsignada = 0;	
+							codigoUnidadAnalisisAsignada = 0;
 						}
 					}
 
@@ -1887,9 +1888,9 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 		addActividadRealizada(con, actividadNueva, codigoUsuario);
 		return codigoUsuarioAsignado;
 	}
-	
+
 	public int siguienteActividad(Connection con, Instancia instancia, Collection<NotaContableTema> temasNotaContableAux, Collection<NotaContableTotal> totalesNotaContableAux, int codigoUsuario, boolean aprobada, int codigoCausalDevolucion,
-			String otraCausalDev,boolean chequeoReasignacion) throws Exception {
+								  String otraCausalDev,boolean chequeoReasignacion) throws Exception {
 		CargaAltamiraSessionBean cargaAltamiraManager = new CargaAltamiraSessionBean();
 		Instancia instanciaActualizada = new Instancia();
 
@@ -1948,9 +1949,9 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 					siguienteEstado = "" + (Integer.valueOf(instancia.getEstado()) + 1);
 					codigoUsuarioAsignado = usuarioModulo.getCodigo().intValue();
 					codigoUnidadAnalisisAsignada = 0;
-				}	
+				}
 			}else
-			{	
+			{
 				if(instancia.getEstado().equals("5"))
 				{
 					usuariosModulo = getUsuariosModuloPorRolYEstado(cs_CODIGO_ADMINISTRADOR_CONSOLIDACION, "A");
@@ -1974,16 +1975,16 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 							if (concepto.getVistoBuenoAnalisis().equals("S")) {
 								unidadAnalisis.setCodigo(concepto.getCodigoUnidadAnalisis());
 								unidadAnalisis = getUnidadAnalisis(unidadAnalisis);
-	
+
 								padrino.setCodigoUnidadAnalisis(unidadAnalisis.getCodigo().intValue());
 								padrino.setEstado("A");
 								padrinos = new ArrayList<Padrino>(getPadrinosPorUnidadAnalisisYEstado(padrino));
-	
+
 								// Se debe balancear por carga
 								if (!padrinos.isEmpty()) {
 									siguienteEstado = "2";
 									// codigoUsuarioAsignado = ((Padrino)padrinos.get(0)).getCodigoUsuario();
-	
+
 									try {
 										codigoUsuarioAsignado = getUsuarioAsignadoPorBalanceo(siguienteEstado, unidadAnalisis.getCodigoSucursal(), cs_CODIGO_PADRINOS).getCodigo().intValue();
 									} catch (Exception le_e) {
@@ -1994,50 +1995,50 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 							} else {
 								indEstadoEnteAutorizador = true;
 							}
-							}else
-							{
-								return -1;
-							}
+						}else
+						{
+							return -1;
 						}
-	
-						if (instancia.getEstado().equals("1")) {
-							if(chequeoReasignacion){
+					}
+
+					if (instancia.getEstado().equals("1")) {
+						if(chequeoReasignacion){
 							siguienteEstado = "0";
 							codigoUsuarioAsignado = updateNotaContableRegistro(notaContable, temasNotaContableAux, totalesNotaContableAux, codigoUsuario);
-							}else
-							{
-								return -1;
-							}
+						}else
+						{
+							return -1;
 						}
-	
-						if (indEstadoEnteAutorizador || instancia.getEstado().equals("2")) {
-							if(chequeoReasignacion){
+					}
+
+					if (indEstadoEnteAutorizador || instancia.getEstado().equals("2")) {
+						if(chequeoReasignacion){
 							if (concepto.getAutorizacionTercero().equals("S")) {
 								totalesNotaContable = getTotalesPorNotaContable(notaContable.getCodigo().intValue());
-	
+
 								// El total de la Nota Contable no se esta calculando porque son diferentes Divisa. Se esta tomando el primer total
 								for (NotaContableTotal notaContableTotal : totalesNotaContable) {
 									if (totalNotaContable == 0 && notaContableTotal.getCodigoDivisa().equals("COP")) {
 										totalNotaContable = notaContableTotal.getTotal();
 									}
 								}
-	
+
 								montoAutorizado.setCodigoTemaAutorizacion(concepto.getCodigoTemaAutorizacion());
 								montoAutorizado.setCodigoTipoAutorizacion(notaContable.getCodigoTipoEvento());
 								montoAutorizado.setEstado("A");
 								montoAutorizado = getMontoAutorizadoPorTemaAutorizacionYTipoEventoNotaContableYEstado(montoAutorizado);
-	
+
 								if (montoAutorizado.getCodigoEnteAutorizador().intValue() != 0) {
 									enteAutorizador.setCodigo(montoAutorizado.getCodigoEnteAutorizador());
 									enteAutorizador = getEnteAutorizador(enteAutorizador);
-	
+
 									if (enteAutorizador.getCodigoUsuarioModulo().intValue() != 0 && enteAutorizador.getEstado().equals("A")) {
 										siguienteEstado = "3";
 										codigoUsuarioAsignado = enteAutorizador.getCodigoUsuarioModulo().intValue();
 										codigoUnidadAnalisisAsignada = 0;
 									}
 								}
-	
+
 								/* FLUJO ADICIONAL */
 								montoAutorizadoGeneral.setCodigoTemaAutorizacion(concepto.getCodigoTemaAutorizacion());
 								montoAutorizadoGeneral.setCodigoTipoAutorizacion(notaContable.getCodigoTipoEvento());
@@ -2048,7 +2049,7 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 								/**COL514313I001449 MODIFICACION PARA VALIDAR LOS NIVELES DE AUTORIZACION
 								 * SE CARGA EN UNA COLECCION LAS SUCURSALES AUTORIZADAS CON USUARIOS Y SE 
 								 * COMPARA COMTRA LA POSICION DEL MONTO AUTORIZADO GENERAL SEGUN POSICION posicionMontoAutorizado  ****/
-	
+
 								if (montoAutorizadoGeneral.getCodigoRol().intValue() != 0) {
 									Sucursal sucursal = new Sucursal();
 									sucursal.setCodigo(notaContable.getCodigoSucursalOrigen());
@@ -2059,36 +2060,36 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 											itSucursalAutorizacion = sucursalAutorizacion.iterator();
 											itAutorizacionMonto = posicionMontosAutorizadosGenerales.iterator();
 											montoAutorizadoGeneral =  (MontoAutorizadoGeneral) itAutorizacionMonto.next();
-	
+
 											for (Sucursal suc : sucursalAutorizacion) {
 												sucursal = (Sucursal) itSucursalAutorizacion.next();
 												usuariosModulo = getUsuariosModuloPorAreaYRolYEstado(suc.getCodigo(), montoAutorizadoGeneral.getCodigoRol().intValue(), "A");
 												if (usuariosModulo.size() != 0) {
 													NuevaSucursalAutorizacion.add(sucursal);
 													if (itAutorizacionMonto.hasNext()){
-														montoAutorizadoGeneral =  (MontoAutorizadoGeneral) itAutorizacionMonto.next();	
+														montoAutorizadoGeneral =  (MontoAutorizadoGeneral) itAutorizacionMonto.next();
 													}
 												}
 											}
-											
+
 											if (NuevaSucursalAutorizacion.size() == posicionMontosAutorizadosGenerales.size()){
 												sucursal = NuevaSucursalAutorizacion.get(posicionMontoAutorizado);
 												montoAutorizadoGeneral = (MontoAutorizadoGeneral) posicionMontosAutorizadosGenerales.get(posicionMontoAutorizado);
 												usuariosModulo = getUsuariosModuloPorAreaYRolYEstado(sucursal.getCodigo(), montoAutorizadoGeneral.getCodigoRol().intValue(), "A");
 												indEstadoCentroSuperiorAutorizador = true;
 											}
-												/**if (!indEstadoCentroSuperiorAutorizador) {
-													usuariosModulo = getUsuariosModuloPorAreaYRolYEstado(sucursal.getCodigo(), montoAutorizadoGeneral.getCodigoRol().intValue(), "A");
-													if (!usuariosModulo.isEmpty()) {
-														usuarioModulo = usuariosModulo.iterator().next();
-	
-														if (contadorMontoAutorizadoEncontrado == posicionMontoAutorizado) {
-															indEstadoCentroSuperiorAutorizador = true;
-														}
-													}
-												}**/
+											/**if (!indEstadoCentroSuperiorAutorizador) {
+											 usuariosModulo = getUsuariosModuloPorAreaYRolYEstado(sucursal.getCodigo(), montoAutorizadoGeneral.getCodigoRol().intValue(), "A");
+											 if (!usuariosModulo.isEmpty()) {
+											 usuarioModulo = usuariosModulo.iterator().next();
+
+											 if (contadorMontoAutorizadoEncontrado == posicionMontoAutorizado) {
+											 indEstadoCentroSuperiorAutorizador = true;
+											 }
+											 }
+											 }**/
 										}
-	
+
 										if (indEstadoCentroSuperiorAutorizador) {
 											siguienteEstado = "3";
 											usuarioModulo = usuariosModulo.iterator().next();
@@ -2110,10 +2111,10 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 					if (indEstadoPrecierre || instancia.getEstado().equals("3")) {
 						if(chequeoReasignacion){
 							usuariosModulo = getUsuariosModuloPorRolYEstado(cs_CODIGO_ADMINISTRADOR_CONSOLIDACION, "A");
-	
+
 							if (!usuariosModulo.isEmpty()) {
 								usuarioModulo = usuariosModulo.iterator().next();
-	
+
 								siguienteEstado = "4";
 								codigoUsuarioAsignado = usuarioModulo.getCodigo().intValue();
 								codigoUnidadAnalisisAsignada = 0;
@@ -2139,25 +2140,25 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 				if (aprobada) {
 					if (instancia.getEstado().equals("0")) {
 						if(chequeoReasignacion){
-						unidadAnalisis.setEstado("A");
-						unidadAnalisis.setAutorizaReferenciaCruce("S");
-						unidadAnalisis = getUnidadAnalisisPorAutorizaReferenciaCruceYEstado(unidadAnalisis);
-						padrino.setCodigoUnidadAnalisis(unidadAnalisis.getCodigo().intValue());
-						padrino.setEstado("A");
-						padrinos = new ArrayList<Padrino>(getPadrinosPorUnidadAnalisisYEstado(padrino));
+							unidadAnalisis.setEstado("A");
+							unidadAnalisis.setAutorizaReferenciaCruce("S");
+							unidadAnalisis = getUnidadAnalisisPorAutorizaReferenciaCruceYEstado(unidadAnalisis);
+							padrino.setCodigoUnidadAnalisis(unidadAnalisis.getCodigo().intValue());
+							padrino.setEstado("A");
+							padrinos = new ArrayList<Padrino>(getPadrinosPorUnidadAnalisisYEstado(padrino));
 
-						// Se debe balancear por carga
-						if (padrinos.size() != 0) {
-							siguienteEstado = "2";
-							// codigoUsuarioAsignado = ((Padrino)padrinos.get(0)).getCodigoUsuario();
+							// Se debe balancear por carga
+							if (padrinos.size() != 0) {
+								siguienteEstado = "2";
+								// codigoUsuarioAsignado = ((Padrino)padrinos.get(0)).getCodigoUsuario();
 
-							try {
-								codigoUsuarioAsignado = getUsuarioAsignadoPorBalanceo(siguienteEstado, unidadAnalisis.getCodigoSucursal(), cs_CODIGO_PADRINOS).getCodigo().intValue();
-							} catch (Exception le_e) {
-								codigoUsuarioAsignado = padrinos.get(0).getCodigoUsuario().intValue();
+								try {
+									codigoUsuarioAsignado = getUsuarioAsignadoPorBalanceo(siguienteEstado, unidadAnalisis.getCodigoSucursal(), cs_CODIGO_PADRINOS).getCodigo().intValue();
+								} catch (Exception le_e) {
+									codigoUsuarioAsignado = padrinos.get(0).getCodigoUsuario().intValue();
+								}
+								codigoUnidadAnalisisAsignada = 0;
 							}
-							codigoUnidadAnalisisAsignada = 0;	
-						}
 						}else
 						{
 							return -1;
@@ -2166,15 +2167,15 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 
 					if (indEstadoPrecierre || instancia.getEstado().equals("2")) {
 						if(chequeoReasignacion){
-						usuariosModulo = getUsuariosModuloPorRolYEstado(cs_CODIGO_ADMINISTRADOR_CONSOLIDACION, "A");
+							usuariosModulo = getUsuariosModuloPorRolYEstado(cs_CODIGO_ADMINISTRADOR_CONSOLIDACION, "A");
 
-						if (!usuariosModulo.isEmpty()) {
-							usuarioModulo = usuariosModulo.iterator().next();
+							if (!usuariosModulo.isEmpty()) {
+								usuarioModulo = usuariosModulo.iterator().next();
 
-							siguienteEstado = "4";
-							codigoUsuarioAsignado = usuarioModulo.getCodigo().intValue();
-							codigoUnidadAnalisisAsignada = 0;
-						}
+								siguienteEstado = "4";
+								codigoUsuarioAsignado = usuarioModulo.getCodigo().intValue();
+								codigoUnidadAnalisisAsignada = 0;
+							}
 						}else
 						{
 							return -1;
@@ -2185,7 +2186,7 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 						if(chequeoReasignacion){
 							siguienteEstado = "0";
 							usuariosModulo = getUsuariosModuloPorAreaYRolYEstado(notaContable.getCodigoSucursalOrigen(), cs_CODIGO_SUBGERENTE_GERENTE_Y_RESPONSABLE_DE_AREA_CENTRAL, "A");
-	
+
 							if (!usuariosModulo.isEmpty()) {
 								usuarioModulo = usuariosModulo.iterator().next();
 								codigoUsuarioAsignado = usuarioModulo.getCodigo().intValue();
@@ -2194,7 +2195,7 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 						{
 							return -1;
 						}
-				}
+					}
 
 				} else {
 					if (instancia.getEstado().equals("0") || instancia.getEstado().equals("2") || instancia.getEstado().equals("3") || instancia.getEstado().equals("4") || instancia.getEstado().equals("5")) {
@@ -2212,14 +2213,14 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 				if (aprobada) {
 					if (indEstadoPrecierre || instancia.getEstado().equals("0")) {
 						if(chequeoReasignacion){
-						usuariosModulo = getUsuariosModuloPorRolYEstado(cs_CODIGO_ADMINISTRADOR_CONSOLIDACION, "A");
+							usuariosModulo = getUsuariosModuloPorRolYEstado(cs_CODIGO_ADMINISTRADOR_CONSOLIDACION, "A");
 
-						if (!usuariosModulo.isEmpty()) {
-							usuarioModulo = usuariosModulo.iterator().next();
-							siguienteEstado = "4";
-							codigoUsuarioAsignado = usuarioModulo.getCodigo().intValue();
-							codigoUnidadAnalisisAsignada = 0;
-						}
+							if (!usuariosModulo.isEmpty()) {
+								usuarioModulo = usuariosModulo.iterator().next();
+								siguienteEstado = "4";
+								codigoUsuarioAsignado = usuarioModulo.getCodigo().intValue();
+								codigoUnidadAnalisisAsignada = 0;
+							}
 						}else
 						{
 							return -1;
@@ -2229,7 +2230,7 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 						if(chequeoReasignacion){
 							siguienteEstado = "0";
 							usuariosModulo = getUsuariosModuloPorAreaYRolYEstado(notaContable.getCodigoSucursalOrigen(), cs_CODIGO_SUBGERENTE_GERENTE_Y_RESPONSABLE_DE_AREA_CENTRAL, "A");
-	
+
 							if (!usuariosModulo.isEmpty()) {
 								usuarioModulo = usuariosModulo.iterator().next();
 								codigoUsuarioAsignado = usuarioModulo.getCodigo().intValue();
@@ -2321,8 +2322,8 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 
 				siguienteEstado = "9";
 			}
-			
-			
+
+
 			// Actualiza Instancia
 			instanciaActualizada = instancia;
 			instanciaActualizada.setEstado(siguienteEstado);
@@ -2367,7 +2368,7 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 	}
 
 	/**
-	 * 
+	 *
 	 * @param codigoUsuario
 	 * @param operacion
 	 * @param tipoRegistro
@@ -2648,5 +2649,5 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 		return notaContableDAO.getDataConciliationFile(fechaDesde , fechaHasta);
 	}
 
-	
+
 }

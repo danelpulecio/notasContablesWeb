@@ -44,7 +44,7 @@ public class DBUtils<T> {
 
 	/**
 	 * Produce una coleccin de elementos con informacin bsica para ser mostrada y el identificador
-	 * 
+	 *
 	 * @param collection
 	 * @param returnType
 	 * @return
@@ -134,7 +134,7 @@ public class DBUtils<T> {
 					m = o.getClass().getMethod(PREFIJO_GET + string.substring(0, 1).toUpperCase() + string.substring(1));
 					final Object n = m.invoke(o);
 					param = param.replace(string + BREAKER, "");
-					
+
 					setearValor(n, param, value, originalParam);
 				} else {
 					final Class<?> tipo = o.getClass().getDeclaredField(param).getType();
