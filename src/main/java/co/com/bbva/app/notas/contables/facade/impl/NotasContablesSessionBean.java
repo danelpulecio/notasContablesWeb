@@ -1404,7 +1404,7 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 					nota.setCodigo(instancia.getCodigoNotaContable());
 					nota = getNotaContable(nota);
 					//nota.setFechaRegistroAltamira(new TIMESTAMP(new Timestamp(new Date().getTime())));
-					nota.setFechaRegistroAltamira(new Timestamp(new Date().getTime()));
+					nota.setFechaRegistroAltamira(new TIMESTAMP(new Timestamp(new Date().getTime())));
 					updateNotaContable(con, nota, 0);
 				}
 				AsientoSalida asiento = (AsientoSalida) salida;

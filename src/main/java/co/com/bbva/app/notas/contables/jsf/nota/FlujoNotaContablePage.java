@@ -38,7 +38,7 @@ public class FlujoNotaContablePage extends GeneralPage implements IPages {
 
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOGGER = LoggerFactory.getLogger(FlujoNotaContablePage.class);
-	private Session session = getContablesSessionBean().getSessionTrace();
+//	private Session session = getContablesSessionBean().getSessionTrace();
 	protected final EMailSender enviarEMail;
 	protected NotaContable nota = new NotaContable();
 	protected NotaContableTema temaActual = new NotaContableTema();
@@ -428,7 +428,7 @@ public class FlujoNotaContablePage extends GeneralPage implements IPages {
 	}
 
 	protected void crearNotaContableTema(NotaContableTema temaNota, Tema tema, Integer cod, String maxFecha) throws Exception {
-		LOGGER.info("{} Estableciendo las propiedades del tema: {}", session.getTraceLog(), tema.getNombre());
+		LOGGER.info("{} Estableciendo las propiedades del tema: {}", tema.getNombre());
 		temaNota.setCodigo(cod--);
 		temaNota.setTema(tema);
 		temaNota.setCodigoTema(tema.getCodigo().intValue());
@@ -438,10 +438,10 @@ public class FlujoNotaContablePage extends GeneralPage implements IPages {
 		temaNota.setNaturalezaPartidaContable(tema.getNaturaleza1());
 		temaNota.setContrapartidaContable(tema.getContraPartidaContable());
 		temaNota.setNaturalezaContrapartidaContable(tema.getNaturaleza2());
-		LOGGER.info("{} Obteniendo Info. de los impuestos para el tema", session.getTraceLog());
+		LOGGER.info("{} Obteniendo Info. de los impuestos para el tema");
 		ArrayList<NotaContableTemaImpuesto> impTemaActual = new ArrayList<>();
 		Collection<TemaImpuesto> listaImpTema = notasContablesManager.getImpuestosPorTema(tema.getCodigo().intValue());
-		LOGGER.info("{} Procesando y definiendo el impuesto", session.getTraceLog());
+		LOGGER.info("{} Procesando y definiendo el impuesto");
 		for (TemaImpuesto impuestoTema : listaImpTema) {
 			Impuesto impuesto = new Impuesto();
 			impuesto.setCodigo(impuestoTema.getCodigoImpuesto());
@@ -457,36 +457,36 @@ public class FlujoNotaContablePage extends GeneralPage implements IPages {
 		}
 		temaNota.setImpuestoTema(impTemaActual);
 
-		LOGGER.info("{} Estableciendo valores iniciales de la PARTIDA", session.getTraceLog());
+		LOGGER.info("{} Estableciendo valores iniciales de la PARTIDA");
 		PUC partidaContable = new PUC();
 		partidaContable.setNumeroCuenta(tema.getPartidaContable());
 		partidaContable = cargaAltamiraManager.getPUC(partidaContable);
 		tema.setPucPartida(partidaContable);
 
-		LOGGER.info("{} Estableciendo valores iniciales de la CONTRAPARTIDA", session.getTraceLog());
+		LOGGER.info("{} Estableciendo valores iniciales de la CONTRAPARTIDA");
 		PUC contraPartidaContable = new PUC();
 		contraPartidaContable.setNumeroCuenta(tema.getContraPartidaContable());
 		contraPartidaContable = cargaAltamiraManager.getPUC(contraPartidaContable);
 		tema.setPucContraPartida(contraPartidaContable);
 
 		Sucursal sucursal = getUsuarioLogueado().getSucursal();
-		LOGGER.info("{} Se imprime valores de usuario Logueado antes del despliegue de Temas al momento de grabar notas temas sucursal {} ", session.getTraceLog(),getUsuarioLogueado().getSucursal().getCodigo());
-		LOGGER.info("{} Se imprime valores de usuario Logueado antes del despliegue de Temas al momento de grabar notas temas usuario codigo area modificado {} ", session.getTraceLog(),getUsuarioLogueado().getUsuario().getCodigoAreaModificado());
-		LOGGER.info("{} Se imprime valores de usuario Logueado antes del despliegue de Temas al momento de grabar notas temas get usuario codigo empleado  {} ", session.getTraceLog(),getUsuarioLogueado().getUsuario().getCodigoEmpleado());
+		LOGGER.info("{} Se imprime valores de usuario Logueado antes del despliegue de Temas al momento de grabar notas temas sucursal {} ",getUsuarioLogueado().getSucursal().getCodigo());
+		LOGGER.info("{} Se imprime valores de usuario Logueado antes del despliegue de Temas al momento de grabar notas temas usuario codigo area modificado {} ",getUsuarioLogueado().getUsuario().getCodigoAreaModificado());
+		LOGGER.info("{} Se imprime valores de usuario Logueado antes del despliegue de Temas al momento de grabar notas temas get usuario codigo empleado  {} ", getUsuarioLogueado().getUsuario().getCodigoEmpleado());
 
 		temaNota.setAutorizada(true);
-		LOGGER.info("{} Validando la PARTIDA y CONTRAPARTIDA contra el PUC", session.getTraceLog());
+		LOGGER.info("{} Validando la PARTIDA y CONTRAPARTIDA contra el PUC");
 		if (!cargaAltamiraManager.isSucursalValidaPUCOrigen(sucursal, partidaContable)) {
 			nuevoMensaje(FacesMessage.SEVERITY_WARN,
 					"La partida contable del tema (" + tema.getNombre() + " - " + tema.getPartidaContable() + ") no est autorizada en el PUC para el centro origen");
 			temaNota.setAutorizada(false);
-			LOGGER.warn("{} La PARTIDA CONTABLE: {} no est autorizada en el PUC", session.getTraceLog(), partidaContable);
+			LOGGER.warn("{} La PARTIDA CONTABLE: {} no est autorizada en el PUC", partidaContable);
 		}
 		if (!cargaAltamiraManager.isSucursalValidaPUCOrigen(sucursal, contraPartidaContable)) {
 			nuevoMensaje(FacesMessage.SEVERITY_WARN,
 					"La contrapartida contable del tema (" + tema.getNombre() + " - " + tema.getContraPartidaContable() + ") no est autorizada en el PUC para el centro origen");
 			temaNota.setAutorizada(false);
-			LOGGER.warn("{} La CONTRAPARTIDA CONTABLE: {} no est autorizada en el PUC", session.getTraceLog(), contraPartidaContable);
+			LOGGER.warn("{} La CONTRAPARTIDA CONTABLE: {} no est autorizada en el PUC", contraPartidaContable);
 		}
 		temaNota.setRiesgoOperacional(new RiesgoOperacional());
 	}

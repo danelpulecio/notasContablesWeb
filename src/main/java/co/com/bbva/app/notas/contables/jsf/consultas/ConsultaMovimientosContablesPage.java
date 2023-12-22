@@ -13,7 +13,7 @@ import javax.inject.Named;
 import java.util.ArrayList;
 
 @Named
-@RequestScoped
+@SessionScoped
 public class ConsultaMovimientosContablesPage extends ReporteGeneralPage {
 
 	private static final long serialVersionUID = 5090751661160357021L;

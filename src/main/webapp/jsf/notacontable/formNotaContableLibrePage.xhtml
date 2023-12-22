@@ -78,7 +78,7 @@
 		<f:facet name="controls">
 			<h:panelGroup>
 				<h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink" id="hidelinkAnularNotaLibre" height="20" width="20" />
-				<p:remoteCommand for="popupAnularNotaLibre" attachTo="hidelinkAnularNotaLibre" operation="hide" event="onclick" />
+<!-- 				<p:remoteCommand for="popupAnularNotaLibre" attachTo="hidelinkAnularNotaLibre" operation="hide" event="onclick" /> -->
 			</h:panelGroup>
 		</f:facet>
 
@@ -89,10 +89,12 @@
 			<!-- Seccion de mensajes y botones de envio y cancelacion-->
 			<ui:include src="../../common/mensajes.xhtml" />
 			<h:panelGrid columns="2" styleClass="center" width="100%">
-				<h:commandButton action="#{notaContableLibrePage.anular}" value="Si"
-					oncomplete="if (#{!notaContableLibrePage.nota.puedeAnular}) {#{p:remoteCommand('popupAnularNotaLibre')}.hide(); #{p:remoteCommand('popupNotaContableLibre')}.hide();}"
-					reRender="botonesNotaRegLibre,lista" />
-				<h:commandButton onclick="#{p:remoteCommand('popupAnularNotaLibre')}.hide()" value="No" />
+				<h:commandButton value="Si"/>
+				<h:commandButton value="No"/>
+<!-- 				<h:commandButton action="#{notaContableLibrePage.anular}" value="Si" -->
+<!-- 					oncomplete="if (#{!notaContableLibrePage.nota.puedeAnular}) {#{p:remoteCommand('popupAnularNotaLibre')}.hide(); #{p:remoteCommand('popupNotaContableLibre')}.hide();}" -->
+<!-- 					reRender="botonesNotaRegLibre,lista" /> -->
+<!-- 				<h:commandButton onclick="#{p:remoteCommand('popupAnularNotaLibre')}.hide()" value="No" /> -->
 			</h:panelGrid>
 		</h:panelGrid>
 	</p:dialog>
@@ -130,8 +132,9 @@
 								</h:selectOneMenu>
 							</h:panelGrid>
 
-							<h:commandButton action="#{notaContableLibrePage.cargarModalRiesgo}" value="Riesgo Operacional" oncomplete="#{p:remoteCommand('modalRiesgoRegLibre')}.show()"
-								reRender="modalRiesgoRegLibre" rendered="#{notaContableLibrePage.temaActual.pucCuenta.indicadorSIRO eq 'T'}" />
+							<h:commandButton value="Riesgo Operacional" />
+<!-- 							<h:commandButton action="#{notaContableLibrePage.cargarModalRiesgo}" value="Riesgo Operacional" oncomplete="#{p:remoteCommand('modalRiesgoRegLibre')}.show()" -->
+<!-- 								reRender="modalRiesgoRegLibre" rendered="#{notaContableLibrePage.temaActual.pucCuenta.indicadorSIRO eq 'T'}" /> -->
 						</h:panelGrid>
 						<h:panelGrid columns="1" width="580" cellpadding="0" cellspacing="3" id="panelCuentaRegLibreEd">
 							<p:panel header="Cuenta Contable" style="width: 100%; height:100%" rendered="#{notaContableLibrePage.temaActual.pucCuenta.numeroCuenta != ''}">
@@ -235,9 +238,11 @@
 				</div>
 			</h:outputText>
 			<h:panelGrid columns="2" styleClass="center" width="100%">
-				<h:commandButton action="#{notaContableLibrePage.guardarTema}" reRender="formRegLibre" rendered="#{notaContableLibrePage.temaActual.pucCuenta.numeroCuenta != ''}"
-					value="Guardar" oncomplete="if (#{notaContableLibrePage.ocultarPopupTema}) #{p:remoteCommand('editorRegLibre')}.hide();" />
-				<h:commandButton oncomplete="#{p:remoteCommand('popupCancelTemaRegLibre')}.show()" value="Cancelar" />
+			<h:commandButton value="Guardar"/>
+			<h:commandButton value="Cancelar"/>
+<!-- 				<h:commandButton action="#{notaContableLibrePage.guardarTema}" reRender="formRegLibre" rendered="#{notaContableLibrePage.temaActual.pucCuenta.numeroCuenta != ''}" -->
+<!-- 					value="Guardar" oncomplete="if (#{notaContableLibrePage.ocultarPopupTema}) #{p:remoteCommand('editorRegLibre')}.hide();" /> -->
+<!-- 				<h:commandButton oncomplete="#{p:remoteCommand('popupCancelTemaRegLibre')}.show()" value="Cancelar" /> -->
 
 				<!-- Modal para cancelación -->
 				<p:dialog id="popupCancelTemaRegLibre" autosized="true" domElementAttachment="form" width="450">
@@ -254,9 +259,11 @@
 
 						<!-- Seccion de mensajes y botones de envio y cancelacion-->
 						<h:panelGrid columns="2" styleClass="center" width="100%">
-							<h:commandButton action="#{notaContableLibrePage.cancelarTema}" value="Si"
-								oncomplete="#{p:remoteCommand('editorRegLibre')}.hide(); #{p:remoteCommand('popupCancelTemaRegLibre')}.hide();" reRender="informacionRegLibre,formRegLibre" />
-							<h:commandButton onclick="#{p:remoteCommand('popupCancelTemaRegLibre')}.hide()" value="No" immediate="true" />
+						<h:commandButton value="Si"/>
+						<h:commandButton value="No"/>
+<!-- 							<h:commandButton action="#{notaContableLibrePage.cancelarTema}" value="Si" -->
+<!-- 								oncomplete="#{p:remoteCommand('editorRegLibre')}.hide(); #{p:remoteCommand('popupCancelTemaRegLibre')}.hide();" reRender="informacionRegLibre,formRegLibre" /> -->
+<!-- 							<h:commandButton onclick="#{p:remoteCommand('popupCancelTemaRegLibre')}.hide()" value="No" immediate="true" /> -->
 						</h:panelGrid>
 					</h:panelGrid>
 				</p:dialog>
@@ -520,9 +527,11 @@
 						</h:panelGrid>
 						<ui:include src="../../common/mensajes.xhtml" />
 						<h:panelGrid columns="3" width="100%" style="text-align: center;">
-							<h:commandButton value="Guardar" action="#{notaContableLibrePage.guardarRiesgo}"
-								oncomplete="if (#{notaContableLibrePage.ocultarPopupRiesgo}) #{p:remoteCommand('modalRiesgoRegLibre')}.hide();" />
-							<h:commandButton oncomplete="#{p:remoteCommand('popupCancelRiesgoRegLibre')}.show()" value="Cancelar" />
+						<h:commandButton value="Guardar"/>
+						<h:commandButton value="Cancelar"/>
+<!-- 							<h:commandButton value="Guardar" action="#{notaContableLibrePage.guardarRiesgo}" -->
+<!-- 								oncomplete="if (#{notaContableLibrePage.ocultarPopupRiesgo}) #{p:remoteCommand('modalRiesgoRegLibre')}.hide();" /> -->
+<!-- 							<h:commandButton oncomplete="#{p:remoteCommand('popupCancelRiesgoRegLibre')}.show()" value="Cancelar" /> -->
 
 							<!-- Modal para cancelación de datos de riesgo-->
 							<p:dialog id="popupCancelRiesgoRegLibre" autosized="true" domElementAttachment="form" width="450">
@@ -539,9 +548,11 @@
 
 									<!-- Seccion de mensajes y botones de envio y cancelacion-->
 									<h:panelGrid columns="2" styleClass="center" width="100%">
-										<h:commandButton action="#{notaContableLibrePage.cancelarRiesgo}" value="Si" reRender="formRegLibre"
-											oncomplete="#{p:remoteCommand('modalRiesgoRegLibre')}.hide(); #{p:remoteCommand('popupCancelRiesgoRegLibre')}.hide();" />
-										<h:commandButton onclick="#{p:remoteCommand('popupCancelRiesgoRegLibre')}.hide()" value="No" immediate="true" />
+									<h:commandButton value="Si"/>
+									<h:commandButton value="No"/>
+<!-- 										<h:commandButton action="#{notaContableLibrePage.cancelarRiesgo}" value="Si" reRender="formRegLibre" -->
+<!-- 											oncomplete="#{p:remoteCommand('modalRiesgoRegLibre')}.hide(); #{p:remoteCommand('popupCancelRiesgoRegLibre')}.hide();" /> -->
+<!-- 										<h:commandButton onclick="#{p:remoteCommand('popupCancelRiesgoRegLibre')}.hide()" value="No" immediate="true" /> -->
 									</h:panelGrid>
 								</h:panelGrid>
 							</p:dialog>
@@ -563,7 +574,7 @@
 		<f:facet name="controls">
 			<h:panelGroup>
 				<h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink" id="hidelinkSoportesRegLibre" height="20" width="20" />
-				<p:remoteCommand for="modalSoportesRegLibre" attachTo="hidelinkSoportesRegLibre" operation="hide" event="onclick" />
+<!-- 				<p:remoteCommand for="modalSoportesRegLibre" attachTo="hidelinkSoportesRegLibre" operation="hide" event="onclick" /> -->
 			</h:panelGroup>
 		</f:facet>
 		<h:panelGrid width="550">
@@ -595,11 +606,13 @@
 
 				<h:outputText value="Descripción" styleClass="propertie" />
 				<h:inputText value="#{notaContableLibrePage.nota.descripcion}" onkeyup="this.value=removeAccents(this.value)" onkeypress="return characterRestriction(event)" maxlength="500" immediate="true" size="80" />
-
-				<h:commandButton action="#{notaContableLibrePage.editar}" oncomplete="#{p:remoteCommand('editorRegLibre')}.show()" reRender="editorRegLibre" value="Agregar Registro"
-					rendered="#{notaContableLibrePage.fechaNota !=null}" />
-				<h:commandButton value="Agregar Soportes" oncomplete="#{p:remoteCommand('modalSoportesRegLibre')}.show()" reRender="modalSoportesRegLibre"
-					rendered="#{!empty notaContableLibrePage.temasNotaContable}" />
+				
+				<h:commandButton value="Agregar Registro"/>
+				<h:commandButton value="Agregar Soportes"/>
+<!-- 				<h:commandButton action="#{notaContableLibrePage.editar}" oncomplete="#{p:remoteCommand('editorRegLibre')}.show()" reRender="editorRegLibre" value="Agregar Registro" -->
+<!-- 					rendered="#{notaContableLibrePage.fechaNota !=null}" /> -->
+<!-- 				<h:commandButton value="Agregar Soportes" oncomplete="#{p:remoteCommand('modalSoportesRegLibre')}.show()" reRender="modalSoportesRegLibre" -->
+<!-- 					rendered="#{!empty notaContableLibrePage.temasNotaContable}" /> -->
 			</h:panelGrid>
 		</p:panel>
 		<p:panel header="Registros de la Nota" style="width: 100%;" rendered="#{! empty notaContableLibrePage.temasNotaContable}">
@@ -648,10 +661,11 @@
 					<f:facet name="header">
 						<h:outputText value="Editar" />
 					</f:facet>
-					<h:commandButton action="#{notaContableLibrePage.editar}" oncomplete="#{p:remoteCommand('editorRegLibre')}.show()" reRender="editorRegLibre" image="/common/images/edit.png"
-						alt="Editar">
-						<f:param name="codigoTemaRegLibre" value="#{temaNota.codigo}" assignTo="#{notaContableLibrePage.codigo}" />
-					</h:commandButton>
+					<h:commandButton alt="Editar"/>
+<!-- 					<h:commandButton action="#{notaContableLibrePage.editar}" oncomplete="#{p:remoteCommand('editorRegLibre')}.show()" reRender="editorRegLibre" image="/common/images/edit.png" -->
+<!-- 						alt="Editar"> -->
+<!-- 						<f:param name="codigoTemaRegLibre" value="#{temaNota.codigo}" assignTo="#{notaContableLibrePage.codigo}" /> -->
+<!-- 					</h:commandButton> -->
 				</p:column>
 				<f:facet name="footer">
 					<p:columnGroup rendered="#{! empty notaContableLibrePage.totalesNota}">
@@ -712,7 +726,8 @@
 					<f:facet name="header">
 						<h:outputText value="Eliminar" />
 					</f:facet>
-					<h:commandButton image="/common/images/delete.png" alt="Borrar" onclick="#{p:remoteCommand('popupBorrarAnexoRegLibre')}.show()" />
+					<h:commandButton alt="Borrar"/>
+<!-- 					<h:commandButton image="/common/images/delete.png" alt="Borrar" onclick="#{p:remoteCommand('popupBorrarAnexoRegLibre')}.show()" /> -->
 
 					<!-- Formulario de confirmacion de borrado de anexos-->
 					<p:dialog id="popupBorrarAnexoRegLibre" autosized="true" domElementAttachment="form" minWidth="250">
@@ -724,7 +739,7 @@
 						<f:facet name="controls">
 							<h:panelGroup>
 								<h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink" id="hidelinkBorrarAnexoRegLibre" height="20" width="20" />
-								<p:remoteCommand for="popupBorrarAnexoRegLibre" attachTo="hidelinkBorrarAnexoRegLibre" operation="hide" event="onclick" />
+<!-- 								<p:remoteCommand for="popupBorrarAnexoRegLibre" attachTo="hidelinkBorrarAnexoRegLibre" operation="hide" event="onclick" /> -->
 							</h:panelGroup>
 						</f:facet>
 
@@ -735,11 +750,13 @@
 							<!-- Seccion de mensajes y botones de envio y cancelacion-->
 
 							<h:panelGrid columns="2" styleClass="center" width="100%">
-								<h:commandButton action="#{notaContableLibrePage.borrarAnexo}" value="Si" oncomplete="#{p:remoteCommand('popupBorrarAnexoRegLibre')}.hide()" immediate="true"
-									reRender="formRegLibre">
-									<f:param name="anexoBorrarAnexoRegLibre" value="true" assignTo="#{anexo.borrar}" converter="javax.faces.Boolean" />
-								</h:commandButton>
-								<h:commandButton onclick="#{p:remoteCommand('popupBorrarAnexoRegLibre')}.hide()" value="No" />
+								<h:commandButton value="Si" />
+								<h:commandButton value="No" />
+<!-- 								<h:commandButton action="#{notaContableLibrePage.borrarAnexo}" value="Si" oncomplete="#{p:remoteCommand('popupBorrarAnexoRegLibre')}.hide()" immediate="true" -->
+<!-- 									reRender="formRegLibre"> -->
+<!-- 									<f:param name="anexoBorrarAnexoRegLibre" value="true" assignTo="#{anexo.borrar}" converter="javax.faces.Boolean" /> -->
+<!-- 								</h:commandButton> -->
+<!-- 								<h:commandButton onclick="#{p:remoteCommand('popupBorrarAnexoRegLibre')}.hide()" value="No" /> -->
 							</h:panelGrid>
 						</h:panelGrid>
 					</p:dialog>
@@ -748,17 +765,22 @@
 		</p:panel>
 		<ui:include src="../../common/mensajes.xhtml" />
 		<h:panelGrid columns="3" styleClass="center" width="100%" id="botonesNotaRegLibre">
-			<h:commandButton action="#{notaContableLibrePage.guardarNota}" reRender="formRegLibre,botonesNotaRegLibre" value="Enviar a Visto Bueno"
-				rendered="#{notaContableLibrePage.nota.codigo le 0 and !empty notaContableLibrePage.temasNotaContable and !empty notaContableLibrePage.anexos}" />
-			<h:commandButton action="#{notaContableLibrePage.guardarNota}"
-				oncomplete="if (#{notaContableLibrePage.ocultarPopupGuardarNota}) #{p:remoteCommand('popupNotaContableLibre')}.hide()" reRender="lista,botonesNotaRegLibre"
-				value="Enviar a Visto Bueno"
-				rendered="#{notaContableLibrePage.nota.codigo gt 0 and notaContableLibrePage.nota.puedeEditar and !empty notaContableLibrePage.temasNotaContable and !empty notaContableLibrePage.anexos}" />
-			<h:commandButton value="Anular" rendered="#{notaContableLibrePage.nota.codigo gt 0 and notaContableLibrePage.nota.puedeAnular}"
-				oncomplete="#{p:remoteCommand('popupAnularNotaLibre')}.show()" />
-			<h:commandButton value="Cancelar" action="#{notaContableLibrePage.cancelarNota}" reRender="formRegLibre"
-				rendered="#{notaContableLibrePage.nota.codigo le 0 and !empty notaContableLibrePage.temasNotaContable}" />
-			<h:commandButton value="Cerrar" oncomplete="#{p:remoteCommand('popupNotaContableLibre')}.hide()" reRender="lista" rendered="#{notaContableLibrePage.nota.codigo gt 0}" />
+		<h:commandButton value="Enviar a Visto Bueno" />
+		<h:commandButton value="Enviar a Visto Bueno" />
+		<h:commandButton value="Anular" />
+		<h:commandButton value="Cancelar" />
+		<h:commandButton value="Cerrar" />
+<!-- 			<h:commandButton action="#{notaContableLibrePage.guardarNota}" reRender="formRegLibre,botonesNotaRegLibre" value="Enviar a Visto Bueno" -->
+<!-- 				rendered="#{notaContableLibrePage.nota.codigo le 0 and !empty notaContableLibrePage.temasNotaContable and !empty notaContableLibrePage.anexos}" /> -->
+<!-- 			<h:commandButton action="#{notaContableLibrePage.guardarNota}" -->
+<!-- 				oncomplete="if (#{notaContableLibrePage.ocultarPopupGuardarNota}) #{p:remoteCommand('popupNotaContableLibre')}.hide()" reRender="lista,botonesNotaRegLibre" -->
+<!-- 				value="Enviar a Visto Bueno" -->
+<!-- 				rendered="#{notaContableLibrePage.nota.codigo gt 0 and notaContableLibrePage.nota.puedeEditar and !empty notaContableLibrePage.temasNotaContable and !empty notaContableLibrePage.anexos}" /> -->
+<!-- 			<h:commandButton value="Anular" rendered="#{notaContableLibrePage.nota.codigo gt 0 and notaContableLibrePage.nota.puedeAnular}" -->
+<!-- 				oncomplete="#{p:remoteCommand('popupAnularNotaLibre')}.show()" /> -->
+<!-- 			<h:commandButton value="Cancelar" action="#{notaContableLibrePage.cancelarNota}" reRender="formRegLibre" -->
+<!-- 				rendered="#{notaContableLibrePage.nota.codigo le 0 and !empty notaContableLibrePage.temasNotaContable}" /> -->
+<!-- 			<h:commandButton value="Cerrar" oncomplete="#{p:remoteCommand('popupNotaContableLibre')}.hide()" reRender="lista" rendered="#{notaContableLibrePage.nota.codigo gt 0}" /> -->
 		</h:panelGrid>
 	</h:panelGrid>
 </ui:composition>

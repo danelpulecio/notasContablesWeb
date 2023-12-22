@@ -23,8 +23,8 @@ public class NotaContable extends CommonVO<NotaContable> implements java.io.Seri
 	
 	private Number codigo = 0;
 	//private TIMESTAMP fechaRegistroModulo = null;
-	private Timestamp fechaRegistroModulo = null;
-	private Timestamp fechaRegistroAltamira = null;
+	private TIMESTAMP fechaRegistroModulo = null;
+	private TIMESTAMP fechaRegistroAltamira = null;
 	private String codigoSucursalOrigen = "";
 	private Number codigoConcepto = 0;
 	private Number codigoTipoEvento = 0;
@@ -61,27 +61,26 @@ public class NotaContable extends CommonVO<NotaContable> implements java.io.Seri
 
 	public Timestamp getFechaRegistroModuloTs() {
 		try {
-			return fechaRegistroModulo;
+			return fechaRegistroModulo.timestampValue();
 		} catch (Exception e) {
 			return new Timestamp(new Date().getTime());
 		}
 	}
 
 	public void setFechaRegistroModuloTs(Timestamp fechaRegistroModulo) {
-		LOGGER.info(" fechaRegistroModulo DEL NOTACONTABLE DTO :::: " + fechaRegistroModulo);
-		this.fechaRegistroModulo = fechaRegistroModulo;
+		this.fechaRegistroModulo = new TIMESTAMP(fechaRegistroModulo);
 	}
 
 	public Timestamp getFechaRegistroAltamiraTs() {
 		try {
-			return fechaRegistroAltamira;
+			return fechaRegistroAltamira.timestampValue();
 		} catch (Exception e) {
 			return new Timestamp(new Date().getTime());
 		}
 	}
 
 	public void setFechaRegistroAltamiraTs(Timestamp fechaRegistroAltamira) {
-		this.fechaRegistroAltamira = fechaRegistroAltamira;
+		this.fechaRegistroAltamira = new TIMESTAMP(fechaRegistroAltamira);
 	}
 
 	public String getCodigoSucursalOrigen() {
@@ -174,38 +173,22 @@ public class NotaContable extends CommonVO<NotaContable> implements java.io.Seri
 		this.tipoEvento = tipoEvento;
 	}
 
-//	public TIMESTAMP getFechaRegistroModulo() {
-//		return fechaRegistroModulo;
-//	}
-//
-//	public void setFechaRegistroModulo(TIMESTAMP fechaRegistroModulo) {
-//		this.fechaRegistroModulo = fechaRegistroModulo;
-//	}
-	
-//	public TIMESTAMP getFechaRegistroAltamira() {
-//		return fechaRegistroAltamira;
-//	}
-//	
-//	public void setFechaRegistroAltamira(TIMESTAMP fechaRegistroAltamira) {
-//		this.fechaRegistroAltamira = fechaRegistroAltamira;
-//	}
-	
-	public Timestamp getFechaRegistroModulo() {
+	public TIMESTAMP getFechaRegistroModulo() {
 		return fechaRegistroModulo;
 	}
-	
-	public void setFechaRegistroModulo(Timestamp fechaRegistroModulo) {
+
+	public void setFechaRegistroModulo(TIMESTAMP fechaRegistroModulo) {
 		this.fechaRegistroModulo = fechaRegistroModulo;
 	}
-
-	public Timestamp getFechaRegistroAltamira() {
+	
+	public TIMESTAMP getFechaRegistroAltamira() {
 		return fechaRegistroAltamira;
 	}
-
-	public void setFechaRegistroAltamira(Timestamp fechaRegistroAltamira) {
+	
+	public void setFechaRegistroAltamira(TIMESTAMP fechaRegistroAltamira) {
 		this.fechaRegistroAltamira = fechaRegistroAltamira;
 	}
-
+	
 
 
 	public Sucursal getSucursalOrigen() {
