@@ -25,6 +25,12 @@ public abstract class GeneralConsultaPage<T> extends GeneralPage implements IPag
 	private static final long serialVersionUID = 4721210842962039085L;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(GeneralConsultaPage.class);
+	
+	@PostConstruct
+	public void init() throws Exception {
+	    setDatos(new ArrayList<>(_buscar()));
+	    LOGGER.info("postConstructo buscar datos movimientos{}", getDatos().size());
+	}
 
 //	Session session = getContablesSessionBean().getSessionTrace();
 
@@ -83,11 +89,12 @@ public abstract class GeneralConsultaPage<T> extends GeneralPage implements IPag
 	public String buscar() {
 		LOGGER.info("buscar Consulta Page datos");
 		try {
-			if (datosValidos()) {
+//			if (datosValidos()) {
 				datos = new ArrayList<T>(_buscar());
-			} else {
-				datos = new ArrayList<T>();
-			}
+//			} else {
+//				datos = new ArrayList<T>();
+//			}
+			LOGGER.info("ARAY DATOS :::::: " + datos.size());
 			if (datos.isEmpty()) {
 				nuevoMensaje(FacesMessage.SEVERITY_INFO, "No se encontraron resultados para las caractersticas seleccionadas");
 			}

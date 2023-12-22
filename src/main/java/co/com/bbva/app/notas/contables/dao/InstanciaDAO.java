@@ -171,11 +171,14 @@ public class InstanciaDAO extends CommonSeqDAO<Instancia> {
 			sqlWhere += " AND NC.CODIGO_SUCURSAL_ORIGEN = ?";
 			params.add(codigoSucursalOrigen);
 		}
-		if (!codigoSucursalDestino.equals("")) {
-			sqlWhere += " AND (B.COD_SUC_DEST_PART = ? OR B.COD_SUC_DEST_CONTPART = ?)";
-			params.add(codigoSucursalDestino);
-			params.add(codigoSucursalDestino);
-		}
+		
+//		if(codigoSucursalDestino != null) {
+			if (!codigoSucursalDestino.equals("")) {
+				sqlWhere += " AND (B.COD_SUC_DEST_PART = ? OR B.COD_SUC_DEST_CONTPART = ?)";
+				params.add(codigoSucursalDestino);
+				params.add(codigoSucursalDestino);
+			}
+//		}
 		if (codigoConcepto != null && codigoConcepto != 0) {
 			sqlWhere += " AND NC.CODIGO_CONCEPTO = ?";
 			params.add(codigoConcepto);

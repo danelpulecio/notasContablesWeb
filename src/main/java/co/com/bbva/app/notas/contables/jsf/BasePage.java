@@ -16,12 +16,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
+import java.io.InputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeSet;
-
+import java.util.*;
 
 
 public abstract class BasePage implements Serializable  {
@@ -53,7 +50,7 @@ public abstract class BasePage implements Serializable  {
 		DIR_RECEPCION_ALTAMIRA = context.getInitParameter("DIR_RECEPCION_ALTAMIRA");
 		DIR_TRANSMISION_ALTAMIRA = context.getInitParameter("DIR_TRANSMISION_ALTAMIRA");
 		DIR_CARGA = context.getInitParameter("DIR_CARGA");
-		ACTIVAR_LDAP = context.getInitParameter("ACTIVAR_LDAP");
+		ACTIVAR_LDAP = getLdapValue();
 		DIR_SIRO = context.getInitParameter("DIR_SIRO");
 		LOGGER.info("constructor finaliza");
 	}
@@ -113,6 +110,26 @@ public abstract class BasePage implements Serializable  {
 
 	public  String lanzarError(final Exception e) {
 		return lanzarError(new Exception(e), "Ocurri un error al procesar la peticin ");
+	}
+
+	private String getLdapValue() {
+		ServletContext context = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+		try (InputStream input = context.getResourceAsStream("/WEB-INF/classes/config.properties")) {
+			LOGGER.info("input context {}", context.getResourceAsStream("/"));
+			if (input != null) {
+				LOGGER.info("CARGA DE ARCHIVO");
+				Properties properties = new Properties();
+				properties.load(input);
+				String activarLdap = properties.getProperty("activar.ldap");
+				LOGGER.info("activarLdap {}", activarLdap);
+				return activarLdap;
+			}else
+				LOGGER.info("NO PUDO CARGAR EL ARCHIVO");
+			return "1";
+		} catch (Exception e) {
+			LOGGER.error("Error al cargar el archivo: " + e.getMessage(), e);
+			return "1";
+		}
 	}
 
 

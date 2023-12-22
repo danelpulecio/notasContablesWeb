@@ -12,19 +12,14 @@ import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 import java.util.ArrayList;
 
-@RequestScoped
 @Named
+@SessionScoped
 public class ConsultaMovimientosContablesPage extends ReporteGeneralPage {
 
 	private static final long serialVersionUID = 5090751661160357021L;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ConsultaMovimientosContablesPage.class);
 
-//	@PostConstruct
-//	public void init() throws Exception {
-//		buscar();
-//		LOGGER.info("postConstructo buscar datos {}", getDatos().size());
-//	}
 
 	//Session session = getContablesSessionBean().getSessionTrace();
 
@@ -39,7 +34,7 @@ public class ConsultaMovimientosContablesPage extends ReporteGeneralPage {
 
 	@Override
 	public String buscar() {
-		LOGGER.info("buscar ContulstaMovimientosContablesPage");
+		LOGGER.info("::::: buscar ContulstaMovimientosContablesPage ::::: ");
 		try {
 			tipoNota = "";
 			estado = "6";
@@ -57,7 +52,7 @@ public class ConsultaMovimientosContablesPage extends ReporteGeneralPage {
 				ins.setNC(nc);
 			}
 		} catch (Exception e) {
-//			LOGGER.error("{} Error realizando la busqueda", session.getTraceLog() , e);
+			LOGGER.error("{} Error realizando la busqueda", e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error realizando la busqueda");
 
 		}

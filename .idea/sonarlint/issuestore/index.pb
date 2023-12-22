@@ -351,3 +351,13 @@ v
 Fsrc/main/java/co/com/bbva/app/notas/contables/config/ConfigLoader.java,5/7/57b65fdcd0f6bd5bd5c278becba68187e473668e
 X
 (src/main/webapp/config/ConfigLoader.java,0/5/05814ea1219f09877acca7811594c6bbc1732dfb
+‰
+Ysrc/main/java/co/com/bbva/app/notas/contables/jsf/consultas/ConsultaNotaContablePage.java,2/4/2400e57492bc8d983fa6423dbdbd28cfc23ca28c
+{
+Ksrc/main/java/co/com/bbva/app/notas/contables/dao/bk/BKNotaContableDAO.java,8/3/8301d08f5cec01284f259a8c153a489cd52df944
+v
+Fsrc/main/java/co/com/bbva/app/notas/contables/dao/NotaContableDAO.java,b/a/ba26d114b54e688226bbbf96b721b630d4224ba5
+s
+Csrc/main/java/co/com/bbva/app/notas/contables/dao/InstanciaDAO.java,4/7/4759d916163213de42604fadd64d58041ee8d6c9
+s
+Csrc/main/java/co/com/bbva/app/notas/contables/dto/NotaContable.java,f/8/f83d5fdf1b64508b39469a6bd2c3f5314ce6531a

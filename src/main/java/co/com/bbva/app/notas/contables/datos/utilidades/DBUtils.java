@@ -1,15 +1,18 @@
 package co.com.bbva.app.notas.contables.datos.utilidades;
 
+//import oracle.sql.TIMESTAMP;
+import java.sql.*;
+
+import oracle.sql.TIMESTAMP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.management.RuntimeErrorException;
 import java.lang.reflect.Method;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.*;
+import java.util.Date;
 
 public class DBUtils<T> {
 	private static final boolean MOSTRAR_SQL = false;
@@ -121,8 +124,10 @@ public class DBUtils<T> {
 
 	protected void setearValor(final Object o, String param, final Object value, String originalParam) {
 		if (value != null) {
+			LOGGER.info(" ::: O :::: " + o.toString() + " :::: param ::::" + param + " ::: VALUE :::: "+ value + " :::: originalParam ::  " + originalParam );
 			Method m = null;
 			try {
+				LOGGER.info(":::::: EN DBUtils PASO 1:::::: ");
 				if (param.contains(BREAKER)) {
 					final String[] params = param.split(BREAKER);
 					final String string = params[0];
@@ -147,7 +152,16 @@ public class DBUtils<T> {
 						} else if (value.toString().equals("1")) {
 							m.invoke(o, new Boolean(true));
 						}
-					} else {
+					} else if(tipo == TIMESTAMP.class){
+						String valueStringDate = String.valueOf(value);
+						SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+						Date valueDate = formatDate.parse(valueStringDate);
+						long valorDateLong = valueDate.getTime();
+						Timestamp javaSqlTimestamp = new Timestamp(valorDateLong);
+
+						m.invoke(o,new TIMESTAMP(javaSqlTimestamp));
+					}
+					else {
 						m.invoke(o, value);
 					}
 				}

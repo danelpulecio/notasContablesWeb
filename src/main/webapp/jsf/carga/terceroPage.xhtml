@@ -67,16 +67,16 @@
                             </h:panelGrid>
                             <h:panelGrid columns="6" width="100%">
                                 <h:outputText value="País"/>
-                                <h:selectOneMenu value="#{terceroPage.objActual.pais}" immediate="true">
+                                <h:selectOneMenu value="#{terceroPage.objActual.pais}" immediate="false">
                                     <f:selectItems value="#{terceroPage.paises}"/>
-                                    <p:ajax event="change" action="#{terceroPage.cargarDepartamentos }"
-                                            update="municipioPanel,departamentosPanel"/>
+                                    <p:ajax event="change" listener="#{terceroPage.cargarDepartamentos}"
+                                                 update="municipioPanel,departamentosPanel"/>
                                 </h:selectOneMenu>
 
-                                <h:panelGroup id="departamentosPanel">
+                                <h:panelGroup id="departamentosPanel" >
                                     <h:outputText value="Departamento" rendered="#{!empty terceroPage.departamentos}"/>
                                     <h:selectOneMenu value="#{terceroPage.objActual.departamento}"
-                                                     rendered="#{!empty terceroPage.departamentos}" immediate="true">
+                                                     rendered="#{!empty terceroPage.departamentos}" immediate="false">
                                         <f:selectItems value="#{terceroPage.departamentos}"/>
                                         <p:ajax event="change" action="#{terceroPage.cargarMunicipios }"
                                                 update="municipioPanel"/>
@@ -221,20 +221,16 @@
             <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
 
                 <p:dataTable value="#{terceroPage.datos}" var="dato" id="table" rows="15"
-                             rendered="#{! empty terceroPage.datos}" rowKeyVar="rowKey"
-                             footerClass="row2" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
-                             onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"
-                             rowClasses="row1, row2">
-                    <f:facet name="header">
-                        <p:dataScroller fastControls="false" pageIndexVar="pageIndex" pagesVar="pages"
-                                        style="color:black;" for="table" maxPages="5" renderIfSinglePage="false"
-                                        page="#{terceroPage.scrollPage}" id="up" update="lista, filtro"
-                                        limitToList="true">
-                        </p:dataScroller>
-                    </f:facet>
-                    <p:column>
-                        <f:facet name="header"><h:outputText value="Fila"/></f:facet>
-                        <h:outputText value="#{rowKey+1}"/>
+				             rendered="#{! empty terceroPage.datos}" rowIndexVar="rowIndex"
+				             footerClass="row2" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
+				             onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"
+				             rowClasses="row1, row2"  paginator="true"
+				             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				             currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+				             paginatorPosition="top">
+                    
+                    <p:column width="30px;" headerText="Fila">
+                        <h:outputText value="#{rowIndex+1}"/>
                     </p:column>
                     <p:column sortable="true" sortBy="#{dato.tipoIdentificacionStr}">
                         <f:facet name="header">
@@ -312,18 +308,6 @@
                         </f:facet>
                         <h:outputText value="#{dato.ingresoApp == 0 ? 'No' : 'Si'}"/>
                     </p:column>
-
-                    <!--	Se muestra la información de la cantidad de registros y la pagina actual	-->
-                    <f:facet name="footer">
-                        <p:dataScroller style="color:black;" align="center" for="table"
-                                        page="#{terceroPage.scrollPage}" boundaryControls="hide" fastControls="hide"
-                                        stepControls="hide">
-                            <f:facet name="pages">
-                                <h:outputText
-                                        value="Visualizando del #{((pageIndex-1)*15)+1 } al #{(pages!=pageIndex)?(pageIndex*15):terceroPage.totalFilas} de un total de #{terceroPage.totalFilas} registros."/>
-                            </f:facet>
-                        </p:dataScroller>
-                    </f:facet>
                 </p:dataTable>
             </h:panelGrid>
         </div>

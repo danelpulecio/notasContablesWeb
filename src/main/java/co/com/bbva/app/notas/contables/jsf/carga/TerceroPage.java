@@ -51,6 +51,8 @@ public class TerceroPage extends GeneralParametrosPage<Tercero, Tercero> {
 	 */
 	public TerceroPage() {
 		super(false);
+		this.departamentos.clear();
+		this.municipios.clear();
 	}
 
 	public void cargarMunicipios() {
@@ -117,6 +119,7 @@ public class TerceroPage extends GeneralParametrosPage<Tercero, Tercero> {
 					departamentos.add(new SelectItem(ti.getCodigo(), ti.getNombre()));
 				}
 			}
+
 			if (objActual != null) {
 				if (departamentos.isEmpty()) {
 					objActual.setDepartamento("");
@@ -124,6 +127,7 @@ public class TerceroPage extends GeneralParametrosPage<Tercero, Tercero> {
 					objActual.setDepartamento(departamentos.get(0).getValue().toString());
 				}
 			}
+			
 			if (objActual != null) {
 				cargarMunicipios();
 			} else {

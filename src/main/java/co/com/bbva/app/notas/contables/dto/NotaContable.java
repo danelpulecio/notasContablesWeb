@@ -85,7 +85,7 @@ public class NotaContable extends CommonVO<NotaContable> implements java.io.Seri
 		this.codigoSucursalOrigen = codigoSucursalOrigen;
 	}
 
-	public String getNumeroRadicacion() { 
+	public String getNumeroRadicacion() {
 		return numeroRadicacion;
 	}
 

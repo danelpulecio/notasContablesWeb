@@ -1,16 +1,16 @@
 
 {
-java:S2293e"YReplace the type specification in this constructor call with the diamond operator ("<>").(¦±Øùıÿÿÿÿ8¾··ÑÆ1
-s	java:S116&"WRename this field "DIR_SOPORTES" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ù”ëş8É··ÑÆ1
-~	java:S116'"]Rename this field "DIR_REPORTES_EXCEL" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ªúÒìûÿÿÿÿ8Ê··ÑÆ1
-‚	java:S116("aRename this field "DIR_RECEPCION_ALTAMIRA" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‰•ü™øÿÿÿÿ8Ë··ÑÆ1
-	java:S116)"cRename this field "DIR_TRANSMISION_ALTAMIRA" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(É×˜à8Í··ÑÆ1
-u	java:S116*"TRename this field "DIR_CARGA" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‘éÿÿÿÿÿ8Î··ÑÆ1
-s	java:S116+"WRename this field "ACTIVAR_LDAP" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(½¿±8Ï··ÑÆ1
-t	java:S116,"SRename this field "DIR_SIRO" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(£ë½Àøÿÿÿÿ8Ğ··ÑÆ1
+java:S2293b"YReplace the type specification in this constructor call with the diamond operator ("<>").(¦±Øùıÿÿÿÿ8¾··ÑÆ1
+s	java:S116#"WRename this field "DIR_SOPORTES" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ù”ëş8É··ÑÆ1
+~	java:S116$"]Rename this field "DIR_REPORTES_EXCEL" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ªúÒìûÿÿÿÿ8Ê··ÑÆ1
+‚	java:S116%"aRename this field "DIR_RECEPCION_ALTAMIRA" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‰•ü™øÿÿÿÿ8Ë··ÑÆ1
+	java:S116&"cRename this field "DIR_TRANSMISION_ALTAMIRA" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(É×˜à8Í··ÑÆ1
+u	java:S116'"TRename this field "DIR_CARGA" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‘éÿÿÿÿÿ8Î··ÑÆ1
+s	java:S116("WRename this field "ACTIVAR_LDAP" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(½¿±8Ï··ÑÆ1
+t	java:S116)"SRename this field "DIR_SIRO" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(£ë½Àøÿÿÿÿ8Ğ··ÑÆ1
 d
-java:S6813"BRemove this field injection and use constructor injection instead.(Áº–üÿÿÿÿ8Ò··ÑÆ1
+java:S6813"BRemove this field injection and use constructor injection instead.(Áº–üÿÿÿÿ8Ò··ÑÆ1
 [
-java:S5993."9Change the visibility of this constructor to "protected".(³Ì›¶şÿÿÿÿ8Õ··ÑÆ1
+java:S5993+"9Change the visibility of this constructor to "protected".(³Ì›¶şÿÿÿÿ8Õ··ÑÆ1
 M
-java:S1948!"+Make "validador" transient or serializable.(¥æã·úÿÿÿÿ8×··ÑÆ1
+java:S1948"+Make "validador" transient or serializable.(¥æã·úÿÿÿÿ8×··ÑÆ1

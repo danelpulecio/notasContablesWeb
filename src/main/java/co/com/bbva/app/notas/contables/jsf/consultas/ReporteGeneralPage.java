@@ -143,6 +143,8 @@ public class ReporteGeneralPage extends GeneralConsultaPage<Instancia> {
 		Collection<Instancia> instancias = new ArrayList<Instancia>();
 		java.sql.Date desdeD = desde != null ? new java.sql.Date(desde.getTime()) : null;
 		java.sql.Date hastaD = hasta != null ? new java.sql.Date(hasta.getTime()) : null;
+		LOGGER.info("DESDE ::::::::: " + desde + "::::::::::: " + desdeD);
+		LOGGER.info("FECHA HASTA ANTES DEL IF ::::::::: " + hasta + "::::::::::: " + hastaD);
 		if (hastaD != null) {
 			Calendar c = Calendar.getInstance();
 			c.setTime(hastaD);
@@ -152,9 +154,12 @@ public class ReporteGeneralPage extends GeneralConsultaPage<Instancia> {
 			c.set(Calendar.MILLISECOND, 0);
 			hastaD.setTime(c.getTimeInMillis());
 		}
+		LOGGER.info("FECHA HASTA DESPUES DEL IF ::::::::: " + hasta + "::::::::::: " + hastaD);
+		
 		if (sucOrigen == null) {
 			sucOrigen = "";
 		}
+
 		if (tipoNota.trim().equals("")) {
 //			LOGGER.info("{} Busca Instancias All ", session.getTraceLog() );
 			instancias = notasContablesManager.getInstanciasPor(sucOrigen, sucDestino, concepto, tema, tipoEvento, partida, numIdentificacion, desdeD, hastaD, divisa, estado,
