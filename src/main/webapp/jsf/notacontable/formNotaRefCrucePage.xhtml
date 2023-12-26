@@ -3,34 +3,38 @@
 				xmlns:ui="http://java.sun.com/jsf/facelets"
 				xmlns:h="http://java.sun.com/jsf/html"
 				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:p="http://primefaces.org/ui"
-				template="../../common/template.xhtml">
+				xmlns:p="http://primefaces.org/ui">
 	
 	<h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="0" >
-		<p:accordionPanel opened="true" style="width: 100%" label="Cuentas" switchType="client" >
-			<h:panelGrid width="100%" cellpadding="0" cellspacing="0" style="border-width: 0px; background-color: transparent;" id="cuentas">
-				<p:dataGrid value="#{notaRefCrucePage.cuentas}"  var="cuenta" columns="8" width="100%" cellpadding="0" cellspacing="0" >
-					<h:panelGrid columns="2">
-						<h:selectBooleanCheckbox value="#{cuenta.seleccionada}" immediate="true"/>
-						<h:outputText value="#{cuenta.cuenta}" />
-					</h:panelGrid>
-				</p:dataGrid>
-			</h:panelGrid>
-			<h:commandButton action="#{notaRefCrucePage.seleccionar}" value="Seleccionar/Deseleccionar" reRender="cuentas"/>
-			<h:inputText  styleClass="bold" value="#{notaRefCrucePage.param}" immediate="true"/>
-			<h:commandButton action="#{notaRefCrucePage.buscarFiltro}" value="Buscar" reRender="partPendientes"/>
-			
+		
+<!-- 		<p:panel id="client" style="width: 100%"   header="" toggleable="true"> -->
+		<p:accordionPanel>
+			<p:tab title="Cuentas" closable="true">
+	<!-- 		<p:accordionPanel style="width: 100%" label="Cuentas" widgetVar="client" > -->
+				<h:panelGrid width="100%" cellpadding="0" cellspacing="0" style="border-width: 0px; background-color: transparent;" id="cuentas">
+					<p:dataGrid value="#{notaRefCrucePage.cuentas}"  var="cuenta" columns="8" width="100%" cellpadding="0" cellspacing="0" >
+						<h:panelGrid columns="2">
+							<h:selectBooleanCheckbox value="#{cuenta.seleccionada}" immediate="true"/>
+							<h:outputText value="#{cuenta.cuenta}" />
+						</h:panelGrid>
+					</p:dataGrid>
+				</h:panelGrid>
+				<p:commandButton actionListener="#{notaRefCrucePage.seleccionar}" value="Seleccionar/Deseleccionar" update="cuentas"/>
+				<h:inputText  styleClass="bold" value="#{notaRefCrucePage.param}" immediate="true"/>
+				<p:commandButton actionListener="#{notaRefCrucePage.buscarFiltro}" value="Buscar" ajax="false" update="partPendientes"/>
+			</p:tab>
 		</p:accordionPanel>
+<!-- 		</p:panel> -->
 		<h:panelGroup id="partPendientes">
 			<p:panel header="Partidas Pendientes Disponibles" style="width: 100%;" rendered="#{! empty notaRefCrucePage.partidasPendientes}">
-				<p:dataTable value="#{notaRefCrucePage.partidasPendientes}" var="partida" id="tablePartDisp" rowKeyVar="rowKey" width="100%" rows="5"
-				footerClass="row2" onRowMouseOver="this.style.backgroundColor='#9fbdeb'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'" rowClasses="row1, row2">
-					<f:facet name="header">
-						<p:dataScroller fastControls="false" pageIndexVar="pageIndex" pagesVar="pages" style="color:black;" for="tablePartDisp" maxPages="10" renderIfSinglePage="false"
-						page="#{notaRefCrucePage.scrollPage}" limitToList="true" reRender="partPendientes" fastStep="3">
-						</p:dataScroller>
-					</f:facet>
-	
+				<p:dataTable value="#{notaRefCrucePage.partidasPendientes}" var="partida" id="tablePartDisp" rowIndexVar="rowIndex" 
+							footerClass="row2" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
+				            onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"
+				            rowClasses="row1, row2"  paginator="true"
+				            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				            currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+				            paginatorPosition="top">
+				             
 					<p:column sortable="true" sortBy="#{partida.cuenta}">
 	                    <f:facet name="header"><h:outputText value="Cuenta" /></f:facet>
 	                    <h:outputText value="#{partida.cuenta}" />
@@ -73,25 +77,22 @@
 					
 					<p:column style="text-align: center;">
 	                    <f:facet name="header"><h:outputText value="Agregar" /></f:facet>
-	                    <h:commandButton action="#{notaRefCrucePage.adicionar}" reRender="partPendientes,partSeleccionadas,opcionesNotaRefCruce" value="+">
-		                    <f:param name="selPart" value="true" assignTo="#{partida.seleccionada}" converter="javax.faces.Boolean" />
+	                    <h:commandButton action="#{notaRefCrucePage.adicionar}" update="partPendientes,partSeleccionadas,opcionesNotaRefCruce" value="+">
+		                    <f:setPropertyActionListener for="selPart" value="true" target="#{partida.seleccionada}" />
 	                    </h:commandButton>
 	                </p:column>
-					<!--	Se muestra la información de la cantidad de registros y la pagina actual	-->
-					<f:facet name="footer">
-						<p:dataScroller style="color:black;" align="center" for="tablePartDisp" page="#{notaRefCrucePage.scrollPage}" boundaryControls="hide" fastControls="hide" stepControls="hide">
-							<f:facet name="pages">
-								<h:outputText value="Visualizando del #{((pageIndex-1)*5)+1 } al #{(pages!=pageIndex)?(pageIndex*5):notaRefCrucePage.totalFilas} de un total de #{notaRefCrucePage.totalFilas} registros." />
-							</f:facet>
-						</p:dataScroller>
-					</f:facet>
 				</p:dataTable>
 			</p:panel>
 		</h:panelGroup>
 		<h:panelGroup id="partSeleccionadas">
 			<p:panel header="Partidas Pendientes Seleccionadas" style="width: 100%;" rendered="#{! empty notaRefCrucePage.partidasSeleccionadas}">
-				<p:dataTable value="#{notaRefCrucePage.partidasSeleccionadas}" var="partida" id="tablePartSel" rowKeyVar="rowKey" width="100%"
-				footerClass="row2" onRowMouseOver="this.style.backgroundColor='#9fbdeb'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'" rowClasses="row1, row2">
+				<p:dataTable value="#{notaRefCrucePage.partidasSeleccionadas}" var="partida" id="tablePartSel" rowIndexVar="rowIndex" 
+							footerClass="row2" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
+				            onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"
+				            rowClasses="row1, row2"  paginator="true"
+				            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				            currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+				            paginatorPosition="top">
 					
 					<p:column>
 	                    <f:facet name="header"><h:outputText value="Cuenta" /></f:facet>
@@ -135,8 +136,8 @@
 	                
 					<p:column style="text-align: center;">
 	                    <f:facet name="header"><h:outputText value="Quitar" /></f:facet>
-	                    <h:commandButton action="#{notaRefCrucePage.remover}" reRender="partPendientes,partSeleccionadas,opcionesNotaRefCruce" value="-">
-		                    <f:param name="selPart1" value="true" assignTo="#{partida.seleccionada}" converter="javax.faces.Boolean" />
+	                    <h:commandButton action="#{notaRefCrucePage.remover}" update="partPendientes,partSeleccionadas,opcionesNotaRefCruce" value="-">
+	                    	<f:setPropertyActionListener for="selPart1" value="true" target="#{partida.seleccionada}" />
 	                    </h:commandButton>
 	                </p:column>
 	                <f:facet name="footer" >
@@ -160,8 +161,8 @@
 			</p:panel>
 		</h:panelGroup>
 		<h:panelGrid columns="2" styleClass="center" width="100%" id="opcionesNotaRefCruce">
-			<h:commandButton action="#{notaRefCrucePage.guardar}" value="Enviar a Visto Bueno" reRender="partPendientes,partSeleccionadas,opcionesNotaRefCruce" rendered="#{! empty notaRefCrucePage.partidasSeleccionadas}"/>
-			<h:commandButton value="Cancelar" action="#{notaRefCrucePage.cancelar}" reRender="partPendientes,partSeleccionadas,opcionesNotaRefCruce"  rendered="#{! empty notaRefCrucePage.partidasSeleccionadas}"/>
+			<p:commandButton actionListener="#{notaRefCrucePage.guardar}" value="Enviar a Visto Bueno" update="partPendientes,partSeleccionadas,opcionesNotaRefCruce" rendered="#{! empty notaRefCrucePage.partidasSeleccionadas}"/>
+			<p:commandButton value="Cancelar" actionListener="#{notaRefCrucePage.cancelar}" update="partPendientes,partSeleccionadas,opcionesNotaRefCruce"  rendered="#{! empty notaRefCrucePage.partidasSeleccionadas}"/>
 		</h:panelGrid>
 	</h:panelGrid>
 </ui:composition>

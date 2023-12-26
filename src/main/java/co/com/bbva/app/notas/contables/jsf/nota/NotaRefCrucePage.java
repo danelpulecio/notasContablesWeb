@@ -45,7 +45,7 @@ public class NotaRefCrucePage extends GeneralPage implements IPages, Serializabl
 	// banderas para controlar el cierre de popups
 	private boolean ocultarPopupAprobar = false;
 	private boolean ocultarPopupAnular = false;
-	private Session session;
+	//private Session session;
 	protected final EMailSender enviarEMail;
 	protected NotaContable nota = new NotaContable();
 	protected ArrayList<NotaContableTotal> totalesNota = new ArrayList<>();
@@ -70,28 +70,28 @@ public class NotaRefCrucePage extends GeneralPage implements IPages, Serializabl
 	}
 
 	public String iniciarPagina() {
-		session = getContablesSessionBean().getSessionTrace();
+//		session = getContablesSessionBean().getSessionTrace();
 		try {
-			LOGGER.info("{} Registro de NOTA CONTABLE REF. CRUCE - Configurando valores iniciales", session.getTraceLog());
+			LOGGER.info("{} Registro de NOTA CONTABLE REF. CRUCE - Configurando valores iniciales");
 			String codSucursal = getUsuarioLogueado().getUsuario().getCodigoAreaModificado();
-			LOGGER.info("{} Obteniendo Info. de la sucursal {}", session.getTraceLog(), codSucursal);
+			LOGGER.info("{} Obteniendo Info. de la sucursal {}", codSucursal);
 			String msg = notasContablesManager.verificarUsuarioSubGerente(codSucursal);
 			if (msg.isEmpty()) {
-				LOGGER.info("{} Consultando cuentas de partidas pendientes para la sucursal {}", session.getTraceLog(), codSucursal);
+				LOGGER.info("{} Consultando cuentas de partidas pendientes para la sucursal {}", codSucursal);
 				cuentas = new ArrayList<>(cargaAltamiraManager.getPartidasPendientesCuentasPorSucursal(codSucursal));
 				if (cuentas.isEmpty()) {
-					LOGGER.info("{} No se encontr informacin de cuentas", session.getTraceLog());
+					LOGGER.info("{} No se encontr informacin de cuentas" );
 					nuevoMensaje(FacesMessage.SEVERITY_INFO, "Actualmente no hay cuentas para cruzar.");
 				} else {
-					LOGGER.info("{} Se encontraron {} cuentas", session.getTraceLog(), cuentas.size());
+					LOGGER.info("{} Se encontraron {} cuentas", cuentas.size());
 					Collections.sort(cuentas, new CompPartPendPorCuenta());
 				}
 			} else {
-				LOGGER.warn("{} No se tiene parametrizado un autorizador", session.getTraceLog());
+				LOGGER.warn("{} No se tiene parametrizado un autorizador");
 				nuevoMensaje(FacesMessage.SEVERITY_WARN, msg);
 			}
 		} catch (Exception e) {
-			LOGGER.error("{} Error al intentar al configurar los valores iniciales: NC REF. CRUCE", session.getTraceLog(), e);
+			LOGGER.error("{} Error al intentar al configurar los valores iniciales: NC REF. CRUCE", e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema, la aplicacin no se pudo iniciar correctamente");
 		}
 		return null;
@@ -108,7 +108,7 @@ public class NotaRefCrucePage extends GeneralPage implements IPages, Serializabl
 
 	public String buscarFiltro() {
 		try {
-			LOGGER.info("{} Realizando la busqueda de Partidas Pendientes", session.getTraceLog());
+			LOGGER.info("{} Realizando la busqueda de Partidas Pendientes");
 			boolean filtro = false;
 			for (PartidaPendiente c : cuentas) {
 				if (c.getSeleccionada()) {
@@ -117,7 +117,7 @@ public class NotaRefCrucePage extends GeneralPage implements IPages, Serializabl
 				}
 			}
 			partidasPendientes = new ArrayList<>();
-			LOGGER.info("{} Obteniendo Info. de Partidas Pendientes - Filtro: {}", session.getTraceLog(), param);
+			LOGGER.info("{} Obteniendo Info. de Partidas Pendientes - Filtro: {}", param);
 			Collection<PartidaPendiente> partidas = cargaAltamiraManager.searchPartidaPendientePorSucursal(getUsuarioLogueado().getUsuario().getCodigoAreaModificado(), param);
 			if (!partidas.isEmpty()) {
 				for (PartidaPendiente p : partidas) {
@@ -135,17 +135,17 @@ public class NotaRefCrucePage extends GeneralPage implements IPages, Serializabl
 					}
 				}
 			}
-			LOGGER.info("{} Hay {} partidas pendientes disponibles", session.getTraceLog(), partidasPendientes.size());
+			LOGGER.info("{} Hay {} partidas pendientes disponibles", partidasPendientes.size());
 			Collections.sort(partidasPendientes);
 		} catch (Exception e) {
-			LOGGER.error("{} Error intentando consultar las partidas pendientes", session.getTraceLog(), e);
+			LOGGER.error("{} Error intentando consultar las partidas pendientes", e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema consultando las partidas pendientes");
 		}
 		return null;
 	}
 
 	public String seleccionar() {
-		LOGGER.info("{} Se ha seleccionado la(s) cuenta(s)", session.getTraceLog());
+		LOGGER.info("{} Se ha seleccionado la(s) cuenta(s)");
 		for (PartidaPendiente p : cuentas) {
 			p.setSeleccionada(!p.getSeleccionada());
 		}
@@ -154,14 +154,14 @@ public class NotaRefCrucePage extends GeneralPage implements IPages, Serializabl
 
 	public String adicionar() {
 		try {
-			LOGGER.info("{} Se ha selecionado una Partida Pendiente", session.getTraceLog());
+			LOGGER.info("{} Se ha selecionado una Partida Pendiente");
 			for (PartidaPendiente p : partidasPendientes) {
 				if (p.getSeleccionada()) {
-					LOGGER.info("{} Ajuste de las partidas pendientes disponibles", session.getTraceLog());
+					LOGGER.info("{} Ajuste de las partidas pendientes disponibles");
 					partidasPendientes.remove(p);
 					p.setUsada("S");
 					p.setSeleccionada(false);
-					LOGGER.info("{} Se agrega a la Nota Contable la partida seleccionada: {}", session.getTraceLog(), p.getConcepto());
+					LOGGER.info("{} Se agrega a la Nota Contable la partida seleccionada: {}");
 					partidasSeleccionadas.add(p);
 					break;
 				}
@@ -169,7 +169,7 @@ public class NotaRefCrucePage extends GeneralPage implements IPages, Serializabl
 			Collections.sort(partidasSeleccionadas);
 			ajustarTotalesNota();
 		} catch (Exception e) {
-			LOGGER.error("{} Error al agregar una partida pendiente a la Nota Contable", session.getTraceLog(), e);
+			LOGGER.error("{} Error al agregar una partida pendiente a la Nota Contable",  e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema al agregar la partida seleccionada");
 		}
 		return null;
@@ -177,28 +177,28 @@ public class NotaRefCrucePage extends GeneralPage implements IPages, Serializabl
 
 	public String remover() {
 		try {
-			LOGGER.info("{} Se ha eliminado una Partida Pendiente de las seleccionadas", session.getTraceLog());
+			LOGGER.info("{} Se ha eliminado una Partida Pendiente de las seleccionadas");
 			for (PartidaPendiente p : partidasSeleccionadas) {
 				if (p.getSeleccionada()) {
-					LOGGER.info("{} Se elimina la partida seleccionada: {}", session.getTraceLog(), p.getConcepto());
+					LOGGER.info("{} Se elimina la partida seleccionada: {}", p.getConcepto());
 					partidasSeleccionadas.remove(p);
 					p.setUsada("N");
 					p.setSeleccionada(false);
-					LOGGER.info("{} Ajuste de las partidas pendientes disponibles", session.getTraceLog());
+					LOGGER.info("{} Ajuste de las partidas pendientes disponibles");
 					partidasPendientes.add(p);
 					break;
 				}
 			}
 			ajustarTotalesNota();
 		} catch (Exception e) {
-			LOGGER.error("{} Error al eliminar una partida pendiente en la Nota Contable", session.getTraceLog(), e);
+			LOGGER.error("{} Error al eliminar una partida pendiente en la Nota Contable", e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema al eliminar la partida seleccionada");
 		}
 		return null;
 	}
 
 	private void ajustarTotalesNota() {
-		LOGGER.info("{} Estructura y agrupa los montos totales por divisa", session.getTraceLog());
+		LOGGER.info("{} Estructura y agrupa los montos totales por divisa");
 		totalesNota = new ArrayList<>();
 		for (PartidaPendiente p : partidasSeleccionadas) {
 			String negativo = p.getNaturaleza().equalsIgnoreCase("D") ? "" : "-";
@@ -221,7 +221,7 @@ public class NotaRefCrucePage extends GeneralPage implements IPages, Serializabl
 	}
 
 	public boolean validarRegistros() {
-		LOGGER.info("{} Validacin de campos requeridos", session.getTraceLog());
+		LOGGER.info("{} Validacin de campos requeridos");
 		for (NotaContableTotal total : totalesNota) {
 			if (total.getTotal() != 0) {
 				nuevoMensaje(FacesMessage.SEVERITY_WARN, "El total para la divisa " + total.getCodigoDivisa() + " debe sumar cero (0)");
@@ -235,14 +235,14 @@ public class NotaRefCrucePage extends GeneralPage implements IPages, Serializabl
 
 	public String guardar() {
 		try {
-			LOGGER.info("{} Intentando grabar la Nota Contable Ref. Cruce", session.getTraceLog());
-			LOGGER.info("{} Procesando validaciones y Persistiendo Info.", session.getTraceLog());
+			LOGGER.info("{} Intentando grabar la Nota Contable Ref. Cruce");
+			LOGGER.info("{} Procesando validaciones y Persistiendo Info.");
 			if (validarRegistros()) {
 				if (nota.getCodigo().intValue() <= 0) {
 					nota.setCodigoSucursalOrigen(getUsuarioLogueado().getUsuario().getCodigoAreaModificado());
 					nota.setCodigoTipoEvento(0);
 					nota.setTipoNota("C");
-					LOGGER.info("{} Creando registro de la Instancia en base de datos", session.getTraceLog());
+					LOGGER.info("{} Creando registro de la Instancia en base de datos");
 					int idInstancia = notasContablesManager.crearInstanciaNotaContable(nota, new ArrayList<>(), new ArrayList<>(),
 							new ArrayList<>(), new ArrayList<>(), partidasSeleccionadas, getCodUsuarioLogueado());
 					if (idInstancia != 0) {
@@ -254,7 +254,7 @@ public class NotaRefCrucePage extends GeneralPage implements IPages, Serializabl
 							NotaContable notaContable = new NotaContable();
 							notaContable.setCodigo(instancia.getCodigoNotaContable().intValue());
 							notaContable = notasContablesManager.getNotaContable(notaContable);
-							LOGGER.info("{} El registro de la NOTA CONTABLE REF. CRUCE: {} fue exitoso", session.getTraceLog(), notaContable.getNumeroRadicacion());
+							LOGGER.info("{} El registro de la NOTA CONTABLE REF. CRUCE: {} fue exitoso", notaContable.getNumeroRadicacion());
 
 							int codigoUsuarioAsignado = instancia.getCodigoUsuarioActual().intValue();
 							UsuarioModulo usuarioModulo = new UsuarioModulo();
@@ -263,34 +263,34 @@ public class NotaRefCrucePage extends GeneralPage implements IPages, Serializabl
 							cancelar();
 							nuevoMensaje(FacesMessage.SEVERITY_INFO, "La nota ha sido registrada correctamente con el nmero de radicacin " + notaContable.getNumeroRadicacion());
 							try {
-								LOGGER.info("{} Intentando enviar email de la nota grabada", session.getTraceLog());
+								LOGGER.info("{} Intentando enviar email de la nota grabada");
 								enviarEMail.sendEmail(usuarioModulo.getEMailModificado(), getUsuarioLogueado().getUsuario().getEMailModificado(),
 										"Mdulo Notas Contables - Registro para aprobar",
 										"Por favor ingrese al mdulo de Notas Contables, se le ha asignado un registro que requiere su verificacin");
 							} catch (Exception e) {
-								LOGGER.error("{} Error al intentar enviar el email de la nota (L) grabada", session.getTraceLog(), e);
+								LOGGER.error("{} Error al intentar enviar el email de la nota (L) grabada", e);
 								nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema al enviar el correo electronico a " + usuarioModulo.getEMailModificado());
 							}
 						} catch (Exception e) {
-							LOGGER.error("{} Error al obtener la Info. de la nota (C) grabada", session.getTraceLog(), e);
+							LOGGER.error("{} Error al obtener la Info. de la nota (C) grabada", e);
 						}
 					} else {
-						LOGGER.error("{} Error al crear la instancia de la Nota Contable Ref. Cruce", session.getTraceLog());
+						LOGGER.error("{} Error al crear la instancia de la Nota Contable Ref. Cruce");
 						nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema no fue posible crear la nota contable");					}
 				} else {
-					LOGGER.error("{} Error la nota contable ya ha sido registrada - Codigo: {}", session.getTraceLog(), nota.getCodigo().intValue());
+					LOGGER.error("{} Error la nota contable ya ha sido registrada - Codigo: {}", nota.getCodigo().intValue());
 					nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: La informacin de la nota ya ha sido registrada anteriormente");
 				}
 			}
 		} catch (Exception e) {
-			LOGGER.error("{} Error al intentar grabar la Nota Contable Ref. Cruce", session.getTraceLog(), e);
+			LOGGER.error("{} Error al intentar grabar la Nota Contable Ref. Cruce", e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema al guardar la nota contable");
 		}
 		return null;
 	}
 
 	public String cancelar() {
-		LOGGER.info("{} ... Restableciendo valores ...", session.getTraceLog());
+		LOGGER.info("{} ... Restableciendo valores ...");
 		partidasSeleccionadas = new ArrayList<>();
 		totalesNota = new ArrayList<>();
 		nota = new NotaContable();
@@ -312,7 +312,7 @@ public class NotaRefCrucePage extends GeneralPage implements IPages, Serializabl
 
 	public void consultarFlujo() {
 		try {
-			session = getContablesSessionBean().getSessionTrace();
+//			session = getContablesSessionBean().getSessionTrace();
 			Integer codUsuAsignado = nota.getCodUsuAsignado().intValue();
 			nota = notasContablesManager.getNotaContable(nota);
 			Instancia instancia = new Instancia();
