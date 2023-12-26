@@ -20,7 +20,7 @@ public class NotaContable extends CommonVO<NotaContable> implements java.io.Seri
 	public static final String CRUCE_REFERENCIA = "C";
 	public static final String LIBRE = "L";
 	private static final Logger LOGGER = LoggerFactory.getLogger(NotaContable.class);
-	
+
 	private Number codigo = 0;
 	//private TIMESTAMP fechaRegistroModulo = null;
 	private TIMESTAMP fechaRegistroModulo = null;
@@ -91,7 +91,7 @@ public class NotaContable extends CommonVO<NotaContable> implements java.io.Seri
 		this.codigoSucursalOrigen = codigoSucursalOrigen;
 	}
 
-	public String getNumeroRadicacion() { 
+	public String getNumeroRadicacion() {
 		return numeroRadicacion;
 	}
 
@@ -180,15 +180,15 @@ public class NotaContable extends CommonVO<NotaContable> implements java.io.Seri
 	public void setFechaRegistroModulo(TIMESTAMP fechaRegistroModulo) {
 		this.fechaRegistroModulo = fechaRegistroModulo;
 	}
-	
+
 	public TIMESTAMP getFechaRegistroAltamira() {
 		return fechaRegistroAltamira;
 	}
-	
+
 	public void setFechaRegistroAltamira(TIMESTAMP fechaRegistroAltamira) {
 		this.fechaRegistroAltamira = fechaRegistroAltamira;
 	}
-	
+
 
 
 	public Sucursal getSucursalOrigen() {

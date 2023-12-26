@@ -1,4 +1,5 @@
 
+g	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(îª»ûşÿÿÿÿ8á³äÉ1
 {
 java:S2293b"YReplace the type specification in this constructor call with the diamond operator ("<>").(¦±Øùıÿÿÿÿ8ì¢÷¾1
 v
@@ -9,10 +10,18 @@ d
 java:S6813"BRemove this field injection and use constructor injection instead.(Áº–üÿÿÿÿ8ò¢÷¾1
 [
 java:S5993'"9Change the visibility of this constructor to "protected".(ıÚÿùÿÿÿÿ8ó¢÷¾1
+o	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(îª»ûşÿÿÿÿ8ñ³äÉ1
 ]	java:S125#"<This block of commented-out lines of code should be removed.(‘ÆÎÓûÿÿÿÿ8Á„‹Ÿ¿1
 ]	java:S1257"<This block of commented-out lines of code should be removed.(‹„ÍÚÿÿÿÿÿ8õ¢÷¾1
 d
 java:S1858k"G"item" is already a string, there's no need to call "toString()" on it.(¦½Íä8÷¢÷¾1
 G	java:S106q"+Replace this use of System.out by a logger.(±¤ª¹8÷¢÷¾1
+x
+java:S1128"[Remove this unused import 'co.com.bbva.app.notas.contables.jsf.beans.ContablesSessionBean'.(ÛÊÍù8ù³äÉ1
+n
+java:S1128"LRemove this unused import 'co.com.bbva.app.notas.contables.session.Session'.(•Ö¥åøÿÿÿÿ8ù³äÉ1
+X
+java:S1128
+";Remove this unused import 'javax.annotation.PostConstruct'.(›ÅÁ8ù³äÉ1
 G
 java:S1068!"*Remove this unused "LOGGER" private field.(»‹§í8ØŞû‘¿1

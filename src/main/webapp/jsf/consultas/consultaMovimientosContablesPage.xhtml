@@ -8,7 +8,7 @@
     <ui:define name="body">
 
         <ui:include src="../common/flujoSubPage.xhtml"/>
-		<ui:include src="../notacontable/flujoNotaContablePage.xhtml"/>
+        <ui:include src="../notacontable/flujoNotaContablePage.xhtml"/>
         <!--                <ui:include src="../notacontable/flujoNotaContableLibrePage.xhtml"/> -->
         <!--                <ui:include src="../notacontable/flujoNotaRefCrucePage.xhtml"/> -->
 
@@ -170,11 +170,11 @@
 
                     <p:column headerText="Ver Nota Contable" width="50px;" style="text-align: center;">
 
-                        <p:commandButton value="Ver" 
-                        action="#{flujoNotaContablePage.consultarFlujo}" 
-                        oncomplete="PF('globalForm:popupFlujoNotaContableVer').show();" 
-                        update="globalForm:popupFlujoNotaContableVer" 
-                        rendered="#{dato.NC.tipoNota eq 'R'}">
+                        <p:commandButton value="Ver"
+                                         action="#{flujoNotaContablePage.consultarFlujo}"
+                                         oncomplete="PF('globalForm:popupFlujoNotaContableVer').show();"
+                                         update="globalForm:popupFlujoNotaContableVer"
+                                         rendered="#{dato.NC.tipoNota eq 'R'}">
                             <f:setPropertyActionListener for="codNotaVer" value="#{dato.codigoNotaContable}" target="#{flujoNotaContablePage.nota.codigo}" />
                         </p:commandButton>
                         <h:commandButton value="Ver" reRender="notaContableLibreVer">

@@ -20,11 +20,6 @@ public class ConsultaMovimientosContablesPage extends ReporteGeneralPage {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ConsultaMovimientosContablesPage.class);
 
-//	@PostConstruct
-//	public void init() throws Exception {
-//	    setDatos(new ArrayList<>(_buscar()));
-//	    LOGGER.info("postConstructo buscar datos movimientos{}", getDatos().size());
-//	}
 
 	//Session session = getContablesSessionBean().getSessionTrace();
 
