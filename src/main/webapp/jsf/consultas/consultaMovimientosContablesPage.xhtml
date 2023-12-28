@@ -77,7 +77,7 @@
                 	actionListener="#{consultaMovimientosContablesPage.generarArchivoExcelMovimiento}" 
                 	rendered="#{! empty consultaMovimientosContablesPage.datos}"/>
 
-                <p:commandLink action="#{downloadGeneralPage.download}" styleClass="bold" value="#{precierreCierrePage.excelFileName}" target="_blank" 
+                <p:commandLink id="descargarExcel" action="#{downloadGeneralPage.download}" styleClass="bold" value="#{precierreCierrePage.excelFileName}" target="_blank" 
                 	 rendered="#{precierreCierrePage.mostrarArchExc}">
                     <f:setPropertyActionListener for="type1" value="#{downloadGeneralPage.REPORTE_EXCEL}" target="#{downloadGeneralPage.type}" />
                     <f:setPropertyActionListener for="file1" value="#{precierreCierrePage.excelFileName}" target="#{downloadGeneralPage.file}"/>

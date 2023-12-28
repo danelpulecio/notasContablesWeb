@@ -20,7 +20,8 @@ import java.util.*;
 
 public class ReporteGeneralPage extends GeneralConsultaPage<Instancia> {
 
-	
+	@Inject
+	@Named(value="precierreCierrePage")
 	private PrecierreCierrePage precierreCierrePage;
 
 	private static final long serialVersionUID = -6709113217662690209L;

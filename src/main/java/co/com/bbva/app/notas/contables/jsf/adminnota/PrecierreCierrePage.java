@@ -34,7 +34,7 @@ public class PrecierreCierrePage extends GeneralConsultaPage<Instancia> {
 	protected List<NotaContableTotal> totales;
 	protected String excelFileName = "";
 	protected boolean mostrarArchAlt = false;
-	protected boolean mostrarArchExc = true;
+	protected boolean mostrarArchExc = false;
 	private String paginaActual = "";
 
 	private static final String ARCHIVO_SIRO = "ARCHIVO_SIRO_NTCON.TXT";
