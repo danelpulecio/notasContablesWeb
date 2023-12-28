@@ -58,8 +58,8 @@
                                 </p:selectOneMenu>
                             </h:panelGrid>
                             <h:panelGrid columns="1" styleClass="center">
-                                <h:commandButton actionListener="#{consultaMovimientosContablesPage.buscar}"
-                                                 value="Buscar"
+                                <p:commandButton actionListener="#{consultaMovimientosContablesPage.buscar}"
+                                                 value="Buscar" ajax="false"
                                                  update="informacion,lista" onclick="PF('statusPanel').show();"/>
                             </h:panelGrid>
 
@@ -73,12 +73,16 @@
             <!-- Tabla de registros -->
 
             <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
-                <h:commandButton value="Generar Archivo Excel" update="lista"/>
-                <p:commandLink styleClass="bold" target="_blank">
-                    <f:param name="type1"/>
-                    <f:param name="file1"/>
-                </p:commandLink>
+                <p:commandButton value="Generar Archivo Excel" update="lista" ajax="false"
+                	actionListener="#{consultaMovimientosContablesPage.generarArchivoExcelMovimiento}" 
+                	rendered="#{! empty consultaMovimientosContablesPage.datos}"/>
 
+                <p:commandLink action="#{downloadGeneralPage.download}" styleClass="bold" value="#{precierreCierrePage.excelFileName}" target="_blank" 
+                	 rendered="#{precierreCierrePage.mostrarArchExc}">
+                    <f:setPropertyActionListener for="type1" value="#{downloadGeneralPage.REPORTE_EXCEL}" target="#{downloadGeneralPage.type}" />
+                    <f:setPropertyActionListener for="file1" value="#{precierreCierrePage.excelFileName}" target="#{downloadGeneralPage.file}"/>
+                </p:commandLink>
+                
                 <p:dataTable value="#{consultaMovimientosContablesPage.datos}" var="dato" id="table"
                              rowIndexVar="rowIndex"
                              widgetVar="economicActivityTable" rows="15" paginator="true"

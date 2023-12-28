@@ -45,6 +45,7 @@ public abstract class BasePage implements Serializable  {
 		LOGGER.info("constructor base page");
 		validador = new Validador(this);
 		ServletContext context = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+		
 		DIR_SOPORTES = context.getInitParameter("DIR_SOPORTES");
 		DIR_REPORTES_EXCEL = context.getInitParameter("DIR_REPORTES_EXCEL");
 		DIR_RECEPCION_ALTAMIRA = context.getInitParameter("DIR_RECEPCION_ALTAMIRA");
@@ -63,7 +64,7 @@ public abstract class BasePage implements Serializable  {
 	 * @return reference to the scoped data bean
 	 */
 	public ContablesSessionBean getContablesSessionBean() {
-		LOGGER.info("llamando el getContableSesionBean");
+		//LOGGER.info("llamando el getContableSesionBean");
 		return contablesSessionBean;
 	}
 
@@ -73,7 +74,7 @@ public abstract class BasePage implements Serializable  {
 	}
 
 	public UsuarioLogueado getUsuarioLogueado() {
-		LOGGER.info("contableSessionBean basePage {}", getContablesSessionBean());
+		//LOGGER.info("contableSessionBean basePage {}", getContablesSessionBean());
 		return getContablesSessionBean().getLoginUser();
 	}
 

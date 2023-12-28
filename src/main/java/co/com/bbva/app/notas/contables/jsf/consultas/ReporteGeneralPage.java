@@ -14,9 +14,9 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.*;
-
 
 public class ReporteGeneralPage extends GeneralConsultaPage<Instancia> {
 
@@ -29,10 +29,9 @@ public class ReporteGeneralPage extends GeneralConsultaPage<Instancia> {
 	public void init() throws Exception {
 		sucursales = getSelectItemList(notasContablesManager.getCV(Sucursal.class));
 		setSucursales(new ArrayList<>(sucursales));
-		LOGGER.info("postConstructo sucursales {}", sucursales.size());
 		divisas = getSelectItemList(notasContablesManager.getCV(Divisa.class));
 		setDivisas(new ArrayList<>(divisas));
-		LOGGER.info("postConstructo sucursales {}", divisas.size());
+
 	}
 
 	// variables para combos
@@ -106,9 +105,10 @@ public class ReporteGeneralPage extends GeneralConsultaPage<Instancia> {
 			}
 			bean.setDatos(getDatos());
 			//System.out.println("getPage --> " + _getPage());
+			LOGGER.info("getPage --> " + _getPage());
 			return bean.generarArchivoExcel(DIR_REPORTES_EXCEL, "NC_PRECIERRE_", "Reporte", REPORTE_GENERAL);
 		} catch (Exception e) {
-//			LOGGER.error("{} Error generando el reporte Excel", session.getTraceLog() ,e);
+			LOGGER.error("{} Error generando el reporte Excel",e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error generando el reporte Excel");
 		}
 		return null;
@@ -121,6 +121,8 @@ public class ReporteGeneralPage extends GeneralConsultaPage<Instancia> {
 	 */
 	public String generarArchivoExcelMovimiento() {
 		PrecierreCierrePage bean = precierreCierrePage;
+//		PrecierreCierrePage bean = new PrecierreCierrePage();
+		LOGGER.info(":: DIR_REPORTES_EXCEL :: " + DIR_REPORTES_EXCEL );
 		try {
 			for (Instancia ins : getDatos()) {
 				NotaContable nc = new NotaContable();
@@ -131,7 +133,7 @@ public class ReporteGeneralPage extends GeneralConsultaPage<Instancia> {
 			bean.setDatos(getDatos());
 			return bean.generarArchivoExcel(DIR_REPORTES_EXCEL, "NC_PRECIERRE_", "Reporte", CONSULTA_MOVIMIENTOS_CONTABLES);
 		} catch (Exception e) {
-//			LOGGER.error("{} Error generando el reporte ExcelMovimiento", session.getTraceLog() , e);
+			LOGGER.error("{} Error generando el reporte ExcelMovimiento",e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error generando el reporte ExcelMovimiento");
 		}
 		return null;
@@ -139,12 +141,10 @@ public class ReporteGeneralPage extends GeneralConsultaPage<Instancia> {
 
 	@Override
 	protected Collection<Instancia> _buscar() throws Exception {
-		LOGGER.info("Buscar ReporteGeneralPage");
+
 		Collection<Instancia> instancias = new ArrayList<Instancia>();
 		java.sql.Date desdeD = desde != null ? new java.sql.Date(desde.getTime()) : null;
 		java.sql.Date hastaD = hasta != null ? new java.sql.Date(hasta.getTime()) : null;
-		LOGGER.info("DESDE ::::::::: " + desde + "::::::::::: " + desdeD);
-		LOGGER.info("FECHA HASTA ANTES DEL IF ::::::::: " + hasta + "::::::::::: " + hastaD);
 		if (hastaD != null) {
 			Calendar c = Calendar.getInstance();
 			c.setTime(hastaD);
@@ -154,7 +154,6 @@ public class ReporteGeneralPage extends GeneralConsultaPage<Instancia> {
 			c.set(Calendar.MILLISECOND, 0);
 			hastaD.setTime(c.getTimeInMillis());
 		}
-		LOGGER.info("FECHA HASTA DESPUES DEL IF ::::::::: " + hasta + "::::::::::: " + hastaD);
 		
 		if (sucOrigen == null) {
 			sucOrigen = "";

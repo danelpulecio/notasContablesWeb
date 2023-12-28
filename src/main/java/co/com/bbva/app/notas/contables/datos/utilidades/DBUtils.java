@@ -124,10 +124,8 @@ public class DBUtils<T> {
 
 	protected void setearValor(final Object o, String param, final Object value, String originalParam) {
 		if (value != null) {
-			LOGGER.info(" ::: O :::: " + o.toString() + " :::: param ::::" + param + " ::: VALUE :::: "+ value + " :::: originalParam ::  " + originalParam );
 			Method m = null;
 			try {
-				LOGGER.info(":::::: EN DBUtils PASO 1:::::: ");
 				if (param.contains(BREAKER)) {
 					final String[] params = param.split(BREAKER);
 					final String string = params[0];

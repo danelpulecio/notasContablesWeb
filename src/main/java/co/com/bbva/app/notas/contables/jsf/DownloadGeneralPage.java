@@ -40,59 +40,65 @@ public class DownloadGeneralPage extends BasePage {
 		super();
 	}
 
-	public String download() throws IOException {
-//		LOGGER.info("{} Intentando realizar la descarga", session.getTraceLog());
+//	public String download() throws IOException {
+//		LOGGER.info("{} Intentando realizar la descarga");
+//
+//		FacesContext facesContext = FacesContext.getCurrentInstance();
+//		ExternalContext externalContext = facesContext.getExternalContext();
+//		HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
+//
+//		response.reset(); // Limpiar cualquier configuracin anterior de la respuesta.
+//
+//		// Establecer encabezados de respuesta para la descarga.
+//		response.setContentType("application/octet-stream");
+//		response.setHeader("Content-Disposition", "attachment; filename=" + file);
+//
+//		File fileToDownload = new File(getPath() + file);
+//
+//		try (FileInputStream fis = new FileInputStream(fileToDownload);
+//			 OutputStream os = response.getOutputStream()) {
+//
+//			byte[] buffer = new byte[1024];
+//			int bytesRead;
+//			while ((bytesRead = fis.read(buffer)) != -1) {
+//				os.write(buffer, 0, bytesRead);
+//			}
+//		} catch (IOException e) {
+//			// Manejar errores aqu
+//			LOGGER.error("Error al descargar el archivo: " + e.getMessage(), e);
+//		}
+//
+//		facesContext.responseComplete();
+//		return null;
+//	}
 
+	public String download() {
+
+		LOGGER.info("{} Intentando realizar la descarga");
+	
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 		HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
 
-		response.reset(); // Limpiar cualquier configuracin anterior de la respuesta.
-
-		// Establecer encabezados de respuesta para la descarga.
-		response.setContentType("application/octet-stream");
-		response.setHeader("Content-Disposition", "attachment; filename=" + file);
-
-		File fileToDownload = new File(getPath() + file);
-
-		try (FileInputStream fis = new FileInputStream(fileToDownload);
-			 OutputStream os = response.getOutputStream()) {
-
-			byte[] buffer = new byte[1024];
-			int bytesRead;
-			while ((bytesRead = fis.read(buffer)) != -1) {
-				os.write(buffer, 0, bytesRead);
-			}
-		} catch (IOException e) {
-			// Manejar errores aqu
-			LOGGER.error("Error al descargar el archivo: " + e.getMessage(), e);
-		}
+		writeOutContent(response, new File(getPath() + file), file);
 
 		facesContext.responseComplete();
 		return null;
 	}
-
-//	public String download() {
-//		LOGGER.info("{} Intentando realizar la descarga", session.getTraceLog());
-//		HttpServletResponse response = (HttpServletResponse) getExternalContext().getResponse();
-//		writeOutContent(response, new File(getPath() + file), file);
-//		getFacesContext().responseComplete();
-//		return null;
-//	}
 
 	void writeOutContent(final HttpServletResponse res, final File content, final String theFilename) {
 		if (content == null) {
 			return;
 		}
 		try {
-//			LOGGER.info("{} Descargando el archivo: {}", session.getTraceLog(), theFilename);
+			LOGGER.info("{} Descargando el archivo: {}", theFilename);
 			res.setHeader("Pragma", "no-cache");
 			res.setDateHeader("Expires", 0);
 			res.setContentType("application/force-download");
 			res.setHeader("Content-disposition", "attachment; filename=" + theFilename);
 			fastChannelCopy(Channels.newChannel(new FileInputStream(content)), Channels.newChannel(res.getOutputStream()));
 		} catch (final IOException e) {
-//			LOGGER.info("{} Error al descargar el archivo: {}", session.getTraceLog(), theFilename, e);
+			LOGGER.info("{} Error al descargar el archivo: {}", theFilename, e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema descargando el archivo: " + getPath() + theFilename);
 		}
 	}

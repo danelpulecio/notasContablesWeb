@@ -4,11 +4,15 @@ import co.com.bbva.app.notas.contables.carga.dto.Sucursal;
 import co.com.bbva.app.notas.contables.dto.*;
 import co.com.bbva.app.notas.contables.facade.impl.CargaAltamiraSessionBean;
 import co.com.bbva.app.notas.contables.facade.impl.NotasContablesSessionBean;
+import co.com.bbva.app.notas.contables.jsf.adminnota.PrecierreCierrePage;
+
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.FileOutputStream;
 import java.io.Serializable;
@@ -22,6 +26,8 @@ public class ReportesExcel {
 	private String nombreArchivo = null;
 	private final NotasContablesSessionBean notasContablesManager = new NotasContablesSessionBean();
 	private final CargaAltamiraSessionBean cargaAltamiraManager = new CargaAltamiraSessionBean();
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(ReportesExcel.class);
 
 	class DetalleNota implements Serializable {
 		private static final long serialVersionUID = 1L;
@@ -93,6 +99,8 @@ public class ReportesExcel {
 
 	public void getReporteGeneral(String reportTitle, Collection<NotaContable> rows) {
 		try {
+			
+			LOGGER.info(" :::: ENTRANDO A GENERAR EL REPORTE ::::: ");
 
 			HSSFWorkbook wb = new HSSFWorkbook();
 			HSSFSheet sh = wb.createSheet("Notas Contables");

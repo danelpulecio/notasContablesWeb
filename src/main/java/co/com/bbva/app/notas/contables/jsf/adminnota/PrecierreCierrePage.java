@@ -34,7 +34,7 @@ public class PrecierreCierrePage extends GeneralConsultaPage<Instancia> {
 	protected List<NotaContableTotal> totales;
 	protected String excelFileName = "";
 	protected boolean mostrarArchAlt = false;
-	protected boolean mostrarArchExc = false;
+	protected boolean mostrarArchExc = true;
 	private String paginaActual = "";
 
 	private static final String ARCHIVO_SIRO = "ARCHIVO_SIRO_NTCON.TXT";
@@ -46,7 +46,8 @@ public class PrecierreCierrePage extends GeneralConsultaPage<Instancia> {
 	public PrecierreCierrePage() {
 		super();
 		context = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-		fileGenerator = new FileGenerator(notasContablesManager, cargaAltamiraManager, getUsuarioLogueado().getUsuario().getCodigo().intValue());
+		fileGenerator = new FileGenerator(notasContablesManager, cargaAltamiraManager, 1);
+//		fileGenerator = new FileGenerator(notasContablesManager, cargaAltamiraManager, getUsuarioLogueado().getUsuario().getCodigo().intValue());
 	}
 
 	@Override
@@ -118,24 +119,37 @@ public class PrecierreCierrePage extends GeneralConsultaPage<Instancia> {
 
 	public String generarArchivoExcel(String path, String file, String title, String paginaInvocacion) {
 		try {
-//			LOGGER.info("{} Generar ArchivoExcel precierre cierre: {}", session.getTraceLog(), title );
+			LOGGER.info(" :::: generarArchivoExcel  de PrecierreCierrePage.java ::::: " );
+			LOGGER.info(" :::: path ::::: " + path);
+			LOGGER.info(" :::: file ::::: " + file);
+			LOGGER.info(" :::: title ::::: " + title);
+			LOGGER.info(" :::: paginaInvocacion ::::: " + paginaInvocacion);
 
+			LOGGER.info(" :::: PASO 1 ::::: ");
 			List<NotaContable> notas = new ArrayList<NotaContable>();
+			LOGGER.info(" :::: PASO 2 ::::: ");
 			excelFileName = file + StringUtils.getString(DateUtils.getTimestamp(), "ddMMyyyyhhmmss") + ".xls";
+			LOGGER.info(" :::: PASO 3 ::::: " + file + " ::: excelFileName :::" + excelFileName);
 			for (Instancia i : getDatos()) {
+				LOGGER.info(" :::: PASO FOR ::::: ");
 				notas.add(i.getNC());
 			}
+			LOGGER.info(" :::: PASO 4 ::::: ");
 			ReportesExcel reportesExcel = new ReportesExcel();
+			LOGGER.info(" :::: PASO 5 ::::: ");
 			reportesExcel.setStrPath(path);
+			LOGGER.info(" :::: PASO 6 ::::: ");
 			reportesExcel.setNombreArchivo(excelFileName);
+			LOGGER.info(" :::: PASO 7 ::::: ");
 			reportesExcel.getReporteGeneral(title, notas);
+			LOGGER.info(" :::: PASO 8 ::::: ");
 
 			mostrarArchExc = true;
-//			LOGGER.info("{} Crea archivo excel", session.getTraceLog() );
+			LOGGER.info("{} Crea archivo excel" );
 			nuevoMensaje(FacesMessage.SEVERITY_INFO, "El archivo de excel ha sido generado y guardado en " + path + excelFileName);
 
 		} catch (Exception e) {
-//			LOGGER.info("{} Error creando archivo excel", session.getTraceLog() , e  );
+			LOGGER.info("{} Error creando archivo excel", e  );
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Ocurrio un error al generar el archivo de Excel");
 		}
 		this.paginaActual = paginaInvocacion;
