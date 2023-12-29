@@ -14,14 +14,13 @@
 
         <!--Filtro de busqueda  -->
         <div style="width: auto;">
-            <!--             <h:form> -->
             <h:panelGrid columns="1" width="100%">
                 <h1 align="center">Movimientos Contables</h1>
             </h:panelGrid>
 
             <!-- Panel de opciones -->
             <h:panelGrid id="informacion" columns="1" width="100%" cellpadding="0" cellspacing="0">
-                <p:accordionPanel>
+                <p:accordionPanel widgetVar="client" value="Filtro de búsqueda" >
                     <p:tab title="Filtro de búsqueda" closable="#{ empty consultaMovimientosContablesPage.datos}">
                         <h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="5">
                             <h:panelGrid columns="2" id="filtro">
@@ -58,31 +57,34 @@
                                 </p:selectOneMenu>
                             </h:panelGrid>
                             <h:panelGrid columns="1" styleClass="center">
-                                <p:commandButton actionListener="#{consultaMovimientosContablesPage.buscar}"
+                                <p:commandButton action="#{consultaMovimientosContablesPage.buscar}"
                                                  value="Buscar" ajax="false"
-                                                 update="informacion,lista" onclick="PF('statusPanel').show();"/>
+                                                 update="informacion,lista,lista2" onclick="PF('statusPanel').show();PF('client').unselect(0);"/>
                             </h:panelGrid>
 
                         </h:panelGrid>
                     </p:tab>
                 </p:accordionPanel>
             </h:panelGrid>
-
-            <ui:include src="../../common/mensajes.xhtml"/>
-
+			
+			<h:panelGrid columns="1" width="100%" id="infoMsg" styleClass="center">
+            	<ui:include src="../../common/mensajes.xhtml"/>
+			</h:panelGrid>
             <!-- Tabla de registros -->
 
             <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
-                <p:commandButton value="Generar Archivo Excel" update="lista" ajax="false"
-                	actionListener="#{consultaMovimientosContablesPage.generarArchivoExcelMovimiento}" 
+                <p:commandButton value="Generar Archivo Excel" update="lista,infoMsg" 
+                	action="#{consultaMovimientosContablesPage.generarArchivoExcelMovimiento}" 
                 	rendered="#{! empty consultaMovimientosContablesPage.datos}"/>
 
-                <p:commandLink id="descargarExcel" action="#{downloadGeneralPage.download}" styleClass="bold" value="#{precierreCierrePage.excelFileName}" target="_blank" 
-                	 rendered="#{precierreCierrePage.mostrarArchExc}">
-                    <f:setPropertyActionListener for="type1" value="#{downloadGeneralPage.REPORTE_EXCEL}" target="#{downloadGeneralPage.type}" />
-                    <f:setPropertyActionListener for="file1" value="#{precierreCierrePage.excelFileName}" target="#{downloadGeneralPage.file}"/>
+                <p:commandLink id="descargarExcel" action="#{downloadGeneralPage.download}" styleClass="bold" 
+                	value="#{precierreCierrePage.excelFileName}" target="_blank"  ajax="false" 
+                	rendered="#{precierreCierrePage.mostrarArchExc}">
+	                    <f:setPropertyActionListener for="type1" value="#{downloadGeneralPage.REPORTE_EXCEL}" target="#{downloadGeneralPage.type}" />
+	                    <f:setPropertyActionListener for="file1" value="#{precierreCierrePage.excelFileName}" target="#{downloadGeneralPage.file}"/>
                 </p:commandLink>
-                
+			</h:panelGrid>
+			<h:panelGrid columns="1" width="100%" style="align:center;" id="lista2">
                 <p:dataTable value="#{consultaMovimientosContablesPage.datos}" var="dato" id="table"
                              rowIndexVar="rowIndex"
                              widgetVar="economicActivityTable" rows="15" paginator="true"
@@ -100,7 +102,7 @@
                         <h:outputText value="#{dato.NC.fechaRegistroAltamira}"/>
                     </p:column>
                     <p:column headerText="Detalle de la nota contable" width="580px;" style="text-align: center;">
-                        <h:panelGrid style="border-width: 0px;" columns="1" rendered="#{dato.NC.tipoNota eq 'R' }" width="100%">
+                        <h:panelGrid cellpadding="0" cellspacing="0" style="border-width: 0px;" columns="1" rendered="#{dato.NC.tipoNota eq 'R' }" width="100%">
                             <p:dataTable style="border-width: 0px; background-color: transparent;" var="tema"
                                          value="#{dato.NC.temas}">
                                 <p:column style="border-width: 0px; text-align: left;">
@@ -198,7 +200,6 @@
                 </p:dataTable>
 
             </h:panelGrid>
-            <!--             </h:form> -->
         </div>
     </ui:define>
 </ui:composition>

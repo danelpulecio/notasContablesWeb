@@ -64,7 +64,6 @@ public class DownloadGeneralPage extends BasePage {
 //				os.write(buffer, 0, bytesRead);
 //			}
 //		} catch (IOException e) {
-//			// Manejar errores aqu
 //			LOGGER.error("Error al descargar el archivo: " + e.getMessage(), e);
 //		}
 //
@@ -75,7 +74,9 @@ public class DownloadGeneralPage extends BasePage {
 	public String download() {
 
 		LOGGER.info("{} Intentando realizar la descarga");
-	
+		LOGGER.info(":::::::::::::::::::::::::::::::::::::::");
+		LOGGER.info("type ::: "  + this.type);
+		LOGGER.info("filr ::: "  + this.file);
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 		HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
