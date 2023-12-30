@@ -8,7 +8,7 @@
 	<context-param>
 		<description>Directorio que contiene los soportes de cada nota contable</description>
 		<param-name>DIR_SOPORTES</param-name>
-		<param-value>/NOTAS_DOC/</param-value>
+		<param-value>/app/NOTAS_DOC/</param-value>
 	</context-param>
 	<context-param>
 		<description>Directorio que contiene los reportes de excel generados por el sistema</description>

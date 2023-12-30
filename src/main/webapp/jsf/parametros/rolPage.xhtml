@@ -17,7 +17,7 @@
 			<f:facet name="controls">
 				<h:panelGroup>
 					<h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink" id="hidelinkEstado" height="20" width="20" />
-					<p:remoteCommand for="popupEstado" attachTo="hidelinkEstado" operation="hide" event="onclick" />
+<!-- 					<p:remoteCommand for="popupEstado" attachTo="hidelinkEstado" operation="hide" event="onclick" /> -->
 				</h:panelGroup>
 			</f:facet>
 			
@@ -28,8 +28,8 @@
 				<!-- Seccion de mensajes y botones de envio y cancelacion-->
 				<ui:include src="../../common/mensajes.xhtml" /> 
 				<h:panelGrid columns="2" styleClass="center" width="100%">
-					<h:commandButton action="#{rolPage.cambiarEstado}" value="Si" oncomplete="#{p:remoteCommand('popupEstado')}.hide()" reRender="lista"/>
-					<h:commandButton onclick="#{p:remoteCommand('popupEstado')}.hide()" value="No" />
+<!-- 					<h:commandButton action="#{rolPage.cambiarEstado}" value="Si" oncomplete="#{p:remoteCommand('popupEstado')}.hide()" reRender="lista"/> -->
+<!-- 					<h:commandButton onclick="#{p:remoteCommand('popupEstado')}.hide()" value="No" /> -->
 				</h:panelGrid>
 			</h:panelGrid>
 		</p:dialog>
@@ -42,7 +42,7 @@
 			<f:facet name="controls">
 				<h:panelGroup>
 					<h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink" id="hidelink" height="20" width="20" />
-					<p:remoteCommand for="editor" attachTo="hidelink" operation="hide" event="onclick" />
+<!-- 					<p:remoteCommand for="editor" attachTo="hidelink" operation="hide" event="onclick" /> -->
 				</h:panelGroup>
 			</f:facet>
 			
@@ -56,8 +56,8 @@
 				<!-- Seccion de mensajes y botones de envio y cancelacion-->
 				<ui:include src="../../common/mensajes.xhtml" /> 
 				<h:panelGrid columns="2" styleClass="center" width="100%">
-					<h:commandButton action="#{rolPage.guardar}" reRender="informacion,lista"  value="Guardar" oncomplete="if (#{rolPage.ocultarPopupGuardar}) #{p:remoteCommand('editor')}.hide();" />
-					<h:commandButton onclick="#{p:remoteCommand('editor')}.hide()" value="Cerrar" />
+<!-- 					<h:commandButton action="#{rolPage.guardar}" reRender="informacion,lista"  value="Guardar" oncomplete="if (#{rolPage.ocultarPopupGuardar}) #{p:remoteCommand('editor')}.hide();" /> -->
+<!-- 					<h:commandButton onclick="#{p:remoteCommand('editor')}.hide()" value="Cerrar" /> -->
 				</h:panelGrid>
 			</h:panelGrid>
 		</p:dialog>
@@ -100,20 +100,20 @@
 					<!-- Opcion de cambio de estado-->
 					<p:column style="text-align: center;">
 						<f:facet name="header"><h:outputText value="Estado" /></f:facet>
-						<h:commandButton value="#{dato.estado eq 'A'? 'Activo': 'Inactivo'}" onclick="#{p:remoteCommand('popupEstado')}.show()">
-							<f:param name="codCambio" value="#{dato.codigo}" assignTo="#{rolPage.objActual.codigo}" converter="javax.faces.Integer"/>
-							<f:param name="estadoCambio" value="#{dato.estado}" assignTo="#{rolPage.objActual.estado}" />
-						</h:commandButton>
+<!-- 						<h:commandButton value="#{dato.estado eq 'A'? 'Activo': 'Inactivo'}" onclick="#{p:remoteCommand('popupEstado')}.show()"> -->
+<!-- 							<f:param name="codCambio" value="#{dato.codigo}" assignTo="#{rolPage.objActual.codigo}" converter="javax.faces.Integer"/> -->
+<!-- 							<f:param name="estadoCambio" value="#{dato.estado}" assignTo="#{rolPage.objActual.estado}" /> -->
+<!-- 						</h:commandButton> -->
 					</p:column>
 					
 					<!-- Opcion de cambio de editar informacion-->
 					<p:column style="text-align: center;">
 						<f:facet name="header"><h:outputText value="Editar" /></f:facet>
-						<h:commandButton oncomplete="#{p:remoteCommand('editor')}.show()" reRender="editor" image="/common/images/edit.png" alt="Editar">
-							<f:param name="codEdit" value="#{dato.codigo}" assignTo="#{rolPage.objActual.codigo}" converter="javax.faces.Integer"/>
-							<f:param name="nombEdit" value="#{dato.nombre}" assignTo="#{rolPage.objActual.nombre}" />
-							<f:param name="estadoEdit" value="#{dato.estado}" assignTo="#{rolPage.objActual.estado}" />
-						</h:commandButton>
+<!-- 						<h:commandButton oncomplete="#{p:remoteCommand('editor')}.show()" reRender="editor" image="/common/images/edit.png" alt="Editar"> -->
+<!-- 							<f:param name="codEdit" value="#{dato.codigo}" assignTo="#{rolPage.objActual.codigo}" converter="javax.faces.Integer"/> -->
+<!-- 							<f:param name="nombEdit" value="#{dato.nombre}" assignTo="#{rolPage.objActual.nombre}" /> -->
+<!-- 							<f:param name="estadoEdit" value="#{dato.estado}" assignTo="#{rolPage.objActual.estado}" /> -->
+<!-- 						</h:commandButton> -->
 					</p:column>
 					
 					<!--	Se muestra la información de la cantidad de registros y la pagina actual	-->

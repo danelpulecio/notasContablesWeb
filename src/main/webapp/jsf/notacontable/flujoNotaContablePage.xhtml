@@ -9,7 +9,8 @@
 
 
     <!-- Formulario Modal de visualizacion de temas por concepto-->
-    <p:dialog id="modalVer" domElementAttachment="form" autosized="true">
+    <p:dialog id="modalVer" widgetVar="modalVer" domElementAttachment="form" autosized="true"  showEffect="fade" hideEffect="explode" 
+    	modal="true">
         <f:facet name="header">
             <h:panelGroup>
                 <h:outputText value="Tema: #{flujoNotaContablePage.temaActual.tema.nombre}"/>
@@ -23,7 +24,7 @@
         </f:facet>
 
         <!-- Campos del formulario -->
-        <h:form>
+
             <h:panelGrid columns="1" width="820" id="informacionFlujoNotaContableVer" cellpadding="0" cellspacing="0">
                 <h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="0">
                     <h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="5" style="height: 100%;">
@@ -43,7 +44,9 @@
                                 <h:panelGrid columns="3" cellpadding="0" cellspacing="0">
                                     <h:outputText value="#{flujoNotaContablePage.temaActual.fechaContable}"/>
                                     <p:spacer width="200"/>
-                                    <h:commandButton value="Riesgo Operacional"/>
+                                    <h:commandButton value="Riesgo Operacional" 
+                                    oncomplete="PF('modalRiesgoVer').show()" update="modalRiesgoVer"
+									rendered="#{flujoNotaContablePage.temaActual.tema.riesgoOperacional eq 'S'}" ajaxSingle="true"/>
                                 </h:panelGrid>
 
                                 <h:outputText value="Descripción" styleClass="propertie"/>
@@ -267,7 +270,8 @@
                 <h:panelGrid columns="2" styleClass="center" width="100%">
 
                     <!-- seccion de <form></form>peracional -->
-                    <p:dialog id="modalRiesgoVer" domElementAttachment="form" autosized="true">
+                    <p:dialog id="modalRiesgoVer" widgetVar="modalRiesgoVer" domElementAttachment="form" autosized="true"
+                        	showEffect="fade" hideEffect="explode" modal="true">
                         <f:facet name="header">
                             <h:panelGroup>
                                 <h:outputText
@@ -390,10 +394,17 @@
                     </p:dialog>
                 </h:panelGrid>
             </h:panelGrid>
-        </h:form>
+
     </p:dialog>
 
-    <p:dialog id="popupFlujoNotaContableVer" widgetVar="popupFlujoNotaContableVer" autosized="true" domElementAttachment="form" minWidth="700">
+    <p:dialog id="popupFlujoNotaContableVer" 
+    	widgetVar="popupFlujoNotaContableVer" 
+    	autosized="true" 
+    	domElementAttachment="form" 
+    	minWidth="700"
+    	showEffect="fade"
+    	hideEffect="explode"
+    	modal="true">
         <f:facet name="header">
             <h:panelGroup>
                 <h:outputText value="Nota Cotable"/>
@@ -406,7 +417,7 @@
             </h:panelGroup>
         </f:facet>
         <!--Formulario principal	-->
-        <h:form>
+
         <h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="5">
             <p:panel header="Información básica" style="width: 100%;">
                 <h:panelGrid columns="2">
@@ -456,7 +467,11 @@
                     </p:column>
 
                     <p:column headerText="Ver" style="text-align: center;">
-                    	<h:commandButton alt="ver"/>
+                    	<h:commandButton action="#{flujoNotaContablePage.verNota}" 
+                    		oncomplete="PF('modalVer').show()" update="modalVer" image="/common/images/edit.png" alt="Ver"
+							rendered="#{temaNota.codigo gt 0 }">
+                    	<f:setPropertyActionListener for="codigoTema" value="#{temaNota.codigo}" target="#{flujoNotaContablePage.codigo}" />
+                    </h:commandButton>
                     </p:column>
                     <f:facet name="footer">
                         <p:columnGroup rendered="#{! empty flujoNotaContablePage.totalesNota}">
@@ -486,7 +501,8 @@
                     </f:facet>
                 </p:dataTable>
             </p:panel>
-            <p:dialog id="popupRechazoVer" autosized="true" domElementAttachment="form" width="500">
+            <p:dialog id="popupRechazoVer" widgetVar="popupRechazoVer" autosized="true" domElementAttachment="form" width="500"
+                	showEffect="fade" hideEffect="explode" modal="true">
                 <f:facet name="header">
                     <h:panelGroup>
                         <h:outputText value="Rechazar nota contable"/>
@@ -516,18 +532,24 @@
                     <!-- Seccion de mensajes y botones de envio y cancelacion-->
                     <ui:include src="../../common/mensajes.xhtml"/>
                     <h:panelGrid columns="2" styleClass="center" width="100%">
-                    <h:commandButton value="Confirmar rechazo"/>
-                    <h:commandButton value="Cancelar"/>
+                    <h:commandButton action="#{flujoNotaContablePage.rechazar}" value="Confirmar rechazo"
+							oncomplete="if (#{flujoNotaContablePage.ocultarPopupAnular}) {PF('popupRechazoVer').hide();PF('popupFlujoNotaContableVer').hide();}"
+							update="lista,opcionesVer"/>
+                    <h:commandButton onclick="PF('popupRechazoVer').hide()" value="Cancelar" />
                     </h:panelGrid>
                 </h:panelGrid>
             </p:dialog>
 
             <ui:include src="../../common/mensajes.xhtml"/>
             <h:panelGrid id="opcionesVer" columns="2" styleClass="center" width="100%">
-            	<h:commandButton  value="Aprobar"/>
-            	<h:commandButton  value="Rechazar"/>
+            	<h:commandButton  action="#{flujoNotaContablePage.aprobar}"
+					oncomplete="if (#{flujoNotaContablePage.ocultarPopupAprobar}) PF('popupFlujoNotaContableVer')}.hide()" 
+					update="lista,opcionesVer" value="Aprobar"
+					rendered="#{flujoNotaContablePage.nota.puedeAprobar}" />
+            	<h:commandButton value="Rechazar" rendered="#{flujoNotaContablePage.nota.puedeRechazar}" 
+            		oncomplete="PF('popupRechazoVer').show()"/>
             </h:panelGrid>
         </h:panelGrid>
-        </h:form>
+
     </p:dialog>
 </ui:composition>

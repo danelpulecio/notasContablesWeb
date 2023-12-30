@@ -9,8 +9,8 @@
 
         <ui:include src="../common/flujoSubPage.xhtml"/>
         <ui:include src="../notacontable/flujoNotaContablePage.xhtml"/>
-        <!--                <ui:include src="../notacontable/flujoNotaContableLibrePage.xhtml"/> -->
-        <!--                <ui:include src="../notacontable/flujoNotaRefCrucePage.xhtml"/> -->
+		<ui:include src="../notacontable/flujoNotaContableLibrePage.xhtml"/>
+		<ui:include src="../notacontable/flujoNotaRefCrucePage.xhtml"/>
 
         <!--Filtro de busqueda  -->
         <div style="width: auto;">
@@ -21,7 +21,7 @@
             <!-- Panel de opciones -->
             <h:panelGrid id="informacion" columns="1" width="100%" cellpadding="0" cellspacing="0">
                 <p:accordionPanel widgetVar="client" value="Filtro de búsqueda" >
-                    <p:tab title="Filtro de búsqueda" closable="#{ empty consultaMovimientosContablesPage.datos}">
+                    <p:tab title="Filtro de búsqueda">
                         <h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="5">
                             <h:panelGrid columns="2" id="filtro">
                                 <h:outputText value="Sucursal Origen"
@@ -59,7 +59,7 @@
                             <h:panelGrid columns="1" styleClass="center">
                                 <p:commandButton action="#{consultaMovimientosContablesPage.buscar}"
                                                  value="Buscar" ajax="false"
-                                                 update="informacion,lista,lista2" onclick="PF('statusPanel').show();PF('client').unselect(0);"/>
+                                                 update="informacion,lista,lista2" onclick="PF('statusPanel').show();"/>
                             </h:panelGrid>
 
                         </h:panelGrid>
@@ -101,14 +101,14 @@
                     <p:column headerText="Fecha" sortable="true" width="80px;" sortBy="#{dato.NC.fechaRegistroAltamira}">
                         <h:outputText value="#{dato.NC.fechaRegistroAltamira}"/>
                     </p:column>
-                    <p:column headerText="Detalle de la nota contable" width="580px;" style="text-align: center;">
+                    <p:column headerText="Detalle de la nota contable" width="570px;" style="text-align: center;">
                         <h:panelGrid cellpadding="0" cellspacing="0" style="border-width: 0px;" columns="1" rendered="#{dato.NC.tipoNota eq 'R' }" width="100%">
                             <p:dataTable style="border-width: 0px; background-color: transparent;" var="tema"
                                          value="#{dato.NC.temas}">
                                 <p:column style="border-width: 0px; text-align: left;">
                                     <h:outputText value="${tema.tema.nombre}"/>
                                 </p:column>
-                                <p:column style="border-width: 0px; text-align: left;" width="100px;">
+                                <p:column style="border-width: 0px; text-align: left;" width="110px;">
                                     <h:panelGrid columns="1" cellpadding="0" cellspacing="0">
                                         <h:outputText value="#{tema.partidaContable} "/>
                                         <h:outputText value="#{tema.contrapartidaContable}"/>
@@ -178,23 +178,34 @@
 
                         <p:commandButton value="Ver"
                                          action="#{flujoNotaContablePage.consultarFlujo}"
-                                         oncomplete="PF('globalForm:popupFlujoNotaContableVer').show();"
+                                         oncomplete="PF('popupFlujoNotaContableVer').show();"
                                          update="globalForm:popupFlujoNotaContableVer"
                                          rendered="#{dato.NC.tipoNota eq 'R'}">
                             <f:setPropertyActionListener for="codNotaVer" value="#{dato.codigoNotaContable}" target="#{flujoNotaContablePage.nota.codigo}" />
                         </p:commandButton>
-                        <h:commandButton value="Ver" reRender="notaContableLibreVer">
-                            <f:param name="codNotaLibreVer" converter="javax.faces.Integer"/>
-                        </h:commandButton>
-                        <h:commandButton value="Ver" reRender="popupFlujoNotaContableRefCruceVer">
-                            <f:param name="codNotaRefCruceVer" converter="javax.faces.Integer"/>
-                        </h:commandButton>
+                        <p:commandButton value="Ver"
+                        				oncomplete="PF('notaContableLibreVer').show();"
+                        				action="#{flujoNotaContableLibrePage.consultarFlujo}" 
+                        				update="globalForm:notaContableLibreVer"
+                        				rendered="#{dato.NC.tipoNota eq 'L'}">
+                            <f:setPropertyActionListener for="codNotaLibreVer" value="#{dato.codigoNotaContable}" target="#{flujoNotaContableLibrePage.nota.codigo}"/>
+                        </p:commandButton>
+                        <p:commandButton value="Ver" 
+                        				oncomplete="PF('popupFlujoNotaContableRefCruceVer').show();"
+                        				action="#{notaRefCrucePage.consultarFlujo}"	
+                        				update="globalForm:popupFlujoNotaContableRefCruceVer"
+                        				rendered="#{dato.NC.tipoNota eq 'C'}">
+                            <f:setPropertyActionListener for="codNotaRefCruceVer" value="#{dato.codigoNotaContable}" target="#{notaRefCrucePage.nota.codigo}"/>
+                        </p:commandButton>
                     </p:column>
-                    <p:column headerText="Flujo Nota Contable" width="65px;" style="text-align: center;">
+                    <p:column headerText="Flujo Nota Contable" width="75px;" style="text-align: center;">
 
-                        <h:commandButton value="Consultar" reRender="popupFlujo">
-                            <f:param name="codConsultar" converter="javax.faces.Integer"/>
-                        </h:commandButton>
+                        <p:commandButton value="Consultar"
+                        				oncomplete="PF('popupFlujo').show()"
+                        				action="#{flujoSubPage.consultarFlujo}"
+                        				update="globalForm:popupFlujo">
+                            <f:setPropertyActionListener for="codConsultar" value="#{dato.codigo}" target="#{flujoSubPage.actividadRealizada.codigoInstancia}"/>
+                        </p:commandButton>
                     </p:column>
 
                 </p:dataTable>

@@ -3,18 +3,18 @@
 				xmlns:ui="http://java.sun.com/jsf/facelets"
 				xmlns:h="http://java.sun.com/jsf/html"
 				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:p="http://primefaces.org/ui"
-				template="../../common/template.xhtml">
+				xmlns:p="http://primefaces.org/ui">
 
 	<!-- Formulario de confirmacion de anulacion-->
-	<p:dialog id="popupAnularRefCruce" autosized="true" domElementAttachment="form"  width="250">
+	<p:dialog id="popupAnularRefCruce" autosized="true" domElementAttachment="form"  width="250"
+	    	showEffect="fade" hideEffect="explode" modal="true">
 		<f:facet name="header">
 			<h:panelGroup><h:outputText value="Confirmación de anulación"/></h:panelGroup>
 		</f:facet>
 		<f:facet name="controls">
 			<h:panelGroup>
 				<h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink" id="hidelinkAnularRefCruce" height="20" width="20" />
-<!-- 				<p:remoteCommand for="popupAnularRefCruce" attachTo="hidelinkAnularRefCruce" operation="hide" event="onclick" /> -->
+
 			</h:panelGroup>
 		</f:facet>
 		
@@ -25,14 +25,16 @@
 			<!-- Seccion de mensajes y botones de envio y cancelacion-->
 			<ui:include src="../../common/mensajes.xhtml" /> 
 			<h:panelGrid columns="2" styleClass="center" width="100%">
-			<h:commandButton value="Si"/>
-			<h:commandButton value="No"/>
-<!-- 				<h:commandButton action="#{notaRefCrucePage.anular}" value="Si" oncomplete="if (#{notaRefCrucePage.ocultarPopupAnular}) {#{p:remoteCommand('popupAnularRefCruce')}.hide();#{p:remoteCommand('popupFlujoNotaContableRefCruceVer')}.hide();}" reRender="lista,opcionesRefCruceVer" /> -->
-<!-- 				<h:commandButton onclick="#{p:remoteCommand('popupAnularRefCruce')}.hide()" value="No" /> -->
+			<h:commandButton action="#{notaRefCrucePage.anular}" value="Si" oncomplete="if (#{notaRefCrucePage.ocultarPopupAnular}) {PF('popupAnularRefCruce').hide();PF('popupFlujoNotaContableRefCruceVer').hide()}" update="lista,opcionesRefCruceVer" />
+			<h:commandButton onclick="PF('popupAnularRefCruce').hide()" value="No"/>
 			</h:panelGrid>
 		</h:panelGrid>
 	</p:dialog>
-	<p:dialog id="popupFlujoNotaContableRefCruceVer" domElementAttachment="form" autosized="true" width="800">
+	<p:dialog id="popupFlujoNotaContableRefCruceVer" widgetVar="popupFlujoNotaContableRefCruceVer" 
+		domElementAttachment="form" autosized="true" width="800"
+		showEffect="fade"
+    	hideEffect="explode"
+    	modal="true">
 		<f:facet name="header">
 			<h:panelGroup>
 				<h:outputText value="Nota Cotable - Referencia de Cruce" />
@@ -41,7 +43,7 @@
 		<f:facet name="controls">
  			<h:panelGroup>
  				<h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink" id="hidelinkCerrarFlujoRefCruceVer" height="20" width="20" />
-<!--  				<p:remoteCommand for="popupFlujoNotaContableRefCruceVer" attachTo="hidelinkCerrarFlujoRefCruceVer" operation="hide" event="onclick" /> -->
+
  			</h:panelGroup>
  		</f:facet>
 		<p:dataTable value="#{notaRefCrucePage.partidasSeleccionadas}" var="partida" id="tablePartSelVer" rowKeyVar="rowKey" width="100%"
@@ -108,7 +110,10 @@
 				</p:columnGroup>
 			</f:facet>
 		</p:dataTable>
-		<p:dialog id="popupRechazoRefCruceVer" autosized="true" domElementAttachment="form"  width="500">
+		<p:dialog id="popupRechazoRefCruceVer" autosized="true" domElementAttachment="form"  width="500"
+		    showEffect="fade"
+    		hideEffect="explode"
+    		modal="true">
 			<f:facet name="header">
 				<h:panelGroup><h:outputText value="Rechazar nota contable"/></h:panelGroup>
 			</f:facet>
@@ -133,22 +138,24 @@
 				<!-- Seccion de mensajes y botones de envio y cancelacion-->
 				<ui:include src="../../common/mensajes.xhtml" /> 
 				<h:panelGrid columns="2" styleClass="center" width="100%">
-				<h:commandButton value="Confirmar rechazo" />
-				<h:commandButton value="Cancelar" />
-<!-- 					<h:commandButton action="#{notaRefCrucePage.rechazar}" value="Confirmar rechazo" oncomplete="if (#{notaRefCrucePage.ocultarPopupAnular}) {#{p:remoteCommand('popupRechazoRefCruceVer')}.hide();#{p:remoteCommand('popupFlujoNotaContableRefCruceVer')}.hide();}" reRender="lista,opcionesRefCruceVer" /> -->
-<!-- 					<h:commandButton onclick="#{p:remoteCommand('popupRechazoRefCruceVer')}.hide()" value="Cancelar" /> -->
+				<h:commandButton action="#{notaRefCrucePage.rechazar}" 
+					value="Confirmar rechazo" 
+					oncomplete="if (#{notaRefCrucePage.ocultarPopupAnular}) {PF('popupRechazoRefCruceVer').hide();PF('popupFlujoNotaContableRefCruceVer').hide();}" 
+					update="lista,opcionesRefCruceVer" />
+				<h:commandButton onclick="PF('popupRechazoRefCruceVer').hide()" value="Cancelar" />
 				</h:panelGrid>
 			</h:panelGrid>
 		</p:dialog>
 
 		<ui:include src="../../common/mensajes.xhtml" /> 
 		<h:panelGrid id="opcionesRefCruceVer" columns="2" styleClass="center" width="100%">
-		<h:commandButton value="Aprobar" />
-		<h:commandButton value="Anular" />
-		<h:commandButton value="Rechazar" />
-<!-- 			<h:commandButton action="#{notaRefCrucePage.aprobar}" oncomplete="if (#{notaRefCrucePage.ocultarPopupAprobar}) #{p:remoteCommand('popupFlujoNotaContableRefCruceVer')}.hide()" reRender="lista,opcionesRefCruceVer" value="Aprobar" rendered="#{notaRefCrucePage.nota.puedeAprobar}" /> -->
-<!-- 			<h:commandButton value="Anular" rendered="#{notaRefCrucePage.nota.puedeAnular}" oncomplete="#{p:remoteCommand('popupAnularRefCruce')}.show()" /> -->
-<!-- 			<h:commandButton value="Rechazar" rendered="#{notaRefCrucePage.nota.puedeRechazar}" oncomplete="#{p:remoteCommand('popupRechazoRefCruceVer')}.show()" /> -->
+		<h:commandButton action="#{notaRefCrucePage.aprobar}" 
+			oncomplete="if (#{notaRefCrucePage.ocultarPopupAprobar}) PF('popupFlujoNotaContableRefCruceVer').hide()" 
+			update="lista,opcionesRefCruceVer" 
+			value="Aprobar" 
+			rendered="#{notaRefCrucePage.nota.puedeAprobar}"/>
+		<h:commandButton value="Anular" rendered="#{notaRefCrucePage.nota.puedeAnular}" oncomplete="PF('popupAnularRefCruce').show()"/>
+		<h:commandButton value="Rechazar" rendered="#{notaRefCrucePage.nota.puedeRechazar}" oncomplete="PF('popupRechazoRefCruceVer').show()"/>
 		</h:panelGrid>
 	</p:dialog>
 </ui:composition>

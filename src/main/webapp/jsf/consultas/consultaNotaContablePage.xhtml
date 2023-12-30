@@ -2,8 +2,8 @@
 				xmlns:ui="http://java.sun.com/jsf/facelets"
 				xmlns:h="http://java.sun.com/jsf/html"
 				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:p="http://primefaces.org/ui"
-				template="../../common/template.xhtml">
+				xmlns:p="http://primefaces.org/ui">
+				
 	<ui:param name="title" value="Consulta de notas contables" />
 	<ui:define name="body">
 
@@ -18,7 +18,7 @@
 		
 		<!--Filtro de busqueda	-->
 		<div style="width: 990px;">
-			<h:form>
+
 			<h:panelGrid columns="1" width="100%">
 			<h1 align="center">Notas Contables</h1>
 		</h:panelGrid> 
@@ -45,7 +45,7 @@
 					</h:panelGrid>
 
 					<h:panelGrid columns="1" styleClass="center">
-						<h:commandButton action="#{consultaNotaContablePage.buscar}" reRender="informacion,lista" value="Buscar" />
+						<h:commandButton action="#{consultaNotaContablePage.buscar}" update="informacion,lista" value="Buscar" />
 					</h:panelGrid>
 				</h:panelGrid>
 			</p:accordionPanel>
@@ -55,13 +55,13 @@
 		
 		<!-- Tabla de registros --> 
 		
-	<!--	<h:panelGrid columns="1" width="100%" style="align:center;" id="lista"> -->
+		<h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
 
 			<p:dataTable value="#{consultaNotaContablePage.datos}" var="dato" id="table" rowIndexVar="rowIndex"
-						 widgetVar="economicActivityTable" rows="15" paginator="true"
-						 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-						 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
-						 paginatorPosition="top">
+                             widgetVar="economicActivityTable" rows="15" paginator="true"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                             paginatorPosition="top">
 
 				<p:column headerText="Número Radicación" sortable="true" sortBy="#{dato.NC.numeroRadicacion}">
 					<h:outputText value="#{dato.NC.numeroRadicacion}" />
@@ -98,34 +98,34 @@
 
 				<!-- gp12833 - aseguramiento anexos -->
 				<p:column headerText="Recuperar Anexos" style="text-align: center;" sortable="true" sortBy="#{dato.nombreEstado}" rendered="#{consultaNotaContablePage.procesoRecuperarAnexos}">
-					<h:commandButton value="Ver" oncomplete="#{rich:component('popupAnexosNotaContableVer')}.show()" action="#{flujoNotaContablePage.cargarAnexos}" reRender="popupAnexosNotaContableVer">
-						<f:param name="numRadicadoNotaVer" value="#{dato.NC.numeroRadicacion}" assignTo="#{flujoNotaContablePage.numeroRadicacion}"  />
-					</h:commandButton>
+					<p:commandButton value="Ver" oncomplete="PF('popupAnexosNotaContableVer').show()" 
+						action="#{flujoNotaContablePage.cargarAnexos}" update="popupAnexosNotaContableVer">
+						<f:setPropertyActionListener for="numRadicadoNotaVer" value="#{dato.NC.numeroRadicacion}" target="#{flujoNotaContablePage.numeroRadicacion}" />
+					</p:commandButton>
 				</p:column>
 				<!-- FIN gp12833 - aseguramiento anexos -->
 
 				<p:column headerText="Ver Nota Contable" style="text-align: center;"
 							 rendered="#{!consultaNotaContablePage.procesoRecuperarAnexos}">
-					<h:commandButton value="Ver" oncomplete="#{rich:component('popupFlujoNotaContableVer')}.show()" action="#{flujoNotaContablePage.consultarFlujo}" reRender="popupFlujoNotaContableVer" rendered="#{dato.NC.tipoNota eq 'R'}">
-						<f:param name="codNotaVer" value="#{dato.codigoNotaContable}" assignTo="#{flujoNotaContablePage.nota.codigo}" converter="javax.faces.Integer" />
-					</h:commandButton>
-					<h:commandButton value="Ver" oncomplete="#{rich:component('notaContableLibreVer')}.show()" action="#{flujoNotaContableLibrePage.consultarFlujo}" reRender="notaContableLibreVer" rendered="#{dato.NC.tipoNota eq 'L'}">
-						<f:param name="codNotaLibreVer" value="#{dato.codigoNotaContable}" assignTo="#{flujoNotaContableLibrePage.nota.codigo}" converter="javax.faces.Integer" />
-					</h:commandButton>
-					<h:commandButton value="Ver" oncomplete="#{rich:component('popupFlujoNotaContableRefCruceVer')}.show()" action="#{notaRefCrucePage.consultarFlujo}" reRender="popupFlujoNotaContableRefCruceVer" rendered="#{dato.NC.tipoNota eq 'C'}">
-						<f:param name="codNotaRefCruceVer" value="#{dato.codigoNotaContable}" assignTo="#{notaRefCrucePage.nota.codigo}" converter="javax.faces.Integer" />
-					</h:commandButton>
+					<p:commandButton value="Ver" oncomplete="PF('popupFlujoNotaContableVer').show()" 
+						action="#{flujoNotaContablePage.consultarFlujo}" update="popupFlujoNotaContableVer" rendered="#{dato.NC.tipoNota eq 'R'}">
+						<f:setPropertyActionListener for="codNotaVer" value="#{dato.codigoNotaContable}" target="#{flujoNotaContablePage.nota.codigo}" />
+					</p:commandButton>
+					<p:commandButton value="Ver" oncomplete="PF('notaContableLibreVer').show()" action="#{flujoNotaContableLibrePage.consultarFlujo}" reRender="notaContableLibreVer" rendered="#{dato.NC.tipoNota eq 'L'}">
+						<f:setPropertyActionListener for="codNotaLibreVer" value="#{dato.codigoNotaContable}" target="#{flujoNotaContableLibrePage.nota.codigo}" />
+					</p:commandButton>
+					<p:commandButton value="Ver" oncomplete="PF('popupFlujoNotaContableRefCruceVer').show()" action="#{notaRefCrucePage.consultarFlujo}" reRender="popupFlujoNotaContableRefCruceVer" rendered="#{dato.NC.tipoNota eq 'C'}">
+						<f:setPropertyActionListener for="codNotaRefCruceVer" value="#{dato.codigoNotaContable}" target="#{notaRefCrucePage.nota.codigo}" />
+					</p:commandButton>
 				</p:column>
 				<p:column headerText="Flujo Nota Contable" style="text-align: center;"
 							 rendered="#{!consultaNotaContablePage.procesoRecuperarAnexos}">
-					<h:commandButton value="Consultar" oncomplete="#{rich:component('popupFlujo')}.show()" action="#{flujoSubPage.consultarFlujo}" reRender="popupFlujo" >
-						<f:param name="codConsultar" value="#{dato.codigo}" assignTo="#{flujoSubPage.actividadRealizada.codigoInstancia}" converter="javax.faces.Integer" />
-					</h:commandButton>
+					<p:commandButton value="Consultar" oncomplete="PF('popupFlujo').show()" action="#{flujoSubPage.consultarFlujo}" update="popupFlujo" >
+						<f:setPropertyActionListener for="codConsultar" value="#{dato.codigo}" target="#{flujoSubPage.actividadRealizada.codigoInstancia}" />
+					</p:commandButton>
 				</p:column>
-
 			   </p:dataTable>
-		<!--</h:panelGrid>-->
-			</h:form>
+			</h:panelGrid>
 		</div>
 	</ui:define>
 </ui:composition>

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
@@ -7,7 +6,10 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <!-- Formulario Modal de creacion y edicion de temas por concepto-->
-    <p:dialog id="editorRegLibreVer" domElementAttachment="form" autosized="true">
+    <p:dialog id="editorRegLibreVer" domElementAttachment="form" autosized="true"
+        showEffect="fade"
+    	hideEffect="explode"
+    	modal="true">
         <f:facet name="header">
             <h:panelGroup>
                 <h:outputText value="Registro Nota Contable Libre "/>
@@ -17,25 +19,20 @@
             <h:panelGroup>
                 <h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink"
                                 id="hidelinkeditorRegLibreVer" height="20" width="20"/>
-<!--                 <p:remoteCommand for="editorRegLibreVer" attachTo="hidelinkeditorRegLibreVer" operation="hide" -->
-<!--                                  event="onclick"/> -->
+                
             </h:panelGroup>
         </f:facet>
         <!-- Campos del formulario -->
-        <h:form>
             <h:panelGrid columns="1" width="500" id="informacionRegLibreVer" cellpadding="0" cellspacing="0">
                 <h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="0">
 
                     <h:panelGrid columns="3" cellpadding="0" cellspacing="2">
                         <h:outputText value="Fecha Contable" styleClass="propertie"/>
                         <h:outputText value="#{flujoNotaContableLibrePage.temaActual.fechaContable}"/>
-						<h:commandButton value="Riesgo Operacional"/>
-<!--                         <h:commandButton value="Riesgo Operacional" -->
-<!--                                          oncomplete="#{p:remoteCommand('modalRiesgoRegLibreVer')}.show()" -->
-<!--                                          reRender="modalRiesgoRegLibreVer" ajaxSingle="true" -->
-<!--                                          rendered="#{flujoNotaContableLibrePage.temaActual.pucCuenta.indicadorSIRO eq 'T'}"/> -->
-                        <h:outputText value=""
-                                      rendered="#{flujoNotaContableLibrePage.temaActual.pucCuenta.indicadorSIRO ne 'T'}"/>
+                        <p:commandButton oncomplete="PF('modalRiesgoRegLibreVer').show()" 
+                        	update="modalRiesgoRegLibreVer" ajaxSingle="true"
+							rendered="#{flujoNotaContableLibrePage.temaActual.pucCuenta.indicadorSIRO eq 'T'}"/>
+                        <h:outputText value="" rendered="#{flujoNotaContableLibrePage.temaActual.pucCuenta.indicadorSIRO ne 'T'}"/>
                     </h:panelGrid>
                     <h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="3" id="panelCuentaRegLibre">
                         <p:panel header="Cuenta Contable" style="width: 100%; height:100%">
@@ -108,7 +105,8 @@
                 <h:panelGrid columns="2" styleClass="center" width="100%">
 
                     <!-- seccion de riesgo operacional -->
-                    <p:dialog id="modalRiesgoRegLibreVer" domElementAttachment="form" autosized="true">
+                    <p:dialog id="modalRiesgoRegLibreVer" domElementAttachment="form" autosized="true"
+                        	showEffect="fade" hideEffect="explode" modal="true">
                         <f:facet name="header">
                             <h:panelGroup>
                                 <h:outputText value="Riesgo operacional"/>
@@ -119,9 +117,6 @@
                                 <h:graphicImage value="../../../common/images/close.png" alt="cerrar"
                                                 styleClass="hidelink" id="hidelinkCerrarModalRiesgoRegLibreVer"
                                                 height="20" width="20"/>
-<!--                                 <p:remoteCommand for="modalRiesgoRegLibreVer" -->
-<!--                                                  attachTo="hidelinkCerrarModalRiesgoRegLibreVer" operation="hide" -->
-<!--                                                  event="onclick"/> -->
                             </h:panelGroup>
                         </f:facet>
                         <h:panelGrid columns="2" width="500">
@@ -224,10 +219,13 @@
                     </p:dialog>
                 </h:panelGrid>
             </h:panelGrid>
-        </h:form>
     </p:dialog>
 
-    <p:dialog id="notaContableLibreVer" autosized="true" domElementAttachment="form" minWidth="700">
+    <p:dialog id="notaContableLibreVer" widgetVar="notaContableLibreVer" autosized="true" domElementAttachment="form" minWidth="700"
+        	showEffect="fade"
+    		hideEffect="explode"
+    		modal="true">
+    		
         <f:facet name="header">
             <h:panelGroup>
                 <h:outputText value="Nota Cotable Libre"/>
@@ -237,12 +235,9 @@
             <h:panelGroup>
                 <h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink"
                                 id="hidelinkCerrarNotaContableLibreVer" height="20" width="20"/>
-<!--                 <p:remoteCommand for="notaContableLibreVer" attachTo="hidelinkCerrarNotaContableLibreVer" -->
-<!--                                  operation="hide" event="onclick"/> -->
             </h:panelGroup>
         </f:facet>
         <!--Formulario principal	-->
-        <h:form>
             <h:panelGrid columns="1" width="100%">
                 <p:panel header="Información básica" style="width: 100%;">
                     <h:panelGrid columns="2">
@@ -303,15 +298,12 @@
                         </p:column>
 
                         <p:column headerText="Editar" style="text-align: center;">
-                            <h:commandButton/>
-                            
-<!--                             <h:commandButton action="#{flujoNotaContableLibrePage.verNota}" -->
-<!--                                              oncomplete="#{p:remoteCommand('editorRegLibreVer')}.show()" -->
-<!--                                              reRender="editorRegLibreVer" -->
-<!--                                              image="/common/images/edit.png" alt="Editar"> -->
-<!--                                 <f:param name="codigoTema" value="#{temaNota.codigo}" -->
-<!--                                          assignTo="#{flujoNotaContableLibrePage.codigo}"/> -->
-<!--                             </h:commandButton> -->
+                            <h:commandButton action="#{flujoNotaContableLibrePage.verNota}"
+                                             oncomplete="PF('editorRegLibreVer').show()"
+                                             reRender="editorRegLibreVer"
+                                             image="/common/images/edit.png" alt="Editar">
+                                <f:setPropertyActionListener for="codigoTema" value="#{temaNota.codigo}" target="#{flujoNotaContableLibrePage.codigo}" />
+                            </h:commandButton>
                         </p:column>
 
                         <f:facet name="footer">
@@ -361,14 +353,16 @@
                         <p:column headerText="Archivo" style="text-align: right;">
                             <p:commandLink action="#{downloadGeneralPage.download}" styleClass="bold"
                                            value="#{anexo.nombre}" target="_blank">
-                                <f:param name="type1" value="#{downloadGeneralPage.SOPORTE}"
-                                         assignTo="#{downloadGeneralPage.type}"/>
-                                <f:param name="file1" value="#{anexo.archivo}" assignTo="#{downloadGeneralPage.file}"/>
+                                <f:setPropertyActionListener for="type1" value="#{downloadGeneralPage.SOPORTE}" target="#{downloadGeneralPage.type}" />
+                                <f:setPropertyActionListener for="file1" value="#{anexo.archivo}" target="#{downloadGeneralPage.file}"/>
                             </p:commandLink>
                         </p:column>
                     </p:dataTable>
                 </p:panel>
-                <p:dialog id="popupRechazoNotaLibreVer" autosized="true" domElementAttachment="form" width="500">
+                <p:dialog id="popupRechazoNotaLibreVer" autosized="true" domElementAttachment="form" width="500"
+                    showEffect="fade"
+    				hideEffect="explode"
+    				modal="true">
                     <f:facet name="header">
                         <h:panelGroup>
                             <h:outputText value="Rechazar nota contable Libre"/>
@@ -398,28 +392,23 @@
                         <!-- Seccion de mensajes y botones de envio y cancelacion-->
                         <ui:include src="../../common/mensajes.xhtml"/>
                         <h:panelGrid columns="2" styleClass="center" width="100%">
-                            <h:commandButton value="Confirmar rechazo"/>
-                            <h:commandButton value="Cancelar"/>
-<!--                             <h:commandButton action="#{flujoNotaContableLibrePage.rechazar}" value="Confirmar rechazo" -->
-<!--                                              oncomplete="if (#{flujoNotaContableLibrePage.ocultarPopupAnular}) {#{p:remoteCommand('popupRechazoNotaLibreVer')}.hide();#{p:remoteCommand('notaContableLibreVer')}.hide();}" -->
-<!--                                              reRender="lista,opcionesNotaLibreVer"/> -->
-<!--                             <h:commandButton onclick="#{p:remoteCommand('popupRechazoNotaLibreVer')}.hide()" -->
-<!--                                              value="Cancelar"/> -->
+                            <h:commandButton action="#{flujoNotaContableLibrePage.rechazar}" value="Confirmar rechazo"
+							oncomplete="if (#{flujoNotaContableLibrePage.ocultarPopupAnular}) {PF('popupRechazoNotaLibreVer').hide();PF('notaContableLibreVer').hide();}"
+							update="lista,opcionesNotaLibreVer"/>
+                            <h:commandButton onclick="PF('popupRechazoNotaLibreVer').hide()" value="Cancelar"/>
                         </h:panelGrid>
                     </h:panelGrid>
                 </p:dialog>
                 <ui:include src="../../common/mensajes.xhtml"/>
                 <h:panelGrid id="opcionesNotaLibreVer" columns="2" styleClass="center" width="100%">
-                     <h:commandButton value="Aprobar"/>
-                     <h:commandButton value="Rechazar"/>
-<!--                     <h:commandButton action="#{flujoNotaContableLibrePage.aprobar}" -->
-<!--                                      oncomplete="if (#{flujoNotaContableLibrePage.ocultarPopupAprobar}) #{p:remoteCommand('notaContableLibreVer')}.hide()" -->
-<!--                                      reRender="lista,opcionesNotaLibreVer" value="Aprobar" -->
-<!--                                      rendered="#{flujoNotaContableLibrePage.nota.puedeAprobar}"/> -->
-<!--                     <h:commandButton value="Rechazar" rendered="#{flujoNotaContableLibrePage.nota.puedeRechazar}" -->
-<!--                                      oncomplete="#{p:remoteCommand('popupRechazoNotaLibreVer')}.show()"/> -->
+                    <h:commandButton action="#{flujoNotaContableLibrePage.aprobar}"
+					oncomplete="if (#{flujoNotaContableLibrePage.ocultarPopupAprobar}) PF('notaContableLibreVer').hide()" 
+					update="lista,opcionesNotaLibreVer" value="Aprobar"
+					rendered="#{flujoNotaContableLibrePage.nota.puedeAprobar}"/>
+                    <h:commandButton value="Rechazar" rendered="#{flujoNotaContableLibrePage.nota.puedeRechazar}" 
+                    	oncomplete="PF('popupRechazoNotaLibreVer').show()"/>
                 </h:panelGrid>
-            </h:panelGrid>
-        </h:form>
+            </h:panelGrid>		
+		<!-- fin formulario principal -->
     </p:dialog>
 </ui:composition>

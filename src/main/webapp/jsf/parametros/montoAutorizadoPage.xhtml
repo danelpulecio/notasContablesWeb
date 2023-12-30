@@ -17,7 +17,7 @@
 		<f:facet name="controls">
 			<h:panelGroup>
 				<h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink" id="hidelinkEstado" height="20" width="20" />
-				<p:remoteCommand for="popupEstado" attachTo="hidelinkEstado" operation="hide" event="onclick" />
+<!-- 				<p:remoteCommand for="popupEstado" attachTo="hidelinkEstado" operation="hide" event="onclick" /> -->
 			</h:panelGroup>
 		</f:facet>
 		
@@ -28,8 +28,8 @@
 			<!-- Seccion de mensajes y botones de envio y cancelacion-->
 			<ui:include src="../../common/mensajes.xhtml" /> 
 			<h:panelGrid columns="2" styleClass="center" width="100%">
-				<h:commandButton action="#{montoAutorizadoPage.cambiarEstado}" value="Si" oncomplete="#{p:remoteCommand('popupEstado')}.hide()" reRender="lista" />
-				<h:commandButton onclick="#{p:remoteCommand('popupEstado')}.hide()" value="No" />
+<!-- 				<h:commandButton action="#{montoAutorizadoPage.cambiarEstado}" value="Si" oncomplete="#{p:remoteCommand('popupEstado')}.hide()" reRender="lista" /> -->
+<!-- 				<h:commandButton onclick="#{p:remoteCommand('popupEstado')}.hide()" value="No" /> -->
 			</h:panelGrid>
 		</h:panelGrid>
 	</p:dialog>
@@ -42,7 +42,7 @@
 		<f:facet name="controls">
 			<h:panelGroup>
 				<h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink" id="hidelinkBorrar" height="20" width="20" />
-				<p:remoteCommand for="popupBorrar" attachTo="hidelinkBorrar" operation="hide" event="onclick" />
+<!-- 				<p:remoteCommand for="popupBorrar" attachTo="hidelinkBorrar" operation="hide" event="onclick" /> -->
 			</h:panelGroup>
 		</f:facet>
 		
@@ -53,8 +53,8 @@
 			<!-- Seccion de mensajes y botones de envio y cancelacion-->
 			<ui:include src="../../common/mensajes.xhtml" /> 
 			<h:panelGrid columns="2" styleClass="center" width="100%">
-				<h:commandButton action="#{montoAutorizadoPage.borrar}" value="Si" oncomplete="#{p:remoteCommand('popupBorrar')}.hide()"  reRender="lista"  />
-				<h:commandButton onclick="#{p:remoteCommand('popupBorrar')}.hide()" value="No" />
+<!-- 				<h:commandButton action="#{montoAutorizadoPage.borrar}" value="Si" oncomplete="#{p:remoteCommand('popupBorrar')}.hide()"  reRender="lista"  /> -->
+<!-- 				<h:commandButton onclick="#{p:remoteCommand('popupBorrar')}.hide()" value="No" /> -->
 			</h:panelGrid>
 		</h:panelGrid>
 	</p:dialog>
@@ -67,7 +67,7 @@
 		<f:facet name="controls">
 			<h:panelGroup>
 				<h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink" id="hidelink" height="20" width="20" />
-				<p:remoteCommand for="editor" attachTo="hidelink" operation="hide" event="onclick" />
+<!-- 				<p:remoteCommand for="editor" attachTo="hidelink" operation="hide" event="onclick" /> -->
 			</h:panelGroup>
 		</f:facet>
 		
@@ -106,8 +106,8 @@
 			<!-- Seccion de mensajes y botones de envio y cancelacion-->
 			<ui:include src="../../common/mensajes.xhtml" /> 
 			<h:panelGrid columns="2" styleClass="center" width="100%">
-				<h:commandButton action="#{montoAutorizadoPage.guardar}" reRender="informacion,lista"  value="Guardar" oncomplete="if (#{montoAutorizadoPage.ocultarPopupGuardar}) #{p:remoteCommand('editor')}.hide();" />
-				<h:commandButton onclick="#{p:remoteCommand('editor')}.hide()" value="Cerrar" />
+<!-- 				<h:commandButton action="#{montoAutorizadoPage.guardar}" reRender="informacion,lista"  value="Guardar" oncomplete="if (#{montoAutorizadoPage.ocultarPopupGuardar}) #{p:remoteCommand('editor')}.hide();" /> -->
+<!-- 				<h:commandButton onclick="#{p:remoteCommand('editor')}.hide()" value="Cerrar" /> -->
 			</h:panelGrid>
 		</h:panelGrid>
 	</p:dialog>
@@ -122,9 +122,9 @@
 					
 					<h:panelGrid columns="1" width="380" >
 						<!-- Funcionalidad para abrir el editor y crear un nuevo registro-->
-						<h:commandButton action="#{montoAutorizadoPage.editar}" oncomplete="#{p:remoteCommand('editor')}.show()" reRender="editor" value="Nuevo Registro">
-							<f:param name="codNuevo" value="0" assignTo="#{montoAutorizadoPage.objActual.codigo}" converter="javax.faces.Integer"/>
-						</h:commandButton>
+<!-- 						<h:commandButton action="#{montoAutorizadoPage.editar}" oncomplete="#{p:remoteCommand('editor')}.show()" reRender="editor" value="Nuevo Registro"> -->
+<!-- 							<f:param name="codNuevo" value="0" assignTo="#{montoAutorizadoPage.objActual.codigo}" converter="javax.faces.Integer"/> -->
+<!-- 						</h:commandButton> -->
 					</h:panelGrid>
 					
 					<h:panelGrid columns="2" >
@@ -184,31 +184,31 @@
 					<!-- Opcion de cambio de estado-->
 					<p:column style="text-align: center;">
 						<f:facet name="header"><h:outputText value="Estado" /></f:facet>
-						<h:commandButton value="#{dato.estado eq 'A'? 'Activo': 'Inactivo'}" onclick="#{p:remoteCommand('popupEstado')}.show()">
-							<f:param name="codCambio" value="#{dato.codigo}" assignTo="#{montoAutorizadoPage.objActual.codigo}" converter="javax.faces.Integer"/>
-							<f:param name="estadoCambio" value="#{dato.estado}" assignTo="#{montoAutorizadoPage.objActual.estado}" />
-						</h:commandButton>
+<!-- 						<h:commandButton value="#{dato.estado eq 'A'? 'Activo': 'Inactivo'}" onclick="#{p:remoteCommand('popupEstado')}.show()"> -->
+<!-- 							<f:param name="codCambio" value="#{dato.codigo}" assignTo="#{montoAutorizadoPage.objActual.codigo}" converter="javax.faces.Integer"/> -->
+<!-- 							<f:param name="estadoCambio" value="#{dato.estado}" assignTo="#{montoAutorizadoPage.objActual.estado}" /> -->
+<!-- 						</h:commandButton> -->
 					</p:column>
 					
 					<!-- Opcion de cambio de editar informacion-->
 					<p:column style="text-align: center;">
 						<f:facet name="header"><h:outputText value="Editar" /></f:facet>
-						<h:commandButton  oncomplete="#{p:remoteCommand('editor')}.show()" reRender="editor" image="/common/images/edit.png" alt="Editar">
-							<f:param name="codEdit" value="#{dato.codigo}" assignTo="#{montoAutorizadoPage.objActual.codigo}" converter="javax.faces.Integer"/>
-							<f:param name="codTipoAut" value="#{dato.codigoTipoAutorizacion}" assignTo="#{montoAutorizadoPage.objActual.codigoTipoAutorizacion}" converter="javax.faces.Integer"/>
-							<f:param name="codEnteAut" value="#{dato.codigoEnteAutorizador}" assignTo="#{montoAutorizadoPage.objActual.codigoEnteAutorizador}" converter="javax.faces.Integer"/>
-							<f:param name="codTemaAut" value="#{dato.codigoTemaAutorizacion}" assignTo="#{montoAutorizadoPage.objActual.codigoTemaAutorizacion}" converter="javax.faces.Integer"/>
-							<f:param name="codMonto" value="#{dato.monto}" assignTo="#{montoAutorizadoPage.objActual.monto}" converter="javax.faces.Double"/>
-							<f:param name="codEstado" value="#{dato.estado}" assignTo="#{montoAutorizadoPage.objActual.estado}" />
-						</h:commandButton>
+<!-- 						<h:commandButton  oncomplete="#{p:remoteCommand('editor')}.show()" reRender="editor" image="/common/images/edit.png" alt="Editar"> -->
+<!-- 							<f:param name="codEdit" value="#{dato.codigo}" assignTo="#{montoAutorizadoPage.objActual.codigo}" converter="javax.faces.Integer"/> -->
+<!-- 							<f:param name="codTipoAut" value="#{dato.codigoTipoAutorizacion}" assignTo="#{montoAutorizadoPage.objActual.codigoTipoAutorizacion}" converter="javax.faces.Integer"/> -->
+<!-- 							<f:param name="codEnteAut" value="#{dato.codigoEnteAutorizador}" assignTo="#{montoAutorizadoPage.objActual.codigoEnteAutorizador}" converter="javax.faces.Integer"/> -->
+<!-- 							<f:param name="codTemaAut" value="#{dato.codigoTemaAutorizacion}" assignTo="#{montoAutorizadoPage.objActual.codigoTemaAutorizacion}" converter="javax.faces.Integer"/> -->
+<!-- 							<f:param name="codMonto" value="#{dato.monto}" assignTo="#{montoAutorizadoPage.objActual.monto}" converter="javax.faces.Double"/> -->
+<!-- 							<f:param name="codEstado" value="#{dato.estado}" assignTo="#{montoAutorizadoPage.objActual.estado}" /> -->
+<!-- 						</h:commandButton> -->
 					</p:column>
 					
 					<!-- Opcion de cambio de borrado-->
 					<p:column style="text-align: center;">
 						<f:facet name="header"><h:outputText value="Borrar" /></f:facet>
-						<h:commandButton image="/common/images/delete.png" alt="Borrar" onclick="#{p:remoteCommand('popupBorrar')}.show()" rendered="#{dato.estado eq 'I'}">
-							<f:param name="codBorrar" value="#{dato.codigo}" assignTo="#{montoAutorizadoPage.objActual.codigo}" converter="javax.faces.Integer"/>
-						</h:commandButton>
+<!-- 						<h:commandButton image="/common/images/delete.png" alt="Borrar" onclick="#{p:remoteCommand('popupBorrar')}.show()" rendered="#{dato.estado eq 'I'}"> -->
+<!-- 							<f:param name="codBorrar" value="#{dato.codigo}" assignTo="#{montoAutorizadoPage.objActual.codigo}" converter="javax.faces.Integer"/> -->
+<!-- 						</h:commandButton> -->
 					</p:column>
 					
 					<!--	Se muestra la informacion de la cantidad de registros y la pagina actual	-->

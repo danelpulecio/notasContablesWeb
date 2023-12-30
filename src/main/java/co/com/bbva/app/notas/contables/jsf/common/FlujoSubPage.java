@@ -37,6 +37,7 @@ public class FlujoSubPage extends BasePage {
 	}
 
 	public String consultarFlujo() {
+		LOGGER.info(":::: ENTRANDO A CONSULTAR LA NOTA CONTABLE ::::" + actividadRealizada.getCodigoInstancia());
 		try {
 			actividadesRealizadas = new ArrayList<ActividadRealizada>(notasContablesManager.getActividadesRealizadasPorInstancia(actividadRealizada));
 			for (int i = 0; i < actividadesRealizadas.size(); i++) {
