@@ -361,3 +361,11 @@ s
 Csrc/main/java/co/com/bbva/app/notas/contables/dao/InstanciaDAO.java,4/7/4759d916163213de42604fadd64d58041ee8d6c9
 s
 Csrc/main/java/co/com/bbva/app/notas/contables/dto/NotaContable.java,f/8/f83d5fdf1b64508b39469a6bd2c3f5314ce6531a
+~
+Nsrc/main/java/co/com/bbva/app/notas/contables/jsf/adminnota/PrecierrePage.java,1/7/1722dc668c091aaa5f0bb3f34fa08808de72d962
+{
+Ksrc/main/java/co/com/bbva/app/notas/contables/jsf/adminnota/CierrePage.java,e/d/edba3423bd5368ca334fed2c6e55a6c68203cea2
+i
+9src/main/webapp/jsf/parametros/causalDevolucionPage.xhtml,1/5/152b1d831a29bbe097f3a52316b2ac15c280fb42
+w
+Gsrc/main/java/co/com/bbva/app/notas/contables/dto/CausalDevolucion.java,a/1/a15e74a33fade38c88da08cb450d23bd6e6acd92

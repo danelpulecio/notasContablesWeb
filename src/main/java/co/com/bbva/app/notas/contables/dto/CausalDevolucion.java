@@ -52,4 +52,12 @@ public class CausalDevolucion extends CommonVO<CausalDevolucion> implements java
 		codigo = Integer.valueOf(pk.toString());
 	}
 
+	@Override
+	public String toString() {
+		return "CausalDevolucion{" +
+				"codigo=" + codigo +
+				", nombre='" + nombre + '\'' +
+				", estado='" + estado + '\'' +
+				'}';
+	}
 }

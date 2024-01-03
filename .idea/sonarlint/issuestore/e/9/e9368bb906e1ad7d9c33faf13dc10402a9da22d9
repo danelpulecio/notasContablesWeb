@@ -1,52 +1,48 @@
 
-a	java:S112¤"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
-a	java:S112Ğ"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+a	java:S112¬"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+a	java:S112Ø"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
 ^
-java:S1192u"HDefine a constant instead of duplicating this literal "Verdana" 3 times.(ôñÑˆ
-l	java:S117ˆ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨Çç‹øÿÿÿÿ
-l	java:S117°"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ë³ø ùÿÿÿÿ
+java:S1192}"HDefine a constant instead of duplicating this literal "Verdana" 3 times.(ôñÑˆ
+l	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨Çç‹øÿÿÿÿ
 l	java:S117¸"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ë³ø ùÿÿÿÿ
 l	java:S117À"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ë³ø ùÿÿÿÿ
-l	java:S117É"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ë³ø ùÿÿÿÿ
+l	java:S117È"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ë³ø ùÿÿÿÿ
 l	java:S117Ñ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ë³ø ùÿÿÿÿ
 l	java:S117Ù"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ë³ø ùÿÿÿÿ
-l	java:S117”"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ë³ø ùÿÿÿÿ
-l	java:S117¯"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ë³ø ùÿÿÿÿ
-l	java:S117Á"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ë³ø ùÿÿÿÿ
-l	java:S117¶"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨Çç‹øÿÿÿÿ
-2
-java:S2066"Make this inner class static(Áˆœı
-Q	java:S125E"<This block of commented-out lines of code should be removed.(°µ©ô
-Q	java:S125S"<This block of commented-out lines of code should be removed.(°µ©ô
-V	java:S125k"<This block of commented-out lines of code should be removed.(Ã¾î“ûÿÿÿÿ
-V	java:S125m"<This block of commented-out lines of code should be removed.(İ €óıÿÿÿÿ
-V	java:S125s"<This block of commented-out lines of code should be removed.(à’ü¾ùÿÿÿÿ
-V	java:S125x"<This block of commented-out lines of code should be removed.(…¶¢ôıÿÿÿÿ
-Q	java:S125z"<This block of commented-out lines of code should be removed.(¢¿¡í
+l	java:S117á"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ë³ø ùÿÿÿÿ
+l	java:S117œ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ë³ø ùÿÿÿÿ
+l	java:S117·"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ë³ø ùÿÿÿÿ
+l	java:S117É"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ë³ø ùÿÿÿÿ
+l	java:S117¾"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨Çç‹øÿÿÿÿ
+V	java:S125s"<This block of commented-out lines of code should be removed.(Ã¾î“ûÿÿÿÿ
+V	java:S125u"<This block of commented-out lines of code should be removed.(İ €óıÿÿÿÿ
+V	java:S125{"<This block of commented-out lines of code should be removed.(à’ü¾ùÿÿÿÿ
+W	java:S125€"<This block of commented-out lines of code should be removed.(…¶¢ôıÿÿÿÿ
+R	java:S125‚"<This block of commented-out lines of code should be removed.(¢¿¡í
 n
-java:S3776¨"RRefactor this method to reduce its Cognitive Complexity from 30 to the 15 allowed.(´ÌòÜúÿÿÿÿ
+java:S3776°"RRefactor this method to reduce its Cognitive Complexity from 30 to the 15 allowed.(´ÌòÜúÿÿÿÿ
 Z
-java:S1854¿">Remove this useless assignment to local variable "tipoEvento".(¢»”ûÿÿÿÿ
+java:S1854Ç">Remove this useless assignment to local variable "tipoEvento".(¢»”ûÿÿÿÿ
 S
-java:S1854Ø"7Remove this useless assignment to local variable "rol".(ïİÛÌşÿÿÿÿ
-D	java:S108°")Either remove or fill this block of code.(Ë³ø ùÿÿÿÿ
+java:S1854à"7Remove this useless assignment to local variable "rol".(ïİÛÌşÿÿÿÿ
 D	java:S108¸")Either remove or fill this block of code.(Ë³ø ùÿÿÿÿ
 D	java:S108À")Either remove or fill this block of code.(Ë³ø ùÿÿÿÿ
-D	java:S108É")Either remove or fill this block of code.(Ë³ø ùÿÿÿÿ
+D	java:S108È")Either remove or fill this block of code.(Ë³ø ùÿÿÿÿ
 D	java:S108Ñ")Either remove or fill this block of code.(Ë³ø ùÿÿÿÿ
 D	java:S108Ù")Either remove or fill this block of code.(Ë³ø ùÿÿÿÿ
-R	java:S125ü"<This block of commented-out lines of code should be removed.(šî¨î
+D	java:S108á")Either remove or fill this block of code.(Ë³ø ùÿÿÿÿ
+R	java:S125„"<This block of commented-out lines of code should be removed.(šî¨î
 `
-java:S3358€"DExtract this nested ternary operation into an independent statement.(ƒÑ¬àüÿÿÿÿ
-D	java:S108”")Either remove or fill this block of code.(Ë³ø ùÿÿÿÿ
-W	java:S125"<This block of commented-out lines of code should be removed.(€»Šïüÿÿÿÿ
-D	java:S108¯")Either remove or fill this block of code.(Ë³ø ùÿÿÿÿ
-D	java:S108Á")Either remove or fill this block of code.(Ë³ø ùÿÿÿÿ
-W	java:S125ì"<This block of commented-out lines of code should be removed.(à’ü¾ùÿÿÿÿ
-R	java:S125ğ"<This block of commented-out lines of code should be removed.(£¼¥•
-R	java:S125ò"<This block of commented-out lines of code should be removed.(¢¿¡í
-W	java:S125™"<This block of commented-out lines of code should be removed.(Ã¾î“ûÿÿÿÿ
-W	java:S125›"<This block of commented-out lines of code should be removed.(İ €óıÿÿÿÿ
-W	java:S125¡"<This block of commented-out lines of code should be removed.(à’ü¾ùÿÿÿÿ
-W	java:S125¦"<This block of commented-out lines of code should be removed.(…¶¢ôıÿÿÿÿ
-R	java:S125¨"<This block of commented-out lines of code should be removed.(¢¿¡í
+java:S3358ˆ"DExtract this nested ternary operation into an independent statement.(ƒÑ¬àüÿÿÿÿ
+D	java:S108œ")Either remove or fill this block of code.(Ë³ø ùÿÿÿÿ
+W	java:S125¦"<This block of commented-out lines of code should be removed.(€»Šïüÿÿÿÿ
+D	java:S108·")Either remove or fill this block of code.(Ë³ø ùÿÿÿÿ
+D	java:S108É")Either remove or fill this block of code.(Ë³ø ùÿÿÿÿ
+W	java:S125ô"<This block of commented-out lines of code should be removed.(à’ü¾ùÿÿÿÿ
+R	java:S125ø"<This block of commented-out lines of code should be removed.(£¼¥•
+R	java:S125ú"<This block of commented-out lines of code should be removed.(¢¿¡í
+W	java:S125¡"<This block of commented-out lines of code should be removed.(Ã¾î“ûÿÿÿÿ
+W	java:S125£"<This block of commented-out lines of code should be removed.(İ €óıÿÿÿÿ
+W	java:S125©"<This block of commented-out lines of code should be removed.(à’ü¾ùÿÿÿÿ
+W	java:S125®"<This block of commented-out lines of code should be removed.(…¶¢ôıÿÿÿÿ
+R	java:S125°"<This block of commented-out lines of code should be removed.(¢¿¡í

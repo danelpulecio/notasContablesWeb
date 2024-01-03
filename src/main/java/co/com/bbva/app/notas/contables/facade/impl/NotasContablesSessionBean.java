@@ -4,10 +4,13 @@ import co.com.bbva.app.notas.contables.carga.dto.*;
 import co.com.bbva.app.notas.contables.dao.MontoAutorizadoGeneralDAO;
 import co.com.bbva.app.notas.contables.dto.*;
 import co.com.bbva.app.notas.contables.jsf.beans.UsuarioLogueado;
+import co.com.bbva.app.notas.contables.jsf.parametros.CausalDevolucionPage;
 import co.com.bbva.app.notas.contables.util.DateUtils;
 import co.com.bbva.app.notas.contables.util.EMailSender;
 import co.com.bbva.app.notas.contables.util.IRol;
 import oracle.sql.TIMESTAMP;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ejb.CreateException;
 import javax.naming.NamingException;
@@ -17,6 +20,8 @@ import java.sql.Timestamp;
 import java.util.*;
 
 public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(NotasContablesSessionBean.class);
 
 	@Override
 	public void addMontoMaximo(MontoMaximo row, int codigoUsuario) throws Exception {
@@ -179,6 +184,8 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 
 	@Override
 	public void changeEstadoCausalDevolucion(CausalDevolucion row, int codigoUsuario) throws Exception {
+		LOGGER.info("codigoUsuario variable {}", codigoUsuario);
+		LOGGER.info("causal devolucion variable {}", row);
 		causalDevolucionDAO.changeEstado(row, codigoUsuario);
 	}
 
