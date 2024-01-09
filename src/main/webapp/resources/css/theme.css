@@ -314,3 +314,13 @@ rich-ddmenu-label-select {
 .aligntop td {
     vertical-align: top; 
 } 
+
+body {
+    font-size: 75% !important;
+
+}
+
+.ui-widget,.ui-widget-header,.ui-widget-content,.ui-widget-header .ui-widget-header,.ui-widget-content .ui-widget-content,.ui-widget input,.ui-widget select,.ui-widget textarea,.ui-widget button
+    {
+    font-size: 100% !important;
+}

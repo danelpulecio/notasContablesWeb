@@ -6,7 +6,8 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <!-- Formulario Modal de creacion y edicion de temas por concepto-->
-    <p:dialog id="editorRegLibreVer" domElementAttachment="form" autosized="true"
+    <p:dialog id="editorRegLibreVer" 
+    	widgetVar="editorRegLibreVer" domElementAttachment="form" autosized="true"
         showEffect="fade"
     	hideEffect="explode"
     	modal="true">
@@ -23,15 +24,18 @@
             </h:panelGroup>
         </f:facet>
         <!-- Campos del formulario -->
-            <h:panelGrid columns="1" width="500" id="informacionRegLibreVer" cellpadding="0" cellspacing="0">
+            <h:panelGrid columns="1" width="500px" id="informacionRegLibreVer" cellpadding="0" cellspacing="0">
                 <h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="0">
 
                     <h:panelGrid columns="3" cellpadding="0" cellspacing="2">
                         <h:outputText value="Fecha Contable" styleClass="propertie"/>
                         <h:outputText value="#{flujoNotaContableLibrePage.temaActual.fechaContable}"/>
-                        <p:commandButton oncomplete="PF('modalRiesgoRegLibreVer').show()" 
-                        	update="modalRiesgoRegLibreVer" ajaxSingle="true"
+                        <p:commandButton value="Riesgo Operacional"
+                        	oncomplete="PF('modalRiesgoRegLibreVer').show()" 
+                        	update="globalForm:modalRiesgoRegLibreVer"
+                        	ajaxSingle="true"
 							rendered="#{flujoNotaContableLibrePage.temaActual.pucCuenta.indicadorSIRO eq 'T'}"/>
+							
                         <h:outputText value="" rendered="#{flujoNotaContableLibrePage.temaActual.pucCuenta.indicadorSIRO ne 'T'}"/>
                     </h:panelGrid>
                     <h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="3" id="panelCuentaRegLibre">
@@ -105,7 +109,8 @@
                 <h:panelGrid columns="2" styleClass="center" width="100%">
 
                     <!-- seccion de riesgo operacional -->
-                    <p:dialog id="modalRiesgoRegLibreVer" domElementAttachment="form" autosized="true"
+                    <p:dialog id="modalRiesgoRegLibreVer" widgetVar="modalRiesgoRegLibreVer" 
+                    		domElementAttachment="form" autosized="true"
                         	showEffect="fade" hideEffect="explode" modal="true">
                         <f:facet name="header">
                             <h:panelGroup>
@@ -221,7 +226,7 @@
             </h:panelGrid>
     </p:dialog>
 
-    <p:dialog id="notaContableLibreVer" widgetVar="notaContableLibreVer" autosized="true" domElementAttachment="form" minWidth="700"
+    <p:dialog id="notaContableLibreVer" widgetVar="notaContableLibreVer" autosized="true" domElementAttachment="form"
         	showEffect="fade"
     		hideEffect="explode"
     		modal="true">
@@ -238,7 +243,7 @@
             </h:panelGroup>
         </f:facet>
         <!--Formulario principal	-->
-            <h:panelGrid columns="1" width="100%">
+            <h:panelGrid columns="1" width="970px;" cellpadding="0" cellspacing="5">
                 <p:panel header="Información básica" style="width: 100%;">
                     <h:panelGrid columns="2">
                         <h:outputText value="Sucursal de Origen" styleClass="propertie"/>
@@ -297,44 +302,48 @@
                             </h:outputText>
                         </p:column>
 
-                        <p:column headerText="Editar" style="text-align: center;">
-                            <h:commandButton action="#{flujoNotaContableLibrePage.verNota}"
+                        <p:column headerText="Editar" style="text-align: center;" >
+                            <p:commandButton action="#{flujoNotaContableLibrePage.verNota}"
                                              oncomplete="PF('editorRegLibreVer').show()"
-                                             reRender="editorRegLibreVer"
-                                             image="/common/images/edit.png" alt="Editar">
+                                             icon="pi pi-search"
+                                             update="globalForm:editorRegLibreVer"
+                                             styleClass="rounded-button ui-button-success"
+                                             alt="Editar">
                                 <f:setPropertyActionListener for="codigoTema" value="#{temaNota.codigo}" target="#{flujoNotaContableLibrePage.codigo}" />
-                            </h:commandButton>
+                            </p:commandButton>
                         </p:column>
-
-                        <f:facet name="footer">
-                            <p:columnGroup rendered="#{! empty flujoNotaContableLibrePage.totalesNota}">
-                                <p:column colspan="#{flujoNotaContableLibrePage.mostrarAsiento?5:4}"
-                                          style="text-align:right;">
-                                    <h:outputText value="Totales"/>
-                                </p:column>
-                                <p:column style="padding: 0px;">
-                                    <p:dataTable style="border-width: 0px; background-color: transparent;"
-                                                 value="#{flujoNotaContableLibrePage.totalesNota}" var="total">
-                                        <p:column style="border-width: 0px;">
-                                            <h:outputText value="#{total.codigoDivisa }"/>
-                                        </p:column>
-                                    </p:dataTable>
-                                </p:column>
-                                <p:column style="padding: 0px;">
-                                    <p:dataTable style="border-width: 0px; background-color: transparent;"
-                                                 value="#{flujoNotaContableLibrePage.totalesNota}" var="total">
-                                        <p:column style="border-width: 0px; text-align:right;">
-                                            <h:outputText value="#{total.total}">
-                                                <f:convertNumber type="currency"/>
-                                            </h:outputText>
-                                        </p:column>
-                                    </p:dataTable>
-                                </p:column>
-                                <p:column></p:column>
-                            </p:columnGroup>
-                        </f:facet>
+						
+						<f:facet name="footer">
+				            <span class="font-bold">
+				            
+				            	<p:dataTable style="border-width: 0px; 
+				            				background-color: transparent;"
+	                                        value="#{flujoNotaContablePage.totalesNota}" 
+	                                        var="total"
+	                                        rendered="#{! empty flujoNotaContableLibrePage.totalesNota}">
+	                                             
+	                                    <p:column colspan="#{flujoNotaContableLibrePage.mostrarAsiento?5:4}" style="text-align:right; border-width: 0px;">
+			                                <h:outputText value="Totales"/>
+			                            </p:column>   
+			                               
+	                                    <p:column style="border-width: 0px; text-align:left;">
+	                                        <h:outputText value="#{total.codigoDivisa }"/>
+	                                    </p:column>
+	                                    
+	                                    <p:column style="border-width: 0px; text-align:right;">
+	                                        <h:outputText value="#{total.total}">
+	                                            <f:convertNumber type="currency"/>
+	                                        </h:outputText>
+	                                    </p:column>
+	                                    <p:column style="border-width: 0px; text-align:lefth;"></p:column>
+	                                    
+	                             </p:dataTable>
+	                             
+				            </span>
+				        </f:facet>
                     </p:dataTable>
                 </p:panel>
+                
                 <p:panel header="Soportes de la nota contable" rendered="#{! empty flujoNotaContableLibrePage.anexos}">
                     <p:dataTable id="anexos" value="#{flujoNotaContableLibrePage.anexos}" var="anexo" rowIndexVar="rowIndex"
                                  widgetVar="economicActivityTable" rows="15" paginator="true"
@@ -359,7 +368,7 @@
                         </p:column>
                     </p:dataTable>
                 </p:panel>
-                <p:dialog id="popupRechazoNotaLibreVer" autosized="true" domElementAttachment="form" width="500"
+                <p:dialog id="popupRechazoNotaLibreVer" widgetVar="popupRechazoNotaLibreVer" autosized="true" domElementAttachment="form" width="500"
                     showEffect="fade"
     				hideEffect="explode"
     				modal="true">
@@ -392,20 +401,21 @@
                         <!-- Seccion de mensajes y botones de envio y cancelacion-->
                         <ui:include src="../../common/mensajes.xhtml"/>
                         <h:panelGrid columns="2" styleClass="center" width="100%">
-                            <h:commandButton action="#{flujoNotaContableLibrePage.rechazar}" value="Confirmar rechazo"
+                            <p:commandButton action="#{flujoNotaContableLibrePage.rechazar}" 
+                            value="Confirmar rechazo"
 							oncomplete="if (#{flujoNotaContableLibrePage.ocultarPopupAnular}) {PF('popupRechazoNotaLibreVer').hide();PF('notaContableLibreVer').hide();}"
-							update="lista,opcionesNotaLibreVer"/>
-                            <h:commandButton onclick="PF('popupRechazoNotaLibreVer').hide()" value="Cancelar"/>
+							update="globalForm:lista,globalForm:opcionesNotaLibreVer"/>
+                            <p:commandButton onclick="PF('popupRechazoNotaLibreVer').hide()" value="Cancelar"/>
                         </h:panelGrid>
                     </h:panelGrid>
                 </p:dialog>
                 <ui:include src="../../common/mensajes.xhtml"/>
                 <h:panelGrid id="opcionesNotaLibreVer" columns="2" styleClass="center" width="100%">
-                    <h:commandButton action="#{flujoNotaContableLibrePage.aprobar}"
+                    <p:commandButton action="#{flujoNotaContableLibrePage.aprobar}"
 					oncomplete="if (#{flujoNotaContableLibrePage.ocultarPopupAprobar}) PF('notaContableLibreVer').hide()" 
-					update="lista,opcionesNotaLibreVer" value="Aprobar"
+					update="globalForm:lista,globalForm:opcionesNotaLibreVer" value="Aprobar"
 					rendered="#{flujoNotaContableLibrePage.nota.puedeAprobar}"/>
-                    <h:commandButton value="Rechazar" rendered="#{flujoNotaContableLibrePage.nota.puedeRechazar}" 
+                    <p:commandButton value="Rechazar" rendered="#{flujoNotaContableLibrePage.nota.puedeRechazar}" 
                     	oncomplete="PF('popupRechazoNotaLibreVer').show()"/>
                 </h:panelGrid>
             </h:panelGrid>		

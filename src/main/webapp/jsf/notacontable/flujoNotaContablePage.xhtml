@@ -9,8 +9,7 @@
 
 
     <!-- Formulario Modal de visualizacion de temas por concepto-->
-    <p:dialog id="modalVer" widgetVar="modalVer" domElementAttachment="form" autosized="true"  showEffect="fade" hideEffect="explode" 
-    	modal="true">
+    <p:dialog id="modalVer" widgetVar="modalVer" domElementAttachment="form" autosized="true"  showEffect="fade" hideEffect="explode" modal="true">
         <f:facet name="header">
             <h:panelGroup>
                 <h:outputText value="Tema: #{flujoNotaContablePage.temaActual.tema.nombre}"/>
@@ -25,7 +24,7 @@
 
         <!-- Campos del formulario -->
 
-            <h:panelGrid columns="1" width="820" id="informacionFlujoNotaContableVer" cellpadding="0" cellspacing="0">
+            <h:panelGrid columns="1" width="820px;" id="informacionFlujoNotaContableVer" cellpadding="0" cellspacing="0">
                 <h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="0">
                     <h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="5" style="height: 100%;">
                         <p:panel header="Información básica" style="width: 100%;">
@@ -44,9 +43,11 @@
                                 <h:panelGrid columns="3" cellpadding="0" cellspacing="0">
                                     <h:outputText value="#{flujoNotaContablePage.temaActual.fechaContable}"/>
                                     <p:spacer width="200"/>
-                                    <h:commandButton value="Riesgo Operacional" 
-                                    oncomplete="PF('modalRiesgoVer').show()" update="modalRiesgoVer"
-									rendered="#{flujoNotaContablePage.temaActual.tema.riesgoOperacional eq 'S'}" ajaxSingle="true"/>
+                                    <p:commandButton value="Riesgo Operacional" 
+                                    	oncomplete="PF('modalRiesgoVer').show()" 
+                                    	update="globalForm:modalRiesgoVer"
+                                    	ajaxSingle="true"
+										rendered="#{flujoNotaContablePage.temaActual.tema.riesgoOperacional eq 'S'}" immediate="true"/>
                                 </h:panelGrid>
 
                                 <h:outputText value="Descripción" styleClass="propertie"/>
@@ -258,10 +259,10 @@
                             <p:column headerText="Archivo" style="text-align: right;">
                                 <p:commandLink action="#{downloadGeneralPage.download}" styleClass="bold"
                                                value="#{anexo.nombre}" target="_blank">
-                                    <f:param name="type2" value="#{downloadGeneralPage.SOPORTE}"
-                                             assignTo="#{downloadGeneralPage.type}"/>
-                                    <f:param name="file2" value="#{anexo.archivo}"
-                                             assignTo="#{downloadGeneralPage.file}"/>
+                                               
+				                    <f:setPropertyActionListener for="type2" value="#{downloadGeneralPage.SOPORTE}" target="#{downloadGeneralPage.type}" />
+				                    <f:setPropertyActionListener for="file2" value="#{anexo.archivo}" target="#{downloadGeneralPage.file}"/>
+                                             
                                 </p:commandLink>
                             </p:column>
                         </p:dataTable>
@@ -270,8 +271,11 @@
                 <h:panelGrid columns="2" styleClass="center" width="100%">
 
                     <!-- seccion de <form></form>peracional -->
-                    <p:dialog id="modalRiesgoVer" widgetVar="modalRiesgoVer" domElementAttachment="form" autosized="true"
-                        	showEffect="fade" hideEffect="explode" modal="true">
+                    <p:dialog id="modalRiesgoVer" widgetVar="modalRiesgoVer" 
+                    	domElementAttachment="form" 
+                    	autosized="true"
+                        showEffect="fade" 
+                        hideEffect="explode" modal="true">
                         <f:facet name="header">
                             <h:panelGroup>
                                 <h:outputText
@@ -398,13 +402,12 @@
     </p:dialog>
 
     <p:dialog id="popupFlujoNotaContableVer" 
-    	widgetVar="popupFlujoNotaContableVer" 
-    	autosized="true" 
-    	domElementAttachment="form" 
-    	minWidth="700"
-    	showEffect="fade"
-    	hideEffect="explode"
-    	modal="true">
+    widgetVar="popupFlujoNotaContableVer" 
+    domElementAttachment="form"  
+    autosized="true" 
+    showEffect="fade" 
+    hideEffect="explode" 
+    modal="true">
         <f:facet name="header">
             <h:panelGroup>
                 <h:outputText value="Nota Cotable"/>
@@ -418,7 +421,7 @@
         </f:facet>
         <!--Formulario principal	-->
 
-        <h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="5">
+        <h:panelGrid columns="1" width="970px;" cellpadding="0" cellspacing="5">
             <p:panel header="Información básica" style="width: 100%;">
                 <h:panelGrid columns="2">
                     <h:outputText value="Sucursal de Origen" styleClass="propertie"/>
@@ -467,40 +470,38 @@
                     </p:column>
 
                     <p:column headerText="Ver" style="text-align: center;">
-                    	<h:commandButton action="#{flujoNotaContablePage.verNota}" 
-                    		oncomplete="PF('modalVer').show()" update="modalVer" image="/common/images/edit.png" alt="Ver"
+                    	<p:commandButton action="#{flujoNotaContablePage.verNota}" 
+                    		oncomplete="PF('modalVer').show();"
+                    		update="globalForm:modalVer" 
+                    		icon="pi pi-search" 
+                    		styleClass="rounded-button ui-button-success"
+                    		alt="Ver"
 							rendered="#{temaNota.codigo gt 0 }">
-                    	<f:setPropertyActionListener for="codigoTema" value="#{temaNota.codigo}" target="#{flujoNotaContablePage.codigo}" />
-                    </h:commandButton>
+                    		<f:setPropertyActionListener for="codigoTema" value="#{temaNota.codigo}" target="#{flujoNotaContablePage.codigo}" />
+                    	</p:commandButton>
                     </p:column>
                     <f:facet name="footer">
-                        <p:columnGroup rendered="#{! empty flujoNotaContablePage.totalesNota}">
-                            <p:column colspan="#{flujoNotaContablePage.mostrarAsiento?4:3}" style="text-align:right;">
-                                <h:outputText value="Totales"/>
-                            </p:column>
-                            <p:column style="padding: 0px;">
-                                <p:dataTable style="border-width: 0px; background-color: transparent;"
+			            <span class="font-bold">
+			            	<p:dataTable style="border-width: 0px; background-color: transparent;"
                                              value="#{flujoNotaContablePage.totalesNota}" var="total">
-                                    <p:column style="border-width: 0px;">
+                                    <p:column colspan="#{flujoNotaContablePage.mostrarAsiento?4:3}" style="text-align:right; border-width: 0px;">
+		                                <h:outputText value="Totales"/>
+		                            </p:column>      
+                                    <p:column style="border-width: 0px; text-align:left;">
                                         <h:outputText value="#{total.codigoDivisa }"/>
                                     </p:column>
-                                </p:dataTable>
-                            </p:column>
-                            <p:column style="padding: 0px;">
-                                <p:dataTable style="border-width: 0px; background-color: transparent;"
-                                             value="#{flujoNotaContablePage.totalesNota}" var="total">
                                     <p:column style="border-width: 0px; text-align:right;">
                                         <h:outputText value="#{total.total}">
                                             <f:convertNumber type="currency"/>
                                         </h:outputText>
                                     </p:column>
-                                </p:dataTable>
-                            </p:column>
-                            <p:column></p:column>
-                        </p:columnGroup>
-                    </f:facet>
+                                    <p:column style="border-width: 0px; text-align:lefth;"></p:column>
+                             </p:dataTable>
+			            </span>
+			        </f:facet>
                 </p:dataTable>
             </p:panel>
+            
             <p:dialog id="popupRechazoVer" widgetVar="popupRechazoVer" autosized="true" domElementAttachment="form" width="500"
                 	showEffect="fade" hideEffect="explode" modal="true">
                 <f:facet name="header">
@@ -541,9 +542,10 @@
             </p:dialog>
 
             <ui:include src="../../common/mensajes.xhtml"/>
+            
             <h:panelGrid id="opcionesVer" columns="2" styleClass="center" width="100%">
             	<h:commandButton  action="#{flujoNotaContablePage.aprobar}"
-					oncomplete="if (#{flujoNotaContablePage.ocultarPopupAprobar}) PF('popupFlujoNotaContableVer')}.hide()" 
+					oncomplete="if (#{flujoNotaContablePage.ocultarPopupAprobar}) PF('popupFlujoNotaContableVer').hide()" 
 					update="lista,opcionesVer" value="Aprobar"
 					rendered="#{flujoNotaContablePage.nota.puedeAprobar}" />
             	<h:commandButton value="Rechazar" rendered="#{flujoNotaContablePage.nota.puedeRechazar}" 
@@ -552,4 +554,5 @@
         </h:panelGrid>
 
     </p:dialog>
+
 </ui:composition>

@@ -6,7 +6,7 @@
 				xmlns:p="http://primefaces.org/ui">
 
 	<!-- Formulario de confirmacion de anulacion-->
-	<p:dialog id="popupAnularRefCruce" autosized="true" domElementAttachment="form"  width="250"
+	<p:dialog id="popupAnularRefCruce" widgetVar="popupAnularRefCruce" autosized="true" domElementAttachment="form"  width="250"
 	    	showEffect="fade" hideEffect="explode" modal="true">
 		<f:facet name="header">
 			<h:panelGroup><h:outputText value="Confirmación de anulación"/></h:panelGroup>
@@ -30,7 +30,8 @@
 			</h:panelGrid>
 		</h:panelGrid>
 	</p:dialog>
-	<p:dialog id="popupFlujoNotaContableRefCruceVer" widgetVar="popupFlujoNotaContableRefCruceVer" 
+	<p:dialog id="popupFlujoNotaContableRefCruceVer" 
+		widgetVar="popupFlujoNotaContableRefCruceVer" 
 		domElementAttachment="form" autosized="true" width="800"
 		showEffect="fade"
     	hideEffect="explode"

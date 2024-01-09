@@ -6,6 +6,7 @@ import co.com.bbva.app.notas.contables.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
@@ -39,6 +40,20 @@ public class ConsultaNotaContablePage extends GeneralConsultaPage<Instancia> {
 
 	public ConsultaNotaContablePage() {
 		super();
+	}
+	
+	@PostConstruct
+	public void init(){
+	    LOGGER.info("postConstructor: {}", tiposCriterio);
+	    if (tiposCriterio == null || tiposCriterio.isEmpty()) {
+	       tiposCriterio = new ArrayList<>();
+	       fecha = Calendar.getInstance().getTime();
+	       criterio = "1";
+	       tiposCriterio.add(new SelectItem("1", "Numero de radicacion"));
+	       tiposCriterio.add(new SelectItem("2", "Asiento contable Altamira"));
+	       tiposCriterio.add(new SelectItem("3", "Fecha Radicacion Modulo"));
+	    }
+	    LOGGER.info("postConstructor cargado: {}", tiposCriterio);
 	}
 
 	@Override

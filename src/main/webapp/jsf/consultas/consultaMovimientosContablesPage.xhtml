@@ -45,10 +45,10 @@
                                 <h:inputText value="#{consultaMovimientosContablesPage.numIdentificacion}"/>
 
                                 <h:outputText value="Desde"/>
-                                <p:calendar label="Desde" id="desde" required="true" value="#{consultaMovimientosContablesPage.desde}"/>
+                                <p:calendar label="Desde" id="desde" required="false" value="#{consultaMovimientosContablesPage.desde}"/>
 
                                 <h:outputText value="Hasta"/>
-                                <p:calendar label="Hasta" id="hasta" required="true" value="#{consultaMovimientosContablesPage.hasta}"/>
+                                <p:calendar label="Hasta" id="hasta" required="false" value="#{consultaMovimientosContablesPage.hasta}"/>
 
                                 <h:outputText value="Divisa"/>
                                 <p:selectOneMenu value="#{consultaMovimientosContablesPage.divisa}">
@@ -129,7 +129,7 @@
                                 </p:column>
                             </p:dataTable>
                         </h:panelGrid>
-                        <h:panelGrid columns="1" rendered="#{dato.NC.tipoNota eq 'C' }" style="width: 100%">
+                        <h:panelGrid columns="1" rendered="#{dato.NC.tipoNota eq 'C' }" style="width:100%">
                             <p:dataTable style="border-width: 0px; background-color: transparent;" var="temaCruce"
                                          value="#{dato.NC.temasCruce}" cellpadding="0" cellspacing="0">
                                 <p:column style="border-width: 0px; text-align: left;">

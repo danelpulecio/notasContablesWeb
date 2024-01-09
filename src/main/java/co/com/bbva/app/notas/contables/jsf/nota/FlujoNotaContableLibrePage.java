@@ -8,12 +8,17 @@ import co.com.bbva.app.notas.contables.dto.*;
 import co.com.bbva.app.notas.contables.jsf.GeneralPage;
 import co.com.bbva.app.notas.contables.jsf.IPages;
 import co.com.bbva.app.notas.contables.jsf.adminnota.PendientePage;
+import co.com.bbva.app.notas.contables.jsf.consultas.GeneralConsultaPage;
 import co.com.bbva.app.notas.contables.util.EMailSender;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +33,7 @@ import java.util.List;
 @Named
 public class FlujoNotaContableLibrePage extends GeneralPage implements IPages {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(FlujoNotaContableLibrePage.class);
 	
 	private PendientePage pendientePage;
 
@@ -131,6 +137,7 @@ public class FlujoNotaContableLibrePage extends GeneralPage implements IPages {
 	}
 
 	public String verNota() {
+		LOGGER.info("ENTRANDO A LA NOTA LIBRE :::: > " + this.codigo);
 		try {
 			// temaActual = notasContablesManager.getTemaNotaContablePorCodigo(temaActual);
 			for (NotaContableRegistroLibre nct : temasNotaContable) {

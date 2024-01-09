@@ -15,7 +15,7 @@
         <h:outputStylesheet library = "css" name = "theme.css" /> 
         <h:outputStylesheet library = "css" name = "theme.xcss" />
         <script type="text/javascript">
-
+        
             function onKeyPressNumbers(e, value) {
                 var flag = 0;
                 value = replaceAll(value, ',', '');
@@ -82,7 +82,69 @@
                 document.all ? k = e.key : k = e.which;
                 return ((k &gt; 64 &amp;&amp; k &lt; 91) || (k &gt; 96 &amp;&amp; k &lt; 123) || k == 46 || k == 44 || k == 45 || k == 95 || k == 8 || k == 225 || k == 193 || k == 233 || k == 237 || k == 243 || k == 201 || k == 250 || k == 205 || k == 211 || k == 209 || k == 241 || k == 218 || k == 32 || (k &gt;= 48 &amp;&amp; k &lt;= 57));
             }
+
+
+            function isDayEnabled(day){
+				var fechaMin = document.getElementById('globalForm:fechaMinLibre').value;
+				var fechaMax = document.getElementById('globalForm:fechaMaxLibre').value;
+			   	var min=new Date();
+			   	min.setFullYear(parseInt(fechaMin.substring(6, 10), 10),parseInt(fechaMin.substring(3, 5), 10)-1,parseInt(fechaMin.substring(0, 2), 10)-1);
+			   	var max=new Date();
+			   	max.setFullYear(parseInt(fechaMax.substring(6, 10), 10),parseInt(fechaMax.substring(3, 5), 10)-1,parseInt(fechaMax.substring(0, 2), 10));
+			   	var date = new Date(day.date);
+			   	if(date.getDay() == 6){
+					return false;	
+				}
+			   	if(date.getDay() == 0){
+					return false;	
+				}
+			   	if(date &gt; min){
+					if(max &gt; date){ //solo fechas entre min y max
+						return true;
+					} 
+				} 
+				return false;
+			}
+			
+			function isDayEnabledRiesgo(day){
+			   	var max=new Date();
+			   	var date = new Date(day.date);
+				if(max &gt; date){ //solo fechas menores o iguales a hoy
+					return true;
+				}
+				return false;
+			}
+			
+			function getDisabledStyle(day){
+			   if (!isDayEnabled(day)) return 'rich-calendar-boundary-dates disabledDay';
+			}
+
+			function getDisabledStyleRiesgo(day){
+			   if (!isDayEnabledRiesgo(day)) return 'rich-calendar-boundary-dates disabledDay';
+			}
+			
+			function validarMontoLibreAlert(value){
+				var alertCOP = parseFloat(document.getElementById('globalForm:montoAlertaCOPLibre').value);
+				var alertEXT = parseFloat(document.getElementById('globalForm:montoAlertaEXTLibre').value);
+				var divisa = document.getElementById('globalForm:codDivisaNotaContableLibre').value;
+				var warn=false;
+				if(divisa == 'COP'){
+					warn=value &gt; alertCOP;
+				}else{
+					warn=value &gt; alertEXT;
+				}
+				if(warn){
+					alert('Por favor verifique si el importe ingresado es el adecuado.');
+				}
+			}
+
+			
         </script>
+        <style>
+.disabledDay {
+	background-color: #dedede;
+}
+</style>
         <ui:insert name="head"/>
     </h:head>
     <body>

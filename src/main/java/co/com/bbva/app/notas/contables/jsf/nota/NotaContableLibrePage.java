@@ -72,24 +72,24 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 	private boolean ocultarPopupRiesgo = false;
 	private boolean ocultarPopupGuardarNota = false;
 	private boolean aplicaRecuperacion = false;
-	private Session session;
+	//private Session session;
 
 	public NotaContableLibrePage() {
 		super();
 	}
 
 	public String iniciarPagina() {
-		session = getContablesSessionBean().getSessionTrace();
+		//session = getContablesSessionBean().getSessionTrace();
 		try {
-			LOGGER.info("{} Registro de NOTA CONTABLE LIBRE - Configurando valores iniciales", session.getTraceLog());
+			LOGGER.info("{} Registro de NOTA CONTABLE LIBRE - Configurando valores iniciales");
 			String codSucursal = getUsuarioLogueado().getSucursal().getCodigo();
-			LOGGER.info("{} Obteniendo Info. de la sucursal {}", session.getTraceLog(), codSucursal);
+			LOGGER.info("{} Obteniendo Info. de la sucursal {}", codSucursal);
 			String msg = notasContablesManager.verificarUsuarioSubGerente(codSucursal);
 			if (msg.isEmpty()) {
-				LOGGER.info("{} Verificando que la sucursal {} corresponda a un centro especial", session.getTraceLog(), codSucursal);
+				LOGGER.info("{} Verificando que la sucursal {} corresponda a un centro especial", codSucursal);
 				msg = notasContablesManager.verificarCentroEspecial(codSucursal);
 				if (msg.isEmpty()) {
-					LOGGER.info("{} Obteniendo Info. de los montos mximos", session.getTraceLog());
+					LOGGER.info("{} Obteniendo Info. de los montos mximos");
 					montos = notasContablesManager.getMontoMaximos();
 					for (MontoMaximo monto : montos) {
 						if (monto.getEstado().equals("A") && monto.getDivisa().equals("1")) {
@@ -98,19 +98,19 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 							montoAlertaEXT = monto.getMontoMaximoAlerta();
 						}
 					}
-					LOGGER.info("{} Obteniendo Info. de los das no hbiles", session.getTraceLog());
+					LOGGER.info("{} Obteniendo Info. de los das no hbiles");
 					diasNoHabiles = new ArrayList<>(cargaAltamiraManager.getFestivosFecha());
 
 					FechaHabilitada fechaHabilitada = new FechaHabilitada();
 					fechaHabilitada.setCodigoSucursal(getUsuarioLogueado().getSucursal().getCodigo());
 					fechaHabilitada = notasContablesManager.getFechaHabilitadaPorSucursal(fechaHabilitada);
 
-					LOGGER.info("{} Estableciendo fechas lmite", session.getTraceLog());
+					LOGGER.info("{} Estableciendo fechas lmite");
 					maxFecha = StringUtils.getString(DateUtils.getSQLDate(DateUtils.getNextWorkDay(diasNoHabiles)), "dd-MM-yyyy");
 					minFecha = StringUtils.getString(DateUtils.getDateTodayBeforeDays(fechaHabilitada.getDias().intValue(), diasNoHabiles), "dd-MM-yyyy");
 
 					if (nota.getCodigo().intValue() > 0) {
-						LOGGER.info("{} Validando Info. de la Nota Contable", session.getTraceLog());
+						LOGGER.info("{} Validando Info. de la Nota Contable");
 						consultarFlujo();
 						nota.setPuedeEditar(true);
 						nota.setPuedeAnular(true);
@@ -123,15 +123,15 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 						temaActual = new NotaContableRegistroLibre();
 					}
 				} else {
-					LOGGER.warn("{} La sucursal: {} NO corresponda a un centro especial", session.getTraceLog(), codSucursal);
+					LOGGER.warn("{} La sucursal: {} NO corresponda a un centro especial", codSucursal);
 					nuevoMensaje(FacesMessage.SEVERITY_WARN, msg);
 				}
 			} else {
-				LOGGER.warn("{} No se tiene parametrizado un autorizador", session.getTraceLog());
+				LOGGER.warn("{} No se tiene parametrizado un autorizador");
 				nuevoMensaje(FacesMessage.SEVERITY_WARN, msg);
 			}
 		} catch (Exception e) {
-			LOGGER.error("{} Error al intentar al configurar los valores iniciales: NC LIBRE", session.getTraceLog(), e);
+			LOGGER.error("{} Error al intentar al configurar los valores iniciales: NC LIBRE", e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema, la aplicacin no se pudo iniciar correctamente");
 		}
 		return null;
@@ -154,11 +154,12 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 	 */
 	public String editar() {
 		try {
-			LOGGER.info("{} Edicin del registro seleccionado: {}", session.getTraceLog(), codigo);
+			LOGGER.info("{} Edicion del registro seleccionado: {}" + this.codigo);
 			cuentaContable = "";
 			cuentas = new ArrayList<>();
-			LOGGER.info("{} Recuperando la Informacin", session.getTraceLog());
+			LOGGER.info("{} Recuperando la Informacion");
 			for (NotaContableRegistroLibre nct : temasNotaContable) {
+				LOGGER.info(" ::: temasNotaContable ::: " + temasNotaContable.size());
 				if (nct.getCodigo() == codigo.intValue()) {
 					temaActual = nct;
 					if (codigo > 0) {
@@ -173,7 +174,9 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 				}
 			}
 			temaActual = new NotaContableRegistroLibre();
+			LOGGER.info("getNumRegistro ::::>>>  " + getNumRegistro());
 			temaActual.setCodigo(getNumRegistro());
+			
 		} catch (Exception e) {
 			lanzarError(e, "Error al iniciar el editor de tema");
 		}
@@ -182,15 +185,15 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 
 	public String buscarCuentaContable() {
 		try {
-			LOGGER.info("{} Buscar Info. de la(s) cuenta(s) contable(s): {} ", session.getTraceLog(), cuentaContable);
+			LOGGER.info("{} Buscar Info. de la(s) cuenta(s) contable(s): {} ", cuentaContable);
 			if (cuentaContable.length() >= 4) {
 				cuentas = new ArrayList<>();
 				temaActual.setCuentaContable("");
 				temaActual.setPucCuenta(new PUC());
-				LOGGER.info("{} Intentando obtener la(s) cuenta(s) contable(s) en el PUC", session.getTraceLog());
+				LOGGER.info("{} Intentando obtener la(s) cuenta(s) contable(s) en el PUC");
 				Collection<PUC> pucs = cargaAltamiraManager.searchPUCPorCuenta(cuentaContable);
 				if (pucs.isEmpty()) {
-					LOGGER.warn("{} No se encontr Info. para la(s) cuenta(s) contable(s): {} en el PUC", session.getTraceLog(), cuentaContable);
+					LOGGER.warn("{} No se encontr Info. para la(s) cuenta(s) contable(s): {} en el PUC", cuentaContable);
 					nuevoMensaje(FacesMessage.SEVERITY_WARN, "No se encontr coincidencia para la cuenta contable");
 				} else {
 					boolean sucValida;
@@ -200,22 +203,22 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 							cuentas.add(new SelectItem(p.getNumeroCuenta(), p.getNumeroCuenta() + " " + p.getDescripcion()));
 						}
 					}
-					LOGGER.info("{} Se encontraron {} cuenta(s) contable(s) vlidas para la sucursal: {} ", session.getTraceLog(), cuentas.size(), getUsuarioLogueado().getSucursal().getCodigo());
+					LOGGER.info("{} Se encontraron {} cuenta(s) contable(s) vlidas para la sucursal: {} ", cuentas.size(), getUsuarioLogueado().getSucursal().getCodigo());
 					if (cuentas.isEmpty()) {
-						LOGGER.warn("{} Ninguna cuenta es vlida para la sucursal", session.getTraceLog());
+						LOGGER.warn("{} Ninguna cuenta es vlida para la sucursal");
 						nuevoMensaje(FacesMessage.SEVERITY_WARN, "Centro no Autorizado para afectar la cuenta " + cuentaContable);
 					} else if (cuentas.size() == 1) {
-						LOGGER.info("{} La bsqueda de la cuenta contable coincide con un registro", session.getTraceLog());
+						LOGGER.info("{} La bsqueda de la cuenta contable coincide con un registro");
 						temaActual.setCuentaContable(pucs.iterator().next().getNumeroCuenta());
 						seleccionarCuenta();
 					}
 				}
 			} else {
-				LOGGER.warn("{} Para realizar la bsqueda de la(s) cuenta(s) contable(s) se requiere mnimo 4 caracteres", session.getTraceLog());
+				LOGGER.warn("{} Para realizar la bsqueda de la(s) cuenta(s) contable(s) se requiere mnimo 4 caracteres");
 				nuevoMensaje(FacesMessage.SEVERITY_WARN, "Por favor indique un nmero de cuenta de 4 dgitos o ms");
 			}
 		} catch (Exception e) {
-			LOGGER.error("{} Error al realizar la consulta de la(s) cuenta contable", session.getTraceLog(), e);
+			LOGGER.error("{} Error al realizar la consulta de la(s) cuenta contable", e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema al realizar la consulta de la(s) cuenta(s) contable(s)");
 		}
 		return null;
@@ -223,15 +226,15 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 
 	public String seleccionarCuenta() {
 		try {
-			LOGGER.info("{} Procesando la cuenta contable seleccionada: {}", session.getTraceLog(), temaActual.getCuentaContable());
+			LOGGER.info("{} Procesando la cuenta contable seleccionada: {}", temaActual.getCuentaContable());
 			if (temaActual.getCuentaContable() != null && !temaActual.getCuentaContable().isEmpty()) {
-				LOGGER.info("{} Confirmando contra el PUC la cuenta contable", session.getTraceLog());
+				LOGGER.info("{} Confirmando contra el PUC la cuenta contable");
 				PUC puc = new PUC();
 				puc.setNumeroCuenta(temaActual.getCuentaContable());
 				puc = cargaAltamiraManager.getPUC(puc);
 				temaActual.setPucCuenta(puc);
 
-				LOGGER.info("{} Verificando si la cuenta contable requiere contrato", session.getTraceLog());
+				LOGGER.info("{} Verificando si la cuenta contable requiere contrato");
 				HADTAPL hadtapl = new HADTAPL();
 				hadtapl.setCuentaContable(temaActual.getCuentaContable());
 				hadtapl = cargaAltamiraManager.getHADTAPLPorCuenta(hadtapl);
@@ -249,14 +252,14 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 				temaActual.setPucCuenta(new PUC());
 			}
 		} catch (Exception e) {
-			LOGGER.error("{} Error al confirmar y establecer las propiedades de la cuenta contable seleccionada", session.getTraceLog(), e);
+			LOGGER.error("{} Error al confirmar y establecer las propiedades de la cuenta contable seleccionada", e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema al procesar la cuenta contable seleccionada");
 		}
 		return null;
 	}
 
 	private void cargarFiltrosNota() throws Exception {
-		LOGGER.info("{} Obteniendo Info. y estableciendo valores inciales de los filtros", session.getTraceLog());
+		LOGGER.info("{} Obteniendo Info. y estableciendo valores inciales de los filtros");
 		cargarSucursales();
 		cargarDivisas();
 		tiposDoc = getSelectItemList(notasContablesManager.getCV(TipoIdentificacion.class), false);
@@ -335,11 +338,11 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 	}
 
 	public String validarFecha() {
-		LOGGER.info("{} Validando la fecha seleccionada", session.getTraceLog());
+		LOGGER.info("{} Validando la fecha seleccionada");
 		java.sql.Date fecha = new java.sql.Date(DateUtils.getDate(maxFecha, "dd-MM-yyyy").getTime());
 		Date fechaActual = new Date();
 		java.sql.Date fechaAct = DateUtils.getSQLDate(fechaActual);
-		LOGGER.info("{} Confirmando que se cumplan los criterios para la fecha", session.getTraceLog());
+		LOGGER.info("{} Confirmando que se cumplan los criterios para la fecha :::: " + fechaNota);	
 		if (fechaNota.after(DateUtils.getSQLDate(fechaAct))) {
 			nuevoMensaje(FacesMessage.SEVERITY_WARN, "La fecha no puede ser superior a HOY");
 			fechaNota = fecha;
@@ -502,61 +505,61 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 
 	private void buscarTercero(String tipo, String numero) {
 		try {
-			LOGGER.info("{} Intentando consultar tercero: {}", session.getTraceLog(), numero);
+			LOGGER.info("{} Intentando consultar tercero: {}", numero);
 			numero = StringUtils.getStringLeftPaddingFixed(numero, 15, '0');
 			String numTercero = "";
 			String dvTercero = "";
 			String nombreTercero = "";
 			contratos1 = new ArrayList<>();
 
-			LOGGER.info("{} Buscando en Clientes", session.getTraceLog());
+			LOGGER.info("{} Buscando en Clientes");
 			Cliente cliente = new Cliente();
 			cliente.setTipoIdentificacion(tipo);
 			cliente.setNumeroIdentificacion(numero);
 			cliente = cargaAltamiraManager.getClientePorTipoYNumeroIdentificacion(cliente);
 
-			LOGGER.info("{} Verificando si se encontr Info. en clientes", session.getTraceLog());
+			LOGGER.info("{} Verificando si se encontr Info. en clientes");
 			if (!cliente.getNumeroIdentificacion().equals("")) {
-				LOGGER.info("{} Estableciendo propiedades del tercero:cliente", session.getTraceLog());
+				LOGGER.info("{} Estableciendo propiedades del tercero:cliente");
 				numTercero = cliente.getNumeroIdentificacion();
 				dvTercero = cliente.getDigitoVerificacion();
 				nombreTercero = cliente.getPrimerNombre().trim() + " " + cliente.getPrimerApellido().trim() + " " + cliente.getSegundoApellido().trim();
 
-				LOGGER.info("{} Validando si se deben cargar los contratos", session.getTraceLog());
+				LOGGER.info("{} Validando si se deben cargar los contratos");
 				if (temaActual.getHadtapl().getIndicadorContrato().equals("S")) {
 					Contrato contrato = new Contrato();
 					contrato.setNumeroCliente(cliente.getNumeroCliente());
-					LOGGER.info("{} Obteniendo Info. de los contratos", session.getTraceLog());
+					LOGGER.info("{} Obteniendo Info. de los contratos");
 					Collection<Contrato> contratos = cargaAltamiraManager.getContratosPorCliente(contrato);
 					for (Contrato c : contratos) {
 						contratos1.add(new SelectItem(c.getNumeroContrato(), c.getNumeroContrato()));
 					}
-					LOGGER.info("{} Se encontr {} contrato(s)", session.getTraceLog(), contratos1.size());
+					LOGGER.info("{} Se encontr {} contrato(s)", contratos1.size());
 				}
 			} else {
-				LOGGER.info("{} No se encontr Info. en Clientes - Buscando en Terceros", session.getTraceLog());
+				LOGGER.info("{} No se encontr Info. en Clientes - Buscando en Terceros");
 				Tercero tercero = new Tercero();
 				tercero.setTipoIdentificacion(tipo);
 				tercero.setNumeroIdentificacion(numero);
 				tercero = cargaAltamiraManager.getTerceroPorTipoYNumeroIdentificacion(tercero);
 
-				LOGGER.info("{} Verificando si se encontr Info. en terceros", session.getTraceLog());
+				LOGGER.info("{} Verificando si se encontr Info. en terceros");
 				if (!tercero.getTipoIdentificacion().equals("")) {
-					LOGGER.info("{} Estableciendo propiedades del tercero:tercero", session.getTraceLog());
+					LOGGER.info("{} Estableciendo propiedades del tercero:tercero");
 					numTercero = tercero.getNumeroIdentificacion();
 					dvTercero = tercero.getDigitoVerificacion();
 					nombreTercero = tercero.getPrimerNombre().trim() + " " + tercero.getPrimerApellido().trim() + " " + tercero.getSegundoApellido().trim();
 				} else {
-					LOGGER.warn("{} No se encontr Info. del tercero consultado: {}", session.getTraceLog(), numero);
+					LOGGER.warn("{} No se encontr Info. del tercero consultado: {}", numero);
 					nuevoMensaje(FacesMessage.SEVERITY_WARN, "No se encontr ningn cliente ni tercero con la combinacin tipo y nmero de identificacin");
 				}
 			}
-			LOGGER.info("{} Estableciendo atributos del tercero", session.getTraceLog());
+			LOGGER.info("{} Estableciendo atributos del tercero");
 			temaActual.setNumeroIdentificacion(numTercero);
 			temaActual.setDigitoVerificacion(dvTercero);
 			temaActual.setNombreCompleto(nombreTercero);
 		} catch (Exception e) {
-			LOGGER.error("{} Error intentando buscar el tercero: {}", session.getTraceLog(), numero, e);
+			LOGGER.error("{} Error intentando buscar el tercero: {}", numero, e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema al buscar el tercero con identificacin " + numero);
 		}
 	}
@@ -568,7 +571,7 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 	 * @throws Exception
 	 */
 	public void listener(FileUploadEvent event) throws Exception {
-		LOGGER.info("{} Iniciando la carga del archivo (SOPORTE)", session.getTraceLog());
+		LOGGER.info("{} Iniciando la carga del archivo (SOPORTE)");
 
 		String fileName = "";
 
@@ -582,8 +585,8 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 			fileName = (prefijo + currentTime + fileExtension).toUpperCase();
 			String filePath = DIR_SOPORTES + fileName;
 
-			LOGGER.info("{} Preparando datos del soporte para subir el archivo: {}", session.getTraceLog(), originalFileName);
-			LOGGER.info("{} Path de carga del soporte: {}", session.getTraceLog(), filePath);
+			LOGGER.info("{} Preparando datos del soporte para subir el archivo: {}", originalFileName);
+			LOGGER.info("{} Path de carga del soporte: {}", filePath);
 
 			try (InputStream is = uploadedFile.getInputStream();
 				 FileOutputStream fos = new FileOutputStream(filePath)) {
@@ -594,7 +597,7 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 				}
 			}
 
-			LOGGER.info("{} Carga del soporte completada", session.getTraceLog());
+			LOGGER.info("{} Carga del soporte completada");
 
 			Anexo anexo = new Anexo();
 			anexo.setArchivo(fileName);
@@ -606,29 +609,29 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 			anexo.setUsuNombre(getUsuarioLogueado().getUsuAltamira().getNombreEmpleado());
 			anexos.add(anexo);
 		} catch (Exception e) {
-			LOGGER.error("{} Error al intentar cargar el archivo (SOPORTE): {}", session.getTraceLog(), fileName, e);
+			LOGGER.error("{} Error al intentar cargar el archivo (SOPORTE): {}", fileName, e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema al cargar el archivo: " + DIR_SOPORTES + fileName);
 			throw e;
 		}
 	}
 //	public void listener(UploadEvent event) throws Exception {
-//		LOGGER.info("{} Iniciando la carga del archivo (SOPORTE)", session.getTraceLog());
+//		LOGGER.info("{} Iniciando la carga del archivo (SOPORTE)");
 //		String fileName = "";
 //		try {
 //			long time = new Date().getTime();
 //			UploadItem item = event.getUploadItem();
-//			LOGGER.info("{} Preparando datos del soporte para subir el archivo: {}", session.getTraceLog(), item.getFileName());
+//			LOGGER.info("{} Preparando datos del soporte para subir el archivo: {}", item.getFileName());
 //			String prefijo = getNumArchivo() + "_";
 //			fileName = (prefijo + time + item.getFileName().substring(item.getFileName().lastIndexOf("."))).toUpperCase();
 //			File localFile = new File(DIR_SOPORTES + fileName);
 //
-//			LOGGER.info("{} Path de carga del soporte: {}", session.getTraceLog(), localFile.getPath());
+//			LOGGER.info("{} Path de carga del soporte: {}", localFile.getPath());
 //			final InputStream is = new FileInputStream(item.getFile());
 //			FileOutputStream fos = new FileOutputStream(localFile);
 //			int count = 0;
 //			int length = 1024;
 //			final byte[] info = new byte[length];
-//			LOGGER.info("{} Procesando la carga del soporte", session.getTraceLog());
+//			LOGGER.info("{} Procesando la carga del soporte");
 //			while (is.read(info) != -1) {
 //				fos.write(info);
 //				count += length;
@@ -637,7 +640,7 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 //			fos.close();
 //			item.getFile().delete();
 //
-//			LOGGER.info("{} Creacin del anexo para el soporte cargado", session.getTraceLog());
+//			LOGGER.info("{} Creacin del anexo para el soporte cargado");
 //			Anexo anexo = new Anexo();
 //			anexo.setArchivo(fileName);
 //			anexo.setNombre(item.getFileName());
@@ -648,14 +651,14 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 //			anexo.setUsuNombre(getUsuarioLogueado().getUsuAltamira().getNombreEmpleado());
 //			anexos.add(anexo);
 //		} catch (Exception e) {
-//			LOGGER.error("{} Error al intentar cargar el archivo (SOPORTE): {}", session.getTraceLog(), fileName, e);
+//			LOGGER.error("{} Error al intentar cargar el archivo (SOPORTE): {}", fileName, e);
 //			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema al cargar el archivo: " + DIR_SOPORTES + fileName);
 //			throw e;
 //		}
 //	}
 
 	public String borrarAnexo() {
-		LOGGER.info("{} Eliminando el soporte cargado y el registro del anexo", session.getTraceLog());
+		LOGGER.info("{} Eliminando el soporte cargado y el registro del anexo");
 		for (Anexo anexo : anexos) {
 			if (anexo.getBorrar()) {
 				anexos.remove(anexo);
@@ -671,8 +674,8 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 
 	public String guardarNota() {
 		try {
-			LOGGER.info("{} Intentando grabar la Nota Contable Libre", session.getTraceLog());
-			LOGGER.info("{} Procesando validaciones y Persistiendo Info.", session.getTraceLog());
+			LOGGER.info("{} Intentando grabar la Nota Contable Libre");
+			LOGGER.info("{} Procesando validaciones y Persistiendo Info.");
 			if (validarNota()) {
 				if (nota.getCodigo().intValue() > 0) {
 					notasContablesManager.updateNotaContableLibre(nota, anexos, temasNotaContable, getCodUsuarioLogueado());
@@ -680,11 +683,11 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 				} else {
 					nota.setTipoNota("L");
 					nota.setCodigoSucursalOrigen(getUsuarioLogueado().getUsuario().getCodigoAreaModificado());
-					LOGGER.info("{} Creando registro de la Instancia en base de datos", session.getTraceLog());
+					LOGGER.info("{} Creando registro de la Instancia en base de datos");
 					int idInstancia = notasContablesManager.crearInstanciaNotaContable(nota, new ArrayList<>(), temasNotaContable, anexos,
 							new ArrayList<>(), new ArrayList<>(), getCodUsuarioLogueado());
 					if (idInstancia != 0) {
-						LOGGER.info("{} Obteniendo Info. de Instancia & Nota Contable", session.getTraceLog());
+						LOGGER.info("{} Obteniendo Info. de Instancia & Nota Contable");
 						Instancia instancia = new Instancia();
 						instancia.setCodigo(idInstancia);
 						instancia = notasContablesManager.getInstancia(instancia);
@@ -693,12 +696,12 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 						notaContable.setCodigo(instancia.getCodigoNotaContable().intValue());
 						notaContable = notasContablesManager.getNotaContable(notaContable);
 
-						LOGGER.info("{} El registro de la NOTA CONTABLE LIBRE: {} fue exitoso", session.getTraceLog(), notaContable.getNumeroRadicacion());
+						LOGGER.info("{} El registro de la NOTA CONTABLE LIBRE: {} fue exitoso", notaContable.getNumeroRadicacion());
 						nuevoMensaje(FacesMessage.SEVERITY_INFO, "La nota ha sido radicada correctamente con el nmero: " + notaContable.getNumeroRadicacion());
 						ocultarPopupGuardarNota = true;
 						UsuarioModulo usuarioModulo = new UsuarioModulo();
 						try {
-							LOGGER.info("{} Intentando enviar email de la nota grabada", session.getTraceLog());
+							LOGGER.info("{} Intentando enviar email de la nota grabada");
 							int codigoUsuarioAsignado = instancia.getCodigoUsuarioActual().intValue();
 							usuarioModulo.setCodigo(codigoUsuarioAsignado);
 							usuarioModulo = notasContablesManager.getUsuarioModulo(usuarioModulo);
@@ -706,25 +709,25 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 									"Mdulo Notas Contables - Registro para aprobar",
 									"Por favor ingrese al mdulo de Notas Contables, se le ha asignado un registro que requiere su verificacin");
 						} catch (Exception e) {
-							LOGGER.error("{} Error al intentar enviar el email de la nota (L) grabada", session.getTraceLog(), e);
+							LOGGER.error("{} Error al intentar enviar el email de la nota (L) grabada", e);
 							nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema al enviar el correo electronico a " + usuarioModulo.getEMailModificado());
 						}
 						cancelarNota();
 					} else {
-						LOGGER.error("{} Error al crear la instancia de la Nota Contable Libre", session.getTraceLog());
+						LOGGER.error("{} Error al crear la instancia de la Nota Contable Libre");
 						nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema no fue posible crear la nota contable");
 					}
 				}
 			}
 		} catch (Exception e) {
-			LOGGER.error("{} Error al intentar grabar la Nota Contable Libre", session.getTraceLog(), e);
+			LOGGER.error("{} Error al intentar grabar la Nota Contable Libre", e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema al guardar la nota contable");
 		}
 		return null;
 	}
 
 	private boolean validarNota() {
-		LOGGER.info("{} Validando campos requeridos", session.getTraceLog());
+		LOGGER.info("{} Validando campos requeridos");
 		validarFecha();
 		validador.validarRequerido(nota.getDescripcion(), "Descripcin de la nota");
 		if (anexos.isEmpty()) {
@@ -743,7 +746,7 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 	}
 
 	private boolean validarRegistrosTema() {
-		LOGGER.info("{} Validando que el registro contenga la informacin requerida", session.getTraceLog());
+		LOGGER.info("{} Validando que el registro contenga la informacin requerida");
 		if (temasNotaContable.isEmpty()) {
 			nuevoMensaje(FacesMessage.SEVERITY_WARN, "No ha diligenciado la informacin de ningn registro para la Nota Contable");
 			return false;
@@ -755,7 +758,7 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 
 	private void validarSucursales() {
 		try {
-			LOGGER.info("{} Validando fechas habilitadas de las sucursales", session.getTraceLog());
+			LOGGER.info("{} Validando fechas habilitadas de las sucursales");
 			for (NotaContableRegistroLibre reg : temasNotaContable) {
 				FechaHabilitada fecha = new FechaHabilitada();
 				fecha.setCodigoSucursal(reg.getCodigoSucursalDestino());
@@ -768,13 +771,13 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 				}
 			}
 		} catch (Exception e) {
-			LOGGER.error("{} Error al validar las fechas habilitadas de las sucursales", session.getTraceLog());
+			LOGGER.error("{} Error al validar las fechas habilitadas de las sucursales");
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema al validar las fechas habilitadas por sucursal");
 		}
 	}
 
 	private void validarDuplas() {
-		LOGGER.info("{} Validando que la suma de los registros sea igual a cero (0)", session.getTraceLog());
+		LOGGER.info("{} Validando que la suma de los registros sea igual a cero (0)");
 		HashMap<String, HashMap<Integer, Double>> mapa = new HashMap<>();
 
 		for (NotaContableRegistroLibre reg : temasNotaContable) {
@@ -835,7 +838,7 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 	}
 
 	public String cancelarNota() {
-		LOGGER.info("{} ... Restaurando a Valores Iniciales ...", session.getTraceLog());
+		LOGGER.info("{} ... Restaurando a Valores Iniciales ...");
 		cuentaContable = "";
 		fechaNota = null;
 		nota = new NotaContable();
@@ -855,7 +858,7 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 	}
 
 	private boolean validarRiesgo() {
-		LOGGER.info("{} Se va guardar la Info. diligenciada en ventana modal de Riesgo Para Nota Reg Libre. ", session.getTraceLog());
+		LOGGER.info("{} Se va guardar la Info. diligenciada en ventana modal de Riesgo Para Nota Reg Libre. ");
 		validador.validarPositivo(temaActual.getRiesgoOperacional().getImporteParcial(), "Importe Parcial");
 		validador.validarPositivo(temaActual.getRiesgoOperacional().getImporteTotal(), "Importe Total");
 		validador.validarRequerido(temaActual.getRiesgoOperacional().getFechaEvento(), "Fecha Inicial del Evento");
@@ -914,7 +917,7 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 	}
 
 	public String guardarTema() {
-		LOGGER.info("{} Se va guardar la Info. diligenciada", session.getTraceLog());
+		LOGGER.info("{} Se va guardar la Info. diligenciada");
 		if (validarTema()) {
 			boolean exist = false;
 			for (NotaContableRegistroLibre tema : temasNotaContable) {
@@ -937,7 +940,7 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 	}
 
 	private void ajustarTotalesNota() {
-		LOGGER.info("{} Estructura y agrupa los montos totales de la Nota Contable", session.getTraceLog());
+		LOGGER.info("{} Estructura y agrupa los montos totales de la Nota Contable");
 		totalesNota = new ArrayList<>();
 		for (NotaContableRegistroLibre tema : temasNotaContable) {
 			if (!tema.getCodigoDivisa().equals("")) {
@@ -978,7 +981,7 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 	 * @return
 	 */
 	private boolean validarTema() {
-		LOGGER.info("{} Validacin de campos requeridos", session.getTraceLog());
+		LOGGER.info("{} Validacin de campos requeridos");
 		validador.validarRequerido(temaActual.getCodigoSucursalDestino(), "Sucursal de destino");
 		validador.validarRequerido(temaActual.getReferencia(), "Referencia de cruce");
 		boolean requiereContrato = temaActual.getHadtapl().getIndicadorContrato().equals("S");
@@ -1019,7 +1022,7 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 	}
 
 	public String cancelarTema() {
-		LOGGER.info("{} Se cancela la operacin del registro {}", session.getTraceLog(), temaActual.getCuentaContable());
+		LOGGER.info("{} Se cancela la operacin del registro {}", temaActual.getCuentaContable());
 		for (NotaContableRegistroLibre nct : temasNotaContable) {
 			if (nct.getCodigo() == temaActual.getCodigo()) {
 				if (nct.getCodigo() <= 0) {
@@ -1031,7 +1034,7 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 						nct.reset(newReg);
 						verNota();
 					} catch (Exception e) {
-						LOGGER.error("{} Error al recuperar la Info. diligenciada del registro para la Nota Contable", session.getTraceLog());
+						LOGGER.error("{} Error al recuperar la Info. diligenciada del registro para la Nota Contable");
 						nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema al recuperar la informacin del registro");
 					}
 				}

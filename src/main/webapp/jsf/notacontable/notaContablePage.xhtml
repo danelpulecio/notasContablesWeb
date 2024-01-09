@@ -12,7 +12,9 @@
 			<h:panelGrid columns="1" width="100%" style="margin-top: 20px;"><h1 align="center">Nota Contable</h1></h:panelGrid>
 			<!--Formulario principal	-->
 			<h:panelGrid columns="1" width="100%" id="panelGridNC" cellpadding="0" cellspacing="0">
-				<p:poll action="#{notaContablePage.iniciarPagina}" rendered="#{empty notaContablePage.montos and facesContext.maximumSeverity == null}" reRender="panelGridNC" interval="0"/>
+				<p:poll listener="#{notaContablePage.iniciarPagina}" 
+				rendered="#{empty notaContablePage.montos and facesContext.maximumSeverity == null}" 
+				update="globalForm:panelGridNC" interval="0"/>
 				<p:panel header="Nota Cotable"  style="width: 100%;" rendered="#{!empty notaContablePage.montos}">
 					<h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="5" >
 						<ui:include src="formNotaContablePage.xhtml" />	

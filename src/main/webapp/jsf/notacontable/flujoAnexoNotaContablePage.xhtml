@@ -5,7 +5,8 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui">
                 
-    <p:dialog id="popupAnexosNotaContableVer" autosized="true" domElementAttachment="form" minWidth="900">
+    <p:dialog id="popupAnexosNotaContableVer" widgetVar="popupAnexosNotaContableVer" domElementAttachment="form" 
+    	autosized="true"  showEffect="fade" hideEffect="explode" modal="true">
         <f:facet name="header">
             <h:outputText value="Soportes"/>
         </f:facet>
@@ -17,9 +18,9 @@
         </f:facet>
 
         <h:outputText value="No existen anexos." rendered="#{empty flujoNotaContablePage.anexos}"/>
-        <h:form>
-            <h:panelGrid columns="1" cellpadding="0" cellspacing="2" style="text-align: center;" width="100%"
+            <h:panelGrid columns="1" cellpadding="0" cellspacing="2" style="text-align: center;" width="800px"
                          rendered="#{! empty flujoNotaContablePage.anexos}">
+				
                 <p:dataTable id="flujoAnexo" value="#{flujoNotaContablePage.anexos}" var="anexo" rowIndexVar="rowIndex"
                              widgetVar="economicActivityTable" rows="15" paginator="true"
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -37,13 +38,11 @@
                     <p:column headerText="Archivo" style="text-align: right;">
                         <p:commandLink action="#{downloadGeneralPage.download}" styleClass="bold"
                                        value="#{anexo.nombre}" target="_blank">
-<!--                             <f:param name="type2" value="#{downloadGeneralPage.SOPORTE}" -->
-<!--                                      assignTo="#{downloadGeneralPage.type}"/> -->
-<!--                             <f:param name="file2" value="#{anexo.archivo}" assignTo="#{downloadGeneralPage.file}"/> -->
+		                    <f:setPropertyActionListener for="type2" value="#{downloadGeneralPage.SOPORTE}" target="#{downloadGeneralPage.type}" />
+		                    <f:setPropertyActionListener for="file2" value="#{anexo.archivo}" target="#{downloadGeneralPage.file}"/>
                         </p:commandLink>
                     </p:column>
                 </p:dataTable>
             </h:panelGrid>
-        </h:form>
     </p:dialog>
 </ui:composition>
