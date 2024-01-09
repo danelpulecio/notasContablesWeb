@@ -5,9 +5,11 @@ import co.com.bbva.app.notas.contables.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.inject.Named;
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -20,12 +22,17 @@ import java.util.Collection;
 @Named
 public class CausalDevolucionPage extends GeneralParametrosPage<CausalDevolucion, CausalDevolucion> {
 
-	String param = getParam();
 	private static final long serialVersionUID = 1L;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CausalDevolucionPage.class);
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
+
+	@PostConstruct
+	public void init() throws Exception {
+		setDatos(new ArrayList<>(_buscarTodos()));
+		LOGGER.info("postConstructo datos {}", getDatos().size());
+	}
 
 	public CausalDevolucionPage() {
 		super(true);
@@ -64,7 +71,7 @@ public class CausalDevolucionPage extends GeneralParametrosPage<CausalDevolucion
 	@Override
 	public Collection<CausalDevolucion> _buscarPorFiltro() throws Exception {
 		if(!param.isEmpty()){
-			LOGGER.info("{} Buscar causal devolucin: {}", session.getTraceLog(),param );
+//			LOGGER.info("{} Buscar causal devolucin: {}", session.getTraceLog(),param );
 		}
 		return notasContablesManager.searchCausalDevolucion(param);
 	}
@@ -84,17 +91,17 @@ public class CausalDevolucionPage extends GeneralParametrosPage<CausalDevolucion
 		Number codInicial = objActual.getCodigo();
 		try {
 			if (objActual.getCodigo().intValue() <= 0) {
-				LOGGER.info("{} Crea Causal devolucion: {}", session.getTraceLog(),  objActual.getNombre()  );
+//				LOGGER.info("{} Crea Causal devolucion: {}", session.getTraceLog(),  objActual.getNombre()  );
 				notasContablesManager.addCausalDevolucion(objActual, getCodUsuarioLogueado());
 			} else {
-				LOGGER.info("{} Actualiza Causal devolucion: {}", session.getTraceLog(),  objActual.getCodigo() +" - " +objActual.getNombre()  );
+//				LOGGER.info("{} Actualiza Causal devolucion: {}", session.getTraceLog(),  objActual.getCodigo() +" - " +objActual.getNombre()  );
 				notasContablesManager.updateCausalDevolucion(objActual, getCodUsuarioLogueado());
 			}
 
 			return true;
 		} catch (Exception e) {
 			objActual.setCodigo(codInicial);
-			LOGGER.error("{} Ya existe otra causal de devolucin con la misma informacin {}", session.getTraceLog() , e );
+//			LOGGER.error("{} Ya existe otra causal de devolucin con la misma informacin {}", session.getTraceLog() , e );
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Ya existe otra causal de devolucin con la misma informacin");
 			return false;
 		}
@@ -112,7 +119,8 @@ public class CausalDevolucionPage extends GeneralParametrosPage<CausalDevolucion
 	 */
 	@Override
 	public boolean _cambiarEstado() throws Exception {
-		LOGGER.info("{} Cambia Estado causal devolucion: {}", session.getTraceLog(),  notasContablesManager.getCausalDevolucion(objActual).getCodigo() + " - " +notasContablesManager.getCausalDevolucion(objActual).getEstado() );
+//		LOGGER.info("{} Cambia Estado causal devolucion: {}", session.getTraceLog(),  notasContablesManager.getCausalDevolucion(objActual).getCodigo() + " - " +notasContablesManager.getCausalDevolucion(objActual).getEstado() );
+		LOGGER.info("Cambiar estado causalDevolucion usuarioLogueado {}", getUsuarioLogueado());
 		notasContablesManager.changeEstadoCausalDevolucion(notasContablesManager.getCausalDevolucion(objActual), getCodUsuarioLogueado());
 		return true;
 	}
@@ -124,7 +132,7 @@ public class CausalDevolucionPage extends GeneralParametrosPage<CausalDevolucion
 	 */
 	@Override
 	public boolean _borrar() throws Exception {
-		LOGGER.info("{} Elimina Causal devolucion {}", session.getTraceLog(),  objActual.getCodigo() +" - " +objActual.getNombre()  );
+//		LOGGER.info("{} Elimina Causal devolucion {}", session.getTraceLog(),  objActual.getCodigo() +" - " +objActual.getNombre()  );
 		notasContablesManager.deleteCausalDevolucion(objActual, getCodUsuarioLogueado());
 		return true;
 	}

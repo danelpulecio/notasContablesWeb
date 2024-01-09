@@ -6,9 +6,11 @@ java:S22931"YReplace the type specification in this constructor call with the d
 t
 java:S2293]"YReplace the type specification in this constructor call with the diamond operator ("<>").(“”Ÿ«ÿÿÿÿÿ
 {
+java:S2293_"YReplace the type specification in this constructor call with the diamond operator ("<>").(ƒ­öàşÿÿÿÿ8´Ü‹ÆÈ1
+{
 java:S2293s"YReplace the type specification in this constructor call with the diamond operator ("<>").(ƒ­öàşÿÿÿÿ8´Ü‹ÆÈ1
 {
-java:S2293y"YReplace the type specification in this constructor call with the diamond operator ("<>").(ƒ­öàşÿÿÿÿ8´Ü‹ÆÈ1
+java:S2293y"YReplace the type specification in this constructor call with the diamond operator ("<>").(ƒ­öàşÿÿÿÿ8û¿½ÛË1
 y
 java:S2629a"\Invoke method(s) only conditionally. Use the built-in formatting to construct this argument.(‹î8¶Ü‹ÆÈ1
 [
@@ -21,10 +23,9 @@ java:S19481"'Make "datos" transient or serializable.(Üˆ€8¿Ü‹ÆÈ1
 j	java:S1003"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ˆÈğæ8ÁÜ‹ÆÈ1
 o	java:S1005"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(·Âûåûÿÿÿÿ8ÁÜ‹ÆÈ1
 i	java:S100<"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³…À 8ÁÜ‹ÆÈ1
-]	java:S125\"<This block of commented-out lines of code should be removed.(ÖÑ´ûÿÿÿÿ8ÂÜ‹ÆÈ1
 ^
 java:S3457a"AFormat specifiers should be used instead of string concatenation.(‹î8ÂÜ‹ÆÈ1
-X	java:S125^"<This block of commented-out lines of code should be removed.(¡Õ±š8ÃÜ‹ÆÈ1
 X	java:S125f"<This block of commented-out lines of code should be removed.(ê‘±£8ÊÏ¥Ÿ¿1
+]	java:S125{"<This block of commented-out lines of code should be removed.(’Òóéıÿÿÿÿ8À½ÛË1
 n
 java:S1128"LRemove this unused import 'co.com.bbva.app.notas.contables.session.Session'.(•Ö¥åøÿÿÿÿ8²’´†Ç1

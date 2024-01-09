@@ -31,6 +31,20 @@ public class ConsultaNotaContablePage extends GeneralConsultaPage<Instancia> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ConsultaNotaContablePage.class);
 
+	@PostConstruct
+	public void init(){
+		LOGGER.info("postConstructor: {}", tiposCriterio);
+		if (tiposCriterio == null || tiposCriterio.isEmpty()) {
+			tiposCriterio = new ArrayList<>();
+			fecha = Calendar.getInstance().getTime();
+			criterio = "1";
+			tiposCriterio.add(new SelectItem("1", "Numero de radicacion"));
+			tiposCriterio.add(new SelectItem("2", "Asiento contable Altamira"));
+			tiposCriterio.add(new SelectItem("3", "Fecha Radicacion Modulo"));
+		}
+		LOGGER.info("postConstructor cargado: {}", tiposCriterio);
+	}
+
 //	Session session = getContablesSessionBean().getSessionTrace();
 		
 	/**
@@ -42,20 +56,6 @@ public class ConsultaNotaContablePage extends GeneralConsultaPage<Instancia> {
 		super();
 	}
 	
-	@PostConstruct
-	public void init(){
-	    LOGGER.info("postConstructor: {}", tiposCriterio);
-	    if (tiposCriterio == null || tiposCriterio.isEmpty()) {
-	       tiposCriterio = new ArrayList<>();
-	       fecha = Calendar.getInstance().getTime();
-	       criterio = "1";
-	       tiposCriterio.add(new SelectItem("1", "Numero de radicacion"));
-	       tiposCriterio.add(new SelectItem("2", "Asiento contable Altamira"));
-	       tiposCriterio.add(new SelectItem("3", "Fecha Radicacion Modulo"));
-	    }
-	    LOGGER.info("postConstructor cargado: {}", tiposCriterio);
-	}
-
 	@Override
 	protected void _init() {
 		super._init();
@@ -63,9 +63,9 @@ public class ConsultaNotaContablePage extends GeneralConsultaPage<Instancia> {
 			tiposCriterio = new ArrayList<>();
 			fecha = Calendar.getInstance().getTime();
 			criterio = "1";
-			tiposCriterio.add(new SelectItem("1", "Nmero de radicacin"));
+			tiposCriterio.add(new SelectItem("1", "Numero de radicacion"));
 			tiposCriterio.add(new SelectItem("2", "Asiento contable Altamira"));
-			tiposCriterio.add(new SelectItem("3", "Fecha Radicacin Mdulo"));
+			tiposCriterio.add(new SelectItem("3", "Fecha Radicacin Modulo"));
 		}
 	}
 
@@ -126,6 +126,7 @@ public class ConsultaNotaContablePage extends GeneralConsultaPage<Instancia> {
 	// Fin - gp12833 - aseguramiento anexos
 	
 	public List<SelectItem> getTiposCriterio() {
+		LOGGER.info("Tipos de criterios: {}", tiposCriterio);
 		return tiposCriterio;
 	}
 
@@ -142,6 +143,7 @@ public class ConsultaNotaContablePage extends GeneralConsultaPage<Instancia> {
 	}
 
 	public String getCriterio() {
+		LOGGER.info("Criterio: {}", criterio);
 		return criterio;
 	}
 

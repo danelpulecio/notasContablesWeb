@@ -348,7 +348,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 			nuevoMensaje(FacesMessage.SEVERITY_WARN, "La fecha no puede ser superior a HOY");
 			temaActual.setFechaContable(fecha);
 		} else if (diasNoHabiles.contains(temaActual.getFechaContable())) {
-			nuevoMensaje(FacesMessage.SEVERITY_WARN, "La fecha debe ser un da hbil");
+			nuevoMensaje(FacesMessage.SEVERITY_WARN, "La fecha debe ser un dia hbil");
 			temaActual.setFechaContable(fecha);
 		} else if (temaActual.getFechaContable().after(DateUtils.getDate(fecha))) {
 			nuevoMensaje(FacesMessage.SEVERITY_WARN, "La fecha no puede ser superior a " + StringUtils.getString(fecha, "yyyy-MM-dd"));

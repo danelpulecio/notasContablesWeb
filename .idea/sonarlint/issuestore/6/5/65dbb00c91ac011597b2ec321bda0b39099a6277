@@ -1,18 +1,20 @@
 
 t
-java:S2293R"YReplace the type specification in this constructor call with the diamond operator ("<>").(è«µ‚ùÿÿÿÿ
-o
-java:S2293V"YReplace the type specification in this constructor call with the diamond operator ("<>").(ë¾…Ç
-t
-java:S2293{"YReplace the type specification in this constructor call with the diamond operator ("<>").(ˆŠ½øÿÿÿÿ
-u
-java:S2293Æ"YReplace the type specification in this constructor call with the diamond operator ("<>").(¢ëÕĞùÿÿÿÿ
-a
-java:S1192]"KDefine a constant instead of duplicating this literal "</td> <td>" 3 times.(Á¦µ™
-2
-java:S1643]"Use a StringBuilder instead.(Á¦µ™
+java:S2293S"YReplace the type specification in this constructor call with the diamond operator ("<>").(è«µ‚ùÿÿÿÿ
+v
+java:S2293W"YReplace the type specification in this constructor call with the diamond operator ("<>").(ë¾…Ç8ã¬›¹Ë1
+{
+java:S2293{"YReplace the type specification in this constructor call with the diamond operator ("<>").(ˆŠ½øÿÿÿÿ8ã¬›¹Ë1
+|
+java:S2293Ä"YReplace the type specification in this constructor call with the diamond operator ("<>").(¢ëÕĞùÿÿÿÿ8ã¬›¹Ë1
+h
+java:S1192^"KDefine a constant instead of duplicating this literal "</td> <td>" 3 times.(Á¦µ™8ã¬›¹Ë1
+9
+java:S1643^"Use a StringBuilder instead.(Á¦µ™8ã¬›¹Ë1
+Y
+java:S2629}"7Use the built-in formatting to construct this argument.(ª¹Êšıÿÿÿÿ8ä¬›¹Ë1
 
-java:S1186Ê"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ÿ¦Ûÿÿÿÿÿÿ
+java:S1186È"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ÿ¦Ûÿÿÿÿÿÿ
 >
 java:S1948")Make "context" transient or serializable.(µõõ}
 E
@@ -20,20 +22,20 @@ java:S1948 "/Make "fileGenerator" transient or serializable.(‘µ»†
 :
 java:S1948""$Make "totales" private or transient.(‘¬ß
 V	java:S125,"<This block of commented-out lines of code should be removed.(‘ÆÎÓûÿÿÿÿ
-C
-java:S11855"(Remove this method to simply inherit it.(³Âï£ıÿÿÿÿ
-X	java:S125N"<This block of commented-out lines of code should be removed.(¾¶©Ó8üŒ»Ÿ¿1
-]	java:S125n"<This block of commented-out lines of code should be removed.(ÀÍİ»øÿÿÿÿ8ÎÊ»Ÿ¿1
-]	java:S125r"<This block of commented-out lines of code should be removed.(ñË––ùÿÿÿÿ8ÎÊ»Ÿ¿1
-X	java:S125y"<This block of commented-out lines of code should be removed.(Óàº²8ÏÊ»Ÿ¿1
-Y	java:S125†"<This block of commented-out lines of code should be removed.(²ı³õ8¾í»Ÿ¿1
-^	java:S125Š"<This block of commented-out lines of code should be removed.( ˜²üÿÿÿÿ8¾í»Ÿ¿1
-Y	java:S125—"<This block of commented-out lines of code should be removed.(’Óêƒ8Ø“¼Ÿ¿1
-Y	java:S125š"<This block of commented-out lines of code should be removed.(ó¨¹½8Ø“¼Ÿ¿1
-X	java:S125£"<This block of commented-out lines of code should be removed.(÷”(8˜¨¼Ÿ¿1
-^	java:S125´"<This block of commented-out lines of code should be removed.(Õÿ§‡ûÿÿÿÿ8´Ë¼Ÿ¿1
-^	java:S125¸"<This block of commented-out lines of code should be removed.(º÷ÇÔûÿÿÿÿ8´Ë¼Ÿ¿1
+]	java:S1252"<This block of commented-out lines of code should be removed.(¥¶€şÿÿÿÿ8ˆ­›¹Ë1
+J
+java:S11856"(Remove this method to simply inherit it.(³Âï£ıÿÿÿÿ8ˆ­›¹Ë1
+X	java:S125O"<This block of commented-out lines of code should be removed.(¾¶©Ó8Š­›¹Ë1
+]	java:S125o"<This block of commented-out lines of code should be removed.(ÀÍİ»øÿÿÿÿ8­›¹Ë1
+]	java:S125s"<This block of commented-out lines of code should be removed.(ñË––ùÿÿÿÿ8­›¹Ë1
+c
+java:S3457}"AFormat specifiers should be used instead of string concatenation.(ª¹Êšıÿÿÿÿ8­›¹Ë1
+8
+java:S3457ˆ"Not enough arguments.(åá”ˆÿÿÿÿÿ8“­›¹Ë1
+Y	java:S125•"<This block of commented-out lines of code should be removed.(’Óêƒ8Ø“¼Ÿ¿1
+Y	java:S125˜"<This block of commented-out lines of code should be removed.(ó¨¹½8Ø“¼Ÿ¿1
+X	java:S125¡"<This block of commented-out lines of code should be removed.(÷”(8˜¨¼Ÿ¿1
+^	java:S125²"<This block of commented-out lines of code should be removed.(Õÿ§‡ûÿÿÿÿ8´Ë¼Ÿ¿1
+^	java:S125¶"<This block of commented-out lines of code should be removed.(º÷ÇÔûÿÿÿÿ8´Ë¼Ÿ¿1
 n
 java:S1128	"LRemove this unused import 'co.com.bbva.app.notas.contables.session.Session'.(•Ö¥åøÿÿÿÿ8ùğñÃ¿1
-L
-java:S1068*"*Remove this unused "LOGGER" private field.(û™¼úÿÿÿÿ8µË¼Ÿ¿1

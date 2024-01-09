@@ -152,11 +152,15 @@ public abstract class GeneralParametrosPage<T extends CommonVO<T>, D> extends Ge
 	 */
 	public String cambiarEstado() {
 		try {
+			LOGGER.info("cambiar estado {}", _cambiarEstado());
 			if (_cambiarEstado()) {
+				LOGGER.info("Datos {}", getDatos().size());
 				setDatos(new ArrayList<T>(_buscarPorFiltro()));
 				nuevoMensaje(FacesMessage.SEVERITY_INFO, "El estado ha sido cambiado correctamente");
+				LOGGER.info("El estado ha sido cambiado correctamente");
 			} else {
 				nuevoMensaje(FacesMessage.SEVERITY_WARN, "No es posible cambiar el estado de este registro");
+				LOGGER.info("El estado NO ha sido cambiado");
 			}
 		} catch (Exception e) {
 			LOGGER.error("{} Error al cambiar el estado");
