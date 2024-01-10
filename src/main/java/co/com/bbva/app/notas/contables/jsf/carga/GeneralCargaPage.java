@@ -162,6 +162,7 @@ public abstract class GeneralCargaPage<T extends CommonVO<T>> extends GeneralPag
 			LOGGER.info("Ejecutando el metodo buscarPorFiltro");
 			datos = new ArrayList<T>(_buscarPorFiltro());
 			if (datos.isEmpty()) {
+				LOGGER.info("sin datos {}", datos);
 				nuevoMensaje(FacesMessage.SEVERITY_INFO, "No se encontraron resultados para el filtro: " + param);
 			}
 		} catch (final Exception e) {

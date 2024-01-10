@@ -116,6 +116,7 @@ public abstract class GeneralParametrosPage<T extends CommonVO<T>, D> extends Ge
 	 */
 	public String editar() {
 		try {
+			LOGGER.info("Editar");
 			_editar();
 		} catch (Exception e) {
 			LOGGER.error("{} Error al inicializar el editor" );
@@ -136,6 +137,8 @@ public abstract class GeneralParametrosPage<T extends CommonVO<T>, D> extends Ge
 				setDatos(new ArrayList<T>(_buscarPorFiltro()));
 				nuevoMensaje(FacesMessage.SEVERITY_INFO, "La informacin ha sido guardada correctamente");
 				ocultarPopupGuardar = true;
+				setDatos(new ArrayList<>(_buscarTodos()));
+				LOGGER.info("Guardar datos {}", getDatos().size());
 			}
 		} catch (Exception e) {
 			LOGGER.error("{} Error guardar la informacin");
