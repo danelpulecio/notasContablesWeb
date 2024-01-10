@@ -21,14 +21,13 @@ import java.util.Collection;
 @Named
 public class FechaHabilitadaPage extends GeneralParametrosPage<FechaHabilitada, FechaHabilitada> {
 
-	String param = getParam();
 	private static final long serialVersionUID = 1L;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(FechaHabilitadaPage.class);
 	private Boolean selectedAll = false;
 	private Integer nuevosDias = 2;
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
 	public FechaHabilitadaPage() {
 		super(true);
 	}
@@ -66,7 +65,7 @@ public class FechaHabilitadaPage extends GeneralParametrosPage<FechaHabilitada, 
 	@Override
 	public Collection<FechaHabilitada> _buscarPorFiltro() throws Exception {
 		if(!param.isEmpty()){
-			LOGGER.info("{} Buscar fecha habilitada: {}", session.getTraceLog(),param );
+//			LOGGER.info("{} Buscar fecha habilitada: {}", session.getTraceLog(),param );
 		}
 		return notasContablesManager.searchFechaHabilitada(param);
 	}
@@ -86,16 +85,16 @@ public class FechaHabilitadaPage extends GeneralParametrosPage<FechaHabilitada, 
 		Number codInicial = objActual.getCodigo();
 		try {
 			if (objActual.getCodigo().intValue() <= 0) {
-				LOGGER.info("{} Crea fecha habilitada: {}", session.getTraceLog(),objActual.getCodigoSucursal() +" " + objActual.getDias() );
+//				LOGGER.info("{} Crea fecha habilitada: {}", session.getTraceLog(),objActual.getCodigoSucursal() +" " + objActual.getDias() );
 				notasContablesManager.addFechaHabilitada(objActual, getCodUsuarioLogueado());
 			} else {
-				LOGGER.info("{} Actualiza fecha habilitada: {}", session.getTraceLog(),objActual.getCodigo() + " "+ objActual.getCodigoSucursal() +" " + objActual.getDias() );
+//				LOGGER.info("{} Actualiza fecha habilitada: {}", session.getTraceLog(),objActual.getCodigo() + " "+ objActual.getCodigoSucursal() +" " + objActual.getDias() );
 				notasContablesManager.updateFechaHabilitada(objActual, getCodUsuarioLogueado());
 			}
 			return true;
 		} catch (Exception e) {
 			objActual.setCodigo(codInicial);
-			LOGGER.error("{} Error al actualizar todas las fechas habilitadas: {}", session.getTraceLog(),codInicial ,e );
+//			LOGGER.error("{} Error al actualizar todas las fechas habilitadas: {}", session.getTraceLog(),codInicial ,e );
 			return false;
 		}
 	}
@@ -112,13 +111,13 @@ public class FechaHabilitadaPage extends GeneralParametrosPage<FechaHabilitada, 
 				}
 				String[] newString = new String[sucursales.size()];
 				newString = sucursales.toArray(newString);
-				LOGGER.info("{} Actualiza todas las fechas habilitadas: {}", session.getTraceLog(),  nuevosDias +" "+ newString  );
+//				LOGGER.info("{} Actualiza todas las fechas habilitadas: {}", session.getTraceLog(),  nuevosDias +" "+ newString  );
 				notasContablesManager.updateTodasFechasHabilitadas(nuevosDias, "", newString, getCodUsuarioLogueado());
 				setDatos(new ArrayList<FechaHabilitada>(_buscarPorFiltro()));
 				nuevoMensaje(FacesMessage.SEVERITY_INFO, "Registros actualizados correctamente");
 			}
 		} catch (Exception e) {
-			LOGGER.error("{} Error al actualizar todas las fechas habilitadas  usernme ", session.getTraceLog() , e  );
+//			LOGGER.error("{} Error al actualizar todas las fechas habilitadas  usernme ", session.getTraceLog() , e  );
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al actualizar todas las fechas habilitadas");
 
 		}

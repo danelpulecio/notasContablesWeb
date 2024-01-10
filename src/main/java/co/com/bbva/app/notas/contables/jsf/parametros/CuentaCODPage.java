@@ -7,6 +7,7 @@ import co.com.bbva.app.notas.contables.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.model.SelectItem;
@@ -23,14 +24,18 @@ import java.util.*;
 @Named
 public class CuentaCODPage extends GeneralParametrosPage<CuentaCOD, CuentaCOD> {
 
-	String param = getParam();
 	private static final long serialVersionUID = 1L;
 
 	private List<SelectItem> cuentas = new ArrayList<SelectItem>();
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CuentaCODPage.class);
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
+@PostConstruct
+public void init() throws Exception {
+	setDatos(new ArrayList<>(_buscarTodos()));
+	LOGGER.info("postConstructo datos {}", getDatos().size());
+}
 
 	private String filtroCuentas;
 
@@ -71,7 +76,7 @@ public class CuentaCODPage extends GeneralParametrosPage<CuentaCOD, CuentaCOD> {
 	@Override
 	public Collection<CuentaCOD> _buscarPorFiltro() throws Exception {
 		if(!param.isEmpty()){
-			LOGGER.info("{} Buscar cuenta COD: {}", session.getTraceLog(),param );
+//			LOGGER.info("{} Buscar cuenta COD: {}", session.getTraceLog(),param );
 		}
 
 		return notasContablesManager.searchCuentaCOD(param);
@@ -91,7 +96,7 @@ public class CuentaCODPage extends GeneralParametrosPage<CuentaCOD, CuentaCOD> {
 					cuentas.add(new SelectItem(key, key + " - " + mapa.get(key)));
 				}
 			} catch (Exception e) {
-				LOGGER.error("{} Error al buscar cuenta", session.getTraceLog() , e );
+//				LOGGER.error("{} Error al buscar cuenta", session.getTraceLog() , e );
 				nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al buscar cuenta");
 
 			}
@@ -122,16 +127,16 @@ public class CuentaCODPage extends GeneralParametrosPage<CuentaCOD, CuentaCOD> {
 		int codInicial = objActual.getCodigo();
 		try {
 			if (objActual.getCodigo() <= 0) {
-				LOGGER.info("{} Crea cuenta COD: {}", session.getTraceLog(), objActual.getCuentaContable()  );
+//				LOGGER.info("{} Crea cuenta COD: {}", session.getTraceLog(), objActual.getCuentaContable()  );
 				notasContablesManager.addCuentaCOD(objActual, getCodUsuarioLogueado());
 			} else {
-				LOGGER.info("{} Actualiza cuenta COD: {}", session.getTraceLog(),objActual.getCodigo() +" "+ objActual.getCuentaContable() );
+//				LOGGER.info("{} Actualiza cuenta COD: {}", session.getTraceLog(),objActual.getCodigo() +" "+ objActual.getCuentaContable() );
 				notasContablesManager.updateCuentaCOD(objActual, getCodUsuarioLogueado());
 			}
 			return true;
 		} catch (Exception e) {
 			objActual.setCodigo(codInicial);
-			LOGGER.error("{} Ya existe esa Cuenta registrada: {}", session.getTraceLog(), codInicial , e );
+//			LOGGER.error("{} Ya existe esa Cuenta registrada: {}", session.getTraceLog(), codInicial , e );
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Ya existe esa Cuenta registrada");
 
 		}
