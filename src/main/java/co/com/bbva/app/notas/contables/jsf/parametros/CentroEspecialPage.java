@@ -35,6 +35,9 @@ public class CentroEspecialPage extends GeneralParametrosPage<CentroEspecial, Ce
 	//	Session session = getContablesSessionBean().getSessionTrace();
 	@PostConstruct
 	public void init() throws Exception {
+		super._init();
+		consultarListasAuxiliares();
+
 		setDatos(new ArrayList<>(_buscarTodos()));
 		LOGGER.info("postConstructo datos {}", getDatos().size());
 	}
@@ -54,11 +57,7 @@ public class CentroEspecialPage extends GeneralParametrosPage<CentroEspecial, Ce
 	}
 
 
-	@Override
-	protected void _init() {
-		super._init();
-		consultarListasAuxiliares();
-	}
+
 
 	/**
 	 * Se realiza el proceso de busqueda completo de entidades de tipo CentroEspecial
@@ -125,10 +124,10 @@ public class CentroEspecialPage extends GeneralParametrosPage<CentroEspecial, Ce
 	 */
 	@Override
 	public boolean _cambiarEstado() throws Exception {
-		LOGGER.info(" getCodUsuarioLogueado : ->>>",  getCodUsuarioLogueado());
-
 		LOGGER.info("{} Cambia el estado centro especial: {}",  notasContablesManager.getCentroEspecial(objActual).getCodigo() +" "+  notasContablesManager.getCentroEspecial(objActual).getCodigoSucursal()+ " "+ notasContablesManager.getCentroEspecial(objActual).getEstado() );
 		notasContablesManager.changeEstadoCentroEspecial(notasContablesManager.getCentroEspecial(objActual), getCodUsuarioLogueado());
+
+		setDatos(new ArrayList<>(_buscarTodos()));
 		return true;
 	}
 
@@ -151,7 +150,7 @@ public class CentroEspecialPage extends GeneralParametrosPage<CentroEspecial, Ce
 	}
 
 	private void consultarListasAuxiliares() {
-		if (esUltimaFase()) {
+//		if (esUltimaFase()) {
 			try {
 				sucursales = getSelectItemList(new TreeMap<String, String>(notasContablesManager.getCV(Sucursal.class)), true);
 			} catch (Exception e) {
@@ -159,7 +158,7 @@ public class CentroEspecialPage extends GeneralParametrosPage<CentroEspecial, Ce
 				nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al inicializar el mdulo de administracin de montos autorizados" );
 
 			}
-		}
+//		}
 	}
 
 	@Override
