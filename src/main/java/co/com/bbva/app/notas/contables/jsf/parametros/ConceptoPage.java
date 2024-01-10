@@ -2,14 +2,15 @@ package co.com.bbva.app.notas.contables.jsf.parametros;
 
 import co.com.bbva.app.notas.contables.dto.Concepto;
 import co.com.bbva.app.notas.contables.dto.TemaAutorizacion;
-import co.com.bbva.app.notas.contables.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -23,7 +24,7 @@ import java.util.List;
 @Named
 public class ConceptoPage extends GeneralParametrosPage<Concepto, Concepto> {
 
-	String param = getParam();
+
 	private static final long serialVersionUID = 1L;
 	private String estado;
 
@@ -32,8 +33,14 @@ public class ConceptoPage extends GeneralParametrosPage<Concepto, Concepto> {
 	private List<SelectItem> unidadesAnalisis;
 	private List<SelectItem> temasAut;
 
-	Session session = getContablesSessionBean().getSessionTrace();
-
+//	Session session = getContablesSessionBean().getSessionTrace();
+	@PostConstruct
+	public void init() throws Exception {
+		super._init();
+		setDatos(new ArrayList<>(_buscarTodos()));
+		consultarListasAuxiliares();
+		LOGGER.info("postConstructo datos {}", getDatos().size());
+	}
 	public ConceptoPage() {
 		super(true);
 	}
@@ -48,11 +55,6 @@ public class ConceptoPage extends GeneralParametrosPage<Concepto, Concepto> {
 		return new Concepto();
 	}
 
-	@Override
-	protected void _init() {
-		super._init();
-		consultarListasAuxiliares();
-	}
 
 	/**
 	 * Se realiza el proceso de busqueda completo de entidades de tipo Concepto
@@ -72,7 +74,7 @@ public class ConceptoPage extends GeneralParametrosPage<Concepto, Concepto> {
 	@Override
 	public Collection<Concepto> _buscarPorFiltro() throws Exception {
 		if(!param.isEmpty()){
-			LOGGER.info("{} Buscar concepto: {}", session.getTraceLog(),param );
+			LOGGER.info("{} Buscar concepto: {}", param );
 		}
 		return notasContablesManager.searchConcepto(param, estado);
 	}
@@ -102,16 +104,16 @@ public class ConceptoPage extends GeneralParametrosPage<Concepto, Concepto> {
 				objActual.setCodigoUnidadAnalisis(0);
 			}
 			if (objActual.getCodigo().intValue() <= 0) {
-				LOGGER.info("{} Crea concepto: {}", session.getTraceLog(),objActual.getNombre() );
+				LOGGER.info("{} Crea concepto: {}", objActual.getNombre() );
 				notasContablesManager.addConcepto(objActual, getCodUsuarioLogueado());
 			} else {
-				LOGGER.info("{} Actualiza concepto: {}", session.getTraceLog(),objActual.getCodigo() + " " +objActual.getNombre() );
+				LOGGER.info("{} Actualiza concepto: {}", objActual.getCodigo() + " " +objActual.getNombre() );
 				notasContablesManager.updateConcepto(objActual, getCodUsuarioLogueado());
 			}
 			return true;
 		} catch (Exception e) {
 			objActual.setCodigo(codInicial);
-			LOGGER.error("{} Error al guardar el concepto: {}", session.getTraceLog(),codInicial , e );
+			LOGGER.error("{} Error al guardar el concepto: {}", codInicial , e );
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al guardar el concepto");
 			return false;
 		}
@@ -140,7 +142,7 @@ public class ConceptoPage extends GeneralParametrosPage<Concepto, Concepto> {
 	 */
 	@Override
 	public boolean _cambiarEstado() throws Exception {
-		LOGGER.info("{} Cambio estado concepto: {}", session.getTraceLog(),notasContablesManager.getConcepto(objActual).getCodigo() + " " +notasContablesManager.getConcepto(objActual).getEstado() );
+		LOGGER.info("{} Cambio estado concepto: {}", notasContablesManager.getConcepto(objActual).getCodigo() + " " +notasContablesManager.getConcepto(objActual).getEstado() );
 		notasContablesManager.changeEstadoConcepto(notasContablesManager.getConcepto(objActual), getCodUsuarioLogueado());
 		return true;
 	}
@@ -152,7 +154,7 @@ public class ConceptoPage extends GeneralParametrosPage<Concepto, Concepto> {
 	 */
 	@Override
 	public boolean _borrar() throws Exception {
-		LOGGER.info("{} Elimina concepto: {}", session.getTraceLog(),notasContablesManager.getConcepto(objActual).getCodigo() + " " +notasContablesManager.getConcepto(objActual).getNombre() );
+		LOGGER.info("{} Elimina concepto: {}", notasContablesManager.getConcepto(objActual).getCodigo() + " " +notasContablesManager.getConcepto(objActual).getNombre() );
 		notasContablesManager.deleteConcepto(objActual, getCodUsuarioLogueado());
 		return true;
 	}
@@ -163,16 +165,17 @@ public class ConceptoPage extends GeneralParametrosPage<Concepto, Concepto> {
 	}
 
 	private void consultarListasAuxiliares() {
-		if (esUltimaFase()) {
+//		if (esUltimaFase()) {
 			try {
 				unidadesAnalisis = getSelectItemList(cargaAltamiraManager.getCVSucursal(), false);
 				temasAut = getSelectItemList(notasContablesManager.getCV(TemaAutorizacion.class), false);
+
 			} catch (Exception e) {
-				LOGGER.error("{} Error al inicializar el mdulo de administracin de conceptos", session.getTraceLog() , e );
+				LOGGER.error("{} Error al inicializar el mdulo de administracin de conceptos",  e );
 				nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al inicializar el mdulo de administracin de conceptos");
 
 			}
-		}
+//		}
 	}
 
 	public String getEstado() {
