@@ -55,9 +55,6 @@
             <!-- Campos del formulario -->
             <h:panelGrid columns="1" width="650" id="informacion">
                 <h:panelGrid columns="2" width="650" columnClasses="name,value">
-                    <h:outputText value="#{conceptoPage.objActual.codSucursal}"/>
-                    <h:outputText value= "#{conceptoPage.objActual.codigoTemaAutorizacion}"/>
-
                     <h:outputText value="Nombre"/>
                     <h:inputText value="#{conceptoPage.objActual.nombre}" size="70"/>
                 </h:panelGrid>
@@ -66,14 +63,47 @@
                     <h:selectBooleanCheckbox value="#{conceptoPage.objActual.boolVistoBuenoAnalisis}">
                         <p:ajax event="change" update="uniAnalisis" status="none"/>
                     </h:selectBooleanCheckbox>
-
-                    <p:selectOneMenu value="#{conceptoPage.objActual.codSucursal}" rendered="#{conceptoPage.objActual.boolVistoBuenoAnalisis}">
+                    <p:selectOneMenu value="#{conceptoPage.objActual.codigoUnidadAnalisis}" rendered="#{conceptoPage.objActual.boolVistoBuenoAnalisis}" converter="javax.faces.Integer">
                         <f:selectItem itemValue="-1" itemLabel="Seleccione una opcion"/>
                         <f:selectItems value="#{conceptoPage.unidadesAnalisis}"/>
                     </p:selectOneMenu>
                 </h:panelGrid>
 
+                <h:panelGrid columns="2" columnClasses="name,value">
+                    <h:outputText value="Tema de Autorización"/>
+                    <p:selectOneMenu value="#{conceptoPage.objActual.codigoTemaAutorizacion}" immediate="true" converter="javax.faces.Integer">
+                        <f:selectItem itemValue="0" itemLabel="Ninguna"/>
+                        <f:selectItems value="#{conceptoPage.temasAut}"/>
+                    </p:selectOneMenu>
 
+                    <h:outputText value="Centros Autorizados"/>
+                    <h:panelGrid columns="6" width="100%">
+                        <h:outputText value="Sucursales"/>
+                        <h:selectBooleanCheckbox value="#{conceptoPage.objActual.boolCentrosAutSucursales}"/>
+                        <h:outputText value="Áreas Centrales"/>
+                        <h:selectBooleanCheckbox value="#{conceptoPage.objActual.boolCentrosAutAreasCentrales}"/>
+                        <h:outputText value="Centros Especiales"/>
+                        <h:selectBooleanCheckbox value="#{conceptoPage.objActual.boolCentrosAutCentroEspecial}"/>
+                    </h:panelGrid>
+
+
+                    <h:outputText value="Autorización terceros"/>
+                    <h:selectBooleanCheckbox value="#{conceptoPage.objActual.boolAutorizacionTercero}"/>
+
+                    <h:outputText value="Soportes"/>
+                    <h:selectBooleanCheckbox value="#{conceptoPage.objActual.boolSoportes}"/>
+
+                    <h:outputText value="Origen = Destino"/>
+                    <h:selectBooleanCheckbox value="#{conceptoPage.objActual.boolOrigenDestino}"/>
+                </h:panelGrid>
+
+                <!-- Seccion de mensajes y botones de envio y cancelacion-->
+                <ui:include src="../../common/mensajes.xhtml"/>
+                <h:panelGrid columns="2" styleClass="center" width="100%">
+                    <p:commandButton action="#{conceptoPage.guardar}" update="globalForm:informacion,globalForm:lista" value="Guardar"
+                                     oncomplete="if (#{conceptoPage.ocultarPopupGuardar}) PF('editor').hide();"/>
+                    <p:commandButton onclick="PF('editor').hide()" value="Cerrar"/>
+                </h:panelGrid>
             </h:panelGrid>
         </p:dialog>
 
@@ -184,10 +214,10 @@
                                                          target="#{conceptoPage.objActual.codigo}"/>
                             <f:setPropertyActionListener value="#{dato.nombre}"
                                                          target="#{conceptoPage.objActual.nombre}"/>
-                            <f:setPropertyActionListener value="#{dato.codSucursal}"
-                                                         target="#{conceptoPage.objActual.codSucursal}"/>
+                            <f:setPropertyActionListener for="teAuEdit" value="#{dato.codigoUnidadAnalisis}"
+                                                         target="#{conceptoPage.objActual.codigoUnidadAnalisis}" converter="javax.faces.Integer"/>
                             <f:setPropertyActionListener value="#{dato.codigoTemaAutorizacion}"
-                                                         target="#{conceptoPage.objActual.codigoTemaAutorizacion}"/>
+                                                         target="#{conceptoPage.objActual.codigoTemaAutorizacion}" converter="javax.faces.Integer"/>
                             <f:setPropertyActionListener value="#{dato.centrosAutSucursales eq 'S'}"
                                                          target="#{conceptoPage.objActual.boolCentrosAutSucursales}"/>
                             <f:setPropertyActionListener value="#{dato.centrosAutAreasCentrales eq 'S'}"

@@ -169,7 +169,6 @@ public class ConceptoPage extends GeneralParametrosPage<Concepto, Concepto> {
 			try {
 				unidadesAnalisis = getSelectItemList(cargaAltamiraManager.getCVSucursal(), false);
 				temasAut = getSelectItemList(notasContablesManager.getCV(TemaAutorizacion.class), false);
-
 			} catch (Exception e) {
 				LOGGER.error("{} Error al inicializar el mdulo de administracin de conceptos",  e );
 				nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al inicializar el mdulo de administracin de conceptos");
