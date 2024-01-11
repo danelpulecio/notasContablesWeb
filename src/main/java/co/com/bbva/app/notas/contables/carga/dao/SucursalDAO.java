@@ -55,7 +55,7 @@ public class SucursalDAO extends CommonDAO<Sucursal> {
 
 	public Collection<Sucursal> findAll() throws Exception {
 		Collection<Sucursal> sucursalesDb = findByGeneral(SQL_SELECT_ALL_SENTENCE);
-		LOGGER.info("sucursales db {}",sucursalesDb);
+		LOGGER.info("sucursales db {}",sucursalesDb.size());
 		return sucursalesDb;
 	}
 

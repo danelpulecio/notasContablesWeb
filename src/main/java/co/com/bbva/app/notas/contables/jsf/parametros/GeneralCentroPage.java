@@ -7,6 +7,7 @@ import co.com.bbva.app.notas.contables.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.model.SelectItem;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ import java.util.List;
  */
 public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> {
 
-	String param = getParam();
+
 
 	private static final long serialVersionUID = 1L;
 
@@ -41,7 +42,13 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
 
 	private final Boolean origen;
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
+
+	@PostConstruct
+	public void init(){
+		super._init();
+		crearListasFijas();
+	}
 	public GeneralCentroPage(boolean origen) {
 		super(false);
 		this.origen = origen;
@@ -66,13 +73,14 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
 //		return super.buscarPorFiltro();
 //	}
 
-	@Override
-	protected void _init() {
-		super._init();
-		crearListasFijas();
-	}
+//	@Override
+//	protected void _init() {
+//		super._init();
+//		crearListasFijas();
+//	}
 
 	private void crearListasFijas() {
+		LOGGER.info("Crear listas fijas");
 		// se crean las lista fijas solo si es necesario
 		if (tiposCentrosAut == null || tiposCentrosAut.isEmpty()) {
 			tiposCentrosAut = new ArrayList<SelectItem>();
@@ -106,7 +114,7 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
 	@Override
 	public Collection<PUC> _buscarPorFiltro() throws Exception {
 		if (param.trim().length() >= 4) {
-			LOGGER.info("{} Buscar puc: {}", session.getTraceLog(),param );
+//			LOGGER.info("{} Buscar puc: {}", session.getTraceLog(),param );
 			return cargaAltamiraManager.findCentrosBy(param);
 		}
 		nuevoMensaje(FacesMessage.SEVERITY_WARN, "Por favor indique un nmero de partida de al menos 4 digitos");
@@ -121,16 +129,24 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
 	@Override
 	protected void _editar() throws Exception {
 		if (seleccionValida()) {
+			LOGGER.info("Editar GeneralPage");
 			// se limpian las variables para evitar informacion errada
 			seleccionados = new ArrayList<PUC>();
 			tipoCentrosSel = new ArrayList<String>();
 			indicadorSel = "";
 			centrosAutSel = new ArrayList<String>();
+			LOGGER.info("Seleccionados GeneralPage {}", seleccionados.size());
+			LOGGER.info("tipoCentrosSel GeneralPage {}", tipoCentrosSel.size());
+			LOGGER.info("indicador GeneralPage {}", indicadorSel.length());
+			LOGGER.info("centros GeneralPage {}", centrosAutSel.size());
+			LOGGER.info("Datos GeneralPage {}", getDatos().size());
+
 
 			// se obtiene la lista de cuentas seleccionadas
 			for (PUC row : getDatos()) {
 				if (row.getSelected()) {
 					seleccionados.add(row);
+					LOGGER.info("Seleccionados GeneralPage {}", seleccionados);
 				}
 			}
 
@@ -159,6 +175,7 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
 				sucursales = cargaAltamiraManager.getSucursales();
 				selccionarTipoCentro();
 			} else {
+				LOGGER.info("No selecciono registro");
 				nuevoMensaje(FacesMessage.SEVERITY_WARN, "Debe seleccionar por lo menos un registro");
 			}
 		}
@@ -198,7 +215,7 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
 				p.setTipoCentroDestinoAutorizado(tCentros);
 			}
 		}
-		LOGGER.info("{} Actualiza puc: {}", session.getTraceLog(),getCodCuentasString(seleccionados) );
+//		LOGGER.info("{} Actualiza puc: {}", session.getTraceLog(),getCodCuentasString(seleccionados) );
 		cargaAltamiraManager.updatePUCs(seleccionados, getUsuarioLogueado().getUsuario().getCodigo().intValue());
 		return true;
 	}
@@ -244,6 +261,7 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
 	 * @return
 	 */
 	public String validarCentrosAut() {
+		LOGGER.info("validar Centro de destino {}", centrosAut.size());
 		List<String> nuevosCentros = new ArrayList<String>();
 
 		for (String centroAut : centrosAutSel) {
@@ -308,6 +326,7 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
 	 * @return
 	 */
 	public String selccionarTipoCentro() {
+		LOGGER.info("Seleccionar Tipo Centro");
 		centrosAut = new ArrayList<SelectItem>();
 		// se filtran los centros autorizados segun lo seleccionado por el usuario
 		for (Sucursal s : sucursales) {
@@ -318,6 +337,7 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
 				centrosAut.add(new SelectItem(s.getTipoCentro() + s.getCodigo(), s.getTipoCentro() + "-" + s.getCodigo() + " " + s.getNombre()));
 			}
 		}
+		LOGGER.info("seleccionar Tipo centro {}", centrosAut.size());
 		// si el usuario tenia centros autorizados seleccionados, se valida que sigan cumpliendo las condiciones de tipo centro e indicador
 		if (!centrosAutSel.isEmpty()) {
 			List<String> nuevosCentros = new ArrayList<String>();
@@ -449,6 +469,7 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
 	}
 
 	public List<PUC> getSeleccionados() {
+		LOGGER.info("getSeleccionados {}", seleccionados.size());
 		return seleccionados;
 	}
 
@@ -457,6 +478,7 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
 	}
 
 	public List<SelectItem> getTiposCentrosAut() {
+		LOGGER.info("getTiposCentrosAut {}", tiposCentrosAut.size());
 		return tiposCentrosAut;
 	}
 
@@ -473,6 +495,7 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
 	}
 
 	public List<String> getTipoCentrosSel() {
+		LOGGER.info("getTipoCentroSel {}", tipoCentrosSel.size());
 		return tipoCentrosSel;
 	}
 
@@ -481,6 +504,7 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
 	}
 
 	public String getIndicadorSel() {
+		LOGGER.info("getIndicadoresSeleccionados {}", indicadorSel);
 		return indicadorSel;
 	}
 

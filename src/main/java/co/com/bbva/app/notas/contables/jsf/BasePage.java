@@ -16,6 +16,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.util.*;
@@ -52,6 +54,7 @@ public abstract class BasePage implements Serializable  {
 		DIR_TRANSMISION_ALTAMIRA = context.getInitParameter("DIR_TRANSMISION_ALTAMIRA");
 		DIR_CARGA = context.getInitParameter("DIR_CARGA");
 		ACTIVAR_LDAP = getLdapValue();
+		readProperties();
 		DIR_SIRO = context.getInitParameter("DIR_SIRO");
 		LOGGER.info("constructor finaliza");
 	}
@@ -115,6 +118,7 @@ public abstract class BasePage implements Serializable  {
 
 	private String getLdapValue() {
 		ServletContext context = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+		LOGGER.info("--------->" + context.getRealPath("/./"));
 		try (InputStream input = context.getResourceAsStream("/WEB-INF/classes/config.properties")) {
 			LOGGER.info("input context {}", context.getResourceAsStream("/"));
 			if (input != null) {
@@ -133,5 +137,29 @@ public abstract class BasePage implements Serializable  {
 		}
 	}
 
+	private boolean readProperties() {
+		Properties propiedades = new Properties();
+		InputStream entrada = null;
+
+		try {
+			entrada = new FileInputStream("/app/properties/config.properties");
+			propiedades.load(entrada);
+			String ldap = propiedades.getProperty("activar.ldap");
+			LOGGER.info("activarLdap {}",  ldap);
+
+
+		} catch (IOException e) {
+			LOGGER.error("Error al cargar el archivo: " );
+		} finally {
+			if (entrada != null) {
+				try {
+					entrada.close();
+				} catch (IOException e) {
+					LOGGER.error("Error al cargar el archivo: " );
+				}
+			}
+		}
+		return true;
+	}
 
 }

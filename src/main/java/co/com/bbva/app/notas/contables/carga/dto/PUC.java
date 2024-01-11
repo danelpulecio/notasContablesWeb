@@ -3,6 +3,9 @@ package co.com.bbva.app.notas.contables.carga.dto;
 import co.com.bbva.app.notas.contables.anotacion.Columna;
 import co.com.bbva.app.notas.contables.anotacion.Tabla;
 import co.com.bbva.app.notas.contables.dto.CommonVO;
+import co.com.bbva.app.notas.contables.jsf.parametros.GeneralCentroPage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Timestamp;
 
@@ -10,6 +13,7 @@ import java.sql.Timestamp;
 public class PUC extends CommonVO<PUC> implements java.io.Serializable {
 
 	private static final long serialVersionUID = 6338584974318830827L;
+	private static final Logger LOGGER = LoggerFactory.getLogger(PUC.class);
 	@Columna(nombreDB = "NUMERO_CUENTA", nombreApp = "numeroCuenta", esClave = true)
 	private String numeroCuenta = "";
 	private String digitoVerificacion = "";
@@ -40,6 +44,7 @@ public class PUC extends CommonVO<PUC> implements java.io.Serializable {
 	private Boolean selected = false;
 
 	public String getNumeroCuenta() {
+		LOGGER.info("numero cuenta {}", numeroCuenta);
 		return numeroCuenta;
 	}
 
@@ -236,4 +241,33 @@ public class PUC extends CommonVO<PUC> implements java.io.Serializable {
 		this.indicadorTercero = indicadorTercero;
 	}
 
+	@Override
+	public String toString() {
+		return "PUC{" +
+				"numeroCuenta='" + numeroCuenta + '\'' +
+				", digitoVerificacion='" + digitoVerificacion + '\'' +
+				", descripcion='" + descripcion + '\'' +
+				", estadoCuenta='" + estadoCuenta + '\'' +
+				", centroResponsable='" + centroResponsable + '\'' +
+				", indicadorCuenta='" + indicadorCuenta + '\'' +
+				", naturaleza='" + naturaleza + '\'' +
+				", tipoCuenta='" + tipoCuenta + '\'' +
+				", formaActualizacion='" + formaActualizacion + '\'' +
+				", contrapartidaDebe='" + contrapartidaDebe + '\'' +
+				", contrapartidaHaber='" + contrapartidaHaber + '\'' +
+				", tipoApunte='" + tipoApunte + '\'' +
+				", tipoCentroOrigenAutorizado='" + tipoCentroOrigenAutorizado + '\'' +
+				", indicadorCentroOrigen='" + indicadorCentroOrigen + '\'' +
+				", centrosOrigenAutorizados='" + centrosOrigenAutorizados + '\'' +
+				", tipoCentroDestinoAutorizado='" + tipoCentroDestinoAutorizado + '\'' +
+				", indicadorCentroDestino='" + indicadorCentroDestino + '\'' +
+				", centrosDestinoAutorizados='" + centrosDestinoAutorizados + '\'' +
+				", tipoMoneda='" + tipoMoneda + '\'' +
+				", indicadorSIRO='" + indicadorSIRO + '\'' +
+				", indicadorTercero='" + indicadorTercero + '\'' +
+				", estadoCarga='" + estadoCarga + '\'' +
+				", fechaUltimaCarga=" + fechaUltimaCarga +
+				", selected=" + selected +
+				'}';
+	}
 }

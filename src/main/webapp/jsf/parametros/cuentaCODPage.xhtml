@@ -1,134 +1,136 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../common/template.xhtml">
+    <ui:param name="title" value="Cuentas COD"/>
+    <ui:define name="body">
 
-<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
-	template="../../common/template.xhtml">
-	<ui:param name="title" value="Cuentas COD" />
-	<ui:define name="body">
+        <!-- Formulario de confirmacion de borrado de informacion-->
+        <p:dialog id="popupBorrar" widgetVar="popupBorrar" autosized="true" minWidth="250">
+            <f:facet name="header">
+                <h:panelGroup>
+                    <h:outputText value="Confirmación de borrado de información"/>
+                </h:panelGroup>
+            </f:facet>
+            <f:facet name="controls">
+                <h:panelGroup> <h:graphicImage value="../../common/images/close.png" alt="cerrar" styleClass="hidelink"
+                                               id="hidelinkEstado" height="20" width="20"/>
+                </h:panelGroup>
+            </f:facet>
 
-		<!-- Formulario de confirmacion de borrado de informacion-->
-		<rich:modalPanel id="popupBorrar" autosized="true" domElementAttachment="form" minWidth="250">
-			<f:facet name="header">
-				<h:panelGroup>
-					<h:outputText value="Confirmación de borrado de información" />
-				</h:panelGroup>
-			</f:facet>
-			<f:facet name="controls">
-				<h:panelGroup>
-					<h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink" id="hidelinkBorrar" height="20" width="20" />
-					<rich:componentControl for="popupBorrar" attachTo="hidelinkBorrar" operation="hide" event="onclick" />
-				</h:panelGroup>
-			</f:facet>
+            <h:panelGrid columns="1" width="100%">
 
-			<h:panelGrid columns="1" width="100%">
+                <h:outputText value="Está seguro que desea borrar la información del registro actual?"/>
 
-				<h:outputText value="Está seguro que desea borrar la información del registro actual?" />
+                <!-- Seccion de mensajes y botones de envio y cancelacion-->
+                <ui:include src="../../common/mensajes.xhtml"/>
+                <h:panelGrid columns="2" styleClass="center" width="100%">
+                    <p:commandButton action="#{cuentaCODPage.borrar}"
+                                     value="Si"
+                                     oncomplete="PF('popupBorrar').hide()"
+                                     update="lista"/>
+                    <p:commandButton onclick="PF('popupBorrar').hide()" value="No"/>
+                </h:panelGrid>
+            </h:panelGrid>
+        </p:dialog>
 
-				<!-- Seccion de mensajes y botones de envio y cancelacion-->
-				<ui:include src="../../common/mensajes.xhtml" />
-				<h:panelGrid columns="2" styleClass="center" width="100%">
-					<a4j:commandButton action="#{cuentaCODPage.borrar}" value="Si" oncomplete="#{rich:component('popupBorrar')}.hide()" reRender="lista" />
-					<a4j:commandButton onclick="#{rich:component('popupBorrar')}.hide()" value="No" />
-				</h:panelGrid>
-			</h:panelGrid>
-		</rich:modalPanel>
+        <!-- Formulario Modal de creacion y edicion de nuevos registros-->
+        <p:dialog id="editor" widgetVar="editor" autosized="true">
+            <f:facet name="header">
+                <h:panelGroup>
+                    <h:outputText value="Formulario"/>
+                </h:panelGroup>
+            </f:facet>
+            <f:facet name="controls">
+                <h:panelGroup>
+                    <h:panelGroup> <h:graphicImage value="../../common/images/close.png" alt="cerrar"
+                                                   styleClass="hidelink"
+                                                   id="hidelink" height="20" width="20"/>
+                    </h:panelGroup>
+                </h:panelGroup>
+            </f:facet>
 
-		<!-- Formulario Modal de creacion y edicion de nuevos registros-->
-		<rich:modalPanel id="editor" autosized="true" domElementAttachment="form">
-			<f:facet name="header">
-				<h:panelGroup>
-					<h:outputText value="Formulario" />
-				</h:panelGroup>
-			</f:facet>
-			<f:facet name="controls">
-				<h:panelGroup>
-					<h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink" id="hidelink" height="20" width="20" />
-					<rich:componentControl for="editor" attachTo="hidelink" operation="hide" event="onclick" />
-				</h:panelGroup>
-			</f:facet>
+            <!-- Campos del formulario -->
+            <h:panelGrid columns="1" width="500" id="informacion">
+                <h:panelGrid columns="3">
+                    <h:outputText value="Cuenta Contable"/>
+                    <h:inputText value="#{cuentaCODPage.filtroCuentas }" immediate="true"/>
+                    <p:commandButton value="Buscar" action="#{cuentaCODPage.buscarCuentas }" update="informacion"/>
+                </h:panelGrid>
+                <h:panelGrid columns="2" rendered="#{!empty cuentaCODPage.cuentas }">
+                    <h:outputText value="Descripción"/>
+                    <p:selectOneMenu id="cuenta" value="#{cuentaCODPage.objActual.cuentaContable}">
+                        <f:selectItems value="#{cuentaCODPage.cuentas}"/>
+                    </p:selectOneMenu>
+                </h:panelGrid>
 
-			<!-- Campos del formulario -->
-			<h:panelGrid columns="1" width="500" id="informacion">
-				<h:panelGrid columns="3">
-					<h:outputText value="Cuenta Contable" />
-					<h:inputText value="#{cuentaCODPage.filtroCuentas }" immediate="true" />
-					<a4j:commandButton value="Buscar" action="#{cuentaCODPage.buscarCuentas }" reRender="informacion" />
-				</h:panelGrid>
-				<h:panelGrid columns="2" rendered="#{!empty cuentaCODPage.cuentas }" >
-					<h:outputText value="Descripción" />
-					<h:selectOneMenu id="cuenta" value="#{cuentaCODPage.objActual.cuentaContable}">
-						<f:selectItems value="#{cuentaCODPage.cuentas}" />
-					</h:selectOneMenu>
-				</h:panelGrid>
+                <!-- Seccion de mensajes y botones de envio y cancelacion-->
+                <ui:include src="../../common/mensajes.xhtml"/>
+                <h:panelGrid columns="2" styleClass="center" width="100%">
+                    <p:commandButton action="#{cuentaCODPage.guardar}" update="informacion,lista" value="Guardar"
+                                     oncomplete="if (#{cuentaCODPage.ocultarPopupGuardar}) PF('editor').hide();"/>
+                    <p:commandButton onclick="PF('editor').hide()" value="Cerrar"/>
+                </h:panelGrid>
+            </h:panelGrid>
+        </p:dialog>
 
-				<!-- Seccion de mensajes y botones de envio y cancelacion-->
-				<ui:include src="../../common/mensajes.xhtml" />
-				<h:panelGrid columns="2" styleClass="center" width="100%">
-					<a4j:commandButton action="#{cuentaCODPage.guardar}" reRender="informacion,lista" value="Guardar" oncomplete="if (#{cuentaCODPage.ocultarPopupGuardar}) #{rich:component('editor')}.hide();" />
-					<a4j:commandButton onclick="#{rich:component('editor')}.hide()" value="Cerrar" />
-				</h:panelGrid>
-			</h:panelGrid>
-		</rich:modalPanel>
+        <!--Filtro de busqueda	-->
+        <!--        <div style="width: 950px;">-->
+        <h:panelGrid columns="1" width="100%">
+            <h1 align="center">Cuentas COD</h1>
+        </h:panelGrid> <!-- Panel de opciones -->
+        <p:panel header="Opciones" style="width: 100%;">
+            <h:panelGrid columns="2" id="filtro">
 
-		<!--Filtro de busqueda	-->
-		<div style="width: 550px;"><h:panelGrid columns="1" width="100%">
-			<h1 align="center">Cuentas COD</h1>
-		</h:panelGrid> <!-- Panel de opciones --> <rich:panel header="Opciones" style="width: 400px;">
-			<h:panelGrid columns="2" id="filtro">
+                <h:panelGrid columns="1" width="180">
+                    <!-- Funcionalidad para abrir el editor y crear un nuevo registro-->
+                    <p:commandButton action="#{cuentaCODPage.editar}"
+                                     oncomplete="PF('editor').show()"
+                                     update="globalForm:editor" value="Nuevo Registro">
+                        <f:setPropertyActionListener for="codNuevo" value="0"
+                                                     target="#{cuentaCODPage.objActual.codigo}"/>
+                    </p:commandButton>
+                </h:panelGrid>
 
-				<h:panelGrid columns="1" width="180">
-					<!-- Funcionalidad para abrir el editor y crear un nuevo registro-->
-					<a4j:commandButton action="#{cuentaCODPage.editar}" oncomplete="#{rich:component('editor')}.show()" reRender="editor" value="Nuevo Registro">
-						<a4j:actionparam name="codNuevo" value="0" assignTo="#{cuentaCODPage.objActual.codigo}" converter="javax.faces.Integer" />
-					</a4j:commandButton>
-				</h:panelGrid>
+                <h:panelGrid columns="2">
+                    <h:inputText value="#{cuentaCODPage.param}"/>
+                    <p:commandButton action="#{cuentaCODPage.buscarPorFiltro}" value="Filtrar"
+                                     onclick="Richfaces.showModalPanel('statusPanel')"/>
+                </h:panelGrid>
+            </h:panelGrid>
+        </p:panel> <ui:include src="../../common/mensajes.xhtml"/>
+        <!-- Tabla de registros -->
+        <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
 
-				<h:panelGrid columns="2">
-					<h:inputText value="#{cuentaCODPage.param}" />
-					<h:commandButton action="#{cuentaCODPage.buscarPorFiltro}" value="Filtrar" onclick="Richfaces.showModalPanel('statusPanel')" />
-				</h:panelGrid>
-			</h:panelGrid>
-		</rich:panel> <ui:include src="../../common/mensajes.xhtml" /> <!-- Tabla de registros --> <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
+            <p:dataTable value="#{cuentaCODPage.datos}" var="dato" id="table"
+                         rendered="#{! empty cuentaCODPage.datos}"
+                         rowIndexVar="rowIndex"
+                         widgetVar="table" rows="15" paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                         paginatorPosition="top">
+                <p:column headerText="Fila">
+                    <h:outputText value="#{rowIndex+1}"/>
+                </p:column>
 
-			<rich:dataTable value="#{cuentaCODPage.datos}" var="dato" id="table" rows="15" rendered="#{! empty cuentaCODPage.datos}" rowKeyVar="rowKey" width="100%" footerClass="row2" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
-				onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'" rowClasses="row1, row2">
-				<f:facet name="header">
-					<rich:datascroller fastControls="false" pageIndexVar="pageIndex" pagesVar="pages" style="color:black;" for="table" maxPages="5" renderIfSinglePage="false" page="#{cuentaCODPage.scrollPage}" id="up" reRender="lista, filtro" limitToList="true"
-						ajaxSingle="true">
-					</rich:datascroller>
-				</f:facet>
-				<rich:column>
-					<f:facet name="header">
-						<h:outputText value="Fila" />
-					</f:facet>
-					<h:outputText value="#{rowKey+1}" />
-				</rich:column>
+                <p:column headerText="Cuenta Contable" sortable="true" sortBy="#{dato.cuentaContable}">
+                    <h:outputText value="#{dato.cuentaContable}"/>
+                </p:column>
 
-				<rich:column sortable="true" sortBy="#{dato.cuentaContable}">
-					<f:facet name="header">
-						<h:outputText value="Cuenta Contable" />
-					</f:facet>
-					<h:outputText value="#{dato.cuentaContable}" />
-				</rich:column>
-
-				<!-- Opcion de borrado-->
-				<rich:column style="text-align: center;">
-					<f:facet name="header">
-						<h:outputText value="Borrar" />
-					</f:facet>
-					<a4j:commandButton image="/common/images/delete.png" alt="Borrar" onclick="#{rich:component('popupBorrar')}.show()">
-						<a4j:actionparam name="codBorrar" value="#{dato.codigo}" assignTo="#{cuentaCODPage.objActual.codigo}" converter="javax.faces.Integer" />
-					</a4j:commandButton>
-				</rich:column>
-
-				<!--	Se muestra la información de la cantidad de registros y la pagina actual	-->
-				<f:facet name="footer">
-					<rich:datascroller style="color:black;" align="center" for="table" page="#{cuentaCODPage.scrollPage}" boundaryControls="hide" fastControls="hide" stepControls="hide">
-						<f:facet name="pages">
-							<h:outputText value="Visualizando del #{((pageIndex-1)*15)+1 } al #{(pages!=pageIndex)?(pageIndex*15):cuentaCODPage.totalFilas} de un total de #{cuentaCODPage.totalFilas} registros." />
-						</f:facet>
-					</rich:datascroller>
-				</f:facet>
-			</rich:dataTable>
-		</h:panelGrid></div>
-	</ui:define>
+                <!-- Opcion de borrado-->
+                <p:column headerText="Borrar" style="text-align: center;">
+                    <p:commandButton value=""
+                                     style="width: 24px; height: 24px; padding: 0; background-image: url('#{request.contextPath}/common/images/delete.png'); background-size: cover; border-radius: 50%;"
+                                     alt="Borrar"
+                                     onclick="PF('popupBorrar').show()">
+                        <f:setPropertyActionListener for="codBorrar" value="#{dato.codigo}"
+                                                     target="#{cuentaCODPage.objActual.codigo}"/>
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </h:panelGrid>
+        <!--    </div>-->
+    </ui:define>
 </ui:composition>

@@ -30,6 +30,7 @@ public class CausalDevolucionPage extends GeneralParametrosPage<CausalDevolucion
 
 	@PostConstruct
 	public void init() throws Exception {
+		super._init();
 		setDatos(new ArrayList<>(_buscarTodos()));
 		LOGGER.info("postConstructo datos {}", getDatos().size());
 	}
@@ -48,10 +49,10 @@ public class CausalDevolucionPage extends GeneralParametrosPage<CausalDevolucion
 		return new CausalDevolucion();
 	}
 
-	@Override
-	protected void _init() {
-		super._init();
-	}
+//	@Override
+//	protected void _init() {
+//		super._init();
+//	}
 
 	/**
 	 * Se realiza el proceso de busqueda completo de entidades de tipo CausalDevolucion
@@ -122,6 +123,7 @@ public class CausalDevolucionPage extends GeneralParametrosPage<CausalDevolucion
 //		LOGGER.info("{} Cambia Estado causal devolucion: {}", session.getTraceLog(),  notasContablesManager.getCausalDevolucion(objActual).getCodigo() + " - " +notasContablesManager.getCausalDevolucion(objActual).getEstado() );
 		LOGGER.info("Cambiar estado causalDevolucion usuarioLogueado {}", getUsuarioLogueado());
 		notasContablesManager.changeEstadoCausalDevolucion(notasContablesManager.getCausalDevolucion(objActual), getCodUsuarioLogueado());
+		setDatos(new ArrayList<>(_buscarTodos()));
 		return true;
 	}
 

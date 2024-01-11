@@ -8,7 +8,8 @@
     <ui:define name="body">
 
         <!-- Formulario de confirmacion de cambio de estado-->
-        <p:dialog id="popupEstado" widgetVar="popupEstado" autosized="true" domElementAttachment="form" width="250">
+        <p:dialog widgetVar="popupEstado" autosized="true"
+                  width="250">
             <f:facet name="header">
                 <h:panelGroup>
                     <h:outputText value="Confirmación de cambio de estado"/>
@@ -29,7 +30,7 @@
                 <ui:include src="../../common/mensajes.xhtml"/>
                 <h:panelGrid columns="2" styleClass="center" width="100%">
                     <p:commandButton action="#{causalDevolucionPage._cambiarEstado()}" value="Si"
-                                       oncomplete="PF('popupEstado').hide()" update="lista"/>
+                                     oncomplete="PF('popupEstado').hide()" update="table"/>
                     <p:commandButton onclick="PF('popupEstado').hide()" value="No"/>
 
                 </h:panelGrid>
@@ -37,7 +38,7 @@
         </p:dialog>
 
         <!-- Formulario de confirmacion de borrado de informacion-->
-        <p:dialog id="popupBorrar" autosized="true" domElementAttachment="form" minWidth="250">
+        <p:dialog widgetVar="popupBorrar" autosized="true" minWidth="250">
             <f:facet name="header">
                 <h:panelGroup>
                     <h:outputText value="Confirmación de borrado de información"/>
@@ -45,10 +46,10 @@
             </f:facet>
             <f:facet name="controls">
                 <h:panelGroup>
-                    <h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink"
+                    <h:graphicImage value="../../common/images/close.png" alt="cerrar" styleClass="hidelink"
                                     id="hidelinkBorrar" height="20" width="20"/>
 
-                    <p:commandButton styleClass="hidelink" onclick="PF('popupBorrar').hide();"/>
+                    <!--                    <p:commandButton styleClass="hidelink" onclick="PF('popupBorrar').hide()"/>-->
                 </h:panelGroup>
             </f:facet>
 
@@ -59,14 +60,16 @@
                 <!-- Seccion de mensajes y botones de envio y cancelacion-->
                 <ui:include src="../../common/mensajes.xhtml"/>
                 <h:panelGrid columns="2" styleClass="center" width="100%">
-
+                    <p:commandButton action="#{causalDevolucionPage.borrar}" value="Si"
+                                     oncomplete="PF('popupBorrar').hide()" update="table"/>
+                    <p:commandButton onclick="PF('popupBorrar').hide()" value="No"/>
 
                 </h:panelGrid>
             </h:panelGrid>
         </p:dialog>
 
         <!-- Formulario Modal de creacion y edicion de nuevos registros-->
-        <p:dialog id="editor" autosized="true" domElementAttachment="form">
+        <p:dialog id="editor" widgetVar="editor" autosized="true">
             <f:facet name="header">
                 <h:panelGroup>
                     <h:outputText value="Nuevo Registro"/>
@@ -74,12 +77,10 @@
             </f:facet>
             <f:facet name="controls">
                 <h:panelGroup>
-                    <h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink"
+                    <h:graphicImage value="../../common/images/close.png" alt="cerrar" styleClass="hidelink"
                                     id="hidelink" height="20" width="20"/>
-
                 </h:panelGroup>
             </f:facet>
-
             <!-- Campos del formulario -->
             <h:panelGrid columns="1" width="400" id="informacion">
                 <h:panelGrid columns="2" width="400" columnClasses="name,value">
@@ -90,82 +91,111 @@
                 <!-- Seccion de mensajes y botones de envio y cancelacion-->
                 <ui:include src="../../common/mensajes.xhtml"/>
                 <h:panelGrid columns="2" styleClass="center" width="100%">
-
+                    <p:commandButton action="#{causalDevolucionPage.guardar}" update="informacion,table"
+                                     value="Guardar"
+                                     oncomplete="if (#{causalDevolucionPage.ocultarPopupGuardar}) PF('editor').hide();"/>
+                    <p:commandButton onclick="PF('editor').hide()" value="Cerrar"/>
 
                 </h:panelGrid>
             </h:panelGrid>
         </p:dialog>
 
         <!--Filtro de busqueda	-->
-        <div style="width: 610px;">
-            <h:panelGrid columns="1" width="100%">
-                <h1 align="center">Causales de Devolución</h1>
-            </h:panelGrid>
+        <h:panelGrid columns="1" width="100%">
+            <h1 align="center">Causales de Devolución</h1>
+        </h:panelGrid>
 
-            <!-- Panel de opciones -->
-            <p:panel header="Opciones" style="width: 100%;">
-                <h:panelGrid columns="2" id="filtro">
+        <!-- Panel de opciones -->
+        <p:panel header="Opciones" style="width: 100%;">
+            <h:panelGrid columns="2" id="filtro">
 
-                    <h:panelGrid columns="1" width="380">
-                        <!-- Funcionalidad para abrir el editor y crear un nuevo registro-->
+                <h:panelGrid columns="1" width="380">
+                    <!-- Funcionalidad para abrir el editor y crear un nuevo registro-->
+                    <p:commandButton action="#{causalDevolucionPage.editar}"
+                                     oncomplete="PF('editor').show()"
+                                     reRender="editor" value="Nuevo Registro" ajax="true">
+                        <f:setPropertyActionListener for="codNuevo" value="#{0}"
+                                                     target="#{causalDevolucionPage.objActual.codigo}"/>
+                    </p:commandButton>
 
-
-                    </h:panelGrid>
-
-                    <h:panelGrid columns="2">
-                        <p:inputText value="#{causalDevolucionPage.param}"/>
-                        <p:commandButton action="#{causalDevolucionPage.buscarPorFiltro}" value="Filtrar"
-                                         onclick="Richfaces.showModalPanel('statusPanel')"/>
-                    </h:panelGrid>
                 </h:panelGrid>
-            </p:panel>
 
-            <ui:include src="../../common/mensajes.xhtml"/>
-
-            <!-- Tabla de registros -->
-            <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
-
-                <p:dataTable value="#{causalDevolucionPage.datos}" var="dato" id="table"
-                             rendered="#{! empty causalDevolucionPage.datos}"
-                             rowIndexVar="rowIndex"
-                             widgetVar="causalDevolucionTable" rows="15" paginator="true"
-                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
-                             paginatorPosition="top">
-
-                    <p:column headerText="Fila">
-                        <h:outputText value="#{rowIndex+1}"/>
-                    </p:column>
-
-                    <p:column headerText="Nombre" sortBy="#{dato.nombre}" sortable="true">
-                        <h:outputText value="#{dato.nombre}"/>
-                    </p:column>
-
-                    <!-- Opcion de cambio de estado-->
-                    <p:column headerText="Estado" style="text-align: center;">
-
-                        <p:commandButton value="#{dato.estado eq 'A'? 'Activo': 'Inactivo'}"
-                                         onclick="PF('popupEstado').show()">
-                            <f:setPropertyActionListener for="codCambio" value="#{dato.codigo}" target="#{causalDevolucionPage.objActual.codigo}"/>
-                            <f:setPropertyActionListener for="estadoCambio" value="#{dato.estado}" target="#{causalDevolucionPage.objActual.estado}"/>
-                        </p:commandButton>
-
-
-                    </p:column>
-
-                    <!-- Opcion de cambio de editar informacion-->
-                    <p:column headerText="Editar" style="text-align: center;">
-
-
-                    </p:column>
-
-                    <!-- Opcion de cambio de borrado-->
-                    <p:column headerText="Borrar" style="text-align: center;">
-
-
-                    </p:column>
-                </p:dataTable>
+                <h:panelGrid columns="2">
+                    <p:inputText value="#{causalDevolucionPage.param}"/>
+                    <p:commandButton action="#{causalDevolucionPage.buscarPorFiltro}" value="Filtrar"
+                                     onclick="Richfaces.showModalPanel('statusPanel')"/>
+                </h:panelGrid>
             </h:panelGrid>
-        </div>
+        </p:panel>
+
+        <ui:include src="../../common/mensajes.xhtml"/>
+
+        <!-- Tabla de registros -->
+        <!--            <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">-->
+
+        <p:dataTable value="#{causalDevolucionPage.datos}" var="dato" id="table"
+                     rendered="#{! empty causalDevolucionPage.datos}"
+                     rowIndexVar="rowIndex"
+                     widgetVar="table" rows="15" paginator="true"
+                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                     currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                     paginatorPosition="top">
+
+            <p:column headerText="Fila">
+                <h:outputText value="#{rowIndex+1}"/>
+            </p:column>
+
+            <p:column headerText="Nombre" sortBy="#{dato.nombre}" sortable="true">
+                <h:outputText value="#{dato.nombre}"/>
+            </p:column>
+
+            <!-- Opcion de cambio de estado-->
+            <p:column headerText="Estado" style="text-align: center;">
+                <p:commandButton value="#{dato.estado eq 'A'? 'Activo': 'Inactivo'}"
+                                 onclick="PF('popupEstado').show()">
+                    <f:setPropertyActionListener for="codCambio" value="#{dato.codigo}"
+                                                 target="#{causalDevolucionPage.objActual.codigo}"/>
+                    <f:setPropertyActionListener for="estadoCambio" value="#{dato.estado}"
+                                                 target="#{causalDevolucionPage.objActual.estado}"/>
+                </p:commandButton>
+            </p:column>
+
+            <!-- Opcion de cambio de editar informacion-->
+            <p:column headerText="Editar" style="text-align: center;">
+                <p:commandButton value=""
+                                 alt="Editar"
+                                 style="width: 24px; height: 24px; padding: 0; background-image: url('#{request.contextPath}/common/images/edit.png'); background-size: cover; border-radius: 50%;"
+                                 oncomplete="PF('editor').show()"
+                                 update="globalForm:editor">
+                    <f:setPropertyActionListener for="codEdit" value="#{dato.codigo}"
+                                                 target="#{causalDevolucionPage.objActual.codigo}"/>
+                    <f:setPropertyActionListener for="codEdit1" value="#{dato.nombre}"
+                                                 target="#{causalDevolucionPage.objActual.nombre}"/>
+                    <f:setPropertyActionListener for="codEdit2" value="#{dato.estado}"
+                                                 target="#{causalDevolucionPage.objActual.estado}"/>
+
+                </p:commandButton>
+
+            </p:column>
+
+            <!-- Opcion de cambio de borrado-->
+            <p:column headerText="Eliminar" style="text-align: center;">
+                <p:commandButton value=""
+                                 style="width: 24px; height: 24px; padding: 0; background-image: url('#{request.contextPath}/common/images/delete.png'); background-size: cover; border-radius: 50%;"
+                                 alt="Borrar"
+                                 onclick="PF('popupBorrar').show()"
+                                 rendered="#{dato.estado eq 'I'}">
+                    <f:setPropertyActionListener for="codBorrar" value="#{dato.codigo}"
+                                                 target="#{causalDevolucionPage.objActual.codigo}"/>
+                </p:commandButton>
+                <!--                <p:commandButton value="Eliminar" icon="ui-icon-delete" styleClass="ui-priority-primary">-->
+                <!--                    <p:graphicImage library="common" name="images/delete.png" />-->
+                <!--                    &lt;!&ndash; Agrega aquí cualquier otra acción o configuración necesaria &ndash;&gt;-->
+                <!--                </p:commandButton>-->
+
+            </p:column>
+        </p:dataTable>
+        <!--            </h:panelGrid>-->
+
     </ui:define>
 </ui:composition>
