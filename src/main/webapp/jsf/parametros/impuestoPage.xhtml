@@ -1,19 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
-	template="../../common/template.xhtml">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui"
+				template="../../common/template.xhtml">
 	<ui:param name="title" value="Impuestos" />
 	<ui:define name="body">
 	
 	<!-- Formulario de confirmacion de cambio de estado-->
-	<rich:modalPanel id="popupEstado" autosized="true" domElementAttachment="form"  width="250">
+	<p:dialog widgetVar="popupEstado" id="popupEstado" autosized="true"  width="250">
 		<f:facet name="header">
 			<h:panelGroup><h:outputText value="Confirmación de cambio de estado"/></h:panelGroup>
 		</f:facet>
 		<f:facet name="controls">
 			<h:panelGroup>
 				<h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink" id="hidelinkEstado" height="20" width="20" />
-				<rich:componentControl for="popupEstado" attachTo="hidelinkEstado" operation="hide" event="onclick" />
+				<p:commandButton for="popupEstado" attachTo="hidelinkEstado" operation="hide" event="onclick" />
 			</h:panelGroup>
 		</f:facet>
 		
@@ -24,21 +26,21 @@
 			<!-- Seccion de mensajes y botones de envio y cancelacion-->
 			<ui:include src="../../common/mensajes.xhtml" /> 
 			<h:panelGrid columns="2" styleClass="center" width="100%">
-				<a4j:commandButton action="#{impuestoPage.cambiarEstado}" value="Si" oncomplete="#{rich:component('popupEstado')}.hide()" reRender="lista" />
-				<a4j:commandButton onclick="#{rich:component('popupEstado')}.hide()" value="No" />
+				<p:commandButton action="#{impuestoPage.cambiarEstado}" value="Si" oncomplete="PF('popupEstado').hide()" update="globalForm:lista" />
+				<p:commandButton onclick="PF('popupEstado').hide()" value="No" />
 			</h:panelGrid>
 		</h:panelGrid>
-	</rich:modalPanel>
+	</p:dialog>
 	
 	<!-- Formulario de confirmacion de borrado de informacion-->
-	<rich:modalPanel id="popupBorrar" autosized="true" domElementAttachment="form" minWidth="250">
+	<p:dialog widgetVar="popupBorrar"  id="popupBorrar" autosized="true" minWidth="250">
 		<f:facet name="header">
 			<h:panelGroup><h:outputText value="Confirmación de borrado de información"/></h:panelGroup>
 		</f:facet>
 		<f:facet name="controls">
 			<h:panelGroup>
 				<h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink" id="hidelinkBorrar" height="20" width="20" />
-				<rich:componentControl for="popupBorrar" attachTo="hidelinkBorrar" operation="hide" event="onclick" />
+				<p:commandButton for="popupBorrar" attachTo="hidelinkBorrar" operation="hide" event="onclick" />
 			</h:panelGroup>
 		</f:facet>
 		
@@ -49,21 +51,21 @@
 			<!-- Seccion de mensajes y botones de envio y cancelacion-->
 			<ui:include src="../../common/mensajes.xhtml" /> 
 			<h:panelGrid columns="2" styleClass="center" width="100%">
-				<a4j:commandButton action="#{impuestoPage.borrar}" value="Si" oncomplete="#{rich:component('popupBorrar')}.hide()"  reRender="lista"  />
-				<a4j:commandButton onclick="#{rich:component('popupBorrar')}.hide()" value="No" />
+				<p:commandButton action="#{impuestoPage.borrar}" value="Si" oncomplete="PF('popupBorrar').hide()"  update="globalForm:lista"  />
+				<p:commandButton onclick="PF('popupBorrar').hide()" value="No" />
 			</h:panelGrid>
 		</h:panelGrid>
-	</rich:modalPanel>
+	</p:dialog>
 	
 	<!-- Formulario Modal de creacion y edicion de nuevos registros-->
-	<rich:modalPanel id="editor" autosized="true" domElementAttachment="form">
+	<p:dialog widgetVar="editor" id="editor" autosized="true">
 		<f:facet name="header">
 			<h:panelGroup><h:outputText value="Formulario"/></h:panelGroup>
 		</f:facet>
 		<f:facet name="controls">
 			<h:panelGroup>
 				<h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink" id="hidelink" height="20" width="20" />
-				<rich:componentControl for="editor" attachTo="hidelink" operation="hide" event="onclick" />
+				<p:commandButton for="editor" attachTo="hidelink" operation="hide" event="onclick" />
 			</h:panelGroup>
 		</f:facet>
 		
@@ -78,7 +80,7 @@
 				<h:panelGrid columns="3" >
 					<h:outputText value="Filtro Partida Contable" style="width: 200px; font-weight: bold;"  />
 					<h:inputText value="#{impuestoPage.filtroPUC}" />
-					<a4j:commandButton value="Buscar" action="#{impuestoPage.buscarPartidas }" reRender="informacion" />
+					<p:commandButton value="Buscar" action="#{impuestoPage.buscarPartidas }" update="globalForm:informacion" />
 				</h:panelGrid>
 				<h:panelGrid columns="2" width="100%" rendered="#{!empty impuestoPage.cuentas }">
 					<h:outputText value="Partida Contable" style="width: 200px; font-weight: bold;" />
@@ -90,107 +92,102 @@
 				<!-- Seccion de mensajes y botones de envio y cancelacion-->
 			<ui:include src="../../common/mensajes.xhtml" /> 
 			<h:panelGrid columns="2" styleClass="center" width="100%">
-				<a4j:commandButton action="#{impuestoPage.guardar}" reRender="informacion,lista"  value="Guardar" oncomplete="if (#{impuestoPage.ocultarPopupGuardar}) #{rich:component('editor')}.hide();" />
-				<a4j:commandButton onclick="#{rich:component('editor')}.hide()" value="Cerrar" />
+				<p:commandButton action="#{impuestoPage.guardar}" update="globalForm:informacion,globalForm:lista"  value="Guardar" oncomplete="if (#{impuestoPage.ocultarPopupGuardar}) PF('editor').hide();" />
+				<p:commandButton onclick="PF('editor').hide()" value="Cerrar" />
 			</h:panelGrid>
 		</h:panelGrid>
-	</rich:modalPanel>
+	</p:dialog>
 	
 		<!--Filtro de busqueda	-->
 		<div style="width: 950px;" >
 			<h:panelGrid columns="1" width="100%"><h1 align="center">Impuestos</h1></h:panelGrid>
 			
 			<!-- Panel de opciones -->
-			<rich:panel header="Opciones" style="width: 600px;">
+			<p:panel header="Opciones" style="width: 100%;">
 				<h:panelGrid columns="2" id="filtro">
-					
-					<h:panelGrid columns="1" width="380" >
+
+					<h:panelGrid columns="1" width="380">
 						<!-- Funcionalidad para abrir el editor y crear un nuevo registro-->
-						<a4j:commandButton action="#{impuestoPage.editar}" oncomplete="#{rich:component('editor')}.show()" reRender="editor" value="Nuevo Registro">
-							<a4j:actionparam name="codNuevo" value="0" assignTo="#{impuestoPage.objActual.codigo}" converter="javax.faces.Integer"/>
-						</a4j:commandButton>
+						<p:commandButton action="#{impuestoPage.editar}" oncomplete="PF('editor').show()" update="globalForm:editor" value="Nuevo Registro">
+							<f:setPropertyActionListener for="codNuevo" value="#{0}" target="#{impuestoPage.objActual.codigo}" converter="javax.faces.Integer"/>
+						</p:commandButton>
 					</h:panelGrid>
 					
 					<h:panelGrid columns="2" >
-						<h:inputText value="#{impuestoPage.param}" />
-						<h:commandButton action="#{impuestoPage.buscarPorFiltro}" value="Filtrar" onclick="Richfaces.showModalPanel('statusPanel')" />
+						<p:inputText value="#{impuestoPage.param}" />
+						<p:commandButton action="#{impuestoPage.buscarPorFiltro}" value="Filtrar" onclick="Richfaces.showModalPanel('statusPanel')" />
 					</h:panelGrid>
 				</h:panelGrid> 
-			</rich:panel>
+			</p:panel>
 			
 			<ui:include src="../../common/mensajes.xhtml" /> 
 							
 			<!-- Tabla de registros -->
 			<h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
 				
-				<rich:dataTable value="#{impuestoPage.datos}" var="dato" id="table" rows="15" rendered="#{! empty impuestoPage.datos}" rowKeyVar="rowKey" width="100%"
-				footerClass="row2" onRowMouseOver="this.style.backgroundColor='#9fbdeb'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'" rowClasses="row1, row2">
-					<f:facet name="header">
-						<rich:datascroller fastControls="false" pageIndexVar="pageIndex" pagesVar="pages" style="color:black;" for="table" maxPages="5" renderIfSinglePage="false" 
-						page="#{impuestoPage.scrollPage}" id="up" reRender="lista, filtro" limitToList="true" ajaxSingle="true">
-						</rich:datascroller>
-					</f:facet>
-					<rich:column>
+				<p:dataTable value="#{impuestoPage.datos}" var="dato" id="table" rows="15" rendered="#{! empty impuestoPage.datos}" rowIndexVar="rowKey" width="100%"
+							 footerClass="row2" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
+							 onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"
+							 rowClasses="row1, row2" paginator="true"
+							 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+							 paginatorPosition="top">
+
+					<p:column>
 						<f:facet name="header"><h:outputText value="Fila" /></f:facet>
 						 <h:outputText value="#{rowKey+1}"/>
-					</rich:column>
+					</p:column>
 					
-					<rich:column sortBy="#{dato.nombre}" sortable="true">
+					<p:column sortBy="#{dato.nombre}" sortable="true">
                         <f:facet name="header"><h:outputText value="Nombre" /></f:facet>
                         <h:outputText value="#{dato.nombre}" />
-                    </rich:column>
+                    </p:column>
 
-					<rich:column sortBy="#{dato.valor}" sortable="true">
+					<p:column sortBy="#{dato.valor}" sortable="true">
                         <f:facet name="header"><h:outputText value="Porcentaje" /></f:facet>
                         <h:outputText value="#{dato.valor}" />
-                    </rich:column>
+                    </p:column>
                     
-					<rich:column sortBy="#{dato.partidaContable}" sortable="true">
+					<p:column sortBy="#{dato.partidaContable}" sortable="true">
                         <f:facet name="header"><h:outputText value="Partida Contable" /></f:facet>
                         <h:outputText value="#{dato.partidaContable}" />
-                    </rich:column>
+                    </p:column>
                     
 					<!-- Opcion de cambio de estado-->
-					<rich:column style="text-align: center;">
+					<p:column style="text-align: center;">
 						<f:facet name="header"><h:outputText value="Estado" /></f:facet>
-						<a4j:commandButton value="#{dato.estado eq 'A'? 'Activo': 'Inactivo'}" onclick="#{rich:component('popupEstado')}.show()">
-							<a4j:actionparam name="codCambio" value="#{dato.codigo}" assignTo="#{impuestoPage.objActual.codigo}" converter="javax.faces.Integer"/>
-							<a4j:actionparam name="estadoCambio" value="#{dato.estado}" assignTo="#{impuestoPage.objActual.estado}" />
-						</a4j:commandButton>
-					</rich:column>
+						<p:commandButton value="#{dato.estado eq 'A'? 'Activo': 'Inactivo'}" onclick="PF('popupEstado').show()">
+							<f:setPropertyActionListener for="codCambio" value="#{dato.codigo}" target="#{impuestoPage.objActual.codigo}" converter="javax.faces.Integer"/>
+							<f:setPropertyActionListener for="estadoCambio" value="#{dato.estado}" target="#{impuestoPage.objActual.estado}" />
+						</p:commandButton>
+					</p:column>
 					
 					<!-- Opcion de cambio de editar informacion-->
-					<rich:column style="text-align: center;">
+					<p:column style="text-align: center;">
 						<f:facet name="header"><h:outputText value="Editar" /></f:facet>
-							<a4j:commandButton  action="#{impuestoPage.buscarPartidas }" oncomplete="#{rich:component('editor')}.show()" reRender="editor" image="/common/images/edit.png" alt="Editar">
-							<a4j:actionparam name="cod" value="#{dato.codigo}" assignTo="#{impuestoPage.objActual.codigo}" converter="javax.faces.Integer"/>
-							<a4j:actionparam name="nomImp" value="#{dato.nombre}" assignTo="#{impuestoPage.objActual.nombre}" />
-							<a4j:actionparam name="partContableImp" value="#{dato.partidaContable}" assignTo="#{impuestoPage.objActual.partidaContable}" />
-							<a4j:actionparam name="filtroPUCImpl" value="#{dato.partidaContable}" assignTo="#{impuestoPage.filtroPUC}" />
-							<a4j:actionparam name="contraPartContableImp" value="#{dato.partidaContable}" assignTo="#{impuestoPage.objActual.partidaContable}" />
-							<a4j:actionparam name="valImp" value="#{dato.valor}" assignTo="#{impuestoPage.objActual.valor}" converter="javax.faces.Double"/>
-							<a4j:actionparam name="codEstadoImp" value="#{dato.estado}" assignTo="#{impuestoPage.objActual.estado}" />
-						</a4j:commandButton>
+							<p:commandButton  action="#{impuestoPage.buscarPartidas }" oncomplete="PF('editor').show()" update="globalForm:editor" style="width: 24px; height: 24px; padding: 0; background-image: url('#{request.contextPath}/common/images/edit.png'); background-size: cover; border-radius: 50%;" value="" alt="Editar">
+								<f:setPropertyActionListener for="cod" value="#{dato.codigo}" target="#{impuestoPage.objActual.codigo}" converter="javax.faces.Integer"/>
+								<f:setPropertyActionListener for="nomImp" value="#{dato.nombre}" target="#{impuestoPage.objActual.nombre}" />
+								<f:setPropertyActionListener for="partContableImp" value="#{dato.partidaContable}" target="#{impuestoPage.objActual.partidaContable}" />
+								<f:setPropertyActionListener for="filtroPUCImpl" value="#{dato.partidaContable}" target="#{impuestoPage.filtroPUC}" />
+								<f:setPropertyActionListener for="contraPartContableImp" value="#{dato.partidaContable}" target="#{impuestoPage.objActual.partidaContable}" />
+								<f:setPropertyActionListener for="valImp" value="#{dato.valor}" target="#{impuestoPage.objActual.valor}" converter="javax.faces.Double"/>
+								<f:setPropertyActionListener for="codEstadoImp" value="#{dato.estado}" target="#{impuestoPage.objActual.estado}" />
+						</p:commandButton>
 						
-					</rich:column>
+					</p:column>
 					
 					<!-- Opcion de cambio de borrado-->
-					<rich:column style="text-align: center;">
+					<p:column style="text-align: center;">
 						<f:facet name="header"><h:outputText value="Borrar" /></f:facet>
-						<a4j:commandButton image="/common/images/delete.png" alt="Borrar" onclick="#{rich:component('popupBorrar')}.show()" rendered="#{dato.estado eq 'I'}">
-							<a4j:actionparam name="codBorrar" value="#{dato.codigo}" assignTo="#{impuestoPage.objActual.codigo}" converter="javax.faces.Integer"/>
-						</a4j:commandButton>
-					</rich:column>
+						<p:commandButton image="/common/images/delete.png" alt="Borrar" onclick="PF('popupBorrar'.show()" rendered="#{dato.estado eq 'I'}">
+							<f:setPropertyActionListener  for="codBorrar" value="#{dato.codigo}" target="#{impuestoPage.objActual.codigo}" converter="javax.faces.Integer"/>
+						</p:commandButton>
+					</p:column>
 					
 					<!--	Se muestra la información de la cantidad de registros y la pagina actual	-->
-					<f:facet name="footer">
-						<rich:datascroller style="color:black;" align="center" for="table" page="#{impuestoPage.scrollPage}" boundaryControls="hide" fastControls="hide" stepControls="hide">
-							<f:facet name="pages">
-								<h:outputText value="Visualizando del #{((pageIndex-1)*15)+1 } al #{(pages!=pageIndex)?(pageIndex*15):impuestoPage.totalFilas} de un total de #{impuestoPage.totalFilas} registros." />
-							</f:facet>
-						</rich:datascroller>
-					</f:facet>
-				</rich:dataTable>
+
+				</p:dataTable>
 			</h:panelGrid>
 		</div>
 	</ui:define>
