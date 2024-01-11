@@ -26,7 +26,7 @@
 			<!-- Seccion de mensajes y botones de envio y cancelacion-->
 			<ui:include src="../../common/mensajes.xhtml" /> 
 			<h:panelGrid columns="2" styleClass="center" width="100%">
-				<p:commandButton action="#{impuestoPage.cambiarEstado}" value="Si" oncomplete="PF('popupEstado').hide()" update="globalForm:lista" />
+				<p:commandButton action="#{impuestoPage._cambiarEstado()}" value="Si" oncomplete="PF('popupEstado').hide()" update="globalForm:lista" />
 				<p:commandButton onclick="PF('popupEstado').hide()" value="No" />
 			</h:panelGrid>
 		</h:panelGrid>
@@ -101,7 +101,7 @@
 		<!--Filtro de busqueda	-->
 		<div style="width: 950px;" >
 			<h:panelGrid columns="1" width="100%"><h1 align="center">Impuestos</h1></h:panelGrid>
-			
+
 			<!-- Panel de opciones -->
 			<p:panel header="Opciones" style="width: 100%;">
 				<h:panelGrid columns="2" id="filtro">
@@ -180,8 +180,9 @@
 					<!-- Opcion de cambio de borrado-->
 					<p:column style="text-align: center;">
 						<f:facet name="header"><h:outputText value="Borrar" /></f:facet>
-						<p:commandButton image="/common/images/delete.png" alt="Borrar" onclick="PF('popupBorrar'.show()" rendered="#{dato.estado eq 'I'}">
-							<f:setPropertyActionListener  for="codBorrar" value="#{dato.codigo}" target="#{impuestoPage.objActual.codigo}" converter="javax.faces.Integer"/>
+						<p:commandButton style="width: 24px; height: 24px; padding: 0; background-image: url('#{request.contextPath}/common/images/delete.png'); background-size: cover; border-radius: 50%;"
+										 value="" alt="Borrar" onclick="PF('popupBorrar'.show()" rendered="#{dato.estado eq 'I'}">
+							<f:setPropertyActionListener for="codBorrar" value="#{dato.codigo}" target="#{impuestoPage.objActual.codigo}" converter="javax.faces.Integer"/>
 						</p:commandButton>
 					</p:column>
 					

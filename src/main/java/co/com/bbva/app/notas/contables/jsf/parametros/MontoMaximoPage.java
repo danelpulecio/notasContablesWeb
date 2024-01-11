@@ -5,9 +5,11 @@ import co.com.bbva.app.notas.contables.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.inject.Named;
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -24,7 +26,13 @@ public class MontoMaximoPage extends GeneralParametrosPage<MontoMaximo, MontoMax
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(MontoMaximoPage.class);
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
+	@PostConstruct
+	public void init() throws Exception {
+		super._init();
+		setDatos(new ArrayList<>(_buscarTodos()));
+		LOGGER.info("postConstructo datos {}", getDatos().size());
+	}
 
 	public MontoMaximoPage() {
 		super(true);
@@ -81,15 +89,15 @@ public class MontoMaximoPage extends GeneralParametrosPage<MontoMaximo, MontoMax
 		int codInicial = objActual.getCodigo();
 		try {
 			if (objActual.getCodigo() <= 0) {
-				LOGGER.info("{} Crea monto maximo: {}", session.getTraceLog(),objActual.getNombre()+" "+objActual.getDivisa()+" "+ objActual.getMontoMaximo() );
+				LOGGER.info("{} Crea monto maximo: {}", objActual.getNombre()+" "+objActual.getDivisa()+" "+ objActual.getMontoMaximo() );
 				notasContablesManager.addMontoMaximo(objActual, getCodUsuarioLogueado());
 			} else {
-				LOGGER.info("{} Actualiza monto maximo: {}", session.getTraceLog(), objActual.getCodigo()+" "+ objActual.getNombre()+" "+objActual.getDivisa()+" "+ objActual.getMontoMaximo() );
+				LOGGER.info("{} Actualiza monto maximo: {}", objActual.getCodigo()+" "+ objActual.getNombre()+" "+objActual.getDivisa()+" "+ objActual.getMontoMaximo() );
 				notasContablesManager.updateMontoMaximo(objActual, getCodUsuarioLogueado());
 			}
 		} catch (Exception e) {
 			objActual.setCodigo(codInicial);
-			LOGGER.error("{} Ya existe un Monto Mximo con el mismo tipo de moneda: {}", session.getTraceLog(), codInicial , e );
+			LOGGER.error("{} Ya existe un Monto Mximo con el mismo tipo de moneda: {}", codInicial , e );
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Ya existe un Monto Mximo con el mismo tipo de moneda");
 			return false;
 		}
@@ -111,8 +119,9 @@ public class MontoMaximoPage extends GeneralParametrosPage<MontoMaximo, MontoMax
 	 */
 	@Override
 	public boolean _cambiarEstado() throws Exception {
-		LOGGER.info("{} Cambia estado monto maximo: {}", session.getTraceLog(), notasContablesManager.getMontoMaximo(objActual).getCodigo()+" "+ notasContablesManager.getMontoMaximo(objActual).getEstado() );
+		LOGGER.info("{} Cambia estado monto maximo: {}", notasContablesManager.getMontoMaximo(objActual).getCodigo()+" "+ notasContablesManager.getMontoMaximo(objActual).getEstado() );
 		notasContablesManager.changeEstadoMontoMaximo(notasContablesManager.getMontoMaximo(objActual), getCodUsuarioLogueado());
+		setDatos(new ArrayList<>(_buscarTodos()));
 		return true;
 	}
 
@@ -123,7 +132,7 @@ public class MontoMaximoPage extends GeneralParametrosPage<MontoMaximo, MontoMax
 	 */
 	@Override
 	public boolean _borrar() throws Exception {
-		LOGGER.info("{} Borra monto maximo: {}", session.getTraceLog(), objActual.getCodigo() );
+		LOGGER.info("{} Borra monto maximo: {}", objActual.getCodigo() );
 		notasContablesManager.deleteMontoMaximo(objActual, getCodUsuarioLogueado());
 		return true;
 	}

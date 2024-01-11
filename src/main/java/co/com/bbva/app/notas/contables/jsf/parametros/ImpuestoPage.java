@@ -166,10 +166,10 @@ public class ImpuestoPage extends GeneralParametrosPage<Impuesto, Impuesto> {
      */
     @Override
     public boolean _cambiarEstado() throws Exception {
-        LOGGER.info("{}  impuesto: {}",  notasContablesManager.getImpuesto(objActual).getCodigo());
         LOGGER.info("{} Cambia estado impuesto: {}",  notasContablesManager.getImpuesto(objActual).getCodigo() + " " + notasContablesManager.getImpuesto(objActual).getNombre() + " " + notasContablesManager.getImpuesto(objActual).getEstado());
         notasContablesManager.changeEstadoImpuesto(notasContablesManager.getImpuesto(objActual), getCodUsuarioLogueado());
 
+        setDatos(new ArrayList<>(_buscarTodos()));
         return true;
     }
 
