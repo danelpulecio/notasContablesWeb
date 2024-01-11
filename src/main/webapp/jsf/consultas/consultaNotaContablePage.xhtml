@@ -17,14 +17,8 @@
         <ui:include src="../notacontable/flujoAnexoNotaContablePage.xhtml"/>
         <!-- fin gp12833 - aseguramiento anexos -->
 
-<<<<<<< HEAD
         <!--Filtro de busqueda  -->
         <div style="width: auto;">
-=======
-        <!--Filtro de busqueda	-->
-        <div style="width: 990px;">
->>>>>>> 00e7ff6c2ba6b5a272725c330b872df3e914ad3f
-
             <h:panelGrid columns="1" width="100%">
                 <h1 align="center">Notas Contables</h1>
             </h:panelGrid>
@@ -98,62 +92,23 @@
                         <h:outputText value="#{dato.rol.nombre}"/>
                     </p:column>
                     <p:column headerText="Fecha Asignación" sortable="true" sortBy="#{dato.ultimaActualizacionTs}" width="80px;" >
-=======
-                    <p:column headerText="Número Radicación" sortable="true" sortBy="#{dato.NC.numeroRadicacion}">
-                        <h:outputText value="#{dato.NC.numeroRadicacion}"/>
-                    </p:column>
-                    <p:column headerText="Sucursal Origen" sortable="true" sortBy="#{dato.sucursal.codigo}">
-                        <h:panelGrid columns="2">
-                            <h:outputText value="#{dato.sucursal.codigo}"/>
-                            <h:outputText value="#{dato.sucursal.nombre}"/>
-                        </h:panelGrid>
-                    </p:column>
-                    <p:column headerText="Concepto">
-                        <h:outputText
-                                value="#{dato.NC.tipoNota eq 'C' ? 'Referencia de Cruce' : (dato.NC.tipoNota eq 'R' ? dato.concepto.nombre : 'Contabilidad Libre')}"/>
-                    </p:column>
-                    <p:column headerText="Usuario Asignado" sortable="true" sortBy="#{dato.usuMod.codigoEmpleado}">
-                        <h:outputText value="#{dato.usuMod.codigoEmpleado}"/>
-                    </p:column>
-                    <p:column headerText="Área" sortable="true" sortBy="#{dato.usuMod.codigoAreaModificado}">
-                        <h:panelGrid columns="2">
-                            <h:outputText value="#{dato.usuMod.codigoAreaModificado}"/>
-                            <h:outputText value="#{dato.usuMod.nombreAreaModificado}"/>
-                        </h:panelGrid>
-                    </p:column>
-                    <p:column headerText="Perfil" sortable="true" sortBy="#{dato.rol.nombre}">
-                        <h:outputText value="#{dato.rol.nombre}"/>
-                    </p:column>
-                    <p:column headerText="Fecha Asignación" sortable="true" sortBy="#{dato.ultimaActualizacionTs}">
->>>>>>> 00e7ff6c2ba6b5a272725c330b872df3e914ad3f
                         <h:outputText value="#{dato.ultimaActualizacionTs}">
                             <f:convertDateTime timeZone="GMT-5" locale="es" pattern="dd-MMM-yyyy hh:mm:ss"/>
                         </h:outputText>
                     </p:column>
-<<<<<<< HEAD
+
                     <p:column headerText="Estado" sortable="true" sortBy="#{dato.nombreEstado}" width="70px;">
-=======
-                    <p:column headerText="Estado" sortable="true" sortBy="#{dato.nombreEstado}">
->>>>>>> 00e7ff6c2ba6b5a272725c330b872df3e914ad3f
                         <h:outputText value="#{dato.nombreEstado}"/>
                     </p:column>
 
                     <!-- gp12833 - aseguramiento anexos -->
-<<<<<<< HEAD
+
                     <p:column headerText="Recuperar Anexos" style="text-align:center;" sortable="true"
                               sortBy="#{dato.nombreEstado}"
                               rendered="#{consultaNotaContablePage.procesoRecuperarAnexos}" width="70px;">
                         <p:commandButton value="Ver" oncomplete="PF('popupAnexosNotaContableVer').show()"
                                          action="#{flujoNotaContablePage.cargarAnexos}"
                                          update="globalForm:popupAnexosNotaContableVer">
-=======
-                    <p:column headerText="Recuperar Anexos" style="text-align: center;" sortable="true"
-                              sortBy="#{dato.nombreEstado}"
-                              rendered="#{consultaNotaContablePage.procesoRecuperarAnexos}">
-                        <p:commandButton value="Ver" oncomplete="PF('popupAnexosNotaContableVer').show()"
-                                         action="#{flujoNotaContablePage.cargarAnexos}"
-                                         update="popupAnexosNotaContableVer">
->>>>>>> 00e7ff6c2ba6b5a272725c330b872df3e914ad3f
                             <f:setPropertyActionListener for="numRadicadoNotaVer" value="#{dato.NC.numeroRadicacion}"
                                                          target="#{flujoNotaContablePage.numeroRadicacion}"/>
                         </p:commandButton>
@@ -186,19 +141,12 @@
                                                          target="#{notaRefCrucePage.nota.codigo}"/>
                         </p:commandButton>
                     </p:column>
-<<<<<<< HEAD
                     <p:column headerText="Flujo Nota Contable" width="75px;" style="text-align:center;"
                               rendered="#{!consultaNotaContablePage.procesoRecuperarAnexos}">
                         <p:commandButton value="Consultar" 
                         				oncomplete="PF('popupFlujo').show()"
                                         action="#{flujoSubPage.consultarFlujo}" 
                                         update="globalForm:popupFlujo">
-=======
-                    <p:column headerText="Flujo Nota Contable" style="text-align: center;"
-                              rendered="#{!consultaNotaContablePage.procesoRecuperarAnexos}">
-                        <p:commandButton value="Consultar" oncomplete="PF('popupFlujo').show()"
-                                         action="#{flujoSubPage.consultarFlujo}" update="popupFlujo">
->>>>>>> 00e7ff6c2ba6b5a272725c330b872df3e914ad3f
                             <f:setPropertyActionListener for="codConsultar" value="#{dato.codigo}"
                                                          target="#{flujoSubPage.actividadRealizada.codigoInstancia}"/>
                         </p:commandButton>
