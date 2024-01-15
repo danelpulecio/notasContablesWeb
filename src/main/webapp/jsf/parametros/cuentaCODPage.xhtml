@@ -57,7 +57,7 @@
                 <h:panelGrid columns="3">
                     <h:outputText value="Cuenta Contable"/>
                     <h:inputText value="#{cuentaCODPage.filtroCuentas }" immediate="true"/>
-                    <p:commandButton value="Buscar" action="#{cuentaCODPage.buscarCuentas }" update="informacion"/>
+                    <p:commandButton value="Buscar" action="#{cuentaCODPage.buscarCuentas }" update="globalForm:informacion,globalForm:growl"/>
                 </h:panelGrid>
                 <h:panelGrid columns="2" rendered="#{!empty cuentaCODPage.cuentas }">
                     <h:outputText value="Descripción"/>
@@ -67,14 +67,16 @@
                 </h:panelGrid>
 
                 <!-- Seccion de mensajes y botones de envio y cancelacion-->
-                <ui:include src="../../common/mensajes.xhtml"/>
                 <h:panelGrid columns="2" styleClass="center" width="100%">
-                    <p:commandButton action="#{cuentaCODPage.guardar}" update="informacion,lista" value="Guardar"
+                    <p:commandButton action="#{cuentaCODPage.guardar}" update="globalForm:informacion,globalForm:lista,globalForm:growl"
+                                     value="Guardar"
                                      oncomplete="if (#{cuentaCODPage.ocultarPopupGuardar}) PF('editor').hide();"/>
                     <p:commandButton onclick="PF('editor').hide()" value="Cerrar"/>
                 </h:panelGrid>
             </h:panelGrid>
         </p:dialog>
+
+        <p:growl id="growl" showDetail="false" life="3000"/>
 
         <!--Filtro de busqueda	-->
         <!--        <div style="width: 950px;">-->

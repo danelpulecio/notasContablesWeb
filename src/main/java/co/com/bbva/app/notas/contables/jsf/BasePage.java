@@ -54,8 +54,8 @@ public abstract class BasePage implements Serializable  {
 		DIR_RECEPCION_ALTAMIRA = context.getInitParameter("DIR_RECEPCION_ALTAMIRA");
 		DIR_TRANSMISION_ALTAMIRA = context.getInitParameter("DIR_TRANSMISION_ALTAMIRA");
 		DIR_CARGA = context.getInitParameter("DIR_CARGA");
-		ACTIVAR_LDAP = "0";
-//		ACTIVAR_LDAP = propiedades.getProperty("activar.ldap");
+//		ACTIVAR_LDAP = "0";
+		ACTIVAR_LDAP = propiedades.getProperty("activar.ldap");
 
 		DIR_SIRO = context.getInitParameter("DIR_SIRO");
 		LOGGER.info("constructor finaliza");

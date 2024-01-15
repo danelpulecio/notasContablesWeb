@@ -27,7 +27,7 @@
                 <h:outputText value="Está seguro que desea cambiar el estado del registro actual?"/>
 
                 <!-- Seccion de mensajes y botones de envio y cancelacion-->
-                <ui:include src="../../common/mensajes.xhtml"/>
+<!--                <ui:include src="../../common/mensajes.xhtml"/>-->
                 <h:panelGrid columns="2" styleClass="center" width="100%">
                     <p:commandButton action="#{enteAutorizadorPage.cambiarEstado}" value="Si"
                                      oncomplete="PF('popupEstado').hide()" update="globalForm:lista"/>
@@ -74,7 +74,7 @@
             </f:facet>
             <f:facet name="controls">
                 <h:panelGroup>
-                    <h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink"
+                    <h:graphicImage value="../../common/images/close.png" alt="cerrar" styleClass="hidelink"
                                     id="hidelink" height="20" width="20"/>
                     <p:commandButton for="editor" attachTo="hidelink" operation="hide" event="onclick"/>
                 </h:panelGroup>
@@ -84,12 +84,12 @@
             <h:panelGrid columns="1" width="650" id="informacion">
                 <h:panelGrid columns="2" width="650" columnClasses="name,value">
                     <h:outputText value="Sucursal"/>
-                    <h:selectOneMenu value="#{enteAutorizadorPage.objActual.codigoSucursal}" immediate="true">
+                    <p:selectOneMenu value="#{enteAutorizadorPage.objActual.codigoSucursal}" immediate="true">
                         <p:ajax event="change" listener="#{enteAutorizadorPage.cambiarSucursal}" status="status"
-                                update="globalForm:informacion"/>
+                                update="globalForm:informacion,globalForm:growl"/>
                         <f:selectItem itemValue="-" itemLabel="Seleccione una opcion"/>
                         <f:selectItems value="#{enteAutorizadorPage.sucursales}"/>
-                    </h:selectOneMenu>
+                    </p:selectOneMenu>
 
                     <h:outputText value="Usuario" rendered="#{! empty enteAutorizadorPage.usuarios}"/>
                     <h:selectOneMenu value="#{enteAutorizadorPage.usuarioSel}" immediate="true"
@@ -100,17 +100,17 @@
                 </h:panelGrid>
 
                 <!-- Seccion de mensajes y botones de envio y cancelacion-->
-                <ui:include src="../../common/mensajes.xhtml"/>
                 <h:panelGrid columns="2" styleClass="center" width="100%">
                     <p:commandButton action="#{enteAutorizadorPage.guardar}"
-                                     update="globalForm:informacion, globalForm:lista" value="Guardar"
+                                     update="globalForm:informacion, globalForm:lista, globalForm:growl "
+                                     value="Guardar"
                                      oncomplete="if (#{enteAutorizadorPage.ocultarPopupGuardar}) PF('editor').hide();"
                                      rendered="#{! empty enteAutorizadorPage.usuarios}"/>
                     <p:commandButton onclick="PF('editor').hide()" value="Cerrar"/>
                 </h:panelGrid>
             </h:panelGrid>
         </p:dialog>
-
+        <p:growl id="growl" showDetail="false" life="3000"/>
         <!--Filtro de busqueda	-->
         <div style="width: 950px;">
             <h:panelGrid columns="1" width="100%"><h1 align="center">Entes Autorizadores</h1></h:panelGrid>
@@ -131,7 +131,7 @@
 
                     <h:panelGrid columns="2">
                         <h:inputText value="#{enteAutorizadorPage.param}"/>
-                        <h:commandButton action="#{enteAutorizadorPage.buscarPorFiltro}" value="Filtrar"
+                        <p:commandButton action="#{enteAutorizadorPage.buscarPorFiltro}" value="Filtrar"
                                          onclick="Richfaces.showModalPanel('statusPanel')"/>
                     </h:panelGrid>
                 </h:panelGrid>
@@ -206,8 +206,10 @@
                         <f:facet name="header">
                             <h:outputText value="Borrar"/>
                         </f:facet>
-                        <p:commandButton  style="width: 24px; height: 24px; padding: 0; background-image: url('#{request.contextPath}/common/images/delete.png'); background-size: cover; border-radius: 50%;" value="" alt="Borrar"
-                                          onclick="PF('popupBorrar').show()" render="#{dato.estado eq 'I'}">
+                        <p:commandButton
+                                style="width: 24px; height: 24px; padding: 0; background-image: url('#{request.contextPath}/common/images/delete.png'); background-size: cover; border-radius: 50%;"
+                                value="" alt="Borrar"
+                                onclick="PF('popupBorrar').show()" render="#{dato.estado eq 'I'}">
                             <f:setPropertyActionListener name="codBorrar" value="#{dato.codigo}"
                                                          target="#{enteAutorizadorPage.objActual.codigo}"
                                                          converter="javax.faces.Integer"/>

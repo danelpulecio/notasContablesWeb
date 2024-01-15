@@ -69,7 +69,7 @@
         </p:dialog>
 
         <!-- Formulario Modal de creacion y edicion de nuevos registros-->
-        <p:dialog id="editor" widgetVar="editor" autosized="true">
+        <p:dialog id="editor" widgetVar="editor">
             <f:facet name="header">
                 <h:panelGroup>
                     <h:outputText value="Nuevo Registro"/>
@@ -89,16 +89,19 @@
                 </h:panelGrid>
 
                 <!-- Seccion de mensajes y botones de envio y cancelacion-->
-                <ui:include src="../../common/mensajes.xhtml"/>
+<!--                <ui:include src="../../common/mensajes.xhtml"/>-->
                 <h:panelGrid columns="2" styleClass="center" width="100%">
-                    <p:commandButton action="#{causalDevolucionPage.guardar}" update="informacion,table"
+                    <p:commandButton action="#{causalDevolucionPage.guardar}"
+                                     update="globalForm:informacion,globalForm:table, globalForm:growl"
                                      value="Guardar"
-                                     oncomplete="if (#{causalDevolucionPage.ocultarPopupGuardar}) PF('editor').hide();"/>
+                                     oncomplete="if (#{causalDevolucionPage.ocultarPopupGuardar})  PF('editor').hide(); "/>
                     <p:commandButton onclick="PF('editor').hide()" value="Cerrar"/>
 
                 </h:panelGrid>
             </h:panelGrid>
         </p:dialog>
+
+        <p:growl id="growl" showDetail="false" life="3000" />
 
         <!--Filtro de busqueda	-->
         <h:panelGrid columns="1" width="100%">

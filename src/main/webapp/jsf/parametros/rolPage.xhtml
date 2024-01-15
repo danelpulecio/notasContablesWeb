@@ -56,12 +56,13 @@
 				<!-- Seccion de mensajes y botones de envio y cancelacion-->
 				<ui:include src="../../common/mensajes.xhtml" /> 
 				<h:panelGrid columns="2" styleClass="center" width="100%">
- 					<p:commandButton action="#{rolPage.guardar}" update="globalForm:informacion,globalForm:lista"  value="Guardar" oncomplete="if (#{rolPage.ocultarPopupGuardar}) PF('editor').hide();" />
+ 					<p:commandButton action="#{rolPage.guardar}" update="globalForm:informacion,globalForm:lista,globalForm:growl"
+									 value="Guardar" oncomplete="if (#{rolPage.ocultarPopupGuardar}) PF('editor').hide();" />
  					<h:commandButton onclick="PF('editor').hide()" value="Cerrar" />
 				</h:panelGrid>
 			</h:panelGrid>
 		</p:dialog>
-	
+		<p:growl id="growl" showDetail="false" life="3000"/>
 		<!--Filtro de busqueda	-->
 		<div style="width: 950px;" >
 			<h:panelGrid columns="1" width="100%"><h1 align="center">Roles</h1></h:panelGrid>
@@ -70,9 +71,10 @@
 			<p:panel header="Opciones" style="width: 100%;">
 				<h:panelGrid columns="1" id="filtro">
 
-					<h:panelGrid columns="1" width="380">
+					<h:panelGrid columns="2" width="380">
 						<p:inputText value="#{rolPage.param}" />
-						<p:commandButton action="#{rolPage.buscarPorFiltro}" value="Filtrar" onclick="Richfaces.showModalPanel('statusPanel')" />
+						<p:commandButton action="#{rolPage.buscarPorFiltro}" value="Filtrar"
+										 onclick="Richfaces.showModalPanel('statusPanel')" />
 					</h:panelGrid>
 				</h:panelGrid> 
 			</p:panel>

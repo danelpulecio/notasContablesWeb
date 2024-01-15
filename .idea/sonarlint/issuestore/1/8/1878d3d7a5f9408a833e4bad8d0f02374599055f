@@ -1,8 +1,27 @@
 
-p
-java:S2293¦"YReplace the type specification in this constructor call with the diamond operator ("<>").(ÃÍæ„
-p
-java:S2293§"YReplace the type specification in this constructor call with the diamond operator ("<>").(“ÄÜû
-V	java:S125$"<This block of commented-out lines of code should be removed.(‘ÆÎÓûÿÿÿÿ
-g
-java:S1128"LRemove this unused import 'co.com.bbva.app.notas.contables.session.Session'.(•Ö¥åøÿÿÿÿ
+w
+java:S2293«"YReplace the type specification in this constructor call with the diamond operator ("<>").(ÃÍæ„8Ò‚ÙõÏ1
+w
+java:S2293¬"YReplace the type specification in this constructor call with the diamond operator ("<>").(“ÄÜû8Ó‚ÙõÏ1
+]	java:S125 "<This block of commented-out lines of code should be removed.(‘ÆÎÓûÿÿÿÿ8ã‚ÙõÏ1
+]	java:S1259"<This block of commented-out lines of code should be removed.(¼üÁëøÿÿÿÿ8å‚ÙõÏ1
+7
+java:S3457P"Not enough arguments.(­Š°öşÿÿÿÿ8å‚ÙõÏ1
+2
+java:S3457d"Not enough arguments.(âß„’8æ‚ÙõÏ1
+2
+java:S3457h"Not enough arguments.(·àùÄ8ç‚ÙõÏ1
+8
+java:S3457"Not enough arguments.(ØÈšŞûÿÿÿÿ8è‚ÙõÏ1
+8
+java:S3457"Not enough arguments.(‹Åš¨ıÿÿÿÿ8é‚ÙõÏ1
+8
+java:S3457¡"Not enough arguments.(è‘í»ıÿÿÿÿ8ê‚ÙõÏ1
+Y	java:S125©"<This block of commented-out lines of code should be removed.(„óº¬8ê‚ÙõÏ1
+P
+java:S1135©"2Complete the task associated to this TODO comment.(„óº¬8ê‚ÙõÏ1
+8
+java:S3457²"Not enough arguments.(®¥ôÁøÿÿÿÿ8ë‚ÙõÏ1
+^	java:S125µ"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ8ë‚ÙõÏ1
+n
+java:S1128"LRemove this unused import 'co.com.bbva.app.notas.contables.session.Session'.(•Ö¥åøÿÿÿÿ8ì‚ÙõÏ1

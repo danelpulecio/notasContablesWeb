@@ -16,7 +16,7 @@
             </f:facet>
             <f:facet name="controls">
                 <h:panelGroup>
-                    <h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink"
+                    <h:graphicImage value="../../common/images/close.png" alt="cerrar" styleClass="hidelink"
                                     id="hidelinkEstado" height="20" width="20"/>
                     <p:commandButton for="popupEstado" attachTo="hidelinkEstado" operation="hide" event="onclick"/>
                 </h:panelGroup>
@@ -123,16 +123,17 @@
                 </h:panelGrid>
 
                 <!-- Seccion de mensajes y botones de envio y cancelacion-->
-                <ui:include src="../../common/mensajes.xhtml"/>
+<!--                <ui:include src="../../common/mensajes.xhtml"/>-->
                 <h:panelGrid columns="2" styleClass="center" width="100%">
                     <p:commandButton action="#{montoAutorizadoGeneralPage.guardar}"
-                                     update="globalForm:informacion,globalForm:lista" value="Guardar"
+                                     update="globalForm:informacion,globalForm:lista,globalForm:growl"
+                                     value="Guardar"
                                      oncomplete="if (#{montoAutorizadoGeneralPage.ocultarPopupGuardar}) PF('editor').hide();"/>
                     <p:commandButton onclick="PF('editor').hide()" value="Cerrar"/>
                 </h:panelGrid>
             </h:panelGrid>
         </p:dialog>
-
+        <p:growl id="growl" showDetail="false" life="3000" />
         <!--Filtro de busqueda  -->
         <div style="width: 950px;">
             <h:panelGrid columns="1" width="100%"><h1 align="center">Montos Autorizados Generales</h1></h:panelGrid>
