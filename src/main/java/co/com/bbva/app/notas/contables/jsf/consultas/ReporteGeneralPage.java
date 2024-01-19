@@ -18,6 +18,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.*;
 
+@Named
+@SessionScoped
 public class ReporteGeneralPage extends GeneralConsultaPage<Instancia> {
 
 	@Inject

@@ -1,37 +1,30 @@
 package co.com.bbva.app.notas.contables.jsf.adminnota;
 
-import co.com.bbva.app.notas.contables.carga.dto.Sucursal;
-import co.com.bbva.app.notas.contables.dto.Rol;
-import co.com.bbva.app.notas.contables.dto.UsuarioInstancias;
-import co.com.bbva.app.notas.contables.jsf.beans.ContablesSessionBean;
-import co.com.bbva.app.notas.contables.jsf.consultas.GeneralConsultaPage;
-import co.com.bbva.app.notas.contables.session.Session;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.enterprise.context.SessionScoped;
-import javax.enterprise.inject.Produces;
-import javax.faces.application.FacesMessage;
-import javax.faces.model.SelectItem;
-import javax.inject.Inject;
-import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.model.SelectItem;
+import javax.inject.Named;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import co.com.bbva.app.notas.contables.carga.dto.Sucursal;
+import co.com.bbva.app.notas.contables.dto.Rol;
+import co.com.bbva.app.notas.contables.dto.UsuarioInstancias;
+import co.com.bbva.app.notas.contables.jsf.consultas.GeneralConsultaPage;
 
 @SessionScoped
 @Named
 public class CargaUsuarioPage extends GeneralConsultaPage<UsuarioInstancias> {
 
-	@Inject
-	private ContablesSessionBean contablesSessionBean;
-	private String saludo;
-
-	@Produces
-	public String getSaludo() {
-		return "Hola Soy Goku";
-	}
-
+//	@Inject
+//	private ContablesSessionBean contablesSessionBean;
+	
 	private static final long serialVersionUID = -6709113217662690209L;
 
 	private List<SelectItem> sucursales = new ArrayList<SelectItem>();
@@ -43,17 +36,22 @@ public class CargaUsuarioPage extends GeneralConsultaPage<UsuarioInstancias> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CargaUsuarioPage.class);
 
-//	Session session = getContablesSessionBean().getSessionTrace();
-
 	public CargaUsuarioPage() {
 		super();
 	}
 
-	@Override
-	protected void _init() {
-		super._init();
-		cargarFiltros();
+	@PostConstruct
+	public void init() throws Exception {
+	    super._init();
+	    cargarFiltros();
 	}
+	
+
+//	@Override
+//	protected void _init() {
+//		super._init();
+//		cargarFiltros();
+//	}
 
 	public void cargarFiltros() {
 		try {
@@ -62,8 +60,7 @@ public class CargaUsuarioPage extends GeneralConsultaPage<UsuarioInstancias> {
 				roles = getSelectItemList(notasContablesManager.getCV(Rol.class), false);
 			}
 		} catch (final Exception e) {
-
-//			LOGGER.error("{} Ocurrio un error al inicializar el mdulo de carga por usuario ", session.getTraceLog(), e);
+			LOGGER.error("{} Ocurrio un error al inicializar el mdulo de carga por usuario ", e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Ocurrio un error al inicializar el mdulo de carga por usuario");
 
 		}
@@ -118,7 +115,7 @@ public class CargaUsuarioPage extends GeneralConsultaPage<UsuarioInstancias> {
 
 	public String getSucursal() {
 		return sucursal;
-	}
+	}	
 
 	public void setSucursal(String sucursal) {
 		this.sucursal = sucursal;

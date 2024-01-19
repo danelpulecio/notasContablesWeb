@@ -10,6 +10,7 @@
 				function isDayEnabledNC(day){
 					var fechaMin = document.getElementById('globalForm:fechaMin').value;
 					var fechaMax = document.getElementById('globalForm:fechaMax').value;
+					
 				   	var min=new Date();
 				   	min.setFullYear(parseInt(fechaMin.substring(6, 10), 10),parseInt(fechaMin.substring(3, 5), 10)-1,parseInt(fechaMin.substring(0, 2), 10)-1);
 				   	var max=new Date();
@@ -38,16 +39,6 @@
 					return false;
 				}
 				
-				function getDisabledStyleNC(day){
-				   if (!isDayEnabledNC(day)) return 'rich-calendar-boundary-dates disabledDay';
-				}
-
-				function getDisabledStyleRiesgoNC(day){
-				   if (!isDayEnabledRiesgoNC(day)){ 
-				   		return 'rich-calendar-boundary-dates disabledDay';
-				   }
-				}
-				
 				function validarMontoAlert(value){
 					var alertCOP = parseFloat(document.getElementById('globalForm:montoAlertaCOP').value);
 					var alertEXT = parseFloat(document.getElementById('globalForm:montoAlertaEXT').value);
@@ -70,7 +61,7 @@
 </style>
 	</h:head>
 	<!-- Formulario de confirmacion de anulacion-->
-	<p:dialog id="popupAnularNota" widgetVar="popupAnularNota" autosized="true" domElementAttachment="form" width="250">
+	<p:dialog id="popupAnularNota" widgetVar="popupAnularNota" autosized="true" domElementAttachment="form" width="250"  showEffect="fade" hideEffect="explode" modal="true">
 		<f:facet name="header">
 			<h:panelGroup>
 				<h:outputText value="Confirmación de anulación" />
@@ -78,7 +69,7 @@
 		</f:facet>
 		<f:facet name="controls">
 			<h:panelGroup>
-				<h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink" id="hidelinkAnularNota" height="20" width="20" />
+				<h:graphicImage value="../../../common/images/close.png" alt="cerrar" sty3leClass="hidelink" id="hidelinkAnularNota" height="20" width="20"/>
 			</h:panelGroup>
 		</f:facet>
 
@@ -88,6 +79,7 @@
 
 			<!-- Seccion de mensajes y botones de envio y cancelacion-->
 			<ui:include src="../../common/mensajes.xhtml" />
+			
 			<h:panelGrid columns="2" styleClass="center" width="100%">
 				<p:commandButton action="#{notaContablePage.anular}" value="Si"
 					oncomplete="if (#{!notaContablePage.nota.puedeAnular}) {PF('popupAnularNota').hide(); PF('popupNotaContable').hide();}"
@@ -97,7 +89,7 @@
 		</h:panelGrid>
 	</p:dialog>
 	<!-- Formulario Modal de creacion y edicion de temas por concepto-->
-	<p:dialog id="editor" widgetVar="editor" domElementAttachment="form" autosized="true" minHeight="200" minWidth="840">
+	<p:dialog id="editor" widgetVar="editor" domElementAttachment="form" autosized="true" minHeight="200" minWidth="840"  showEffect="fade" hideEffect="explode" modal="true">
 		<f:facet name="header">
 			<h:panelGroup>
 				<h:outputText styleClass="bold" value="Tema: #{notaContablePage.temaActual.tema.nombre}" />
@@ -108,6 +100,8 @@
 		<h:inputHidden id="montoAlertaCOP" value="#{notaContablePage.montoAlertaCOP}" />
 		<h:inputHidden id="montoAlertaEXT" value="#{notaContablePage.montoAlertaEXT}" />
 
+		<p:growl id="msgs" showDetail="false" skipDetailIfEqualsSummary="true"/>
+		
 		<!-- Campos del formulario -->
 		<h:panelGrid columns="1" width="840" id="informacion" cellpadding="0" cellspacing="0">
 			<h:panelGroup>
@@ -116,18 +110,20 @@
 
 						<h:panelGrid columns="4" width="100%" cellpadding="0" cellspacing="2">
 							<h:outputText styleClass="bold" value="Fecha Contable" />
-							<p:calendar id="fecha" value="#{notaContablePage.temaActual.fechaContable}" isDayEnabled="isDayEnabledNC" dayStyleClass="getDisabledStyleNC" immediate="true">
-								
-								<p:ajax event="dateSelect" listener="#{notaContablePage.validarFecha}" update="globalForm:fecha"/>
-
+							
+							<p:calendar id="fecha" value="#{notaContablePage.temaActual.fechaContablePF}" immediate="false" >
+								<p:ajax event="dateSelect" listener="#{notaContablePage.validarFecha}" update="globalForm:fecha,globalForm:msgs"/>
 							</p:calendar>
+							
 							<p:commandButton action="#{notaContablePage.cargarModalRiesgo}" 
 								value="Riesgo Operacional" 
-								oncomplete="PF('modalRiesgo').show()" update="globalForm:modalRiesgo"
+								oncomplete="PF('modalRiesgo').show()" 
+								update="globalForm:modalRiesgo"
 								rendered="#{notaContablePage.temaActual.tema.riesgoOperacional eq 'S'}">
 							</p:commandButton>
 							<p:commandButton value="Agregar Soportes" 
-								oncomplete="PF('modalSoportes').show()" update="globalForm:modalSoportes"
+								oncomplete="PF('modalSoportes').show()" 
+								update="globalForm:modalSoportes"
 								rendered="#{notaContablePage.nota.concepto.soportes eq 'S'}" />
 						</h:panelGrid>
 						<h:panelGrid columns="2" width="100%" cellpadding="0" cellspacing="3" style="height: 100%;" styleClass="aligntop">
@@ -145,10 +141,13 @@
 										<h:outputText styleClass="bold" value="Sucursal Destino" />
 										<h:outputText styleClass="bold" value="#{notaContablePage.usuarioLogueado.sucursal.codigo} #{notaContablePage.usuarioLogueado.sucursal.nombre}"
 											rendered="#{notaContablePage.nota.concepto.origenDestino eq 'S'}" />
-										<h:selectOneMenu value="#{notaContablePage.temaActual.codigoSucursalDestinoPartida}" immediate="true" rendered="#{notaContablePage.nota.concepto.origenDestino eq 'N'}"
+										<h:selectOneMenu value="#{notaContablePage.temaActual.codigoSucursalDestinoPartida}" immediate="true" 
+											rendered="#{notaContablePage.nota.concepto.origenDestino eq 'N'}"
 											style="width: 280px;">
+											
 											<p:ajax event="change" listener="#{notaContablePage.cambiarSucursalPartida}" 
 												update="globalForm:sucursalPartida,globalForm:sucursalContraPartida" />
+												
 											<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
 											<f:selectItems value="#{notaContablePage.sucursalesPartida}" />
 										</h:selectOneMenu>
@@ -157,15 +156,18 @@
 										<h:inputText value="#{notaContablePage.temaActual.referencia1}" rendered="#{notaContablePage.temaActual.tema.referencia1 eq 'S'}" maxlength="12" size="12"
 											onkeypress="return onKeyPressNumbersNoZero(event, this.value)" />
 									</h:panelGrid>
+									
 									<p:panel header="Tercero" rendered="#{notaContablePage.temaActual.tema.tercero1 eq 'S'}" style="width:100%; ">
 										<h:panelGrid columns="2" id="documentoTercero1">
+											
 											<h:outputText styleClass="bold" value="Tipo de documento" />
+											
 											<h:selectOneMenu value="#{notaContablePage.temaActual.tipoIdentificacion1}" immediate="true">
-												<p:ajax event="change" listener="#{notaContablePage.cambiarSucursalPartida}" 
-													update="globalForm:filtroTercero1,globalForm:tercero1" >
-													<f:setPropertyActionListener value=""
-	                                                         target="#{notaContablePage.temaActual.nombreCompleto1}"/>
+												
+												<p:ajax event="change" update="globalForm:filtroTercero1,globalForm:tercero1" >
+													<f:setPropertyActionListener value="" target="#{notaContablePage.temaActual.nombreCompleto1}"/>
 												</p:ajax>
+												
 												<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
 												<f:selectItems value="#{notaContablePage.tiposDoc}" />
 											</h:selectOneMenu>
@@ -179,11 +181,12 @@
 												</p:ajax>
 												
 												</h:inputText>
+												
 												<h:panelGrid columns="1" id="filtroTercero1" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
 													<p:commandButton action="#{notaContablePage.buscarTercero1}" 
 														update="globalForm:documentoTercero1,globalForm:tercero1,globalForm:documentoTercero2,globalForm:tercero2" 
 														style="margin: 0; margin-left: 8px;"
-																	   value="Buscar" status="status" rendered="#{!empty notaContablePage.temaActual.tipoIdentificacion1 and !empty notaContablePage.temaActual.numeroIdentificacion1}" />
+														value="Buscar" status="status" rendered="#{!empty notaContablePage.temaActual.tipoIdentificacion1 and !empty notaContablePage.temaActual.numeroIdentificacion1}" />
 												</h:panelGrid>
 											</h:panelGrid>
 										</h:panelGrid>
@@ -378,7 +381,9 @@
 							</p:dataTable>
 						</h:panelGrid>
 						<!-- seccion de soportes -->
-						<p:dialog id="modalSoportes" widgetVar="modalSoportes" domElementAttachment="form" autosized="true">
+						<p:dialog id="modalSoportes" widgetVar="modalSoportes" domElementAttachment="form" 
+							autosized="true"  showEffect="fade" hideEffect="explode" 
+							modal="false">
 							<f:facet name="header">
 								<h:panelGroup>
 									<h:outputText styleClass="bold" value="Subir soportes para el tema: #{notaContablePage.temaActual.tema.nombre}" />
@@ -387,25 +392,22 @@
 							<f:facet name="controls">
 								<h:panelGroup>
 									<h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink" id="hidelinkSoportes" height="20" width="20" />
+									<p:commandButton value="close" onclick="hidelinkSoportes.hide();" />
 								</h:panelGroup>
 							</f:facet>
 							<h:panelGrid width="550">
 								<h:panelGrid columns="1" width="100%">
-									<p:fileUpload listWidth="100%" 
-										fileUploadListener="#{notaContablePage.listener}" 
-										id="upload" acceptedTypes="*" 
-										uploadControlLabel="Enviar"
-										cancelEntryControlLabel="Cancelar" 
-										immediateUpload="true" 
-										addControlLabel="Agregar" 
-										clearAllControlLabel="Limpiar Reporte de Carga" 
-										clearControlLabel=""
-										doneLabel="El archivo ha sido enviado satisfactoriamente al servidor" 
-										progressLabel="Procesando..." transferErrorLabel="Error transfiriendo el archivo"
-										sizeErrorLabel="El archivo supera el límite permitido (200 KB)">
-															
-										<!--<a4j:support event="onfileuploadcomplete" reRender="anexos" />-->
-									</p:fileUpload>
+								
+									<p:growl id="messages" showDetail="false"/>
+
+							        <p:fileUpload mode="advanced"
+							                      multiple="false"
+							                      sizeLimit="204800" allowTypes="/(\.|\/)(pdf)$/"
+							                      invalidSizeMessage="El archivo supera el límite permitido (200 KB)"
+							                      invalidFileMessage="Solo se permiten archivo | pdf "
+							                      update="globalForm:messages,globalForm:anexos "
+							                      listener="#{notaContablePage.listener}"/>
+									
 								</h:panelGrid>
 							</h:panelGrid>
 						</p:dialog>
@@ -439,9 +441,9 @@
 									<f:facet name="header">
 										<h:outputText styleClass="bold" value="Archivo" />
 									</f:facet>
-									<p:commandLink action="#{downloadGeneralPage.download}" styleClass="bold" value="#{anexo.nombre}" target="_blank">
-										<f:param name="type1" value="#{downloadGeneralPage.SOPORTE}" assignTo="#{downloadGeneralPage.type}" />
-										<f:param name="file1" value="#{anexo.archivo}" assignTo="#{downloadGeneralPage.file}" />
+									<p:commandLink action="#{downloadGeneralPage.download}" styleClass="bold" value="#{anexo.nombre}" target="_blank" ajax="false">
+					                    <f:setPropertyActionListener for="type1" value="#{downloadGeneralPage.SOPORTE}" target="#{downloadGeneralPage.type}" />
+					                    <f:setPropertyActionListener for="file1" value="#{anexo.archivo}" target="#{downloadGeneralPage.file}"/>
 									</p:commandLink>
 
 								</p:column>
@@ -452,33 +454,35 @@
 									</f:facet>
 									<p:commandButton icon="pi pi-times" alt="Borrar" onclick="PF('popupBorrar').show()" />
 									
-<!-- 									aca va el suppor para validar la imagen del button -->
 
 									<!-- Formulario de confirmacion de borrado de anexos-->
-									<p:dialog id="popupBorrar" widgetVar="popupBorrar" autosized="true" domElementAttachment="form" minWidth="300">
+									<p:dialog id="popupBorrar" widgetVar="popupBorrar" autosized="true" 
+										domElementAttachment="form" minWidth="300"  
+										showEffect="fade" hideEffect="explode" modal="false">
 										<f:facet name="header">
 											<h:panelGroup>
 												<h:outputText styleClass="bold" value="Confirmación de borrado de anexo" />
 											</h:panelGroup>
 										</f:facet>
 
-										<h:panelGrid columns="1" width="100%">
+										<h:panelGrid columns="1" width="auto">
 
 											<h:outputText styleClass="bold" value="¿Está seguro que desea borrar el anexo actual?" />
 
 											<!-- Seccion de mensajes y botones de envio y cancelacion-->
 											<ui:include src="../../common/mensajes.xhtml" />
-											<h:panelGrid columns="2" styleClass="center" width="100%">
+											
+											
+											<h:panelGrid columns="2" styleClass="center" width="auto">
 											
 												<p:commandButton action="#{notaContablePage.borrarAnexo}" 
 													value="Si" 
 													oncomplete="PF('popupBorrar').hide()" 
-													immediate="true" 
+													immediate="true"
 													update="globalForm:anexos">
 													
 
-													<f:setPropertyActionListener for="anexoBorrar" value="true" 
-	                                                         target="#{anexo.borrar}"/>
+													<f:setPropertyActionListener for="anexoBorrar" value="true" target="#{anexo.borrar}" converter="javax.faces.Boolean"  />
 	                                                         
 												</p:commandButton>
 												
@@ -507,7 +511,7 @@
 				<p:commandButton oncomplete="PF('popupCancelTema').show()" value="Cancelar" />
 
 				<!-- Modal para cancelación-->
-				<p:dialog id="popupCancelTema" widgetVar="popupCancelTema" autosized="true" domElementAttachment="form" width="450">
+				<p:dialog id="popupCancelTema" widgetVar="popupCancelTema" autosized="true" domElementAttachment="form" width="450"  showEffect="fade" hideEffect="explode" modal="true">
 					<f:facet name="header">
 						<h:panelGroup>
 							<h:outputText styleClass="bold" value="Confirmación de cancelación de registro de tema" />
@@ -534,7 +538,7 @@
 				</p:dialog>
 
 				<!-- seccion de riesgo operacional -->
-				<p:dialog id="modalRiesgo" widgetVar="modalRiesgo" domElementAttachment="form" autosized="true">
+				<p:dialog id="modalRiesgo" widgetVar="modalRiesgo" domElementAttachment="form" autosized="true"  showEffect="fade" hideEffect="explode" modal="true">
 					<f:facet name="header">
 						<h:panelGroup>
 							<h:outputText styleClass="bold" value="Riesgo operacional para el tema: #{notaContablePage.temaActual.tema.nombre}" />
@@ -574,16 +578,14 @@
 						<h:panelGrid columns="2" width="100%" id="fechasRiesgo">
 
 							<h:outputText styleClass="bold" value="Fecha Inicial del Evento" />
-							<p:calendar value="#{notaContablePage.temaActual.riesgoOperacional.fechaEvento}" isDayEnabled="isDayEnabledRiesgoNC" dayStyleClass="getDisabledStyleRiesgoNC"
-								immediate="true" id="fechaEvento" />
+							<p:calendar value="#{notaContablePage.temaActual.riesgoOperacional.fechaEvento}" isDayEnabled="isDayEnabledRiesgoNC" immediate="true" id="fechaEvento" />
 
 							<h:outputText styleClass="bold" value="Fecha Finalización del Evento" />
-							<p:calendar value="#{notaContablePage.temaActual.riesgoOperacional.fechaFinEvento}" isDayEnabled="isDayEnabledRiesgoNC" dayStyleClass="getDisabledStyleRiesgoNC"
-								immediate="true" id="idFechaFinEvento" />
+							<p:calendar value="#{notaContablePage.temaActual.riesgoOperacional.fechaFinEvento}" isDayEnabled="isDayEnabledRiesgoNC" immediate="true" id="idFechaFinEvento" />
 
 							<h:outputText styleClass="bold" value="Fecha del Descubrimiento" />
 							<p:calendar value="#{notaContablePage.temaActual.riesgoOperacional.fechaDescubrimientoEvento}" isDayEnabled="isDayEnabledRiesgoNC"
-								dayStyleClass="getDisabledStyleRiesgoNC" immediate="true" id="fechaDescubrimiento" />
+								immediate="true" id="fechaDescubrimiento" />
 
 						</h:panelGrid>
 
@@ -753,7 +755,7 @@
 								<h:outputText styleClass="bold" value="Fecha Recuperación" rendered="#{notaContablePage.temaActual.riesgoOperacional.appRecuperacion eq 'S'}" />
 							</p:outputPanel>
 							<p:outputPanel id="panelFechaValue" ajaxRendered="true">
-								<p:calendar value="#{notaContablePage.temaActual.riesgoOperacional.fechaRecuperacion}" isDayEnabled="isDayEnabledRiesgoNC" dayStyleClass="getDisabledStyleRiesgoNC"
+								<p:calendar value="#{notaContablePage.temaActual.riesgoOperacional.fechaRecuperacion}" isDayEnabled="isDayEnabledRiesgoNC"
 									immediate="true" id="fechaRecuperacion" rendered="#{notaContablePage.temaActual.riesgoOperacional.appRecuperacion eq 'S'}" />
 							</p:outputPanel>
 
@@ -801,7 +803,7 @@
 							<p:commandButton oncomplete="PF('popupCancelRiesgo').show()" value="Cancelar" />
 
 							<!-- Modal para cancelación de datos de riesgo-->
-							<p:dialog id="popupCancelRiesgo" widgetVar="popupCancelRiesgo" autosized="true" domElementAttachment="form" width="450">
+							<p:dialog id="popupCancelRiesgo" widgetVar="popupCancelRiesgo" autosized="true" domElementAttachment="form" width="450"  showEffect="fade" hideEffect="explode" modal="true">
 								<f:facet name="header">
 									<h:panelGroup>
 										<h:outputText styleClass="bold" value="Confirmación de cancelación de registro de información" />
@@ -836,21 +838,29 @@
 		<p:panel header="Información básica" style="width: 100%;">
 			<h:panelGrid columns="2">
 				<h:outputText styleClass="bold" value="Sucursal de Origen" />
-				<h:outputText styleClass="bold" value="#{notaContablePage.usuarioLogueado.usuario.codigoAreaModificado} - #{notaContablePage.usuarioLogueado.usuario.nombreAreaModificado}" />
+				
+				<h:outputText styleClass="bold" 
+				value="#{notaContablePage.usuarioLogueado.usuario.codigoAreaModificado} - #{notaContablePage.usuarioLogueado.usuario.nombreAreaModificado}" />
+				
 				<h:outputText styleClass="bold" value="Concepto" />
+				
 				<h:panelGrid columns="2" id="tipoConcepto">
+					
 					<h:inputText value="#{notaContablePage.concepto}" size="70" />
+					
 					<p:commandButton action="#{notaContablePage.buscarConcepto}" value="Buscar Concepto" update="globalForm:tipoConcepto" />
 
-					<h:selectOneMenu value="#{notaContablePage.nota.codigoConcepto}" immediate="true" converter="javax.faces.Integer" id="nombreCon" disabledClass="disabledItem"
+					<h:selectOneMenu value="#{notaContablePage.nota.codigoConcepto}" 
+						immediate="true" converter="javax.faces.Integer" id="nombreCon" disabledClass="disabledItem"
 						rendered="#{! empty notaContablePage.conceptos}">
 						
-						<p:ajax event="change" immediate="true" listener="#{notaContablePage.seleccionarConcepto}" 
+						<p:ajax event="change" immediate="false" listener="#{notaContablePage.seleccionarConcepto}" 
 							update="globalForm:formulario" />
 						
 						<f:selectItem itemValue="-1" itemLabel="Seleccione una opcion" />
 						<f:selectItems value="#{notaContablePage.conceptos}" />
 					</h:selectOneMenu>
+					
 				</h:panelGrid>
 
 				<h:outputText styleClass="bold" value="Tipo de Evento" />
@@ -974,7 +984,7 @@
 				
 			<p:commandButton value="Anular" rendered="#{notaContablePage.nota.puedeAnular}" oncomplete="PF('popupAnularNota').show()" />
 			
-			<p:commandButton value="Cancelar" action="#{notaContablePage.cancelarNota}" update="formulario" rendered="#{notaContablePage.nota.codigo le 0}" />
+			<p:commandButton value="Cancelar" action="#{notaContablePage.cancelarNota}" update="globalForm:formulario" rendered="#{notaContablePage.nota.codigo le 0}" />
 			
 			<p:commandButton value="Cerrar" oncomplete="PF('popupNotaContable').hide()" rendered="#{notaContablePage.nota.codigo gt 0}" />
 			

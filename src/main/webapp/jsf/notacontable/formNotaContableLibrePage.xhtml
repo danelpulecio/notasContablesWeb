@@ -224,57 +224,58 @@
 				</p:dialog>
 
 				<!-- seccion de riesgo operacional -->
-				<p:dialog id="modalRiesgoRegLibre" widgetVar="modalRiesgoRegLibre" domElementAttachment="form" autosized="true">
+				<p:dialog id="modalRiesgoRegLibre" widgetVar="modalRiesgoRegLibre" domElementAttachment="form" autosized="true" width="750px;">
 					<f:facet name="header">
 						<h:panelGroup>
 							<h:outputText value="Riesgo operacional" />
 						</h:panelGroup>
 					</f:facet>
-					<h:panelGrid width="500">
-						<h:panelGrid columns="3" width="100%" id="selectsRiesgoRegLibre">
-							<h:outputText value="Importe Total" styleClass="propertie" />
-							<h:inputText value="#{notaContableLibrePage.temaActual.riesgoOperacional.importeTotal}" size="16" maxlength="16" onkeypress="return onKeyPressNumbers(event,this.value);"
-								converter="javax.faces.Double" immediate="true" converterMessage="Valor no válido para el Importe Total">
+					<h:panelGrid width="100%" style="text-align: left;">
+						<h:panelGrid columns="3" cellspacing="0" cellpadding="0" width="100%" id="selectsRiesgoRegLibre" style="text-align: left;">
+							<p:outputLabel value="Importe Total : " styleClass="propertie"  />
+							<p:inputText value="#{notaContableLibrePage.temaActual.riesgoOperacional.importeTotal}" size="16" maxlength="16" 
+								onkeypress="return onKeyPressNumbers(event,this.value);"
+								converter="javax.faces.Double" immediate="true" converterMessage="Valor no válido para el Importe Total" 
+								 style="width : 150px">
 								<f:convertNumber maxFractionDigits="2" />
-								
 								<p:ajax event="keyup" update="importeTotalLibre"/>
-								
-							</h:inputText>
+							</p:inputText>
 							<h:panelGrid columns="1" id="importeTotalLibre" width="250" cellpadding="0" cellspacing="0">
 								<h:outputText styleClass="propertie" value="#{notaContableLibrePage.temaActual.riesgoOperacional.importeTotal}">
 									<f:convertNumber type="currency" />
 								</h:outputText>
 							</h:panelGrid>
 
-							<h:outputText value="Importe Parcial" styleClass="propertie" />
-							<h:inputText value="#{notaContableLibrePage.temaActual.riesgoOperacional.importeParcial}" size="16" maxlength="16" onkeypress="return onKeyPressNumbers(event,this.value);"
-								converter="javax.faces.Double" immediate="true" converterMessage="Valor no válido para el Importe Parcial">
+							<p:outputLabel value="Importe Parcial : " styleClass="propertie" />
+							<p:inputText value="#{notaContableLibrePage.temaActual.riesgoOperacional.importeParcial}" size="16" maxlength="16" onkeypress="return onKeyPressNumbers(event,this.value);"
+								converter="javax.faces.Double" immediate="true" converterMessage="Valor no válido para el Importe Parcial"
+								style="width : 150px">
 								<f:convertNumber maxFractionDigits="2" />
 								
 								<p:ajax event="keyup" update="importeParcialLibre"/>
 
-							</h:inputText>
+							</p:inputText>
 							<h:panelGrid columns="1" id="importeParcialLibre" width="250" cellpadding="0" cellspacing="0">
 								<h:outputText styleClass="propertie" value="#{notaContableLibrePage.temaActual.riesgoOperacional.importeParcial}">
 									<f:convertNumber type="currency" />
 								</h:outputText>
 							</h:panelGrid>
 						</h:panelGrid>
-						<h:panelGrid columns="2" width="100%" id="fechasRiesgoLibre">
-							<h:outputText styleClass="propertie" value="Fecha del Evento" />
+						<h:panelGrid columns="2" width="400px;" id="fechasRiesgoLibre" style="text-align: left;">
+							<p:outputLabel styleClass="propertie" value="Fecha del Evento : " />
 							<p:calendar value="#{notaContableLibrePage.temaActual.riesgoOperacional.fechaEvento}" isDayEnabled="isDayEnabledRiesgo" dayStyleClass="getDisabledStyleRiesgo"
-								immediate="true" id="fechaEventoRegLibre" />
+								immediate="true" id="fechaEventoRegLibre" showOn="button" />
 
-							<h:outputText styleClass="propertie" value="Fecha Finalización del Evento" />
+							<p:outputLabel styleClass="propertie" value="Fecha Finalización del Evento : " />
 							<p:calendar value="#{notaContableLibrePage.temaActual.riesgoOperacional.fechaFinEvento}" isDayEnabled="isDayEnabledRiesgo" dayStyleClass="getDisabledStyleRiesgo"
-								immediate="true" id="idfechaFinEventoLibre" />
+								immediate="true" id="idfechaFinEventoLibre" showOn="button"/>
 
-							<h:outputText value="Fecha del Descubrimiento" styleClass="propertie" />
+							<p:outputLabel value="Fecha del Descubrimiento : " styleClass="propertie" />
 							<p:calendar value="#{notaContableLibrePage.temaActual.riesgoOperacional.fechaDescubrimientoEvento}" isDayEnabled="isDayEnabledRiesgo"
-								dayStyleClass="getDisabledStyleRiesgo" immediate="true" id="fechaDescubrimientoRegLibre" />
+								dayStyleClass="getDisabledStyleRiesgo" immediate="true" id="fechaDescubrimientoRegLibre" showOn="button"/>
+								
 						</h:panelGrid>
-
-						<h:panelGrid columns="4" width="90%" id="selectsTiempoLibre">
+						<h:panelGrid columns="4" width="100%" id="selectsTiempoLibre" style="text-align: left;">
 							<h:outputText styleClass="bold" value="Hora Inicio Evento" />
 							<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.horaInicioEvento}" immediate="true">
 
@@ -337,38 +338,44 @@
 								<f:selectItems value="#{notaContableLibrePage.horario}" />
 							</h:selectOneMenu>
 						</h:panelGrid>
-						<h:panelGrid columns="2" width="100%" id="selectsRiesgoLibreDos">
-							<h:outputText value="Clase de Riesgo" styleClass="propertie" />
-							<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoClaseRiesgo}" immediate="true">
+						<h:panelGrid columns="2" width="100%" id="selectsRiesgoLibreDos" style="text-align: left;">
+							<p:outputLabel value="Clase de Riesgo" styleClass="propertie" style="width : 150px;"/>
+							<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoClaseRiesgo}"
+							 style="width : 50%" immediate="true">
 							
-								<p:ajax event="change" listener="#{notaContableLibrePage.buscarPerdidasCuenta}" update="IdPanelPartida,panelClaseRiesgoN2Libre"/>
+								<p:ajax event="change" listener="#{notaContableLibrePage.buscarPerdidasCuenta}" 
+								update="IdPanelPartida,panelClaseRiesgoN2Libre"/>
 
 								<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
 								<f:selectItems value="#{notaContableLibrePage.clasesRiesgo}" />
 							</h:selectOneMenu>
 
-							<h:outputText value="Perdida Operacional"  styleClass="propertie" />
+							<p:outputLabel value="Perdida Operacional"  styleClass="propertie" style="width : 150px;" />
 							<p:outputPanel id="IdPanelPartida">
-								<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoTipoPerdida}" immediate="true" >
+								<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoTipoPerdida}"
+								 style="width : 50%" immediate="true" >
 									<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
 									<f:selectItems value="#{notaContableLibrePage.perdidaOper}" />
 								</h:selectOneMenu>
 							</p:outputPanel>
 
-							<h:outputText value="Proceso" styleClass="propertie" />
-							<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoProceso}" immediate="true">
+							<p:outputLabel value="Proceso" styleClass="propertie" style="width : 150px;" />
+							<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoProceso}" 
+							style="width : 50%" immediate="true">
 								<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
 								<f:selectItems value="#{notaContableLibrePage.procesos}" />
 							</h:selectOneMenu>
 
-							<h:outputText value="Línea Operativa" styleClass="propertie" />
-							<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoLineaOperativa}" immediate="true">
+							<p:outputLabel value="Línea Operativa" styleClass="propertie" style="width : 150px;" />
+							<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoLineaOperativa}" 
+							style="width : 50%" immediate="true">
 								<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
 								<f:selectItems value="#{notaContableLibrePage.lineasOperativas}" />
 							</h:selectOneMenu>
 
-							<h:outputText value="Producto Afectado" styleClass="propertie" />
-							<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoProducto}" immediate="true">
+							<p:outputLabel value="Producto Afectado" styleClass="propertie" />
+							<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoProducto}" 
+							style="width : 50%" immediate="true">
 								
 								<p:ajax event="change" listener="#{notaContableLibrePage.buscarSubProducto}" update="panelSubProductoLibre"/>
 								
@@ -376,17 +383,18 @@
 								<f:selectItems value="#{notaContableLibrePage.productos}" />
 							</h:selectOneMenu>
 
-
-							<h:outputText styleClass="propertie" value="SubProducto Afectado" />
+							<p:outputLabel styleClass="propertie" value="SubProducto Afectado" style="width : 150px;" />
 							<p:outputPanel id="panelSubProductoLibre">
-								<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoSubProducto}" immediate="true">
+								<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoSubProducto}" 
+								style="width : 50%" immediate="true">
 									<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
 									<f:selectItems value="#{notaContableLibrePage.subProductos}" />
 								</h:selectOneMenu>
 							</p:outputPanel>
 
-							<h:outputText styleClass="propertie" value="Canal" />
-							<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoCanal}" immediate="true">
+							<p:outputLabel styleClass="propertie" value="Canal" style="width : 150px;" />
+							<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoCanal}" 
+							style="width : 50%" immediate="true">
 								
 								<p:ajax event="change" listener="#{notaContableLibrePage.buscarSubCanal}" update="panelSubCanalLibre"/>
 
@@ -394,17 +402,19 @@
 								<f:selectItems value="#{notaContableLibrePage.canales}" />
 							</h:selectOneMenu>
 
-							<h:outputText styleClass="propertie" value="subCanal" />
+							<p:outputLabel styleClass="propertie" value="subCanal" style="width : 150px;" />
 							<p:outputPanel id="panelSubCanalLibre">
-								<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoSubCanal}" immediate="true">
+								<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoSubCanal}" 
+								style="width : 50%" immediate="true">
 									<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
 									<f:selectItems value="#{notaContableLibrePage.subcanales}" />
 								</h:selectOneMenu>
 							</p:outputPanel>
 
-							<h:outputText styleClass="propertie" value="Sfc Clase Riesgo N2" />
+							<p:outputLabel styleClass="propertie" value="Sfc Clase Riesgo N2" style="width : 150px;" />
 							<p:outputPanel id="panelClaseRiesgoN2Libre">
-								<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoClaseRiesgoN2}" immediate="true">
+								<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoClaseRiesgoN2}" 
+								style="width : 50%" immediate="true">
 									
 									<p:ajax event="change" listener="#{notaContableLibrePage.buscarClaseRiesgoN3}" update="panelClaseRiesgoN3Libre" />
 									
@@ -413,19 +423,21 @@
 								</h:selectOneMenu>
 							</p:outputPanel>
 
-							<h:outputText styleClass="propertie" value="Sfc Clase Riesgo N3" />
+							<p:outputLabel styleClass="propertie" value="Sfc Clase Riesgo N3"  style="width : 150px;"/>
 							<p:outputPanel id="panelClaseRiesgoN3Libre">
-								<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoClaseRiesgoN3}" immediate="true">
+								<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoClaseRiesgoN3}" 
+								style="width : 50%" immediate="true">
 									<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
 									<f:selectItems value="#{notaContableLibrePage.clasesRiesgoN3}" />
 								</h:selectOneMenu>
 							</p:outputPanel>
 
-							<h:outputText styleClass="bold" value="Nombre Outsourcing" />
-							<h:inputTextarea value="#{notaContableLibrePage.temaActual.riesgoOperacional.nombreOutSource}" cols="50" rows="2" />
+							<p:outputLabel styleClass="bold" value="Nombre Outsourcing" style="width : 150px;" />
+							<h:inputTextarea value="#{notaContableLibrePage.temaActual.riesgoOperacional.nombreOutSource}" style="width : 50%;" cols="50" rows="2" />
 
-							<h:outputText styleClass="bold" value="Aplica Recuperación" rendered="#{notaContableLibrePage.aplicaRecuperacion}" />
-							<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.appRecuperacion}" rendered="#{notaContableLibrePage.aplicaRecuperacion}" immediate="true">
+							<p:outputLabel styleClass="bold" value="Aplica Recuperación" style="width : 150px;" rendered="#{notaContableLibrePage.aplicaRecuperacion}" />
+							<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.appRecuperacion}" 
+								style="width : 50%" rendered="#{notaContableLibrePage.aplicaRecuperacion}" immediate="true">
 								
 								<p:ajax event="change" immediate="true" update="panelFechaTxtLibre, panelFechaValueLibre, panelHoraTxtLibre, panelHoraValueLibre, panelTipoRLibre, panelTipoRecValueLibre" />
 
@@ -439,7 +451,8 @@
 							</p:outputPanel>
 							<p:outputPanel id="panelFechaValueLibre" ajaxRendered="true">
 								<p:calendar value="#{notaContableLibrePage.temaActual.riesgoOperacional.fechaRecuperacion}" isDayEnabled="isDayEnabledRiesgo" dayStyleClass="getDisabledStyleRiesgo"
-									immediate="true" id="fechaRecuperacionLibre" rendered="#{notaContableLibrePage.temaActual.riesgoOperacional.appRecuperacion eq 'S'}" />
+									immediate="true" id="fechaRecuperacionLibre" rendered="#{notaContableLibrePage.temaActual.riesgoOperacional.appRecuperacion eq 'S'}"
+									showOn="button" />
 							</p:outputPanel>
 
 							<p:outputPanel id="panelHoraTxtLibre" ajaxRendered="true">
@@ -469,9 +482,10 @@
 							<p:outputPanel id="panelTipoRLibre" ajaxRendered="true">
 								<h:outputText styleClass="bold" value="Tipo Recuperación" rendered="#{notaContableLibrePage.temaActual.riesgoOperacional.appRecuperacion eq 'S'}" />
 							</p:outputPanel>
-							<p:outputPanel id="panelTipoRecValueLibre" ajaxRendered="true">
+							<p:outputPanel id="panelTipoRecValueLibre" ajaxRendered="true" style="width : 150px;">
 								<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.tipoRecuperacion}" immediate="true"
-									rendered="#{notaContableLibrePage.temaActual.riesgoOperacional.appRecuperacion eq 'S'}">
+									rendered="#{notaContableLibrePage.temaActual.riesgoOperacional.appRecuperacion eq 'S'}"
+									style="width : 150px">
 									<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
 									<f:selectItem itemValue="R_SEGURO" itemLabel="RECUPERACIÓN POR SEGURO" />
 									<f:selectItem itemValue="R_DIRECTA" itemLabel="RECUPERACIÓN DIRECTA" />
@@ -480,7 +494,7 @@
 
 						</h:panelGrid>
 						<ui:include src="../../common/mensajes.xhtml" />
-						<h:panelGrid columns="3" width="100%" style="text-align: center;">
+						<h:panelGrid columns="3" width="100%" style="text-align: left;">
 							<p:commandButton value="Guardar" action="#{notaContableLibrePage.guardarRiesgo}"
 								oncomplete="if (#{notaContableLibrePage.ocultarPopupRiesgo}) PF('modalRiesgoRegLibre').hide()" />
 							<p:commandButton oncomplete="PF('popupCancelRiesgoRegLibre').show()" value="Cancelar" />
@@ -507,7 +521,6 @@
 								</h:panelGrid>
 							</p:dialog>
 						</h:panelGrid>
-
 					</h:panelGrid>
 				</p:dialog>
 			</h:panelGrid>
@@ -550,7 +563,7 @@
 
 				<h:outputText value="Fecha Contable" styleClass="propertie" />
 				
-				<p:calendar id="event" value="#{notaContableLibrePage.fechaNota}">
+				<p:calendar id="event" value="#{notaContableLibrePage.fechaNota}" showOn="button">
                 	<p:ajax event="dateSelect" listener="#{notaContableLibrePage.validarFecha}" update="formRegLibre"/>
             	</p:calendar>
 

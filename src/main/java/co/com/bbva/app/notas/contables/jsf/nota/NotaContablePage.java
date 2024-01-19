@@ -1,21 +1,5 @@
 package co.com.bbva.app.notas.contables.jsf.nota;
 
-import co.com.bbva.app.notas.contables.carga.dto.*;
-import co.com.bbva.app.notas.contables.dto.*;
-import co.com.bbva.app.notas.contables.session.Session;
-import co.com.bbva.app.notas.contables.util.DateUtils;
-import co.com.bbva.app.notas.contables.util.StringUtils;
-import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.file.UploadedFile;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import javax.faces.model.SelectItem;
-import javax.inject.Named;
-import javax.servlet.ServletContext;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -23,6 +7,46 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.text.NumberFormat;
 import java.util.*;
+
+import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
+import javax.inject.Named;
+import javax.servlet.ServletContext;
+
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.file.UploadedFile;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import co.com.bbva.app.notas.contables.carga.dto.Cliente;
+import co.com.bbva.app.notas.contables.carga.dto.Contrato;
+import co.com.bbva.app.notas.contables.carga.dto.Divisa;
+import co.com.bbva.app.notas.contables.carga.dto.RiesgoOperacionalLineaOperativa;
+import co.com.bbva.app.notas.contables.carga.dto.RiesgoOperacionalProceso;
+import co.com.bbva.app.notas.contables.carga.dto.RiesgoOperacionalProducto;
+import co.com.bbva.app.notas.contables.carga.dto.Sucursal;
+import co.com.bbva.app.notas.contables.carga.dto.Tercero;
+import co.com.bbva.app.notas.contables.carga.dto.TipoIdentificacion;
+import co.com.bbva.app.notas.contables.dto.Anexo;
+import co.com.bbva.app.notas.contables.dto.Canal;
+import co.com.bbva.app.notas.contables.dto.CentroEspecial;
+import co.com.bbva.app.notas.contables.dto.Concepto;
+import co.com.bbva.app.notas.contables.dto.FechaHabilitada;
+import co.com.bbva.app.notas.contables.dto.Instancia;
+import co.com.bbva.app.notas.contables.dto.MontoMaximo;
+import co.com.bbva.app.notas.contables.dto.NotaContable;
+import co.com.bbva.app.notas.contables.dto.NotaContableTema;
+import co.com.bbva.app.notas.contables.dto.NotaContableTemaImpuesto;
+import co.com.bbva.app.notas.contables.dto.NotaContableTotal;
+import co.com.bbva.app.notas.contables.dto.RiesgoOperacional;
+import co.com.bbva.app.notas.contables.dto.Tema;
+import co.com.bbva.app.notas.contables.dto.TemaProducto;
+import co.com.bbva.app.notas.contables.dto.TipoEvento;
+import co.com.bbva.app.notas.contables.dto.UsuarioModulo;
+import co.com.bbva.app.notas.contables.util.DateUtils;
+import co.com.bbva.app.notas.contables.util.StringUtils;
 
 /**
  * <p>
@@ -75,21 +99,22 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 	private boolean ocultarPopupRiesgo = false;
 	private boolean ocultarPopupAnular = false;
 	private boolean aplicaRecuperacion = false;
-	private Session session;
+	//private Session session;
 
+	
 	public NotaContablePage() {
 		super();
 	}
 
 	public String iniciarPagina() {
-		session = getContablesSessionBean().getSessionTrace();
+		//session = getContablesSessionBean().getSessionTrace();
 		try {
-			LOGGER.info("{} Registro de NOTA CONTABLE - Configurando valores iniciales", session.getTraceLog());
+			LOGGER.info("{} Registro de NOTA CONTABLE - Configurando valores iniciales");
 			Sucursal sucursal = getUsuarioLogueado().getSucursal();
-			LOGGER.info("{} Obteniendo Info. de la sucursal {}", session.getTraceLog(), sucursal.getCodigo());
+			LOGGER.info("{} Obteniendo Info. de la sucursal {}", sucursal.getCodigo());
 			String msg = notasContablesManager.verificarUsuarioSubGerente(sucursal.getCodigo());
 			if (msg.isEmpty()) {
-				LOGGER.info("{} Obteniendo Info. de los montos mximos", session.getTraceLog());
+				LOGGER.info("{} Obteniendo Info. de los montos mximos");
 				montos = notasContablesManager.getMontoMaximos();
 				for (MontoMaximo monto : montos) {
 					if (monto.getEstado().equals("A") && monto.getDivisa().equals("1")) {
@@ -98,24 +123,24 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 						montoAlertaEXT = monto.getMontoMaximoAlerta();
 					}
 				}
-				LOGGER.info("{} Obteniendo Info. de los das no hbiles", session.getTraceLog());
+				LOGGER.info("{} Obteniendo Info. de los das no hbiles");
 				diasNoHabiles = new ArrayList<>(cargaAltamiraManager.getFestivosFecha());
 
 				FechaHabilitada fechaHabilitada = new FechaHabilitada();
 				fechaHabilitada.setCodigoSucursal(getUsuarioLogueado().getSucursal().getCodigo());
 				fechaHabilitada = notasContablesManager.getFechaHabilitadaPorSucursal(fechaHabilitada);
 
-				LOGGER.info("{} Estableciendo fechas lmite", session.getTraceLog());
+				LOGGER.info("{} Estableciendo fechas lmite");
 				maxFecha = StringUtils.getString(DateUtils.getSQLDate(DateUtils.getNextWorkDay(diasNoHabiles)), "dd-MM-yyyy");
 				minFecha = StringUtils.getString(DateUtils.getDateTodayBeforeDays(fechaHabilitada.getDias().intValue(), diasNoHabiles), "dd-MM-yyyy");
 
-				LOGGER.info("{} Obteniendo Info. de los tipos de evento", session.getTraceLog());
+				LOGGER.info("{} Obteniendo Info. de los tipos de evento");
 				tiposEvento = getSelectItemList(notasContablesManager.getCV(TipoEvento.class), false);
 
 				concepto = "";
 				conceptos = new ArrayList<>();
 				if (nota.getCodigo().intValue() > 0) {
-					LOGGER.info("{} Validando Info. de la Nota Contable", session.getTraceLog());
+					LOGGER.info("{} Validando Info. de la Nota Contable");
 					consultarFlujo();
 					seleccionarConcepto();
 					nota.setPuedeEditar(true);
@@ -123,11 +148,11 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 					conceptos.add(new SelectItem(nota.getConcepto().getCodigo().toString(), nota.getConcepto().getNombre()));
 				}
 			} else {
-				LOGGER.warn("{} No se tiene parametrizado un autorizador", session.getTraceLog());
+				LOGGER.warn("{} No se tiene parametrizado un autorizador");
 				nuevoMensaje(FacesMessage.SEVERITY_WARN, msg);
 			}
 		} catch (Exception e) {
-			LOGGER.error("{} Error al intentar configurar los valores iniciales: NC", session.getTraceLog(), e);
+			LOGGER.error("{} Error al intentar configurar los valores iniciales: NC", e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema, la aplicacin no se pudo iniciar correctamente");
 		}
 		return null;
@@ -144,14 +169,14 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 	}
 
 	public String buscarConcepto() {
-		LOGGER.info("{} Busqueda de Conceptos", session.getTraceLog());
+		LOGGER.info("{} Busqueda de Conceptos");
 		conceptos = new ArrayList<>();
 		try {
 			Sucursal sucursal = getUsuarioLogueado().getSucursal();
-			LOGGER.info("{} Obtener conceptos - Filtro: {}", session.getTraceLog(), concepto);
+			LOGGER.info("{} Obtener conceptos - Filtro: {}", concepto);
 			TreeSet<Concepto> set = new TreeSet<>(notasContablesManager.searchConcepto(concepto, "A"));
 			CentroEspecial centroEspecial = getUsuarioLogueado().getCentroEspecial();
-			LOGGER.info("{} Procensando {} Conceptos", session.getTraceLog(), set.size());
+			LOGGER.info("{} Procensando {} Conceptos", set.size());
 			for (Concepto row : set) {
 				boolean indView = false;
 				if (row.getCentrosAutSucursales().equals("S") && sucursal.getTipoCentro().equals("O")) {
@@ -165,9 +190,9 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 					conceptos.add(new SelectItem(row.getCodigo().toString(), row.getNombre()));
 				}
 			}
-			LOGGER.info("{} Se encontraron {} Conceptos", session.getTraceLog(), conceptos.size());
+			LOGGER.info("{} Se encontraron {} Conceptos", conceptos.size());
 		} catch (Exception e) {
-			LOGGER.error("{} Error intentando consultar los conceptos", session.getTraceLog(), e);
+			LOGGER.error("{} Error intentando consultar los conceptos", e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema consultando los conceptos");
 		}
 		return null;
@@ -175,13 +200,13 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 
 	public String seleccionarConcepto() {
 		try {
-			LOGGER.info("{} Procesando el concepto seleccionado", session.getTraceLog());
+			LOGGER.info("{} Procesando el concepto seleccionado");
 			Concepto concepto = new Concepto();
 			concepto.setCodigo(nota.getCodigoConcepto());
-			LOGGER.info("{} Obteniendo Info. del concepto: {}", session.getTraceLog(), concepto.getCodigo().intValue());
+			LOGGER.info("{} Obteniendo Info. del concepto: {}", concepto.getCodigo().intValue());
 			concepto = notasContablesManager.getConcepto(concepto);
 			nota.setConcepto(concepto);
-			LOGGER.info("{} Consultando los temas del concepto: {} - {}", session.getTraceLog(), nota.getConcepto().getCodigo(), nota.getConcepto().getNombre());
+			LOGGER.info("{} Consultando los temas del concepto: {} - {}", nota.getConcepto().getCodigo(), nota.getConcepto().getNombre());
 			temaActual = new NotaContableTema();
 			if (nota.getCodigo().intValue() <= 0) {
 				totalesNota = new ArrayList<>();
@@ -189,10 +214,10 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 				Tema t = new Tema();
 				t.setCodigoConcepto(nota.getCodigoConcepto());
 				t.setEstado("A");
-				LOGGER.info("{} Obteniendo los temas activos", session.getTraceLog());
+				LOGGER.info("{} Obteniendo los temas activos");
 				Collection<Tema> temas = notasContablesManager.getTemasPorConceptoYEstado(t);
 				temasNotaContable = new ArrayList<>();
-				LOGGER.info("{} Procesando y configurando {} temas", session.getTraceLog(), temas.size());
+				LOGGER.info("{} Procesando y configurando {} temas", temas.size());
 				int cod = -1;
 				for (Tema tema : temas) {
 					NotaContableTema temaNota = new NotaContableTema();
@@ -214,7 +239,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 				temaActual = new NotaContableTema();
 			}
 		} catch (Exception e) {
-			LOGGER.error("{} Error al intentar procesar los temas del concepto seleccionado", session.getTraceLog(), e);
+			LOGGER.error("{} Error al intentar procesar los temas del concepto seleccionado", e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema al consultar los temas del concepto seleccionado");
 		}
 		return null;
@@ -226,9 +251,9 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 	 * @return
 	 */
 	public String editar() {
-		LOGGER.info("{} Inicio de la edicin del tema seleccionado: {}", session.getTraceLog(), codigo);
+		LOGGER.info("{} Inicio de la edicin del tema seleccionado: {}", codigo);
 		try {
-			LOGGER.info("{} Validando el tema a editar", session.getTraceLog());
+			LOGGER.info("{} Validando el tema a editar");
 			for (NotaContableTema nct : temasNotaContable) {
 				if (nct.getCodigo().intValue() == codigo) {
 					temaActual = nct;
@@ -244,7 +269,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 							buscarTercero2();
 						}
 					}
-					LOGGER.info("{} Obteniendo Info. y estableciendo valores inciales", session.getTraceLog());
+					LOGGER.info("{} Obteniendo Info. y estableciendo valores inciales");
 					tiposDoc = getSelectItemList(notasContablesManager.getCV(TipoIdentificacion.class), false);
 					cargarSucursales();
 					cargarDivisas();
@@ -253,7 +278,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 				}
 			}
 		} catch (Exception e) {
-			LOGGER.error("{} Error al intentar editar el tema seleccionado", session.getTraceLog(), e);
+			LOGGER.error("{} Error al intentar editar el tema seleccionado", e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema al intentar editar el tema");
 		}
 		return null;
@@ -339,11 +364,12 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 	}
 
 	public String validarFecha() {
-		LOGGER.info("{} Validando la fecha", session.getTraceLog());
+		
 		java.sql.Date fecha = new java.sql.Date(DateUtils.getDate(maxFecha, "dd-MM-yyyy").getTime());
 		Date fechaActual = new Date();
 		java.sql.Date fechaAct = DateUtils.getSQLDate(fechaActual);
-		LOGGER.info("{} Confirmando que se cumplan los criterios para la fecha", session.getTraceLog());
+		temaActual.setFechaContable(DateUtils.getSQLDate(temaActual.getFechaContablePF()));
+		
 		if (temaActual.getFechaContable().after(DateUtils.getSQLDate(fechaAct))) {
 			nuevoMensaje(FacesMessage.SEVERITY_WARN, "La fecha no puede ser superior a HOY");
 			temaActual.setFechaContable(fecha);
@@ -358,43 +384,43 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 	}
 
 	public String cambiarSucursalPartida() {
-		LOGGER.info("{} Cambio de Sucursal Destino - Partida", session.getTraceLog());
+		LOGGER.info("{} Cambio de Sucursal Destino - Partida");
 		if (cambiarSucursal(temaActual.getCodigoSucursalDestinoPartida(), sucursalesContraPartida)) {
-			LOGGER.info("{} Cambio Auto. Sucursal Destino - Contrapartida", session.getTraceLog());
+			LOGGER.info("{} Cambio Auto. Sucursal Destino - Contrapartida");
 			temaActual.setCodigoSucursalDestinoContraPartida(temaActual.getCodigoSucursalDestinoPartida());
 		}
 		return null;
 	}
 
 	public String cambiarSucursalContraPartida() {
-		LOGGER.info("{} Cambio de Sucursal Destino - Contrapartida", session.getTraceLog());
+		LOGGER.info("{} Cambio de Sucursal Destino - Contrapartida");
 		cambiarSucursal(temaActual.getCodigoSucursalDestinoContraPartida(), sucursalesPartida);
 		return null;
 	}
 
 	public String cambiarContratoPartida() {
-		LOGGER.info("{} Cambio del Contrato - Partida", session.getTraceLog());
+		LOGGER.info("{} Cambio del Contrato - Partida");
 		if (temaActual.getNumeroIdentificacion1().equals(temaActual.getNumeroIdentificacion2())) {
-			LOGGER.info("{} Cambio Auto. Contrato - Contrapartida", session.getTraceLog());
+			LOGGER.info("{} Cambio Auto. Contrato - Contrapartida");
 			temaActual.setContrato2(temaActual.getContrato1());
 		}
 		return null;
 	}
 
 	public String cambiarContratoContraPartida() {
-		LOGGER.info("{} Cambio del Contrato - Contrapartida", session.getTraceLog());
+		LOGGER.info("{} Cambio del Contrato - Contrapartida");
 		if (temaActual.getNumeroIdentificacion1().equals(temaActual.getNumeroIdentificacion2())) {
-			LOGGER.info("{} Cambio Auto. Contrato - Partida", session.getTraceLog());
+			LOGGER.info("{} Cambio Auto. Contrato - Partida");
 			temaActual.setContrato1(temaActual.getContrato2());
 		}
 		return null;
 	}
 
 	private boolean cambiarSucursal(String sucursal, List<SelectItem> sucursales) {
-		LOGGER.info("{} Validando si el cambio de sucursal aplica para la partida y contrapartida", session.getTraceLog());
+		LOGGER.info("{} Validando si el cambio de sucursal aplica para la partida y contrapartida");
 		String partida = temaActual.getTema().getPartidaContable().substring(0, 2);
 		String contraPartida = temaActual.getTema().getContraPartidaContable().substring(0, 2);
-		LOGGER.info("{} Verificando si es vlido el cambio de sucursal: {} ", session.getTraceLog(), sucursal);
+		LOGGER.info("{} Verificando si es vlido el cambio de sucursal: {} ", sucursal);
 		if (partida.equals("61") && contraPartida.equals("62") || partida.equals("62") && contraPartida.equals("61")) {
 			return true;
 		}
@@ -416,7 +442,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 	}
 
 	public String ajustarCargaImpositiva() {
-		LOGGER.info("{} Clculo del impuesto correspondiente", session.getTraceLog());
+		LOGGER.info("{} Clculo del impuesto correspondiente");
 		for (NotaContableTemaImpuesto imp : temaActual.getImpuestoTema()) {
 			imp.setBase(temaActual.getMonto().doubleValue());
 			imp.setCalculado(imp.getBase() * imp.getImpuestoTema().getImpuesto().getValor() / 100);
@@ -584,27 +610,27 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 
 	private void buscarTercero(String tipo, String numero, boolean tercero1) {
 		try {
-			LOGGER.info("{} Intentando consultar tercero: {}", session.getTraceLog(), numero);
+			LOGGER.info("{} Intentando consultar tercero: {}", numero);
 			numero = StringUtils.getStringLeftPaddingFixed(numero, 15, '0');
 			String numTercero = "";
 			String dvTercero = "";
 			String nombreTercero = "";
 			List<SelectItem> items = new ArrayList<>();
 
-			LOGGER.info("{} Buscando en Clientes", session.getTraceLog());
+			LOGGER.info("{} Buscando en Clientes");
 			Cliente cliente = new Cliente();
 			cliente.setTipoIdentificacion(tipo);
 			cliente.setNumeroIdentificacion(numero);
 			cliente = cargaAltamiraManager.getClientePorTipoYNumeroIdentificacion(cliente);
 
-			LOGGER.info("{} Verificando si se encontr Info. en clientes", session.getTraceLog());
+			LOGGER.info("{} Verificando si se encontr Info. en clientes");
 			if (!cliente.getNumeroIdentificacion().equals("")) {
-				LOGGER.info("{} Estableciendo propiedades del tercero:cliente", session.getTraceLog());
+				LOGGER.info("{} Estableciendo propiedades del tercero:cliente");
 				numTercero = cliente.getNumeroIdentificacion();
 				dvTercero = cliente.getDigitoVerificacion();
 				nombreTercero = cliente.getPrimerNombre().trim() + " " + cliente.getPrimerApellido().trim() + " " + cliente.getSegundoApellido().trim();
 
-				LOGGER.info("{} Obteniedo los contratos asociados al tercero: {}", session.getTraceLog(), cliente.getNumeroCliente());
+				LOGGER.info("{} Obteniedo los contratos asociados al tercero: {}", cliente.getNumeroCliente());
 				if (tercero1 && temaActual.getTema().getContrato1().equals("S") || !tercero1 && temaActual.getTema().getContrato2().equals("S")) {
 					Contrato contrato = new Contrato();
 					contrato.setNumeroCliente(cliente.getNumeroCliente());
@@ -618,24 +644,24 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 					}
 				}
 			} else {
-				LOGGER.info("{} No se encontr Info. en Clientes - Buscando en Terceros", session.getTraceLog());
+				LOGGER.info("{} No se encontr Info. en Clientes - Buscando en Terceros");
 				Tercero tercero = new Tercero();
 				tercero.setTipoIdentificacion(tipo);
 				tercero.setNumeroIdentificacion(numero);
 				tercero = cargaAltamiraManager.getTerceroPorTipoYNumeroIdentificacion(tercero);
 
-				LOGGER.info("{} Verificando si se encontr Info. en terceros", session.getTraceLog());
+				LOGGER.info("{} Verificando si se encontr Info. en terceros");
 				if (!tercero.getTipoIdentificacion().equals("")) {
-					LOGGER.info("{} Estableciendo propiedades del tercero:tercero", session.getTraceLog());
+					LOGGER.info("{} Estableciendo propiedades del tercero:tercero");
 					numTercero = tercero.getNumeroIdentificacion();
 					dvTercero = tercero.getDigitoVerificacion();
 					nombreTercero = tercero.getPrimerNombre().trim() + " " + tercero.getPrimerApellido().trim() + " " + tercero.getSegundoApellido().trim();
 				} else {
-					LOGGER.warn("{} No se encontr Info. del tercero consultado: {}", session.getTraceLog(), numero);
+					LOGGER.warn("{} No se encontr Info. del tercero consultado: {}", numero);
 					nuevoMensaje(FacesMessage.SEVERITY_WARN, "No se encontr ningn cliente ni tercero con la combinacin tipo y nmero de identificacin");
 				}
 			}
-			LOGGER.info("{} Estableciendo atributos del tercero", session.getTraceLog());
+			LOGGER.info("{} Estableciendo atributos del tercero");
 			if (tercero1) {
 				temaActual.setNumeroIdentificacion1(numTercero);
 				temaActual.setDigitoVerificacion1(dvTercero);
@@ -661,7 +687,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 				}
 			}
 		} catch (Exception e) {
-			LOGGER.error("{} Error intentando buscar el tercero: {}", session.getTraceLog(), numero, e);
+			LOGGER.error("{} Error intentando buscar el tercero: {}", numero, e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema al buscar el tercero con identificacin " + numero);
 		}
 	}
@@ -673,7 +699,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 	 * @throws Exception
 	 */
 	public void listener(FileUploadEvent event) throws Exception {
-		LOGGER.info("{} Iniciando la carga del archivo (SOPORTE)", session.getTraceLog());
+		LOGGER.info("{} Iniciando la carga del archivo (SOPORTE)");
 
 		String fileName = "";
 
@@ -687,8 +713,8 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 			fileName = (prefijo + currentTime + fileExtension).toUpperCase();
 			String filePath = DIR_SOPORTES + fileName;
 
-			LOGGER.info("{} Preparando datos del soporte para subir el archivo: {}", session.getTraceLog(), originalFileName);
-			LOGGER.info("{} Path de carga del soporte: {}", session.getTraceLog(), filePath);
+			LOGGER.info("{} Preparando datos del soporte para subir el archivo: {}", originalFileName);
+			LOGGER.info("{} Path de carga del soporte: {}", filePath);
 
 			try (InputStream is = uploadedFile.getInputStream();
 				 FileOutputStream fos = new FileOutputStream(filePath)) {
@@ -699,7 +725,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 				}
 			}
 
-			LOGGER.info("{} Carga del soporte completada", session.getTraceLog());
+			LOGGER.info("{} Carga del soporte completada");
 
 			Anexo anexo = new Anexo();
 			anexo.setArchivo(fileName);
@@ -710,30 +736,33 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 			anexo.setEstadoInstancia("1");
 			anexo.setUsuNombre(getUsuarioLogueado().getUsuAltamira().getNombreEmpleado());
 			temaActual.getAnexoTema().add(anexo);
+			
+			nuevoMensaje(FacesMessage.SEVERITY_INFO, "Successful: El archivo : " + DIR_SOPORTES + fileName + " se subio correctamente.");
+			
 		} catch (Exception e) {
-			LOGGER.error("{} Error al intentar cargar el archivo (SOPORTE): {}", session.getTraceLog(), fileName, e);
+			LOGGER.error("{} Error al intentar cargar el archivo (SOPORTE): {}", fileName, e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema al cargar el archivo: " + DIR_SOPORTES + fileName);
 			throw e;
 		}
 	}
 //	public void listener(UploadEvent event) throws Exception {
-//		LOGGER.info("{} Iniciando la carga del archivo (SOPORTE)", session.getTraceLog());
+//		LOGGER.info("{} Iniciando la carga del archivo (SOPORTE)");
 //		String fileName = "";
 //		try {
 //			long time = new Date().getTime();
 //			UploadItem item = event.getUploadItem();
-//			LOGGER.info("{} Preparando datos del soporte para subir el archivo: {}", session.getTraceLog(), item.getFileName());
+//			LOGGER.info("{} Preparando datos del soporte para subir el archivo: {}", item.getFileName());
 //			String prefijo = getNumArchivo() + "_";
 //			fileName = (prefijo + time + item.getFileName().substring(item.getFileName().lastIndexOf("."))).toUpperCase();
 //			File localFile = new File(DIR_SOPORTES + fileName);
 //
-//			LOGGER.info("{} Path de carga del soporte: {}", session.getTraceLog(), localFile.getPath());
+//			LOGGER.info("{} Path de carga del soporte: {}", localFile.getPath());
 //			final InputStream is = new FileInputStream(item.getFile());
 //			FileOutputStream fos = new FileOutputStream(localFile);
 //			int count = 0;
 //			int length = 1024;
 //			final byte[] info = new byte[length];
-//			LOGGER.info("{} Procesando la carga del soporte", session.getTraceLog());
+//			LOGGER.info("{} Procesando la carga del soporte");
 //			while (is.read(info) != -1) {
 //				fos.write(info);
 //				count += length;
@@ -742,7 +771,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 //			fos.close();
 //			item.getFile().delete();
 //
-//			LOGGER.info("{} Creacin del anexo para el soporte cargado", session.getTraceLog());
+//			LOGGER.info("{} Creacin del anexo para el soporte cargado");
 //			Anexo anexo = new Anexo();
 //			anexo.setArchivo(fileName);
 //			anexo.setNombre(item.getFileName());
@@ -753,7 +782,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 //			anexo.setUsuNombre(getUsuarioLogueado().getUsuAltamira().getNombreEmpleado());
 //			temaActual.getAnexoTema().add(anexo);
 //		} catch (Exception e) {
-//			LOGGER.error("{} Error al intentar cargar el archivo (SOPORTE): {}", session.getTraceLog(), fileName, e);
+//			LOGGER.error("{} Error al intentar cargar el archivo (SOPORTE): {}", fileName, e);
 //			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema al cargar el archivo: " + DIR_SOPORTES + fileName);
 //			throw e;
 //		}
@@ -762,7 +791,8 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 
 
 	public String borrarAnexo() {
-		LOGGER.info("{} Eliminando el soporte cargado y el registro del anexo", session.getTraceLog());
+		LOGGER.info("{} Eliminando el soporte cargado y el registro del anexo");
+
 		for (Anexo anexo : temaActual.getAnexoTema()) {
 			if (anexo.getBorrar()) {
 				temaActual.getAnexoTema().remove(anexo);
@@ -778,8 +808,8 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 
 	public String guardarNota() {
 		try {
-			LOGGER.info("{} Intentando grabar la Nota Contable", session.getTraceLog());
-			LOGGER.info("{} Procesando validaciones y Persistiendo Info.", session.getTraceLog());
+			LOGGER.info("{} Intentando grabar la Nota Contable");
+			LOGGER.info("{} Procesando validaciones y Persistiendo Info.");
 			if (validarNota()) {
 				if (validarTotales()) {
 					nota.setTipoNota("R");
@@ -787,11 +817,11 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 						notasContablesManager.updateNotaContableRegistro(nota, temasNotaContable, totalesNota, getCodUsuarioLogueado());
 						aprobar();
 					} else {
-						LOGGER.info("{} Creando registro de la Instancia en base de datos", session.getTraceLog());
+						LOGGER.info("{} Creando registro de la Instancia en base de datos");
 						int idInstancia = notasContablesManager.crearInstanciaNotaContable(nota, temasNotaContable, new ArrayList<>(),
 								new ArrayList<>(), totalesNota, new ArrayList<>(), getCodUsuarioLogueado());
 						if (idInstancia != 0) {
-							LOGGER.info("{} Obteniendo Info. de Instancia & Nota Contable", session.getTraceLog());
+							LOGGER.info("{} Obteniendo Info. de Instancia & Nota Contable");
 							Instancia instancia = new Instancia();
 							instancia.setCodigo(idInstancia);
 							instancia = notasContablesManager.getInstancia(instancia);
@@ -799,36 +829,36 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 							NotaContable notaContable = new NotaContable();
 							notaContable.setCodigo(instancia.getCodigoNotaContable().intValue());
 							notaContable = notasContablesManager.getNotaContable(notaContable);
-							LOGGER.info("{} El registro de la NOTA CONTABLE: {} fue exitoso", session.getTraceLog(), notaContable.getNumeroRadicacion());
+							LOGGER.info("{} El registro de la NOTA CONTABLE: {} fue exitoso", notaContable.getNumeroRadicacion());
 							cancelarNota();
 							nuevoMensaje(FacesMessage.SEVERITY_INFO, "La nota ha sido radicada correctamente con el nmero: " + notaContable.getNumeroRadicacion());
 							UsuarioModulo usuarioModulo = new UsuarioModulo();
 							try {
-								LOGGER.info("{} Intentando enviar email de la nota grabada", session.getTraceLog());
+								LOGGER.info("{} Intentando enviar email de la nota grabada");
 								notasContablesManager.sendMail(instancia, getUsuarioLogueado());
 							} catch (Exception e) {
-								LOGGER.error("{} Error al intentar enviar el email de la nota grabada", session.getTraceLog(), e);
+								LOGGER.error("{} Error al intentar enviar el email de la nota grabada", e);
 								nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema al enviar el correo electronico a " + usuarioModulo.getEMailModificado());
 							}
 						} else {
-							LOGGER.error("{} Error al crear la instancia de la Nota Contable", session.getTraceLog());
+							LOGGER.error("{} Error al crear la instancia de la Nota Contable");
 							nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema no fue posible crear la Nota Contable");
 						}
 					}
 				} else {
-					LOGGER.warn("{} No ha registrado Info. para un tema", session.getTraceLog());
+					LOGGER.warn("{} No ha registrado Info. para un tema");
 					nuevoMensaje(FacesMessage.SEVERITY_WARN, "No ha diligenciado la informacin de ningn tema para la Nota Contable");
 				}
 			}
 		} catch (Exception e) {
-			LOGGER.error("{} Error al intentar grabar la Nota Contable", session.getTraceLog(), e);
+			LOGGER.error("{} Error al intentar grabar la Nota Contable", e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema al guardar la nota contable");
 		}
 		return null;
 	}
 
 	public String cancelarNota() {
-		LOGGER.info("{} ... Restaurando a Valores Iniciales ...", session.getTraceLog());
+		LOGGER.info("{} ... Restaurando a Valores Iniciales ...");
 		nota = new NotaContable();
 		temaActual = new NotaContableTema();
 		temasNotaContable = new ArrayList<>();
@@ -837,7 +867,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 	}
 
 	private boolean validarNota() {
-		LOGGER.info("{} Validando campos requeridos", session.getTraceLog());
+		LOGGER.info("{} Validando campos requeridos");
 		validador.validarRequerido(nota.getCodigoTipoEvento(), "Tipo de evento");
 		validador.validarRequerido(nota.getCodigoConcepto(), "Concepto");
 		validarTemasObligatorios();
@@ -845,7 +875,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 	}
 
 	private boolean validarTemasObligatorios() {
-		LOGGER.info("{} Validando que temas obligatorios se encuentren diligenciado", session.getTraceLog());
+		LOGGER.info("{} Validando que temas obligatorios se encuentren diligenciado");
 		for (NotaContableTema tema : temasNotaContable) {
 			if (tema.isObligatorio() && tema.getMonto().doubleValue() <= 0) {
 				nuevoMensaje(FacesMessage.SEVERITY_WARN, "No ha diligenciado la informacin de los temas obligatorios para la Nota Contable");
@@ -856,7 +886,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 	}
 
 	private boolean validarTotales() {
-		LOGGER.info("{} Validando que los totales sean correctos", session.getTraceLog());
+		LOGGER.info("{} Validando que los totales sean correctos");
 		for (NotaContableTotal notaContableTotal : totalesNota) {
 			if (notaContableTotal.getTotal() != 0) {
 				return true;
@@ -878,7 +908,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 	 * @return
 	 */
 	private boolean validarRiesgo() {
-		LOGGER.info("{} Se va guardar la Info. diligenciada en ventana modal de Riesgo para Nota Contable Tipo Tema.  ", session.getTraceLog());
+		LOGGER.info("{} Se va guardar la Info. diligenciada en ventana modal de Riesgo para Nota Contable Tipo Tema.  ");
 		validador.validarPositivo(temaActual.getRiesgoOperacional().getImporteParcial(), "Importe Parcial");
 		validador.validarPositivo(temaActual.getRiesgoOperacional().getImporteTotal(), "Importe Total");
 		validador.validarRequerido(temaActual.getRiesgoOperacional().getFechaEvento(), "Fecha Inicio del Evento");
@@ -962,7 +992,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 	}
 
 	public String guardarTema() {
-		LOGGER.info("{} Se va guardar la Info. diligenciada sobre el tema seleccionado", session.getTraceLog());
+		LOGGER.info("{} Se va guardar la Info. diligenciada sobre el tema seleccionado");
 		if (validarTema()) {
 			temaActual.setEditada(true);
 			ajustarCargaImpositiva();
@@ -981,7 +1011,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 	 * @return
 	 */
 	private boolean validarTema() {
-		LOGGER.info("{} Validacin de campos requeridos", session.getTraceLog());
+		LOGGER.info("{} Validacin de campos requeridos");
 		validarFecha();
 		validador.validarRequerido(temaActual.getCodigoSucursalDestinoPartida(), "Sucursal destino de la Partida");
 		validador.validarRequerido(temaActual.getCodigoSucursalDestinoContraPartida(), "Sucursal destino de la Contrapartida");
@@ -1041,7 +1071,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 	 * Obtiene los totales de la nota agrupados por tipo de divisa
 	 */
 	private void ajustarTotalesNota() {
-		LOGGER.info("{} Estructura y agrupa los montos totales por divisa", session.getTraceLog());
+		LOGGER.info("{} Estructura y agrupa los montos totales por divisa");
 		totalesNota = new ArrayList<>();
 		for (NotaContableTema tema : temasNotaContable) {
 			if (!tema.getCodigoDivisa().equals("")) {
@@ -1064,7 +1094,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 	}
 
 	public String cancelarTema() {
-		LOGGER.info("{} La operacin se cancel para el tema: {} ({})", session.getTraceLog(), temaActual.getCodigo(), temaActual.getDescripcion());
+		LOGGER.info("{} La operacin se cancel para el tema: {} ({})", temaActual.getCodigo(), temaActual.getDescripcion());
 		ServletContext context = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
 		for (NotaContableTema nct : temasNotaContable) {
 			if (nct.getCodigo().intValue() == temaActual.getCodigo().intValue()) {
@@ -1072,12 +1102,12 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 				NotaContableTema newNota = new NotaContableTema();
 				if (codigo <= 0) {
 					newNota.setFechaContable(new java.sql.Date(DateUtils.getDate(maxFecha, "dd-MM-yyyy").getTime()));
-					LOGGER.info("{} Borrando los soportes y anexos correspondientes", session.getTraceLog());
+					LOGGER.info("{} Borrando los soportes y anexos correspondientes");
 					for (Anexo anexo : temaActual.getAnexoTema()) {
 						File f = new File(context.getRealPath(DIR_SOPORTES + anexo.getArchivo()));
 						f.delete();
 					}
-					LOGGER.info("{} Restableciendo los parmetros iniciales", session.getTraceLog());
+					LOGGER.info("{} Restableciendo los parmetros iniciales");
 					newNota.setAnexoTema(new ArrayList<>());
 					newNota.setRiesgoOperacional(new RiesgoOperacional());
 					for (NotaContableTemaImpuesto impuestoTNC : nct.getImpuestoTema()) {
@@ -1096,7 +1126,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 						nct.reset(newNota);
 						verNota();
 					} catch (Exception e) {
-						LOGGER.error("{} Error al recuperar la Info. diligenciada del tema", session.getTraceLog());
+						LOGGER.error("{} Error al recuperar la Info. diligenciada del tema");
 						nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema al recuperar la informacin del tema");
 					}
 				}
