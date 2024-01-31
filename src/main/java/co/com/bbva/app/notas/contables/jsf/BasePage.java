@@ -7,6 +7,7 @@ import co.com.bbva.app.notas.contables.facade.impl.NotasContablesSessionBean;
 import co.com.bbva.app.notas.contables.jsf.beans.ContablesSessionBean;
 import co.com.bbva.app.notas.contables.jsf.beans.UsuarioLogueado;
 import co.com.bbva.app.notas.contables.util.EMailSender;
+import co.com.bbva.app.notas.contables.util.GetProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,9 +17,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
 import java.util.*;
 
@@ -32,6 +30,7 @@ public abstract class BasePage implements Serializable  {
 	protected final Validador validador;
 	protected static final NotasContablesSession notasContablesManager = new NotasContablesSessionBean();
 	protected static final CargaAltamiraSession cargaAltamiraManager = new CargaAltamiraSessionBean();
+	private GetProperties properties = new GetProperties();
 	protected static final EMailSender eMailSender = new EMailSender();
 
 	protected final String DIR_SOPORTES;
@@ -47,14 +46,17 @@ public abstract class BasePage implements Serializable  {
 		LOGGER.info("constructor base page");
 		validador = new Validador(this);
 		ServletContext context = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-		
+
+		java.util.Properties propiedades = properties.readProperties();
+
 		DIR_SOPORTES = context.getInitParameter("DIR_SOPORTES");
 		DIR_REPORTES_EXCEL = context.getInitParameter("DIR_REPORTES_EXCEL");
 		DIR_RECEPCION_ALTAMIRA = context.getInitParameter("DIR_RECEPCION_ALTAMIRA");
 		DIR_TRANSMISION_ALTAMIRA = context.getInitParameter("DIR_TRANSMISION_ALTAMIRA");
 		DIR_CARGA = context.getInitParameter("DIR_CARGA");
-		ACTIVAR_LDAP = getLdapValue();
-		readProperties();
+//		ACTIVAR_LDAP = "0";
+		ACTIVAR_LDAP = propiedades.getProperty("activar.ldap");
+
 		DIR_SIRO = context.getInitParameter("DIR_SIRO");
 		LOGGER.info("constructor finaliza");
 	}
@@ -116,50 +118,5 @@ public abstract class BasePage implements Serializable  {
 		return lanzarError(new Exception(e), "Ocurri un error al procesar la peticin ");
 	}
 
-	private String getLdapValue() {
-		ServletContext context = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-		LOGGER.info("--------->" + context.getRealPath("/./"));
-		try (InputStream input = context.getResourceAsStream("/WEB-INF/classes/config.properties")) {
-			LOGGER.info("input context {}", context.getResourceAsStream("/"));
-			if (input != null) {
-				LOGGER.info("CARGA DE ARCHIVO");
-				Properties properties = new Properties();
-				properties.load(input);
-				String activarLdap = properties.getProperty("activar.ldap");
-				LOGGER.info("activarLdap {}", activarLdap);
-				return activarLdap;
-			}else
-				LOGGER.info("NO PUDO CARGAR EL ARCHIVO");
-			return "1";
-		} catch (Exception e) {
-			LOGGER.error("Error al cargar el archivo: " + e.getMessage(), e);
-			return "1";
-		}
-	}
-
-	private boolean readProperties() {
-		Properties propiedades = new Properties();
-		InputStream entrada = null;
-
-		try {
-			entrada = new FileInputStream("/app/properties/config.properties");
-			propiedades.load(entrada);
-			String ldap = propiedades.getProperty("activar.ldap");
-			LOGGER.info("activarLdap {}",  ldap);
-
-
-		} catch (IOException e) {
-			LOGGER.error("Error al cargar el archivo: " );
-		} finally {
-			if (entrada != null) {
-				try {
-					entrada.close();
-				} catch (IOException e) {
-					LOGGER.error("Error al cargar el archivo: " );
-				}
-			}
-		}
-		return true;
-	}
 
 }

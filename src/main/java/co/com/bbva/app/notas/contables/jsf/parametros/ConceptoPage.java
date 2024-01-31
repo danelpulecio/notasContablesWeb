@@ -144,6 +144,7 @@ public class ConceptoPage extends GeneralParametrosPage<Concepto, Concepto> {
 	public boolean _cambiarEstado() throws Exception {
 		LOGGER.info("{} Cambio estado concepto: {}", notasContablesManager.getConcepto(objActual).getCodigo() + " " +notasContablesManager.getConcepto(objActual).getEstado() );
 		notasContablesManager.changeEstadoConcepto(notasContablesManager.getConcepto(objActual), getCodUsuarioLogueado());
+		setDatos(new ArrayList<>(_buscarTodos()));
 		return true;
 	}
 

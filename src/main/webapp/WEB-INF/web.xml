@@ -18,22 +18,22 @@
 	<context-param>
 		<description>Directorio que contiene los archivos de precierre y cierre que se envian a altamira</description>
 		<param-name>DIR_TRANSMISION_ALTAMIRA</param-name>
-		<param-value>/de/NotasContables/tx/transmision/</param-value>
+		<param-value>/app/de/NotasContables/tx/transmision/</param-value>
 	</context-param>
 	<context-param>
 		<description>Directorio que contiene los archivos de respuesta de altamira al realizar los proceso de precierre y cierre</description>
 		<param-name>DIR_RECEPCION_ALTAMIRA</param-name>
-		<param-value>/de/NotasContables/tx/recepcion/</param-value>
+		<param-value>/app/de/NotasContables/tx/recepcion/</param-value>
 	</context-param>
 	<context-param>
 		<description>Directorio que contiene los archivos de carga de datos diarios provenientes de altamira</description>
 		<param-name>DIR_CARGA</param-name>
-		<param-value>/de/NotasContables/tx/recepcion/</param-value>
+		<param-value>/app/de/NotasContables/tx/recepcion/</param-value>
 	</context-param>
 	<context-param>
 		<description>Directorio que contiene los archivos de carga provenientes de siro</description>
 		<param-name>DIR_SIRO</param-name>
-		<param-value>/de/NotasContables/tx/transmision/siro/</param-value>
+		<param-value>/app/de/NotasContables/tx/transmision/siro/</param-value>
 	</context-param>
 	         
     <context-param>

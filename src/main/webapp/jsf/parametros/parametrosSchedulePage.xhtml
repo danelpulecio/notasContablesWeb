@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 				xmlns:ui="http://java.sun.com/jsf/facelets"
 				xmlns:h="http://java.sun.com/jsf/html"
@@ -12,14 +10,14 @@
 			<p:panel header="Parámetros de tareas programadas" style="width: 420px" id="paramform">
 
 				<h:panelGrid columns="2" >
-					<h:outputText value="Meses después de los cuales, se envian las notas a la base de datos de Historicos: " />
-					<h:inputText value="#{parametrosSchedulePage.copiaSeguridadPar.valor}" maxlength="2" required="true" onkeypress="return onKeyPressNumbersNoZero(event, this.value);" requiredMessage="Ingrese un valor en meses">
+					<p:outputLabel value="Meses después de los cuales, se envian las notas a la base de datos de Historicos: " />
+					<p:inputText value="#{parametrosSchedulePage.copiaSeguridadPar.valor}" maxlength="2" required="true" onkeypress="return onKeyPressNumbersNoZero(event, this.value);" requiredMessage="Ingrese un valor en meses">
 						<f:convertNumber/>
-					</h:inputText>
-					<h:outputText value="Días después de los cuales, se borran las notas anuladas por cambio de cierre mensual: " />
-					<h:inputText value="#{parametrosSchedulePage.deltaBorradoPar.valor}" required="true" maxlength="3" onkeypress="return onKeyPressNumbersNoZero(event, this.value);" requiredMessage="Ingrese un valor en días">
+					</p:inputText>
+					<p:outputLabel value="Días después de los cuales, se borran las notas anuladas por cambio de cierre mensual: " />
+					<p:inputText value="#{parametrosSchedulePage.deltaBorradoPar.valor}" required="true" maxlength="3" onkeypress="return onKeyPressNumbersNoZero(event, this.value);" requiredMessage="Ingrese un valor en días">
 						<f:convertNumber/>
-					</h:inputText>
+					</p:inputText>
 				</h:panelGrid>
 				<ui:include src="../../common/mensajes.xhtml" /> 
 				<h:panelGrid columns="1" width="100%" style="text-align:center;">

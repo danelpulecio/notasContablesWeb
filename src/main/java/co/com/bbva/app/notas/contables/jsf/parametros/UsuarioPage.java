@@ -14,10 +14,12 @@ import co.com.bbva.app.notas.contables.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -33,7 +35,6 @@ import java.util.List;
 public class UsuarioPage extends GeneralParametrosPage<UsuarioModulo, UsuarioModulo> {
 
 
-	String param = getParam();
 	/**
 	 * 
 	 */
@@ -45,10 +46,17 @@ public class UsuarioPage extends GeneralParametrosPage<UsuarioModulo, UsuarioMod
 	private List<SelectItem> roles;
 	private List<SelectItem> sucursales;
 	private List<SelectItem> perfiles;
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
 	protected final SuperDAO actividadSuperDAO = new SuperDAO(null);
 	private String rolSel;
 
+	@PostConstruct
+	public void init() throws Exception {
+		super._init();
+		setDatos(new ArrayList<>(_buscarTodos()));
+		consultarListasAuxiliares();
+		LOGGER.info("postConstructo datos {}", getDatos().size());
+	}
 	/**
 	 * <p>
 	 * Construct a new Page bean instance.
@@ -81,7 +89,7 @@ public class UsuarioPage extends GeneralParametrosPage<UsuarioModulo, UsuarioMod
 			if (codEmpleado.length() > 0) {
 
 
-				LOGGER.info("{} Buscar codigo usuario: {}", session.getTraceLog(),codEmpleado );
+				LOGGER.info("{} Buscar codigo usuario: {}", codEmpleado );
 
 				// se busca el usuario altamira
 				UsuarioAltamira usuarioAltamira = new UsuarioAltamira();
@@ -108,7 +116,7 @@ public class UsuarioPage extends GeneralParametrosPage<UsuarioModulo, UsuarioMod
 			consultarListasAuxiliares();
 
 		} catch (Exception e) {
-			LOGGER.error("{} Error al inicializar el editor de creacin de usuarios" , session.getTraceLog(), e);
+			LOGGER.error("{} Error al inicializar el editor de creacin de usuarios" ,  e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al inicializar el editor de creacin de usuarios");
 		}
 		return null;
@@ -132,7 +140,7 @@ public class UsuarioPage extends GeneralParametrosPage<UsuarioModulo, UsuarioMod
 	@Override
 	public Collection<UsuarioModulo> _buscarPorFiltro() throws Exception {
 		if(!param.isEmpty()){
-			LOGGER.info("{} Buscar usuario: {}", session.getTraceLog(),param );
+			LOGGER.info("{} Buscar usuario: {}", param );
 		}
 		return notasContablesManager.searchUsuarioModulo(param);
 	}
@@ -170,7 +178,7 @@ public class UsuarioPage extends GeneralParametrosPage<UsuarioModulo, UsuarioMod
 					}
 				}
 				objActual.setLastUpdate(MSG_CREATE_USER);
-				LOGGER.info("{} Creacin de Usuario: {} - {} | Rol {} | {}", session.getTraceLog(), objActual.getCodigoEmpleado(), objActual.getCodigo(), objActual.getCodigoRol(), objActual.getLastUpdate());
+				LOGGER.info("{} Creacin de Usuario: {} - {} | Rol {} | {}",  objActual.getCodigoEmpleado(), objActual.getCodigo(), objActual.getCodigoRol(), objActual.getLastUpdate());
 				notasContablesManager.addUsuarioModulo(objActual, getCodUsuarioLogueado());
 			}
 
@@ -196,13 +204,13 @@ public class UsuarioPage extends GeneralParametrosPage<UsuarioModulo, UsuarioMod
 					canUpdate();
 				}
 				objActual.setLastUpdate(MSG_UPDATE_USER);
-				LOGGER.info("{} Actualizacin de Usuario: {} - {} | Rol {} | {}", session.getTraceLog(), objActual.getCodigoEmpleado(), objActual.getCodigo(), objActual.getCodigoRol(), objActual.getLastUpdate() );
+				LOGGER.info("{} Actualizacin de Usuario: {} - {} | Rol {} | {}",  objActual.getCodigoEmpleado(), objActual.getCodigo(), objActual.getCodigoRol(), objActual.getLastUpdate() );
 				notasContablesManager.updateUsuarioModulo(objActual, getCodUsuarioLogueado(), cambioRol && objActual.getEstado().equals("A"));
 			}
 				//}
 				return true;
 		} catch (Exception e) {
-			LOGGER.error("{} Ya existe el usuario con el mismo Rol: {}", session.getTraceLog(),objActual.getCodigo() + " "+objActual.getCodigoEmpleado() + " "+objActual.getCodigoRol() +" "+ objActual.getNombreAreaModificado()  , e);
+			LOGGER.error("{} Ya existe el usuario con el mismo Rol: {}", objActual.getCodigo() + " "+objActual.getCodigoEmpleado() + " "+objActual.getCodigoRol() +" "+ objActual.getNombreAreaModificado()  , e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Ya existe el usuario con el mismo Rol");
 			return false;
 		}
@@ -256,11 +264,12 @@ public class UsuarioPage extends GeneralParametrosPage<UsuarioModulo, UsuarioMod
 	public boolean _cambiarEstado() throws Exception {
 		try {
 			String status = objActual.getEstado().equals("A") ? "INACTIVO" : "ACTIVO";
-			LOGGER.info("{} Cambio de Estado a {} Usuario: {} - {}", session.getTraceLog(), status, objActual.getCodigoEmpleado(), objActual.getCodigo());
+			LOGGER.info("{} Cambio de Estado a {} Usuario: {} - {}",  status, objActual.getCodigoEmpleado(), objActual.getCodigo());
 			notasContablesManager.changeEstadoUsuarioModulo(notasContablesManager.getUsuarioModulo(objActual), getCodUsuarioLogueado());
+			setDatos(new ArrayList<>(_buscarTodos()));
 			return true;
 		} catch (Exception e) {
-			LOGGER.error("{} No existe otro Usario con el mismo Rol para este Centro ", session.getTraceLog(), e);
+			LOGGER.error("{} No existe otro Usario con el mismo Rol para este Centro ",  e);
 			nuevoMensaje(FacesMessage.SEVERITY_WARN, "No existe otro Usario con el mismo Rol para este Centro");
 		}
 		return false;
@@ -268,23 +277,23 @@ public class UsuarioPage extends GeneralParametrosPage<UsuarioModulo, UsuarioMod
 
 	@Override
 	public boolean _borrar() throws Exception {
-		LOGGER.info("{} Borra usuario: {}", session.getTraceLog(),objActual.getCodigo() + " "+objActual.getCodigoEmpleado() + " "+objActual.getCodigoRol() );
+		LOGGER.info("{} Borra usuario: {}", objActual.getCodigo() + " "+objActual.getCodigoEmpleado() + " "+objActual.getCodigoRol() );
 		notasContablesManager.deleteUsuarioModulo(objActual, getCodUsuarioLogueado());
 		return true;
 	}
 
 	private void consultarListasAuxiliares() {
-		if (esUltimaFase()) {
+//		if (esUltimaFase()) {
 			try {
 				roles = getSelectItemList(notasContablesManager.getCV(Rol.class), false);
 				sucursales = getSelectItemList(notasContablesManager.getCV(Sucursal.class));
 				perfiles = getSelectItemList(notasContablesManager.getCV(Perfil.class));
 			} catch (Exception e) {
 				//e.printStackTrace();
-				LOGGER.error("{} Error al inicializar el mdulo de administracin de usuarios ", session.getTraceLog(), e);
+				LOGGER.error("{} Error al inicializar el mdulo de administracin de usuarios ",  e);
 				nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al inicializar el mdulo de administracin de usuarios");
 			}
-		}
+//		}
 	}
 
 	@Override

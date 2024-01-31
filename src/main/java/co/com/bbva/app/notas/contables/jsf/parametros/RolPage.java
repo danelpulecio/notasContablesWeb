@@ -5,9 +5,11 @@ import co.com.bbva.app.notas.contables.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.inject.Named;
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -20,13 +22,17 @@ import java.util.Collection;
 @Named
 public class RolPage extends GeneralParametrosPage<Rol, Rol> {
 
-	String param = getParam();
 	private static final long serialVersionUID = 1L;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(RolPage.class);
 
-	Session session = getContablesSessionBean().getSessionTrace();
-
+//	Session session = getContablesSessionBean().getSessionTrace();
+	@PostConstruct
+	public void init() throws Exception {
+		super._init();
+		setDatos(new ArrayList<>(_buscarTodos()));
+		LOGGER.info("postConstructo datos {}", getDatos().size());
+	}
 	public RolPage() {
 		super(true);
 	}
@@ -64,7 +70,7 @@ public class RolPage extends GeneralParametrosPage<Rol, Rol> {
 	@Override
 	public Collection<Rol> _buscarPorFiltro() throws Exception {
 		if(!param.isEmpty()){
-			LOGGER.info("{} Buscar rol: {}", session.getTraceLog(),param );
+			LOGGER.info("{} Buscar rol: {}", param );
 		}
 		return notasContablesManager.searchRol(param);
 	}
@@ -82,7 +88,7 @@ public class RolPage extends GeneralParametrosPage<Rol, Rol> {
 
 	@Override
 	protected boolean _guardar() throws Exception {
-		LOGGER.info("{} Actualiza rol: {}", session.getTraceLog(),objActual.getCodigo()+ " "+ objActual.getNombre() );
+		LOGGER.info("{} Actualiza rol: {}", objActual.getCodigo()+ " "+ objActual.getNombre() );
 		notasContablesManager.updateRol(objActual, getCodUsuarioLogueado());
 		return true;
 	}
@@ -101,8 +107,9 @@ public class RolPage extends GeneralParametrosPage<Rol, Rol> {
 	 */
 	@Override
 	public boolean _cambiarEstado() throws Exception {
-		LOGGER.info("{} Cambio estado rol: {}", session.getTraceLog(),notasContablesManager.getRol(objActual).getCodigo()+ " "+ notasContablesManager.getRol(objActual).getNombre() + " "+ notasContablesManager.getRol(objActual).getEstado() );
+		LOGGER.info("{} Cambio estado rol: {}", notasContablesManager.getRol(objActual).getCodigo()+ " "+ notasContablesManager.getRol(objActual).getNombre() + " "+ notasContablesManager.getRol(objActual).getEstado() );
 		notasContablesManager.changeEstadoRol(notasContablesManager.getRol(objActual), getCodUsuarioLogueado());
+		setDatos(new ArrayList<>(_buscarTodos()));
 		return true;
 	}
 

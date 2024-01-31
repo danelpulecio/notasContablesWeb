@@ -2,6 +2,7 @@ package co.com.bbva.app.notas.contables.jsf.consultas;
 
 import co.com.bbva.app.notas.contables.dto.Tema;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.util.ArrayList;
@@ -17,8 +18,8 @@ public class TemasCuentasInactivasPage extends GeneralConsultaPage<Tema> {
 		super();
 	}
 
-	@Override
-	protected void _init() {
+	@PostConstruct
+	public void init() {
 		super._init();
 		try {
 			if (getDatos() == null || getDatos().isEmpty()) {

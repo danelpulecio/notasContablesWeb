@@ -61,7 +61,8 @@
 </style>
 	</h:head>
 	<!-- Formulario de confirmacion de anulacion-->
-	<p:dialog id="popupAnularNota" widgetVar="popupAnularNota" autosized="true" domElementAttachment="form" width="250"  showEffect="fade" hideEffect="explode" modal="true">
+	<p:dialog id="popupAnularNota" widgetVar="popupAnularNota" autosized="true" domElementAttachment="form" width="250"  
+		showEffect="fade" hideEffect="explode" modal="false">
 		<f:facet name="header">
 			<h:panelGroup>
 				<h:outputText value="Confirmación de anulación" />
@@ -89,7 +90,8 @@
 		</h:panelGrid>
 	</p:dialog>
 	<!-- Formulario Modal de creacion y edicion de temas por concepto-->
-	<p:dialog id="editor" widgetVar="editor" domElementAttachment="form" autosized="true" minHeight="200" minWidth="840"  showEffect="fade" hideEffect="explode" modal="true">
+	<p:dialog id="editor" widgetVar="editor" domElementAttachment="form" autosized="true" minHeight="200" minWidth="840"  
+	showEffect="fade" hideEffect="explode" modal="false">
 		<f:facet name="header">
 			<h:panelGroup>
 				<h:outputText styleClass="bold" value="Tema: #{notaContablePage.temaActual.tema.nombre}" />
@@ -511,7 +513,8 @@
 				<p:commandButton oncomplete="PF('popupCancelTema').show()" value="Cancelar" />
 
 				<!-- Modal para cancelación-->
-				<p:dialog id="popupCancelTema" widgetVar="popupCancelTema" autosized="true" domElementAttachment="form" width="450"  showEffect="fade" hideEffect="explode" modal="true">
+				<p:dialog id="popupCancelTema" widgetVar="popupCancelTema" autosized="true" domElementAttachment="form" width="450"  
+					showEffect="fade" hideEffect="explode" modal="false">
 					<f:facet name="header">
 						<h:panelGroup>
 							<h:outputText styleClass="bold" value="Confirmación de cancelación de registro de tema" />
@@ -538,7 +541,8 @@
 				</p:dialog>
 
 				<!-- seccion de riesgo operacional -->
-				<p:dialog id="modalRiesgo" widgetVar="modalRiesgo" domElementAttachment="form" autosized="true"  showEffect="fade" hideEffect="explode" modal="true">
+				<p:dialog id="modalRiesgo" widgetVar="modalRiesgo" domElementAttachment="form" autosized="true"  
+					showEffect="fade" hideEffect="explode" modal="false">
 					<f:facet name="header">
 						<h:panelGroup>
 							<h:outputText styleClass="bold" value="Riesgo operacional para el tema: #{notaContablePage.temaActual.tema.nombre}" />
@@ -547,8 +551,9 @@
 					<h:panelGrid width="550">
 						<h:panelGrid columns="3" width="100%">
 							<h:outputText styleClass="bold" value="Importe Total" style="width:150px;" />
-							<h:inputText value="#{notaContablePage.temaActual.riesgoOperacional.importeTotal}" size="16" maxlength="16" onkeypress="return onKeyPressNumbers(event,this.value);"
-								converter="javax.faces.Double" immediate="true" converterMessage="Valor no válido para el Importe Total">
+							<h:inputText value="#{notaContablePage.temaActual.riesgoOperacional.importeTotal}" size="16" 
+								maxlength="16" onkeypress="return onKeyPressNumbers(event,this.value);"
+								converter="javax.faces.Double" immediate="false" converterMessage="Valor no válido para el Importe Total">
 								<f:convertNumber maxFractionDigits="2" />
 								
 								<p:ajax event="keyup" update="globalForm:importeTotal"/>
@@ -561,8 +566,9 @@
 							</h:panelGrid>
 
 							<h:outputText styleClass="bold" value="Importe Parcial" style="width:150px;" />
-							<h:inputText value="#{notaContablePage.temaActual.riesgoOperacional.importeParcial}" size="16" maxlength="16" onkeypress="return onKeyPressNumbers(event,this.value);"
-								converter="javax.faces.Double" immediate="true" converterMessage="Valor no válido para el Importe Parcial">
+							<h:inputText value="#{notaContablePage.temaActual.riesgoOperacional.importeParcial}" size="16" 
+								maxlength="16" onkeypress="return onKeyPressNumbers(event,this.value);"
+								converter="javax.faces.Double" immediate="false" converterMessage="Valor no válido para el Importe Parcial">
 								<f:convertNumber maxFractionDigits="2" />
 								
 								<p:ajax event="keyup" update="globalForm:importeParcial"/>
@@ -578,20 +584,22 @@
 						<h:panelGrid columns="2" width="100%" id="fechasRiesgo">
 
 							<h:outputText styleClass="bold" value="Fecha Inicial del Evento" />
-							<p:calendar value="#{notaContablePage.temaActual.riesgoOperacional.fechaEvento}" isDayEnabled="isDayEnabledRiesgoNC" immediate="true" id="fechaEvento" />
+							<p:calendar value="#{notaContablePage.temaActual.riesgoOperacional.fechaEventoPF}" 
+							isDayEnabled="isDayEnabledRiesgoNC" immediate="false" id="fechaEvento" />
 
 							<h:outputText styleClass="bold" value="Fecha Finalización del Evento" />
-							<p:calendar value="#{notaContablePage.temaActual.riesgoOperacional.fechaFinEvento}" isDayEnabled="isDayEnabledRiesgoNC" immediate="true" id="idFechaFinEvento" />
+							<p:calendar value="#{notaContablePage.temaActual.riesgoOperacional.fechaFinEventoPF}"
+								isDayEnabled="isDayEnabledRiesgoNC" immediate="false" id="idFechaFinEvento" />
 
 							<h:outputText styleClass="bold" value="Fecha del Descubrimiento" />
-							<p:calendar value="#{notaContablePage.temaActual.riesgoOperacional.fechaDescubrimientoEvento}" isDayEnabled="isDayEnabledRiesgoNC"
-								immediate="true" id="fechaDescubrimiento" />
+							<p:calendar value="#{notaContablePage.temaActual.riesgoOperacional.fechaDescubrimientoEventoPF}" isDayEnabled="isDayEnabledRiesgoNC"
+								immediate="false" id="fechaDescubrimiento" />
 
 						</h:panelGrid>
 
 						<h:panelGrid columns="4" width="90%" id="selectsTiempo">
 							<h:outputText styleClass="bold" value="Hora Inicio Evento" />
-							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.horaInicioEvento}" immediate="true">
+							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.horaInicioEvento}" immediate="false">
 
 								<h:outputText styleClass="bold" value="hh" />
 								<f:selectItem itemValue="" itemLabel="00" />
@@ -599,14 +607,14 @@
 							</h:selectOneMenu>
 
 
-							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.minutosInicioEvento}" immediate="true">
+							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.minutosInicioEvento}" immediate="false">
 								<h:outputText styleClass="bold" value="mm" />
 								<f:selectItem itemValue="" itemLabel="--" />
 								<f:selectItems value="#{notaContablePage.minutos}" />
 							</h:selectOneMenu>
 
 
-							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.horario}" immediate="true">
+							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.horario}" immediate="false">
 								<h:outputText styleClass="bold" value="A.M/P.M" />
 								<f:selectItem itemValue="" itemLabel="--" />
 								<f:selectItems value="#{notaContablePage.horario}" />
@@ -614,27 +622,27 @@
 
 
 							<h:outputText styleClass="bold" value="Hora Finalizacion Evento" />
-							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.horaFinalEvento}" immediate="true">
+							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.horaFinalEvento}" immediate="false">
 								<h:outputText styleClass="bold" value="hh" />
 								<f:selectItem itemValue="" itemLabel="00" />
 								<f:selectItems value="#{notaContablePage.horas}" />
 							</h:selectOneMenu>
 
 
-							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.minutosFinalEvento}" immediate="true">
+							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.minutosFinalEvento}" immediate="false">
 								<h:outputText styleClass="bold" value="mm" />
 								<f:selectItem itemValue="" itemLabel="--" />
 								<f:selectItems value="#{notaContablePage.minutos}" />
 							</h:selectOneMenu>
 
-							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.horarioFinal}" immediate="true">
+							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.horarioFinal}" immediate="false">
 								<h:outputText styleClass="bold" value="A.M/P.M" />
 								<f:selectItem itemValue="" itemLabel="--" />
 								<f:selectItems value="#{notaContablePage.horario}" />
 							</h:selectOneMenu>
 
 							<h:outputText styleClass="bold" value="Hora Descubrimiento" />
-							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.horaDescubrimiento}" immediate="true">
+							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.horaDescubrimiento}" immediate="false">
 								<h:outputText styleClass="bold" value="hh" />
 								<f:selectItem itemValue="" itemLabel="00" />
 								<f:selectItems value="#{notaContablePage.horas}" />
@@ -655,7 +663,7 @@
 
 						<h:panelGrid columns="2" width="100%" id="selectsRiesgoDos">
 							<h:outputText styleClass="bold" value="Clase de Riesgo" />
-							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.codigoClaseRiesgo}" immediate="true">
+							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.codigoClaseRiesgo}" immediate="false">
 								
 								<p:ajax event="change" listener="#{notaContablePage.buscarPerdidasCuenta}" update="globalForm:IdPanel,globalForm:panelClaseRiesgoN2" />
 								
@@ -666,7 +674,7 @@
 
 							<h:outputText styleClass="bold" value="Perdida Operacional" />
 							<p:outputPanel id="IdPanel">
-								<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.codigoTipoPerdida}" immediate="true">
+								<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.codigoTipoPerdida}" immediate="false">
 									<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
 									<f:selectItems value="#{notaContablePage.perdidaOper}" />
 								</h:selectOneMenu>
@@ -674,19 +682,19 @@
 
 
 							<h:outputText styleClass="bold" value="Proceso" />
-							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.codigoProceso}" immediate="true">
+							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.codigoProceso}" immediate="false">
 								<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
 								<f:selectItems value="#{notaContablePage.procesos}" />
 							</h:selectOneMenu>
 
 							<h:outputText styleClass="bold" value="Línea Operativa" />
-							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.codigoLineaOperativa}" immediate="true">
+							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.codigoLineaOperativa}" immediate="false">
 								<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
 								<f:selectItems value="#{notaContablePage.lineasOperativas}" />
 							</h:selectOneMenu>
 
 							<h:outputText styleClass="bold" value="Producto Afectado" />
-							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.codigoProducto}" immediate="true">
+							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.codigoProducto}" immediate="false">
 							
 								<p:ajax event="change" listener="#{notaContablePage.buscarSubProducto}" update="globalForm:panelSubProducto" />
 								
@@ -696,14 +704,14 @@
 
 							<h:outputText styleClass="bold" value="SubProducto Afectado" />
 							<p:outputPanel id="panelSubProducto">
-								<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.codigoSubProducto}" immediate="true">
+								<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.codigoSubProducto}" immediate="false">
 									<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
 									<f:selectItems value="#{notaContablePage.subProductos}" />
 								</h:selectOneMenu>
 							</p:outputPanel>
 
 							<h:outputText styleClass="bold" value="Canal" />
-							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.codigoCanal}" immediate="true">
+							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.codigoCanal}" immediate="false">
 							
 								<p:ajax event="change" listener="#{notaContablePage.buscarSubCanal}" update="globalForm:panelSubCanal" />
 								
@@ -713,7 +721,7 @@
 
 							<h:outputText styleClass="bold" value="subCanal" />
 							<p:outputPanel id="panelSubCanal">
-								<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.codigoSubCanal}" immediate="true">
+								<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.codigoSubCanal}" immediate="false">
 									<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
 									<f:selectItems value="#{notaContablePage.subcanales}" />
 								</h:selectOneMenu>
@@ -721,7 +729,7 @@
 
 							<h:outputText styleClass="bold" value="Sfc Clase Riesgo N2" />
 							<p:outputPanel id="panelClaseRiesgoN2">
-								<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.codigoClaseRiesgoN2}" immediate="true">
+								<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.codigoClaseRiesgoN2}" immediate="false">
 								
 									<p:ajax event="change" listener="#{notaContablePage.buscarClaseRiesgoN3}" update="globalForm:panelClaseRiesgoN3" />
 
@@ -732,7 +740,7 @@
 
 							<h:outputText styleClass="bold" value="Sfc Clase Riesgo N3" />
 							<p:outputPanel id="panelClaseRiesgoN3">
-								<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.codigoClaseRiesgoN3}" immediate="true">
+								<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.codigoClaseRiesgoN3}" immediate="false">
 									<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
 									<f:selectItems value="#{notaContablePage.clasesRiesgoN3}" />
 								</h:selectOneMenu>
@@ -742,9 +750,10 @@
 							<h:inputTextarea value="#{notaContablePage.temaActual.riesgoOperacional.nombreOutSource}" cols="50" rows="2" />
 
 							<h:outputText styleClass="bold" value="Aplica Recuperación" rendered="#{notaContablePage.aplicaRecuperacion}"/>
-							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.appRecuperacion}" rendered="#{notaContablePage.aplicaRecuperacion}" immediate="true">
+							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.appRecuperacion}" 
+								rendered="#{notaContablePage.aplicaRecuperacion}" immediate="false">
 							
-								<p:ajax event="change" immediate="true" update="globalForm:panelFechaTxt, globalForm:panelFechaValue, globalForm:panelHoraTxt, globalForm:panelHoraValue, globalForm:panelTipoR, globalForm:panelTipoRecValue" />
+								<p:ajax event="change" immediate="false" update="globalForm:panelFechaTxt, globalForm:panelFechaValue, globalForm:panelHoraTxt, globalForm:panelHoraValue, globalForm:panelTipoR, globalForm:panelTipoRecValue" />
 								
 								<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
 								<f:selectItem itemValue="S" itemLabel="SI" />
@@ -755,8 +764,8 @@
 								<h:outputText styleClass="bold" value="Fecha Recuperación" rendered="#{notaContablePage.temaActual.riesgoOperacional.appRecuperacion eq 'S'}" />
 							</p:outputPanel>
 							<p:outputPanel id="panelFechaValue" ajaxRendered="true">
-								<p:calendar value="#{notaContablePage.temaActual.riesgoOperacional.fechaRecuperacion}" isDayEnabled="isDayEnabledRiesgoNC"
-									immediate="true" id="fechaRecuperacion" rendered="#{notaContablePage.temaActual.riesgoOperacional.appRecuperacion eq 'S'}" />
+								<p:calendar value="#{notaContablePage.temaActual.riesgoOperacional.fechaRecuperacionPF}" isDayEnabled="isDayEnabledRiesgoNC"
+									immediate="false" id="fechaRecuperacion" rendered="#{notaContablePage.temaActual.riesgoOperacional.appRecuperacion eq 'S'}" />
 							</p:outputPanel>
 
 							<p:outputPanel id="panelHoraTxt" ajaxRendered="true">
@@ -764,19 +773,19 @@
 							</p:outputPanel>
 							<p:outputPanel id="panelHoraValue" ajaxRendered="true">
 								<h:panelGrid columns="4" width="90%" id="selectsTiempoRecuperacion" rendered="#{notaContablePage.temaActual.riesgoOperacional.appRecuperacion eq 'S'}">
-									<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.horaRecuperacion}" immediate="true">
+									<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.horaRecuperacion}" immediate="false">
 										<h:outputText styleClass="bold" value="hh" />
 										<f:selectItem itemValue="" itemLabel="00" />
 										<f:selectItems value="#{notaContablePage.horas}" />
 									</h:selectOneMenu>
 
-									<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.minutosRecuperacion}" immediate="true">
+									<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.minutosRecuperacion}" immediate="false">
 										<h:outputText styleClass="bold" value="mm" />
 										<f:selectItem itemValue="" itemLabel="--" />
 										<f:selectItems value="#{notaContablePage.minutos}" />
 									</h:selectOneMenu>
 
-									<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.horarioRecuperacion}" immediate="true">
+									<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.horarioRecuperacion}" immediate="false">
 										<h:outputText styleClass="bold" value="A.M/P.M" />
 										<f:selectItem itemValue="" itemLabel="--" />
 										<f:selectItems value="#{notaContablePage.horario}" />
@@ -787,7 +796,7 @@
 								<h:outputText styleClass="bold" value="Tipo Recuperación" rendered="#{notaContablePage.temaActual.riesgoOperacional.appRecuperacion eq 'S'}" />
 							</p:outputPanel>
 							<p:outputPanel id="panelTipoRecValue" ajaxRendered="true">
-								<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.tipoRecuperacion}" immediate="true"
+								<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.tipoRecuperacion}" immediate="false"
 									rendered="#{notaContablePage.temaActual.riesgoOperacional.appRecuperacion eq 'S'}">
 									<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
 									<f:selectItem itemValue="R_SEGURO" itemLabel="RECUPERACIÓN POR SEGURO" />
@@ -799,11 +808,12 @@
 						<h:panelGrid columns="3" width="100%" style="text-align: center;">
 						
 							<p:commandButton value="Guardar" action="#{notaContablePage.guardarRiesgo}"
-								oncomplete="if (#{notaContablePage.ocultarPopupRiesgo}) PF('modalRiesgo').hide();" />
+								oncomplete="if (#{notaContablePage.ocultarPopupRiesgo}) PF('modalRiesgo').hide()" />
 							<p:commandButton oncomplete="PF('popupCancelRiesgo').show()" value="Cancelar" />
 
 							<!-- Modal para cancelación de datos de riesgo-->
-							<p:dialog id="popupCancelRiesgo" widgetVar="popupCancelRiesgo" autosized="true" domElementAttachment="form" width="450"  showEffect="fade" hideEffect="explode" modal="true">
+							<p:dialog id="popupCancelRiesgo" widgetVar="popupCancelRiesgo" autosized="true" domElementAttachment="form" width="450"  
+								showEffect="fade" hideEffect="explode" modal="false">
 								<f:facet name="header">
 									<h:panelGroup>
 										<h:outputText styleClass="bold" value="Confirmación de cancelación de registro de información" />

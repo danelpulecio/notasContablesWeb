@@ -21,14 +21,13 @@ import java.util.Collection;
 @Named
 public class AuditoriaPage extends GeneralParametrosPage<Auditoria, Auditoria> {
 
-	String param = getParam();
 	private static final long serialVersionUID = 1L;
 
 	private Auditoria auditoria;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AuditoriaPage.class);
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
 
 	public AuditoriaPage() {
 		super(true);

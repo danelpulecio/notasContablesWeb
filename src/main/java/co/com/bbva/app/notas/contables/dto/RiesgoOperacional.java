@@ -15,6 +15,13 @@ public class RiesgoOperacional extends CommonVO<RiesgoOperacional> implements ja
 	private Number importeParcial = 0;
 	private Number importeTotal = 0;
 	private Date fechaEvento = null;
+	
+	private java.util.Date  fechaEventoPF = null;
+	private java.util.Date  fechaFinEventoPF = null;
+	private java.util.Date  fechaDescubrimientoEventoPF = null;
+	private java.util.Date  fechaRecuperacionPF = null;
+	
+	
 	@SuppressWarnings("unused")
 	private final Timestamp fechaEventoTS = null;
 	private String codigoTipoPerdida = "";
@@ -634,4 +641,37 @@ public class RiesgoOperacional extends CommonVO<RiesgoOperacional> implements ja
 	public void restartPK(Object pk) {
 		codigo = Integer.valueOf(pk.toString());
 	}
+
+	public java.util.Date getFechaEventoPF() {
+		return fechaEventoPF;
+	}
+
+	public void setFechaEventoPF(java.util.Date fechaEventoPF) {
+		this.fechaEventoPF = fechaEventoPF;
+	}
+
+	public java.util.Date getFechaFinEventoPF() {
+		return fechaFinEventoPF;
+	}
+
+	public void setFechaFinEventoPF(java.util.Date fechaFinEventoPF) {
+		this.fechaFinEventoPF = fechaFinEventoPF;
+	}
+
+	public java.util.Date getFechaDescubrimientoEventoPF() {
+		return fechaDescubrimientoEventoPF;
+	}
+
+	public void setFechaDescubrimientoEventoPF(java.util.Date fechaDescubrimientoEventoPF) {
+		this.fechaDescubrimientoEventoPF = fechaDescubrimientoEventoPF;
+	}
+
+	public java.util.Date getFechaRecuperacionPF() {
+		return fechaRecuperacionPF;
+	}
+
+	public void setFechaRecuperacionPF(java.util.Date fechaRecuperacionPF) {
+		this.fechaRecuperacionPF = fechaRecuperacionPF;
+	}
+	
 }

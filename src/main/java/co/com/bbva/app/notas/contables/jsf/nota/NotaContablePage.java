@@ -897,7 +897,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 
 	public String guardarRiesgo() {
 		if (validarRiesgo()) {
-			nuevoMensaje(FacesMessage.SEVERITY_INFO, "La informacin de riesgo operacional se ha guardado temporalmente");
+			nuevoMensaje(FacesMessage.SEVERITY_INFO, "La informacion de riesgo operacional se ha guardado temporalmente");
 			this.ocultarPopupRiesgo = true;
 		}
 		return null;
@@ -911,10 +911,19 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 		LOGGER.info("{} Se va guardar la Info. diligenciada en ventana modal de Riesgo para Nota Contable Tipo Tema.  ");
 		validador.validarPositivo(temaActual.getRiesgoOperacional().getImporteParcial(), "Importe Parcial");
 		validador.validarPositivo(temaActual.getRiesgoOperacional().getImporteTotal(), "Importe Total");
+		
+
+		temaActual.getRiesgoOperacional().setFechaEvento(DateUtils.getSQLDate(temaActual.getRiesgoOperacional().getFechaEventoPF()));
 		validador.validarRequerido(temaActual.getRiesgoOperacional().getFechaEvento(), "Fecha Inicio del Evento");
+		
+		temaActual.getRiesgoOperacional().setFechaDescubrimientoEvento(DateUtils.getSQLDate(temaActual.getRiesgoOperacional().getFechaDescubrimientoEventoPF()));
 		validador.validarRequerido(temaActual.getRiesgoOperacional().getFechaDescubrimientoEvento(), "Fecha del Descubrimiento");
+		
 		validador.validarSeleccion(temaActual.getRiesgoOperacional().getCodigoClaseRiesgo(), "Clase de Riesgo");
+		
+		temaActual.getRiesgoOperacional().setFechaFinEvento(DateUtils.getSQLDate(temaActual.getRiesgoOperacional().getFechaFinEventoPF()));
 		validador.validarRequerido(temaActual.getRiesgoOperacional().getFechaFinEvento(), "Fecha Finalizacin del Evento");
+		
 		validador.validarRequerido(temaActual.getRiesgoOperacional().getHoraInicioEvento(), "Hora Inicio Evento");
 		validador.validarRequerido(temaActual.getRiesgoOperacional().getMinutosInicioEvento(), "Minutos Inicio Evento");
 		validador.validarRequerido(temaActual.getRiesgoOperacional().getHoraFinalEvento(), "Hora Finalizacion Evento");
@@ -938,9 +947,12 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 			validador.validarSeleccion(temaActual.getRiesgoOperacional().getAppRecuperacion(), "Aplica Recuperacin");
 			
 			if(temaActual.getRiesgoOperacional().getAppRecuperacion().equals("S")) {
-				validador.validarRequerido(temaActual.getRiesgoOperacional().getFechaRecuperacion(), "Fecha Recuperacin");
-				validador.validarRequerido(temaActual.getRiesgoOperacional().getHoraRecuperacion(), "Hora Recuperacin");
-				validador.validarRequerido(temaActual.getRiesgoOperacional().getMinutosRecuperacion(), "Minutos Recuperacin");
+				
+				temaActual.getRiesgoOperacional().setFechaRecuperacion(DateUtils.getSQLDate(temaActual.getRiesgoOperacional().getFechaRecuperacionPF()));
+				validador.validarRequerido(temaActual.getRiesgoOperacional().getFechaRecuperacion(), "Fecha Recuperacion");
+				
+				validador.validarRequerido(temaActual.getRiesgoOperacional().getHoraRecuperacion(), "Hora Recuperacion");
+				validador.validarRequerido(temaActual.getRiesgoOperacional().getMinutosRecuperacion(), "Minutos Recuperacion");
 				validador.validarRequerido(temaActual.getRiesgoOperacional().getHorarioRecuperacion(), "horario Recuperacion");
 				validador.validarSeleccion(temaActual.getRiesgoOperacional().getTipoRecuperacion(), "Tipo Recuperacin");
 			}

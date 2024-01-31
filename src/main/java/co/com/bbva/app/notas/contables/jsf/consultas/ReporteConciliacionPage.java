@@ -8,6 +8,7 @@ import co.com.bbva.app.notas.contables.util.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.model.SelectItem;
@@ -47,9 +48,11 @@ public class ReporteConciliacionPage extends GeneralConsultaPage<Instancia> {
 
     public ReporteConciliacionPage() {
         super();
-        fileGenerator = new FileGenerator(notasContablesManager, cargaAltamiraManager, getUsuarioLogueado().getUsuario().getCodigo().intValue());
+        fileGenerator = new FileGenerator(notasContablesManager, cargaAltamiraManager,1);
+//        fileGenerator = new FileGenerator(notasContablesManager, cargaAltamiraManager, getUsuarioLogueado().getUsuario().getCodigo().intValue());
     }
-
+    
+    @PostConstruct
     protected void _init() {
         super._init();
         anios = new ArrayList<>();
@@ -101,9 +104,9 @@ public class ReporteConciliacionPage extends GeneralConsultaPage<Instancia> {
 
                 if (Integer.valueOf(hour) <= 21) {
                     File directory = new File(DIR_TRANSMISION_ALTAMIRA);
-//                    deleteFiles(session.getTraceLog(), directory);
+                    deleteFiles("traceLog", directory);
                     fileGenerator.generarArchivoConciliacion(DIR_TRANSMISION_ALTAMIRA + INTERFAZ_CONTABLE_FILE_NAME,this.DIR_TRANSMISION_ALTAMIRA , fecha1String ,fecha2String );
-//                    LOGGER.info("{} Generar Archivo Conciliacin : {}", session.getTraceLog(), fecha1String +" "+ fecha2String );
+                    LOGGER.info("{} Generar Archivo Conciliacin : {}", fecha1String +" "+ fecha2String );
                     nuevoMensaje(FacesMessage.SEVERITY_INFO, "Inicio el proceso y el archivo se ha  generado en: " + DIR_TRANSMISION_ALTAMIRA+ INTERFAZ_CONTABLE_FILE_NAME);
                 } else {
                     nuevoMensaje(FacesMessage.SEVERITY_WARN, "La generacin de la conciliacin puede ejecutarse los das hbiles antes de las 10 pm, en caso contrario el procesamiento no ser exitoso.");

@@ -20,9 +20,9 @@
 			</h:panelGrid> 
 		
 			<!-- Panel de opciones --> 
-			<h:panelGrid id="informacion" columns="1" width="60%" cellpadding="0" cellspacing="0">
+			<h:panelGrid id="informacion" columns="1" width="100%" cellpadding="0" cellspacing="0">
 				<p:accordionPanel label="Filtro de búsqueda" width="100%" widgetVar="client">
-					<p:tab title="Filtro de búsqueda">
+					<p:tab title="Filtro de búsqueda" id="tabBusquedaReporte" >
 						<h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="5">
 		
 							<h:panelGrid columns="2">
@@ -82,11 +82,11 @@
 								<h:inputText value="#{reporteGeneralPage.numIdentificacion}"/>
 		
 								<h:outputText value="Desde" />
-								<p:calendar value="#{reporteGeneralPage.desde}"/>
+								<p:datePicker value="#{reporteGeneralPage.desde}" showIcon="true" monthNavigator="true" yearNavigator="true"/>
 		
 								<h:outputText value="Hasta" />
-								<p:calendar value="#{reporteGeneralPage.hasta}"/>
-								
+								<p:datePicker value="#{reporteGeneralPage.hasta}" showIcon="true" monthNavigator="true" yearNavigator="true"/>
+							
 								<h:outputText value="Divisa" />
 								<h:selectOneMenu value="#{reporteGeneralPage.divisa}" >
 								    <f:selectItem itemValue="" itemLabel="Cualquiera"/>
@@ -94,7 +94,7 @@
 								</h:selectOneMenu>
 		
 								<h:outputText value="Estado" />
-								<h:selectOneMenu value="estado" >
+								<h:selectOneMenu value="#{reporteGeneralPage.estado}" >
 								    <f:selectItem itemValue="" itemLabel="Cualquiera"/>
 								    <f:selectItem itemValue="0" itemLabel="Pendiente de aprobación por Subgenrente, Gerente, Área Central" />
 									<f:selectItem itemValue="1" itemLabel="Pendiente de Revisión" />
@@ -112,110 +112,119 @@
 							</h:panelGrid>
 		
 							<h:panelGrid columns="1" styleClass="center">
-								<p:commandButton action="#{reporteGeneralPage.buscar}"  update="globalForm:informacion,globalForm:lista" value="Buscar" />
+								<p:commandButton action="#{reporteGeneralPage.buscar}"  
+									update="globalForm:informacion,globalForm:lista,globalForm:lista2,globalForm:infoMsgRep" value="Buscar" />
 							</h:panelGrid>
 						</h:panelGrid>
 					</p:tab>
 				</p:accordionPanel>
 			</h:panelGrid> 
 			
-			<ui:include src="../../common/mensajes.xhtml" />
+			<h:panelGrid columns="1" width="100%" id="infoMsgRep" styleClass="center">
+            	<ui:include src="../../common/mensajes.xhtml"/>
+			</h:panelGrid>
 			
 			<!-- Tabla de registros --> 
 			
 			<h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
-				<p:commandButton value="Generar Archivo Excel" update="globalForm:lista"  rendered="#{! empty reporteGeneralPage.datos}"/>
+				
+				<p:commandButton value="Generar Archivo Excel" 
+					action="#{reporteGeneralPage.generarArchivoExcel}" 
+					update="globalForm:lista"
+					rendered="#{! empty reporteGeneralPage.datos}"/>
+				
 				<p:commandLink styleClass="bold" action="#{downloadGeneralPage.download}" value="#{precierreCierrePage.excelFileName}" 
-					target="_blank" rendered="#{precierreCierrePage.mostrarArchExc}">
+					target="_blank" rendered="#{precierreCierrePage.mostrarArchExc}" ajax="false">
                     <f:setPropertyActionListener for="type1" value="#{downloadGeneralPage.REPORTE_EXCEL}" target="#{downloadGeneralPage.type}" />
                     <f:setPropertyActionListener for="file1" value="#{precierreCierrePage.excelFileName}" target="#{downloadGeneralPage.file}"/>
 				</p:commandLink>
-			<p:dataTable value="#{reporteGeneralPage.datos}" var="dato" id="table" rowIndexVar="rowIndex"
+			</h:panelGrid>
+			
+			<h:panelGrid columns="1" width="100%" style="align:center;" id="lista2">
+				<p:dataTable value="#{reporteGeneralPage.datos}" var="dato" id="table" rowIndexVar="rowIndex"
 						widgetVar="economicActivityTable" rows="15" paginator="true" rendered="#{! empty reporteGeneralPage.datos}"
 						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 						currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
 						paginatorPosition="top">
 
-					<p:column headerText="Número Radicación" sortable="true" sortBy="#{dato.NC.numeroRadicacion}">
-						<h:outputText value="numeroRadicacion" />
+					<p:column headerText="Número Radicación" sortable="true" sortBy="#{dato.NC.numeroRadicacion}" width="100px;">
+						<h:outputText value="#{dato.NC.numeroRadicacion}" />
 					</p:column>
-					<p:column headerText="Sucursal Origen" sortable="true" sortBy="#{dato.sucursal.codigo}">
-						<h:panelGrid columns="2">
-							<h:outputText value="codigo}" />
-							<h:outputText value="nombre}" />
-						</h:panelGrid>
+					<p:column headerText="Sucursal Origen" sortable="true" sortBy="#{dato.sucursal.codigo}" width="85px;">
+							<h:outputText value="#{dato.sucursal.codigo} : #{dato.sucursal.nombre}" />
 					</p:column>
-					<p:column headerText="Estado" sortable="true" sortBy="#{dato.estado}">
-						<h:outputText value="nombreEstado}" />
+					<p:column headerText="Estado" sortable="true" sortBy="#{dato.estado}" width="70px">
+						<h:outputText value="#{dato.nombreEstado}" />
 					</p:column>
-					<p:column headerText="Detalle de la nota contable" style="text-align: right;">
-						<h:panelGrid columns="1" rendered="#{dato.NC.tipoNota eq 'R' }" width="100%">
-							<p:dataTable style="border-width: 0px; background-color: transparent;" var="tema" value=".NC.temas">
+					<p:column headerText="Detalle de la nota contable" style="text-align: center; border-width: 0px;"  width="500px;">
+						<h:panelGrid columns="1" rendered="#{dato.NC.tipoNota eq 'R' }" width="100%" border="0">
+							<p:dataTable style="border-width: 0px; background-color: transparent;" var="tema" value="#{dato.NC.temas}">
 								<p:column style="border-width: 0px; text-align: left;" >
-									<h:outputText value="nombre" />
+									<h:outputText value="${tema.tema.nombre}" />
 								</p:column>
 								<p:column style="border-width: 0px; text-align: left;" width="80" >
 									<h:panelGrid columns="1" cellpadding="0" cellspacing="0">
-										<h:outputText value="partidaContable} " />
-										<h:outputText value="contrapartidaContable}" />
+										<h:outputText value="#{tema.partidaContable} " />
+										<h:outputText value="#{tema.contrapartidaContable}" />
 									</h:panelGrid>
 								</p:column>
-								<p:column style="border-width: 0px; text-align: left;" width="20" >
-									<h:panelGrid columns="1" cellpadding="0" cellspacing="0">
-										<h:outputText value="naturalezaPartidaContable" />
-										<h:outputText value="naturalezaContrapartidaContable" />
+								<p:column style="border-width: 0px; text-align: left;" width="33px" >
+									<h:panelGrid columns="1" cellpadding="0" cellspacing="0" border="0" width="33px">
+										<h:outputText value="[#{tema.naturalezaPartidaContable}]" />
+										<h:outputText value="[#{tema.naturalezaContrapartidaContable}]" />
 									</h:panelGrid>
 								</p:column>
 								<p:column style="border-width: 0px; text-align: left;" width="30" >
-									<h:outputText value="codigoDivisa" />
+									<h:outputText value="#{tema.codigoDivisa}" />
 								</p:column>
-								<p:column style="border-width: 0px; text-align:right;" width="140" >
-									<h:outputText ><f:convertNumber type="currency" /></h:outputText>
+								<p:column style="border-width: 0px; text-align:right;" width="140">
+									<h:outputText value="#{tema.monto}" ><f:convertNumber type="currency" /></h:outputText>
 								</p:column>
 							</p:dataTable>
 						</h:panelGrid>
-						<h:panelGrid columns="1" rendered="#{dato.NC.tipoNota eq 'C' }"  style="width: 100%">
-							<p:dataTable style="border-width: 0px; background-color: transparent;" var="temaCruce" value="temasCruce" cellpadding="0" cellspacing="0">
+						
+						<h:panelGrid columns="1" rendered="#{dato.NC.tipoNota eq 'C' }"  style="width: 100%" border="0">
+							<p:dataTable style="border-width: 0px; background-color: transparent;" var="temaCruce" value="#{dato.NC.temasCruce}" cellpadding="0" cellspacing="0">
 								<p:column style="border-width: 0px; text-align: left;" >
 									<h:outputText value="REFERENCIA DE CRUCE" />
 								</p:column>
 								<p:column style="border-width: 0px; text-align: left;" width="80">
-									<h:outputText value="cuentaContable" />
+									<h:outputText value="${temaCruce.cuentaContable}" />
 								</p:column>
 								<p:column style="border-width: 0px; text-align: left;" width="20">
-									<h:outputText value="naturaleza" />
+									<h:outputText value="[${temaCruce.naturaleza}]" />
 								</p:column>
 								<p:column style="border-width: 0px; text-align: left;" width="30">
-									<h:outputText value="divisa" />
+									<h:outputText value="${temaCruce.divisa}" />
 								</p:column>
 								<p:column style="border-width: 0px; text-align:right;" width="140">
-									<h:outputText ><f:convertNumber type="currency" /></h:outputText>
+									<h:outputText value="#{temaCruce.importe}" ><f:convertNumber type="currency" /></h:outputText>
 								</p:column>
 			
 							</p:dataTable>
 						</h:panelGrid>
-						<h:panelGrid columns="1" rendered="#{dato.NC.tipoNota eq 'L' }"  width="100%">
-							<p:dataTable style="border-width: 0px; background-color: transparent; " var="temaLibre" value="temasLibre" cellpadding="0" cellspacing="0">
+						<h:panelGrid columns="1" rendered="#{dato.NC.tipoNota eq 'L' }"  width="100%" border="0">
+							<p:dataTable style="border-width: 0px; background-color: transparent; " var="temaLibre" value="#{dato.NC.temasLibre}" cellpadding="0" cellspacing="0">
 								<p:column style="border-width: 0px; text-align: left;" >
 									<h:outputText value="CONTABILIDAD LIBRE"/>
 								</p:column>
 								<p:column  style="border-width: 0px; text-align: left;" width="80">
-									<h:outputText value="cuentaContable" />
+									<h:outputText value="${temaLibre.cuentaContable}" />
 								</p:column>
 								<p:column style="border-width: 0px; text-align: left;" width="20">
-									<h:outputText value="naturalezaCuentaContable" />
+									<h:outputText value="[${temaLibre.naturalezaCuentaContable}]" />
 								</p:column>
 								<p:column style="border-width: 0px; text-align: left;" width="30">
-									<h:outputText value="codigoDivisa" />
+									<h:outputText value="${temaLibre.codigoDivisa}" />
 								</p:column>
 								<p:column style="border-width: 0px; text-align:right;" width="140">
-									<h:outputText><f:convertNumber type="currency" /></h:outputText>
+									<h:outputText value="#{temaLibre.monto}"><f:convertNumber type="currency" /></h:outputText>
 								</p:column>
 							</p:dataTable>
 						</h:panelGrid>
 					</p:column>
 	
-					<p:column headerText="Ver Nota Contable" style="text-align: center;">
+					<p:column headerText="Ver Nota Contable" style="text-align: center;" width="50px;">
 
 						
                         <p:commandButton value="Ver"

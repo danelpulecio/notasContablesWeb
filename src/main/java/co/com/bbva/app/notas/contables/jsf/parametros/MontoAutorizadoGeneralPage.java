@@ -8,10 +8,12 @@ import co.com.bbva.app.notas.contables.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -25,7 +27,6 @@ import java.util.List;
 @Named
 public class MontoAutorizadoGeneralPage extends GeneralParametrosPage<MontoAutorizadoGeneral, MontoAutorizadoGeneral> {
 
-	String param = getParam();
 	private static final long serialVersionUID = 1L;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(MontoAutorizadoGeneralPage.class);
@@ -34,7 +35,14 @@ public class MontoAutorizadoGeneralPage extends GeneralParametrosPage<MontoAutor
 	private List<SelectItem> roles;
 	private List<SelectItem> temasAut;
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
+	@PostConstruct
+	public void init() throws Exception {
+		super._init();
+		setDatos(new ArrayList<>(_buscarTodos()));
+		consultarListasAuxiliares();
+		LOGGER.info("postConstructo datos {}", getDatos().size());
+	}
 
 	public MontoAutorizadoGeneralPage() {
 		super(true);
@@ -74,7 +82,7 @@ public class MontoAutorizadoGeneralPage extends GeneralParametrosPage<MontoAutor
 	@Override
 	public Collection<MontoAutorizadoGeneral> _buscarPorFiltro() throws Exception {
 		if(!param.isEmpty()){
-			LOGGER.info("{} Buscar monto autorizado general: {}", session.getTraceLog(),param );
+			LOGGER.info("{} Buscar monto autorizado general: {}", param );
 		}
 		return notasContablesManager.searchMontoAutorizadoGeneral(param);
 	}
@@ -94,16 +102,16 @@ public class MontoAutorizadoGeneralPage extends GeneralParametrosPage<MontoAutor
 		Number codInicial = objActual.getCodigo();
 		try {
 			if (objActual.getCodigo().intValue() <= 0) {
-				LOGGER.info("{} Crea monto autorizado general: {}", session.getTraceLog(),objActual.getCodigoTipoAutorizacion() + " "+objActual.getCodigoRol() + " "+ objActual.getCodigoTemaAutorizacion() );
+				LOGGER.info("{} Crea monto autorizado general: {}", objActual.getCodigoTipoAutorizacion() + " "+objActual.getCodigoRol() + " "+ objActual.getCodigoTemaAutorizacion() );
 				notasContablesManager.addMontoAutorizadoGeneral(objActual, getCodUsuarioLogueado());
 			} else {
-				LOGGER.info("{} Actualiza monto autorizado general: {}", session.getTraceLog(),objActual.getCodigoTipoAutorizacion() + " "+objActual.getCodigoRol() + " "+ objActual.getCodigoTemaAutorizacion() );
+				LOGGER.info("{} Actualiza monto autorizado general: {}", objActual.getCodigoTipoAutorizacion() + " "+objActual.getCodigoRol() + " "+ objActual.getCodigoTemaAutorizacion() );
 				notasContablesManager.updateMontoAutorizadoGeneral(objActual, getCodUsuarioLogueado());
 			}
 			return true;
 		} catch (Exception e) {
 			objActual.setCodigo(codInicial);
-			LOGGER.error("{} Ya existe un registro con los mismos datos: {}", session.getTraceLog(),codInicial ,e );
+			LOGGER.error("{} Ya existe un registro con los mismos datos: {}", codInicial ,e );
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Ya existe un registro con los mismos datos.");
 
 			return false;
@@ -131,8 +139,9 @@ public class MontoAutorizadoGeneralPage extends GeneralParametrosPage<MontoAutor
 	 */
 	@Override
 	public boolean _cambiarEstado() throws Exception {
-		LOGGER.info("{} Cambio monto autorizado general: {}", session.getTraceLog(),notasContablesManager.getMontoAutorizadoGeneral(objActual).getCodigo() + " " + notasContablesManager.getMontoAutorizadoGeneral(objActual).getEstado() );
+		LOGGER.info("{} Cambio monto autorizado general: {}", notasContablesManager.getMontoAutorizadoGeneral(objActual).getCodigo() + " " + notasContablesManager.getMontoAutorizadoGeneral(objActual).getEstado() );
 		notasContablesManager.changeEstadoMontoAutorizadoGeneral(notasContablesManager.getMontoAutorizadoGeneral(objActual), getCodUsuarioLogueado());
+		setDatos(new ArrayList<>(_buscarTodos()));
 		return true;
 	}
 
@@ -143,23 +152,23 @@ public class MontoAutorizadoGeneralPage extends GeneralParametrosPage<MontoAutor
 	 */
 	@Override
 	public boolean _borrar() throws Exception {
-		LOGGER.info("{} Borra monto autorizado general: {}", session.getTraceLog(),notasContablesManager.getMontoAutorizadoGeneral(objActual).getCodigo()  );
+		LOGGER.info("{} Borra monto autorizado general: {}", notasContablesManager.getMontoAutorizadoGeneral(objActual).getCodigo()  );
 		notasContablesManager.deleteMontoAutorizadoGeneral(objActual, getCodUsuarioLogueado());
 		return true;
 	}
 
 	private void consultarListasAuxiliares() {
-		if (esUltimaFase()) {
+//		if (esUltimaFase()) {
 			try {
 				tiposEvento = getSelectItemList(notasContablesManager.getCV(TipoEvento.class), false);
 				temasAut = getSelectItemList(notasContablesManager.getCV(TemaAutorizacion.class), false);
 				roles = getSelectItemList(notasContablesManager.getCV(Rol.class), false);
 			} catch (Exception e) {
-				LOGGER.error("{} Error al inicializar el mdulo de administracin de montos autorizados generales ", session.getTraceLog(), e);
+				LOGGER.error("{} Error al inicializar el mdulo de administracin de montos autorizados generales ", e);
 				nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al inicializar el mdulo de administracin de montos autorizados generales");
 
 			}
-		}
+//		}
 	}
 
 	@Override

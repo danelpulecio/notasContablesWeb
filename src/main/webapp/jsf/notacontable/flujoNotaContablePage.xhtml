@@ -180,6 +180,7 @@
                                  width="100%">
                         <p:dataTable id="impuestoTema" value="#{flujoNotaContablePage.temaActual.impuestoTema}" var="imp" rowIndexVar="rowIndex"
                                      widgetVar="economicActivityTable" rows="15" paginator="true"
+                                     rendered="#{! empty flujoNotaContablePage.temaActual.impuestoTema}"
                                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                      currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
                                      paginatorPosition="top">
@@ -257,13 +258,13 @@
                             </p:column>
 
                             <p:column headerText="Archivo" style="text-align: right;">
+                                
                                 <p:commandLink action="#{downloadGeneralPage.download}" styleClass="bold"
-                                               value="#{anexo.nombre}" target="_blank">
-                                               
+                                               value="#{anexo.nombre}" target="_blank" ajax="false">
 				                    <f:setPropertyActionListener for="type2" value="#{downloadGeneralPage.SOPORTE}" target="#{downloadGeneralPage.type}" />
 				                    <f:setPropertyActionListener for="file2" value="#{anexo.archivo}" target="#{downloadGeneralPage.file}"/>
-                                             
                                 </p:commandLink>
+                                
                             </p:column>
                         </p:dataTable>
                     </h:panelGrid>
@@ -275,7 +276,7 @@
                     	domElementAttachment="form" 
                     	autosized="true"
                         showEffect="fade" 
-                        hideEffect="explode" modal="true">
+                        hideEffect="explode" modal="false">
                         <f:facet name="header">
                             <h:panelGroup>
                                 <h:outputText

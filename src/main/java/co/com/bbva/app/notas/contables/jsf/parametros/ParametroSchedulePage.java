@@ -7,7 +7,9 @@ import co.com.bbva.app.notas.contables.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,14 +20,15 @@ import java.util.List;
  * </p>
  * 
  */
-
+@SessionScoped
+@Named (value = "parametrosSchedulePage")
 public class ParametroSchedulePage extends GeneralPage implements IPages {
 
 	List<Parametro> parametros = null;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ParametroSchedulePage.class);
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
 
 	@Override
 	protected void _init() throws Exception {
@@ -42,10 +45,10 @@ public class ParametroSchedulePage extends GeneralPage implements IPages {
 	public String guardar() {
 		try {
 			notasContablesManager.updateParametros(parametros, getUsuarioLogueado().getUsuario().getCodigo().intValue());
-			LOGGER.info("{} Actualizar parametros SchedulePage ", session.getTraceLog() );
+//			LOGGER.info("{} Actualizar parametros SchedulePage ", session.getTraceLog() );
 			nuevoMensaje(FacesMessage.SEVERITY_INFO, "La informacin ha sido actualizada");
 		} catch (Exception e) {
-			LOGGER.error("{} Error guardando los parmetros ", session.getTraceLog(), e);
+//			LOGGER.error("{} Error guardando los parmetros ", session.getTraceLog(), e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error guardando los parmetros");
 
 		}

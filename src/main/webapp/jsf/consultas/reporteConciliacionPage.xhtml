@@ -15,22 +15,24 @@
 
             <!-- Tabla de registros -->
             <h:panelGrid id="filtro" columns="1" width="60%" cellpadding="0" cellspacing="0">
-                <p:accordionPanel label="Filtro" width="100%" switchType="client">
-                    <h:panelGrid columns="2" width="100%" cellpadding="0" cellspacing="5">
-
-                        <h:outputText value="Período" />
-                        <h:selectOneMenu value="años" immediate="true">
-                            <f:selectItems value="años" />
-                        </h:selectOneMenu>
-
-                        <h:commandButton value="Ejecutar" reRender="filtro"  />
-
-                    </h:panelGrid>
+                <p:accordionPanel label="Filtro" width="60%" switchType="client">
+                	<p:tab title="Filtro de búsqueda">
+	                    <h:panelGrid columns="3" width="60%" cellpadding="0" cellspacing="5">
+	
+	                        <h:outputText value="Período" />
+	                        <h:selectOneMenu value="#{reporteConciliacionPage.anio}" immediate="true">
+	                            <f:selectItems value="#{reporteConciliacionPage.anios}" />
+	                        </h:selectOneMenu>
+	
+	                        <p:commandButton value="Ejecutar" action="#{reporteConciliacionPage.generarArchivoTXT}" update="globalForm:filtro,globalForm:msgInfo"  />
+	
+	                    </h:panelGrid>
+	                 </p:tab>
                 </p:accordionPanel>
             </h:panelGrid>
-
-            <ui:include src="../../common/mensajes.xhtml" />
-
+			<h:panelGrid cellpadding="0" cellspacing="0" id="msgInfo">
+            	<ui:include src="../../common/mensajes.xhtml" />
+			</h:panelGrid>
         </div>
     </ui:define>
 </ui:composition>

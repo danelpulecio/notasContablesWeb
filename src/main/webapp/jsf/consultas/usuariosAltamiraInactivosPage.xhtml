@@ -9,52 +9,49 @@
 
 		<!--Filtro de busqueda	-->
 		<div style="width: 990px;">
-			<h:form>
+
 			<h:panelGrid columns="1" width="100%">
 				<h1 align="center">Usuarios Altamira Inactivos</h1>
 			</h:panelGrid> 
 		
 			<!-- Tabla de registros --> 
 			
-			<!--<h:panelGrid columns="1" width="100%" style="align:center;" id="lista">-->
+			<h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
 
-				<p:dataTable value="#{usuariosAltamiraInactivosPage.datos}" var="dato" id="table" rowIndexVar="rowIndex" 														widgetVar="economicActivityTable" rows="15" paginator="true"
+				<p:dataTable value="#{usuariosAltamiraInactivosPage.datos}" var="dato" id="table" rowIndexVar="rowIndex" rows="15" paginator="true"
 							 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 							 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
 							 paginatorPosition="top">
 
 					<p:column headerText="Código Empleado" sortable="true" sortBy="#{dato.usuAlt.codigoEmpleado}">
-						<h:outputText value="codigoEmpleado" />
+						<h:outputText value="#{dato.usuAlt.codigoEmpleado}" />
 					</p:column>
 					<p:column headerText="Nombre Empleado" sortable="true" sortBy="#{dato.usuAlt.nombreEmpleado}">
-						<h:outputText value="nombreEmpleado" />
+						<h:outputText value="#{dato.usuAlt.codigoEmpleado}" />
 					</p:column>
 
 					<p:column headerText="Código Área" sortable="true" sortBy="#{dato.codigoAreaModificado}">
-						<h:outputText value="codigoAreaModificado" />
+						<h:outputText value="#{dato.codigoAreaModificado}" />
 					</p:column>
 
 					<p:column headerText="Nombre Área" sortable="true" sortBy="#{dato.nombreAreaModificado}">
-						<h:outputText value="nombreAreaModificado" />
+						<h:outputText value="#{dato.nombreAreaModificado}" />
 					</p:column>
 
 					<p:column headerText="Código Perfil" sortable="true" sortBy="#{dato.codigoPerfilModificado}">
-						<h:outputText value="codigoPerfilModificado" />
+						<h:outputText value="#{dato.codigoPerfilModificado}" />
 					</p:column>
 
 					<p:column headerText="Nombre Perfil" sortable="true" sortBy="#{dato.nombrePerfilModificado}">
-						<h:outputText value="nombrePerfilModificado" />
+						<h:outputText value="#{dato.nombrePerfilModificado}" />
 					</p:column>
 
 					<p:column headerText="Rol" sortable="true" sortBy="#{dato.Rol}">
-						<h:outputText value="rol.nombre" />
+						<h:outputText value="#{dato.rol.nombre}" />
 					</p:column>
 
-	
-
 				</p:dataTable>
-			<!--</h:panelGrid>-->
-			</h:form>
+.			</h:panelGrid>
 		</div>
 	</ui:define>
 </ui:composition>

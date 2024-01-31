@@ -1,6 +1,7 @@
 package co.com.bbva.app.notas.contables.dao;
 
 import co.com.bbva.app.notas.contables.dto.Instancia;
+import co.com.bbva.app.notas.contables.jsf.consultas.ReporteGeneralPage;
 import co.com.bbva.app.notas.contables.util.IRol;
 import co.com.bbva.app.notas.contables.util.StringUtils;
 
@@ -12,7 +13,12 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class InstanciaDAO extends CommonSeqDAO<Instancia> {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(InstanciaDAO.class);
 
 	private static String cs_COLUMNAS = "CODIGO, FECHA_HORA_INICIO, CODIGO_NOTA_CONTABLE, CODIGO_SUCURSAL_ORIGEN, CODIGO_USUARIO_ACTUAL, ULTIMA_ACTUALIZACION, ESTADO";
 
@@ -160,8 +166,37 @@ public class InstanciaDAO extends CommonSeqDAO<Instancia> {
 		return obtenerLista(query, new Object[] { COMODIN + asientoContable, fecha, COMODIN + asientoContable, fecha, COMODIN + asientoContable, fecha });
 	}
 
-	public Collection<Instancia> findNormalBy(String codigoSucursalOrigen, String codigoSucursalDestino, Integer codigoConcepto, Integer codigoTema, Integer codigoTipoEvento, String partidaContable, String numeroIdentificacion, Date fechaDesde,
-			Date fechaHasta, String codigoDivisa, String codigoEstado, String descripcion, String codSucUsuario, int codRol) throws Exception {
+	public Collection<Instancia> findNormalBy(
+			String codigoSucursalOrigen, 
+			String codigoSucursalDestino, 
+			Integer codigoConcepto, 
+			Integer codigoTema, 
+			Integer codigoTipoEvento, 
+			String partidaContable, 
+			String numeroIdentificacion, 
+			Date fechaDesde,
+			Date fechaHasta, 
+			String codigoDivisa, 
+			String codigoEstado, 
+			String descripcion, 
+			String codSucUsuario, 
+			int codRol) throws Exception {
+		
+		LOGGER.info("codigoSucursalOrigen --> " + codigoSucursalOrigen);
+		LOGGER.info("codigoSucursalDestino --> " + codigoSucursalDestino);
+		LOGGER.info("codigoConcepto --> " + codigoConcepto);
+		LOGGER.info("codigoTema --> " + codigoTema);
+		LOGGER.info("codigoTipoEvento --> " + codigoTipoEvento);
+		LOGGER.info("partidaContable --> " + partidaContable);
+		LOGGER.info("numeroIdentificacion --> " + numeroIdentificacion);
+		LOGGER.info("fechaDesde --> " + fechaDesde);
+		LOGGER.info("fechaHasta --> " + fechaHasta);
+		LOGGER.info("codigoDivisa --> " + codigoDivisa);
+		LOGGER.info("codigoEstado --> " + codigoEstado);
+		LOGGER.info("descripcion --> " + descripcion);
+		LOGGER.info("codSucUsuario --> " + codSucUsuario);
+		LOGGER.info("codRol --> " + codRol);
+		
 		String sqlSelect = SQL_SELECT + " LEFT JOIN NC_NOTA_CONTABLE_TEMA B ON NC.CODIGO=B.CODIGO_NOTA_CONTABLE ";
 		String sqlWhere = " WHERE NC.TIPO_NOTA = 'R' ";
 		String sqlOrderBy = "ORDER BY SU.CODIGO";

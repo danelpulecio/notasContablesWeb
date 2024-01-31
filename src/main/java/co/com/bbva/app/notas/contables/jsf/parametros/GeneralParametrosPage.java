@@ -135,14 +135,14 @@ public abstract class GeneralParametrosPage<T extends CommonVO<T>, D> extends Ge
 		try {
 			if (datosValidos() && _guardar()) {
 				setDatos(new ArrayList<T>(_buscarPorFiltro()));
-				nuevoMensaje(FacesMessage.SEVERITY_INFO, "La informacin ha sido guardada correctamente");
+				nuevoMensaje(FacesMessage.SEVERITY_INFO, "La información ha sido guardada correctamente");
 				ocultarPopupGuardar = true;
 				setDatos(new ArrayList<>(_buscarTodos()));
 				LOGGER.info("Guardar datos {}", getDatos().size());
 			}
 		} catch (Exception e) {
 			LOGGER.error("{} Error guardar la informacin");
-			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error guardar la informacin");
+			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error guardar la información");
 
 		}
 		return null;
@@ -208,6 +208,7 @@ public abstract class GeneralParametrosPage<T extends CommonVO<T>, D> extends Ge
 	 * @return the ocultarPopupGuardar
 	 */
 	public boolean isOcultarPopupGuardar() {
+		LOGGER.info("ocultar {}", ocultarPopupGuardar);
 		return ocultarPopupGuardar;
 	}
 

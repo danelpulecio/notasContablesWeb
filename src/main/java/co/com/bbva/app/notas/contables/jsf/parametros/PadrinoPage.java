@@ -5,6 +5,7 @@ import co.com.bbva.app.notas.contables.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.model.SelectItem;
@@ -24,7 +25,6 @@ import java.util.TreeMap;
 @Named
 public class PadrinoPage extends GeneralParametrosPage<Padrino, Padrino> {
 
-	String param = getParam();
 	private static final long serialVersionUID = 1L;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(PadrinoPage.class);
@@ -32,7 +32,15 @@ public class PadrinoPage extends GeneralParametrosPage<Padrino, Padrino> {
 	private List<SelectItem> sucursales;
 	private List<SelectItem> usuarios;
 
-	Session session = getContablesSessionBean().getSessionTrace();
+//	Session session = getContablesSessionBean().getSessionTrace();
+
+	@PostConstruct
+	public void init() throws Exception {
+		super._init();
+		setDatos(new ArrayList<>(_buscarTodos()));
+		LOGGER.info("postConstructo datos {}", getDatos().size());
+		consultarListasAuxiliares();
+	}
 
 	public PadrinoPage() {
 		super(true);
@@ -48,11 +56,11 @@ public class PadrinoPage extends GeneralParametrosPage<Padrino, Padrino> {
 		return new Padrino();
 	}
 
-	@Override
-	protected void _init() {
-		super._init();
-		consultarListasAuxiliares();
-	}
+//	@Override
+//	protected void _init() {
+//		super._init();
+//		consultarListasAuxiliares();
+//	}
 
 	/**
 	 * Se realiza el proceso de busqueda completo de entidades de tipo Padrino
@@ -72,7 +80,7 @@ public class PadrinoPage extends GeneralParametrosPage<Padrino, Padrino> {
 	@Override
 	public Collection<Padrino> _buscarPorFiltro() throws Exception {
 		if(!param.isEmpty()){
-			LOGGER.info("{} Buscar padrino: {}", session.getTraceLog(),param );
+//			LOGGER.info("{} Buscar padrino: {}", session.getTraceLog(),param );
 		}
 		return notasContablesManager.searchPadrino(param);
 	}
@@ -93,15 +101,15 @@ public class PadrinoPage extends GeneralParametrosPage<Padrino, Padrino> {
 		Number codInicial = objActual.getCodigo();
 		try {
 			if (objActual.getCodigo().intValue() <= 0) {
-				LOGGER.info("{} Crea padrino: {}", session.getTraceLog(),objActual.getCodigoUsuario()+" "+ objActual.getCodigoUnidadAnalisis());
+//				LOGGER.info("{} Crea padrino: {}", session.getTraceLog(),objActual.getCodigoUsuario()+" "+ objActual.getCodigoUnidadAnalisis());
 				notasContablesManager.addPadrino(objActual, getCodUsuarioLogueado());
 			} else {
-				LOGGER.info("{} Actualiza padrino: {}", session.getTraceLog(),objActual.getCodigo()+" "+objActual.getCodigoUsuario()+" "+ objActual.getCodigoUnidadAnalisis() );
+//				LOGGER.info("{} Actualiza padrino: {}", session.getTraceLog(),objActual.getCodigo()+" "+objActual.getCodigoUsuario()+" "+ objActual.getCodigoUnidadAnalisis() );
 				notasContablesManager.updatePadrino(objActual, getCodUsuarioLogueado());
 			}
 		} catch (Exception e) {
 			objActual.setCodigo(codInicial);
-			LOGGER.error("{} Ya existe un Padrino con los mismo datos: {}", session.getTraceLog(),codInicial , e);
+//			LOGGER.error("{} Ya existe un Padrino con los mismo datos: {}", session.getTraceLog(),codInicial , e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Ya existe un Padrino con los mismo datos");
 
 			return false;
@@ -122,8 +130,9 @@ public class PadrinoPage extends GeneralParametrosPage<Padrino, Padrino> {
 	 */
 	@Override
 	public boolean _cambiarEstado() throws Exception {
-		LOGGER.info("{} Cambia estado padrino: {}", session.getTraceLog(),notasContablesManager.getPadrino(objActual).getCodigo()+" "+notasContablesManager.getPadrino(objActual).getEstado() );
+//		LOGGER.info("{} Cambia estado padrino: {}", session.getTraceLog(),notasContablesManager.getPadrino(objActual).getCodigo()+" "+notasContablesManager.getPadrino(objActual).getEstado() );
 		notasContablesManager.changeEstadoPadrino(notasContablesManager.getPadrino(objActual), getCodUsuarioLogueado());
+		setDatos(new ArrayList<>(_buscarTodos()));
 		return true;
 	}
 
@@ -134,13 +143,13 @@ public class PadrinoPage extends GeneralParametrosPage<Padrino, Padrino> {
 	 */
 	@Override
 	public boolean _borrar() throws Exception {
-		LOGGER.info("{} Borra padrino: {}", session.getTraceLog(),objActual.getCodigo()+" "+objActual.getCodigoUsuario()+" "+ objActual.getCodigoUnidadAnalisis() );
+//		LOGGER.info("{} Borra padrino: {}", session.getTraceLog(),objActual.getCodigo()+" "+objActual.getCodigoUsuario()+" "+ objActual.getCodigoUnidadAnalisis() );
 		notasContablesManager.deletePadrino(objActual, getCodUsuarioLogueado());
 		return true;
 	}
 
 	private void consultarListasAuxiliares() {
-		if (esUltimaFase()) {
+		//TODO: if (esUltimaFase()) {
 			try {
 				sucursales = getSelectItemList(cargaAltamiraManager.getCVSucursal(), false);
 			} catch (Exception e) {
@@ -148,7 +157,7 @@ public class PadrinoPage extends GeneralParametrosPage<Padrino, Padrino> {
 				nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al inicializar el mdulo de administracin de padrinos");
 
 			}
-		}
+//		}
 	}
 
 	public String buscarUsuarios() {
@@ -158,7 +167,7 @@ public class PadrinoPage extends GeneralParametrosPage<Padrino, Padrino> {
 				nuevoMensaje(FacesMessage.SEVERITY_WARN, "No se han encontrado usuarios en el sistema para la sucursal seleccionada");
 			}
 		} catch (Exception e) {
-			LOGGER.error("{} Error al iniciar los usuarios ", session.getTraceLog(), e);
+//			LOGGER.error("{} Error al iniciar los usuarios ", session.getTraceLog(), e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al iniciar los usuarios");
 		}
 		return null;

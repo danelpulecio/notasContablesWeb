@@ -9,6 +9,7 @@ import co.com.bbva.app.notas.contables.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.model.SelectItem;
@@ -51,23 +52,23 @@ public class ReporteTiemposPage extends GeneralConsultaPage<UsuarioModulo> {
 		super();
 	}
 
-	@Override
-	protected void _init() {
-		super._init();
-		objActual = new UsuarioModulo();
-		anios = new ArrayList<SelectItem>();
-		for (Integer i = inicio; i < fin; i++) {
-			anios.add(new SelectItem(i.toString(), i.toString()));
-		}
-		meses = new ArrayList<SelectItem>();
-		for (Integer i = 0; i < MESES.values().length; i++) {
-			meses.add(new SelectItem(i.toString(), MESES.values()[i].name()));
-		}
+	@PostConstruct
+	public void init() {
+	    super._init();
+	    objActual = new UsuarioModulo();
+	    anios = new ArrayList<SelectItem>();
+	    for (Integer i = inicio; i < fin; i++) {
+	        anios.add(new SelectItem(i.toString(), i.toString()));
+	    }
+	    meses = new ArrayList<SelectItem>();
+	    for (Integer i = 0; i < MESES.values().length; i++) {
+	        meses.add(new SelectItem(i.toString(), MESES.values()[i].name()));
+	    }
 	}
 
 	@Override
 	protected Collection<UsuarioModulo> _buscar() throws Exception {
-
+		
 		Calendar c = Calendar.getInstance();
 		c.setTimeInMillis(0);
 		c.set(Calendar.YEAR, Integer.valueOf(anio));
@@ -87,11 +88,11 @@ public class ReporteTiemposPage extends GeneralConsultaPage<UsuarioModulo> {
 			excelFileName = "REPORTE_TIEMPOS_" + StringUtils.getString(DateUtils.getTimestamp(), "ddMMyyyyhhmmss") + ".xls";
 			reportesExcel.setNombreArchivo(excelFileName);
 			reportesExcel.getReporteTiempos("REP_TIEMPOS", getDatos());
-//			LOGGER.info("{} Generar el archivo reporte tiempos: {}", session.getTraceLog() );
+			LOGGER.info("{} Generar el archivo reporte tiempos: {}");
 			nuevoMensaje(FacesMessage.SEVERITY_INFO, "El archivo de excel ha sido generado y guardado en " + DIR_REPORTES_EXCEL + excelFileName);
 			mostrarArchExc = true;
 		} catch (Exception e) {
-//			LOGGER.error("{} Ocurrio un error al generar el archivo de Excel: {}", session.getTraceLog() ,e );
+			LOGGER.error("{} Ocurrio un error al generar el archivo de Excel: {}",e );
 			lanzarError(e, "Ocurrio un error al generar el archivo de Excel ");
 		}
 		return null;
@@ -110,7 +111,7 @@ public class ReporteTiemposPage extends GeneralConsultaPage<UsuarioModulo> {
 		try {
 			objActual.setActividades(new ArrayList<ActividadRealizada>(notasContablesManager.getActividadesParaReporteTiempos(objActual.getCodigo().intValue())));
 		} catch (Exception e) {
-//			LOGGER.error("{} Error consultando el detalle de tiempos para el usuario ", session.getTraceLog(), e);
+			LOGGER.error("{} Error consultando el detalle de tiempos para el usuario ", e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error consultando el detalle de tiempos para el usuario");
 		}
 		return null;

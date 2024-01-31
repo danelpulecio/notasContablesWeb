@@ -4,6 +4,7 @@ import co.com.bbva.app.notas.contables.carga.dto.Divisa;
 import co.com.bbva.app.notas.contables.carga.dto.Sucursal;
 import co.com.bbva.app.notas.contables.dto.*;
 import co.com.bbva.app.notas.contables.jsf.adminnota.PrecierreCierrePage;
+import co.com.bbva.app.notas.contables.jsf.beans.ContablesSessionBean;
 import co.com.bbva.app.notas.contables.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +26,10 @@ public class ReporteGeneralPage extends GeneralConsultaPage<Instancia> {
 	@Inject
 	@Named(value="precierreCierrePage")
 	private PrecierreCierrePage precierreCierrePage;
+	
+//	@Inject
+//	@Named(value="contablesSessionBean")
+//	private ContablesSessionBean contablesSessionBean;
 
 	private static final long serialVersionUID = -6709113217662690209L;
 
@@ -63,8 +68,6 @@ public class ReporteGeneralPage extends GeneralConsultaPage<Instancia> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ReporteGeneralPage.class);
 
-//	Session session = getContablesSessionBean().getSessionTrace();
-
 	/**
 	 * indica el numero de pagina del scroller de actividades
 	 */
@@ -79,14 +82,29 @@ public class ReporteGeneralPage extends GeneralConsultaPage<Instancia> {
 		super._init();
 		if (sucursales == null || sucursales.isEmpty()) {
 			try {
+				
+//				LOGGER.info("contablesSessionBean.getLoginUser().getUsuario().getCodigo() ---> " + contablesSessionBean.getLoginUser().getUsuario().getCodigo());
+				
+				LOGGER.info("ENTRANDO A CONSULTAR SUCURSALES...");
 				sucursales = getSelectItemList(notasContablesManager.getCV(Sucursal.class));
-				LOGGER.info("Init sucursales if {}", sucursales.size());
+				LOGGER.info("Init sucursales if {} sucursales.size() ---> ", sucursales.size());
+				
+				LOGGER.info("ENTRANDO A CONSULTAR CONCEPTOS...");
 				conceptos = getSelectItemList(notasContablesManager.getCV(Concepto.class), false);
+				LOGGER.info("Init conceptos if {} conceptos.size() ---> ", conceptos.size());
+				
 				temas = new ArrayList<SelectItem>();
+				
+				LOGGER.info("ENTRANDO A CONSULTAR tiposEvento...");
 				tiposEvento = getSelectItemList(notasContablesManager.getCV(TipoEvento.class), false);
+				LOGGER.info("Init tiposEvento if {} tiposEvento.size() ---> ", tiposEvento.size());
+				
+				LOGGER.info("ENTRANDO A CONSULTAR divisas...");
 				divisas = getSelectItemList(notasContablesManager.getCV(Divisa.class));
+				LOGGER.info("Init divisas if {} divisas.size() ---> ", divisas.size());
+				
 			} catch (Exception e) {
-//				LOGGER.error("{} EError inicializando filtro de busqueda", session.getTraceLog() ,e);
+				LOGGER.error("{} Error inicializando filtro de busqueda" ,e);
 				nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error inicializando filtro de busqueda ");
 			}
 		}
@@ -124,8 +142,6 @@ public class ReporteGeneralPage extends GeneralConsultaPage<Instancia> {
 	 */
 	public String generarArchivoExcelMovimiento() {
 		PrecierreCierrePage bean = precierreCierrePage;
-//		PrecierreCierrePage bean = new PrecierreCierrePage();
-		LOGGER.info(":: DIR_REPORTES_EXCEL :: " + DIR_REPORTES_EXCEL );
 		try {
 			for (Instancia ins : getDatos()) {
 				NotaContable nc = new NotaContable();
@@ -163,7 +179,7 @@ public class ReporteGeneralPage extends GeneralConsultaPage<Instancia> {
 		}
 
 		if (tipoNota.trim().equals("")) {
-//			LOGGER.info("{} Busca Instancias All ", session.getTraceLog() );
+			LOGGER.info("{} Busca Instancias All " );
 			instancias = notasContablesManager.getInstanciasPor(sucOrigen, sucDestino, concepto, tema, tipoEvento, partida, numIdentificacion, desdeD, hastaD, divisa, estado,
 					descripcion, getUsuarioLogueado().getSucursal().getCodigo(), getUsuarioLogueado().getRolActual().getCodigo().intValue());
 			instancias.addAll(notasContablesManager.getInstanciasRegLibrePor(sucOrigen, sucDestino, partida, numIdentificacion, desdeD, hastaD, divisa, estado, descripcion,
@@ -172,15 +188,15 @@ public class ReporteGeneralPage extends GeneralConsultaPage<Instancia> {
 					getUsuarioLogueado().getSucursal().getCodigo(), getUsuarioLogueado().getRolActual().getCodigo().intValue()));
 		} else {
 			if (tipoNota.trim().equals(NotaContable.NORMAL)) {
-//				LOGGER.info("{} Busca Instancias NORMAL ", session.getTraceLog() );
+				LOGGER.info("{} Busca Instancias NORMAL ");
 				instancias = notasContablesManager.getInstanciasPor(sucOrigen, sucDestino, concepto, tema, tipoEvento, partida, numIdentificacion, desdeD, hastaD, divisa, estado,
 						descripcion, getUsuarioLogueado().getSucursal().getCodigo(), getUsuarioLogueado().getRolActual().getCodigo().intValue());
 			} else if (tipoNota.trim().equals(NotaContable.LIBRE)) {
-//				LOGGER.info("{} Busca Instancias LIBRE ", session.getTraceLog() );
+				LOGGER.info("{} Busca Instancias LIBRE ");
 				instancias = notasContablesManager.getInstanciasRegLibrePor(sucOrigen, sucDestino, partida, numIdentificacion, desdeD, hastaD, divisa, estado, descripcion,
 						getUsuarioLogueado().getSucursal().getCodigo(), getUsuarioLogueado().getRolActual().getCodigo().intValue());
 			} else {// if (tipoNota.equals(NotaContable.CRUCE_REFERENCIA)) {
-//				LOGGER.info("{} Busca Instancias CRUCE REFERENCIA ", session.getTraceLog() );
+				LOGGER.info("{} Busca Instancias CRUCE REFERENCIA ");
 				instancias = notasContablesManager.getInstanciasCruceRefPor(sucOrigen, sucDestino, partida, desdeD, hastaD, divisa, estado,
 						getUsuarioLogueado().getSucursal().getCodigo(), getUsuarioLogueado().getRolActual().getCodigo().intValue());
 			}
@@ -199,7 +215,7 @@ public class ReporteGeneralPage extends GeneralConsultaPage<Instancia> {
 					temas.add(new SelectItem(t.getCodigo(), t.getNombre()));
 				}
 			} catch (Exception e) {
-//				LOGGER.error("{} Error Consultando los temas asociados al concepto seleccionado ", session.getTraceLog(), e);
+				LOGGER.error("{} Error Consultando los temas asociados al concepto seleccionado ", e);
 				nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error Consultando los temas asociados al concepto seleccionado");
 
 			}
