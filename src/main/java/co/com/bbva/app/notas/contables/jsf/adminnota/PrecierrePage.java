@@ -1,13 +1,15 @@
 package co.com.bbva.app.notas.contables.jsf.adminnota;
 
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 @SessionScoped
 @Named
 public class PrecierrePage extends PrecierreCierrePage {
 
-	
+	@Inject
+	@Named(value="precierreCierrePage")
 	private PrecierreCierrePage precierreCierrePage;
 
 	private static final long serialVersionUID = -6709113217662690209L;

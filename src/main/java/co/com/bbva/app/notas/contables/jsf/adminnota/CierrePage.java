@@ -1,13 +1,22 @@
 package co.com.bbva.app.notas.contables.jsf.adminnota;
 
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import co.com.bbva.app.notas.contables.jsf.BasePage;
 
 @SessionScoped
 @Named
 public class CierrePage extends PrecierreCierrePage {
-
 	
+	private static final Logger LOGGER = LoggerFactory.getLogger(CierrePage.class);
+
+	@Inject
+	@Named(value="precierreCierrePage")
 	private PrecierreCierrePage precierreCierrePage;
 
 	private static final long serialVersionUID = -6709113217662690209L;
@@ -37,8 +46,6 @@ public class CierrePage extends PrecierreCierrePage {
 		return precierreCierrePage.generarArchivoAltamira(DIR_TRANSMISION_ALTAMIRA, INTERFAZ_CONTABLE_FILE_NAME, PUC_FILE_NAME, TERCEROS_FILE_NAME, NC_INDICAPC, ADMIN_CIERRE);
 	}
 	
-	
-
 	@Override
 	public String mostrar() {
 		precierreCierrePage.setMostrarArchAlt(false);

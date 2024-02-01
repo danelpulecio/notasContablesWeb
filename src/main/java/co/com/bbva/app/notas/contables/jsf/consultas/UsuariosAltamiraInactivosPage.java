@@ -5,6 +5,7 @@ import co.com.bbva.app.notas.contables.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.inject.Named;
@@ -20,22 +21,20 @@ public class UsuariosAltamiraInactivosPage extends GeneralConsultaPage<UsuarioMo
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(UsuariosAltamiraInactivosPage.class);
 
-	Session session = getContablesSessionBean().getSessionTrace();
-
 	public UsuariosAltamiraInactivosPage() {
 		super();
 	}
 
-	@Override
-	protected void _init() {
+	@PostConstruct
+	public void init() {
 		super._init();
 		try {
 			if (getDatos() == null || getDatos().isEmpty()) {
+				LOGGER.info("ENTRANDO A CONSULTAR LOS USUARIOS INACTIVOS ALTAMIRA-...");
 				setDatos(notasContablesManager.getUsuariosAltamiraInactivos());
 			}
 		} catch (Exception e) {
-
-			LOGGER.error("{} Error ingresar a UsuariosAltamiraInactivosPage ", session.getTraceLog(), e);
+			LOGGER.error("{} Error ingresar a UsuariosAltamiraInactivosPage ", e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error ingresar a UsuariosAltamiraInactivosPage");
 		}
 	}

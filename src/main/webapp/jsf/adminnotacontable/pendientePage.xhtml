@@ -1,95 +1,127 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-				xmlns:ui="http://java.sun.com/jsf/facelets"
-				xmlns:h="http://java.sun.com/jsf/html"
-				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:p="http://primefaces.org/ui"
-				template="../../common/template.xhtml">
-	<ui:param name="title" value="Consulta de notas contables" />
-	<ui:define name="body">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../common/template.xhtml">
+    <ui:param name="title" value="Consulta de notas contables"/>
+    <ui:define name="body">
 
-		<ui:include src="../common/flujoSubPage.xhtml" />
-		<ui:include src="../common/notaContableModalPage.xhtml"/>
-		<ui:include src="../common/notaContableLibreModalPage.xhtml"/>
-		<ui:include src="../notacontable/flujoNotaContablePage.xhtml"/>
-		<ui:include src="../notacontable/flujoNotaContableLibrePage.xhtml"/>
-		<ui:include src="../notacontable/flujoNotaRefCrucePage.xhtml"/>
+        <ui:include src="../common/flujoSubPage.xhtml"/>
+        <ui:include src="../common/notaContableModalPage.xhtml"/>
+        <ui:include src="../common/notaContableLibreModalPage.xhtml"/>
+        <ui:include src="../notacontable/flujoNotaContablePage.xhtml"/>
+        <ui:include src="../notacontable/flujoNotaContableLibrePage.xhtml"/>
+        <ui:include src="../notacontable/flujoNotaRefCrucePage.xhtml"/>
 
-		<!--Filtro de busqueda	-->
-		<div style="width: 950px;">
-			<h:form>
-			<h:panelGrid columns="1" width="100%">
-			<h1 align="center">Mis Pendientes</h1>
-		</h:panelGrid>
-		
-		<!--<ui:include src="../../common/mensajes.xhtml" />-->
-		
-		<!-- Tabla de registros --> 
-		<!--<h:panelGrid columns="1" width="100%" style="align:center;" id="lista">-->
+        <!--Filtro de busqueda	-->
+        <div style="width: 950px;">
+            <h:panelGrid columns="1" width="100%">
+                <h1 align="center">Mis Pendientes</h1>
+            </h:panelGrid>
 
-			<p:dataTable value="#{pendientePage.datos}" var="dato" id="tablePendiente" rowIndexVar="rowIndex"
-						 widgetVar="economicActivityTable" rows="15" paginator="true"
-						 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-						 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
-						 paginatorPosition="top">
+            <ui:include src="../../common/mensajes.xhtml"/>
 
-				<p:column headerText="Número Radicación" sortable="true" sortBy="#{dato.NC.numeroRadicacion}">
-					<f:facet name="header">
-						<h:panelGroup>
-							<h:outputText value="Número" />
-							<br />
-							<h:outputText value="Radicación" />
-						</h:panelGroup>
-					</f:facet>
-					<h:outputText value="#{dato.NC.numeroRadicacion}" />
-				</p:column>
-				<p:column headerText="Sucursal Origen" sortable="true" sortBy="#{dato.sucursal.codigo}">
-					<h:panelGrid columns="2">
-						<h:outputText value="#{dato.sucursal.codigo}" />
-						<h:outputText value="#{dato.sucursal.nombre}" />
-					</h:panelGrid>
-				</p:column>
-				<p:column headerText="Concepto">
-					<h:outputText value="#{dato.NC.tipoNota eq 'C' ? 'Referencia de Cruce' : (dato.NC.tipoNota eq 'R' ? dato.concepto.nombre : 'Contabilidad Libre')}" />
-				</p:column>
-				<p:column headerText="Fecha Asignación" sortable="true" sortBy="#{dato.ultimaActualizacionTs}">
-					<h:outputText value="#{dato.ultimaActualizacionTs}">
-						<f:convertDateTime timeZone="GMT-5" pattern="dd-MMM-yyyy hh:mm:ss" />
-					</h:outputText>
-				</p:column>
-				<p:column headerText="Estado" sortable="true" sortBy="#{dato.nombreEstado}">
-					<h:outputText value="#{dato.nombreEstado}" />
-				</p:column>
+            <!-- Tabla de registros -->
+            <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
 
-				<p:column headerText="Ver Nota Contable" style="text-align: center;">
-					<p:commandButton value="Ver" oncomplete="#{h:component('popupFlujoNotaContableVer')}.show()" action="#{flujoNotaContablePage.consultarFlujo}" reRender="popupFlujoNotaContableVer" rendered="#{dato.NC.tipoNota eq 'R' and dato.estado != 1}">
-						<f:param name="codNotaVer" value="#{dato.codigoNotaContable}" assignTo="#{flujoNotaContablePage.nota.codigo}" converter="javax.faces.Integer" />
-						<f:param name="codUsuVer" value="#{contablesSessionBean.loginUser.usuario.codigo}" assignTo="#{flujoNotaContablePage.nota.codUsuAsignado}" converter="javax.faces.Integer" />
-					</p:commandButton>
-					<p:commandButton value="Ver" oncomplete="#{h:component('notaContableLibreVer')}.show()" action="#{flujoNotaContableLibrePage.consultarFlujo}" reRender="notaContableLibreVer" rendered="#{dato.NC.tipoNota eq 'L' and dato.estado != 1}">
-						<f:param name="codNotaLibreVer" value="#{dato.codigoNotaContable}" assignTo="#{flujoNotaContableLibrePage.nota.codigo}" converter="javax.faces.Integer" />
-						<f:param name="codUsuLibreVer" value="#{contablesSessionBean.loginUser.usuario.codigo}" assignTo="#{flujoNotaContableLibrePage.nota.codUsuAsignado}" converter="javax.faces.Integer" />
-					</p:commandButton>
-					<p:commandButton value="#{dato.estado eq 1?'Editar':'Ver'}" oncomplete="#{h:component('popupFlujoNotaContableRefCruceVer')}.show()" action="#{notaRefCrucePage.consultarFlujo}" reRender="popupFlujoNotaContableRefCruceVer" rendered="#{dato.NC.tipoNota eq 'C'}">
-						<f:param name="codNotaRefCruceVer" value="#{dato.codigoNotaContable}" assignTo="#{notaRefCrucePage.nota.codigo}" converter="javax.faces.Integer" />
-						<f:param name="codUsuRefCruceVer" value="#{contablesSessionBean.loginUser.usuario.codigo}" assignTo="#{notaRefCrucePage.nota.codUsuAsignado}" converter="javax.faces.Integer" />
-					</p:commandButton>
-					<p:commandButton value="Editar" oncomplete="#{h:component('popupNotaContable')}.show()" action="#{notaContablePage.iniciarPagina}" reRender="popupNotaContable" rendered="#{dato.NC.tipoNota eq 'R' and dato.estado eq 1}">
-						<f:param name="codNotaEditar" value="#{dato.codigoNotaContable}" assignTo="#{notaContablePage.nota.codigo}" converter="javax.faces.Integer" />
-					</p:commandButton>
-					<p:commandButton value="Editar" oncomplete="#{h:component('popupNotaContableLibre')}.show()" action="#{notaContableLibrePage.iniciarPagina}" reRender="popupNotaContableLibre" rendered="#{dato.NC.tipoNota eq 'L' and dato.estado eq 1}">
-						<f:param name="codNotaLibreEditar" value="#{dato.codigoNotaContable}" assignTo="#{notaContableLibrePage.nota.codigo}" converter="javax.faces.Integer" />
-					</p:commandButton>
-				</p:column>
-				<p:column headerText="Flujo Nota Contable" style="text-align: center;">
-					<p:commandButton value="Consultar" oncomplete="#{h:component('popupFlujo')}.show()" action="#{flujoSubPage.consultarFlujo}" reRender="popupFlujo" >
-						<f:param name="codConsultar" value="#{dato.codigo}" assignTo="#{flujoSubPage.actividadRealizada.codigoInstancia}" converter="javax.faces.Integer" />
-					</p:commandButton>
-				</p:column>
+                <p:dataTable value="#{pendientePage.datos}" var="dato" id="tablePendiente" rowIndexVar="rowIndex"
+                             rendered="#{! empty pendientePage.datos}"
+                             widgetVar="economicActivityTable" rows="15" paginator="true"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                             paginatorPosition="top">
 
+                    <p:column headerText="Número Radicación" sortable="true" sortBy="#{dato.NC.numeroRadicacion}">
+                        <h:outputText value="#{dato.NC.numeroRadicacion}"/>
+                    </p:column>
+                    <p:column headerText="Sucursal Origen" sortable="true" sortBy="#{dato.sucursal.codigo}">
+                        <h:outputText value="#{dato.sucursal.codigo} : #{dato.sucursal.nombre}"/>
+                    </p:column>
+                    <p:column headerText="Concepto">
+                        <h:outputText
+                                value="#{dato.NC.tipoNota eq 'C' ? 'Referencia de Cruce' : (dato.NC.tipoNota eq 'R' ? dato.concepto.nombre : 'Contabilidad Libre')}"/>
+                    </p:column>
+                    <p:column headerText="Fecha Asignación" sortable="true" sortBy="#{dato.ultimaActualizacionTs}">
+                        <h:outputText value="#{dato.ultimaActualizacionTs}">
+                            <f:convertDateTime timeZone="GMT-5" pattern="dd-MMM-yyyy hh:mm:ss"/>
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Estado" sortable="true" sortBy="#{dato.nombreEstado}">
+                        <h:outputText value="#{dato.nombreEstado}"/>
+                    </p:column>
 
-			</p:dataTable>
-			<!--	</h:panelGrid>-->
-			</h:form>
-	</div>
-	</ui:define>
+                    <p:column headerText="Ver Nota Contable" style="text-align: center;">
+
+                        <p:commandButton value="Ver"
+                                         action="#{flujoNotaContablePage.consultarFlujo}"
+                                         oncomplete="PF('popupFlujoNotaContableVer').show();"
+                                         update="globalForm:popupFlujoNotaContableVer"
+                                         rendered="#{dato.NC.tipoNota eq 'R' and dato.estado != 1}">
+                            <f:setPropertyActionListener for="codNotaVer" value="#{dato.codigoNotaContable}"
+                                                         target="#{flujoNotaContablePage.nota.codigo}"/>
+                            <f:setPropertyActionListener for="codUsuVer"
+                                                         value="#{contablesSessionBean.loginUser.usuario.codigo}"
+                                                         target="#{flujoNotaContablePage.nota.codUsuAsignado}"/>
+                        </p:commandButton>
+
+                        <p:commandButton value="Ver"
+                                         action="#{flujoNotaContableLibrePage.consultarFlujo}"
+                                         oncomplete="PF('notaContableLibreVer').show();"
+                                         update="globalForm:notaContableLibreVer"
+                                         rendered="#{dato.NC.tipoNota eq 'L' and dato.estado != 1}">
+                            <f:setPropertyActionListener for="codNotaLibreVer" value="#{dato.codigoNotaContable}"
+                                                         target="#{flujoNotaContableLibrePage.nota.codigo}"/>
+                            <f:setPropertyActionListener for="codUsuLibreVer"
+                                                         value="#{contablesSessionBean.loginUser.usuario.codigo}"
+                                                         target="#{flujoNotaContableLibrePage.nota.codUsuAsignado}"/>
+                        </p:commandButton>
+
+                        <p:commandButton value="#{dato.estado eq 1?'Editar':'Ver'}"
+                                         action="#{notaRefCrucePage.consultarFlujo}"
+                                         oncomplete="PF('popupFlujoNotaContableRefCruceVer').show();"
+                                         update="globalForm:popupFlujoNotaContableRefCruceVer"
+                                         rendered="#{dato.NC.tipoNota eq 'C'}">
+                            <f:setPropertyActionListener for="codNotaRefCruceVer" value="#{dato.codigoNotaContable}"
+                                                         target="#{notaRefCrucePage.nota.codigo}"/>
+                            <f:setPropertyActionListener for="codUsuRefCruceVer"
+                                                         value="#{contablesSessionBean.loginUser.usuario.codigo}"
+                                                         target="#{notaRefCrucePage.nota.codUsuAsignado}"/>
+                        </p:commandButton>
+
+                        <p:commandButton value="Editar"
+                                         action="#{notaRefCrucePage.consultarFlujo}"
+                                         oncomplete="PF('popupNotaContable').show();"
+                                         update="globalForm:popupFlujoNotaContableRefCruceVer"
+                                         rendered="#{dato.NC.tipoNota eq 'C'}">
+                            <f:setPropertyActionListener for="codNotaRefCruceVer" value="#{dato.codigoNotaContable}"
+                                                         target="#{notaRefCrucePage.nota.codigo}"/>
+                            <f:setPropertyActionListener for="codUsuRefCruceVer"
+                                                         value="#{contablesSessionBean.loginUser.usuario.codigo}"
+                                                         target="#{notaRefCrucePage.nota.codUsuAsignado}"/>
+                        </p:commandButton>
+
+                        <p:commandButton value="Editar"
+                                         action="#{notaContableLibrePage.iniciarPagina}"
+                                         oncomplete="PF('popupNotaContableLibre').show();"
+                                         update="globalForm:popupNotaContableLibre"
+                                         rendered="#{dato.NC.tipoNota eq 'L' and dato.estado eq 1}">
+                            <f:setPropertyActionListener for="codNotaLibreEditar" value="#{dato.codigoNotaContable}"
+                                                         target="#{notaContableLibrePage.nota.codigo}"/>
+                        </p:commandButton>
+                    </p:column>
+
+                    <p:column headerText="Consultar" style="text-align: center;">
+                        <p:commandButton value="Flujo Nota Contable"
+                                         action="#{flujoSubPage.consultarFlujo}"
+                                         oncomplete="PF('popupFlujo').show();"
+                                         update="globalForm:popupFlujo">
+                            <f:setPropertyActionListener for="codConsultar" value="#{dato.codigo}"
+                                                         target="#{flujoSubPage.actividadRealizada.codigoInstancia}"/>
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </h:panelGrid>
+        </div>
+    </ui:define>
 </ui:composition>

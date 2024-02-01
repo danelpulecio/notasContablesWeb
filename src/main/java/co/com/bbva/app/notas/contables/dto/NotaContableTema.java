@@ -17,6 +17,7 @@ public class NotaContableTema extends CommonVO<NotaContableTema> implements java
 	private Number codigoNotaContable = 0;
 	private Number codigoTema = 0;
 	private Date fechaContable = null;
+	private java.util.Date  fechaContablePF = null;
 	@SuppressWarnings("unused")
 	private final Timestamp fechaContableTS = null;
 	private String partidaContable = "";
@@ -82,6 +83,14 @@ public class NotaContableTema extends CommonVO<NotaContableTema> implements java
 
 	public void setFechaContable(Date fechaContable) {
 		this.fechaContable = fechaContable;
+	}
+	
+	public java.util.Date getFechaContablePF() {
+		return fechaContablePF;
+	}
+
+	public void setFechaContablePF(java.util.Date fechaContablePF) {
+		this.fechaContablePF = fechaContablePF;
 	}
 
 	public String getPartidaContable() {

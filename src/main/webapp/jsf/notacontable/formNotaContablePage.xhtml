@@ -1,983 +1,1168 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-				xmlns:ui="http://java.sun.com/jsf/facelets"
-				xmlns:h="http://java.sun.com/jsf/html"
-				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:p="http://primefaces.org/ui">
-	<h:head>
-<script type="text/javascript">
-				function isDayEnabledNC(day){
-					var fechaMin = document.getElementById('globalForm:fechaMin').value;
-					var fechaMax = document.getElementById('globalForm:fechaMax').value;
-				   	var min=new Date();
-				   	min.setFullYear(parseInt(fechaMin.substring(6, 10), 10),parseInt(fechaMin.substring(3, 5), 10)-1,parseInt(fechaMin.substring(0, 2), 10)-1);
-				   	var max=new Date();
-				   	max.setFullYear(parseInt(fechaMax.substring(6, 10), 10),parseInt(fechaMax.substring(3, 5), 10)-1,parseInt(fechaMax.substring(0, 2), 10));
-				   	var date = new Date(day.date);
-				   	if(date.getDay() == 6){
-						return false;	
-					}
-				   	if(date.getDay() == 0){
-						return false;	
-					}
-				   	if(date &gt; min){
-						if(max &gt; date){ //solo fechas entre min y max
-							return true;
-						}
-					} 
-					return false;
-				}
-				
-				function isDayEnabledRiesgoNC(day){
-				   	var max=new Date();
-				   	var date = new Date(day.date);
-					if(max &gt; date){ //solo fechas menores o iguales a hoy
-						return true;
-					}
-					return false;
-				}
-				
-				function getDisabledStyleNC(day){
-				   if (!isDayEnabledNC(day)) return 'rich-calendar-boundary-dates disabledDay';
-				}
-
-				function getDisabledStyleRiesgoNC(day){
-				   if (!isDayEnabledRiesgoNC(day)){ 
-				   		return 'rich-calendar-boundary-dates disabledDay';
-				   }
-				}
-				
-				function validarMontoAlert(value){
-					var alertCOP = parseFloat(document.getElementById('globalForm:montoAlertaCOP').value);
-					var alertEXT = parseFloat(document.getElementById('globalForm:montoAlertaEXT').value);
-					var divisa = document.getElementById('globalForm:codDivisaNotaContable').value;
-					var warn=false;
-					if(divisa == 'COP'){
-						warn=value &gt; alertCOP;
-					}else{
-						warn=value &gt; alertEXT;
-					}
-					if(warn){
-						alert('Por favor verifique si el importe ingresado es el adecuado.');
-					}
-				}
-		</script>
-<style>
-.disabledDay {
-	background-color: #dedede;
-}
-</style>
-	</h:head>
-	<!-- Formulario de confirmacion de anulacion-->
-	<p:dialog id="popupAnularNota" widgetVar="popupAnularNota" autosized="true" domElementAttachment="form" width="250">
-		<f:facet name="header">
-			<h:panelGroup>
-				<h:outputText value="Confirmación de anulación" />
-			</h:panelGroup>
-		</f:facet>
-		<f:facet name="controls">
-			<h:panelGroup>
-				<h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink" id="hidelinkAnularNota" height="20" width="20" />
-			</h:panelGroup>
-		</f:facet>
-
-		<h:panelGrid columns="1" width="100%">
-
-			<h:outputText value="¿Está seguro que desea anular la nota actual y borrar toda la información relacionada?" />
-
-			<!-- Seccion de mensajes y botones de envio y cancelacion-->
-			<ui:include src="../../common/mensajes.xhtml" />
-			<h:panelGrid columns="2" styleClass="center" width="100%">
-				<p:commandButton action="#{notaContablePage.anular}" value="Si"
-					oncomplete="if (#{!notaContablePage.nota.puedeAnular}) {PF('popupAnularNota').hide(); PF('popupNotaContable').hide();}"
-					update="globalForm:botonesNotaContable" />
-				<p:commandButton onclick="PF('popupAnularNota').hide()" value="No" />
-			</h:panelGrid>
-		</h:panelGrid>
-	</p:dialog>
-	<!-- Formulario Modal de creacion y edicion de temas por concepto-->
-	<p:dialog id="editor" widgetVar="editor" domElementAttachment="form" autosized="true" minHeight="200" minWidth="840">
-		<f:facet name="header">
-			<h:panelGroup>
-				<h:outputText styleClass="bold" value="Tema: #{notaContablePage.temaActual.tema.nombre}" />
-			</h:panelGroup>
-		</f:facet>
-		<h:inputHidden id="fechaMin" value="#{notaContablePage.minFecha}" />
-		<h:inputHidden id="fechaMax" value="#{notaContablePage.maxFecha}" />
-		<h:inputHidden id="montoAlertaCOP" value="#{notaContablePage.montoAlertaCOP}" />
-		<h:inputHidden id="montoAlertaEXT" value="#{notaContablePage.montoAlertaEXT}" />
-
-		<!-- Campos del formulario -->
-		<h:panelGrid columns="1" width="840" id="informacion" cellpadding="0" cellspacing="0">
-			<h:panelGroup>
-				<div style="height: 490px; overflow: auto; width: 100%;">
-					<h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="0">
-
-						<h:panelGrid columns="4" width="100%" cellpadding="0" cellspacing="2">
-							<h:outputText styleClass="bold" value="Fecha Contable" />
-							<p:calendar id="fecha" value="#{notaContablePage.temaActual.fechaContable}" isDayEnabled="isDayEnabledNC" dayStyleClass="getDisabledStyleNC" immediate="true">
-								
-								<p:ajax event="dateSelect" listener="#{notaContablePage.validarFecha}" update="globalForm:fecha"/>
-
-							</p:calendar>
-							<p:commandButton action="#{notaContablePage.cargarModalRiesgo}" 
-								value="Riesgo Operacional" 
-								oncomplete="PF('modalRiesgo').show()" update="globalForm:modalRiesgo"
-								rendered="#{notaContablePage.temaActual.tema.riesgoOperacional eq 'S'}">
-							</p:commandButton>
-							<p:commandButton value="Agregar Soportes" 
-								oncomplete="PF('modalSoportes').show()" update="globalForm:modalSoportes"
-								rendered="#{notaContablePage.nota.concepto.soportes eq 'S'}" />
-						</h:panelGrid>
-						<h:panelGrid columns="2" width="100%" cellpadding="0" cellspacing="3" style="height: 100%;" styleClass="aligntop">
-							<p:panel header="Partida" style="width: 400px;">
-
-								<h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="0">
-									<h:panelGrid columns="5">
-										<h:outputText styleClass="bold" value="Cuenta" />
-										<h:outputText styleClass="bold" value="#{notaContablePage.temaActual.tema.partidaContable}" style="font-weight: bold;" />
-										<p:spacer width="50" />
-										<h:outputText styleClass="bold" value="Naturaleza" />
-										<h:outputText styleClass="bold" value="#{notaContablePage.temaActual.tema.naturaleza1 eq 'D'?'Debe':'Haber'}" style="font-weight: bold;" />
-									</h:panelGrid>
-									<h:panelGrid columns="2" id="sucursalPartida">
-										<h:outputText styleClass="bold" value="Sucursal Destino" />
-										<h:outputText styleClass="bold" value="#{notaContablePage.usuarioLogueado.sucursal.codigo} #{notaContablePage.usuarioLogueado.sucursal.nombre}"
-											rendered="#{notaContablePage.nota.concepto.origenDestino eq 'S'}" />
-										<h:selectOneMenu value="#{notaContablePage.temaActual.codigoSucursalDestinoPartida}" immediate="true" rendered="#{notaContablePage.nota.concepto.origenDestino eq 'N'}"
-											style="width: 280px;">
-											<p:ajax event="change" listener="#{notaContablePage.cambiarSucursalPartida}" 
-												update="globalForm:sucursalPartida,globalForm:sucursalContraPartida" />
-											<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
-											<f:selectItems value="#{notaContablePage.sucursalesPartida}" />
-										</h:selectOneMenu>
-
-										<h:outputText styleClass="bold" value="Referencia" rendered="#{notaContablePage.temaActual.tema.referencia1 eq 'S'}" />
-										<p:inputText value="#{notaContablePage.temaActual.referencia1}" rendered="#{notaContablePage.temaActual.tema.referencia1 eq 'S'}" maxlength="12" size="12"
-											onkeypress="return onKeyPressNumbersNoZero(event, this.value)" />
-									</h:panelGrid>
-									<p:panel header="Tercero" rendered="#{notaContablePage.temaActual.tema.tercero1 eq 'S'}" style="width:100%; ">
-										<h:panelGrid columns="2" id="documentoTercero1">
-											<h:outputText styleClass="bold" value="Tipo de documento" />
-											<h:selectOneMenu value="#{notaContablePage.temaActual.tipoIdentificacion1}" immediate="true">
-												<p:ajax event="change" listener="#{notaContablePage.cambiarSucursalPartida}" 
-													update="globalForm:filtroTercero1,globalForm:tercero1" >
-													<f:setPropertyActionListener value=""
-	                                                         target="#{notaContablePage.temaActual.nombreCompleto1}"/>
-												</p:ajax>
-												<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
-												<f:selectItems value="#{notaContablePage.tiposDoc}" />
-											</h:selectOneMenu>
-
-											<h:outputText styleClass="bold" value="Número Documento" />
-											<h:panelGrid columns="2" border="0" cellspacing="0" >
-												<p:inputText value="#{notaContablePage.temaActual.numeroIdentificacion1}" size="15" immediate="true">
-												<p:ajax event="keyup" update="globalForm:filtroTercero1,globalForm:tercero1">
-													<f:setPropertyActionListener for="numDocRenN1" value=""
-	                                                         target="#{notaContablePage.temaActual.nombreCompleto1}"/>
-												</p:ajax>
-												
-												</p:inputText>
-												<h:panelGrid columns="1" id="filtroTercero1" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
-													<p:commandButton action="#{notaContablePage.buscarTercero1}" 
-														update="globalForm:documentoTercero1,globalForm:tercero1,globalForm:documentoTercero2,globalForm:tercero2" 
-														style="margin: 0; margin-left: 8px;"
-																	   value="Buscar" status="status" rendered="#{!empty notaContablePage.temaActual.tipoIdentificacion1 and !empty notaContablePage.temaActual.numeroIdentificacion1}" />
-												</h:panelGrid>
-											</h:panelGrid>
-										</h:panelGrid>
-
-										<h:panelGrid columns="1" id="tercero1" cellpadding="0" cellspacing="0">
-											<h:panelGrid columns="2" rendered="#{! empty notaContablePage.temaActual.nombreCompleto1}">
-
-												<h:outputText styleClass="bold" value="Dígito de Verificación:" />
-												<h:outputText styleClass="bold" value="#{notaContablePage.temaActual.digitoVerificacion1}" />
-
-												<h:outputText styleClass="bold" value="Nombre:" />
-												<h:outputText styleClass="bold" value="#{notaContablePage.temaActual.nombreCompleto1}" />
-
-												<h:outputText styleClass="bold" value="Contrato" rendered="#{notaContablePage.temaActual.tema.contrato1 eq 'S'}" />
-												<h:selectOneMenu value="#{notaContablePage.temaActual.contrato1}" immediate="true" rendered="#{notaContablePage.temaActual.tema.contrato1 eq 'S'}">
-													<p:ajax event="change" listener="#{notaContablePage.cambiarContratoPartida}" 
-														update="globalForm:tercero1,globalForm:tercero2" />
-													<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
-													<f:selectItems value="#{notaContablePage.contratos1}" />
-												</h:selectOneMenu>
-											</h:panelGrid>
-										</h:panelGrid>
-
-									</p:panel>
-								</h:panelGrid>
-							</p:panel>
-							<p:panel header="Contrapartida" style="width: 400px; ">
-
-								<h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="0">
-									<h:panelGrid columns="5">
-										<h:outputText styleClass="bold" value="Cuenta" />
-										<h:outputText styleClass="bold" value="#{notaContablePage.temaActual.tema.contraPartidaContable}" style="font-weight: bold;" />
-										<p:spacer width="50" />
-										<h:outputText styleClass="bold" value="Naturaleza" />
-										<h:outputText styleClass="bold" value="#{notaContablePage.temaActual.tema.naturaleza2 eq 'D'?'Debe':'Haber'}" style="font-weight: bold;" />
-									</h:panelGrid>
-									<h:panelGrid columns="2" width="100%" id="sucursalContraPartida">
-										<h:outputText styleClass="bold" value="Sucursal Destino" />
-										<h:outputText styleClass="bold" value="#{notaContablePage.usuarioLogueado.sucursal.codigo} #{notaContablePage.usuarioLogueado.sucursal.nombre}"
-											rendered="#{notaContablePage.nota.concepto.origenDestino eq 'S'}" />
-										<h:selectOneMenu value="#{notaContablePage.temaActual.codigoSucursalDestinoContraPartida}" immediate="true"
-											rendered="#{notaContablePage.nota.concepto.origenDestino eq 'N'}" style="width: 280px;">
-											<p:ajax event="change" listener="#{notaContablePage.cambiarSucursalContraPartida}" 
-														update="globalForm:sucursalPartida,globalForm:sucursalContraPartida" />
-											<f:selectItem itemValue=" " itemLabel="Seleccione una opcion" />
-											<f:selectItems value="#{notaContablePage.sucursalesContraPartida}" />
-										</h:selectOneMenu>
-
-										<h:outputText styleClass="bold" value="Referencia" rendered="#{notaContablePage.temaActual.tema.referencia2 eq 'S'}" />
-										<p:inputText value="#{notaContablePage.temaActual.referencia2}" rendered="#{notaContablePage.temaActual.tema.referencia2 eq 'S'}" maxlength="12" size="12"
-											onkeypress="return onKeyPressNumbersNoZero(event, this.value)" />
-									</h:panelGrid>
-									<p:panel header="Tercero" rendered="#{notaContablePage.temaActual.tema.tercero2 eq 'S'}" style="width:100%; ">
-										<h:panelGrid columns="2" id="documentoTercero2">
-											<h:outputText styleClass="bold" value="Tipo de documento" />
-											<h:selectOneMenu value="#{notaContablePage.temaActual.tipoIdentificacion2}" immediate="true">
-											
-												<p:ajax event="change" update="globalForm:filtroTercero2,globalForm:tercero2">
-													<f:setPropertyActionListener value=""
-	                                                         target="#{notaContablePage.temaActual.nombreCompleto2}"/>
-												</p:ajax>
-												
-												<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
-												<f:selectItems value="#{notaContablePage.tiposDoc}" />
-											</h:selectOneMenu>
-
-											<h:outputText styleClass="bold" value="Número Documento" />
-											<h:panelGrid columns="2" border="0" cellspacing="0" >
-												<p:inputText value="#{notaContablePage.temaActual.numeroIdentificacion2}" size="15" immediate="true">
-												
-												<p:ajax event="keyup" update="globalForm:filtroTercero2,globalForm:tercero2">
-													<f:setPropertyActionListener for="numDocRenN2" value=""
-	                                                         target="#{notaContablePage.temaActual.nombreCompleto2}"/>
-												</p:ajax>
-												
-												</p:inputText>
-												<h:panelGrid columns="1" id="filtroTercero2" cellspacing="0" cellpadding="0" style="border-collapse: collapse;" >
-													<p:commandButton action="#{notaContablePage.buscarTercero2}" 
-														update="globalForm:documentoTercero2,globalForm:tercero2" style="margin: 0; margin-left: 8px;"
-														value="Buscar" status="status" 
-														rendered="#{!empty notaContablePage.temaActual.tipoIdentificacion2 and !empty notaContablePage.temaActual.numeroIdentificacion2}" />
-												</h:panelGrid>
-											</h:panelGrid>
-										</h:panelGrid>
-
-										<h:panelGrid columns="1" id="tercero2" cellpadding="0" cellspacing="0">
-											<h:panelGrid columns="2" rendered="#{! empty notaContablePage.temaActual.nombreCompleto2}">
-
-												<h:outputText styleClass="bold" value="Dígito de Verificación:" />
-												<h:outputText styleClass="bold" value="#{notaContablePage.temaActual.digitoVerificacion2}" />
-
-												<h:outputText styleClass="bold" value="Nombre:" />
-												<h:outputText styleClass="bold" value="#{notaContablePage.temaActual.nombreCompleto2}" />
-
-												<h:outputText styleClass="bold" value="Contrato" rendered="#{notaContablePage.temaActual.tema.contrato2 eq 'S'}" />
-												<h:selectOneMenu value="#{notaContablePage.temaActual.contrato2}" immediate="true" rendered="#{notaContablePage.temaActual.tema.contrato2 eq 'S'}">
-													
-													<p:ajax event="change" listener="#{notaContablePage.cambiarContratoContraPartida}" 
-														update="globalForm:tercero1,globalForm:tercero2" />
-														
-													<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
-													<f:selectItems value="#{notaContablePage.contratos2}" />
-												</h:selectOneMenu>
-											</h:panelGrid>
-										</h:panelGrid>
-
-									</p:panel>
-								</h:panelGrid>
-							</p:panel>
-						</h:panelGrid>
-						<h:panelGrid columns="2" width="100%" cellpadding="0" cellspacing="2">
-
-
-							<h:outputText styleClass="bold" value="Descripción" />
-							<p:inputTextarea value="#{notaContablePage.temaActual.descripcion}"  onkeyup="this.value=removeAccents(this.value)" onkeypress="return characterRestriction(event)" maxlength="500" cols="139" rows="2" />
-
-							<h:outputText styleClass="bold" value="Divisa" />
-							<h:panelGrid columns="4" width="100%" cellpadding="0" cellspacing="0">
-								<h:selectOneMenu value="#{notaContablePage.temaActual.codigoDivisa}" immediate="true" style="width:180px;" id="codDivisaNotaContable">
-									<f:selectItems value="#{notaContablePage.divisas}" />
-								</h:selectOneMenu>
-
-								<h:outputText styleClass="bold" value="Importe" style="width:150px;" />
-								<p:inputText value="#{notaContablePage.temaActual.monto}" size="20" maxlength="20" onkeypress="return onKeyPressNumbers(event,this.value);" converter="javax.faces.Double"
-									immediate="true" converterMessage="Valor invalido para el Importe" onblur="validarMontoAlert(this.value)">
-									<f:convertNumber maxFractionDigits="2" />
-									
-									<p:ajax event="keyup" listener="#{notaContablePage.ajustarCargaImpositiva}" 
-														update="globalForm:importe,globalForm:impuestos" />
-								</p:inputText>
-								<h:panelGrid columns="1" id="importe" width="250" cellpadding="0" cellspacing="0">
-									<h:outputText styleClass="bold" value="#{notaContablePage.temaActual.monto}">
-										<f:convertNumber type="currency" />
-									</h:outputText>
-								</h:panelGrid>
-							</h:panelGrid>
-
-						</h:panelGrid>
-						<h:panelGrid columns="1" cellpadding="0" cellspacing="2" id="impuestos" style="text-align: center;" width="100%">
-							<p:dataTable value="#{notaContablePage.temaActual.impuestoTema}" var="imp" id="table" rowKeyVar="rowKey" rendered="#{! empty notaContablePage.temaActual.impuestoTema}"
-								onRowMouseOver="this.style.backgroundColor='#9fbdeb'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'" rowClasses="row1, row2">
-
-								<f:facet name="header">
-									<h:outputText styleClass="bold" value="Liquidación de Impuestos" />
-								</f:facet>
-
-								<p:column width="150" style="text-align: left;">
-									<f:facet name="header">
-										<h:outputText styleClass="bold" value="Nombre" />
-									</f:facet>
-									<h:outputText styleClass="bold" value="#{imp.impuestoTema.impuesto.nombre}" />
-								</p:column>
-
-								<p:column width="80" style="text-align: right;">
-									<f:facet name="header">
-										<h:outputText styleClass="bold" value="Porcentaje" />
-									</f:facet>
-									<h:outputText styleClass="bold" value="#{imp.impuestoTema.impuesto.valor}%" />
-								</p:column>
-
-								<p:column width="140" style="text-align: right;">
-									<f:facet name="header">
-										<h:outputText styleClass="bold" value="Base" />
-									</f:facet>
-									<h:outputText styleClass="bold" rendered="#{not imp.boolExonera}" value="#{imp.base}" converter="javax.faces.Double">
-										<f:convertNumber type="currency" maxFractionDigits="2" />
-									</h:outputText>
-									<h:outputText styleClass="bold" rendered="#{imp.boolExonera}" value="NA" />
-								</p:column>
-
-								<p:column width="140" style="text-align: right;">
-									<f:facet name="header">
-										<h:outputText styleClass="bold" value="Calculado" />
-									</f:facet>
-									<h:outputText styleClass="bold" rendered="#{not imp.boolExonera}" value="#{imp.calculado}" converter="javax.faces.Double">
-										<f:convertNumber type="currency" maxFractionDigits="2" />
-									</h:outputText>
-									<h:outputText styleClass="bold" rendered="#{imp.boolExonera}" value="NA" />
-								</p:column>
-
-								<p:column width="80" style="text-align: center;">
-									<f:facet name="header">
-										<h:outputText styleClass="bold" value="Exonerar" />
-									</f:facet>
-									<h:selectBooleanCheckbox value="#{imp.boolExonera}" immediate="true">
-									
-									<p:ajax event="change" listener="#{notaContablePage.ajustarCargaImpositiva}" 
-														update="globalForm:impuestos" />
-														
-									</h:selectBooleanCheckbox>
-								</p:column>
-							</p:dataTable>
-						</h:panelGrid>
-						<!-- seccion de soportes -->
-						<p:dialog id="modalSoportes" widgetVar="modalSoportes" domElementAttachment="form" autosized="true">
-							<f:facet name="header">
-								<h:panelGroup>
-									<h:outputText styleClass="bold" value="Subir soportes para el tema: #{notaContablePage.temaActual.tema.nombre}" />
-								</h:panelGroup>
-							</f:facet>
-							<f:facet name="controls">
-								<h:panelGroup>
-									<h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink" id="hidelinkSoportes" height="20" width="20" />
-								</h:panelGroup>
-							</f:facet>
-							<h:panelGrid width="550">
-								<h:panelGrid columns="1" width="100%">
-									<p:fileUpload listWidth="100%" 
-										fileUploadListener="#{notaContablePage.listener}" 
-										id="upload" acceptedTypes="*" 
-										uploadControlLabel="Enviar"
-										cancelEntryControlLabel="Cancelar" 
-										immediateUpload="true" 
-										addControlLabel="Agregar" 
-										clearAllControlLabel="Limpiar Reporte de Carga" 
-										clearControlLabel=""
-										doneLabel="El archivo ha sido enviado satisfactoriamente al servidor" 
-										progressLabel="Procesando..." transferErrorLabel="Error transfiriendo el archivo"
-										sizeErrorLabel="El archivo supera el límite permitido (200 KB)">
-															
-										<!--<a4j:support event="onfileuploadcomplete" reRender="anexos" />-->
-									</p:fileUpload>
-								</h:panelGrid>
-							</h:panelGrid>
-						</p:dialog>
-						<h:panelGrid columns="1" cellpadding="0" cellspacing="2" id="anexos" style="text-align: center;" width="100%">
-
-
-
-							<p:dataTable value="#{notaContablePage.temaActual.anexoTema}" var="anexo" id="tableAnexos" rowKeyVar="rowKeyAnexos"
-								rendered="#{! empty notaContablePage.temaActual.anexoTema}" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
-								onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'" rowClasses="row1, row2">
-
-								<f:facet name="header">
-									<h:outputText styleClass="bold" value="Soportes del tema" />
-								</f:facet>
-
-								<p:column width="150" style="text-align: left;">
-									<f:facet name="header">
-										<h:outputText styleClass="bold" value="Fecha" />
-									</f:facet>
-									<h:outputText styleClass="bold" value="#{anexo.fechaHora}" />
-								</p:column>
-
-								<p:column style="text-align: right;">
-									<f:facet name="header">
-										<h:outputText styleClass="bold" value="Usuario" />
-									</f:facet>
-									<h:outputText styleClass="bold" value="#{anexo.usuNombre}" />
-								</p:column>
-
-								<p:column style="text-align: right;">
-									<f:facet name="header">
-										<h:outputText styleClass="bold" value="Archivo" />
-									</f:facet>
-									<p:commandLink action="#{downloadGeneralPage.download}" styleClass="bold" value="#{anexo.nombre}" target="_blank">
-										<f:param name="type1" value="#{downloadGeneralPage.SOPORTE}" assignTo="#{downloadGeneralPage.type}" />
-										<f:param name="file1" value="#{anexo.archivo}" assignTo="#{downloadGeneralPage.file}" />
-									</p:commandLink>
-
-								</p:column>
-
-								<p:column width="80" style="text-align: center;">
-									<f:facet name="header">
-										<h:outputText styleClass="bold" value="Eliminar" />
-									</f:facet>
-									<p:commandButton icon="pi pi-times" alt="Borrar" onclick="PF('popupBorrar').show()" />
-									
-<!-- 									aca va el suppor para validar la imagen del button -->
-
-									<!-- Formulario de confirmacion de borrado de anexos-->
-									<p:dialog id="popupBorrar" widgetVar="popupBorrar" autosized="true" domElementAttachment="form" minWidth="300">
-										<f:facet name="header">
-											<h:panelGroup>
-												<h:outputText styleClass="bold" value="Confirmación de borrado de anexo" />
-											</h:panelGroup>
-										</f:facet>
-
-										<h:panelGrid columns="1" width="100%">
-
-											<h:outputText styleClass="bold" value="¿Está seguro que desea borrar el anexo actual?" />
-
-											<!-- Seccion de mensajes y botones de envio y cancelacion-->
-											<ui:include src="../../common/mensajes.xhtml" />
-											<h:panelGrid columns="2" styleClass="center" width="100%">
-											
-												<p:commandButton action="#{notaContablePage.borrarAnexo}" 
-													value="Si" 
-													oncomplete="PF('popupBorrar').hide()" 
-													immediate="true" 
-													update="globalForm:anexos">
-													
-
-													<f:setPropertyActionListener for="anexoBorrar" value="true" 
-	                                                         target="#{anexo.borrar}"/>
-	                                                         
-												</p:commandButton>
-												
-												<p:commandButton onclick="PF('popupBorrar').hide()" value="No" />
-												
-											</h:panelGrid>
-										</h:panelGrid>
-									</p:dialog>
-								</p:column>
-
-							</p:dataTable>
-						</h:panelGrid>
-
-					</h:panelGrid>
-
-					<ui:include src="../../common/mensajes.xhtml" />
-				</div>
-			</h:panelGroup>
-			<h:panelGrid columns="2" styleClass="center" width="100%" id="opcionesTemaNotaContable" cellspacing="0" cellpadding="0">
-
-				<p:commandButton value="Guardar" 
-					action="#{notaContablePage.guardarTema}" 
-					update="globalForm:informacion,globalForm:formulario"
-					oncomplete="if (#{notaContablePage.ocultarPopupTema}) PF('editor').hide();" />
-					
-				<p:commandButton oncomplete="PF('popupCancelTema').show()" value="Cancelar" />
-
-				<!-- Modal para cancelación-->
-				<p:dialog id="popupCancelTema" widgetVar="popupCancelTema" autosized="true" domElementAttachment="form" width="450">
-					<f:facet name="header">
-						<h:panelGroup>
-							<h:outputText styleClass="bold" value="Confirmación de cancelación de registro de tema" />
-						</h:panelGroup>
-					</f:facet>
-
-					<h:panelGrid columns="1" width="100%">
-
-						<h:outputText styleClass="bold" value="Si cancela se perderá toda la información registrada asociada al tema actual" />
-						<h:outputText styleClass="bold" value="¿Está seguro que desea cancelar y borrar la información?" />
-
-						<!-- Seccion de mensajes y botones de envio y cancelacion-->
-						<h:panelGrid columns="2" styleClass="center" width="100%">
-						
-							<p:commandButton action="#{notaContablePage.cancelarTema}" 
-								value="Si" 
-								oncomplete="PF('editor').hide(); PF('popupCancelTema').hide();"
-								update="globalForm:formulario" />
-								
-							<p:commandButton onclick="PF('popupCancelTema').hide()" value="No" immediate="true" />
-
-						</h:panelGrid>
-					</h:panelGrid>
-				</p:dialog>
-
-				<!-- seccion de riesgo operacional -->
-				<p:dialog id="modalRiesgo" widgetVar="modalRiesgo" domElementAttachment="form" autosized="true">
-					<f:facet name="header">
-						<h:panelGroup>
-							<h:outputText styleClass="bold" value="Riesgo operacional para el tema: #{notaContablePage.temaActual.tema.nombre}" />
-						</h:panelGroup>
-					</f:facet>
-					<h:panelGrid width="550">
-						<h:panelGrid columns="3" width="100%">
-							<h:outputText styleClass="bold" value="Importe Total" style="width:150px;" />
-							<p:inputText value="#{notaContablePage.temaActual.riesgoOperacional.importeTotal}" size="16" maxlength="16" onkeypress="return onKeyPressNumbers(event,this.value);"
-								converter="javax.faces.Double" immediate="true" converterMessage="Valor no válido para el Importe Total">
-								<f:convertNumber maxFractionDigits="2" />
-								
-								<p:ajax event="keyup" update="globalForm:importeTotal"/>
-								
-							</p:inputText>
-							<h:panelGrid columns="1" id="importeTotal" width="250" cellpadding="0" cellspacing="0">
-								<h:outputText styleClass="bold" value="#{notaContablePage.temaActual.riesgoOperacional.importeTotal}">
-									<f:convertNumber type="currency" />
-								</h:outputText>
-							</h:panelGrid>
-
-							<h:outputText styleClass="bold" value="Importe Parcial" style="width:150px;" />
-							<p:inputText value="#{notaContablePage.temaActual.riesgoOperacional.importeParcial}" size="16" maxlength="16" onkeypress="return onKeyPressNumbers(event,this.value);"
-								converter="javax.faces.Double" immediate="true" converterMessage="Valor no válido para el Importe Parcial">
-								<f:convertNumber maxFractionDigits="2" />
-								
-								<p:ajax event="keyup" update="globalForm:importeParcial"/>
-						
-								
-							</p:inputText>
-							<h:panelGrid columns="1" id="importeParcial" width="250" cellpadding="0" cellspacing="0">
-								<h:outputText styleClass="bold" value="#{notaContablePage.temaActual.riesgoOperacional.importeParcial}">
-									<f:convertNumber type="currency" />
-								</h:outputText>
-							</h:panelGrid>
-						</h:panelGrid>
-						<h:panelGrid columns="2" width="100%" id="fechasRiesgo">
-
-							<h:outputText styleClass="bold" value="Fecha Inicial del Evento" />
-							<p:calendar value="#{notaContablePage.temaActual.riesgoOperacional.fechaEvento}" isDayEnabled="isDayEnabledRiesgoNC" dayStyleClass="getDisabledStyleRiesgoNC"
-								immediate="true" id="fechaEvento" />
-
-							<h:outputText styleClass="bold" value="Fecha Finalización del Evento" />
-							<p:calendar value="#{notaContablePage.temaActual.riesgoOperacional.fechaFinEvento}" isDayEnabled="isDayEnabledRiesgoNC" dayStyleClass="getDisabledStyleRiesgoNC"
-								immediate="true" id="idFechaFinEvento" />
-
-							<h:outputText styleClass="bold" value="Fecha del Descubrimiento" />
-							<p:calendar value="#{notaContablePage.temaActual.riesgoOperacional.fechaDescubrimientoEvento}" isDayEnabled="isDayEnabledRiesgoNC"
-								dayStyleClass="getDisabledStyleRiesgoNC" immediate="true" id="fechaDescubrimiento" />
-
-						</h:panelGrid>
-
-						<h:panelGrid columns="4" width="90%" id="selectsTiempo">
-							<h:outputText styleClass="bold" value="Hora Inicio Evento" />
-							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.horaInicioEvento}" immediate="true">
-
-								<h:outputText styleClass="bold" value="hh" />
-								<f:selectItem itemValue="" itemLabel="00" />
-								<f:selectItems value="#{notaContablePage.horas}" />
-							</h:selectOneMenu>
-
-
-							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.minutosInicioEvento}" immediate="true">
-								<h:outputText styleClass="bold" value="mm" />
-								<f:selectItem itemValue="" itemLabel="--" />
-								<f:selectItems value="#{notaContablePage.minutos}" />
-							</h:selectOneMenu>
-
-
-							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.horario}" immediate="true">
-								<h:outputText styleClass="bold" value="A.M/P.M" />
-								<f:selectItem itemValue="" itemLabel="--" />
-								<f:selectItems value="#{notaContablePage.horario}" />
-							</h:selectOneMenu>
-
-
-							<h:outputText styleClass="bold" value="Hora Finalizacion Evento" />
-							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.horaFinalEvento}" immediate="true">
-								<h:outputText styleClass="bold" value="hh" />
-								<f:selectItem itemValue="" itemLabel="00" />
-								<f:selectItems value="#{notaContablePage.horas}" />
-							</h:selectOneMenu>
-
-
-							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.minutosFinalEvento}" immediate="true">
-								<h:outputText styleClass="bold" value="mm" />
-								<f:selectItem itemValue="" itemLabel="--" />
-								<f:selectItems value="#{notaContablePage.minutos}" />
-							</h:selectOneMenu>
-
-							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.horarioFinal}" immediate="true">
-								<h:outputText styleClass="bold" value="A.M/P.M" />
-								<f:selectItem itemValue="" itemLabel="--" />
-								<f:selectItems value="#{notaContablePage.horario}" />
-							</h:selectOneMenu>
-
-							<h:outputText styleClass="bold" value="Hora Descubrimiento" />
-							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.horaDescubrimiento}" immediate="true">
-								<h:outputText styleClass="bold" value="hh" />
-								<f:selectItem itemValue="" itemLabel="00" />
-								<f:selectItems value="#{notaContablePage.horas}" />
-							</h:selectOneMenu>
-
-							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.minutosDescubrimiento}" immediate="true">
-								<h:outputText styleClass="bold" value="mm" />
-								<f:selectItem itemValue="" itemLabel="--" />
-								<f:selectItems value="#{notaContablePage.minutos}" />
-							</h:selectOneMenu>
-
-							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.horarioDescubre}" immediate="true">
-								<h:outputText styleClass="bold" value="A.M/P.M" />
-								<f:selectItem itemValue="" itemLabel="--" />
-								<f:selectItems value="#{notaContablePage.horario}" />
-							</h:selectOneMenu>
-						</h:panelGrid>
-
-						<h:panelGrid columns="2" width="100%" id="selectsRiesgoDos">
-							<h:outputText styleClass="bold" value="Clase de Riesgo" />
-							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.codigoClaseRiesgo}" immediate="true">
-								
-								<p:ajax event="change" listener="#{notaContablePage.buscarPerdidasCuenta}" update="globalForm:IdPanel,globalForm:panelClaseRiesgoN2" />
-								
-								<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
-								<f:selectItems value="#{notaContablePage.clasesRiesgo}" />
-							</h:selectOneMenu>
-
-
-							<h:outputText styleClass="bold" value="Perdida Operacional" />
-							<p:outputPanel id="IdPanel">
-								<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.codigoTipoPerdida}" immediate="true">
-									<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
-									<f:selectItems value="#{notaContablePage.perdidaOper}" />
-								</h:selectOneMenu>
-							</p:outputPanel>
-
-
-							<h:outputText styleClass="bold" value="Proceso" />
-							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.codigoProceso}" immediate="true">
-								<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
-								<f:selectItems value="#{notaContablePage.procesos}" />
-							</h:selectOneMenu>
-
-							<h:outputText styleClass="bold" value="Línea Operativa" />
-							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.codigoLineaOperativa}" immediate="true">
-								<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
-								<f:selectItems value="#{notaContablePage.lineasOperativas}" />
-							</h:selectOneMenu>
-
-							<h:outputText styleClass="bold" value="Producto Afectado" />
-							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.codigoProducto}" immediate="true">
-							
-								<p:ajax event="change" listener="#{notaContablePage.buscarSubProducto}" update="globalForm:panelSubProducto" />
-								
-								<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
-								<f:selectItems value="#{notaContablePage.productos}" />
-							</h:selectOneMenu>
-
-							<h:outputText styleClass="bold" value="SubProducto Afectado" />
-							<p:outputPanel id="panelSubProducto">
-								<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.codigoSubProducto}" immediate="true">
-									<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
-									<f:selectItems value="#{notaContablePage.subProductos}" />
-								</h:selectOneMenu>
-							</p:outputPanel>
-
-							<h:outputText styleClass="bold" value="Canal" />
-							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.codigoCanal}" immediate="true">
-							
-								<p:ajax event="change" listener="#{notaContablePage.buscarSubCanal}" update="globalForm:panelSubCanal" />
-								
-								<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
-								<f:selectItems value="#{notaContablePage.canales}" />
-							</h:selectOneMenu>
-
-							<h:outputText styleClass="bold" value="subCanal" />
-							<p:outputPanel id="panelSubCanal">
-								<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.codigoSubCanal}" immediate="true">
-									<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
-									<f:selectItems value="#{notaContablePage.subcanales}" />
-								</h:selectOneMenu>
-							</p:outputPanel>
-
-							<h:outputText styleClass="bold" value="Sfc Clase Riesgo N2" />
-							<p:outputPanel id="panelClaseRiesgoN2">
-								<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.codigoClaseRiesgoN2}" immediate="true">
-								
-									<p:ajax event="change" listener="#{notaContablePage.buscarClaseRiesgoN3}" update="globalForm:panelClaseRiesgoN3" />
-
-									<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
-									<f:selectItems value="#{notaContablePage.clasesRiesgoN2}" />
-								</h:selectOneMenu>
-							</p:outputPanel>
-
-							<h:outputText styleClass="bold" value="Sfc Clase Riesgo N3" />
-							<p:outputPanel id="panelClaseRiesgoN3">
-								<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.codigoClaseRiesgoN3}" immediate="true">
-									<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
-									<f:selectItems value="#{notaContablePage.clasesRiesgoN3}" />
-								</h:selectOneMenu>
-							</p:outputPanel>
-
-							<h:outputText styleClass="bold" value="Nombre Outsourcing" />
-							<p:inputTextarea value="#{notaContablePage.temaActual.riesgoOperacional.nombreOutSource}" cols="50" rows="2" />
-
-							<h:outputText styleClass="bold" value="Aplica Recuperación" rendered="#{notaContablePage.aplicaRecuperacion}"/>
-							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.appRecuperacion}" rendered="#{notaContablePage.aplicaRecuperacion}" immediate="true">
-							
-								<p:ajax event="change" immediate="true" update="globalForm:panelFechaTxt, globalForm:panelFechaValue, globalForm:panelHoraTxt, globalForm:panelHoraValue, globalForm:panelTipoR, globalForm:panelTipoRecValue" />
-								
-								<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
-								<f:selectItem itemValue="S" itemLabel="SI" />
-								<f:selectItem itemValue="N" itemLabel="NO" />
-							</h:selectOneMenu>
-
-							<p:outputPanel id="panelFechaTxt" ajaxRendered="true">
-								<h:outputText styleClass="bold" value="Fecha Recuperación" rendered="#{notaContablePage.temaActual.riesgoOperacional.appRecuperacion eq 'S'}" />
-							</p:outputPanel>
-							<p:outputPanel id="panelFechaValue" ajaxRendered="true">
-								<p:calendar value="#{notaContablePage.temaActual.riesgoOperacional.fechaRecuperacion}" isDayEnabled="isDayEnabledRiesgoNC" dayStyleClass="getDisabledStyleRiesgoNC"
-									immediate="true" id="fechaRecuperacion" rendered="#{notaContablePage.temaActual.riesgoOperacional.appRecuperacion eq 'S'}" />
-							</p:outputPanel>
-
-							<p:outputPanel id="panelHoraTxt" ajaxRendered="true">
-								<h:outputText styleClass="bold" value="Hora de Recuperación" rendered="#{notaContablePage.temaActual.riesgoOperacional.appRecuperacion eq 'S'}" />
-							</p:outputPanel>
-							<p:outputPanel id="panelHoraValue" ajaxRendered="true">
-								<h:panelGrid columns="4" width="90%" id="selectsTiempoRecuperacion" rendered="#{notaContablePage.temaActual.riesgoOperacional.appRecuperacion eq 'S'}">
-									<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.horaRecuperacion}" immediate="true">
-										<h:outputText styleClass="bold" value="hh" />
-										<f:selectItem itemValue="" itemLabel="00" />
-										<f:selectItems value="#{notaContablePage.horas}" />
-									</h:selectOneMenu>
-
-									<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.minutosRecuperacion}" immediate="true">
-										<h:outputText styleClass="bold" value="mm" />
-										<f:selectItem itemValue="" itemLabel="--" />
-										<f:selectItems value="#{notaContablePage.minutos}" />
-									</h:selectOneMenu>
-
-									<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.horarioRecuperacion}" immediate="true">
-										<h:outputText styleClass="bold" value="A.M/P.M" />
-										<f:selectItem itemValue="" itemLabel="--" />
-										<f:selectItems value="#{notaContablePage.horario}" />
-									</h:selectOneMenu>
-								</h:panelGrid>
-							</p:outputPanel>
-							<p:outputPanel id="panelTipoR" ajaxRendered="true">
-								<h:outputText styleClass="bold" value="Tipo Recuperación" rendered="#{notaContablePage.temaActual.riesgoOperacional.appRecuperacion eq 'S'}" />
-							</p:outputPanel>
-							<p:outputPanel id="panelTipoRecValue" ajaxRendered="true">
-								<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.tipoRecuperacion}" immediate="true"
-									rendered="#{notaContablePage.temaActual.riesgoOperacional.appRecuperacion eq 'S'}">
-									<f:selectItem itemValue="" itemLabel="Seleccione una opcion" />
-									<f:selectItem itemValue="R_SEGURO" itemLabel="RECUPERACIÓN POR SEGURO" />
-									<f:selectItem itemValue="R_DIRECTA" itemLabel="RECUPERACIÓN DIRECTA" />
-								</h:selectOneMenu>
-							</p:outputPanel>
-						</h:panelGrid>
-						<ui:include src="../../common/mensajes.xhtml" />
-						<h:panelGrid columns="3" width="100%" style="text-align: center;">
-						
-							<p:commandButton value="Guardar" action="#{notaContablePage.guardarRiesgo}"
-								oncomplete="if (#{notaContablePage.ocultarPopupRiesgo}) PF('modalRiesgo').hide();" />
-							<p:commandButton oncomplete="PF('popupCancelRiesgo').show()" value="Cancelar" />
-
-							<!-- Modal para cancelación de datos de riesgo-->
-							<p:dialog id="popupCancelRiesgo" widgetVar="popupCancelRiesgo" autosized="true" domElementAttachment="form" width="450">
-								<f:facet name="header">
-									<h:panelGroup>
-										<h:outputText styleClass="bold" value="Confirmación de cancelación de registro de información" />
-									</h:panelGroup>
-								</f:facet>
-
-								<h:panelGrid columns="1" width="100%">
-
-									<h:outputText styleClass="bold" value="Si cancela se perderá toda la información registrada asociada a riesgo operacional" />
-									<h:outputText styleClass="bold" value="Está seguro que desea cancelar y borrar la información?" />
-
-									<!-- Seccion de mensajes y botones de envio y cancelacion-->
-									<h:panelGrid columns="2" styleClass="center" width="100%">
-									
-										<p:commandButton action="#{notaContablePage.cancelarRiesgo}" value="Si" update="formulario"
-											oncomplete="PF('modalRiesgo').hide(); PF('popupCancelRiesgo').hide();" />
-										<p:commandButton onclick="PF('popupCancelRiesgo').hide()" value="No" immediate="true" />
-
-									</h:panelGrid>
-								</h:panelGrid>
-							</p:dialog>
-						</h:panelGrid>
-
-					</h:panelGrid>
-				</p:dialog>
-
-			</h:panelGrid>
-		</h:panelGrid>
-	</p:dialog>
-
-	<h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="0" id="formulario">
-		<p:panel header="Información básica" style="width: 100%;">
-			<h:panelGrid columns="2">
-				<h:outputText styleClass="bold" value="Sucursal de Origen" />
-				<h:outputText styleClass="bold" value="#{notaContablePage.usuarioLogueado.usuario.codigoAreaModificado} - #{notaContablePage.usuarioLogueado.usuario.nombreAreaModificado}" />
-				<h:outputText styleClass="bold" value="Concepto" />
-				<h:panelGrid columns="2" id="tipoConcepto">
-					<p:inputText value="#{notaContablePage.concepto}" size="70" />
-					<p:commandButton action="#{notaContablePage.buscarConcepto}" value="Buscar Concepto" update="globalForm:tipoConcepto" />
-
-					<h:selectOneMenu value="#{notaContablePage.nota.codigoConcepto}" immediate="true" converter="javax.faces.Integer" id="nombreCon" disabledClass="disabledItem"
-						rendered="#{! empty notaContablePage.conceptos}">
-						
-						<p:ajax event="change" immediate="true" listener="#{notaContablePage.seleccionarConcepto}" 
-							update="globalForm:formulario" />
-						
-						<f:selectItem itemValue="-1" itemLabel="Seleccione una opcion" />
-						<f:selectItems value="#{notaContablePage.conceptos}" />
-					</h:selectOneMenu>
-				</h:panelGrid>
-
-				<h:outputText styleClass="bold" value="Tipo de Evento" />
-				<h:selectOneMenu value="#{notaContablePage.nota.codigoTipoEvento}" immediate="true" converter="javax.faces.Integer">
-					<f:selectItem itemValue="-1" itemLabel="Seleccione una opcion" />
-					<f:selectItems value="#{notaContablePage.tiposEvento}" />
-				</h:selectOneMenu>
-
-			</h:panelGrid>
-		</p:panel>
-		<p:panel header="Temas del Concepto" style="width: 100%;" rendered="#{notaContablePage.nota.codigoConcepto gt 0}">
-			<p:dataTable value="#{notaContablePage.temasNotaContable}" var="temaNota" id="tableTemas" rendered="#{! empty notaContablePage.temasNotaContable}" rowKeyVar="rowKey"
-				width="100%" onRowMouseOver="this.style.backgroundColor='#9fbdeb'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'" rowClasses="row1, row2">
-
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="Nombre del Tema" />
-					</f:facet>
-					<h:outputText value="#{temaNota.tema.nombre} " />
-				</p:column>
-
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="Partida" />
-					</f:facet>
-					<h:outputText value="#{temaNota.tema.partidaContable} " />
-				</p:column>
-
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="Contrapartida" />
-					</f:facet>
-					<h:outputText value="#{temaNota.tema.contraPartidaContable} " />
-				</p:column>
-
-				<p:column style="text-align: center;">
-					<f:facet name="header">
-						<h:outputText value="Soportes" />
-					</f:facet>
-					<h:outputText value="#{notaContablePage.nota.concepto.soportes eq 'S'?'Si':'No'}" />
-				</p:column>
-
-				<p:column style="text-align: center;">
-					<f:facet name="header">
-						<h:outputText value="Riesgo" />
-					</f:facet>
-					<h:outputText value="#{temaNota.tema.riesgoOperacional eq 'S'?'Si':'No'}" />
-				</p:column>
-
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="Divisa" />
-					</f:facet>
-					<h:outputText value="#{temaNota.codigoDivisa}" />
-				</p:column>
-
-				<p:column style="text-align: right;">
-					<f:facet name="header">
-						<h:outputText value="Importe" />
-					</f:facet>
-					<h:outputText value="#{temaNota.monto}">
-						<f:convertNumber type="currency" />
-					</h:outputText>
-				</p:column>
-
-				<p:column style="text-align: center;">
-					<f:facet name="header">
-						<h:outputText value="Editar" />
-					</f:facet>
-					
-					<p:commandButton action="#{notaContablePage.editar}" oncomplete="PF('editor').show()" update="globalForm:editor"
-						icon="pi pi-pencil" 
-						alt="Editar"
-						rendered="#{temaNota.autorizada}">
-						
-						<f:setPropertyActionListener for="codigoTema" value="#{temaNota.codigo}" target="#{notaContablePage.codigo}" />
-						
-					</p:commandButton>
-
-				</p:column>
-				<f:facet name="footer">
-					<p:columnGroup rendered="#{! empty notaContablePage.totalesNota}">
-						<p:column colspan="5" style="text-align:right;">
-							<h:outputText value="Totales" />
-						</p:column>
-						<p:column style="padding: 0px;">
-							<p:dataTable style="border-width: 0px; background-color: transparent;" value="#{notaContablePage.totalesNota}" var="total">
-								<p:column style="border-width: 0px;">
-									<h:outputText value="#{total.codigoDivisa }" />
-								</p:column>
-							</p:dataTable>
-						</p:column>
-						<p:column style="padding: 0px;">
-							<p:dataTable style="border-width: 0px; background-color: transparent;" value="#{notaContablePage.totalesNota}" var="total">
-								<p:column style="border-width: 0px; text-align:right;">
-									<h:outputText value="#{total.total}">
-										<f:convertNumber type="currency" />
-									</h:outputText>
-								</p:column>
-							</p:dataTable>
-						</p:column>
-						<p:column></p:column>
-					</p:columnGroup>
-				</f:facet>
-			</p:dataTable>
-		</p:panel>
-
-
-		<h:panelGrid columns="3" styleClass="center" width="100%" id="botonesNotaContable">
-		
-			<p:commandButton action="#{notaContablePage.guardarNota}" 
-				update="globalForm:formulario,globalForm:botonesNotaContable" 
-				value="Enviar a Visto Bueno" 
-				rendered="#{notaContablePage.nota.codigo le 0 and ! empty notaContablePage.totalesNota}" />
-				
-			<p:commandButton action="#{notaContablePage.guardarNota}" 
-				oncomplete="PF('popupNotaContable').hide()" 
-				update="globalForm:botonesNotaContable"
-				value="Enviar a Visto Bueno" 
-				rendered="#{notaContablePage.nota.codigo gt 0 and notaContablePage.nota.puedeEditar}" />
-				
-			<p:commandButton value="Anular" rendered="#{notaContablePage.nota.puedeAnular}" oncomplete="PF('popupAnularNota').show()" />
-			
-			<p:commandButton value="Cancelar" action="#{notaContablePage.cancelarNota}" update="formulario" rendered="#{notaContablePage.nota.codigo le 0}" />
-			
-			<p:commandButton value="Cerrar" oncomplete="PF('popupNotaContable').hide()" rendered="#{notaContablePage.nota.codigo gt 0}" />
-			
-		</h:panelGrid>
-	</h:panelGrid>
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <script type="text/javascript">
+            function isDayEnabledNC(day) {
+                var fechaMin = document.getElementById('globalForm:fechaMin').value;
+                var fechaMax = document.getElementById('globalForm:fechaMax').value;
+
+                var min = new Date();
+                min.setFullYear(parseInt(fechaMin.substring(6, 10), 10), parseInt(fechaMin.substring(3, 5), 10) - 1, parseInt(fechaMin.substring(0, 2), 10) - 1);
+                var max = new Date();
+                max.setFullYear(parseInt(fechaMax.substring(6, 10), 10), parseInt(fechaMax.substring(3, 5), 10) - 1, parseInt(fechaMax.substring(0, 2), 10));
+                var date = new Date(day.date);
+                if (date.getDay() == 6) {
+                    return false;
+                }
+                if (date.getDay() == 0) {
+                    return false;
+                }
+                if (date &gt; min) {
+                    if (max &gt; date) { //solo fechas entre min y max
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            function isDayEnabledRiesgoNC(day) {
+                var max = new Date();
+                var date = new Date(day.date);
+                if (max &gt; date) { //solo fechas menores o iguales a hoy
+                    return true;
+                }
+                return false;
+            }
+
+            function validarMontoAlert(value) {
+                var alertCOP = parseFloat(document.getElementById('globalForm:montoAlertaCOP').value);
+                var alertEXT = parseFloat(document.getElementById('globalForm:montoAlertaEXT').value);
+                var divisa = document.getElementById('globalForm:codDivisaNotaContable').value;
+                var warn = false;
+                if (divisa == 'COP') {
+                    warn = value &gt; alertCOP;
+                } else {
+                    warn = value &gt; alertEXT;
+                }
+                if (warn) {
+                    alert('Por favor verifique si el importe ingresado es el adecuado.');
+                }
+            }
+        </script>
+        <style>
+            .disabledDay {
+                background-color: #dedede;
+            }
+        </style>
+    </h:head>
+    <!-- Formulario de confirmacion de anulacion-->
+    <p:dialog id="popupAnularNota" widgetVar="popupAnularNota" autosized="true" domElementAttachment="form" width="250"
+              showEffect="fade" hideEffect="explode" modal="false">
+        <f:facet name="header">
+            <h:panelGroup>
+                <h:outputText value="Confirmación de anulación"/>
+            </h:panelGroup>
+        </f:facet>
+        <f:facet name="controls">
+            <h:panelGroup>
+                <h:graphicImage value="../../../common/images/close.png" alt="cerrar" sty3leClass="hidelink"
+                                id="hidelinkAnularNota" height="20" width="20"/>
+            </h:panelGroup>
+        </f:facet>
+
+        <h:panelGrid columns="1" width="100%">
+
+            <h:outputText
+                    value="¿Está seguro que desea anular la nota actual y borrar toda la información relacionada?"/>
+
+            <!-- Seccion de mensajes y botones de envio y cancelacion-->
+            <ui:include src="../../common/mensajes.xhtml"/>
+
+            <h:panelGrid columns="2" styleClass="center" width="100%">
+                <p:commandButton action="#{notaContablePage.anular}" value="Si"
+                                 oncomplete="if (#{!notaContablePage.nota.puedeAnular}) {PF('popupAnularNota').hide(); PF('popupNotaContable').hide();}"
+                                 update="globalForm:botonesNotaContable"/>
+                <p:commandButton onclick="PF('popupAnularNota').hide()" value="No"/>
+            </h:panelGrid>
+        </h:panelGrid>
+    </p:dialog>
+    <!-- Formulario Modal de creacion y edicion de temas por concepto-->
+    <p:dialog id="editor" widgetVar="editor" domElementAttachment="form" autosized="true" minHeight="200" minWidth="840"
+              showEffect="fade" hideEffect="explode" modal="false">
+        <f:facet name="header">
+            <h:panelGroup>
+                <h:outputText styleClass="bold" value="Tema: #{notaContablePage.temaActual.tema.nombre}"/>
+            </h:panelGroup>
+        </f:facet>
+        <h:inputHidden id="fechaMin" value="#{notaContablePage.minFecha}"/>
+        <h:inputHidden id="fechaMax" value="#{notaContablePage.maxFecha}"/>
+        <h:inputHidden id="montoAlertaCOP" value="#{notaContablePage.montoAlertaCOP}"/>
+        <h:inputHidden id="montoAlertaEXT" value="#{notaContablePage.montoAlertaEXT}"/>
+
+        <p:growl id="msgs" showDetail="false" skipDetailIfEqualsSummary="true"/>
+
+        <!-- Campos del formulario -->
+        <h:panelGrid columns="1" width="840" id="informacion" cellpadding="0" cellspacing="0">
+            <h:panelGroup>
+                <div style="height: 490px; overflow: auto; width: 100%;">
+                    <h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="0">
+
+                        <h:panelGrid columns="4" width="100%" cellpadding="0" cellspacing="2">
+                            <h:outputText styleClass="bold" value="Fecha Contable"/>
+
+                            <p:calendar id="fecha" value="#{notaContablePage.temaActual.fechaContablePF}"
+                                        immediate="false">
+                                <p:ajax event="dateSelect" listener="#{notaContablePage.validarFecha}"
+                                        update="globalForm:fecha,globalForm:msgs"/>
+                            </p:calendar>
+
+                            <p:commandButton action="#{notaContablePage.cargarModalRiesgo}"
+                                             value="Riesgo Operacional"
+                                             oncomplete="PF('modalRiesgo').show()"
+                                             update="globalForm:modalRiesgo"
+                                             rendered="#{notaContablePage.temaActual.tema.riesgoOperacional eq 'S'}">
+                            </p:commandButton>
+                            <p:commandButton value="Agregar Soportes"
+                                             oncomplete="PF('modalSoportes').show()"
+                                             update="globalForm:modalSoportes"
+                                             rendered="#{notaContablePage.nota.concepto.soportes eq 'S'}"/>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2" width="100%" cellpadding="0" cellspacing="3" style="height: 100%;"
+                                     styleClass="aligntop">
+                            <p:panel header="Partida" style="width: 400px;">
+
+                                <h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="0">
+                                    <h:panelGrid columns="5">
+                                        <h:outputText styleClass="bold" value="Cuenta"/>
+                                        <h:outputText styleClass="bold"
+                                                      value="#{notaContablePage.temaActual.tema.partidaContable}"
+                                                      style="font-weight: bold;"/>
+                                        <p:spacer width="50"/>
+                                        <h:outputText styleClass="bold" value="Naturaleza"/>
+                                        <h:outputText styleClass="bold"
+                                                      value="#{notaContablePage.temaActual.tema.naturaleza1 eq 'D'?'Debe':'Haber'}"
+                                                      style="font-weight: bold;"/>
+                                    </h:panelGrid>
+                                    <h:panelGrid columns="2" id="sucursalPartida">
+                                        <h:outputText styleClass="bold" value="Sucursal Destino"/>
+                                        <h:outputText styleClass="bold"
+                                                      value="#{notaContablePage.usuarioLogueado.sucursal.codigo} #{notaContablePage.usuarioLogueado.sucursal.nombre}"
+                                                      rendered="#{notaContablePage.nota.concepto.origenDestino eq 'S'}"/>
+                                        <h:selectOneMenu
+                                                value="#{notaContablePage.temaActual.codigoSucursalDestinoPartida}"
+                                                immediate="true"
+                                                rendered="#{notaContablePage.nota.concepto.origenDestino eq 'N'}"
+                                                style="width: 280px;">
+
+                                            <p:ajax event="change" listener="#{notaContablePage.cambiarSucursalPartida}"
+                                                    update="globalForm:sucursalPartida,globalForm:sucursalContraPartida"/>
+
+                                            <f:selectItem itemValue="" itemLabel="Seleccione una opcion"/>
+                                            <f:selectItems value="#{notaContablePage.sucursalesPartida}"/>
+                                        </h:selectOneMenu>
+
+                                        <h:outputText styleClass="bold" value="Referencia"
+                                                      rendered="#{notaContablePage.temaActual.tema.referencia1 eq 'S'}"/>
+                                        <p:inputText value="#{notaContablePage.temaActual.referencia1}"
+                                                     rendered="#{notaContablePage.temaActual.tema.referencia1 eq 'S'}"
+                                                     maxlength="12" size="12"
+                                                     onkeypress="return onKeyPressNumbersNoZero(event, this.value)"/>
+                                    </h:panelGrid>
+
+                                    <p:panel header="Tercero"
+                                             rendered="#{notaContablePage.temaActual.tema.tercero1 eq 'S'}"
+                                             style="width:100%; ">
+                                        <h:panelGrid columns="2" id="documentoTercero1">
+
+                                            <h:outputText styleClass="bold" value="Tipo de documento"/>
+
+                                            <h:selectOneMenu value="#{notaContablePage.temaActual.tipoIdentificacion1}"
+                                                             immediate="true">
+
+                                                <p:ajax event="change"
+                                                        update="globalForm:filtroTercero1,globalForm:tercero1">
+                                                    <f:setPropertyActionListener value=""
+                                                                                 target="#{notaContablePage.temaActual.nombreCompleto1}"/>
+                                                </p:ajax>
+
+                                                <f:selectItem itemValue="" itemLabel="Seleccione una opcion"/>
+                                                <f:selectItems value="#{notaContablePage.tiposDoc}"/>
+                                            </h:selectOneMenu>
+
+                                            <h:outputText styleClass="bold" value="Número Documento"/>
+                                            <h:panelGrid columns="2" border="0" cellspacing="0">
+                                                <p:inputText
+                                                        value="#{notaContablePage.temaActual.numeroIdentificacion1}"
+                                                        size="15" immediate="true">
+                                                    <p:ajax event="keyup"
+                                                            update="globalForm:filtroTercero1,globalForm:tercero1">
+                                                        <f:setPropertyActionListener for="numDocRenN1" value=""
+                                                                                     target="#{notaContablePage.temaActual.nombreCompleto1}"/>
+                                                    </p:ajax>
+                                                </h:inputText>
+                                                <h:panelGrid columns="1" id="filtroTercero1" cellspacing="0"
+                                                             cellpadding="0" style="border-collapse: collapse;">
+                                                    <p:commandButton action="#{notaContablePage.buscarTercero1}"
+                                                                     update="globalForm:documentoTercero1,globalForm:tercero1,globalForm:documentoTercero2,globalForm:tercero2"
+                                                                     style="margin: 0; margin-left: 8px;"
+                                                                     value="Buscar" status="status"
+                                                                     rendered="#{!empty notaContablePage.temaActual.tipoIdentificacion1 and !empty notaContablePage.temaActual.numeroIdentificacion1}"/>
+                                                </h:panelGrid>
+                                            </h:panelGrid>
+                                        </h:panelGrid>
+
+                                        <h:panelGrid columns="1" id="tercero1" cellpadding="0" cellspacing="0">
+                                            <h:panelGrid columns="2"
+                                                         rendered="#{! empty notaContablePage.temaActual.nombreCompleto1}">
+
+                                                <h:outputText styleClass="bold" value="Dígito de Verificación:"/>
+                                                <h:outputText styleClass="bold"
+                                                              value="#{notaContablePage.temaActual.digitoVerificacion1}"/>
+
+                                                <h:outputText styleClass="bold" value="Nombre:"/>
+                                                <h:outputText styleClass="bold"
+                                                              value="#{notaContablePage.temaActual.nombreCompleto1}"/>
+
+                                                <h:outputText styleClass="bold" value="Contrato"
+                                                              rendered="#{notaContablePage.temaActual.tema.contrato1 eq 'S'}"/>
+                                                <h:selectOneMenu value="#{notaContablePage.temaActual.contrato1}"
+                                                                 immediate="true"
+                                                                 rendered="#{notaContablePage.temaActual.tema.contrato1 eq 'S'}">
+                                                    <p:ajax event="change"
+                                                            listener="#{notaContablePage.cambiarContratoPartida}"
+                                                            update="globalForm:tercero1,globalForm:tercero2"/>
+                                                    <f:selectItem itemValue="" itemLabel="Seleccione una opcion"/>
+                                                    <f:selectItems value="#{notaContablePage.contratos1}"/>
+                                                </h:selectOneMenu>
+                                            </h:panelGrid>
+                                        </h:panelGrid>
+
+                                    </p:panel>
+                                </h:panelGrid>
+                            </p:panel>
+                            <p:panel header="Contrapartida" style="width: 400px; ">
+
+                                <h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="0">
+                                    <h:panelGrid columns="5">
+                                        <h:outputText styleClass="bold" value="Cuenta"/>
+                                        <h:outputText styleClass="bold"
+                                                      value="#{notaContablePage.temaActual.tema.contraPartidaContable}"
+                                                      style="font-weight: bold;"/>
+                                        <p:spacer width="50"/>
+                                        <h:outputText styleClass="bold" value="Naturaleza"/>
+                                        <h:outputText styleClass="bold"
+                                                      value="#{notaContablePage.temaActual.tema.naturaleza2 eq 'D'?'Debe':'Haber'}"
+                                                      style="font-weight: bold;"/>
+                                    </h:panelGrid>
+                                    <h:panelGrid columns="2" width="100%" id="sucursalContraPartida">
+                                        <h:outputText styleClass="bold" value="Sucursal Destino"/>
+                                        <h:outputText styleClass="bold"
+                                                      value="#{notaContablePage.usuarioLogueado.sucursal.codigo} #{notaContablePage.usuarioLogueado.sucursal.nombre}"
+                                                      rendered="#{notaContablePage.nota.concepto.origenDestino eq 'S'}"/>
+                                        <h:selectOneMenu
+                                                value="#{notaContablePage.temaActual.codigoSucursalDestinoContraPartida}"
+                                                immediate="true"
+                                                rendered="#{notaContablePage.nota.concepto.origenDestino eq 'N'}"
+                                                style="width: 280px;">
+                                            <p:ajax event="change"
+                                                    listener="#{notaContablePage.cambiarSucursalContraPartida}"
+                                                    update="globalForm:sucursalPartida,globalForm:sucursalContraPartida"/>
+                                            <f:selectItem itemValue=" " itemLabel="Seleccione una opcion"/>
+                                            <f:selectItems value="#{notaContablePage.sucursalesContraPartida}"/>
+                                        </h:selectOneMenu>
+
+                                        <h:outputText styleClass="bold" value="Referencia"
+                                                      rendered="#{notaContablePage.temaActual.tema.referencia2 eq 'S'}"/>
+                                        <p:inputText value="#{notaContablePage.temaActual.referencia2}"
+                                                     rendered="#{notaContablePage.temaActual.tema.referencia2 eq 'S'}"
+                                                     maxlength="12" size="12"
+                                                     onkeypress="return onKeyPressNumbersNoZero(event, this.value)"/>
+                                    </h:panelGrid>
+                                    <p:panel header="Tercero"
+                                             rendered="#{notaContablePage.temaActual.tema.tercero2 eq 'S'}"
+                                             style="width:100%; ">
+                                        <h:panelGrid columns="2" id="documentoTercero2">
+                                            <h:outputText styleClass="bold" value="Tipo de documento"/>
+                                            <h:selectOneMenu value="#{notaContablePage.temaActual.tipoIdentificacion2}"
+                                                             immediate="true">
+
+                                                <p:ajax event="change"
+                                                        update="globalForm:filtroTercero2,globalForm:tercero2">
+                                                    <f:setPropertyActionListener value=""
+                                                                                 target="#{notaContablePage.temaActual.nombreCompleto2}"/>
+                                                </p:ajax>
+
+                                                <f:selectItem itemValue="" itemLabel="Seleccione una opcion"/>
+                                                <f:selectItems value="#{notaContablePage.tiposDoc}"/>
+                                            </h:selectOneMenu>
+
+                                            <h:outputText styleClass="bold" value="Número Documento"/>
+                                            <h:panelGrid columns="2" border="0" cellspacing="0">
+                                                <p:inputText
+                                                        value="#{notaContablePage.temaActual.numeroIdentificacion2}"
+                                                        size="15" immediate="true">
+
+                                                    <p:ajax event="keyup"
+                                                            update="globalForm:filtroTercero2,globalForm:tercero2">
+                                                        <f:setPropertyActionListener for="numDocRenN2" value=""
+                                                                                     target="#{notaContablePage.temaActual.nombreCompleto2}"/>
+                                                    </p:ajax>
+
+                                                </p:inputText>
+                                                <h:panelGrid columns="1" id="filtroTercero2" cellspacing="0"
+                                                             cellpadding="0" style="border-collapse: collapse;">
+                                                    <p:commandButton action="#{notaContablePage.buscarTercero2}"
+                                                                     update="globalForm:documentoTercero2,globalForm:tercero2"
+                                                                     style="margin: 0; margin-left: 8px;"
+                                                                     value="Buscar" status="status"
+                                                                     rendered="#{!empty notaContablePage.temaActual.tipoIdentificacion2 and !empty notaContablePage.temaActual.numeroIdentificacion2}"/>
+                                                </h:panelGrid>
+                                            </h:panelGrid>
+                                        </h:panelGrid>
+
+                                        <h:panelGrid columns="1" id="tercero2" cellpadding="0" cellspacing="0">
+                                            <h:panelGrid columns="2"
+                                                         rendered="#{! empty notaContablePage.temaActual.nombreCompleto2}">
+
+                                                <h:outputText styleClass="bold" value="Dígito de Verificación:"/>
+                                                <h:outputText styleClass="bold"
+                                                              value="#{notaContablePage.temaActual.digitoVerificacion2}"/>
+
+                                                <h:outputText styleClass="bold" value="Nombre:"/>
+                                                <h:outputText styleClass="bold"
+                                                              value="#{notaContablePage.temaActual.nombreCompleto2}"/>
+
+                                                <h:outputText styleClass="bold" value="Contrato"
+                                                              rendered="#{notaContablePage.temaActual.tema.contrato2 eq 'S'}"/>
+                                                <h:selectOneMenu value="#{notaContablePage.temaActual.contrato2}"
+                                                                 immediate="true"
+                                                                 rendered="#{notaContablePage.temaActual.tema.contrato2 eq 'S'}">
+
+                                                    <p:ajax event="change"
+                                                            listener="#{notaContablePage.cambiarContratoContraPartida}"
+                                                            update="globalForm:tercero1,globalForm:tercero2"/>
+
+                                                    <f:selectItem itemValue="" itemLabel="Seleccione una opcion"/>
+                                                    <f:selectItems value="#{notaContablePage.contratos2}"/>
+                                                </h:selectOneMenu>
+                                            </h:panelGrid>
+                                        </h:panelGrid>
+
+                                    </p:panel>
+                                </h:panelGrid>
+                            </p:panel>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2" width="100%" cellpadding="0" cellspacing="2">
+
+
+                            <h:outputText styleClass="bold" value="Descripción"/>
+                            <p:inputTextarea value="#{notaContablePage.temaActual.descripcion}"
+                                             onkeyup="this.value=removeAccents(this.value)"
+                                             onkeypress="return characterRestriction(event)" maxlength="500" cols="139"
+                                             rows="2"/>
+
+                            <h:outputText styleClass="bold" value="Divisa"/>
+                            <h:panelGrid columns="4" width="100%" cellpadding="0" cellspacing="0">
+                                <h:selectOneMenu value="#{notaContablePage.temaActual.codigoDivisa}" immediate="true"
+                                                 style="width:180px;" id="codDivisaNotaContable">
+                                    <f:selectItems value="#{notaContablePage.divisas}"/>
+                                </h:selectOneMenu>
+
+                                <h:outputText styleClass="bold" value="Importe" style="width:150px;"/>
+                                <p:inputText value="#{notaContablePage.temaActual.monto}" size="20" maxlength="20"
+                                             onkeypress="return onKeyPressNumbers(event,this.value);"
+                                             converter="javax.faces.Double"
+                                             immediate="true" converterMessage="Valor invalido para el Importe"
+                                             onblur="validarMontoAlert(this.value)">
+                                    <f:convertNumber maxFractionDigits="2"/>
+
+                                    <p:ajax event="keyup" listener="#{notaContablePage.ajustarCargaImpositiva}"
+                                            update="globalForm:importe,globalForm:impuestos"/>
+                                </p:inputText>
+                                <h:panelGrid columns="1" id="importe" width="250" cellpadding="0" cellspacing="0">
+                                    <h:outputText styleClass="bold" value="#{notaContablePage.temaActual.monto}">
+                                        <f:convertNumber type="currency"/>
+                                    </h:outputText>
+                                </h:panelGrid>
+                            </h:panelGrid>
+
+                        </h:panelGrid>
+                        <h:panelGrid columns="1" cellpadding="0" cellspacing="2" id="impuestos"
+                                     style="text-align: center;" width="100%">
+                            <p:dataTable value="#{notaContablePage.temaActual.impuestoTema}" var="imp" id="table"
+                                         rowKeyVar="rowKey"
+                                         rendered="#{! empty notaContablePage.temaActual.impuestoTema}"
+                                         onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
+                                         onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"
+                                         rowClasses="row1, row2">
+
+                                <f:facet name="header">
+                                    <h:outputText styleClass="bold" value="Liquidación de Impuestos"/>
+                                </f:facet>
+
+                                <p:column width="150" style="text-align: left;">
+                                    <f:facet name="header">
+                                        <h:outputText styleClass="bold" value="Nombre"/>
+                                    </f:facet>
+                                    <h:outputText styleClass="bold" value="#{imp.impuestoTema.impuesto.nombre}"/>
+                                </p:column>
+
+                                <p:column width="80" style="text-align: right;">
+                                    <f:facet name="header">
+                                        <h:outputText styleClass="bold" value="Porcentaje"/>
+                                    </f:facet>
+                                    <h:outputText styleClass="bold" value="#{imp.impuestoTema.impuesto.valor}%"/>
+                                </p:column>
+
+                                <p:column width="140" style="text-align: right;">
+                                    <f:facet name="header">
+                                        <h:outputText styleClass="bold" value="Base"/>
+                                    </f:facet>
+                                    <h:outputText styleClass="bold" rendered="#{not imp.boolExonera}"
+                                                  value="#{imp.base}" converter="javax.faces.Double">
+                                        <f:convertNumber type="currency" maxFractionDigits="2"/>
+                                    </h:outputText>
+                                    <h:outputText styleClass="bold" rendered="#{imp.boolExonera}" value="NA"/>
+                                </p:column>
+
+                                <p:column width="140" style="text-align: right;">
+                                    <f:facet name="header">
+                                        <h:outputText styleClass="bold" value="Calculado"/>
+                                    </f:facet>
+                                    <h:outputText styleClass="bold" rendered="#{not imp.boolExonera}"
+                                                  value="#{imp.calculado}" converter="javax.faces.Double">
+                                        <f:convertNumber type="currency" maxFractionDigits="2"/>
+                                    </h:outputText>
+                                    <h:outputText styleClass="bold" rendered="#{imp.boolExonera}" value="NA"/>
+                                </p:column>
+
+                                <p:column width="80" style="text-align: center;">
+                                    <f:facet name="header">
+                                        <h:outputText styleClass="bold" value="Exonerar"/>
+                                    </f:facet>
+                                    <h:selectBooleanCheckbox value="#{imp.boolExonera}" immediate="true">
+
+                                        <p:ajax event="change" listener="#{notaContablePage.ajustarCargaImpositiva}"
+                                                update="globalForm:impuestos"/>
+
+                                    </h:selectBooleanCheckbox>
+                                </p:column>
+                            </p:dataTable>
+                        </h:panelGrid>
+                        <!-- seccion de soportes -->
+                        <p:dialog id="modalSoportes" widgetVar="modalSoportes" domElementAttachment="form"
+                                  autosized="true" showEffect="fade" hideEffect="explode"
+                                  modal="false">
+                            <f:facet name="header">
+                                <h:panelGroup>
+                                    <h:outputText styleClass="bold"
+                                                  value="Subir soportes para el tema: #{notaContablePage.temaActual.tema.nombre}"/>
+                                </h:panelGroup>
+                            </f:facet>
+                            <f:facet name="controls">
+                                <h:panelGroup>
+                                    <h:graphicImage value="../../../common/images/close.png" alt="cerrar"
+                                                    styleClass="hidelink" id="hidelinkSoportes" height="20" width="20"/>
+                                    <p:commandButton value="close" onclick="hidelinkSoportes.hide();"/>
+                                </h:panelGroup>
+                            </f:facet>
+                            <h:panelGrid width="550">
+                                <h:panelGrid columns="1" width="100%">
+
+                                    <p:growl id="messages" showDetail="false"/>
+
+                                    <p:fileUpload mode="advanced"
+                                                  multiple="false"
+                                                  sizeLimit="204800" allowTypes="/(\.|\/)(pdf)$/"
+                                                  invalidSizeMessage="El archivo supera el límite permitido (200 KB)"
+                                                  invalidFileMessage="Solo se permiten archivo | pdf "
+                                                  update="globalForm:messages,globalForm:anexos "
+                                                  listener="#{notaContablePage.listener}"/>
+
+                                </h:panelGrid>
+                            </h:panelGrid>
+                        </p:dialog>
+                        <h:panelGrid columns="1" cellpadding="0" cellspacing="2" id="anexos" style="text-align: center;"
+                                     width="100%">
+
+
+                            <p:dataTable value="#{notaContablePage.temaActual.anexoTema}" var="anexo" id="tableAnexos"
+                                         rowKeyVar="rowKeyAnexos"
+                                         rendered="#{! empty notaContablePage.temaActual.anexoTema}"
+                                         onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
+                                         onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"
+                                         rowClasses="row1, row2">
+
+                                <f:facet name="header">
+                                    <h:outputText styleClass="bold" value="Soportes del tema"/>
+                                </f:facet>
+
+                                <p:column width="150" style="text-align: left;">
+                                    <f:facet name="header">
+                                        <h:outputText styleClass="bold" value="Fecha"/>
+                                    </f:facet>
+                                    <h:outputText styleClass="bold" value="#{anexo.fechaHora}"/>
+                                </p:column>
+
+                                <p:column style="text-align: right;">
+                                    <f:facet name="header">
+                                        <h:outputText styleClass="bold" value="Usuario"/>
+                                    </f:facet>
+                                    <h:outputText styleClass="bold" value="#{anexo.usuNombre}"/>
+                                </p:column>
+
+                                <p:column style="text-align: right;">
+                                    <f:facet name="header">
+                                        <h:outputText styleClass="bold" value="Archivo"/>
+                                    </f:facet>
+                                    <p:commandLink action="#{downloadGeneralPage.download}" styleClass="bold"
+                                                   value="#{anexo.nombre}" target="_blank" ajax="false">
+                                        <f:setPropertyActionListener for="type1" value="#{downloadGeneralPage.SOPORTE}"
+                                                                     target="#{downloadGeneralPage.type}"/>
+                                        <f:setPropertyActionListener for="file1" value="#{anexo.archivo}"
+                                                                     target="#{downloadGeneralPage.file}"/>
+                                    </p:commandLink>
+
+                                </p:column>
+
+                                <p:column width="80" style="text-align: center;">
+                                    <f:facet name="header">
+                                        <h:outputText styleClass="bold" value="Eliminar"/>
+                                    </f:facet>
+                                    <p:commandButton icon="pi pi-times" alt="Borrar"
+                                                     onclick="PF('popupBorrar').show()"/>
+
+
+                                    <!-- Formulario de confirmacion de borrado de anexos-->
+                                    <p:dialog id="popupBorrar" widgetVar="popupBorrar" autosized="true"
+                                              domElementAttachment="form" minWidth="300"
+                                              showEffect="fade" hideEffect="explode" modal="false">
+                                        <f:facet name="header">
+                                            <h:panelGroup>
+                                                <h:outputText styleClass="bold"
+                                                              value="Confirmación de borrado de anexo"/>
+                                            </h:panelGroup>
+                                        </f:facet>
+
+                                        <h:panelGrid columns="1" width="auto">
+
+                                            <h:outputText styleClass="bold"
+                                                          value="¿Está seguro que desea borrar el anexo actual?"/>
+
+                                            <!-- Seccion de mensajes y botones de envio y cancelacion-->
+                                            <ui:include src="../../common/mensajes.xhtml"/>
+
+
+                                            <h:panelGrid columns="2" styleClass="center" width="auto">
+
+                                                <p:commandButton action="#{notaContablePage.borrarAnexo}"
+                                                                 value="Si"
+                                                                 oncomplete="PF('popupBorrar').hide()"
+                                                                 immediate="true"
+                                                                 update="globalForm:anexos">
+
+
+                                                    <f:setPropertyActionListener for="anexoBorrar" value="true"
+                                                                                 target="#{anexo.borrar}"
+                                                                                 converter="javax.faces.Boolean"/>
+
+                                                </p:commandButton>
+
+                                                <p:commandButton onclick="PF('popupBorrar').hide()" value="No"/>
+
+                                            </h:panelGrid>
+                                        </h:panelGrid>
+                                    </p:dialog>
+                                </p:column>
+
+                            </p:dataTable>
+                        </h:panelGrid>
+
+                    </h:panelGrid>
+
+                    <ui:include src="../../common/mensajes.xhtml"/>
+                </div>
+            </h:panelGroup>
+            <h:panelGrid columns="2" styleClass="center" width="100%" id="opcionesTemaNotaContable" cellspacing="0"
+                         cellpadding="0">
+
+                <p:commandButton value="Guardar"
+                                 action="#{notaContablePage.guardarTema}"
+                                 update="globalForm:informacion,globalForm:formulario"
+                                 oncomplete="if (#{notaContablePage.ocultarPopupTema}) PF('editor').hide();"/>
+
+                <p:commandButton oncomplete="PF('popupCancelTema').show()" value="Cancelar"/>
+
+                <!-- Modal para cancelación-->
+                <p:dialog id="popupCancelTema" widgetVar="popupCancelTema" autosized="true" domElementAttachment="form"
+                          width="450"
+                          showEffect="fade" hideEffect="explode" modal="false">
+                    <f:facet name="header">
+                        <h:panelGroup>
+                            <h:outputText styleClass="bold" value="Confirmación de cancelación de registro de tema"/>
+                        </h:panelGroup>
+                    </f:facet>
+
+                    <h:panelGrid columns="1" width="100%">
+
+                        <h:outputText styleClass="bold"
+                                      value="Si cancela se perderá toda la información registrada asociada al tema actual"/>
+                        <h:outputText styleClass="bold"
+                                      value="¿Está seguro que desea cancelar y borrar la información?"/>
+
+                        <!-- Seccion de mensajes y botones de envio y cancelacion-->
+                        <h:panelGrid columns="2" styleClass="center" width="100%">
+
+                            <p:commandButton action="#{notaContablePage.cancelarTema}"
+                                             value="Si"
+                                             oncomplete="PF('editor').hide(); PF('popupCancelTema').hide();"
+                                             update="globalForm:formulario"/>
+
+                            <p:commandButton onclick="PF('popupCancelTema').hide()" value="No" immediate="true"/>
+
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </p:dialog>
+
+                <!-- seccion de riesgo operacional -->
+                <p:dialog id="modalRiesgo" widgetVar="modalRiesgo" domElementAttachment="form" autosized="true"
+                          showEffect="fade" hideEffect="explode" modal="false">
+                    <f:facet name="header">
+                        <h:panelGroup>
+                            <h:outputText styleClass="bold"
+                                          value="Riesgo operacional para el tema: #{notaContablePage.temaActual.tema.nombre}"/>
+                        </h:panelGroup>
+                    </f:facet>
+                    <h:panelGrid width="550">
+                        <h:panelGrid columns="3" width="100%">
+                            <h:outputText styleClass="bold" value="Importe Total" style="width:150px;"/>
+                            <p:inputText value="#{notaContablePage.temaActual.riesgoOperacional.importeTotal}" size="16"
+                                         maxlength="16" onkeypress="return onKeyPressNumbers(event,this.value);"
+                                         converter="javax.faces.Double" immediate="false"
+                                         converterMessage="Valor no válido para el Importe Total">
+
+                                <f:convertNumber maxFractionDigits="2"/>
+
+                                <p:ajax event="keyup" update="globalForm:importeTotal"/>
+
+                            </p:inputText>
+                            <h:panelGrid columns="1" id="importeTotal" width="250" cellpadding="0" cellspacing="0">
+                                <h:outputText styleClass="bold"
+                                              value="#{notaContablePage.temaActual.riesgoOperacional.importeTotal}">
+                                    <f:convertNumber type="currency"/>
+                                </h:outputText>
+                            </h:panelGrid>
+
+                            <h:outputText styleClass="bold" value="Importe Parcial" style="width:150px;"/>
+                            <p:inputText value="#{notaContablePage.temaActual.riesgoOperacional.importeParcial}"
+                                         size="16"
+                                         maxlength="16" onkeypress="return onKeyPressNumbers(event,this.value);"
+                                         converter="javax.faces.Double" immediate="false"
+                                         converterMessage="Valor no válido para el Importe Parcial">
+                                <f:convertNumber maxFractionDigits="2"/>
+
+                                <p:ajax event="keyup" update="globalForm:importeParcial"/>
+
+
+                            </p:inputText>
+                            <h:panelGrid columns="1" id="importeParcial" width="250" cellpadding="0" cellspacing="0">
+                                <h:outputText styleClass="bold"
+                                              value="#{notaContablePage.temaActual.riesgoOperacional.importeParcial}">
+                                    <f:convertNumber type="currency"/>
+                                </h:outputText>
+                            </h:panelGrid>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2" width="100%" id="fechasRiesgo">
+
+                            <h:outputText styleClass="bold" value="Fecha Inicial del Evento"/>
+                            <p:calendar value="#{notaContablePage.temaActual.riesgoOperacional.fechaEventoPF}"
+                                        isDayEnabled="isDayEnabledRiesgoNC" immediate="false" id="fechaEvento"/>
+
+                            <h:outputText styleClass="bold" value="Fecha Finalización del Evento"/>
+                            <p:calendar value="#{notaContablePage.temaActual.riesgoOperacional.fechaFinEventoPF}"
+                                        isDayEnabled="isDayEnabledRiesgoNC" immediate="false" id="idFechaFinEvento"/>
+
+                            <h:outputText styleClass="bold" value="Fecha del Descubrimiento"/>
+                            <p:calendar
+                                    value="#{notaContablePage.temaActual.riesgoOperacional.fechaDescubrimientoEventoPF}"
+                                    isDayEnabled="isDayEnabledRiesgoNC"
+                                    immediate="false" id="fechaDescubrimiento"/>
+
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="4" width="90%" id="selectsTiempo">
+                            <h:outputText styleClass="bold" value="Hora Inicio Evento"/>
+                            <h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.horaInicioEvento}"
+                                             immediate="false">
+
+                                <h:outputText styleClass="bold" value="hh"/>
+                                <f:selectItem itemValue="" itemLabel="00"/>
+                                <f:selectItems value="#{notaContablePage.horas}"/>
+                            </h:selectOneMenu>
+
+
+                            <h:selectOneMenu
+                                    value="#{notaContablePage.temaActual.riesgoOperacional.minutosInicioEvento}"
+                                    immediate="false">
+                                <h:outputText styleClass="bold" value="mm"/>
+                                <f:selectItem itemValue="" itemLabel="--"/>
+                                <f:selectItems value="#{notaContablePage.minutos}"/>
+                            </h:selectOneMenu>
+
+
+                            <h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.horario}"
+                                             immediate="false">
+                                <h:outputText styleClass="bold" value="A.M/P.M"/>
+                                <f:selectItem itemValue="" itemLabel="--"/>
+                                <f:selectItems value="#{notaContablePage.horario}"/>
+                            </h:selectOneMenu>
+
+
+                            <h:outputText styleClass="bold" value="Hora Finalizacion Evento"/>
+                            <h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.horaFinalEvento}"
+                                             immediate="false">
+                                <h:outputText styleClass="bold" value="hh"/>
+                                <f:selectItem itemValue="" itemLabel="00"/>
+                                <f:selectItems value="#{notaContablePage.horas}"/>
+                            </h:selectOneMenu>
+
+
+                            <h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.minutosFinalEvento}"
+                                             immediate="false">
+                                <h:outputText styleClass="bold" value="mm"/>
+                                <f:selectItem itemValue="" itemLabel="--"/>
+                                <f:selectItems value="#{notaContablePage.minutos}"/>
+                            </h:selectOneMenu>
+
+                            <h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.horarioFinal}"
+                                             immediate="false">
+                                <h:outputText styleClass="bold" value="A.M/P.M"/>
+                                <f:selectItem itemValue="" itemLabel="--"/>
+                                <f:selectItems value="#{notaContablePage.horario}"/>
+                            </h:selectOneMenu>
+
+                            <h:outputText styleClass="bold" value="Hora Descubrimiento"/>
+                            <h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.horaDescubrimiento}"
+                                             immediate="false">
+                                <h:outputText styleClass="bold" value="hh"/>
+                                <f:selectItem itemValue="" itemLabel="00"/>
+                                <f:selectItems value="#{notaContablePage.horas}"/>
+                            </h:selectOneMenu>
+
+                            <h:selectOneMenu
+                                    value="#{notaContablePage.temaActual.riesgoOperacional.minutosDescubrimiento}"
+                                    immediate="true">
+                                <h:outputText styleClass="bold" value="mm"/>
+                                <f:selectItem itemValue="" itemLabel="--"/>
+                                <f:selectItems value="#{notaContablePage.minutos}"/>
+                            </h:selectOneMenu>
+
+                            <h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.horarioDescubre}"
+                                             immediate="true">
+                                <h:outputText styleClass="bold" value="A.M/P.M"/>
+                                <f:selectItem itemValue="" itemLabel="--"/>
+                                <f:selectItems value="#{notaContablePage.horario}"/>
+                            </h:selectOneMenu>
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="2" width="100%" id="selectsRiesgoDos">
+                            <h:outputText styleClass="bold" value="Clase de Riesgo"/>
+                            <h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.codigoClaseRiesgo}"
+                                             immediate="false">
+
+                                <p:ajax event="change" listener="#{notaContablePage.buscarPerdidasCuenta}"
+                                        update="globalForm:IdPanel,globalForm:panelClaseRiesgoN2"/>
+
+                                <f:selectItem itemValue="" itemLabel="Seleccione una opcion"/>
+                                <f:selectItems value="#{notaContablePage.clasesRiesgo}"/>
+                            </h:selectOneMenu>
+
+
+                            <h:outputText styleClass="bold" value="Perdida Operacional"/>
+                            <p:outputPanel id="IdPanel">
+                                <h:selectOneMenu
+                                        value="#{notaContablePage.temaActual.riesgoOperacional.codigoTipoPerdida}"
+                                        immediate="false">
+                                    <f:selectItem itemValue="" itemLabel="Seleccione una opcion"/>
+                                    <f:selectItems value="#{notaContablePage.perdidaOper}"/>
+                                </h:selectOneMenu>
+                            </p:outputPanel>
+
+
+                            <h:outputText styleClass="bold" value="Proceso"/>
+                            <h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.codigoProceso}"
+                                             immediate="false">
+                                <f:selectItem itemValue="" itemLabel="Seleccione una opcion"/>
+                                <f:selectItems value="#{notaContablePage.procesos}"/>
+                            </h:selectOneMenu>
+
+                            <h:outputText styleClass="bold" value="Línea Operativa"/>
+                            <h:selectOneMenu
+                                    value="#{notaContablePage.temaActual.riesgoOperacional.codigoLineaOperativa}"
+                                    immediate="false">
+                                <f:selectItem itemValue="" itemLabel="Seleccione una opcion"/>
+                                <f:selectItems value="#{notaContablePage.lineasOperativas}"/>
+                            </h:selectOneMenu>
+
+                            <h:outputText styleClass="bold" value="Producto Afectado"/>
+                            <h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.codigoProducto}"
+                                             immediate="false">
+
+                                <p:ajax event="change" listener="#{notaContablePage.buscarSubProducto}"
+                                        update="globalForm:panelSubProducto"/>
+
+                                <f:selectItem itemValue="" itemLabel="Seleccione una opcion"/>
+                                <f:selectItems value="#{notaContablePage.productos}"/>
+                            </h:selectOneMenu>
+
+                            <h:outputText styleClass="bold" value="SubProducto Afectado"/>
+                            <p:outputPanel id="panelSubProducto">
+                                <h:selectOneMenu
+                                        value="#{notaContablePage.temaActual.riesgoOperacional.codigoSubProducto}"
+                                        immediate="false">
+                                    <f:selectItem itemValue="" itemLabel="Seleccione una opcion"/>
+                                    <f:selectItems value="#{notaContablePage.subProductos}"/>
+                                </h:selectOneMenu>
+                            </p:outputPanel>
+
+                            <h:outputText styleClass="bold" value="Canal"/>
+                            <h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.codigoCanal}"
+                                             immediate="false">
+
+                                <p:ajax event="change" listener="#{notaContablePage.buscarSubCanal}"
+                                        update="globalForm:panelSubCanal"/>
+
+                                <f:selectItem itemValue="" itemLabel="Seleccione una opcion"/>
+                                <f:selectItems value="#{notaContablePage.canales}"/>
+                            </h:selectOneMenu>
+
+                            <h:outputText styleClass="bold" value="subCanal"/>
+                            <p:outputPanel id="panelSubCanal">
+                                <h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.codigoSubCanal}"
+                                                 immediate="false">
+                                    <f:selectItem itemValue="" itemLabel="Seleccione una opcion"/>
+                                    <f:selectItems value="#{notaContablePage.subcanales}"/>
+                                </h:selectOneMenu>
+                            </p:outputPanel>
+
+                            <h:outputText styleClass="bold" value="Sfc Clase Riesgo N2"/>
+                            <p:outputPanel id="panelClaseRiesgoN2">
+                                <h:selectOneMenu
+                                        value="#{notaContablePage.temaActual.riesgoOperacional.codigoClaseRiesgoN2}"
+                                        immediate="false">
+
+                                    <p:ajax event="change" listener="#{notaContablePage.buscarClaseRiesgoN3}"
+                                            update="globalForm:panelClaseRiesgoN3"/>
+
+                                    <f:selectItem itemValue="" itemLabel="Seleccione una opcion"/>
+                                    <f:selectItems value="#{notaContablePage.clasesRiesgoN2}"/>
+                                </h:selectOneMenu>
+                            </p:outputPanel>
+
+                            <h:outputText styleClass="bold" value="Sfc Clase Riesgo N3"/>
+                            <p:outputPanel id="panelClaseRiesgoN3">
+                                <h:selectOneMenu
+                                        value="#{notaContablePage.temaActual.riesgoOperacional.codigoClaseRiesgoN3}"
+                                        immediate="false">
+                                    <f:selectItem itemValue="" itemLabel="Seleccione una opcion"/>
+                                    <f:selectItems value="#{notaContablePage.clasesRiesgoN3}"/>
+                                </h:selectOneMenu>
+                            </p:outputPanel>
+
+                            <h:outputText styleClass="bold" value="Nombre Outsourcing"/>
+                            <p:inputTextarea value="#{notaContablePage.temaActual.riesgoOperacional.nombreOutSource}"
+                                             cols="50" rows="2"/>
+
+                            <h:outputText styleClass="bold" value="Aplica Recuperación"
+                                          rendered="#{notaContablePage.aplicaRecuperacion}"/>
+                            <h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.appRecuperacion}"
+                                             rendered="#{notaContablePage.aplicaRecuperacion}" immediate="false">
+
+                                <p:ajax event="change" immediate="false"
+                                        update="globalForm:panelFechaTxt, globalForm:panelFechaValue, globalForm:panelHoraTxt, globalForm:panelHoraValue, globalForm:panelTipoR, globalForm:panelTipoRecValue"/>
+
+                                <f:selectItem itemValue="" itemLabel="Seleccione una opcion"/>
+                                <f:selectItem itemValue="S" itemLabel="SI"/>
+                                <f:selectItem itemValue="N" itemLabel="NO"/>
+                            </h:selectOneMenu>
+
+                            <p:outputPanel id="panelFechaTxt" ajaxRendered="true">
+                                <h:outputText styleClass="bold" value="Fecha Recuperación"
+                                              rendered="#{notaContablePage.temaActual.riesgoOperacional.appRecuperacion eq 'S'}"/>
+                            </p:outputPanel>
+                            <p:outputPanel id="panelFechaValue" ajaxRendered="true">
+                                <p:calendar value="#{notaContablePage.temaActual.riesgoOperacional.fechaRecuperacionPF}"
+                                            isDayEnabled="isDayEnabledRiesgoNC"
+                                            immediate="false" id="fechaRecuperacion"
+                                            rendered="#{notaContablePage.temaActual.riesgoOperacional.appRecuperacion eq 'S'}"/>
+                            </p:outputPanel>
+
+                            <p:outputPanel id="panelHoraTxt" ajaxRendered="true">
+                                <h:outputText styleClass="bold" value="Hora de Recuperación"
+                                              rendered="#{notaContablePage.temaActual.riesgoOperacional.appRecuperacion eq 'S'}"/>
+                            </p:outputPanel>
+                            <p:outputPanel id="panelHoraValue" ajaxRendered="true">
+                                <h:panelGrid columns="4" width="90%" id="selectsTiempoRecuperacion"
+                                             rendered="#{notaContablePage.temaActual.riesgoOperacional.appRecuperacion eq 'S'}">
+                                    <h:selectOneMenu
+                                            value="#{notaContablePage.temaActual.riesgoOperacional.horaRecuperacion}"
+                                            immediate="false">
+                                        <h:outputText styleClass="bold" value="hh"/>
+                                        <f:selectItem itemValue="" itemLabel="00"/>
+                                        <f:selectItems value="#{notaContablePage.horas}"/>
+                                    </h:selectOneMenu>
+
+                                    <h:selectOneMenu
+                                            value="#{notaContablePage.temaActual.riesgoOperacional.minutosRecuperacion}"
+                                            immediate="false">
+                                        <h:outputText styleClass="bold" value="mm"/>
+                                        <f:selectItem itemValue="" itemLabel="--"/>
+                                        <f:selectItems value="#{notaContablePage.minutos}"/>
+                                    </h:selectOneMenu>
+
+                                    <h:selectOneMenu
+                                            value="#{notaContablePage.temaActual.riesgoOperacional.horarioRecuperacion}"
+                                            immediate="false">
+                                        <h:outputText styleClass="bold" value="A.M/P.M"/>
+                                        <f:selectItem itemValue="" itemLabel="--"/>
+                                        <f:selectItems value="#{notaContablePage.horario}"/>
+                                    </h:selectOneMenu>
+                                </h:panelGrid>
+                            </p:outputPanel>
+                            <p:outputPanel id="panelTipoR" ajaxRendered="true">
+                                <h:outputText styleClass="bold" value="Tipo Recuperación"
+                                              rendered="#{notaContablePage.temaActual.riesgoOperacional.appRecuperacion eq 'S'}"/>
+                            </p:outputPanel>
+                            <p:outputPanel id="panelTipoRecValue" ajaxRendered="true">
+                                <h:selectOneMenu
+                                        value="#{notaContablePage.temaActual.riesgoOperacional.tipoRecuperacion}"
+                                        immediate="false"
+                                        rendered="#{notaContablePage.temaActual.riesgoOperacional.appRecuperacion eq 'S'}">
+                                    <f:selectItem itemValue="" itemLabel="Seleccione una opcion"/>
+                                    <f:selectItem itemValue="R_SEGURO" itemLabel="RECUPERACIÓN POR SEGURO"/>
+                                    <f:selectItem itemValue="R_DIRECTA" itemLabel="RECUPERACIÓN DIRECTA"/>
+                                </h:selectOneMenu>
+                            </p:outputPanel>
+                        </h:panelGrid>
+                        <ui:include src="../../common/mensajes.xhtml"/>
+                        <h:panelGrid columns="3" width="100%" style="text-align: center;">
+
+                            <p:commandButton value="Guardar" action="#{notaContablePage.guardarRiesgo}"
+                                             oncomplete="if (#{notaContablePage.ocultarPopupRiesgo}) PF('modalRiesgo').hide()"/>
+                            <p:commandButton oncomplete="PF('popupCancelRiesgo').show()" value="Cancelar"/>
+
+                            <!-- Modal para cancelación de datos de riesgo-->
+                            <p:dialog id="popupCancelRiesgo" widgetVar="popupCancelRiesgo" autosized="true"
+                                      domElementAttachment="form" width="450"
+                                      showEffect="fade" hideEffect="explode" modal="false">
+                                <f:facet name="header">
+                                    <h:panelGroup>
+                                        <h:outputText styleClass="bold"
+                                                      value="Confirmación de cancelación de registro de información"/>
+                                    </h:panelGroup>
+                                </f:facet>
+
+                                <h:panelGrid columns="1" width="100%">
+
+                                    <h:outputText styleClass="bold"
+                                                  value="Si cancela se perderá toda la información registrada asociada a riesgo operacional"/>
+                                    <h:outputText styleClass="bold"
+                                                  value="Está seguro que desea cancelar y borrar la información?"/>
+
+                                    <!-- Seccion de mensajes y botones de envio y cancelacion-->
+                                    <h:panelGrid columns="2" styleClass="center" width="100%">
+
+                                        <p:commandButton action="#{notaContablePage.cancelarRiesgo}" value="Si"
+                                                         update="formulario"
+                                                         oncomplete="PF('modalRiesgo').hide(); PF('popupCancelRiesgo').hide();"/>
+                                        <p:commandButton onclick="PF('popupCancelRiesgo').hide()" value="No"
+                                                         immediate="true"/>
+
+                                    </h:panelGrid>
+                                </h:panelGrid>
+                            </p:dialog>
+                        </h:panelGrid>
+
+                    </h:panelGrid>
+                </p:dialog>
+
+            </h:panelGrid>
+        </h:panelGrid>
+    </p:dialog>
+
+    <h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="0" id="formulario">
+        <p:panel header="Información básica" style="width: 100%;">
+            <h:panelGrid columns="2">
+                <h:outputText styleClass="bold" value="Sucursal de Origen"/>
+
+                <h:outputText styleClass="bold"
+                              value="#{notaContablePage.usuarioLogueado.usuario.codigoAreaModificado} - #{notaContablePage.usuarioLogueado.usuario.nombreAreaModificado}"/>
+
+                <h:outputText styleClass="bold" value="Concepto"/>
+
+                <h:panelGrid columns="2" id="tipoConcepto">
+
+                    <p:inputText value="#{notaContablePage.concepto}" size="70"/>
+
+                    <p:commandButton action="#{notaContablePage.buscarConcepto}" value="Buscar Concepto"
+                                     update="globalForm:tipoConcepto"/>
+
+                    <h:selectOneMenu value="#{notaContablePage.nota.codigoConcepto}"
+                                     immediate="true" converter="javax.faces.Integer" id="nombreCon"
+                                     disabledClass="disabledItem"
+                                     rendered="#{! empty notaContablePage.conceptos}">
+
+                        <p:ajax event="change" immediate="false" listener="#{notaContablePage.seleccionarConcepto}"
+                                update="globalForm:formulario"/>
+
+                        <f:selectItem itemValue="-1" itemLabel="Seleccione una opcion"/>
+                        <f:selectItems value="#{notaContablePage.conceptos}"/>
+                    </h:selectOneMenu>
+
+                </h:panelGrid>
+
+                <h:outputText styleClass="bold" value="Tipo de Evento"/>
+                <h:selectOneMenu value="#{notaContablePage.nota.codigoTipoEvento}" immediate="true"
+                                 converter="javax.faces.Integer">
+                    <f:selectItem itemValue="-1" itemLabel="Seleccione una opcion"/>
+                    <f:selectItems value="#{notaContablePage.tiposEvento}"/>
+                </h:selectOneMenu>
+
+            </h:panelGrid>
+        </p:panel>
+        <p:panel header="Temas del Concepto" style="width: 100%;"
+                 rendered="#{notaContablePage.nota.codigoConcepto gt 0}">
+            <p:dataTable value="#{notaContablePage.temasNotaContable}" var="temaNota" id="tableTemas"
+                         rendered="#{! empty notaContablePage.temasNotaContable}" rowKeyVar="rowKey"
+                         width="100%" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
+                         onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"
+                         rowClasses="row1, row2">
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Nombre del Tema"/>
+                    </f:facet>
+                    <h:outputText value="#{temaNota.tema.nombre} "/>
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Partida"/>
+                    </f:facet>
+                    <h:outputText value="#{temaNota.tema.partidaContable} "/>
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Contrapartida"/>
+                    </f:facet>
+                    <h:outputText value="#{temaNota.tema.contraPartidaContable} "/>
+                </p:column>
+
+                <p:column style="text-align: center;">
+                    <f:facet name="header">
+                        <h:outputText value="Soportes"/>
+                    </f:facet>
+                    <h:outputText value="#{notaContablePage.nota.concepto.soportes eq 'S'?'Si':'No'}"/>
+                </p:column>
+
+                <p:column style="text-align: center;">
+                    <f:facet name="header">
+                        <h:outputText value="Riesgo"/>
+                    </f:facet>
+                    <h:outputText value="#{temaNota.tema.riesgoOperacional eq 'S'?'Si':'No'}"/>
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Divisa"/>
+                    </f:facet>
+                    <h:outputText value="#{temaNota.codigoDivisa}"/>
+                </p:column>
+
+                <p:column style="text-align: right;">
+                    <f:facet name="header">
+                        <h:outputText value="Importe"/>
+                    </f:facet>
+                    <h:outputText value="#{temaNota.monto}">
+                        <f:convertNumber type="currency"/>
+                    </h:outputText>
+                </p:column>
+
+                <p:column style="text-align: center;">
+                    <f:facet name="header">
+                        <h:outputText value="Editar"/>
+                    </f:facet>
+
+                    <p:commandButton action="#{notaContablePage.editar}" oncomplete="PF('editor').show()"
+                                     update="globalForm:editor"
+                                     icon="pi pi-pencil"
+                                     alt="Editar"
+                                     rendered="#{temaNota.autorizada}">
+
+                        <f:setPropertyActionListener for="codigoTema" value="#{temaNota.codigo}"
+                                                     target="#{notaContablePage.codigo}"/>
+
+                    </p:commandButton>
+
+                </p:column>
+                <f:facet name="footer">
+                    <p:columnGroup rendered="#{! empty notaContablePage.totalesNota}">
+                        <p:column colspan="5" style="text-align:right;">
+                            <h:outputText value="Totales"/>
+                        </p:column>
+                        <p:column style="padding: 0px;">
+                            <p:dataTable style="border-width: 0px; background-color: transparent;"
+                                         value="#{notaContablePage.totalesNota}" var="total">
+                                <p:column style="border-width: 0px;">
+                                    <h:outputText value="#{total.codigoDivisa }"/>
+                                </p:column>
+                            </p:dataTable>
+                        </p:column>
+                        <p:column style="padding: 0px;">
+                            <p:dataTable style="border-width: 0px; background-color: transparent;"
+                                         value="#{notaContablePage.totalesNota}" var="total">
+                                <p:column style="border-width: 0px; text-align:right;">
+                                    <h:outputText value="#{total.total}">
+                                        <f:convertNumber type="currency"/>
+                                    </h:outputText>
+                                </p:column>
+                            </p:dataTable>
+                        </p:column>
+                        <p:column></p:column>
+                    </p:columnGroup>
+                </f:facet>
+            </p:dataTable>
+        </p:panel>
+
+
+        <h:panelGrid columns="3" styleClass="center" width="100%" id="botonesNotaContable">
+
+            <p:commandButton action="#{notaContablePage.guardarNota}"
+                             update="globalForm:formulario,globalForm:botonesNotaContable"
+                             value="Enviar a Visto Bueno"
+                             rendered="#{notaContablePage.nota.codigo le 0 and ! empty notaContablePage.totalesNota}"/>
+
+            <p:commandButton action="#{notaContablePage.guardarNota}"
+                             oncomplete="PF('popupNotaContable').hide()"
+                             update="globalForm:botonesNotaContable"
+                             value="Enviar a Visto Bueno"
+                             rendered="#{notaContablePage.nota.codigo gt 0 and notaContablePage.nota.puedeEditar}"/>
+
+            <p:commandButton value="Anular" rendered="#{notaContablePage.nota.puedeAnular}"
+                             oncomplete="PF('popupAnularNota').show()"/>
+
+            <p:commandButton value="Cancelar" action="#{notaContablePage.cancelarNota}" update="globalForm:formulario"
+                             rendered="#{notaContablePage.nota.codigo le 0}"/>
+
+            <p:commandButton value="Cerrar" oncomplete="PF('popupNotaContable').hide()"
+                             rendered="#{notaContablePage.nota.codigo gt 0}"/>
+
+        </h:panelGrid>
+    </h:panelGrid>
 </ui:composition>

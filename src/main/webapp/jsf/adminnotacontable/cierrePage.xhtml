@@ -22,32 +22,57 @@
 			
 			<!-- Tabla de registros --> 
 			<h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
-				<p:poll reRender="lista" interval="0"/>
+				<p:poll listener="#{cierrePage.mostrar}" 
+					rendered="#{empty precierreCierrePage.datos and facesContext.maximumSeverity == null}" 
+					update="lista" 
+					interval="0"/>
 				<h:panelGrid columns="2" width="100%" style="text-align:center;">
-					<p:commandButton value="Generar Archivo Altamira" reRender="lista"/>
-					<p:commandButton value="Generar Archivo Excel" reRender="lista"/>
+					<p:commandButton value="Generar Archivo Altamira" 
+						action="#{cierrePage.generarArchivoAltamira}" 
+						update="lista" 
+						rendered="#{!empty precierreCierrePage.datos}"/>
+					<p:commandButton value="Generar Archivo Excel" 
+						action="#{cierrePage.generarArchivoExcel}" 
+						update="lista"
+						ajax="false" 
+						rendered="#{!empty precierreCierrePage.datos}"/>
 				</h:panelGrid>
 				<h:panelGrid columns="4" width="100%" style="align:center;">
-					<p:commandLink target="_blank" >
-						<f:param name="type1"/>
-						<f:param name="file1"/>
+				
+					<p:commandLink action="#{downloadGeneralPage.download}" styleClass="bold" 
+							value="#{precierreCierrePage.excelFileName}" target="_blank" 
+							rendered="#{precierreCierrePage.mostrarArchExc}" ajax="false" id="descarga1">
+		                    <f:setPropertyActionListener for="type1" value="#{downloadGeneralPage.REPORTE_EXCEL}" target="#{downloadGeneralPage.type}" />
+		                    <f:setPropertyActionListener for="file1" value="#{precierreCierrePage.excelFileName}" target="#{downloadGeneralPage.file}"/>
 					</p:commandLink>
-					<p:commandLink styleClass="bold" target="_blank">
-						<f:param name="type2"/>
-						<f:param name="file2"/>
+					
+					<p:commandLink action="#{downloadGeneralPage.download}" id="descarga2" styleClass="bold" 
+							value="#{cierrePage.INTERFAZ_CONTABLE_FILE_NAME}" target="_blank" 
+							rendered="#{precierreCierrePage.mostrarArchAlt}" ajax="false">
+		                    <f:setPropertyActionListener for="type2" value="#{downloadGeneralPage.TRANSMISION_ALTAMIRA}" target="#{downloadGeneralPage.type}" />
+		                    <f:setPropertyActionListener for="file2" value="#{cierrePage.INTERFAZ_CONTABLE_FILE_NAME}" target="#{downloadGeneralPage.file}"/>
 					</p:commandLink>
-					<p:commandLink styleClass="bold" target="_blank">
-						<f:param name="type3"/>
-						<f:param name="file3"/>
+					
+					<p:commandLink action="#{downloadGeneralPage.download}" id="descarga3" styleClass="bold" 
+							value="#{cierrePage.PUC_FILE_NAME}" target="_blank" 
+							rendered="#{precierreCierrePage.mostrarArchAlt}" ajax="false">
+		                    <f:setPropertyActionListener for="type3" value="#{downloadGeneralPage.TRANSMISION_ALTAMIRA}" target="#{downloadGeneralPage.type}" />
+		                    <f:setPropertyActionListener for="file3" value="#{cierrePage.PUC_FILE_NAME}" target="#{downloadGeneralPage.file}"/>
 					</p:commandLink>
-					<p:commandLink styleClass="bold" target="_blank">
-						<f:param name="type4"/>
-						<f:param name="file4"/>
+					
+					<p:commandLink action="#{downloadGeneralPage.download}" id="descarga4" styleClass="bold" 
+							value="#{cierrePage.TERCEROS_FILE_NAME}" target="_blank" 
+							rendered="#{precierreCierrePage.mostrarArchAlt}" ajax="false">
+		                    <f:setPropertyActionListener for="type4" value="#{downloadGeneralPage.TRANSMISION_ALTAMIRA}" target="#{downloadGeneralPage.type}" />
+		                    <f:setPropertyActionListener for="file4" value="#{cierrePage.TERCEROS_FILE_NAME}" target="#{downloadGeneralPage.file}"/>
 					</p:commandLink>
+					
 					<!-- arhivo NC_INDICAPC_NTCON.TXT -->
-					<p:commandLink target="_blank">
-						<f:param name="type4"/>
-						<f:param name="file4"/>
+					<p:commandLink actionListener="#{downloadGeneralPage.download}" id="descarga5" styleClass="bold" 
+							value="#{cierrePage.NC_INDICAPC}" target="_blank" 
+							rendered="#{precierreCierrePage.mostrarArchAlt}" ajax="false">
+		                    <f:setPropertyActionListener for="type4" value="#{downloadGeneralPage.TRANSMISION_ALTAMIRA}" target="#{downloadGeneralPage.type}" />
+		                    <f:setPropertyActionListener for="file4" value="#{cierrePage.NC_INDICAPC}" target="#{downloadGeneralPage.file}"/>
 					</p:commandLink>
 				</h:panelGrid>
 				<ui:include src="precierreCierreFormPage.xhtml" />

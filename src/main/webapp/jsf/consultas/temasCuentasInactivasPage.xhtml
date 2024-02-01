@@ -9,16 +9,16 @@
 
 		<!--Filtro de busqueda	-->
 		<div style="width: 990px;">
-			<h:form>
+
 			<h:panelGrid columns="1" width="100%">
 				<h1 align="center">Temas Inactivos por Altamira</h1>
 			</h:panelGrid> 
 		
 			<!-- Tabla de registros --> 
 			
-		<!--	<h:panelGrid columns="1" width="100%" style="align:center;" id="lista">-->
+			<h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
 
-				<p:dataTable value="#{temasCuentasInactivasPage.datos}" var="dato" id="table" rowIndexVar="rowIndex" 															widgetVar="economicActivityTable" rows="15" paginator="true"
+				<p:dataTable value="#{temasCuentasInactivasPage.datos}" rendered="#{! empty temasCuentasInactivasPage.datos}" var="dato" id="table" rowIndexVar="rowIndex" rows="15" paginator="true"
 							 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 							 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
 							 paginatorPosition="top">
@@ -41,8 +41,7 @@
 	
 
 				</p:dataTable>
-			<!--</h:panelGrid>-->
-			</h:form>
+			</h:panelGrid>
 		</div>
 	</ui:define>
 </ui:composition>

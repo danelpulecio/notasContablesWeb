@@ -1,21 +1,10 @@
 
 v
-java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(ŠÖ‡É8ÚäòËÑ1
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(ŠÖ‡É8…ÁÑ©Ö1
 v
-java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(Ôé8ÜäòËÑ1
-\
-java:S1161*":Add the "@Override" annotation above this method signature(ØÛˆøÿÿÿÿ8Ë‚›ÌÑ1
-]	java:S125'"<This block of commented-out lines of code should be removed.(‘ÆÎÓûÿÿÿÿ8ìäòËÑ1
-]	java:S1253"<This block of commented-out lines of code should be removed.(¼üÁëøÿÿÿÿ8ô†®ÌÑ1
-X	java:S125@"<This block of commented-out lines of code should be removed.(Ğ¬Ãï8íäòËÑ1
-X	java:S125Q"<This block of commented-out lines of code should be removed.(·°«£8†‡óËÑ1
-x
-java:S1128"[Remove this unused import 'co.com.bbva.app.notas.contables.jsf.beans.ContablesSessionBean'.(ÛÊÍù8äªÌÑ1
-n
-java:S1128"LRemove this unused import 'co.com.bbva.app.notas.contables.session.Session'.(•Ö¥åøÿÿÿÿ8äªÌÑ1
-_
-java:S1128"=Remove this unused import 'javax.enterprise.inject.Produces'.(··éßıÿÿÿÿ8äªÌÑ1
-M
-java:S1128"0Remove this unused import 'javax.inject.Inject'.(ì–íÔ8äªÌÑ1
-G
-java:S1068%"*Remove this unused "LOGGER" private field.(­®× 8äªÌÑ1
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(Ôé8…ÁÑ©Ö1
+]	java:S125$"<This block of commented-out lines of code should be removed.(‘ÆÎÓûÿÿÿÿ8ÁÑ©Ö1
+]	java:S1250"<This block of commented-out lines of code should be removed.(¼üÁëøÿÿÿÿ8ÁÑ©Ö1
+7
+java:S3457<"Not enough arguments.(¥Îãıÿÿÿÿ8‘ÁÑ©Ö1
+X	java:S125M"<This block of commented-out lines of code should be removed.(·°«£8’ÁÑ©Ö1

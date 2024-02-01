@@ -5,6 +5,7 @@ import co.com.bbva.app.notas.contables.carga.dto.RechazoSalida;
 import co.com.bbva.app.notas.contables.dto.Instancia;
 import co.com.bbva.app.notas.contables.dto.NotaContable;
 import co.com.bbva.app.notas.contables.dto.NotaContableTotal;
+import co.com.bbva.app.notas.contables.jsf.beans.ContablesSessionBean;
 import co.com.bbva.app.notas.contables.jsf.consultas.GeneralConsultaPage;
 import co.com.bbva.app.notas.contables.session.Session;
 import co.com.bbva.app.notas.contables.util.DateUtils;
@@ -13,9 +14,11 @@ import co.com.bbva.app.notas.contables.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
 import java.util.ArrayList;
@@ -40,18 +43,22 @@ public class PrecierreCierrePage extends GeneralConsultaPage<Instancia> {
 	private static final String ARCHIVO_SIRO = "ARCHIVO_SIRO_NTCON.TXT";
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(PrecierreCierrePage.class);
+	
+	@Inject
+	@Named(value="contablesSessionBean")
+	private ContablesSessionBean contablesSessionBean;
 
-//	Session session = getContablesSessionBean().getSessionTrace();
 
 	public PrecierreCierrePage() {
 		super();
 		context = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+//		LOGGER.info("contablesSessionBean.getLoginUser().getUsuario().getCodigo() ---->" + contablesSessionBean.getLoginUser().getUsuario().getCodigo());
+//		fileGenerator = new FileGenerator(notasContablesManager, cargaAltamiraManager, contablesSessionBean.getLoginUser().getUsuario().getCodigo().intValue());
 		fileGenerator = new FileGenerator(notasContablesManager, cargaAltamiraManager, 1);
-//		fileGenerator = new FileGenerator(notasContablesManager, cargaAltamiraManager, getUsuarioLogueado().getUsuario().getCodigo().intValue());
 	}
 
-	@Override
-	protected void _init() {
+	@PostConstruct
+	public void init() {
 		super._init();
 	}
 
@@ -76,7 +83,7 @@ public class PrecierreCierrePage extends GeneralConsultaPage<Instancia> {
 
 	public void cargarRegistros(boolean esPrecierre) {
 
-//		LOGGER.info("{} cargarRegistros Precierre cierre: {}", session.getTraceLog(), (esPrecierre ? "en Precierre" : "cerradas") );
+		LOGGER.info("{} cargarRegistros Precierre cierre: {}", (esPrecierre ? "en Precierre" : "cerradas") );
 		this.esPrecierre = esPrecierre;
 		try {
 			Collection<NotaContable> notasContables = notasContablesManager.getNotaContablesPrecierreCierre(esPrecierre);
@@ -108,11 +115,11 @@ public class PrecierreCierrePage extends GeneralConsultaPage<Instancia> {
 			this.paginaActual = ADMIN_PRECIERRE;
 
 			if (getDatos().isEmpty() && !hayMensajes()) {
-//				LOGGER.info("{} No hay notas: {}", session.getTraceLog(), (esPrecierre ? "en Precierre" : "cerradas") );
+				LOGGER.info("{} No hay notas: {}", (esPrecierre ? "en Precierre" : "cerradas") );
 				nuevoMensaje(FacesMessage.SEVERITY_INFO, "No hay notas " + (esPrecierre ? "en Precierre" : "cerradas"));
 			}
 		} catch (final Exception e) {
-//			LOGGER.error("{} Ocurrio un error al realizar la consulta de Precierre: {}", session.getTraceLog(), (esPrecierre ? "en Precierre" : "cerradas") , e );
+			LOGGER.error("{} Ocurrio un error al realizar la consulta de Precierre: {}", (esPrecierre ? "en Precierre" : "cerradas") , e );
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Ocurrio un error al realizar la consulta de Precierre");
 		}
 	}
@@ -122,7 +129,6 @@ public class PrecierreCierrePage extends GeneralConsultaPage<Instancia> {
 
 			List<NotaContable> notas = new ArrayList<NotaContable>();
 			excelFileName = file + StringUtils.getString(DateUtils.getTimestamp(), "ddMMyyyyhhmmss") + ".xls";
-			LOGGER.info(" :::: PASO 3 ::::: " + file + " ::: excelFileName :::" + excelFileName);
 			for (Instancia i : getDatos()) {
 				notas.add(i.getNC());
 			}
@@ -131,6 +137,7 @@ public class PrecierreCierrePage extends GeneralConsultaPage<Instancia> {
 			reportesExcel.setNombreArchivo(excelFileName);
 			reportesExcel.getReporteGeneral(title, notas);
 			mostrarArchExc = true;
+			LOGGER.info("GENERANDO EL ARCHIVO ---> "  + path + " excelFileName : " + excelFileName );
 			nuevoMensaje(FacesMessage.SEVERITY_INFO, "El archivo de excel ha sido generado y guardado en " + path + excelFileName);
 		} catch (Exception e) {
 			LOGGER.info("{} Error creando archivo excel", e  );
@@ -140,16 +147,18 @@ public class PrecierreCierrePage extends GeneralConsultaPage<Instancia> {
 		return mostrar();
 	}
 
-	protected String generarArchivoAltamira(String path, String interfaz, String puc, String terceros, String indicaPc, String paginaInvocacion) {
+	protected String generarArchivoAltamira(String path, String interfaz, String puc , String terceros, String indicaPc, String paginaInvocacion) {
 		try {
+			LOGGER.info(" generarArchivoAltamira ---> path :  "  + path + " --> interfaz --> " + interfaz + " --> puc --> " + puc + " --> terceros --> " + terceros
+				+ " --> indicaPc --> " + indicaPc + " --> paginaInvocacion --> " + paginaInvocacion	); 
 			fileGenerator.generarInterfazContable(path + interfaz, getDatos(),this.DIR_TRANSMISION_ALTAMIRA);
 			fileGenerator.generarPUC(path + puc,this.DIR_TRANSMISION_ALTAMIRA);
 			fileGenerator.generarTerceros(path + terceros,this.DIR_TRANSMISION_ALTAMIRA);
 			if (!esPrecierre) {
-//				LOGGER.info("{} Crea archivo altamria cierre", session.getTraceLog() );
+				LOGGER.info("{} Crea archivo altamria cierre");
 				fileGenerator.generarIndicaCierre(path + indicaPc);
 			}else {
-//				LOGGER.info("{} Crea archivo altamria precierre", session.getTraceLog() );
+				LOGGER.info("{} Crea archivo altamria precierre");
 				fileGenerator.generarIndicaPrecierre(path + indicaPc);
 			}
 			mostrarArchAlt = true;
@@ -158,7 +167,7 @@ public class PrecierreCierrePage extends GeneralConsultaPage<Instancia> {
 			nuevoMensaje(FacesMessage.SEVERITY_INFO, "Los archivos se han generado correctamente");
 
 		} catch (Exception e) {
-//			LOGGER.error("{} Error crando archivo altamria", session.getTraceLog() , e );
+			LOGGER.error("{} Error crando archivo altamria", e );
 			nuevoMensaje(FacesMessage.SEVERITY_INFO, "Ocurrio un error al generar el archivo de Interfaz Contable");
 		}
 		this.paginaActual = paginaInvocacion;
@@ -175,11 +184,11 @@ public class PrecierreCierrePage extends GeneralConsultaPage<Instancia> {
 	protected String generarArchivoSiro(String path, String nombre, String paginaInvocacion) {
 		try {
 			fileGenerator.generarArchivoSiro(path + nombre,this.DIR_TRANSMISION_ALTAMIRA);
-//			LOGGER.info("{} Generar Archivo Siro", session.getTraceLog() );
+			LOGGER.info("{} Generar Archivo Siro");
 			nuevoMensaje(FacesMessage.SEVERITY_INFO, "El archivo plano para SIRO se ha generado correctamente" );
 
 		} catch (Exception e) {
-//			LOGGER.error("{} currio un error al generar el archivo de Siro", session.getTraceLog() , e );
+			LOGGER.error("{} currio un error al generar el archivo de Siro" , e );
 			nuevoMensaje(FacesMessage.SEVERITY_INFO, "Ocurrio un error al generar el archivo de Siro");
 		}
 		this.paginaActual = paginaInvocacion;

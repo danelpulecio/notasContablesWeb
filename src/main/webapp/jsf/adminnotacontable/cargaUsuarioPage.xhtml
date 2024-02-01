@@ -9,37 +9,38 @@
 
 		<!--Filtro de busqueda	-->
 		<div style="width: 990px;">
-			<h:form>
-
-
 			<h:panelGrid columns="1" width="100%">
-			<h1 align="center">Carga de Instancias por Usuario</h1>
-		</h:panelGrid> 
+				<h1 align="center">Carga de Instancias por Usuario</h1>
+			</h:panelGrid> 
 		<!-- Panel de opciones --> 
-		<!-- Campos del formulario --> 
-		<h:panelGrid id="informacion" columns="1" width="60%" cellpadding="0" cellspacing="0">
-			<p:accordionPanel label="Filtro de búsqueda" width="100%" switchType="client">
-				<h:panelGrid columns="2" width="100%" cellpadding="0" cellspacing="5">
-					<h:outputText value="Sucursal Origen" />
-					<h:selectOneMenu value="sucursal" immediate="true">
-						<f:selectItems value="sucursales" />
-					</h:selectOneMenu>
-					<h:outputText value="Rol" />
-					<h:selectOneMenu value="rol" immediate="true" converter="javax.faces.Integer">
-						<f:selectItems value="roles" />
-					</h:selectOneMenu>
-					<h:outputText value="Estado" />
-					<h:selectOneMenu value="estado" immediate="true" >
-						<f:selectItem itemValue="0" itemLabel="Pendiente de aprobación por Subgenrente, Gerente, Área Central" />
-						<f:selectItem itemValue="1" itemLabel="Pendiente de Revisión" />
-						<f:selectItem itemValue="2" itemLabel="Pendiente de aprobación por Padrino - Unidad de Análisis" />
-						<f:selectItem itemValue="3" itemLabel="Pendiente de aprobación ente Autorizador" />
-						<f:selectItem itemValue="4" itemLabel="Precierre" />
-					</h:selectOneMenu>
-				</h:panelGrid>
-				<h:panelGrid columns="1" styleClass="center">
-					<p:commandButton reRender="informacion,lista" value="Buscar" />
-				</h:panelGrid>
+		<!-- Campos del formulario -->
+		<h:panelGrid id="informacion" columns="1" width="100%" cellpadding="0" cellspacing="0">
+			
+			<p:accordionPanel label="Filtro de búqueda" width="100%" switchType="client">
+				<p:tab title="Filtro de búsqueda">
+					<h:panelGrid columns="2" width="100%" cellpadding="0" cellspacing="5">
+						<h:outputText value="Sucursal Origen" />
+						<h:selectOneMenu value="#{cargaUsuarioPage.sucursal}" immediate="true">
+							<f:selectItems value="#{cargaUsuarioPage.sucursales}"/>
+						</h:selectOneMenu>
+						<h:outputText value="Rol" />
+						<h:selectOneMenu value="#{cargaUsuarioPage.rol}" immediate="true">
+							<f:selectItems value="#{cargaUsuarioPage.roles}" />
+						</h:selectOneMenu>
+						<h:outputText value="Estado" />
+						<h:selectOneMenu value="#{cargaUsuarioPage.estado}" immediate="true" >
+							<f:selectItem itemValue="0" itemLabel="Pendiente de aprobación por Subgenrente, Gerente, Área Central" />
+							<f:selectItem itemValue="1" itemLabel="Pendiente de Revisión" />
+							<f:selectItem itemValue="2" itemLabel="Pendiente de aprobación por Padrino - Unidad de Análisis" />
+							<f:selectItem itemValue="3" itemLabel="Pendiente de aprobación ente Autorizador" />
+							<f:selectItem itemValue="4" itemLabel="Precierre" />
+						</h:selectOneMenu>
+					</h:panelGrid>
+				
+					<h:panelGrid columns="1" styleClass="center">
+						<p:commandButton action="#{cargaUsuarioPage.buscar}" update="globalForm:informacion,globalForm:lista" value="Buscar" />
+					</h:panelGrid>
+				</p:tab>
 			</p:accordionPanel>
 		</h:panelGrid>
 
@@ -47,20 +48,19 @@
 		
 		<!-- Tabla de registros --> 
 		
-		<!--<h:panelGrid columns="1" width="100%" style="align:center;" id="lista">-->
+		<h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
 
-				<p:dataTable value="#{cargaUsuarioPage.datos}" var="dato" id="table" rowIndexVar="rowIndex"
-							 widgetVar="economicActivityTable" rows="15" paginator="true"
-							 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-							 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
-							 paginatorPosition="top">
+				<p:dataTable value="#{cargaUsuarioPage.datos}" 
+							rendered="#{! empty cargaUsuarioPage.datos}"	
+							var="dato" id="table" rowIndexVar="rowIndex"
+							widgetVar="economicActivityTable" rows="15" paginator="true"
+							paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+							paginatorPosition="top">
 
 
 				<p:column headerText="Área" sortable="true" sortBy="#{dato.usuarioModulo.codigoAreaModificado}">
-					<h:panelGrid columns="2">
-						<h:outputText value="#{dato.usuarioModulo.codigoAreaModificado}" />
-						<h:outputText value="#{dato.usuarioModulo.nombreAreaModificado}" />
-					</h:panelGrid>
+					<h:outputText value="#{dato.usuarioModulo.codigoAreaModificado} : #{dato.usuarioModulo.nombreAreaModificado}" />
 				</p:column>
 				<p:column headerText="Usuario" sortable="true" sortBy="#{dato.usuarioModulo.codigoEmpleado}">
 					<h:outputText value="#{dato.usuarioModulo.codigoEmpleado}" />
@@ -74,8 +74,7 @@
 
 
 			</p:dataTable>
-		<!--</h:panelGrid>-->
-			</h:form>
+		</h:panelGrid>
 
 		</div>
 	</ui:define>
