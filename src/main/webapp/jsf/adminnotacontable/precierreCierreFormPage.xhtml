@@ -89,29 +89,29 @@
 			<h:outputText value="causalDeRechazo" escape="false" />
 		</p:column>
 		<p:column headerText="Ver Nota Contable" style="text-align: center;">
-			<h:commandButton value="Ver" reRender="popupFlujoNotaContableVer">
+			<p:commandButton value="Ver" reRender="popupFlujoNotaContableVer">
 				<f:param name="codNotaVer" value="codigoNotaContable" converter="javax.faces.Integer" />
-			</h:commandButton>
-			<h:commandButton value="Ver" reRender="notaContableLibreVer">
+			</p:commandButton>
+			<p:commandButton value="Ver" reRender="notaContableLibreVer">
 				<f:param name="codNotaLibreVer" value="codigoNotaContable" converter="javax.faces.Integer" />
-			</h:commandButton>
-			<h:commandButton value="Ver" reRender="popupFlujoNotaContableRefCruceVer">
+			</p:commandButton>
+			<p:commandButton value="Ver" reRender="popupFlujoNotaContableRefCruceVer">
 				<f:param name="codNotaRefCruceVer" value="codigoNotaContable" converter="javax.faces.Integer" />
-			</h:commandButton>
+			</p:commandButton>
 		</p:column>
 		<p:column headerText="Ver Nota Contable" style="text-align: center;" rendered="false">
-			<h:commandButton value="Ver" reRender="popupFlujoNotaContableVer">
+			<p:commandButton value="Ver" reRender="popupFlujoNotaContableVer">
 				<f:param name="codEditar" value="codigoNotaContable" converter="javax.faces.Integer" />
 				<f:param name="codUsuEditar" value="usuariocodigo" converter="javax.faces.Integer" />
-			</h:commandButton>
-			<h:commandButton value="Ver" reRender="popupNotaContable">
+			</p:commandButton>
+			<p:commandButton value="Ver" reRender="popupNotaContable">
 				<f:param name="codConsultar" value="codigo" converter="javax.faces.Integer" />
-			</h:commandButton>
+			</p:commandButton>
 		</p:column>
 		<p:column headerText="Consultar Nota Contable" style="text-align: center;">
-			<h:commandButton value="Consultar" reRender="popupFlujo">
+			<p:commandButton value="Consultar" reRender="popupFlujo">
 				<f:param name="codConsultar" value="codigo" converter="javax.faces.Integer" />
-			</h:commandButton>
+			</p:commandButton>
 		</p:column>
 
 

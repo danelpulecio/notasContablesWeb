@@ -25,8 +25,8 @@
 			<!-- Seccion de mensajes y botones de envio y cancelacion-->
 			<ui:include src="../../common/mensajes.xhtml" /> 
 			<h:panelGrid columns="2" styleClass="center" width="100%">
-			<h:commandButton action="#{notaRefCrucePage.anular}" value="Si" oncomplete="if (#{notaRefCrucePage.ocultarPopupAnular}) {PF('popupAnularRefCruce').hide();PF('popupFlujoNotaContableRefCruceVer').hide()}" update="lista,opcionesRefCruceVer" />
-			<h:commandButton onclick="PF('popupAnularRefCruce').hide()" value="No"/>
+			<p:commandButton action="#{notaRefCrucePage.anular}" value="Si" oncomplete="if (#{notaRefCrucePage.ocultarPopupAnular}) {PF('popupAnularRefCruce').hide();PF('popupFlujoNotaContableRefCruceVer').hide()}" update="lista,opcionesRefCruceVer" />
+			<p:commandButton onclick="PF('popupAnularRefCruce').hide()" value="No"/>
 			</h:panelGrid>
 		</h:panelGrid>
 	</p:dialog>
@@ -134,29 +134,29 @@
 				</h:selectOneMenu>
 				<h:panelGrid columns="1" width="100%" id="otraCausalRefCruceVer">
 					<h:outputText value="Descripción de la causal" rendered="#{notaRefCrucePage.causalDevolucion eq 18}"/>
-					<h:inputText value="#{notaRefCrucePage.otraCausalDev}" rendered="#{notaRefCrucePage.causalDevolucion eq 18}" size="80"/>
+					<p:inputText value="#{notaRefCrucePage.otraCausalDev}" rendered="#{notaRefCrucePage.causalDevolucion eq 18}" size="80"/>
 				</h:panelGrid>
 				<!-- Seccion de mensajes y botones de envio y cancelacion-->
 				<ui:include src="../../common/mensajes.xhtml" /> 
 				<h:panelGrid columns="2" styleClass="center" width="100%">
-				<h:commandButton action="#{notaRefCrucePage.rechazar}" 
+				<p:commandButton action="#{notaRefCrucePage.rechazar}"
 					value="Confirmar rechazo" 
 					oncomplete="if (#{notaRefCrucePage.ocultarPopupAnular}) {PF('popupRechazoRefCruceVer').hide();PF('popupFlujoNotaContableRefCruceVer').hide();}" 
 					update="lista,opcionesRefCruceVer" />
-				<h:commandButton onclick="PF('popupRechazoRefCruceVer').hide()" value="Cancelar" />
+				<p:commandButton onclick="PF('popupRechazoRefCruceVer').hide()" value="Cancelar" />
 				</h:panelGrid>
 			</h:panelGrid>
 		</p:dialog>
 
 		<ui:include src="../../common/mensajes.xhtml" /> 
 		<h:panelGrid id="opcionesRefCruceVer" columns="2" styleClass="center" width="100%">
-		<h:commandButton action="#{notaRefCrucePage.aprobar}" 
+		<p:commandButton action="#{notaRefCrucePage.aprobar}"
 			oncomplete="if (#{notaRefCrucePage.ocultarPopupAprobar}) PF('popupFlujoNotaContableRefCruceVer').hide()" 
 			update="lista,opcionesRefCruceVer" 
 			value="Aprobar" 
 			rendered="#{notaRefCrucePage.nota.puedeAprobar}"/>
-		<h:commandButton value="Anular" rendered="#{notaRefCrucePage.nota.puedeAnular}" oncomplete="PF('popupAnularRefCruce').show()"/>
-		<h:commandButton value="Rechazar" rendered="#{notaRefCrucePage.nota.puedeRechazar}" oncomplete="PF('popupRechazoRefCruceVer').show()"/>
+		<p:commandButton value="Anular" rendered="#{notaRefCrucePage.nota.puedeAnular}" oncomplete="PF('popupAnularRefCruce').show()"/>
+		<p:commandButton value="Rechazar" rendered="#{notaRefCrucePage.nota.puedeRechazar}" oncomplete="PF('popupRechazoRefCruceVer').show()"/>
 		</h:panelGrid>
 	</p:dialog>
 </ui:composition>

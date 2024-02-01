@@ -65,7 +65,7 @@
 								<h:outputText value="Cuenta Contable" styleClass="propertie" />
 								<h:panelGrid columns="1" id="cuentaContableRegLibre">
 									<h:panelGrid columns="2" style="border-collapse: collapse;">
-										<h:inputText value="#{notaContableLibrePage.cuentaContable}" immediate="true" />
+										<p:inputText value="#{notaContableLibrePage.cuentaContable}" immediate="true" />
 										
 										<p:commandButton action="#{notaContableLibrePage.buscarCuentaContable}" 
 											value="Buscar cuenta" 
@@ -111,7 +111,7 @@
 											</h:selectOneMenu>
 	
 											<h:outputText value="Referencia de Cruce" styleClass="propertie" />
-											<h:inputText value="#{notaContableLibrePage.temaActual.referencia}" maxlength="12" size="12" onkeypress="return onKeyPressNumbersNoZero(event, this.value)" />
+											<p:inputText value="#{notaContableLibrePage.temaActual.referencia}" maxlength="12" size="12" onkeypress="return onKeyPressNumbersNoZero(event, this.value)" />
 	
 											<h:outputText value="Divisa" styleClass="propertie" />
 											<h:selectOneMenu value="#{notaContableLibrePage.temaActual.codigoDivisa}" immediate="true" style="width:180px;" id="codDivisaNotaContableLibre">
@@ -119,14 +119,14 @@
 											</h:selectOneMenu>
 	
 											<h:outputText value="Importe" styleClass="propertie" />
-											<h:inputText value="#{notaContableLibrePage.temaActual.monto}" size="16" maxlength="16" onkeypress="return onKeyPressNumbers(event,this.value);"
+											<p:inputText value="#{notaContableLibrePage.temaActual.monto}" size="16" maxlength="16" onkeypress="return onKeyPressNumbers(event,this.value);"
 												converter="javax.faces.Double" immediate="true" converterMessage="Valor inválido para el Importe"
 												onblur="if(this.value==''){this.value='0'}validarMontoLibreAlert(this.value);">
 												<f:convertNumber maxFractionDigits="2" />
 												
 												<p:ajax event="keyup" update="globalForm:importeRegLibre"/>
 												
-											</h:inputText>
+											</p:inputText>
 	
 											<h:outputText value="Importe" styleClass="propertie" />
 											<h:panelGrid columns="1" id="importeRegLibre" cellpadding="0" cellspacing="0">
@@ -152,14 +152,14 @@
 	
 												<h:outputText value="Numero Documento" styleClass="propertie" />
 												<h:panelGrid columns="2" border="0" cellspacing="0">
-													<h:inputText value="#{notaContableLibrePage.temaActual.numeroIdentificacion}" size="20" immediate="true">
+													<p:inputText value="#{notaContableLibrePage.temaActual.numeroIdentificacion}" size="20" immediate="true">
 													
 													<p:ajax event="keyup" update="filtroTerceroRegLibre,terceroRegLibre">
 														<f:setPropertyActionListener for="numDocRenLibre" value=""
 	                                                         target="#{notaContableLibrePage.temaActual.nombreCompleto}"/>
 													</p:ajax>
 	
-													</h:inputText>
+													</p:inputText>
 													<h:panelGrid columns="1" id="filtroTerceroRegLibre" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
 														<p:commandButton action="#{notaContableLibrePage.buscarTercero}" 
 															update="globalForm:documentoTerceroRegLibreEd,globalForm:terceroRegLibre" style="margin: 0; margin-left: 8px;" 
@@ -233,13 +233,13 @@
 					<h:panelGrid width="500">
 						<h:panelGrid columns="3" width="100%" id="selectsRiesgoRegLibre">
 							<h:outputText value="Importe Total" styleClass="propertie" />
-							<h:inputText value="#{notaContableLibrePage.temaActual.riesgoOperacional.importeTotal}" size="16" maxlength="16" onkeypress="return onKeyPressNumbers(event,this.value);"
+							<p:inputText value="#{notaContableLibrePage.temaActual.riesgoOperacional.importeTotal}" size="16" maxlength="16" onkeypress="return onKeyPressNumbers(event,this.value);"
 								converter="javax.faces.Double" immediate="true" converterMessage="Valor no válido para el Importe Total">
 								<f:convertNumber maxFractionDigits="2" />
 								
 								<p:ajax event="keyup" update="importeTotalLibre"/>
 								
-							</h:inputText>
+							</p:inputText>
 							<h:panelGrid columns="1" id="importeTotalLibre" width="250" cellpadding="0" cellspacing="0">
 								<h:outputText styleClass="propertie" value="#{notaContableLibrePage.temaActual.riesgoOperacional.importeTotal}">
 									<f:convertNumber type="currency" />
@@ -247,13 +247,13 @@
 							</h:panelGrid>
 
 							<h:outputText value="Importe Parcial" styleClass="propertie" />
-							<h:inputText value="#{notaContableLibrePage.temaActual.riesgoOperacional.importeParcial}" size="16" maxlength="16" onkeypress="return onKeyPressNumbers(event,this.value);"
+							<p:inputText value="#{notaContableLibrePage.temaActual.riesgoOperacional.importeParcial}" size="16" maxlength="16" onkeypress="return onKeyPressNumbers(event,this.value);"
 								converter="javax.faces.Double" immediate="true" converterMessage="Valor no válido para el Importe Parcial">
 								<f:convertNumber maxFractionDigits="2" />
 								
 								<p:ajax event="keyup" update="importeParcialLibre"/>
 
-							</h:inputText>
+							</p:inputText>
 							<h:panelGrid columns="1" id="importeParcialLibre" width="250" cellpadding="0" cellspacing="0">
 								<h:outputText styleClass="propertie" value="#{notaContableLibrePage.temaActual.riesgoOperacional.importeParcial}">
 									<f:convertNumber type="currency" />
@@ -422,7 +422,7 @@
 							</p:outputPanel>
 
 							<h:outputText styleClass="bold" value="Nombre Outsourcing" />
-							<h:inputTextarea value="#{notaContableLibrePage.temaActual.riesgoOperacional.nombreOutSource}" cols="50" rows="2" />
+							<p:inputTextarea value="#{notaContableLibrePage.temaActual.riesgoOperacional.nombreOutSource}" cols="50" rows="2" />
 
 							<h:outputText styleClass="bold" value="Aplica Recuperación" rendered="#{notaContableLibrePage.aplicaRecuperacion}" />
 							<h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.appRecuperacion}" rendered="#{notaContableLibrePage.aplicaRecuperacion}" immediate="true">
@@ -555,7 +555,7 @@
             	</p:calendar>
 
 				<h:outputText value="Descripción" styleClass="propertie" />
-				<h:inputText value="#{notaContableLibrePage.nota.descripcion}" onkeyup="this.value=removeAccents(this.value)" onkeypress="return characterRestriction(event)" maxlength="500" immediate="true" size="80" />
+				<p:inputText value="#{notaContableLibrePage.nota.descripcion}" onkeyup="this.value=removeAccents(this.value)" onkeypress="return characterRestriction(event)" maxlength="500" immediate="true" size="80" />
 				
 				<p:commandButton actionListener="#{notaContableLibrePage.editar}" 
 					oncomplete="PF('editorRegLibre').show()" 

@@ -60,7 +60,7 @@
                                      value="#{fechaHabilitadaPage.selectedAll?'Limpiar Selección':'Seleccionar Todos'}"/>
                     <h:panelGrid columns="3" width="100%" rendered="#{fechaHabilitadaPage.haySeleccion}">
                         <h:outputText value="Días"/>
-                        <h:inputText value="#{fechaHabilitadaPage.nuevosDias}" size="2"
+                        <p:inputText value="#{fechaHabilitadaPage.nuevosDias}" size="2"
                                      converter="javax.faces.Integer"
                                      converterMessage="Error al convertir la información del campo a número"/>
                         <p:commandButton action="#{fechaHabilitadaPage.actualizarTodos}"
@@ -70,7 +70,7 @@
                 </h:panelGrid>
 
                 <h:panelGrid columns="2">
-                    <h:inputText value="#{fechaHabilitadaPage.param}"/>
+                    <p:inputText value="#{fechaHabilitadaPage.param}"/>
                     <p:commandButton action="#{fechaHabilitadaPage.buscarPorFiltro}" value="Filtrar"
                                      onclick="Richfaces.showModalPanel('statusPanel')"/>
                 </h:panelGrid>

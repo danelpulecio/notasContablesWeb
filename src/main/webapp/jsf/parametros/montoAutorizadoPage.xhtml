@@ -103,13 +103,13 @@
 
                     <h:panelGrid columns="3">
                         <h:outputText value="Limite" styleClass="name"/>
-                        <h:inputText value="#{montoAutorizadoPage.objActual.monto}" immediate="true" size="16"
+                        <p:inputText value="#{montoAutorizadoPage.objActual.monto}" immediate="true" size="16"
                                      maxlength="16" onkeypress="return onKeyPressNumbers(event,this.value);"
                                      converter="javax.faces.Double" id="limite"
                                      converterMessage="Error al convertir el dato a número"><f:convertNumber
                                 maxFractionDigits="2"/>
                             <p:ajax event="keyup" update="globalForm:limiteFormateado" process="@this"/>
-                        </h:inputText>
+                        </p:inputText>
                         <h:panelGrid columns="1" id="limiteFormateado">
                             <h:outputText value="#{montoAutorizadoPage.objActual.monto}" converter="javax.faces.Double"><f:convertNumber
                                     type="currency"/></h:outputText>
@@ -147,7 +147,7 @@
                 </h:panelGrid>
 
                 <h:panelGrid columns="2">
-                    <h:inputText value="#{montoAutorizadoPage.param}"/>
+                    <p:inputText value="#{montoAutorizadoPage.param}"/>
                     <p:commandButton action="#{montoAutorizadoPage.buscarPorFiltro}" value="Filtrar"
                                      onclick="Richfaces.showModalPanel('statusPanel')"/>
                 </h:panelGrid>

@@ -12,8 +12,8 @@
                 <h:panelGrid columns="1" width="100%"><h1 align="center">Divisas</h1></h:panelGrid>
 
                 <h:panelGrid columns="2" id="filtro" style="text-align: center; margin: 0 auto;">
-                    <h:inputText id="param" value="#{divisaPage.param}"/>
-                    <h:commandButton action="#{divisaPage.buscarPorFiltro}" value="Filtrar"/>
+                    <p:inputText id="param" value="#{divisaPage.param}"/>
+                    <p:commandButton action="#{divisaPage.buscarPorFiltro}" value="Filtrar"/>
                 </h:panelGrid>
                 <ui:include src="../../common/mensajes.xhtml"/>
                 <!--	Tabla de resultados	-->

@@ -13,8 +13,8 @@
             <h:panelGrid columns="1" width="100%"><h1 align="center">Municipios</h1></h:panelGrid>
 
             <h:panelGrid columns="2" id="filtro">
-                <h:inputText id="param" value="#{municipioPage.param}"/>
-                <h:commandButton action="#{municipioPage.buscarPorFiltro}" value="Filtrar"
+                <p:inputText id="param" value="#{municipioPage.param}"/>
+                <p:commandButton action="#{municipioPage.buscarPorFiltro}" value="Filtrar"
                                  onclick="Richfaces.showModalPanel('statusPanel')"/>
             </h:panelGrid>
 

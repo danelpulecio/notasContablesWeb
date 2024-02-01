@@ -8,12 +8,12 @@
     <ui:define name="body">
 
         <!--Filtro de busqueda	-->
-        <div style="width: 400px;">
+        <div style="width: 600px;">
             <h:panelGrid columns="1" width="100%"><h1 align="center">Riesgo Operacional - Proceso</h1></h:panelGrid>
             <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
                 <h:panelGrid columns="2" id="filtro" style="text-align: center; margin: 0 auto;">
-                    <h:inputText id="param" value="#{riesgoOperacionalProcesoPage.param}"/>
-                    <h:commandButton action="#{riesgoOperacionalProcesoPage.buscarPorFiltro}" value="Filtrar"/>
+                    <p:inputText id="param" value="#{riesgoOperacionalProcesoPage.param}"/>
+                    <p:commandButton action="#{riesgoOperacionalProcesoPage.buscarPorFiltro}" value="Filtrar"/>
                 </h:panelGrid>
                 <ui:include src="../../common/mensajes.xhtml"/>
 

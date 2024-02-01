@@ -12,24 +12,24 @@
                 <!--                <p:graphicImage height="96" width="700" value="./common/images/header.jpg"/>-->
                 <p:panelGrid columns="2">
                     <h:outputText value="Usuario: " rendered="#{contablesSessionBean.loginUser==null}"/>
-                    <h:inputText id="Usuario" value="#{homePage.username}" required="true"
+                    <p:inputText id="Usuario" value="#{homePage.username}" required="true"
                                  rendered="#{contablesSessionBean.loginUser==null}"
                                  validatorMessage="El usuario es requerido y debe tener mínimo 3 caracteres"
                                  requiredMessage="El usuario es requerido y debe tener mínimo 3 caracteres">
                         <f:validateLength minimum="3" maximum="30"/>
-                    </h:inputText>
+                    </p:inputText>
                     <h:outputText value="Clave: " rendered="#{contablesSessionBean.loginUser==null}"/>
-                    <h:inputSecret id="Clave" value="#{homePage.pwd}" required="true"
-                                   rendered="#{contablesSessionBean.loginUser==null}"
-                                   validatorMessage="La clave es requerida y debe tener mínimo 3 caracteres"
-                                   requiredMessage="La clave es requerida y debe tener mínimo 3 caracteres">
+                    <p:password id="Clave" value="#{homePage.pwd}" required="true"
+                                rendered="#{contablesSessionBean.loginUser==null}"
+                                validatorMessage="La clave es requerida y debe tener mínimo 3 caracteres"
+                                requiredMessage="La clave es requerida y debe tener mínimo 3 caracteres">
                         <f:validateLength minimum="3" maximum="30"/>
-                    </h:inputSecret>
+                    </p:password>
                     <h:outputText value="Rol a usar:" rendered="#{contablesSessionBean.loginUser!=null}"/>
-                    <h:selectOneMenu value="#{homePage.rolActual}" rendered="#{contablesSessionBean.loginUser!=null}">
+                    <p:selectOneMenu value="#{homePage.rolActual}" rendered="#{contablesSessionBean.loginUser!=null}">
                         <f:selectItem itemValue="-1" itemLabel="Seleccione una opción"/>
                         <f:selectItems value="#{homePage.roles}"/>
-                    </h:selectOneMenu>
+                    </p:selectOneMenu>
                 </p:panelGrid>
                 <ui:include src="./common/mensajes.xhtml"/>
                 <p:panelGrid columns="1" width="100%" style="text-align:center;">
@@ -39,7 +39,7 @@
                                      rendered="#{contablesSessionBean.loginUser!=null}" update="loginform"/>
 
                 </p:panelGrid>
-                
+
             </p:panel>
         </div>
     </ui:define>

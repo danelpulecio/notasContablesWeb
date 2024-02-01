@@ -108,16 +108,16 @@ public class UsuarioPage extends GeneralParametrosPage<UsuarioModulo, UsuarioMod
 					setRolSel("-1");
 				} else {
 					objActual.setCodigoEmpleado(codEmpleado);
-					nuevoMensaje(FacesMessage.SEVERITY_WARN, "No se encontr el usuario asociado al cdigo " + codEmpleado);
+					nuevoMensaje(FacesMessage.SEVERITY_WARN, "No se encontró el usuario asociado al código " + codEmpleado);
 				}
 			} else {
-				nuevoMensaje(FacesMessage.SEVERITY_WARN, "Debe indicar el cdigo completo del usuario a buscar");
+				nuevoMensaje(FacesMessage.SEVERITY_WARN, "Debe indicar el código completo del usuario a buscar");
 			}
 			consultarListasAuxiliares();
 
 		} catch (Exception e) {
 			LOGGER.error("{} Error al inicializar el editor de creacin de usuarios" ,  e);
-			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al inicializar el editor de creacin de usuarios");
+			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al inicializar el editor de creación de usuarios");
 		}
 		return null;
 	}

@@ -14,8 +14,8 @@
 
                 <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
                     <h:panelGrid columns="2" id="filtro" style="text-align: center; margin: 0 auto;">
-                        <h:inputText id="param" value="#{perdidaOperacionalPage.param}"/>
-                        <h:commandButton action="#{perdidaOperacionalPage.buscarPorFiltro}" value="Filtrar"/>
+                        <p:inputText id="param" value="#{perdidaOperacionalPage.param}"/>
+                        <p:commandButton action="#{perdidaOperacionalPage.buscarPorFiltro}" value="Filtrar"/>
                     </h:panelGrid>
                     <ui:include src="../../common/mensajes.xhtml"/>
 

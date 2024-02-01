@@ -82,7 +82,7 @@
             <h:panelGrid columns="1" width="400" id="informacion">
                 <h:panelGrid columns="2" width="400" columnClasses="name,value">
                     <h:outputText value="Nombre del tipo de evento"/>
-                    <h:inputText value="#{tipoEventoPage.objActual.nombre}"/>
+                    <p:inputText value="#{tipoEventoPage.objActual.nombre}"/>
                 </h:panelGrid>
 
                 <!-- Seccion de mensajes y botones de envio y cancelacion-->
@@ -115,7 +115,7 @@
                 </h:panelGrid>
 
                 <h:panelGrid columns="2">
-                    <h:inputText value="#{tipoEventoPage.param}"/>
+                    <p:inputText value="#{tipoEventoPage.param}"/>
                     <p:commandButton action="#{tipoEventoPage.buscarPorFiltro}" value="Filtrar"
                                      onclick="Richfaces.showModalPanel('statusPanel')"/>
                 </h:panelGrid>

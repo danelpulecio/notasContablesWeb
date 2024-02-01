@@ -53,14 +53,16 @@
 
                     <p:panel style="width: 100%" header="Centros Autorizados"
                              rendered="#{not empty centroDestinoPage.centrosAut}">
-                        <p:selectManyMenu value="#{centroDestinoPage.centrosAutSel}"
-                                          scrollHeight="150"
-                                          filter="true"
-                                          filterMatchMode="startsWith">
-                            <p:ajax event="change" listener="#{centroDestinoPage.validarCentrosAut}"
-                                    update="informacion"/>
-                            <f:selectItems value="#{centroDestinoPage.centrosAut}"/>
-                        </p:selectManyMenu>
+<!--                        <p:selectManyMenu value="#{centroDestinoPage.centrosAutSel}"-->
+<!--                                          itemLabel="#{centroDestinoPage.dualListModel}"-->
+<!--                                          itemValue="#{centroDestinoPage.dualListModel}"-->
+<!--                                          scrollHeight="150"-->
+<!--                                          filter="true"-->
+<!--                                          filterMatchMode="startsWith">-->
+<!--                            <f:selectItems value="#{centroDestinoPage.centrosAut}"/>-->
+<!--                        </p:selectManyMenu>-->
+                        <p:pickList id="example" value="#{centroDestinoPage.dualListModel}" var="pr"
+                                    itemLabel="#{pr.label}" itemValue="#{pr.label}"/>
                     </p:panel>
 
                 </h:panelGrid>

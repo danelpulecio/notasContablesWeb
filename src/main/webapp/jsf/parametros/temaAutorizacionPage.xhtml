@@ -28,8 +28,8 @@
 			<!-- Seccion de mensajes y botones de envio y cancelacion-->
 			<ui:include src="../../common/mensajes.xhtml" /> 
 			<h:panelGrid columns="2" styleClass="center" width="100%">
-<!-- 				<h:commandButton action="#{temaAutorizacionPage.cambiarEstado}" value="Si" oncomplete="#{p:remoteCommand('popupEstado')}.hide()" reRender="lista" /> -->
-<!-- 				<h:commandButton onclick="#{p:remoteCommand('popupEstado')}.hide()" value="No" /> -->
+<!-- 				<p:commandButton action="#{temaAutorizacionPage.cambiarEstado}" value="Si" oncomplete="#{p:remoteCommand('popupEstado')}.hide()" reRender="lista" /> -->
+<!-- 				<p:commandButton onclick="#{p:remoteCommand('popupEstado')}.hide()" value="No" /> -->
 			</h:panelGrid>
 		</h:panelGrid>
 	</p:dialog>
@@ -53,8 +53,8 @@
 			<!-- Seccion de mensajes y botones de envio y cancelacion-->
 			<ui:include src="../../common/mensajes.xhtml" /> 
 			<h:panelGrid columns="2" styleClass="center" width="100%">
-<!-- 				<h:commandButton action="#{temaAutorizacionPage.borrar}" value="Si" oncomplete="#{p:remoteCommand('popupBorrar')}.hide()"  reRender="lista"  /> -->
-<!-- 				<h:commandButton onclick="#{p:remoteCommand('popupBorrar')}.hide()" value="No" /> -->
+<!-- 				<p:commandButton action="#{temaAutorizacionPage.borrar}" value="Si" oncomplete="#{p:remoteCommand('popupBorrar')}.hide()"  reRender="lista"  /> -->
+<!-- 				<p:commandButton onclick="#{p:remoteCommand('popupBorrar')}.hide()" value="No" /> -->
 			</h:panelGrid>
 		</h:panelGrid>
 	</p:dialog>
@@ -75,14 +75,14 @@
         <h:panelGrid columns="1" width="400" id="informacion">
 			<h:panelGrid columns="2" width="400" columnClasses="name,value">
 				<h:outputText value="Nombre del Tema de Autorización" />
-				<h:inputText value="#{temaAutorizacionPage.objActual.nombre}" />
+				<p:inputText value="#{temaAutorizacionPage.objActual.nombre}" />
 			</h:panelGrid>
 			
 			<!-- Seccion de mensajes y botones de envio y cancelacion-->
 			<ui:include src="../../common/mensajes.xhtml" /> 
 			<h:panelGrid columns="2" styleClass="center" width="100%">
-<!-- 				<h:commandButton action="#{temaAutorizacionPage.guardar}" reRender="informacion,lista"  value="Guardar" oncomplete="if (#{temaAutorizacionPage.ocultarPopupGuardar}) #{p:remoteCommand('editor')}.hide();" /> -->
-<!-- 				<h:commandButton onclick="#{p:remoteCommand('editor')}.hide()" value="Cerrar" /> -->
+<!-- 				<p:commandButton action="#{temaAutorizacionPage.guardar}" reRender="informacion,lista"  value="Guardar" oncomplete="if (#{temaAutorizacionPage.ocultarPopupGuardar}) #{p:remoteCommand('editor')}.hide();" /> -->
+<!-- 				<p:commandButton onclick="#{p:remoteCommand('editor')}.hide()" value="Cerrar" /> -->
 			</h:panelGrid>
 		</h:panelGrid>
 	</p:dialog>
@@ -97,14 +97,14 @@
 					
 					<h:panelGrid columns="1" width="380" >
 						<!-- Funcionalidad para abrir el editor y crear un nuevo registro-->
-<!-- 						<h:commandButton action="#{temaAutorizacionPage.editar}" oncomplete="#{p:remoteCommand('editor')}.show()" reRender="editor" value="Nuevo Registro"> -->
+<!-- 						<p:commandButton action="#{temaAutorizacionPage.editar}" oncomplete="#{p:remoteCommand('editor')}.show()" reRender="editor" value="Nuevo Registro"> -->
 <!-- 							<f:param name="codNuevo" value="0" assignTo="#{temaAutorizacionPage.objActual.codigo}" converter="javax.faces.Integer"/> -->
-<!-- 						</h:commandButton> -->
+<!-- 						</p:commandButton> -->
 					</h:panelGrid>
 					
 					<h:panelGrid columns="2" >
-						<h:inputText value="#{temaAutorizacionPage.param}" />
-						<h:commandButton action="#{temaAutorizacionPage.buscarPorFiltro}" value="Filtrar" onclick="Richfaces.showModalPanel('statusPanel')" />
+						<p:inputText value="#{temaAutorizacionPage.param}" />
+						<p:commandButton action="#{temaAutorizacionPage.buscarPorFiltro}" value="Filtrar" onclick="Richfaces.showModalPanel('statusPanel')" />
 					</h:panelGrid>
 				</h:panelGrid> 
 			</p:panel>
@@ -134,28 +134,28 @@
 					<!-- Opcion de cambio de estado-->
 					<p:column style="text-align: center;">
 						<f:facet name="header"><h:outputText value="Estado" /></f:facet>
-<!-- 						<h:commandButton value="#{dato.estado eq 'A'? 'Activo': 'Inactivo'}" onclick="#{p:remoteCommand('popupEstado')}.show()"> -->
+<!-- 						<p:commandButton value="#{dato.estado eq 'A'? 'Activo': 'Inactivo'}" onclick="#{p:remoteCommand('popupEstado')}.show()"> -->
 <!-- 							<f:param name="codCambio" value="#{dato.codigo}" assignTo="#{temaAutorizacionPage.objActual.codigo}" converter="javax.faces.Integer"/> -->
 <!-- 							<f:param name="estadoCambio" value="#{dato.estado}" assignTo="#{temaAutorizacionPage.objActual.estado}" /> -->
-<!-- 						</h:commandButton> -->
+<!-- 						</p:commandButton> -->
 					</p:column>
 					
 					<!-- Opcion de cambio de editar informacion-->
 					<p:column style="text-align: center;">
 						<f:facet name="header"><h:outputText value="Editar" /></f:facet>
-<!-- 						<h:commandButton oncomplete="#{p:remoteCommand('editor')}.show()" reRender="editor" image="/common/images/edit.png" alt="Editar"> -->
+<!-- 						<p:commandButton oncomplete="#{p:remoteCommand('editor')}.show()" reRender="editor" image="/common/images/edit.png" alt="Editar"> -->
 <!-- 							<f:param name="codEdit" value="#{dato.codigo}" assignTo="#{temaAutorizacionPage.objActual.codigo}" converter="javax.faces.Integer"/> -->
 <!-- 							<f:param name="codEdit1" value="#{dato.nombre}" assignTo="#{temaAutorizacionPage.objActual.nombre}"/> -->
 <!-- 							<f:param name="codEdit2" value="#{dato.estado}" assignTo="#{temaAutorizacionPage.objActual.estado}"/> -->
-<!-- 						</h:commandButton> -->
+<!-- 						</p:commandButton> -->
 					</p:column>
 					
 					<!-- Opcion de cambio de borrado-->
 					<p:column style="text-align: center;">
 						<f:facet name="header"><h:outputText value="Borrar" /></f:facet>
-<!-- 						<h:commandButton image="/common/images/delete.png" alt="Borrar" onclick="#{p:remoteCommand('popupBorrar')}.show()" rendered="#{dato.estado eq 'I'}"> -->
+<!-- 						<p:commandButton image="/common/images/delete.png" alt="Borrar" onclick="#{p:remoteCommand('popupBorrar')}.show()" rendered="#{dato.estado eq 'I'}"> -->
 <!-- 							<f:param name="codBorrar" value="#{dato.codigo}" assignTo="#{temaAutorizacionPage.objActual.codigo}" converter="javax.faces.Integer"/> -->
-<!-- 						</h:commandButton> -->
+<!-- 						</p:commandButton> -->
 					</p:column>
 					
 					<!--	Se muestra la información de la cantidad de registros y la pagina actual	-->

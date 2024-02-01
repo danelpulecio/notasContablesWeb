@@ -39,11 +39,11 @@
                             <h:panelGrid columns="2" id="filtro">
                                 <h:outputText value="Número de radicación"
                                               rendered="#{consultaNotaContablePage.criterio eq '1'}"/>
-                                <h:inputText value="#{consultaNotaContablePage.numRadicacion}"
+                                <p:inputText value="#{consultaNotaContablePage.numRadicacion}"
                                              rendered="#{consultaNotaContablePage.criterio eq '1'}"/>
                                 <h:outputText value="Asiento contable Altamira"
                                               rendered="#{consultaNotaContablePage.criterio eq '2'}"/>
-                                <h:inputText value="#{consultaNotaContablePage.asientoContable}"
+                                <p:inputText value="#{consultaNotaContablePage.asientoContable}"
                                              rendered="#{consultaNotaContablePage.criterio eq '2'}"/>
                                 <h:outputText value="Fecha Radicación Módulo"
                                               rendered="#{!(consultaNotaContablePage.criterio eq '1')}"/>

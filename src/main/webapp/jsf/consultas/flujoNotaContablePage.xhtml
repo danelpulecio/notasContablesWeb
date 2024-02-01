@@ -39,7 +39,7 @@
 							<h:panelGrid columns="3" cellpadding="0" cellspacing="0">
 								<h:outputText value="#{flujoNotaContablePage.temaActual.fechaContable}" />
 								<p:spacer width="200" />
-								<h:commandButton value="Riesgo Operacional" oncomplete="#{rich:component('modalRiesgoVer')}.show()" reRender="modalRiesgoVer"
+								<p:commandButton value="Riesgo Operacional" oncomplete="#{rich:component('modalRiesgoVer')}.show()" reRender="modalRiesgoVer"
 									rendered="#{flujoNotaContablePage.temaActual.tema.riesgoOperacional eq 'S'}" ajaxSingle="true" />
 							</h:panelGrid>
 
@@ -358,10 +358,10 @@
 					</p:column>
 
 					<p:column headerText="Ver" style="text-align: center;">
-						<h:commandButton action="#{flujoNotaContablePage.verNota}" oncomplete="#{rich:component('modalVer')}.show()" reRender="modalVer" image="/common/images/edit.png" alt="Ver"
+						<p:commandButton action="#{flujoNotaContablePage.verNota}" oncomplete="#{rich:component('modalVer')}.show()" reRender="modalVer" image="/common/images/edit.png" alt="Ver"
 							rendered="#{temaNota.codigo gt 0 }">
 							<f:param name="codigoTema" value="#{temaNota.codigo}" assignTo="#{flujoNotaContablePage.codigo}" converter="javax.faces.Integer" />
-						</h:commandButton>
+						</p:commandButton>
 					</p:column>
 					<f:facet name="footer">
 						<p:columnGroup rendered="#{! empty flujoNotaContablePage.totalesNota}">
@@ -409,25 +409,25 @@
 					</h:selectOneMenu>
 					<h:panelGrid columns="1" width="100%" id="otraCausalVer">
 						<h:outputText value="Descripción de la causal" rendered="#{flujoNotaContablePage.causalDevolucion eq 18}" />
-						<h:inputText value="#{flujoNotaContablePage.otraCausalDev}" rendered="#{flujoNotaContablePage.causalDevolucion eq 18}" size="80" />
+						<p:inputText value="#{flujoNotaContablePage.otraCausalDev}" rendered="#{flujoNotaContablePage.causalDevolucion eq 18}" size="80" />
 					</h:panelGrid>
 					<!-- Seccion de mensajes y botones de envio y cancelacion-->
 					<ui:include src="../../common/mensajes.xhtml" />
 					<h:panelGrid columns="2" styleClass="center" width="100%">
-						<h:commandButton action="#{flujoNotaContablePage.rechazar}" value="Confirmar rechazo"
+						<p:commandButton action="#{flujoNotaContablePage.rechazar}" value="Confirmar rechazo"
 							oncomplete="if (#{flujoNotaContablePage.ocultarPopupAnular}) {#{rich:component('popupRechazoVer')}.hide();#{rich:component('popupFlujoNotaContableVer')}.hide();}"
 							reRender="lista,opcionesVer" />
-						<h:commandButton onclick="#{rich:component('popupRechazoVer')}.hide()" value="Cancelar" />
+						<p:commandButton onclick="#{rich:component('popupRechazoVer')}.hide()" value="Cancelar" />
 					</h:panelGrid>
 				</h:panelGrid>
 			</p:dialog>
 
 			<ui:include src="../../common/mensajes.xhtml" />
 			<h:panelGrid id="opcionesVer" columns="2" styleClass="center" width="100%">
-				<h:commandButton action="#{flujoNotaContablePage.aprobar}"
+				<p:commandButton action="#{flujoNotaContablePage.aprobar}"
 					oncomplete="if (#{flujoNotaContablePage.ocultarPopupAprobar}) #{rich:component('popupFlujoNotaContableVer')}.hide()" reRender="lista,opcionesVer" value="Aprobar"
 					rendered="#{flujoNotaContablePage.nota.puedeAprobar}" />
-				<h:commandButton value="Rechazar" rendered="#{flujoNotaContablePage.nota.puedeRechazar}" oncomplete="#{rich:component('popupRechazoVer')}.show()" />
+				<p:commandButton value="Rechazar" rendered="#{flujoNotaContablePage.nota.puedeRechazar}" oncomplete="#{rich:component('popupRechazoVer')}.show()" />
 			</h:panelGrid>
 		</h:panelGrid>
 	</p:dialog>

@@ -37,32 +37,32 @@
                                 </h:selectOneMenu>
 
                                 <h:outputText value="Número de Identificación" style="width: 100px;"/>
-                                <h:inputText value="#{terceroPage.objActual.numeroIdentificacion}" maxlength="15"/>
+                                <p:inputText value="#{terceroPage.objActual.numeroIdentificacion}" maxlength="15"/>
 
                                 <h:outputText value="Dígito de Verificación" style="width: 100px;"
                                               rendered="#{terceroPage.objActual.tipoIdentificacion eq 3 or terceroPage.objActual.tipoIdentificacion eq 9}"/>
-                                <h:inputText value="#{terceroPage.objActual.digitoVerificacion}" maxlength="1" size="1"
+                                <p:inputText value="#{terceroPage.objActual.digitoVerificacion}" maxlength="1" size="1"
                                              onkeypress="return onKeyPressNumbersNoZero(event,this.value);"
                                              rendered="#{terceroPage.objActual.tipoIdentificacion eq 3 or terceroPage.objActual.tipoIdentificacion eq 9}"/>
                             </h:panelGrid>
 
                             <h:panelGrid columns="8" width="100%">
                                 <h:outputText value="Primer Apellido" style="width: 100px;"/>
-                                <h:inputText value="#{terceroPage.objActual.primerApellido}" maxlength="20"/>
+                                <p:inputText value="#{terceroPage.objActual.primerApellido}" maxlength="20"/>
                                 <h:outputText value="Segundo Apellido" style="width: 100px;"/>
-                                <h:inputText value="#{terceroPage.objActual.segundoApellido}" maxlength="20"/>
+                                <p:inputText value="#{terceroPage.objActual.segundoApellido}" maxlength="20"/>
                                 <h:outputText value="Primer Nombre" style="width: 100px;"/>
-                                <h:inputText value="#{terceroPage.objActual.primerNombre}" maxlength="20"/>
+                                <p:inputText value="#{terceroPage.objActual.primerNombre}" maxlength="20"/>
                                 <h:outputText value="Segundo Nombre" style="width: 100px;"/>
-                                <h:inputText value="#{terceroPage.objActual.segundoNombre}" maxlength="20"/>
+                                <p:inputText value="#{terceroPage.objActual.segundoNombre}" maxlength="20"/>
                             </h:panelGrid>
 
                             <h:panelGrid columns="4" width="100%">
                                 <h:outputText value="Correo electrónico"/>
-                                <h:inputText value="#{terceroPage.objActual.EMail}" maxlength="40"/>
+                                <p:inputText value="#{terceroPage.objActual.EMail}" maxlength="40"/>
 
                                 <h:outputText value="Dirección"/>
-                                <h:inputText value="#{terceroPage.objActual.direccion}" maxlength="50"/>
+                                <p:inputText value="#{terceroPage.objActual.direccion}" maxlength="50"/>
 
                             </h:panelGrid>
                             <h:panelGrid columns="6" width="100%">
@@ -104,14 +104,14 @@
                                                      rendered="#{terceroPage.mostrarListaIndicativos1}">
                                         <f:selectItems value="#{terceroPage.indicativos}"/>
                                     </h:selectOneMenu>
-                                    <h:inputText value="#{terceroPage.objActual.indicativo}" maxlength="3"
+                                    <p:inputText value="#{terceroPage.objActual.indicativo}" maxlength="3"
                                                  rendered="#{!terceroPage.mostrarListaIndicativos1}"
                                                  onkeypress="return onKeyPressNumbersNoZero(event,this.value);"/>
                                 </h:panelGroup>
                                 <h:outputText value="Teléfono" style="width: 50px;"/>
-                                <h:inputText value="#{terceroPage.objActual.telefono}" maxlength="7"/>
+                                <p:inputText value="#{terceroPage.objActual.telefono}" maxlength="7"/>
                                 <h:outputText value="Extensión" style="width: 50px;"/>
-                                <h:inputText value="#{terceroPage.objActual.extension}" maxlength="3"
+                                <p:inputText value="#{terceroPage.objActual.extension}" maxlength="3"
                                              converter="javax.faces.Integer" style="width: 50px;"/>
 
                                 <h:outputText value="Tipo de Teléfono 2" style="width: 50px;"/>
@@ -125,20 +125,20 @@
                                                      rendered="#{terceroPage.mostrarListaIndicativos2}">
                                         <f:selectItems value="#{terceroPage.indicativos}"/>
                                     </h:selectOneMenu>
-                                    <h:inputText value="#{terceroPage.objActual.indicativo2}" maxlength="3"
+                                    <p:inputText value="#{terceroPage.objActual.indicativo2}" maxlength="3"
                                                  rendered="#{!terceroPage.mostrarListaIndicativos2}"
                                                  onkeypress="return onKeyPressNumbersNoZero(event,this.value);"/>
                                 </h:panelGroup>
                                 <h:outputText value="Teléfono 2" style="width: 50px;"/>
-                                <h:inputText value="#{terceroPage.objActual.telefono2}" maxlength="7"/>
+                                <p:inputText value="#{terceroPage.objActual.telefono2}" maxlength="7"/>
                                 <h:outputText value="Extensión 2" style="width: 50px;"/>
-                                <h:inputText value="#{terceroPage.objActual.extension2}" maxlength="3"
+                                <p:inputText value="#{terceroPage.objActual.extension2}" maxlength="3"
                                              converter="javax.faces.Integer" style="width: 50px;"/>
                             </h:panelGrid>
                             <h:panelGrid columns="2" width="100%">
                                 <h:outputText value="Actividad Económica"/>
                                 <h:panelGrid columns="2" id="tipoActividad">
-                                    <h:inputText value="#{terceroPage.actividad}" size="70"/>
+                                    <p:inputText value="#{terceroPage.actividad}" size="70"/>
                                     <p:commandButton action="#{terceroPage.buscarActividades}"
                                                      value="Buscar Actividad" update="tipoActividad"/>
                                     <h:selectOneMenu value="#{terceroPage.objActual.actividadEconomica}"
@@ -196,7 +196,7 @@
 
 
             <!-- Panel de opciones -->
-            <p:panel header="Opciones" style="width: 600px;">
+            <p:panel header="Opciones" style="width: 100%;">
                 <h:panelGrid columns="2" id="filtro">
                     <h:panelGrid columns="1" width="380">
                         <!-- Funcionalidad para abrir el editor y crear un nuevo registro-->
@@ -207,8 +207,8 @@
                     </h:panelGrid>
 
                     <h:panelGrid columns="2">
-                        <h:inputText id="param" value="#{terceroPage.param}"/>
-                        <h:commandButton action="#{terceroPage.buscarPorFiltro}" value="Filtrar"
+                        <p:inputText id="param" value="#{terceroPage.param}"/>
+                        <p:commandButton action="#{terceroPage.buscarPorFiltro}" value="Filtrar"
                                          onclick="PF('statusPanel').show();"/>
                     </h:panelGrid>
 

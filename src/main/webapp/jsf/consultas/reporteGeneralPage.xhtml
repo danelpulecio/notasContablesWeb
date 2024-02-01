@@ -71,10 +71,10 @@
 							</h:selectOneMenu>
 	
 							<h:outputText value="Cuenta Contable" />
-							<h:inputText value="partida"/>
+							<p:inputText value="partida"/>
 	
 							<h:outputText value="Número Identificación" />
-							<h:inputText value="numIdentificacion"/>
+							<p:inputText value="numIdentificacion"/>
 	
 							<h:outputText value="Desde" />
 							<p:calendar value="desde"/>
@@ -102,12 +102,12 @@
 							</h:selectOneMenu>
 							
 							<h:outputText value="Descripción"/>
-							<h:inputText value="descripcion"/>
+							<p:inputText value="descripcion"/>
 	
 						</h:panelGrid>
 	
 						<h:panelGrid columns="1" styleClass="center">
-							<h:commandButton reRender="informacion,lista" value="Buscar" />
+							<p:commandButton reRender="informacion,lista" value="Buscar" />
 						</h:panelGrid>
 					</h:panelGrid>
 				</p:accordionPanel>
@@ -118,7 +118,7 @@
 			<!-- Tabla de registros --> 
 			
 			<!--<h:panelGrid columns="1" width="100%" style="align:center;" id="lista">-->
-				<h:commandButton value="Generar Archivo Excel" reRender="lista"/>
+				<p:commandButton value="Generar Archivo Excel" reRender="lista"/>
 				<p:commandLink styleClass="bold" value="excelFileName" target="_blank" >
 					<f:param name="type1" value="REPORTE_EXCEL" />
 					<f:param name="file1" value="excelFileName" />
@@ -208,20 +208,20 @@
 					</p:column>
 	
 					<p:column headerText="Ver Nota Contable" style="text-align: center;">
-						<h:commandButton value="Ver"  reRender="popupFlujoNotaContableVer" >
+						<p:commandButton value="Ver"  reRender="popupFlujoNotaContableVer" >
 							<f:param name="codNotaVer" converter="javax.faces.Integer" />
-						</h:commandButton>
-						<h:commandButton value="Ver" reRender="notaContableLibreVer" >
+						</p:commandButton>
+						<p:commandButton value="Ver" reRender="notaContableLibreVer" >
 							<f:param name="codNotaLibreVer"  converter="javax.faces.Integer" />
-						</h:commandButton>
-						<h:commandButton value="Ver" reRender="popupFlujoNotaContableRefCruceVer" >
+						</p:commandButton>
+						<p:commandButton value="Ver" reRender="popupFlujoNotaContableRefCruceVer" >
 							<f:param name="codNotaRefCruceVer"  converter="javax.faces.Integer" />
-						</h:commandButton>
+						</p:commandButton>
 					</p:column>
 					<p:column headerText="Flujo Nota Contable" style="text-align: center;">
-						<h:commandButton value="Consultar" reRender="popupFlujo" >
+						<p:commandButton value="Consultar" reRender="popupFlujo" >
 							<f:param name="codConsultar"  converter="javax.faces.Integer" />
-						</h:commandButton>
+						</p:commandButton>
 					</p:column>
 	
 

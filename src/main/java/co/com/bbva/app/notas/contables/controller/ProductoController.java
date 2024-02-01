@@ -4,6 +4,7 @@ package co.com.bbva.app.notas.contables.controller;
 //import co.com.bbva.app.notas.contables.entities.Producto;
 
 import javax.annotation.ManagedBean;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Model;
@@ -23,8 +24,20 @@ import java.util.List;
 //@Model esterotipo que junta rquestscoped y name, lo unico es q el nombre del bean queda por defecto el nombre de la clase
 public class ProductoController extends CategoriaController implements Serializable {
 
+    private Producto selectedDato;
 
+    public Producto getSelectedDato() {
+        return selectedDato;
+    }
 
+    public void setSelectedDato(Producto selectedDato) {
+        this.selectedDato = selectedDato;
+    }
+
+//    @PostConstruct
+//    public void init() {
+//        listar();
+//    }
 
     private int count = 0;
 
@@ -49,10 +62,6 @@ public class ProductoController extends CategoriaController implements Serializa
     public void setCount(int count) {
         this.count = count;
     }
-
-
-
-
 
 
     @Produces

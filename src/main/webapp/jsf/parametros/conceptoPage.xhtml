@@ -54,7 +54,7 @@
             <h:panelGrid columns="1" width="850" id="informacion">
                 <h:panelGrid columns="2" width="850" columnClasses="name,value">
                     <h:outputText value="Nombre"/>
-                    <h:inputText value="#{conceptoPage.objActual.nombre}" size="70"/>
+                    <p:inputText value="#{conceptoPage.objActual.nombre}" size="70"/>
                 </h:panelGrid>
                 <h:panelGrid columns="3" id="uniAnalisis">
                     <h:outputText value="Visto bueno de Unidad de Análisis" styleClass="name"/>
@@ -138,7 +138,7 @@
                             <f:selectItem itemValue="I" itemLabel="Inactivos"/>
                             <f:selectItem itemValue="A" itemLabel="Activos"/>
                         </p:selectOneMenu>
-                        <h:inputText value="#{conceptoPage.param}"/>
+                        <p:inputText value="#{conceptoPage.param}"/>
                         <p:commandButton action="#{conceptoPage.buscarPorFiltro}" value="Filtrar"
                                          onclick="Richfaces.showModalPanel('statusPanel')"/>
                     </h:panelGrid>
@@ -193,8 +193,8 @@
                         <p:commandButton value=""
                                          alt="Editar"
                                          style="width: 24px; height: 24px; padding: 0; background-image: url('#{request.contextPath}/common/images/edit.png'); background-size: cover; border-radius: 50%;"
-                                         onclick="PF('editor').show()"
-                                         reRender="editor">
+                                         oncomplete="PF('editor').show()"
+                                         update="globalForm:editor">
                             <f:setPropertyActionListener value="#{dato.codigo}"
                                                          target="#{conceptoPage.objActual.codigo}"/>
                             <f:setPropertyActionListener value="#{dato.nombre}"

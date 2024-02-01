@@ -13,8 +13,8 @@
             <h:panelGrid columns="1" width="100%"><h1 align="center">Errores de Validación</h1></h:panelGrid>
 
             <h:panelGrid columns="2" id="filtro">
-                <h:inputText id="param" value="#{errorValidacionPage.param}"/>
-                <h:commandButton action="#{errorValidacionPage.buscarPorFiltro}" value="Filtrar" />
+                <p:inputText id="param" value="#{errorValidacionPage.param}"/>
+                <p:commandButton action="#{errorValidacionPage.buscarPorFiltro}" value="Filtrar" />
             </h:panelGrid>
 
             <ui:include src="../../common/mensajes.xhtml"/>

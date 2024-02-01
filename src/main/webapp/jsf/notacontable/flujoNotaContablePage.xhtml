@@ -527,16 +527,16 @@
                     <h:panelGrid columns="1" width="100%" id="otraCausalVer">
                         <h:outputText value="Descripción de la causal"
                                       rendered="#{flujoNotaContablePage.causalDevolucion eq 18}"/>
-                        <h:inputText value="#{flujoNotaContablePage.otraCausalDev}"
+                        <p:inputText value="#{flujoNotaContablePage.otraCausalDev}"
                                      rendered="#{flujoNotaContablePage.causalDevolucion eq 18}" size="80"/>
                     </h:panelGrid>
                     <!-- Seccion de mensajes y botones de envio y cancelacion-->
                     <ui:include src="../../common/mensajes.xhtml"/>
                     <h:panelGrid columns="2" styleClass="center" width="100%">
-                    <h:commandButton action="#{flujoNotaContablePage.rechazar}" value="Confirmar rechazo"
+                    <p:commandButton action="#{flujoNotaContablePage.rechazar}" value="Confirmar rechazo"
 							oncomplete="if (#{flujoNotaContablePage.ocultarPopupAnular}) {PF('popupRechazoVer').hide();PF('popupFlujoNotaContableVer').hide();}"
 							update="lista,opcionesVer"/>
-                    <h:commandButton onclick="PF('popupRechazoVer').hide()" value="Cancelar" />
+                    <p:commandButton onclick="PF('popupRechazoVer').hide()" value="Cancelar" />
                     </h:panelGrid>
                 </h:panelGrid>
             </p:dialog>
@@ -544,11 +544,11 @@
             <ui:include src="../../common/mensajes.xhtml"/>
             
             <h:panelGrid id="opcionesVer" columns="2" styleClass="center" width="100%">
-            	<h:commandButton  action="#{flujoNotaContablePage.aprobar}"
+            	<p:commandButton  action="#{flujoNotaContablePage.aprobar}"
 					oncomplete="if (#{flujoNotaContablePage.ocultarPopupAprobar}) PF('popupFlujoNotaContableVer').hide()" 
 					update="lista,opcionesVer" value="Aprobar"
 					rendered="#{flujoNotaContablePage.nota.puedeAprobar}" />
-            	<h:commandButton value="Rechazar" rendered="#{flujoNotaContablePage.nota.puedeRechazar}" 
+            	<p:commandButton value="Rechazar" rendered="#{flujoNotaContablePage.nota.puedeRechazar}"
             		oncomplete="PF('popupRechazoVer').show()"/>
             </h:panelGrid>
         </h:panelGrid>

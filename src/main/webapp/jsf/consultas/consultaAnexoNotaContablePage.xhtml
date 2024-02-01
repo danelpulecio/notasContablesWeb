@@ -37,15 +37,15 @@
 					</h:panelGrid>
 					<h:panelGrid columns="2" id="filtro">
 						<h:outputText value="Número de radicación" rendered="#{consultaNotaContablePage.criterio eq '1'}" />
-						<h:inputText value="#{consultaNotaContablePage.numRadicacion}" rendered="#{consultaNotaContablePage.criterio eq '1'}" />
+						<p:inputText value="#{consultaNotaContablePage.numRadicacion}" rendered="#{consultaNotaContablePage.criterio eq '1'}" />
 						<h:outputText value="Asiento contable Altamira" rendered="#{consultaNotaContablePage.criterio eq '2'}" />
-						<h:inputText value="#{consultaNotaContablePage.asientoContable}" rendered="#{consultaNotaContablePage.criterio eq '2'}" />
+						<p:inputText value="#{consultaNotaContablePage.asientoContable}" rendered="#{consultaNotaContablePage.criterio eq '2'}" />
 						<h:outputText value="Fecha Radicación Módulo" rendered="#{!(consultaNotaContablePage.criterio eq '1')}" />
 						<p:calendar value="#{consultaNotaContablePage.fecha}" rendered="#{!(consultaNotaContablePage.criterio eq '1')}" />
 					</h:panelGrid>
 
 					<h:panelGrid columns="1" styleClass="center">
-						<h:commandButton value="Buscar" />
+						<p:commandButton value="Buscar" />
 					</h:panelGrid>
 				</h:panelGrid>
 			</p:accordionPanel>
@@ -99,9 +99,9 @@
 				</p:column>
 
 				<p:column headerText="Recuperar Anexos" style="text-align: center;" sortable="true" sortBy="#{dato.nombreEstado}" >
-					<h:commandButton value="Ver" >
+					<p:commandButton value="Ver" >
 						<f:param name="numRadicadoNotaVer" />
-					</h:commandButton>
+					</p:commandButton>
 				</p:column>
 
 

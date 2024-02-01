@@ -154,7 +154,7 @@
 										</h:selectOneMenu>
 
 										<h:outputText styleClass="bold" value="Referencia" rendered="#{notaContablePage.temaActual.tema.referencia1 eq 'S'}" />
-										<h:inputText value="#{notaContablePage.temaActual.referencia1}" rendered="#{notaContablePage.temaActual.tema.referencia1 eq 'S'}" maxlength="12" size="12"
+										<p:inputText value="#{notaContablePage.temaActual.referencia1}" rendered="#{notaContablePage.temaActual.tema.referencia1 eq 'S'}" maxlength="12" size="12"
 											onkeypress="return onKeyPressNumbersNoZero(event, this.value)" />
 									</h:panelGrid>
 									<p:panel header="Tercero" rendered="#{notaContablePage.temaActual.tema.tercero1 eq 'S'}" style="width:100%; ">
@@ -172,13 +172,13 @@
 
 											<h:outputText styleClass="bold" value="Número Documento" />
 											<h:panelGrid columns="2" border="0" cellspacing="0" >
-												<h:inputText value="#{notaContablePage.temaActual.numeroIdentificacion1}" size="15" immediate="true">
+												<p:inputText value="#{notaContablePage.temaActual.numeroIdentificacion1}" size="15" immediate="true">
 												<p:ajax event="keyup" update="globalForm:filtroTercero1,globalForm:tercero1">
 													<f:setPropertyActionListener for="numDocRenN1" value=""
 	                                                         target="#{notaContablePage.temaActual.nombreCompleto1}"/>
 												</p:ajax>
 												
-												</h:inputText>
+												</p:inputText>
 												<h:panelGrid columns="1" id="filtroTercero1" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
 													<p:commandButton action="#{notaContablePage.buscarTercero1}" 
 														update="globalForm:documentoTercero1,globalForm:tercero1,globalForm:documentoTercero2,globalForm:tercero2" 
@@ -233,7 +233,7 @@
 										</h:selectOneMenu>
 
 										<h:outputText styleClass="bold" value="Referencia" rendered="#{notaContablePage.temaActual.tema.referencia2 eq 'S'}" />
-										<h:inputText value="#{notaContablePage.temaActual.referencia2}" rendered="#{notaContablePage.temaActual.tema.referencia2 eq 'S'}" maxlength="12" size="12"
+										<p:inputText value="#{notaContablePage.temaActual.referencia2}" rendered="#{notaContablePage.temaActual.tema.referencia2 eq 'S'}" maxlength="12" size="12"
 											onkeypress="return onKeyPressNumbersNoZero(event, this.value)" />
 									</h:panelGrid>
 									<p:panel header="Tercero" rendered="#{notaContablePage.temaActual.tema.tercero2 eq 'S'}" style="width:100%; ">
@@ -252,14 +252,14 @@
 
 											<h:outputText styleClass="bold" value="Número Documento" />
 											<h:panelGrid columns="2" border="0" cellspacing="0" >
-												<h:inputText value="#{notaContablePage.temaActual.numeroIdentificacion2}" size="15" immediate="true">
+												<p:inputText value="#{notaContablePage.temaActual.numeroIdentificacion2}" size="15" immediate="true">
 												
 												<p:ajax event="keyup" update="globalForm:filtroTercero2,globalForm:tercero2">
 													<f:setPropertyActionListener for="numDocRenN2" value=""
 	                                                         target="#{notaContablePage.temaActual.nombreCompleto2}"/>
 												</p:ajax>
 												
-												</h:inputText>
+												</p:inputText>
 												<h:panelGrid columns="1" id="filtroTercero2" cellspacing="0" cellpadding="0" style="border-collapse: collapse;" >
 													<p:commandButton action="#{notaContablePage.buscarTercero2}" 
 														update="globalForm:documentoTercero2,globalForm:tercero2" style="margin: 0; margin-left: 8px;"
@@ -298,7 +298,7 @@
 
 
 							<h:outputText styleClass="bold" value="Descripción" />
-							<h:inputTextarea value="#{notaContablePage.temaActual.descripcion}"  onkeyup="this.value=removeAccents(this.value)" onkeypress="return characterRestriction(event)" maxlength="500" cols="139" rows="2" />
+							<p:inputTextarea value="#{notaContablePage.temaActual.descripcion}"  onkeyup="this.value=removeAccents(this.value)" onkeypress="return characterRestriction(event)" maxlength="500" cols="139" rows="2" />
 
 							<h:outputText styleClass="bold" value="Divisa" />
 							<h:panelGrid columns="4" width="100%" cellpadding="0" cellspacing="0">
@@ -307,13 +307,13 @@
 								</h:selectOneMenu>
 
 								<h:outputText styleClass="bold" value="Importe" style="width:150px;" />
-								<h:inputText value="#{notaContablePage.temaActual.monto}" size="20" maxlength="20" onkeypress="return onKeyPressNumbers(event,this.value);" converter="javax.faces.Double"
+								<p:inputText value="#{notaContablePage.temaActual.monto}" size="20" maxlength="20" onkeypress="return onKeyPressNumbers(event,this.value);" converter="javax.faces.Double"
 									immediate="true" converterMessage="Valor invalido para el Importe" onblur="validarMontoAlert(this.value)">
 									<f:convertNumber maxFractionDigits="2" />
 									
 									<p:ajax event="keyup" listener="#{notaContablePage.ajustarCargaImpositiva}" 
 														update="globalForm:importe,globalForm:impuestos" />
-								</h:inputText>
+								</p:inputText>
 								<h:panelGrid columns="1" id="importe" width="250" cellpadding="0" cellspacing="0">
 									<h:outputText styleClass="bold" value="#{notaContablePage.temaActual.monto}">
 										<f:convertNumber type="currency" />
@@ -543,13 +543,13 @@
 					<h:panelGrid width="550">
 						<h:panelGrid columns="3" width="100%">
 							<h:outputText styleClass="bold" value="Importe Total" style="width:150px;" />
-							<h:inputText value="#{notaContablePage.temaActual.riesgoOperacional.importeTotal}" size="16" maxlength="16" onkeypress="return onKeyPressNumbers(event,this.value);"
+							<p:inputText value="#{notaContablePage.temaActual.riesgoOperacional.importeTotal}" size="16" maxlength="16" onkeypress="return onKeyPressNumbers(event,this.value);"
 								converter="javax.faces.Double" immediate="true" converterMessage="Valor no válido para el Importe Total">
 								<f:convertNumber maxFractionDigits="2" />
 								
 								<p:ajax event="keyup" update="globalForm:importeTotal"/>
 								
-							</h:inputText>
+							</p:inputText>
 							<h:panelGrid columns="1" id="importeTotal" width="250" cellpadding="0" cellspacing="0">
 								<h:outputText styleClass="bold" value="#{notaContablePage.temaActual.riesgoOperacional.importeTotal}">
 									<f:convertNumber type="currency" />
@@ -557,14 +557,14 @@
 							</h:panelGrid>
 
 							<h:outputText styleClass="bold" value="Importe Parcial" style="width:150px;" />
-							<h:inputText value="#{notaContablePage.temaActual.riesgoOperacional.importeParcial}" size="16" maxlength="16" onkeypress="return onKeyPressNumbers(event,this.value);"
+							<p:inputText value="#{notaContablePage.temaActual.riesgoOperacional.importeParcial}" size="16" maxlength="16" onkeypress="return onKeyPressNumbers(event,this.value);"
 								converter="javax.faces.Double" immediate="true" converterMessage="Valor no válido para el Importe Parcial">
 								<f:convertNumber maxFractionDigits="2" />
 								
 								<p:ajax event="keyup" update="globalForm:importeParcial"/>
 						
 								
-							</h:inputText>
+							</p:inputText>
 							<h:panelGrid columns="1" id="importeParcial" width="250" cellpadding="0" cellspacing="0">
 								<h:outputText styleClass="bold" value="#{notaContablePage.temaActual.riesgoOperacional.importeParcial}">
 									<f:convertNumber type="currency" />
@@ -737,7 +737,7 @@
 							</p:outputPanel>
 
 							<h:outputText styleClass="bold" value="Nombre Outsourcing" />
-							<h:inputTextarea value="#{notaContablePage.temaActual.riesgoOperacional.nombreOutSource}" cols="50" rows="2" />
+							<p:inputTextarea value="#{notaContablePage.temaActual.riesgoOperacional.nombreOutSource}" cols="50" rows="2" />
 
 							<h:outputText styleClass="bold" value="Aplica Recuperación" rendered="#{notaContablePage.aplicaRecuperacion}"/>
 							<h:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.appRecuperacion}" rendered="#{notaContablePage.aplicaRecuperacion}" immediate="true">
@@ -839,7 +839,7 @@
 				<h:outputText styleClass="bold" value="#{notaContablePage.usuarioLogueado.usuario.codigoAreaModificado} - #{notaContablePage.usuarioLogueado.usuario.nombreAreaModificado}" />
 				<h:outputText styleClass="bold" value="Concepto" />
 				<h:panelGrid columns="2" id="tipoConcepto">
-					<h:inputText value="#{notaContablePage.concepto}" size="70" />
+					<p:inputText value="#{notaContablePage.concepto}" size="70" />
 					<p:commandButton action="#{notaContablePage.buscarConcepto}" value="Buscar Concepto" update="globalForm:tipoConcepto" />
 
 					<h:selectOneMenu value="#{notaContablePage.nota.codigoConcepto}" immediate="true" converter="javax.faces.Integer" id="nombreCon" disabledClass="disabledItem"

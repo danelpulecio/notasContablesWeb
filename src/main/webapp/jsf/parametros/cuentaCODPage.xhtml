@@ -56,7 +56,7 @@
             <h:panelGrid columns="1" width="500" id="informacion">
                 <h:panelGrid columns="3">
                     <h:outputText value="Cuenta Contable"/>
-                    <h:inputText value="#{cuentaCODPage.filtroCuentas }" immediate="true"/>
+                    <p:inputText value="#{cuentaCODPage.filtroCuentas }" immediate="true"/>
                     <p:commandButton value="Buscar" action="#{cuentaCODPage.buscarCuentas }" update="globalForm:informacion,globalForm:growl"/>
                 </h:panelGrid>
                 <h:panelGrid columns="2" rendered="#{!empty cuentaCODPage.cuentas }">
@@ -97,7 +97,7 @@
                 </h:panelGrid>
 
                 <h:panelGrid columns="2">
-                    <h:inputText value="#{cuentaCODPage.param}"/>
+                    <p:inputText value="#{cuentaCODPage.param}"/>
                     <p:commandButton action="#{cuentaCODPage.buscarPorFiltro}" value="Filtrar"
                                      onclick="Richfaces.showModalPanel('statusPanel')"/>
                 </h:panelGrid>

@@ -9,6 +9,7 @@ import co.com.bbva.app.notas.contables.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
@@ -23,14 +24,6 @@ import java.util.List;
 @Named
 public class CargaUsuarioPage extends GeneralConsultaPage<UsuarioInstancias> {
 
-	@Inject
-	private ContablesSessionBean contablesSessionBean;
-	private String saludo;
-
-	@Produces
-	public String getSaludo() {
-		return "Hola Soy Goku";
-	}
 
 	private static final long serialVersionUID = -6709113217662690209L;
 
@@ -45,15 +38,20 @@ public class CargaUsuarioPage extends GeneralConsultaPage<UsuarioInstancias> {
 
 //	Session session = getContablesSessionBean().getSessionTrace();
 
+	@PostConstruct
+	public void init() throws Exception {
+		super._init();
+		cargarFiltros();
+	}
 	public CargaUsuarioPage() {
 		super();
 	}
 
-	@Override
-	protected void _init() {
-		super._init();
-		cargarFiltros();
-	}
+//	@Override
+//	protected void _init() {
+//		super._init();
+//		cargarFiltros();
+//	}
 
 	public void cargarFiltros() {
 		try {
@@ -80,11 +78,11 @@ public class CargaUsuarioPage extends GeneralConsultaPage<UsuarioInstancias> {
 
 	@Override
 	protected void _validar() throws Exception {
-		// validador.validarSeleccion(sucursal, "Sucursal Origen");
-		// validador.validarSeleccion(estado, "Estado");
-		// if (rol.intValue() < 0) {
-		// nuevoMensaje(FacesMessage.SEVERITY_WARN, "Seleccione una opcin para el campo 'Rol'");
-		// }
+//		 validador.validarSeleccion(sucursal, "Sucursal Origen");
+//		 validador.validarSeleccion(estado, "Estado");
+//		 if (rol.intValue() < 0) {
+//		 nuevoMensaje(FacesMessage.SEVERITY_WARN, "Seleccione una opcin para el campo 'Rol'");
+//		 }
 	}
 
 	@Override

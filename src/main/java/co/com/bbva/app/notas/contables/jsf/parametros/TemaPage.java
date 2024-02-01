@@ -4,6 +4,7 @@ import co.com.bbva.app.notas.contables.carga.dto.PUC;
 import co.com.bbva.app.notas.contables.carga.dto.Producto;
 import co.com.bbva.app.notas.contables.dto.*;
 import co.com.bbva.app.notas.contables.session.Session;
+import org.primefaces.model.DualListModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,12 +44,10 @@ public class TemaPage extends GeneralParametrosPage<Concepto, Tema> {
     private List<String> impuestosSel = new ArrayList<String>();
     private List<String> productosSel = new ArrayList<String>();
 
+    DualListModel<String> dualListModel = new DualListModel<>(productosSel,productosSel);
+
     //	Session session = getContablesSessionBean().getSessionTrace();
-//    @PostConstruct
-//    public void init() throws Exception {
-//        super._init();
-//        setDatos(new ArrayList<>(_buscarTodos()));
-//    }
+
 
     public TemaPage() {
         super(true);
@@ -460,5 +459,14 @@ public class TemaPage extends GeneralParametrosPage<Concepto, Tema> {
 
     public void setConcepto(String concepto) {
         this.concepto = concepto;
+    }
+
+    public DualListModel<String> getDualListModel() {
+        LOGGER.info("get dual list ");
+        return dualListModel;
+    }
+
+    public void setDualListModel(DualListModel<String> dualListModel) {
+        this.dualListModel = dualListModel;
     }
 }

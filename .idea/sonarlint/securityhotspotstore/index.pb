@@ -442,3 +442,11 @@ p
 @src/main/java/co/com/bbva/app/notas/contables/jsf/Validador.java,8/e/8e6f76c29515a443779a93eb5ebddf1c179915de
 \
 ,src/main/webapp/jsf/parametros/rolPage.xhtml,6/d/6d7521fed21c454264eaf7164311b063f0b65f0b
+}
+Msrc/main/java/co/com/bbva/app/notas/contables/jsf/parametros/UsuarioPage.java,6/3/63d9a93ff4bcb6eee422cd334c504514b43a7564
+x
+Hsrc/main/java/co/com/bbva/app/notas/contables/dto/UsuarioInstancias.java,9/5/9511f8f33dfd40f77d236d558872219509d23028
+ƒ
+Ssrc/main/java/co/com/bbva/app/notas/contables/jsf/consultas/ReporteTiemposPage.java,2/4/24e5ef2380e83bc975e7a219290367ba27802258
+„
+Tsrc/main/java/co/com/bbva/app/notas/contables/jsf/parametros/CentroEspecialPage.java,9/d/9d06ae559f9002e7b99e79d3dbbf75b365bba25a

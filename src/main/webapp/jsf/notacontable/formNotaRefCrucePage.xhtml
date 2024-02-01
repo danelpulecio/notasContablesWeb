@@ -20,7 +20,7 @@
 					</p:dataGrid>
 				</h:panelGrid>
 				<p:commandButton actionListener="#{notaRefCrucePage.seleccionar}" value="Seleccionar/Deseleccionar" update="cuentas"/>
-				<h:inputText  styleClass="bold" value="#{notaRefCrucePage.param}" immediate="true"/>
+				<p:inputText  styleClass="bold" value="#{notaRefCrucePage.param}" immediate="true"/>
 				<p:commandButton actionListener="#{notaRefCrucePage.buscarFiltro}" value="Buscar" ajax="false" update="partPendientes"/>
 			</p:tab>
 		</p:accordionPanel>
@@ -77,9 +77,9 @@
 					
 					<p:column style="text-align: center;">
 	                    <f:facet name="header"><h:outputText value="Agregar" /></f:facet>
-	                    <h:commandButton action="#{notaRefCrucePage.adicionar}" update="partPendientes,partSeleccionadas,opcionesNotaRefCruce" value="+">
+	                    <p:commandButton action="#{notaRefCrucePage.adicionar}" update="partPendientes,partSeleccionadas,opcionesNotaRefCruce" value="+">
 		                    <f:setPropertyActionListener for="selPart" value="true" target="#{partida.seleccionada}" />
-	                    </h:commandButton>
+	                    </p:commandButton>
 	                </p:column>
 				</p:dataTable>
 			</p:panel>
@@ -136,9 +136,9 @@
 	                
 					<p:column style="text-align: center;">
 	                    <f:facet name="header"><h:outputText value="Quitar" /></f:facet>
-	                    <h:commandButton action="#{notaRefCrucePage.remover}" update="partPendientes,partSeleccionadas,opcionesNotaRefCruce" value="-">
+	                    <p:commandButton action="#{notaRefCrucePage.remover}" update="partPendientes,partSeleccionadas,opcionesNotaRefCruce" value="-">
 	                    	<f:setPropertyActionListener for="selPart1" value="true" target="#{partida.seleccionada}" />
-	                    </h:commandButton>
+	                    </p:commandButton>
 	                </p:column>
 	                <f:facet name="footer" >
 						<p:columnGroup rendered="#{! empty notaRefCrucePage.totalesNota}">

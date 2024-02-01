@@ -11,17 +11,18 @@
             <h:form>
 
                 <h:panelGrid columns="1" width="100%"><h1 align="center">Contratos</h1></h:panelGrid>
-
-                <h:panelGrid columns="2" id="filtro">
-                    <h:inputText id="param" value="#{contratoPage.param}"/>
-                    <h:commandButton action="#{contratoPage.buscarPorFiltro}" value="Filtrar"/>
-                </h:panelGrid>
-                <ui:include src="../../common/mensajes.xhtml"/>
-
-                <!--	Tabla de resultados	-->
                 <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
+                    <h:panelGrid columns="2" id="filtro" style="text-align: center; margin: 0 auto;">
+                        <p:inputText id="param" value="#{contratoPage.param}"/>
+                        <p:commandButton action="#{contratoPage.buscarPorFiltro}" value="Filtrar"/>
+                    </h:panelGrid>
+                    <ui:include src="../../common/mensajes.xhtml"/>
 
-                    <p:dataTable value="#{contratoPage.datos}" var="dato" rowIndexVar="rowIndex" rendered="#{! empty contratoPage.datos}"
+                    <!--	Tabla de resultados	-->
+                    <!--                    <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">-->
+
+                    <p:dataTable value="#{contratoPage.datos}" var="dato" rowIndexVar="rowIndex"
+                                 rendered="#{! empty contratoPage.datos}"
                                  widgetVar="contratoTable" rows="15" paginator="true"
                                  currentPageReportTemplate=" Visualizando del {startRecord} al {endRecord} de un total de {totalRecords} registros"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -39,6 +40,7 @@
                         <!--	Se muestra la información de la cantidad de registros y la pagina actual	-->
                     </p:dataTable>
                 </h:panelGrid>
+                <!--                </h:panelGrid>-->
             </h:form>
         </div>
     </ui:define>

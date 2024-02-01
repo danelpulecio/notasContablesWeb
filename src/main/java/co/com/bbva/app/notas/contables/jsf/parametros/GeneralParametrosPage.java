@@ -101,7 +101,9 @@ public abstract class GeneralParametrosPage<T extends CommonVO<T>, D> extends Ge
 	 * @throws Exception
 	 */
 	protected boolean datosValidos() throws Exception {
+		LOGGER.info("<<<<validar datos>>>>");
 		_validar();
+		LOGGER.info("<<<<validacion realizada>>>>");
 		// valicacion porque getFacesContext().MaxSeverity llena null a pagina
 		if (getFacesContext().getMessageList().size() > 0) {
 			ocultarPopupGuardar = false;
@@ -116,10 +118,10 @@ public abstract class GeneralParametrosPage<T extends CommonVO<T>, D> extends Ge
 	 */
 	public String editar() {
 		try {
-			LOGGER.info("Editar");
+			LOGGER.info("Inicio Editar Editar paso 1");
 			_editar();
 		} catch (Exception e) {
-			LOGGER.error("{} Error al inicializar el editor" );
+			LOGGER.error("Error al inicializar el editor {}", e );
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al inicializar el editor");
 
 		}
@@ -132,16 +134,19 @@ public abstract class GeneralParametrosPage<T extends CommonVO<T>, D> extends Ge
 	 * @return
 	 */
 	public String guardar() {
+		LOGGER.info("<<<<btn guardar centroDestino>>>>");
 		try {
 			if (datosValidos() && _guardar()) {
 				setDatos(new ArrayList<T>(_buscarPorFiltro()));
+				LOGGER.info("<<<<datos x filtro {}>>>>", getDatos().size());
 				nuevoMensaje(FacesMessage.SEVERITY_INFO, "La información ha sido guardada correctamente");
 				ocultarPopupGuardar = true;
+				LOGGER.info("<<<<datos x filtro {}>>>>", getDatos().size());
 				setDatos(new ArrayList<>(_buscarTodos()));
-				LOGGER.info("Guardar datos {}", getDatos().size());
+				LOGGER.info("<<<Guardar datosssssssss {}>>>", getDatos().size());
 			}
 		} catch (Exception e) {
-			LOGGER.error("{} Error guardar la informacin");
+			LOGGER.info("Error guardar la informacion", e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error guardar la información");
 
 		}
