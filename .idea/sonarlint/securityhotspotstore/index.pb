@@ -448,3 +448,5 @@ Hsrc/main/java/co/com/bbva/app/notas/contables/dto/UsuarioInstancias.java,9/5/9
 Ssrc/main/java/co/com/bbva/app/notas/contables/jsf/consultas/ReporteTiemposPage.java,2/4/24e5ef2380e83bc975e7a219290367ba27802258
 „
 Tsrc/main/java/co/com/bbva/app/notas/contables/jsf/parametros/CentroEspecialPage.java,9/d/9d06ae559f9002e7b99e79d3dbbf75b365bba25a
+v
+Fsrc/main/java/co/com/bbva/app/notas/contables/dto/EnteAutorizador.java,d/a/da0b2d87e4af24f3df63573d1715d3f1381626a0

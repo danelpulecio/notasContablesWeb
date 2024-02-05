@@ -111,7 +111,7 @@
                     <!-- seccion de riesgo operacional -->
                     <p:dialog id="modalRiesgoRegLibreVer" widgetVar="modalRiesgoRegLibreVer" 
                     		domElementAttachment="form" autosized="true"
-                        	showEffect="fade" hideEffect="explode" modal="true">
+                        	showEffect="fade" hideEffect="explode" modal="false">
                         <f:facet name="header">
                             <h:panelGroup>
                                 <h:outputText value="Riesgo operacional"/>
@@ -361,7 +361,7 @@
 
                         <p:column headerText="Archivo" style="text-align: right;">
                             <p:commandLink action="#{downloadGeneralPage.download}" styleClass="bold"
-                                           value="#{anexo.nombre}" target="_blank">
+                                           value="#{anexo.nombre}" target="_blank" ajax="false">
                                 <f:setPropertyActionListener for="type1" value="#{downloadGeneralPage.SOPORTE}" target="#{downloadGeneralPage.type}" />
                                 <f:setPropertyActionListener for="file1" value="#{anexo.archivo}" target="#{downloadGeneralPage.file}"/>
                             </p:commandLink>
