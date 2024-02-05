@@ -84,7 +84,7 @@
             <h:panelGrid columns="1" width="650" id="informacion">
                 <h:panelGrid columns="2" width="650" columnClasses="name,value">
                     <h:outputText value="Sucursal"/>
-                    <p:selectOneMenu value="#{enteAutorizadorPage.objActual.codigoSucursal}" immediate="true">
+                    <p:selectOneMenu value="#{enteAutorizadorPage.objActual.codigoSucursal}" immediate="false">
                         <p:ajax event="change" listener="#{enteAutorizadorPage.cambiarSucursal}" status="status"
                                 update="globalForm:informacion,globalForm:growl"/>
                         <f:selectItem itemValue="-" itemLabel="Seleccione una opcion"/>
@@ -92,11 +92,11 @@
                     </p:selectOneMenu>
 
                     <h:outputText value="Usuario" rendered="#{! empty enteAutorizadorPage.usuarios}"/>
-                    <h:selectOneMenu value="#{enteAutorizadorPage.usuarioSel}" immediate="true"
+                    <p:selectOneMenu value="#{enteAutorizadorPage.usuarioSel}" immediate="true"
                                      rendered="#{! empty enteAutorizadorPage.usuarios}">
                         <f:selectItem itemValue="-1" itemLabel="Seleccione una opcion"/>
                         <f:selectItems value="#{enteAutorizadorPage.usuarios}"/>
-                    </h:selectOneMenu>
+                    </p:selectOneMenu>
                 </h:panelGrid>
 
                 <!-- Seccion de mensajes y botones de envio y cancelacion-->
