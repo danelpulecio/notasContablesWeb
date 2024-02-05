@@ -66,7 +66,7 @@ public class CierreMensualPage extends GeneralPage implements IPages, Serializab
 			Collection<CierreMensual> datos = cargaAltamiraManager.getCierresMensuales();
 			LOGGER.info("Mostrar -datos altamira {}", datos);
 			if (datos.isEmpty()) {
-				nuevoMensaje(FacesMessage.SEVERITY_INFO, "No se encontr informacin de cierre mensual ");
+				nuevoMensaje(FacesMessage.SEVERITY_INFO, "No se encontr información de cierre mensual ");
 			} else {
 				for (CierreMensual cm : datos) {
 					SimpleDateFormat sdf = new SimpleDateFormat("MMMM-yyyy", new Locale("es", "CO"));

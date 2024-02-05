@@ -20,7 +20,7 @@ import java.util.TreeSet;
 
 /**
  * <p>
- * Pagina para manejar la administracin de parametros relacionados con la entidad Tema
+ * Pagina para manejar la administración de parametros relacionados con la entidad Tema
  * </p>
  */
 @SessionScoped
@@ -328,7 +328,7 @@ public class TemaPage extends GeneralParametrosPage<Concepto, Tema> {
             try {
                 Collection<PUC> pucList = cargaAltamiraManager.searchPUC(cuenta);
                 if (pucList.isEmpty()) {
-                    nuevoMensaje(FacesMessage.SEVERITY_WARN, "No se encontr informacin para el nmero de cuenta " + cuenta);
+                    nuevoMensaje(FacesMessage.SEVERITY_WARN, "No se encontr información para el nmero de cuenta " + cuenta);
                 }
                 for (PUC puc : pucList) {
                     lista.add(new SelectItem(puc.getNumeroCuenta(), puc.getNumeroCuenta() + " " + puc.getDescripcion()));

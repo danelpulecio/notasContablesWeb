@@ -278,8 +278,8 @@ public class TerceroPage extends GeneralParametrosPage<Tercero, Tercero> {
 		} catch (Exception e) {
 			objActual.setNumeroIdentificacion(docInicial);
 			objActual.setTipoIdentificacion(tipoDocInicial);
-			LOGGER.error("{} Error Guardando tercero , Ya existe un Tercero con la misma identificacin: {}", tipoDocInicial +" "+  docInicial );
-			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Ya existe un Tercero con la misma identificacin");
+			LOGGER.error("{} Error Guardando tercero , Ya existe un Tercero con la misma identificación: {}", tipoDocInicial +" "+  docInicial );
+			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Ya existe un Tercero con la misma identificación");
 			return false;
 		}
 		return true;
@@ -295,7 +295,7 @@ public class TerceroPage extends GeneralParametrosPage<Tercero, Tercero> {
 		objActual.setMoneda("COP");
 		objActual.setIngresoApp(1);
 		validador.validarRequerido(objActual.getTipoIdentificacion(), "Tipo de Documento");
-		validador.validarRequerido(objActual.getNumeroIdentificacion(), "Nmero de Identificacin");
+		validador.validarRequerido(objActual.getNumeroIdentificacion(), "Nmero de identificación");
 		if (objActual.getTipoIdentificacion().equals("3") || objActual.getTipoIdentificacion().equals("9")) {
 			validador.validarRequerido(objActual.getDigitoVerificacion(), "Dgito de Verificacin");
 		} else {

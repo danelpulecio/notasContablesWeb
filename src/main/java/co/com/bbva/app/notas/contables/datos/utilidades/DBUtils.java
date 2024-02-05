@@ -43,7 +43,7 @@ public class DBUtils<T> {
 	}
 
 	/**
-	 * Produce una coleccin de elementos con informacin bsica para ser mostrada y el identificador
+	 * Produce una coleccin de elementos con información bsica para ser mostrada y el identificador
 	 *
 	 * @param collection
 	 * @param returnType

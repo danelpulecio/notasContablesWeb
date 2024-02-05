@@ -20,7 +20,7 @@ import java.util.TreeMap;
 
 /**
  * <p>
- * Pagina para manejar la administracin de parametros relacionados con la entidad EnteAutorizador
+ * Pagina para manejar la administración de parametros relacionados con la entidad EnteAutorizador
  * </p>
  */
 @SessionScoped
@@ -170,8 +170,8 @@ public class EnteAutorizadorPage extends GeneralParametrosPage<EnteAutorizador, 
                 // usuarios = new ArrayList<SelectItem>();
                 // usuarioSel = "";
             } catch (Exception e) {
-                LOGGER.error("{} Error al inicializar el mdulo de administracin de entes autorizados", e);
-                nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al inicializar el mdulo de administracin de entes autorizados");
+                LOGGER.error("{} Error al inicializar el mdulo de administración de entes autorizados", e);
+                nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al inicializar el mdulo de administración de entes autorizados");
 
             }
 //        }
@@ -193,8 +193,8 @@ public class EnteAutorizadorPage extends GeneralParametrosPage<EnteAutorizador, 
                 nuevoMensaje(FacesMessage.SEVERITY_WARN, "No se encontraron usuarios autorizadores activos para la sucursal indicada");
             }
         } catch (Exception e) {
-            LOGGER.error("{} Error al inicializar el mdulo de administracin de entes autorizados", e);
-            nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al inicializar el mdulo de administracin de entes autorizados");
+            LOGGER.error("{} Error al inicializar el mdulo de administración de entes autorizados", e);
+            nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al inicializar el mdulo de administración de entes autorizados");
 
         }
         return null;

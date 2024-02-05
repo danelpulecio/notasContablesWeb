@@ -46,10 +46,10 @@ public class ParametroSchedulePage extends GeneralPage implements IPages {
 		try {
 			notasContablesManager.updateParametros(parametros, getUsuarioLogueado().getUsuario().getCodigo().intValue());
 //			LOGGER.info("{} Actualizar parametros SchedulePage ", session.getTraceLog() );
-			nuevoMensaje(FacesMessage.SEVERITY_INFO, "La informacin ha sido actualizada");
+			nuevoMensaje(FacesMessage.SEVERITY_INFO, "La información ha sido actualizada");
 		} catch (Exception e) {
-//			LOGGER.error("{} Error guardando los parmetros ", session.getTraceLog(), e);
-			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error guardando los parmetros");
+//			LOGGER.error("{} Error guardando los parámetros ", session.getTraceLog(), e);
+			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error guardando los parámetros");
 
 		}
 		return null;

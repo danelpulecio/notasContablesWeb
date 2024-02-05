@@ -14,7 +14,7 @@ import java.util.Collection;
 
 /**
  * <p>
- * Pagina para manejar la administracin de parametros relacionados con la entidad FechaHabilitada
+ * Pagina para manejar la administración de parametros relacionados con la entidad FechaHabilitada
  * </p>
  */
 @SessionScoped
@@ -137,7 +137,7 @@ public class FechaHabilitadaPage extends GeneralParametrosPage<FechaHabilitada, 
 
     private void validarDias(Number dias) throws Exception {
         if (dias == null) {
-            nuevoMensaje(FacesMessage.SEVERITY_WARN, "Ingrese un valor vlido para realizar la operacin");
+            nuevoMensaje(FacesMessage.SEVERITY_WARN, "Ingrese un valor válido para realizar la operacin");
         } else {
             if (dias.intValue() <= 0) {
                 nuevoMensaje(FacesMessage.SEVERITY_WARN, "El valor debe ser mayor a cero");

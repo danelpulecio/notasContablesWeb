@@ -19,7 +19,7 @@ import java.util.TreeMap;
 
 /**
  * <p>
- * Pagina para manejar la administracin de parametros relacionados con la entidad CentroEspecial
+ * Pagina para manejar la administración de parametros relacionados con la entidad CentroEspecial
  * </p>
  *
  */
@@ -154,8 +154,8 @@ public class CentroEspecialPage extends GeneralParametrosPage<CentroEspecial, Ce
 			try {
 				sucursales = getSelectItemList(new TreeMap<String, String>(notasContablesManager.getCV(Sucursal.class)), true);
 			} catch (Exception e) {
-				LOGGER.error("{} Error al inicializar el mdulo de administracin de montos autorizados ", e );
-				nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al inicializar el mdulo de administracin de montos autorizados" );
+				LOGGER.error("{} Error al inicializar el mdulo de administración de montos autorizados ", e );
+				nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al inicializar el mdulo de administración de montos autorizados" );
 
 			}
 //		}

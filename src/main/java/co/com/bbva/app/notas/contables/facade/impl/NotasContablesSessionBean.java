@@ -1372,13 +1372,13 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 
 				if (indEstadoPrecierre || instancia.getEstado().equals("3")) {
 					if (getUsuariosModuloPorRolYEstado(cs_CODIGO_ADMINISTRADOR_CONSOLIDACION, "A").isEmpty()) {
-						mensaje = "No existe ningn usuario con rol 'Administrador de Consolidacin' para autorizar la Nota Contable. Por favor consulte al Administrador del sistema.";
+						mensaje = "No existe ningn usuario con rol 'Administrador de Consolidación' para autorizar la Nota Contable. Por favor consulte al Administrador del sistema.";
 					}
 				}
 
 				if (instancia.getEstado().equals("4")) {
 					if (getUsuariosModuloPorRolYEstado(cs_CODIGO_ADMINISTRADOR_CONSOLIDACION, "A").isEmpty()) {
-						mensaje = "No existe ningn usuario con rol 'Administrador de Consolidacin' para autorizar la Nota Contable. Por favor consulte al Administrador del sistema.";
+						mensaje = "No existe ningn usuario con rol 'Administrador de Consolidación' para autorizar la Nota Contable. Por favor consulte al Administrador del sistema.";
 					}
 				}
 			}

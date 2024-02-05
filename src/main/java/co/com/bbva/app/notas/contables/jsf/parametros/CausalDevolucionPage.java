@@ -14,7 +14,7 @@ import java.util.Collection;
 
 /**
  * <p>
- * Pagina para manejar la administracin de parametros relacionados con la entidad CausalDevolucion
+ * Pagina para manejar la administración de parametros relacionados con la entidad CausalDevolucion
  * </p>
  * 
  */
@@ -102,8 +102,8 @@ public class CausalDevolucionPage extends GeneralParametrosPage<CausalDevolucion
 			return true;
 		} catch (Exception e) {
 			objActual.setCodigo(codInicial);
-//			LOGGER.error("{} Ya existe otra causal de devolucin con la misma informacin {}", session.getTraceLog() , e );
-			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Ya existe otra causal de devolucin con la misma informacin");
+//			LOGGER.error("{} Ya existe otra causal de devolucin con la misma información {}", session.getTraceLog() , e );
+			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Ya existe otra causal de devolución con la misma información");
 			return false;
 		}
 	}

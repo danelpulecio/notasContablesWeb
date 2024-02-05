@@ -232,7 +232,7 @@ public class UsuarioPage extends GeneralParametrosPage<UsuarioModulo, UsuarioMod
 	}
 
 	private boolean canUpdate() throws Exception {
-		// se consulta la informacin anterior del usuario para verificar si se cambi de rol
+		// se consulta la información anterior del usuario para verificar si se cambi de rol
 		UsuarioModulo usuarioModuloOriginal = notasContablesManager.getUsuarioModulo(objActual);
 		// se verifica el cambio de rol solo para padrinos y autorizadores
 		if (usuarioModuloOriginal.getCodigoRol().intValue() == IRol.PADRINOS || usuarioModuloOriginal.getCodigoRol().intValue() == IRol.AUTORIZADOR) {
@@ -290,8 +290,8 @@ public class UsuarioPage extends GeneralParametrosPage<UsuarioModulo, UsuarioMod
 				perfiles = getSelectItemList(notasContablesManager.getCV(Perfil.class));
 			} catch (Exception e) {
 				//e.printStackTrace();
-				LOGGER.error("{} Error al inicializar el mdulo de administracin de usuarios ",  e);
-				nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al inicializar el mdulo de administracin de usuarios");
+				LOGGER.error("{} Error al inicializar el mdulo de administración de usuarios ",  e);
+				nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al inicializar el mdulo de administración de usuarios");
 			}
 //		}
 	}

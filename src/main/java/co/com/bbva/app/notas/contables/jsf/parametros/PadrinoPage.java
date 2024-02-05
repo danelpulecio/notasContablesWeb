@@ -17,7 +17,7 @@ import java.util.TreeMap;
 
 /**
  * <p>
- * Pagina para manejar la administracin de parametros relacionados con la entidad Padrino
+ * Pagina para manejar la administración de parametros relacionados con la entidad Padrino
  * </p>
  * 
  */
@@ -153,8 +153,8 @@ public class PadrinoPage extends GeneralParametrosPage<Padrino, Padrino> {
 			try {
 				sucursales = getSelectItemList(cargaAltamiraManager.getCVSucursal(), false);
 			} catch (Exception e) {
-				LOGGER.error("{} Error al inicializar el mdulo de administracin de padrinos ",  e);
-				nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al inicializar el mdulo de administracin de padrinos");
+				LOGGER.error("{} Error al inicializar el mdulo de administración de padrinos ",  e);
+				nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al inicializar el mdulo de administración de padrinos");
 
 			}
 //		}

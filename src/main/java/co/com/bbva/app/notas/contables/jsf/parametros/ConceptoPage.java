@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * <p>
- * Pagina para manejar la administracin de parametros relacionados con la entidad Concepto
+ * Pagina para manejar la administración de parametros relacionados con la entidad Concepto
  * </p>
  * 
  */
@@ -171,8 +171,8 @@ public class ConceptoPage extends GeneralParametrosPage<Concepto, Concepto> {
 				unidadesAnalisis = getSelectItemList(cargaAltamiraManager.getCVSucursal(), false);
 				temasAut = getSelectItemList(notasContablesManager.getCV(TemaAutorizacion.class), false);
 			} catch (Exception e) {
-				LOGGER.error("{} Error al inicializar el mdulo de administracin de conceptos",  e );
-				nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al inicializar el mdulo de administracin de conceptos");
+				LOGGER.error("{} Error al inicializar el mdulo de administración de conceptos",  e );
+				nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al inicializar el mdulo de administración de conceptos");
 
 			}
 //		}

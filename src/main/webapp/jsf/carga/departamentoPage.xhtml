@@ -24,7 +24,7 @@
                     <p:dataTable id="table" value="#{departamentoPage.datos}" var="dato"  rowIndexVar="rowIndex"
                                  widgetVar="economicActivityTable" rows="15" paginator="true"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
                                  paginatorPosition="top">
                         <p:column headerText="Fila">
                             <h:outputText value="#{rowIndex+1}"/>

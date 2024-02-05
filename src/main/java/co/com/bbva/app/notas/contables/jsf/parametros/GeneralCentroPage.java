@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * <p>
- * Pagina para manejar la administracin de parametros relacionados con la entidad PUC
+ * Pagina para manejar la administración de parametros relacionados con la entidad PUC
  * </p>
  */
 public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> {
@@ -44,6 +44,7 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
     protected String indicadorSel = "I";
 
     private final Boolean origen;
+    protected Boolean isSelectedValid = true;
 
 //	Session session = getContablesSessionBean().getSessionTrace();
 
@@ -436,7 +437,7 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
             }
             if (!omitidos.isEmpty()) {
                 centrosAutSel = nuevosCentros;
-                nuevoMensaje(FacesMessage.SEVERITY_WARN, "Al cambiar la informacin del indicador o de los tipos de centros autorizados, los siguientes centros se han omitido ya que no cumplen con el nuevo criterio:");
+                nuevoMensaje(FacesMessage.SEVERITY_WARN, "Al cambiar la información del indicador o de los tipos de centros autorizados, los siguientes centros se han omitido ya que no cumplen con el nuevo criterio:");
                 nuevoMensaje(FacesMessage.SEVERITY_WARN, omitidos.toString());
             }
         }
@@ -454,7 +455,7 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
         String centrosAutorizados = "";
         int count = 0;
         boolean indValido = true;
-
+        isSelectedValid = true;
         for (PUC row : getDatos()) {
             // se evaluan las cuentas seleccionadas
             if (row.getSelected()) {
@@ -481,7 +482,9 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
                     objActual = row;
                 }
                 if (!indValido) {
-                    nuevoMensaje(FacesMessage.SEVERITY_WARN, "Las cuentas que seleccione deben tener la misma configuracin para Tipo Centro Autorizado, Indicador, Centros Autorizados");
+                    isSelectedValid = false;
+                    LOGGER.info("la cuentas q selecciono deben tener la misma {}", isSelectedValid);
+                    nuevoMensaje(FacesMessage.SEVERITY_WARN, "Las cuentas que seleccione deben tener la misma configuracin para Tipo Centro Autorizado, Indicador, Centros Autorizados {}");
                     return false;
                 }
                 count++;
@@ -635,5 +638,14 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
             centrosAutSel.add(value);
         }
         LOGGER.info("centros Autoeizados Sel metodo {}", centrosAutSel);
+    }
+
+    public Boolean getSelectedValid() {
+        LOGGER.info("<<<<is selected valid {}>>>>", isSelectedValid);
+        return isSelectedValid;
+    }
+
+    public void setSelectedValid(Boolean selectedValid) {
+        isSelectedValid = selectedValid;
     }
 }

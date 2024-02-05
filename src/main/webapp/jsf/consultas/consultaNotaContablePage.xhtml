@@ -69,7 +69,7 @@
                 <p:dataTable value="#{consultaNotaContablePage.datos}" var="dato" id="table" rowIndexVar="rowIndex"
                              rows="10" paginator="true"
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                             currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
                              paginatorPosition="top">
 
                     <p:column headerText="Número Radicación" sortable="true" sortBy="#{dato.NC.numeroRadicacion}" width="110px;">

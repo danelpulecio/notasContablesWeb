@@ -57,7 +57,7 @@ public class CargaAltamiraCierreScheduled {
 	}
 
 	/**
-	 * la informacin debe estar formateada con:</p> datos originales separados por punto y coma, prefijo <code>Schedule,</code>, y datos de informacin separados por coma en el siguiente orden:
+	 * la información debe estar formateada con:</p> datos originales separados por punto y coma, prefijo <code>Schedule,</code>, y datos de información separados por coma en el siguiente orden:
 	 * <ul>
 	 * <li>Fecha en formato yyyyMMddHH</li>
 	 * <li>Periodo en milisegundos</li>

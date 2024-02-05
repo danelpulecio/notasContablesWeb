@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * <p>
- * Pagina para manejar la administracin de parametros relacionados con la
+ * Pagina para manejar la administración de parametros relacionados con la
  * entidad TipoEvento
  * </p>
  * 
@@ -288,7 +288,7 @@ public class FlujoNotaContablePage extends GeneralPage implements IPages {
 			} // fin codigo
 
 			if (chequeoReasignacion) {
-				validador.validarSeleccion(causalDevolucion, "Causal de devolucin");
+				validador.validarSeleccion(causalDevolucion, "Causal de devolución");
 				if (causalDevolucion == 18) {// causal: otra
 					validador.validarRequerido(otraCausalDev, "Descripcin de la causal");
 				}

@@ -187,11 +187,11 @@ public abstract class GeneralParametrosPage<T extends CommonVO<T>, D> extends Ge
 		try {
 			if (_borrar()) {
 				setDatos(new ArrayList<T>(_buscarPorFiltro()));
-				nuevoMensaje(FacesMessage.SEVERITY_INFO, "La informacin ha sido borrada correctamente");
+				nuevoMensaje(FacesMessage.SEVERITY_INFO, "La información ha sido borrada correctamente");
 			}
 		} catch (Exception e) {
-			LOGGER.error("{} Error al borrar la informacin");
-			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al borrar la informacin");
+			LOGGER.error("{} Error al borrar la información");
+			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al borrar la información");
 
 		}
 		return null;

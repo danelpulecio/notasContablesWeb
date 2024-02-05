@@ -92,7 +92,8 @@
                                      update="globalForm:lista,globalForm:cambio"
                                      value="#{centroDestinoPage.selectedAll?'Limpiar Selección':'Seleccionar Todos'}"/>
                     <p:commandButton action="#{centroDestinoPage.editar}"
-                                     oncomplete="if (#{facesContext.maximumSeverity==null}) PF('editor').show()"
+                                     oncomplete="if {(#{centroDestinoPage.selectedValid}) PF('editor').show();}
+                                     else{PF('editor').hide();}"
                                      update="globalForm:growl,globalForm:editor"
                                      value="Modificar Seleccionados"/>
                 </h:panelGrid>
@@ -115,7 +116,7 @@
                          rowIndexVar="rowIndex"
                          widgetVar="table" rows="15" paginator="true"
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                         currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
                          paginatorPosition="top">
 
                 <p:column headerText="Fila">

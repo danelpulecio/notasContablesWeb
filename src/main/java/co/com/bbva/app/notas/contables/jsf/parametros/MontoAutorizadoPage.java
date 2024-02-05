@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * <p>
- * Pagina para manejar la administracin de parametros relacionados con la entidad MontoAutorizado
+ * Pagina para manejar la administración de parametros relacionados con la entidad MontoAutorizado
  * </p>
  */
 @SessionScoped
@@ -164,8 +164,8 @@ public class MontoAutorizadoPage extends GeneralParametrosPage<MontoAutorizado, 
             temasAut = getSelectItemList(notasContablesManager.getCV(TemaAutorizacion.class), false);
             entesAut = getSelectItemList(notasContablesManager.getCVEntesAut(), false);
         } catch (Exception e) {
-//				LOGGER.error("{} Error al inicializar el mdulo de administracin de montos autorizados ", session.getTraceLog(), e);
-            nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al inicializar el mdulo de administracin de montos autorizados");
+//				LOGGER.error("{} Error al inicializar el mdulo de administración de montos autorizados ", session.getTraceLog(), e);
+            nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al inicializar el mdulo de administración de montos autorizados");
 
         }
         //}

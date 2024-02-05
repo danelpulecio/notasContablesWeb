@@ -31,7 +31,7 @@ public class SuperDAO<T extends CommonVO<T>> extends DBUtils<T> implements IAudi
 	private final String selectClaveValorByQuery;
 
 	protected final T instance;
-	// informacin importante de las anotaciones de cada clase
+	// información importante de las anotaciones de cada clase
 	protected final String TABLE_NAME;
 	// comodines para reemplazar por la informacion adecuada
 	protected static final String COMODIN_COLUMNAS = ":columnas";

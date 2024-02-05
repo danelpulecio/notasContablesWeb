@@ -16,7 +16,7 @@ import java.util.*;
 
 /**
  * <p>
- * Pagina para manejar la administracin de parametros relacionados con la entidad UnidadAnalisis
+ * Pagina para manejar la administración de parametros relacionados con la entidad UnidadAnalisis
  * </p>
  */
 @SessionScoped
@@ -176,7 +176,7 @@ public class UnidadAnalisisPage extends GeneralParametrosPage<UnidadAnalisis, Un
             } catch (Exception e) {
 
                 LOGGER.error("{} Error consultar ListasAuxiliares ", e);
-                nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al inicializar el mdulo de administracin de montos autorizados");
+                nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al inicializar el mdulo de administración de montos autorizados");
             }
 //        }
     }

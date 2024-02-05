@@ -5,7 +5,7 @@ import javax.inject.Named;
 
 /**
  * <p>
- * Pagina para manejar la administracin de parametros relacionados con la entidad PUC
+ * Pagina para manejar la administración de parametros relacionados con la entidad PUC
  * </p>
  * 
  */

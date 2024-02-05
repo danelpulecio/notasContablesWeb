@@ -13,7 +13,7 @@ import java.util.Collection;
 
 /**
  * <p>
- * Pagina para manejar la administracin de parametros relacionados con la entidad Auditoria
+ * Pagina para manejar la administración de parametros relacionados con la entidad Auditoria
  * </p>
  * 
  */
