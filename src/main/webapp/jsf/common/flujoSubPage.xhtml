@@ -7,14 +7,14 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <!-- Formulario de flujo-->
-    <p:dialog id="popupFlujo" 
-    	widgetVar="popupFlujo" 
-    	autosized="true" 
-    	domElementAttachment="form" 
-    	minWidth="250"
-    	showEffect="fade"
-    	hideEffect="explode"
-    	modal="true">
+    <p:dialog id="popupFlujo"
+              widgetVar="popupFlujo"
+              autosized="true"
+              domElementAttachment="form"
+              minWidth="250"
+              showEffect="fade"
+              hideEffect="explode"
+              modal="true">
 
         <h1 align="center">Flujo Histórico</h1>
 
@@ -32,56 +32,53 @@
         </f:facet>
 
 
-            <h:panelGrid columns="1" width="970px" id="listaAct" cellspacing="0" cellpadding="0">
+        <h:panelGrid columns="1" width="970px" id="listaAct" cellspacing="0" cellpadding="0">
 
-                <p:dataTable id="tableAct" value="#{flujoSubPage.actividadesRealizadas}" var="act"
-                             rowIndexVar="rowIndex"
-                             widgetVar="economicActivityTable" rows="10" paginator="true"
-                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
-                             paginatorPosition="top">
+            <p:dataTable id="tableAct" value="#{flujoSubPage.actividadesRealizadas}" var="act"
+                         rowIndexVar="rowIndex"
+                         widgetVar="economicActivityTable" rows="10" paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
+                         paginatorPosition="top">
 
-                    <p:column headerText="Fecha" width="120">
-                        <h:outputText value="#{act.fechaHoraTs}"/>
-                    </p:column>
-                    <p:column headerText="Accion" width="50">
-                        <h:outputText
-                                value="#{rowKeyAct eq 0 ? 'Registro' :act.estado eq '9'? 'Anuló': !empty act.valor1? 'Rechazó':'Aprobó'}"/>
-                    </p:column>
-                    <p:column headerText="Usuario" width="60">
-                        <h:outputText value="#{act.usuMod.codigoEmpleado}"/>
-                    </p:column>
-                    <p:column headerText="Area" width="250">
-                        <h:panelGrid columns="2">
-                            <h:outputText value="#{act.usuMod.codigoAreaModificado}"/>
-                            <h:outputText value="#{act.usuMod.nombreAreaModificado}"/>
-                        </h:panelGrid>
-                    </p:column>
-                    <p:column headerText="Perfil" width="220">
-                        <h:outputText value="#{act.rol.nombre}"/>
-                    </p:column>
-                    <p:column headerText="Valores" width="220">
-                        <h:panelGroup rendered="#{!empty act.valor1}">
-                            <b>
-                                <h:outputText value="Devolución:"/>
-                                <br/>
-                                <h:outputText value="#{act.cauDev.nombre}" rendered="#{empty act.valor2}"/>
-                            </b>
-                            <h:outputText value="#{act.valor2}" rendered="#{!empty act.valor2}"/>
+                <p:column headerText="Fecha" width="120">
+                    <h:outputText value="#{act.fechaHoraTs}"/>
+                </p:column>
+                <p:column headerText="Accion" width="50">
+                    <h:outputText
+                            value="#{rowKeyAct eq 0 ? 'Registro' :act.estado eq '9'? 'Anuló': !empty act.valor1? 'Rechazó':'Aprobó'}"/>
+                </p:column>
+                <p:column headerText="Usuario" width="60">
+                    <h:outputText value="#{act.usuMod.codigoEmpleado}"/>
+                </p:column>
+                <p:column headerText="Area" width="250">
+                    <h:outputText value="#{act.usuMod.codigoAreaModificado} #{act.usuMod.nombreAreaModificado}"/>
+                </p:column>
+                <p:column headerText="Perfil" width="220">
+                    <h:outputText value="#{act.rol.nombre}"/>
+                </p:column>
+                <p:column headerText="Valores" width="220">
+                    <h:panelGroup rendered="#{!empty act.valor1}">
+                        <b>
+                            <h:outputText value="Devolución:"/>
+                            <br/>
+                            <h:outputText value="#{act.cauDev.nombre}" rendered="#{empty act.valor2}"/>
+                        </b>
+                        <h:outputText value="#{act.valor2}" rendered="#{!empty act.valor2}"/>
+                    </h:panelGroup>
+                </p:column>
+                <p:column headerText="" width="50" style="text-align:right;">
+                    <f:facet name="header">
+                        <h:panelGroup>
+                            <h:outputText value="Días"/>
+                            <br/>
+                            <h:outputText value="Etapa"/>
                         </h:panelGroup>
-                    </p:column>
-                    <p:column headerText="" width="50" style="text-align:right;">
-                        <f:facet name="header">
-                            <h:panelGroup>
-                                <h:outputText value="Días"/>
-                                <br/>
-                                <h:outputText value="Etapa"/>
-                            </h:panelGroup>
-                        </f:facet>
-                        <h:outputText value="#{act.horasEtapa}" converter="javax.faces.Integer"/>
-                    </p:column>
-                </p:dataTable>
-            </h:panelGrid>
+                    </f:facet>
+                    <h:outputText value="#{act.horasEtapa}" converter="javax.faces.Integer"/>
+                </p:column>
+            </p:dataTable>
+        </h:panelGrid>
 
     </p:dialog>
 </ui:composition>

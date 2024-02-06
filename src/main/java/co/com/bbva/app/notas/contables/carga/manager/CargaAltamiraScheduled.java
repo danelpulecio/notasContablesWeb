@@ -72,8 +72,8 @@ public class CargaAltamiraScheduled extends CargaAltamiraBase {
 	 * <ul>
 	 * <li>Fecha en formato yyyyMMddHH</li>
 	 * <li>Periodo en milisegundos</li>
-	 * <li>Si se debe eliminar la info completa; 0 para no, cualquier otro nmero para s</li>
-	 * <li>Si se debe ejecutar en un hilo independiente; 0 para no, cualquier otro nmero para s</li>
+	 * <li>Si se debe eliminar la info completa; 0 para no, cualquier otro número para s</li>
+	 * <li>Si se debe ejecutar en un hilo independiente; 0 para no, cualquier otro número para s</li>
 	 * </ul>
 	 */
 	public synchronized void loadDatosAltamiraScheduled(File file) throws Exception {

@@ -44,7 +44,10 @@ public class TemaPage extends GeneralParametrosPage<Concepto, Tema> {
     private List<String> impuestosSel = new ArrayList<String>();
     private List<String> productosSel = new ArrayList<String>();
 
-    DualListModel<String> dualListModel = new DualListModel<>(productosSel,productosSel);
+    protected List<SelectItem> productoSource = new ArrayList<>();
+    protected List<SelectItem> productoTarget = new ArrayList<>();
+    protected DualListModel<SelectItem> dualListModel;
+
 
     //	Session session = getContablesSessionBean().getSessionTrace();
 
@@ -132,6 +135,7 @@ public class TemaPage extends GeneralParametrosPage<Concepto, Tema> {
      */
     @Override
     protected void _editar() throws Exception {
+        LOGGER.info("Editar Tema paso 2");
         cuentas = new ArrayList<SelectItem>();
         cuentasContraPartida = new ArrayList<SelectItem>();
         concepto = "";
@@ -142,6 +146,9 @@ public class TemaPage extends GeneralParametrosPage<Concepto, Tema> {
 
         impuestos = getSelectItemList(notasContablesManager.getCV(Impuesto.class), false);
         productos = getSelectItemList(notasContablesManager.getCV(Producto.class), false);
+        LOGGER.info("PRODUCTO value{}", productos.get(7).getValue());
+        LOGGER.info("PRODUCTO  label{}", productos.get(7).getLabel());
+//        dualListModel = new DualListModel<>(productos, productos);
         conceptos = new ArrayList<SelectItem>();
 
         if (objActual.getCodigo().intValue() > 0) {
@@ -164,10 +171,22 @@ public class TemaPage extends GeneralParametrosPage<Concepto, Tema> {
             for (TemaProducto tm : productosTema) {
                 productosSel.add(tm.getCodigoProducto());
             }
+            LOGGER.info("SELECCIONADOS TARGE PICKLIST PASO 3 {}", productosSel);
             Collection<TemaImpuesto> impuestosTema = notasContablesManager.getImpuestosPorTema(objActual.getCodigo().intValue());
             for (TemaImpuesto ti : impuestosTema) {
                 impuestosSel.add("" + ti.getCodigoImpuesto());
             }
+
+            // llenado picklist source & target
+            for (SelectItem producto : productos) {
+                LOGGER.info("PRODUCTO LOGGGGG {}", producto.getValue());
+                if (productosSel.contains(producto.getValue()))
+                    productoTarget.add(new SelectItem(producto.getLabel()));
+                else
+                    productoSource.add(new SelectItem(producto.getLabel()));
+            }
+            LOGGER.info("productoSource {}", productoSource.size());
+            dualListModel = new DualListModel<>(productoSource, productoTarget);
         } else {
             objActual = new Tema();
         }
@@ -328,7 +347,7 @@ public class TemaPage extends GeneralParametrosPage<Concepto, Tema> {
             try {
                 Collection<PUC> pucList = cargaAltamiraManager.searchPUC(cuenta);
                 if (pucList.isEmpty()) {
-                    nuevoMensaje(FacesMessage.SEVERITY_WARN, "No se encontr información para el nmero de cuenta " + cuenta);
+                    nuevoMensaje(FacesMessage.SEVERITY_WARN, "No se encontró información para el número de cuenta " + cuenta);
                 }
                 for (PUC puc : pucList) {
                     lista.add(new SelectItem(puc.getNumeroCuenta(), puc.getNumeroCuenta() + " " + puc.getDescripcion()));
@@ -461,12 +480,12 @@ public class TemaPage extends GeneralParametrosPage<Concepto, Tema> {
         this.concepto = concepto;
     }
 
-    public DualListModel<String> getDualListModel() {
+    public DualListModel<SelectItem> getDualListModel() {
         LOGGER.info("get dual list ");
         return dualListModel;
     }
 
-    public void setDualListModel(DualListModel<String> dualListModel) {
+    public void setDualListModel(DualListModel<SelectItem> dualListModel) {
         this.dualListModel = dualListModel;
     }
 }

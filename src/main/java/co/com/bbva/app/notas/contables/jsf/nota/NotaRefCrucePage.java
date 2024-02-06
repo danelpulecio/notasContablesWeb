@@ -80,7 +80,7 @@ public class NotaRefCrucePage extends GeneralPage implements IPages, Serializabl
 				LOGGER.info("{} Consultando cuentas de partidas pendientes para la sucursal {}", codSucursal);
 				cuentas = new ArrayList<>(cargaAltamiraManager.getPartidasPendientesCuentasPorSucursal(codSucursal));
 				if (cuentas.isEmpty()) {
-					LOGGER.info("{} No se encontr información de cuentas" );
+					LOGGER.info("{} No se encontró información de cuentas" );
 					nuevoMensaje(FacesMessage.SEVERITY_INFO, "Actualmente no hay cuentas para cruzar.");
 				} else {
 					LOGGER.info("{} Se encontraron {} cuentas", cuentas.size());
@@ -261,7 +261,7 @@ public class NotaRefCrucePage extends GeneralPage implements IPages, Serializabl
 							usuarioModulo.setCodigo(codigoUsuarioAsignado);
 							usuarioModulo = notasContablesManager.getUsuarioModulo(usuarioModulo);
 							cancelar();
-							nuevoMensaje(FacesMessage.SEVERITY_INFO, "La nota ha sido registrada correctamente con el nmero de radicacin " + notaContable.getNumeroRadicacion());
+							nuevoMensaje(FacesMessage.SEVERITY_INFO, "La nota ha sido registrada correctamente con el número de radicacin " + notaContable.getNumeroRadicacion());
 							try {
 								LOGGER.info("{} Intentando enviar email de la nota grabada");
 								enviarEMail.sendEmail(usuarioModulo.getEMailModificado(), getUsuarioLogueado().getUsuario().getEMailModificado(),

@@ -623,7 +623,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 			cliente.setNumeroIdentificacion(numero);
 			cliente = cargaAltamiraManager.getClientePorTipoYNumeroIdentificacion(cliente);
 
-			LOGGER.info("{} Verificando si se encontr Info. en clientes");
+			LOGGER.info("{} Verificando si se encontró Info. en clientes");
 			if (!cliente.getNumeroIdentificacion().equals("")) {
 				LOGGER.info("{} Estableciendo propiedades del tercero:cliente");
 				numTercero = cliente.getNumeroIdentificacion();
@@ -644,21 +644,21 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 					}
 				}
 			} else {
-				LOGGER.info("{} No se encontr Info. en Clientes - Buscando en Terceros");
+				LOGGER.info("{} No se encontró Info. en Clientes - Buscando en Terceros");
 				Tercero tercero = new Tercero();
 				tercero.setTipoIdentificacion(tipo);
 				tercero.setNumeroIdentificacion(numero);
 				tercero = cargaAltamiraManager.getTerceroPorTipoYNumeroIdentificacion(tercero);
 
-				LOGGER.info("{} Verificando si se encontr Info. en terceros");
+				LOGGER.info("{} Verificando si se encontró Info. en terceros");
 				if (!tercero.getTipoIdentificacion().equals("")) {
 					LOGGER.info("{} Estableciendo propiedades del tercero:tercero");
 					numTercero = tercero.getNumeroIdentificacion();
 					dvTercero = tercero.getDigitoVerificacion();
 					nombreTercero = tercero.getPrimerNombre().trim() + " " + tercero.getPrimerApellido().trim() + " " + tercero.getSegundoApellido().trim();
 				} else {
-					LOGGER.warn("{} No se encontr Info. del tercero consultado: {}", numero);
-					nuevoMensaje(FacesMessage.SEVERITY_WARN, "No se encontr ningn cliente ni tercero con la combinacin tipo y nmero de identificación");
+					LOGGER.warn("{} No se encontró Info. del tercero consultado: {}", numero);
+					nuevoMensaje(FacesMessage.SEVERITY_WARN, "No se encontró ningún cliente ni tercero con la combinacin tipo y número de identificación");
 				}
 			}
 			LOGGER.info("{} Estableciendo atributos del tercero");
@@ -831,7 +831,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 							notaContable = notasContablesManager.getNotaContable(notaContable);
 							LOGGER.info("{} El registro de la NOTA CONTABLE: {} fue exitoso", notaContable.getNumeroRadicacion());
 							cancelarNota();
-							nuevoMensaje(FacesMessage.SEVERITY_INFO, "La nota ha sido radicada correctamente con el nmero: " + notaContable.getNumeroRadicacion());
+							nuevoMensaje(FacesMessage.SEVERITY_INFO, "La nota ha sido radicada correctamente con el número: " + notaContable.getNumeroRadicacion());
 							UsuarioModulo usuarioModulo = new UsuarioModulo();
 							try {
 								LOGGER.info("{} Intentando enviar email de la nota grabada");
@@ -847,7 +847,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 					}
 				} else {
 					LOGGER.warn("{} No ha registrado Info. para un tema");
-					nuevoMensaje(FacesMessage.SEVERITY_WARN, "No ha diligenciado la información de ningn tema para la Nota Contable");
+					nuevoMensaje(FacesMessage.SEVERITY_WARN, "No ha diligenciado la información de ningún tema para la Nota Contable");
 				}
 			}
 		} catch (Exception e) {
@@ -1035,7 +1035,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 		}
 		if (temaActual.getTema().getTercero1().equals("S")) {
 			validador.validarSeleccion(temaActual.getTipoIdentificacion1(), "Tipo de documento del tercero asociado a la Partida");
-			validador.validarRequerido(temaActual.getNumeroIdentificacion1(), "Nmero de documento del tercero asociado a la Partida");
+			validador.validarRequerido(temaActual.getNumeroIdentificacion1(), "número de documento del tercero asociado a la Partida");
 
 			if (temaActual.getNombreCompleto1().isEmpty()) {
 				nuevoMensaje(FacesMessage.SEVERITY_WARN, "La información del tercero asociado a la Partida es requerida");
@@ -1046,7 +1046,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 		}
 		if (temaActual.getTema().getTercero2().equals("S")) {
 			validador.validarSeleccion(temaActual.getTipoIdentificacion2(), "Tipo de documento del tercero asociado a la Contrapartida");
-			validador.validarRequerido(temaActual.getNumeroIdentificacion2(), "Nmero de documento del tercero asociado a la Contrapartida");
+			validador.validarRequerido(temaActual.getNumeroIdentificacion2(), "número de documento del tercero asociado a la Contrapartida");
 			if (temaActual.getNombreCompleto2().isEmpty()) {
 				nuevoMensaje(FacesMessage.SEVERITY_WARN, "La información del tercero asociado a la Contrapartida es requerida");
 			}

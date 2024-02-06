@@ -126,7 +126,7 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
 
             return centrosBy;
         }
-        nuevoMensaje(FacesMessage.SEVERITY_WARN, "Por favor indique un nmero de partida de al menos 4 digitos");
+        nuevoMensaje(FacesMessage.SEVERITY_WARN, "Por favor indique un número de partida de al menos 4 digitos");
         return new ArrayList<PUC>();
     }
 

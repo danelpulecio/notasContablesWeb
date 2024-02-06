@@ -193,8 +193,8 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 				LOGGER.info("{} Intentando obtener la(s) cuenta(s) contable(s) en el PUC");
 				Collection<PUC> pucs = cargaAltamiraManager.searchPUCPorCuenta(cuentaContable);
 				if (pucs.isEmpty()) {
-					LOGGER.warn("{} No se encontr Info. para la(s) cuenta(s) contable(s): {} en el PUC", cuentaContable);
-					nuevoMensaje(FacesMessage.SEVERITY_WARN, "No se encontr coincidencia para la cuenta contable");
+					LOGGER.warn("{} No se encontró Info. para la(s) cuenta(s) contable(s): {} en el PUC", cuentaContable);
+					nuevoMensaje(FacesMessage.SEVERITY_WARN, "No se encontró coincidencia para la cuenta contable");
 				} else {
 					boolean sucValida;
 					for (PUC p : pucs) {
@@ -215,7 +215,7 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 				}
 			} else {
 				LOGGER.warn("{} Para realizar la bsqueda de la(s) cuenta(s) contable(s) se requiere mnimo 4 caracteres");
-				nuevoMensaje(FacesMessage.SEVERITY_WARN, "Por favor indique un nmero de cuenta de 4 dgitos o ms");
+				nuevoMensaje(FacesMessage.SEVERITY_WARN, "Por favor indique un número de cuenta de 4 dgitos o ms");
 			}
 		} catch (Exception e) {
 			LOGGER.error("{} Error al realizar la consulta de la(s) cuenta contable", e);
@@ -518,7 +518,7 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 			cliente.setNumeroIdentificacion(numero);
 			cliente = cargaAltamiraManager.getClientePorTipoYNumeroIdentificacion(cliente);
 
-			LOGGER.info("{} Verificando si se encontr Info. en clientes");
+			LOGGER.info("{} Verificando si se encontró Info. en clientes");
 			if (!cliente.getNumeroIdentificacion().equals("")) {
 				LOGGER.info("{} Estableciendo propiedades del tercero:cliente");
 				numTercero = cliente.getNumeroIdentificacion();
@@ -534,24 +534,24 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 					for (Contrato c : contratos) {
 						contratos1.add(new SelectItem(c.getNumeroContrato(), c.getNumeroContrato()));
 					}
-					LOGGER.info("{} Se encontr {} contrato(s)", contratos1.size());
+					LOGGER.info("{} Se encontró {} contrato(s)", contratos1.size());
 				}
 			} else {
-				LOGGER.info("{} No se encontr Info. en Clientes - Buscando en Terceros");
+				LOGGER.info("{} No se encontró Info. en Clientes - Buscando en Terceros");
 				Tercero tercero = new Tercero();
 				tercero.setTipoIdentificacion(tipo);
 				tercero.setNumeroIdentificacion(numero);
 				tercero = cargaAltamiraManager.getTerceroPorTipoYNumeroIdentificacion(tercero);
 
-				LOGGER.info("{} Verificando si se encontr Info. en terceros");
+				LOGGER.info("{} Verificando si se encontró Info. en terceros");
 				if (!tercero.getTipoIdentificacion().equals("")) {
 					LOGGER.info("{} Estableciendo propiedades del tercero:tercero");
 					numTercero = tercero.getNumeroIdentificacion();
 					dvTercero = tercero.getDigitoVerificacion();
 					nombreTercero = tercero.getPrimerNombre().trim() + " " + tercero.getPrimerApellido().trim() + " " + tercero.getSegundoApellido().trim();
 				} else {
-					LOGGER.warn("{} No se encontr Info. del tercero consultado: {}", numero);
-					nuevoMensaje(FacesMessage.SEVERITY_WARN, "No se encontr ningn cliente ni tercero con la combinacin tipo y nmero de identificación");
+					LOGGER.warn("{} No se encontró Info. del tercero consultado: {}", numero);
+					nuevoMensaje(FacesMessage.SEVERITY_WARN, "No se encontró ningún cliente ni tercero con la combinacin tipo y número de identificación");
 				}
 			}
 			LOGGER.info("{} Estableciendo atributos del tercero");
@@ -697,7 +697,7 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 						notaContable = notasContablesManager.getNotaContable(notaContable);
 
 						LOGGER.info("{} El registro de la NOTA CONTABLE LIBRE: {} fue exitoso", notaContable.getNumeroRadicacion());
-						nuevoMensaje(FacesMessage.SEVERITY_INFO, "La nota ha sido radicada correctamente con el nmero: " + notaContable.getNumeroRadicacion());
+						nuevoMensaje(FacesMessage.SEVERITY_INFO, "La nota ha sido radicada correctamente con el número: " + notaContable.getNumeroRadicacion());
 						ocultarPopupGuardarNota = true;
 						UsuarioModulo usuarioModulo = new UsuarioModulo();
 						try {
@@ -748,7 +748,7 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 	private boolean validarRegistrosTema() {
 		LOGGER.info("{} Validando que el registro contenga la información requerida");
 		if (temasNotaContable.isEmpty()) {
-			nuevoMensaje(FacesMessage.SEVERITY_WARN, "No ha diligenciado la información de ningn registro para la Nota Contable");
+			nuevoMensaje(FacesMessage.SEVERITY_WARN, "No ha diligenciado la información de ningún registro para la Nota Contable");
 			return false;
 		}
 		validarDuplas();
@@ -990,7 +990,7 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 
 		if (requiereContrato || requiereTercero) {
 			validador.validarSeleccion(temaActual.getTipoIdentificacion(), "Tipo de documento del tercero");
-			validador.validarRequerido(temaActual.getNumeroIdentificacion(), "Nmero de documento del tercero");
+			validador.validarRequerido(temaActual.getNumeroIdentificacion(), "número de documento del tercero");
 			if (temaActual.getNombreCompleto().isEmpty()) {
 				nuevoMensaje(FacesMessage.SEVERITY_WARN, "La información del tercero es requerida");
 			}

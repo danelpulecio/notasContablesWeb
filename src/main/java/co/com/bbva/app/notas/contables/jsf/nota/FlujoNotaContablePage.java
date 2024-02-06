@@ -398,7 +398,7 @@ public class FlujoNotaContablePage extends GeneralPage implements IPages {
 		try {
 			anexos = new ArrayList<Anexo>(notasContablesManager.findByNumeroRadicacion(numeroRadicacion));
 		} catch (Exception e) {
-			lanzarError(e, "Error al consultar el nmero de radicado.");
+			lanzarError(e, "Error al consultar el número de radicado.");
 		}
 		return null;
 	}
