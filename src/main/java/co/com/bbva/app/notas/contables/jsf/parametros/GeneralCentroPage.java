@@ -182,6 +182,9 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
                 nuevoMensaje(FacesMessage.SEVERITY_WARN, "Debe seleccionar por lo menos un registro");
             }
         }
+        else {
+            nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Las cuentas que seleccione deben tener la misma configuracin para Tipo Centro Autorizado, Indicador, Centros Autorizados");
+        }
     }
 
     // adiciona una opcion de tipo de centro autorizado a la lista de seleccionados si la cuenta as lo indica
@@ -436,8 +439,8 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
             }
             if (!omitidos.isEmpty()) {
                 centrosAutSel = nuevosCentros;
-                nuevoMensaje(FacesMessage.SEVERITY_WARN, "Al cambiar la informacin del indicador o de los tipos de centros autorizados, los siguientes centros se han omitido ya que no cumplen con el nuevo criterio:");
-                nuevoMensaje(FacesMessage.SEVERITY_WARN, omitidos.toString());
+//                nuevoMensaje(FacesMessage.SEVERITY_WARN, "Al cambiar la informacin del indicador o de los tipos de centros autorizados, los siguientes centros se han omitido ya que no cumplen con el nuevo criterio:");
+//                nuevoMensaje(FacesMessage.SEVERITY_WARN, omitidos.toString());
             }
         }
         return null;
@@ -481,7 +484,7 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
                     objActual = row;
                 }
                 if (!indValido) {
-                    nuevoMensaje(FacesMessage.SEVERITY_WARN, "Las cuentas que seleccione deben tener la misma configuracin para Tipo Centro Autorizado, Indicador, Centros Autorizados");
+                    LOGGER.info("Carga sucursales paso 3 centros autorizadosSel: {}", centrosAutSel);
                     return false;
                 }
                 count++;
