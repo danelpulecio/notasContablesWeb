@@ -146,7 +146,7 @@ public abstract class CommonDAO<T extends CommonVO<T>> extends SuperDAO<T> {
 				throw e;
 			}
 		}
-		throw new Exception("Se debe definir la llave primaria para realizar la accin");
+		throw new Exception("Se debe definir la llave primaria para realizar la acción");
 	}
 
 	final public void deleteAllSinAuditoria() throws Exception {
@@ -180,7 +180,7 @@ public abstract class CommonDAO<T extends CommonVO<T>> extends SuperDAO<T> {
 			 }
 			 **/
 		} else {
-			throw new Exception("Se debe definir la llave primaria para realizar la accin");
+			throw new Exception("Se debe definir la llave primaria para realizar la acción");
 		}
 	}
 
@@ -228,7 +228,7 @@ public abstract class CommonDAO<T extends CommonVO<T>> extends SuperDAO<T> {
 			 }
 			 **/
 		} else {
-			throw new Exception("Se debe definir la llave primaria para realizar la accin");
+			throw new Exception("Se debe definir la llave primaria para realizar la acción");
 		}
 	}
 
@@ -277,7 +277,7 @@ public abstract class CommonDAO<T extends CommonVO<T>> extends SuperDAO<T> {
 				//addRegistroAuditoriaDetalle(con, idAuditoria, xmlDataOriginal, xmlDataModificada);
 			}
 		} else {
-			throw new Exception("Se debe definir la llave primaria para realizar la accin");
+			throw new Exception("Se debe definir la llave primaria para realizar la acción");
 		}
 	}
 
@@ -310,7 +310,7 @@ public abstract class CommonDAO<T extends CommonVO<T>> extends SuperDAO<T> {
 				//addRegistroAuditoriaDetalle(con, idAuditoria, xmlDataOriginal, xmlDataModificada);
 			}
 		} else {
-			throw new Exception("Se debe definir la llave primaria para realizar la accin");
+			throw new Exception("Se debe definir la llave primaria para realizar la acción");
 		}
 	}
 
@@ -341,7 +341,7 @@ public abstract class CommonDAO<T extends CommonVO<T>> extends SuperDAO<T> {
 			}
 			return ret;
 		}
-		throw new Exception("Se debe definir la llave primaria para realizar la accin");
+		throw new Exception("Se debe definir la llave primaria para realizar la acción");
 	}
 
 	public T getByGeneral(String sentence) throws Exception {

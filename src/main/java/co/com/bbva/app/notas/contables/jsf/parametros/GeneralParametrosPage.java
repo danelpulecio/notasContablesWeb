@@ -160,7 +160,7 @@ public abstract class GeneralParametrosPage<T extends CommonVO<T>, D> extends Ge
 	 */
 	public String cambiarEstado() {
 		try {
-			LOGGER.info("cambiar estado {}", _cambiarEstado());
+			LOGGER.info("cambiar estado ");
 			if (_cambiarEstado()) {
 				LOGGER.info("Datos {}", getDatos().size());
 				setDatos(new ArrayList<T>(_buscarPorFiltro()));
@@ -171,7 +171,8 @@ public abstract class GeneralParametrosPage<T extends CommonVO<T>, D> extends Ge
 				LOGGER.info("El estado NO ha sido cambiado");
 			}
 		} catch (Exception e) {
-			LOGGER.error("{} Error al cambiar el estado");
+			LOGGER.error("Error al cambiar el cause {}", e);
+			LOGGER.error("Error al cambiar el message {}", e.getMessage());
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al cambiar el estado");
 
 		}

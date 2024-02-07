@@ -450,3 +450,9 @@ Ssrc/main/java/co/com/bbva/app/notas/contables/jsf/consultas/ReporteTiemposPage.
 Tsrc/main/java/co/com/bbva/app/notas/contables/jsf/parametros/CentroEspecialPage.java,9/d/9d06ae559f9002e7b99e79d3dbbf75b365bba25a
 v
 Fsrc/main/java/co/com/bbva/app/notas/contables/dto/EnteAutorizador.java,d/a/da0b2d87e4af24f3df63573d1715d3f1381626a0
+k
+;src/main/java/co/com/bbva/app/notas/contables/dto/Tema.java,3/f/3fc8616d0837c99a2025cb405518a3c1054f01e6
+i
+9src/main/webapp/jsf/parametros/temaAutorizacionPage.xhtml,1/7/1756e0650ed3d444f54844082ccd04040adfc92e
+†
+Vsrc/main/java/co/com/bbva/app/notas/contables/jsf/parametros/TemaAutorizacionPage.java,e/8/e8820a4ac51e818cff595c0044be35209b0760b4

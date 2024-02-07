@@ -324,7 +324,7 @@ public class SuperDAO<T extends CommonVO<T>> extends DBUtils<T> implements IAudi
 			**/
 		} 
 		else {
-			throw new Exception("Se debe definir la llave primaria para realizar la accin");
+			throw new Exception("Se debe definir la llave primaria para realizar la acción");
 		}
 	}
 
@@ -420,7 +420,7 @@ public class SuperDAO<T extends CommonVO<T>> extends DBUtils<T> implements IAudi
 		if (sql_SELECT_BY_PRIMARY_KEY_SENTENCE != null) {
 			return getXMLDataGeneral(con, sql_SELECT_BY_PRIMARY_KEY_SENTENCE, row.getPK());
 		}
-		throw new Exception("Se debe definir la llave primaria para realizar la accin");
+		throw new Exception("Se debe definir la llave primaria para realizar la acción");
 	}
 
 	public final String getXMLDataGeneral(Connection con, String sentence) throws Exception {

@@ -231,4 +231,31 @@ public class Tema extends CommonVO<Tema> implements java.io.Serializable {
 	public void restartPK(Object pk) {
 		codigo = Integer.valueOf(pk.toString());
 	}
+
+	@Override
+	public String toString() {
+		return "Tema{" +
+				"codigo=" + codigo +
+				", codigoConcepto=" + codigoConcepto +
+				", nombre='" + nombre + '\'' +
+				", activar='" + activar + '\'' +
+				", partidaContable='" + partidaContable + '\'' +
+				", naturaleza1='" + naturaleza1 + '\'' +
+				", referencia1='" + referencia1 + '\'' +
+				", tercero1='" + tercero1 + '\'' +
+				", contrato1='" + contrato1 + '\'' +
+				", riesgoOperacional='" + riesgoOperacional + '\'' +
+				", contraPartidaContable='" + contraPartidaContable + '\'' +
+				", naturaleza2='" + naturaleza2 + '\'' +
+				", referencia2='" + referencia2 + '\'' +
+				", tercero2='" + tercero2 + '\'' +
+				", contrato2='" + contrato2 + '\'' +
+				", obligatorio='" + obligatorio + '\'' +
+				", tipoDivisa='" + tipoDivisa + '\'' +
+				", estado='" + estado + '\'' +
+				", pucPartida=" + pucPartida +
+				", pucContraPartida=" + pucContraPartida +
+				", nombreConcepto='" + nombreConcepto + '\'' +
+				'}';
+	}
 }

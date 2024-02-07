@@ -638,6 +638,8 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 
 	@Override
 	public void changeEstadoTema(Tema row, int codigoUsuario) throws Exception {
+		LOGGER.info("row : {}", row);
+		LOGGER.info("usuario : {}", codigoUsuario);
 		temaDAO.changeEstado(row, codigoUsuario);
 	}
 

@@ -7,6 +7,8 @@
     <ui:param name="title" value="Centros de Destino"/>
     <ui:define name="body">
 
+        <p:growl id="growl" showDetail="false" life="10000"/>
+
         <!-- Formulario Modal de creacion y edicion de nuevos registros-->
         <p:dialog id="editor" widgetVar="editor" autosized="true">
             <f:facet name="header">
@@ -92,8 +94,7 @@
                                      update="globalForm:lista,globalForm:cambio"
                                      value="#{centroDestinoPage.selectedAll?'Limpiar Selección':'Seleccionar Todos'}"/>
                     <p:commandButton action="#{centroDestinoPage.editar}"
-                                     oncomplete="if {(#{centroDestinoPage.selectedValid}) PF('editor').show();}
-                                     else{PF('editor').hide();}"
+                                     oncomplete="if (#{facesContext.maximumSeverity != null}) PF('editor').hide(); else PF('editor').show();"
                                      update="globalForm:growl,globalForm:editor"
                                      value="Modificar Seleccionados"/>
                 </h:panelGrid>
@@ -106,8 +107,6 @@
             </h:panelGrid>
         </p:panel>
         <!--        <ui:include src="../../common/mensajes.xhtml"/>-->
-        <p:growl id="growl" showDetail="false" life="3000"/>
-
         <!-- Tabla de registros -->
         <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
 

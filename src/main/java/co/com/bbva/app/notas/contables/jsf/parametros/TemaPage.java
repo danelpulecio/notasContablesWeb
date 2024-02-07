@@ -24,7 +24,7 @@ import java.util.TreeSet;
  * </p>
  */
 @SessionScoped
-@Named
+@Named(value = "temaPage")
 public class TemaPage extends GeneralParametrosPage<Concepto, Tema> {
 
     private static final long serialVersionUID = 1L;
@@ -50,6 +50,14 @@ public class TemaPage extends GeneralParametrosPage<Concepto, Tema> {
 
 
     //	Session session = getContablesSessionBean().getSessionTrace();
+
+//    @PostConstruct
+//    protected void init() throws Exception {
+//        super._init();
+//        setDatos(new ArrayList<>(_buscarTodos()));
+//        LOGGER.info("postConstructo datos {}", getDatos().size());
+//    }
+
 
 
     public TemaPage() {
@@ -371,8 +379,11 @@ public class TemaPage extends GeneralParametrosPage<Concepto, Tema> {
     @Override
     public boolean _cambiarEstado() throws Exception {
 //        LOGGER.info("{} Cambio estado tema: {}", session.getTraceLog(), notasContablesManager.getTema(objActual).getCodigo() + " " + notasContablesManager.getTema(objActual).getCodigoConcepto() + " " + notasContablesManager.getTema(objActual).getNombre() + " " + notasContablesManager.getTema(objActual).getEstado());
+        LOGGER.info("_cambiar estado {}", getUsuarioLogueado());
+        LOGGER.info("_cambiar objeto {}", objActual);
         notasContablesManager.changeEstadoTema(notasContablesManager.getTema(objActual), getCodUsuarioLogueado());
-        setDatos(new ArrayList<>(_buscarTodos()));
+        LOGGER.info("cambio estado correctamente????");
+//        setDatos(new ArrayList<>(_buscarTodos()));
         return true;
     }
 

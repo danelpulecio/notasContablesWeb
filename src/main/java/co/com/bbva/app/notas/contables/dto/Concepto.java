@@ -3,12 +3,17 @@ package co.com.bbva.app.notas.contables.dto;
 import co.com.bbva.app.notas.contables.anotacion.Columna;
 import co.com.bbva.app.notas.contables.anotacion.ColumnaId;
 import co.com.bbva.app.notas.contables.anotacion.Tabla;
+import co.com.bbva.app.notas.contables.jsf.parametros.ConceptoPage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Tabla(nombreTabla = "NC_CONCEPTO")
 public class Concepto extends CommonVO<Concepto> implements Comparable<Concepto> {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(Concepto.class);
 
 	private static final long serialVersionUID = -8970002437078802545L;
 
@@ -71,6 +76,8 @@ public class Concepto extends CommonVO<Concepto> implements Comparable<Concepto>
 	}
 
 	public Number getCodigoUnidadAnalisis() {
+
+		LOGGER.info("CODIGO UNIDAD ANALISIS {}", codigoUnidadAnalisis);
 		return codigoUnidadAnalisis;
 	}
 

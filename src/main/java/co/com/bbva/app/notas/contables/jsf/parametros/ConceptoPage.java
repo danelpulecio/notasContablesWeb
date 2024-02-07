@@ -39,7 +39,11 @@ public class ConceptoPage extends GeneralParametrosPage<Concepto, Concepto> {
 		super._init();
 		setDatos(new ArrayList<>(_buscarTodos()));
 		consultarListasAuxiliares();
-		LOGGER.info("postConstructo datos {}", getDatos().size());
+		LOGGER.info("postConstructo datos conceptos codigo unidad analisis {}", getDatos().get(8).getCodigoUnidadAnalisis());
+		LOGGER.info("postConstructo datos conceptos vistBuenoAnalisis {}", getDatos().get(8).getVistoBuenoAnalisis());
+		LOGGER.info("postConstructo datos conceptos estado {}", getDatos().get(8).getEstado());
+		LOGGER.info("postConstructo datos conceptos nombre {}", getDatos().get(8).getNombre());
+		LOGGER.info("postConstructo datos conceptos codigo tema autorizado {}", getDatos().get(8).getCodigoTemaAutorizacion());
 	}
 	public ConceptoPage() {
 		super(true);
@@ -187,6 +191,8 @@ public class ConceptoPage extends GeneralParametrosPage<Concepto, Concepto> {
 	}
 
 	public List<SelectItem> getUnidadesAnalisis() {
+		LOGGER.info("unidad de analisis label{}", unidadesAnalisis.get(8).getLabel());
+		LOGGER.info("unidad de analisis value{}", unidadesAnalisis.get(8).getValue());
 		return unidadesAnalisis;
 	}
 
