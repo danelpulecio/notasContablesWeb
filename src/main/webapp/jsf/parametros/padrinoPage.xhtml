@@ -79,44 +79,59 @@
                                     id="hidelink" height="20" width="20"/>
                 </h:panelGroup>
             </f:facet>
+            
+                        
+    		<h:panelGroup id="msg_usuarios">
+            	<ui:include src="../../common/mensajes.xhtml"/>
+            </h:panelGroup>
 
             <!-- Campos del formulario -->
             <h:panelGrid columns="1" width="650" id="informacion">
+            
                 <h:panelGrid columns="2" width="650" columnClasses="name,value">
                     <h:outputText value="Unidad de análisis"/>
-                    <p:selectOneMenu value="#{padrinoPage.objActual.codigoUnidadAnalisis}" immediate="true"
-                                     converter="javax.faces.Integer">
-                        <p:ajax event="change" update="globalForm:informacion" action="#{padrinoPage.buscarUsuarios}"/>
+                    <p:selectOneMenu value="#{padrinoPage.objActual.codigoUnidadAnalisis}" converter="javax.faces.Integer">
+                        <p:ajax event="change" update="globalForm:informacion,globalForm:msg_usuarios" 
+                        listener="#{padrinoPage.buscarUsuarios}"/>
                         <f:selectItem itemValue="-1" itemLabel="Seleccione una opcion"/>
                         <f:selectItems value="#{padrinoPage.sucursales}"/>
                     </p:selectOneMenu>
                 </h:panelGrid>
-                <h:panelGrid columns="2" width="650" columnClasses="name,value"
-                             rendered="#{!empty padrinoPage.usuarios}">
-                    <h:outputText value="Usuario"/>
-                    <p:selectOneMenu value="#{padrinoPage.objActual.codigoUsuario}" immediate="true"
-                                     converter="javax.faces.Integer">
-                        <f:selectItem itemValue="-1" itemLabel="Seleccione una opcion"/>
-                        <f:selectItems value="#{padrinoPage.usuarios}"/>
-                    </p:selectOneMenu>
-                </h:panelGrid>
+                
+	                <h:panelGrid columns="2" width="650" columnClasses="name,value" rendered="#{!empty padrinoPage.usuarios}">
+	                    <h:outputText value="Usuario"/>
+	                    <p:selectOneMenu value="#{padrinoPage.objActual.codigoUsuario}" 
+	                                     converter="javax.faces.Integer">
+	                        <f:selectItem itemValue="-1" itemLabel="Seleccione una opcion"/>
+	                        <f:selectItems value="#{padrinoPage.usuarios}"/>
+	                    </p:selectOneMenu>
+	                </h:panelGrid>
 
                 <!-- Seccion de mensajes y botones de envio y cancelacion-->
-<!--                <ui:include src="../../common/mensajes.xhtml"/>-->
+
                 <h:panelGrid columns="2" styleClass="center" width="100%">
                     <p:commandButton action="#{padrinoPage.guardar}"
-                                     update="globalForm:informacion,globalForm:lista,globalForm:growl"
+                                     update="globalForm:lista,globalForm:msg_general"
                                      value="Guardar"
-                                     oncomplete="if (#{padrinoPage.ocultarPopupGuardar}) PF('editor').hide();"/>
+                                     oncomplete="PF('editor').hide()"/>
                     <p:commandButton onclick="PF('editor').hide()" value="Cerrar"/>
                 </h:panelGrid>
             </h:panelGrid>
+
+            
         </p:dialog>
+        
         <p:growl id="growl" showDetail="false" life="3000" />
+        
         <!--Filtro de busqueda	-->
-        <div style="width: 950px;"><h:panelGrid columns="1" width="100%">
+        <div style="width: 950px;">
+
+        <h:panelGrid columns="1" width="100%">
             <h1 align="center">Padrinos</h1>
-        </h:panelGrid> <!-- Panel de opciones --> <p:panel header="Opciones" style="width: 100%;">
+        </h:panelGrid> 
+        
+        <!-- Panel de opciones --> 
+        <p:panel header="Opciones" style="width: 100%;">
             <h:panelGrid columns="2" id="filtro">
 
                 <h:panelGrid columns="1" width="380">
@@ -135,7 +150,13 @@
                                      onclick="Richfaces.showModalPanel('statusPanel')"/>
                 </h:panelGrid>
             </h:panelGrid>
-        </p:panel> <ui:include src="../../common/mensajes.xhtml"/> <!-- Tabla de registros -->
+        </p:panel> 
+        
+        <h:panelGroup id="msg_general">
+        	<ui:include src="../../common/mensajes.xhtml"/> 
+        </h:panelGroup>
+        
+        <!-- Tabla de registros -->
             <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
 
                 <p:dataTable value="#{padrinoPage.datos}" var="dato" id="table"
@@ -206,6 +227,7 @@
                         </p:commandButton>
                     </p:column>
                 </p:dataTable>
-            </h:panelGrid></div>
+            </h:panelGrid>
+        </div>
     </ui:define>
 </ui:composition>

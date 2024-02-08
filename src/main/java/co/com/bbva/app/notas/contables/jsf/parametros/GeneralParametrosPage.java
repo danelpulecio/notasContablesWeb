@@ -160,7 +160,7 @@ public abstract class GeneralParametrosPage<T extends CommonVO<T>, D> extends Ge
 	 */
 	public String cambiarEstado() {
 		try {
-			LOGGER.info("cambiar estado {}", _cambiarEstado());
+			LOGGER.info("cambiar estado {} ---> ");
 			if (_cambiarEstado()) {
 				LOGGER.info("Datos {}", getDatos().size());
 				setDatos(new ArrayList<T>(_buscarPorFiltro()));

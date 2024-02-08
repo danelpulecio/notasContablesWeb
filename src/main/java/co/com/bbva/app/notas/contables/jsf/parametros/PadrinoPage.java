@@ -167,7 +167,7 @@ public class PadrinoPage extends GeneralParametrosPage<Padrino, Padrino> {
 				nuevoMensaje(FacesMessage.SEVERITY_WARN, "No se han encontrado usuarios en el sistema para la sucursal seleccionada");
 			}
 		} catch (Exception e) {
-//			LOGGER.error("{} Error al iniciar los usuarios ", session.getTraceLog(), e);
+			LOGGER.error("{} Error al iniciar los usuarios ", e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al iniciar los usuarios");
 		}
 		return null;

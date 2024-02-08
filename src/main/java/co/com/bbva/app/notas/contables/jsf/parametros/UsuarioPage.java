@@ -263,15 +263,25 @@ public class UsuarioPage extends GeneralParametrosPage<UsuarioModulo, UsuarioMod
 	@Override
 	public boolean _cambiarEstado() throws Exception {
 		try {
-			String status = objActual.getEstado().equals("A") ? "INACTIVO" : "ACTIVO";
-			LOGGER.info("{} Cambio de Estado a {} Usuario: {} - {}",  status, objActual.getCodigoEmpleado(), objActual.getCodigo());
+			String status = objActual.getEstado().equals("A") ? "ACTIVO" : "INACTIVO";
+			
+			LOGGER.info("objActual.getNombreAreaModificado() --->" + objActual.getNombreAreaModificado());
+			LOGGER.info("objActual.getEstado() ---> " + objActual.getEstado());
+			LOGGER.info("status-->" + status);
+			LOGGER.info("objActual.getCodigoEmpleado()-->" + objActual.getCodigoEmpleado());
+			LOGGER.info("objActual.getCodigo()-->" + objActual.getCodigo());
+			LOGGER.info("getCodUsuarioLogueado() --->" + getCodUsuarioLogueado());
+			
 			notasContablesManager.changeEstadoUsuarioModulo(notasContablesManager.getUsuarioModulo(objActual), getCodUsuarioLogueado());
-			setDatos(new ArrayList<>(_buscarTodos()));
+			
+			//setDatos(new ArrayList<>(_buscarTodos()));
 			return true;
+			
 		} catch (Exception e) {
 			LOGGER.error("{} No existe otro Usario con el mismo Rol para este Centro ",  e);
 			nuevoMensaje(FacesMessage.SEVERITY_WARN, "No existe otro Usario con el mismo Rol para este Centro");
 		}
+		
 		return false;
 	}
 

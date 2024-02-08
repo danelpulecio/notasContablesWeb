@@ -89,6 +89,7 @@ public class CentroEspecialPage extends GeneralParametrosPage<CentroEspecial, Ce
 	 */
 	@Override
 	protected void _editar() throws Exception {
+		LOGGER.info("ENTRANDO AL _EDITAR() DEL centroEspecialPage");
 		objActual = new CentroEspecial();
 	}
 

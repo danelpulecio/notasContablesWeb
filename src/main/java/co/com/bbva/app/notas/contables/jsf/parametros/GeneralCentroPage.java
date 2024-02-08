@@ -44,6 +44,16 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
     protected String indicadorSel = "I";
 
     private final Boolean origen;
+    
+    
+    // variables picklist primefaces
+    
+    private DualListModel<String> centrosAutorizados;
+    
+    
+//    protected List<String> centrosAutSelPF = new ArrayList<String>();
+//    protected List<String> centrosAutPF = new ArrayList<String>();
+    
 
 //	Session session = getContablesSessionBean().getSessionTrace();
 
@@ -636,4 +646,13 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
         }
         LOGGER.info("centros Autoeizados Sel metodo {}", centrosAutSel);
     }
+
+	public DualListModel<String> getCentrosAutorizados() {
+		return centrosAutorizados;
+	}
+
+	public void setCentrosAutorizados(DualListModel<String> centrosAutorizados) {
+		this.centrosAutorizados = centrosAutorizados;
+	}
+    
 }

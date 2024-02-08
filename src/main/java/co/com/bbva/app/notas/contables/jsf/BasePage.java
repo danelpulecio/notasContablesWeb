@@ -84,6 +84,7 @@ public abstract class BasePage implements Serializable  {
 	}
 
 	protected  int getCodUsuarioLogueado() {
+		LOGGER.info("getContablesSessionBean().getLoginUser().getUsuario().getCodigo().intValue() ---->" + getContablesSessionBean().getLoginUser().getUsuario().getCodigo().intValue());
 		return getContablesSessionBean().getLoginUser().getUsuario().getCodigo().intValue();
 	}
 
