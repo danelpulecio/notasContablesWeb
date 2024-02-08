@@ -1,29 +1,37 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-				xmlns:ui="http://java.sun.com/jsf/facelets"
-				xmlns:h="http://java.sun.com/jsf/html"
-				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:p="http://primefaces.org/ui"
-				template="../../common/template.xhtml">
-	<ui:param name="title" value="Parámetros de tareas programadas" />
-	<ui:define name="body">
-		<div style="width: 100%;">
-			<p:panel header="Parámetros de tareas programadas" style="width: 420px" id="paramform">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../common/template.xhtml">
+    <ui:param name="title" value="Parámetros de tareas programadas"/>
+    <ui:define name="body">
+        <div style="width: 100%;">
+            <p:panel header="Parámetros de tareas programadas" style="width: 420px" id="paramform">
 
-				<h:panelGrid columns="2" >
-					<p:outputLabel value="Meses después de los cuales, se envian las notas a la base de datos de Historicos: " />
-					<p:inputText value="#{parametrosSchedulePage.copiaSeguridadPar.valor}" maxlength="2" required="true" onkeypress="return onKeyPressNumbersNoZero(event, this.value);" requiredMessage="Ingrese un valor en meses">
-						<f:convertNumber/>
-					</p:inputText>
-					<p:outputLabel value="Días después de los cuales, se borran las notas anuladas por cambio de cierre mensual: " />
-					<p:inputText value="#{parametrosSchedulePage.deltaBorradoPar.valor}" required="true" maxlength="3" onkeypress="return onKeyPressNumbersNoZero(event, this.value);" requiredMessage="Ingrese un valor en días">
-						<f:convertNumber/>
-					</p:inputText>
-				</h:panelGrid>
-				<ui:include src="../../common/mensajes.xhtml" /> 
-				<h:panelGrid columns="1" width="100%" style="text-align:center;">
-					<p:commandButton action="#{parametrosSchedulePage.guardar}" value="Actualizar" reRender="paramform"/>
-				</h:panelGrid>
-			</p:panel>
-		</div>
-	</ui:define>
+                <p:panelGrid columns="2">
+                    <h:outputText value="Meses después de los cuales, se envían las notas a la base de datos de Históricos:"/>
+                    <p:inputText value="#{parametrosSchedulePage.copiaSeguridadPar.valor}" maxlength="2" required="true"
+                                 onkeypress="return onKeyPressNumbersNoZero(event, this.value);"
+                                 requiredMessage="Ingrese un valor en meses">
+                        <f:convertNumber/>
+                        <p:keyFilter mask="pint" preventPaste="true"/>
+                    </p:inputText>
+
+                    <h:outputText value="Días después de los cuales, se borran las notas anuladas por cambio de cierre mensual:"/>
+                    <p:inputText value="#{parametrosSchedulePage.deltaBorradoPar.valor}" required="true" maxlength="3"
+                                 onkeypress="return onKeyPressNumbersNoZero(event, this.value);"
+                                 requiredMessage="Ingrese un valor en días">
+                        <f:convertNumber/>
+                        <p:keyFilter mask="pint" preventPaste="true"/>
+                    </p:inputText>
+                </p:panelGrid>
+                <ui:include src="../../common/mensajes.xhtml"/>
+                <h:panelGrid columns="1" width="100%" style="text-align:center;">
+                    <p:commandButton action="#{parametrosSchedulePage.guardar}" value="Actualizar"
+                                     reRender="paramform"/>
+                </h:panelGrid>
+            </p:panel>
+        </div>
+    </ui:define>
 </ui:composition>

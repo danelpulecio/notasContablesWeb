@@ -132,8 +132,8 @@
 
                             <h:panelGrid columns="5" id="opcPartida">
                                 <h:outputText value="Naturaleza"/>
-                                <p:selectOneMenu value="#{temaPage.objActual.naturaleza1}" immediate="true">
-                                    <!--<a4j:support event="onchange" action="#{temaPage.cambioNat1}" status="none" reRender="opcContraPartida"/>-->
+                                <p:selectOneMenu value="#{temaPage.objActual.naturaleza1}">
+                                    <p:ajax event="change" update="globalForm:opcContraPartida" process="@this" listener="#{temaPage.cambioNat1}" />
                                     <f:selectItem itemValue="D" itemLabel="Debe"/>
                                     <f:selectItem itemValue="H" itemLabel="Haber"/>
                                 </p:selectOneMenu>
@@ -153,10 +153,10 @@
 
                                 <p:spacer width="50"/>
 
-                                <h:outputText value="Contrato"/>
-                                <p:selectOneMenu value="#{temaPage.objActual.contrato1}" immediate="true">
-                                    <!--<a4j:support event="onchange" reRender="prodGroup" status="none" ajaxSingle="true"/>-->
-                                    <f:selectItems value="#{temaPage.selectItemSiNo}"/>
+                                <p:outputLabel for="contrato1" value="Contrato" />
+                                <p:selectOneMenu id="contrato1" value="#{temaPage.objActual.contrato1}" immediate="true">
+                                    <p:ajax event="change" update="prodGroup" process="@this" />
+                                    <f:selectItems value="#{temaPage.selectItemSiNo}" />
                                 </p:selectOneMenu>
 
                             </h:panelGrid>
@@ -187,8 +187,8 @@
 
                             <h:panelGrid columns="5" id="opcContraPartida">
                                 <h:outputText value="Naturaleza"/>
-                                <p:selectOneMenu value="#{temaPage.objActual.naturaleza2}" immediate="true">
-                                    <!--<a4j:support event="onchange" action="#{temaPage.cambioNat2}" status="none" reRender="opcPartida"/>-->
+                                <p:selectOneMenu value="#{temaPage.objActual.naturaleza2}" >
+                                    <p:ajax event="change" update="globalForm:opcPartida" process="@this" listener="#{temaPage.cambioNat2}"  />
                                     <f:selectItem itemValue="D" itemLabel="Debe"/>
                                     <f:selectItem itemValue="H" itemLabel="Haber"/>
                                 </p:selectOneMenu>
@@ -209,7 +209,7 @@
 
                                 <h:outputText value="Contrato"/>
                                 <p:selectOneMenu value="#{temaPage.objActual.contrato2}" immediate="true">
-                                    <!--<a4j:support event="onchange" reRender="prodGroup" status="none" ajaxSingle="true"/>-->
+                                    <p:ajax event="change" update="prodGroup" process="@this" />
                                     <f:selectItems value="#{temaPage.selectItemSiNo}"/>
                                 </p:selectOneMenu>
 

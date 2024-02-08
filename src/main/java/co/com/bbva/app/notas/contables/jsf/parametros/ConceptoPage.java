@@ -33,6 +33,8 @@ public class ConceptoPage extends GeneralParametrosPage<Concepto, Concepto> {
 	private List<SelectItem> unidadesAnalisis;
 	private List<SelectItem> temasAut;
 
+	private String defaultValue;
+
 //	Session session = getContablesSessionBean().getSessionTrace();
 	@PostConstruct
 	public void init() throws Exception {
@@ -208,4 +210,11 @@ public class ConceptoPage extends GeneralParametrosPage<Concepto, Concepto> {
 		this.temasAut = temasAut;
 	}
 
+	public String getDefaultValue() {
+		for (SelectItem codeUd : unidadesAnalisis){
+			if(codeUd.getValue().equals(objActual.getCodigoUnidadAnalisis()))
+				defaultValue = codeUd.getLabel();
+		}
+		return defaultValue;
+	}
 }

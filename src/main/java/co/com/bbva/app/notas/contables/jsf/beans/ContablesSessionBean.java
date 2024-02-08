@@ -33,8 +33,8 @@ public class ContablesSessionBean implements Serializable {
     private static final Logger LOGGER = LoggerFactory.getLogger(ContablesSessionBean.class);
 
 
-    @Inject
-    ContablesApplicationBean contablesApplicationBean;
+//    @Inject
+//    ContablesApplicationBean contablesApplicationBean;
 
     private static final long serialVersionUID = -7578896067766477600L;
 
@@ -130,9 +130,9 @@ public class ContablesSessionBean implements Serializable {
      *
      * @return reference to the scoped data bean
      */
-    protected ContablesApplicationBean getGescodeApplicationBean() {
-        return contablesApplicationBean;
-    }
+//    protected ContablesApplicationBean getGescodeApplicationBean() {
+//        return contablesApplicationBean;
+//    }
 
     public UsuarioLogueado getLoginUser() {
         return loginUser;

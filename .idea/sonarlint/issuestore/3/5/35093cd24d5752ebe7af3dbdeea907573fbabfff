@@ -14,13 +14,13 @@ java:S1319×"gThe type of "menu" should be an interface such as "SortedMap" rat
 
 java:S1319ï"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(İ•ÉÍ8­¿ôˆÄ1
 f
+java:S2259"HA "NullPointerException" could be thrown; "menuButton" is nullable here.(ÙóŠŞ8„÷½­Æ1
+f
 java:S2259¥"HA "NullPointerException" could be thrown; "menuButton" is nullable here.(ÙóŠŞ8÷½­Æ1
 e
-java:S2259o"CA "NullPointerException" could be thrown; "model" is nullable here.(ÚÖİßúÿÿÿÿ8‡÷½­Æ1
-e
 java:S2259k"CA "NullPointerException" could be thrown; "model" is nullable here.(ÙÕ³”úÿÿÿÿ8Œ÷½­Æ1
-f
-java:S2259"HA "NullPointerException" could be thrown; "menuButton" is nullable here.(ÙóŠŞ8„÷½­Æ1
+e
+java:S2259o"CA "NullPointerException" could be thrown; "model" is nullable here.(ÚÖİßúÿÿÿÿ8‡÷½­Æ1
 |
 java:S14508"ZRemove the "application" field and declare it as a local variable in the relevant methods.(£šß™şÿÿÿÿ8¾¿ôˆÄ1
 D

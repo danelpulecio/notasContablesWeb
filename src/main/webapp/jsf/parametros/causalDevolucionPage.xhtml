@@ -84,23 +84,24 @@
             <h:panelGrid columns="1" width="400" id="informacion">
                 <h:panelGrid columns="2" width="400" columnClasses="name,value">
                     <h:outputText value="Nombre del causal de devolucion"/>
-                    <p:inputText value="#{causalDevolucionPage.objActual.nombre}"/>
+                    <p:inputText id="devolution" value="#{causalDevolucionPage.objActual.nombre}"/>
                 </h:panelGrid>
 
                 <!-- Seccion de mensajes y botones de envio y cancelacion-->
-<!--                <ui:include src="../../common/mensajes.xhtml"/>-->
+                <!--                <ui:include src="../../common/mensajes.xhtml"/>-->
                 <h:panelGrid columns="2" styleClass="center" width="100%">
                     <p:commandButton action="#{causalDevolucionPage.guardar}"
                                      update="globalForm:informacion,globalForm:table, globalForm:growl"
                                      value="Guardar"
                                      oncomplete="if (#{causalDevolucionPage.ocultarPopupGuardar})  PF('editor').hide(); "/>
-                    <p:commandButton onclick="PF('editor').hide()" value="Cerrar"/>
+                    <p:commandButton action="#{causalDevolucionPage.limpiar()}"
+                                     onclick="PF('editor').hide(); Richfaces.showModalPanel('statusPanel')" value="Cerrar"/>
 
                 </h:panelGrid>
             </h:panelGrid>
         </p:dialog>
 
-        <p:growl id="growl" showDetail="false" life="3000" />
+        <p:growl id="growl" showDetail="false" life="3000"/>
 
         <!--Filtro de busqueda	-->
         <h:panelGrid columns="1" width="100%">

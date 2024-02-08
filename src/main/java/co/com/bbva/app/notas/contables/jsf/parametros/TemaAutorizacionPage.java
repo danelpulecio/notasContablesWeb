@@ -132,4 +132,8 @@ public class TemaAutorizacionPage extends GeneralParametrosPage<TemaAutorizacion
 	protected String _getPage() {
 		return TEMA_AUTORIZACION;
 	}
+
+	public void limpiar() {
+		objActual.setNombre("");
+	}
 }

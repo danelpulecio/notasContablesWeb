@@ -180,6 +180,7 @@ public class HomePage extends GeneralPage implements Serializable, IPages {
     }
 
     public String logout() {
+        LOGGER.info("<<<<<<<<entro hace logout>>>>>>>>");
         UsuarioLogueado usrLoggedIn = getContablesSessionBean().getLoginUser();
 //        Session session = getContablesSessionBean().getSessionTrace();
         try {

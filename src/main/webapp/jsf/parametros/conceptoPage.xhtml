@@ -62,10 +62,11 @@
                         <p:ajax event="change" update="uniAnalisis"/>
                     </p:selectBooleanCheckbox>
                     <p:selectOneMenu id="menuSelect" value="#{conceptoPage.objActual.codigoUnidadAnalisis}"
+                                     immediate="true"
                                      rendered="#{conceptoPage.objActual.boolVistoBuenoAnalisis}"
                                      converter="javax.faces.Integer">
-                        <f:selectItem itemValue="-1" itemLabel="Seleccione una opcion"/>
                         <f:selectItems value="#{conceptoPage.unidadesAnalisis}"/>
+                        <f:selectItem itemValue="0" itemLabel="Seleccione una opcion"/>
                     </p:selectOneMenu>
                 </h:panelGrid>
 
@@ -74,8 +75,8 @@
                     <p:selectOneMenu id="menuSelectDos" value="#{conceptoPage.objActual.codigoTemaAutorizacion}"
                                      immediate="true"
                                      converter="javax.faces.Integer">
-                        <f:selectItem itemValue="0" itemLabel="Ninguna"/>
                         <f:selectItems value="#{conceptoPage.temasAut}"/>
+                        <f:selectItem itemValue="0" itemLabel="Ninguna"/>
                     </p:selectOneMenu>
 
                     <h:outputText value="Centros Autorizados"/>
@@ -209,7 +210,7 @@
                                                          target="#{conceptoPage.objActual.boolCentrosAutSucursales}"/>
                             <f:setPropertyActionListener value="#{dato.centrosAutAreasCentrales eq 'S'}"
                                                          target="#{conceptoPage.objActual.boolCentrosAutAreasCentrales}"/>
-                            <f:setPropertyActionListener value="#{dato.centrosAutCentroEspecial}"
+                            <f:setPropertyActionListener value="#{dato.centrosAutCentroEspecial eq 'S'}"
                                                          target="#{conceptoPage.objActual.boolCentrosAutCentroEspecial}"/>
                             <f:setPropertyActionListener value="#{dato.vistoBuenoAnalisis eq 'S'}"
                                                          target="#{conceptoPage.objActual.boolVistoBuenoAnalisis}"/>

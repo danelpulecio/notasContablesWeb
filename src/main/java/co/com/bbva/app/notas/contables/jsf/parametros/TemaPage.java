@@ -186,8 +186,9 @@ public class TemaPage extends GeneralParametrosPage<Concepto, Tema> {
             }
 
             // llenado picklist source & target
+                productoSource = new ArrayList<>();
+                productoTarget = new ArrayList<>();
             for (SelectItem producto : productos) {
-                LOGGER.info("PRODUCTO LOGGGGG {}", producto.getValue());
                 if (productosSel.contains(producto.getValue()))
                     productoTarget.add(new SelectItem(producto.getLabel()));
                 else
@@ -322,20 +323,28 @@ public class TemaPage extends GeneralParametrosPage<Concepto, Tema> {
     }
 
     public String cambioNat1() {
+        LOGGER.info("cambio 2 obj NT1 actual {}", objActual.getNaturaleza1());
+        LOGGER.info("cambio 2 obj NT2 actual {}", objActual.getNaturaleza2());
         if (objActual.getNaturaleza1().equals("D")) {
             objActual.setNaturaleza2("H");
         } else {
             objActual.setNaturaleza2("D");
         }
+        LOGGER.info("cambio 2 obj NT1 actual {}", objActual.getNaturaleza1());
+        LOGGER.info("cambio 2 obj NT2 actual {}", objActual.getNaturaleza2());
         return null;
     }
 
     public String cambioNat2() {
+        LOGGER.info("cambio 2 obj NT1 actual {}", objActual.getNaturaleza1());
+        LOGGER.info("cambio 2 obj NT2 actual {}", objActual.getNaturaleza2());
         if (objActual.getNaturaleza2().equals("D")) {
             objActual.setNaturaleza1("H");
         } else {
             objActual.setNaturaleza1("D");
         }
+        LOGGER.info("cambio 2 obj NT1 actual {}", objActual.getNaturaleza1());
+        LOGGER.info("cambio 2 obj NT2 actual {}", objActual.getNaturaleza2());
         return null;
     }
 

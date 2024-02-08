@@ -143,4 +143,8 @@ public class CausalDevolucionPage extends GeneralParametrosPage<CausalDevolucion
 	protected String _getPage() {
 		return CAUSAL_DEVOLUCION;
 	}
+
+	public void limpiar() {
+		objActual.setNombre("");
+	}
 }
