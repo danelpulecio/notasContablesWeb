@@ -160,7 +160,6 @@ public abstract class GeneralParametrosPage<T extends CommonVO<T>, D> extends Ge
 	 */
 	public String cambiarEstado() {
 		try {
-			LOGGER.info("cambiar estado {} ---> ");
 			if (_cambiarEstado()) {
 				LOGGER.info("Datos {}", getDatos().size());
 				setDatos(new ArrayList<T>(_buscarPorFiltro()));
@@ -171,7 +170,8 @@ public abstract class GeneralParametrosPage<T extends CommonVO<T>, D> extends Ge
 				LOGGER.info("El estado NO ha sido cambiado");
 			}
 		} catch (Exception e) {
-			LOGGER.error("{} Error al cambiar el estado");
+			LOGGER.error("Error al cambiar el cause {}", e);
+			LOGGER.error("Error al cambiar el message {}", e.getMessage());
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al cambiar el estado");
 
 		}
@@ -187,11 +187,11 @@ public abstract class GeneralParametrosPage<T extends CommonVO<T>, D> extends Ge
 		try {
 			if (_borrar()) {
 				setDatos(new ArrayList<T>(_buscarPorFiltro()));
-				nuevoMensaje(FacesMessage.SEVERITY_INFO, "La informacin ha sido borrada correctamente");
+				nuevoMensaje(FacesMessage.SEVERITY_INFO, "La información ha sido borrada correctamente");
 			}
 		} catch (Exception e) {
-			LOGGER.error("{} Error al borrar la informacin");
-			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al borrar la informacin");
+			LOGGER.error("{} Error al borrar la información");
+			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al borrar la información");
 
 		}
 		return null;

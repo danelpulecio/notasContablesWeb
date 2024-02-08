@@ -638,6 +638,8 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 
 	@Override
 	public void changeEstadoTema(Tema row, int codigoUsuario) throws Exception {
+		LOGGER.info("row : {}", row);
+		LOGGER.info("usuario : {}", codigoUsuario);
 		temaDAO.changeEstado(row, codigoUsuario);
 	}
 
@@ -1148,7 +1150,7 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 	public String verificarUsuarioSubGerente(String codigoSucursalOrigen) throws Exception {
 
 		if (getUsuariosModuloPorAreaYRolYEstado(codigoSucursalOrigen, IRol.SUBGERENTE_Y_RESPONSABLE_DE_AREA_CENTRAL, "A").isEmpty()) {
-			return "No existe ningn usuario con rol 'SubGerente, Gerente o Responsable del rea Central' para autorizar la Nota Contable. Consulte al Administrador del sistema.";
+			return "No existe ningún usuario con rol 'SubGerente, Gerente o Responsable del rea Central' para autorizar la Nota Contable. Consulte al Administrador del sistema.";
 		}
 
 		return "";
@@ -1264,7 +1266,7 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 						padrino.setEstado("A");
 
 						if (getPadrinosPorUnidadAnalisisYEstado(padrino).isEmpty()) {
-							mensaje = "No existe ningn usuario con rol 'Padrino' para autorizar las Notas Contables de esa sucursal origen. Por favor consulte al Administrador del sistema.";
+							mensaje = "No existe ningún usuario con rol 'Padrino' para autorizar las Notas Contables de esa sucursal origen. Por favor consulte al Administrador del sistema.";
 						}
 					} else {
 						indEstadoEnteAutorizador = true;
@@ -1360,7 +1362,7 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 							/**COL514313I001449 MODIFICACION SI NO ESTA CONFIGURADA LA PARAMETRIA SE GENERA MENSAJE 
 							 * DE AVISO AL ADMINISTRADOR ****/
 							if (!indExisteAutorizador) {
-								mensaje = "No existe ningn usuario con rol 'Autorizador' para autorizar la Nota Contable. Por favor consulte al Administrador del sistema.";
+								mensaje = "No existe ningún usuario con rol 'Autorizador' para autorizar la Nota Contable. Por favor consulte al Administrador del sistema.";
 								if(errorAsignacion==1)
 									mensaje = "No esta configurada la parametria para autorizar. Por favor consulte al Administrador del sistema.";
 							}
@@ -1372,13 +1374,13 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 
 				if (indEstadoPrecierre || instancia.getEstado().equals("3")) {
 					if (getUsuariosModuloPorRolYEstado(cs_CODIGO_ADMINISTRADOR_CONSOLIDACION, "A").isEmpty()) {
-						mensaje = "No existe ningn usuario con rol 'Administrador de Consolidacin' para autorizar la Nota Contable. Por favor consulte al Administrador del sistema.";
+						mensaje = "No existe ningún usuario con rol 'Administrador de Consolidación' para autorizar la Nota Contable. Por favor consulte al Administrador del sistema.";
 					}
 				}
 
 				if (instancia.getEstado().equals("4")) {
 					if (getUsuariosModuloPorRolYEstado(cs_CODIGO_ADMINISTRADOR_CONSOLIDACION, "A").isEmpty()) {
-						mensaje = "No existe ningn usuario con rol 'Administrador de Consolidacin' para autorizar la Nota Contable. Por favor consulte al Administrador del sistema.";
+						mensaje = "No existe ningún usuario con rol 'Administrador de Consolidación' para autorizar la Nota Contable. Por favor consulte al Administrador del sistema.";
 					}
 				}
 			}

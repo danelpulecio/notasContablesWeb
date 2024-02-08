@@ -180,6 +180,7 @@ public class HomePage extends GeneralPage implements Serializable, IPages {
     }
 
     public String logout() {
+        LOGGER.info("<<<<<<<<entro hace logout>>>>>>>>");
         UsuarioLogueado usrLoggedIn = getContablesSessionBean().getLoginUser();
 //        Session session = getContablesSessionBean().getSessionTrace();
         try {
@@ -244,9 +245,9 @@ public class HomePage extends GeneralPage implements Serializable, IPages {
         try {
             UsuarioLogueado usrLogueado = null;
             UsuarioModulo usuario = new UsuarioModulo();
-            LOGGER.info("{} Validando la informacin del usuario", traceLog);
+            LOGGER.info("{} Validando la información del usuario", traceLog);
             usuario.setCodigoEmpleado(username);
-            LOGGER.info("{} Obteniendo informacin del usuario: {}", traceLog, user);
+            LOGGER.info("{} Obteniendo información del usuario: {}", traceLog, user);
             usuario = notasContablesManager.getUsuarioModuloPorCodigoEmpleado(usuario);
             if (usuario.getCodigo().intValue() != 0) {
                 LOGGER.info("{} Verificando credenciales contra el LDAP", traceLog);
@@ -273,14 +274,14 @@ public class HomePage extends GeneralPage implements Serializable, IPages {
                     }
                 } else {
                     LOGGER.error("{} Hubo un error al autenticarse contra el LDAP - Usuario: {}", traceLog, user);
-                    nuevoMensaje(FacesMessage.SEVERITY_WARN, "Contrasea invlida. Por favor rectifique e intente de nuevo.");
+                    nuevoMensaje(FacesMessage.SEVERITY_WARN, "Contrasea inválida. Por favor rectifique e intente de nuevo.");
                 }
             } else {
-                LOGGER.error("{} No existe informacin para el usuario {}", traceLog, user);
+                LOGGER.error("{} No existe información para el usuario {}", traceLog, user);
                 nuevoMensaje(FacesMessage.SEVERITY_WARN, "El usuario no existe. Por favor rectifique e intente de nuevo.");
             }
             if (usrLogueado != null) {
-                LOGGER.info("{} Configurando informacin adicional del usuario: {}", traceLog, user);
+                LOGGER.info("{} Configurando información adicional del usuario: {}", traceLog, user);
                 UsuarioAltamira usuarioAltamira = new UsuarioAltamira();
                 usuarioAltamira.setCodigoEmpleado(usrLogueado.getUsuario().getCodigoEmpleado());
                 usrLogueado.setUsuAltamira(cargaAltamiraManager.getUsuarioAltamira(usuarioAltamira));

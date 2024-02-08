@@ -15,7 +15,7 @@ import java.util.*;
 
 /**
  * <p>
- * Pagina para manejar la administracin de parametros relacionados con la entidad Impuesto
+ * Pagina para manejar la administración de parametros relacionados con la entidad Impuesto
  * </p>
  */
 @SessionScoped
@@ -155,7 +155,7 @@ public class ImpuestoPage extends GeneralParametrosPage<Impuesto, Impuesto> {
         puc.setNumeroCuenta(cuenta);
         puc = cargaAltamiraManager.getPUC(puc);
         if (puc.getDescripcion().equals("")) {
-            nuevoMensaje(FacesMessage.SEVERITY_WARN, "La cuenta contable no es una cuenta vlida");
+            nuevoMensaje(FacesMessage.SEVERITY_WARN, "La cuenta contable no es una cuenta válida");
         }
     }
 

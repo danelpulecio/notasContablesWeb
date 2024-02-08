@@ -19,7 +19,7 @@ import java.util.*;
 
 /**
  * <p>
- * Pagina para manejar la administracin de parametros relacionados con la entidad TipoEvento
+ * Pagina para manejar la administración de parametros relacionados con la entidad TipoEvento
  * </p>
  * 
  */
@@ -80,7 +80,7 @@ public class NotaRefCrucePage extends GeneralPage implements IPages, Serializabl
 				LOGGER.info("{} Consultando cuentas de partidas pendientes para la sucursal {}", codSucursal);
 				cuentas = new ArrayList<>(cargaAltamiraManager.getPartidasPendientesCuentasPorSucursal(codSucursal));
 				if (cuentas.isEmpty()) {
-					LOGGER.info("{} No se encontr informacin de cuentas" );
+					LOGGER.info("{} No se encontró información de cuentas" );
 					nuevoMensaje(FacesMessage.SEVERITY_INFO, "Actualmente no hay cuentas para cruzar.");
 				} else {
 					LOGGER.info("{} Se encontraron {} cuentas", cuentas.size());
@@ -92,7 +92,7 @@ public class NotaRefCrucePage extends GeneralPage implements IPages, Serializabl
 			}
 		} catch (Exception e) {
 			LOGGER.error("{} Error al intentar al configurar los valores iniciales: NC REF. CRUCE", e);
-			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema, la aplicacin no se pudo iniciar correctamente");
+			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema, la aplicación no se pudo iniciar correctamente");
 		}
 		return null;
 	}
@@ -221,7 +221,7 @@ public class NotaRefCrucePage extends GeneralPage implements IPages, Serializabl
 	}
 
 	public boolean validarRegistros() {
-		LOGGER.info("{} Validacin de campos requeridos");
+		LOGGER.info("{} validación de campos requeridos");
 		for (NotaContableTotal total : totalesNota) {
 			if (total.getTotal() != 0) {
 				nuevoMensaje(FacesMessage.SEVERITY_WARN, "El total para la divisa " + total.getCodigoDivisa() + " debe sumar cero (0)");
@@ -261,7 +261,7 @@ public class NotaRefCrucePage extends GeneralPage implements IPages, Serializabl
 							usuarioModulo.setCodigo(codigoUsuarioAsignado);
 							usuarioModulo = notasContablesManager.getUsuarioModulo(usuarioModulo);
 							cancelar();
-							nuevoMensaje(FacesMessage.SEVERITY_INFO, "La nota ha sido registrada correctamente con el nmero de radicacin " + notaContable.getNumeroRadicacion());
+							nuevoMensaje(FacesMessage.SEVERITY_INFO, "La nota ha sido registrada correctamente con el número de radicacin " + notaContable.getNumeroRadicacion());
 							try {
 								LOGGER.info("{} Intentando enviar email de la nota grabada");
 								enviarEMail.sendEmail(usuarioModulo.getEMailModificado(), getUsuarioLogueado().getUsuario().getEMailModificado(),
@@ -279,7 +279,7 @@ public class NotaRefCrucePage extends GeneralPage implements IPages, Serializabl
 						nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema no fue posible crear la nota contable");					}
 				} else {
 					LOGGER.error("{} Error la nota contable ya ha sido registrada - Codigo: {}", nota.getCodigo().intValue());
-					nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: La informacin de la nota ya ha sido registrada anteriormente");
+					nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: La información de la nota ya ha sido registrada anteriormente");
 				}
 			}
 		} catch (Exception e) {

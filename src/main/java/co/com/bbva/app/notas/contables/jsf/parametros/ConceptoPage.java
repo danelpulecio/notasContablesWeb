@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * <p>
- * Pagina para manejar la administracin de parametros relacionados con la entidad Concepto
+ * Pagina para manejar la administración de parametros relacionados con la entidad Concepto
  * </p>
  * 
  */
@@ -33,13 +33,19 @@ public class ConceptoPage extends GeneralParametrosPage<Concepto, Concepto> {
 	private List<SelectItem> unidadesAnalisis;
 	private List<SelectItem> temasAut;
 
+	private String defaultValue;
+
 //	Session session = getContablesSessionBean().getSessionTrace();
 	@PostConstruct
 	public void init() throws Exception {
 		super._init();
 		setDatos(new ArrayList<>(_buscarTodos()));
 		consultarListasAuxiliares();
-		LOGGER.info("postConstructo datos {}", getDatos().size());
+		LOGGER.info("postConstructo datos conceptos codigo unidad analisis {}", getDatos().get(8).getCodigoUnidadAnalisis());
+		LOGGER.info("postConstructo datos conceptos vistBuenoAnalisis {}", getDatos().get(8).getVistoBuenoAnalisis());
+		LOGGER.info("postConstructo datos conceptos estado {}", getDatos().get(8).getEstado());
+		LOGGER.info("postConstructo datos conceptos nombre {}", getDatos().get(8).getNombre());
+		LOGGER.info("postConstructo datos conceptos codigo tema autorizado {}", getDatos().get(8).getCodigoTemaAutorizacion());
 	}
 	public ConceptoPage() {
 		super(true);
@@ -171,8 +177,8 @@ public class ConceptoPage extends GeneralParametrosPage<Concepto, Concepto> {
 				unidadesAnalisis = getSelectItemList(cargaAltamiraManager.getCVSucursal(), false);
 				temasAut = getSelectItemList(notasContablesManager.getCV(TemaAutorizacion.class), false);
 			} catch (Exception e) {
-				LOGGER.error("{} Error al inicializar el mdulo de administracin de conceptos",  e );
-				nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al inicializar el mdulo de administracin de conceptos");
+				LOGGER.error("{} Error al inicializar el mdulo de administración de conceptos",  e );
+				nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al inicializar el mdulo de administración de conceptos");
 
 			}
 //		}
@@ -187,6 +193,8 @@ public class ConceptoPage extends GeneralParametrosPage<Concepto, Concepto> {
 	}
 
 	public List<SelectItem> getUnidadesAnalisis() {
+		LOGGER.info("unidad de analisis label{}", unidadesAnalisis.get(8).getLabel());
+		LOGGER.info("unidad de analisis value{}", unidadesAnalisis.get(8).getValue());
 		return unidadesAnalisis;
 	}
 
@@ -202,4 +210,11 @@ public class ConceptoPage extends GeneralParametrosPage<Concepto, Concepto> {
 		this.temasAut = temasAut;
 	}
 
+	public String getDefaultValue() {
+		for (SelectItem codeUd : unidadesAnalisis){
+			if(codeUd.getValue().equals(objActual.getCodigoUnidadAnalisis()))
+				defaultValue = codeUd.getLabel();
+		}
+		return defaultValue;
+	}
 }

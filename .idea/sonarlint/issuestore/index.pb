@@ -25,8 +25,6 @@ Csrc/main/java/co/com/bbva/app/notas/contables/util/EMailSender.java,0/3/032fcf
 Lsrc/main/java/co/com/bbva/app/notas/contables/schedule/ScheduleLoadData.java,0/8/08d46c1704b14e3898d99736b317b0c0fa495099
 u
 Esrc/main/java/co/com/bbva/app/notas/contables/util/ReportesExcel.java,e/9/e9368bb906e1ad7d9c33faf13dc10402a9da22d9
-V
-&src/main/webapp/cargaUsuarioPage.xhtml,1/9/19d90da64062f1c4a4eeb3ef76dd7069476db86c
 Å
 Qsrc/main/java/co/com/bbva/app/notas/contables/jsf/adminnota/CargaUsuarioPage.java,a/5/a5ea347e995a41551203f1fb2c803cd7f497f19d
 o
@@ -450,3 +448,11 @@ Hsrc/main/java/co/com/bbva/app/notas/contables/dto/UsuarioInstancias.java,9/5/9
 Ssrc/main/java/co/com/bbva/app/notas/contables/jsf/consultas/ReporteTiemposPage.java,2/4/24e5ef2380e83bc975e7a219290367ba27802258
 Ñ
 Tsrc/main/java/co/com/bbva/app/notas/contables/jsf/parametros/CentroEspecialPage.java,9/d/9d06ae559f9002e7b99e79d3dbbf75b365bba25a
+v
+Fsrc/main/java/co/com/bbva/app/notas/contables/dto/EnteAutorizador.java,d/a/da0b2d87e4af24f3df63573d1715d3f1381626a0
+k
+;src/main/java/co/com/bbva/app/notas/contables/dto/Tema.java,3/f/3fc8616d0837c99a2025cb405518a3c1054f01e6
+i
+9src/main/webapp/jsf/parametros/temaAutorizacionPage.xhtml,1/7/1756e0650ed3d444f54844082ccd04040adfc92e
+Ü
+Vsrc/main/java/co/com/bbva/app/notas/contables/jsf/parametros/TemaAutorizacionPage.java,e/8/e8820a4ac51e818cff595c0044be35209b0760b4

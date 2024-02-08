@@ -33,7 +33,7 @@ public interface IPages {
 	public static final String USUARIO_ALTAMIRA = "usuarioAltamira";
 	public static final String CIERRE_MENSUAL = "cierreMensual";
 
-	// paginas de administracin de parmetros
+	// paginas de administración de parmetros
 	public static final String USUARIO = "usuarioPage";
 	public static final String ROLES = "rolPage";
 	public static final String TIPO_EVENTO = "tipoEventoPage";
@@ -72,7 +72,7 @@ public interface IPages {
 	public static final String NOTA_CONTABLE_LIBRE = "notaContableLibrePage";
 	public static final String NOTA_REF_CRUCE = "notaRefCrucePage";
 
-	// pginas para administracin de notas contables
+	// pginas para administración de notas contables
 	public static final String ADMIN_PENDIENTES = "pendientePage";
 	public static final String ADMIN_PRECIERRE = "precierrePage";
 	public static final String ADMIN_CIERRE = "cierrePage";

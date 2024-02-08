@@ -524,7 +524,7 @@ public class NotaContableDAO extends CommonSeqDAO<NotaContable> {
 	}
 
 	/**
-	 * Permite retornar la consulta de la informacin necesaria para un archivo plano
+	 * Permite retornar la consulta de la información necesaria para un archivo plano
 	 * 
 	 * @return
 	 * @throws Exception

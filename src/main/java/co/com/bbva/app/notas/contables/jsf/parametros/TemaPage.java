@@ -20,11 +20,11 @@ import java.util.TreeSet;
 
 /**
  * <p>
- * Pagina para manejar la administracin de parametros relacionados con la entidad Tema
+ * Pagina para manejar la administración de parametros relacionados con la entidad Tema
  * </p>
  */
 @SessionScoped
-@Named
+@Named(value = "temaPage")
 public class TemaPage extends GeneralParametrosPage<Concepto, Tema> {
 
     private static final long serialVersionUID = 1L;
@@ -44,9 +44,20 @@ public class TemaPage extends GeneralParametrosPage<Concepto, Tema> {
     private List<String> impuestosSel = new ArrayList<String>();
     private List<String> productosSel = new ArrayList<String>();
 
-    DualListModel<String> dualListModel = new DualListModel<>(productosSel,productosSel);
+    protected List<SelectItem> productoSource = new ArrayList<>();
+    protected List<SelectItem> productoTarget = new ArrayList<>();
+    protected DualListModel<SelectItem> dualListModel;
+
 
     //	Session session = getContablesSessionBean().getSessionTrace();
+
+//    @PostConstruct
+//    protected void init() throws Exception {
+//        super._init();
+//        setDatos(new ArrayList<>(_buscarTodos()));
+//        LOGGER.info("postConstructo datos {}", getDatos().size());
+//    }
+
 
 
     public TemaPage() {
@@ -132,6 +143,7 @@ public class TemaPage extends GeneralParametrosPage<Concepto, Tema> {
      */
     @Override
     protected void _editar() throws Exception {
+        LOGGER.info("Editar Tema paso 2");
         cuentas = new ArrayList<SelectItem>();
         cuentasContraPartida = new ArrayList<SelectItem>();
         concepto = "";
@@ -142,6 +154,9 @@ public class TemaPage extends GeneralParametrosPage<Concepto, Tema> {
 
         impuestos = getSelectItemList(notasContablesManager.getCV(Impuesto.class), false);
         productos = getSelectItemList(notasContablesManager.getCV(Producto.class), false);
+        LOGGER.info("PRODUCTO value{}", productos.get(7).getValue());
+        LOGGER.info("PRODUCTO  label{}", productos.get(7).getLabel());
+//        dualListModel = new DualListModel<>(productos, productos);
         conceptos = new ArrayList<SelectItem>();
 
         if (objActual.getCodigo().intValue() > 0) {
@@ -164,10 +179,23 @@ public class TemaPage extends GeneralParametrosPage<Concepto, Tema> {
             for (TemaProducto tm : productosTema) {
                 productosSel.add(tm.getCodigoProducto());
             }
+            LOGGER.info("SELECCIONADOS TARGE PICKLIST PASO 3 {}", productosSel);
             Collection<TemaImpuesto> impuestosTema = notasContablesManager.getImpuestosPorTema(objActual.getCodigo().intValue());
             for (TemaImpuesto ti : impuestosTema) {
                 impuestosSel.add("" + ti.getCodigoImpuesto());
             }
+
+            // llenado picklist source & target
+                productoSource = new ArrayList<>();
+                productoTarget = new ArrayList<>();
+            for (SelectItem producto : productos) {
+                if (productosSel.contains(producto.getValue()))
+                    productoTarget.add(new SelectItem(producto.getLabel()));
+                else
+                    productoSource.add(new SelectItem(producto.getLabel()));
+            }
+            LOGGER.info("productoSource {}", productoSource.size());
+            dualListModel = new DualListModel<>(productoSource, productoTarget);
         } else {
             objActual = new Tema();
         }
@@ -295,20 +323,28 @@ public class TemaPage extends GeneralParametrosPage<Concepto, Tema> {
     }
 
     public String cambioNat1() {
+        LOGGER.info("cambio 2 obj NT1 actual {}", objActual.getNaturaleza1());
+        LOGGER.info("cambio 2 obj NT2 actual {}", objActual.getNaturaleza2());
         if (objActual.getNaturaleza1().equals("D")) {
             objActual.setNaturaleza2("H");
         } else {
             objActual.setNaturaleza2("D");
         }
+        LOGGER.info("cambio 2 obj NT1 actual {}", objActual.getNaturaleza1());
+        LOGGER.info("cambio 2 obj NT2 actual {}", objActual.getNaturaleza2());
         return null;
     }
 
     public String cambioNat2() {
+        LOGGER.info("cambio 2 obj NT1 actual {}", objActual.getNaturaleza1());
+        LOGGER.info("cambio 2 obj NT2 actual {}", objActual.getNaturaleza2());
         if (objActual.getNaturaleza2().equals("D")) {
             objActual.setNaturaleza1("H");
         } else {
             objActual.setNaturaleza1("D");
         }
+        LOGGER.info("cambio 2 obj NT1 actual {}", objActual.getNaturaleza1());
+        LOGGER.info("cambio 2 obj NT2 actual {}", objActual.getNaturaleza2());
         return null;
     }
 
@@ -328,7 +364,7 @@ public class TemaPage extends GeneralParametrosPage<Concepto, Tema> {
             try {
                 Collection<PUC> pucList = cargaAltamiraManager.searchPUC(cuenta);
                 if (pucList.isEmpty()) {
-                    nuevoMensaje(FacesMessage.SEVERITY_WARN, "No se encontr informacin para el nmero de cuenta " + cuenta);
+                    nuevoMensaje(FacesMessage.SEVERITY_WARN, "No se encontró información para el número de cuenta " + cuenta);
                 }
                 for (PUC puc : pucList) {
                     lista.add(new SelectItem(puc.getNumeroCuenta(), puc.getNumeroCuenta() + " " + puc.getDescripcion()));
@@ -352,8 +388,11 @@ public class TemaPage extends GeneralParametrosPage<Concepto, Tema> {
     @Override
     public boolean _cambiarEstado() throws Exception {
 //        LOGGER.info("{} Cambio estado tema: {}", session.getTraceLog(), notasContablesManager.getTema(objActual).getCodigo() + " " + notasContablesManager.getTema(objActual).getCodigoConcepto() + " " + notasContablesManager.getTema(objActual).getNombre() + " " + notasContablesManager.getTema(objActual).getEstado());
+        LOGGER.info("_cambiar estado {}", getUsuarioLogueado());
+        LOGGER.info("_cambiar objeto {}", objActual);
         notasContablesManager.changeEstadoTema(notasContablesManager.getTema(objActual), getCodUsuarioLogueado());
-        setDatos(new ArrayList<>(_buscarTodos()));
+        LOGGER.info("cambio estado correctamente????");
+//        setDatos(new ArrayList<>(_buscarTodos()));
         return true;
     }
 
@@ -461,12 +500,12 @@ public class TemaPage extends GeneralParametrosPage<Concepto, Tema> {
         this.concepto = concepto;
     }
 
-    public DualListModel<String> getDualListModel() {
+    public DualListModel<SelectItem> getDualListModel() {
         LOGGER.info("get dual list ");
         return dualListModel;
     }
 
-    public void setDualListModel(DualListModel<String> dualListModel) {
+    public void setDualListModel(DualListModel<SelectItem> dualListModel) {
         this.dualListModel = dualListModel;
     }
 }

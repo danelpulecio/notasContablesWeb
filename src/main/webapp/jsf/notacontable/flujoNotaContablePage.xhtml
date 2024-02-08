@@ -182,7 +182,7 @@
                                      widgetVar="economicActivityTable" rows="15" paginator="true"
                                      rendered="#{! empty flujoNotaContablePage.temaActual.impuestoTema}"
                                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                     currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                                     currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
                                      paginatorPosition="top">
 
                             <h1 align="center">Liquidación de Impuestos</h1>
@@ -240,7 +240,7 @@
                         <p:dataTable id="tableAnexosVer" value="#{flujoNotaContablePage.temaActual.anexoTema}" var="anexo" rowIndexVar="rowIndex"
                                      widgetVar="economicActivityTable" rows="15" paginator="true"
                                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                     currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                                     currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
                                      paginatorPosition="top">
 
                             <h1 align="center">Soportes del Tema</h1>
@@ -441,7 +441,7 @@
                 <p:dataTable id="tableTemasVer" value="#{flujoNotaContablePage.temasNotaContable}" var="temaNota" rowIndexVar="rowIndex"
                              widgetVar="economicActivityTable" rows="15" paginator="true"
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                             currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
                              paginatorPosition="top">
 
                     <p:column headerText="Asiento" rendered="#{flujoNotaContablePage.mostrarAsiento}">

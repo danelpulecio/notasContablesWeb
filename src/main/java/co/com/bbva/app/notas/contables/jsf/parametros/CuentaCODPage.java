@@ -16,7 +16,7 @@ import java.util.*;
 
 /**
  * <p>
- * Pagina para manejar la administracin de parametros relacionados con la entidad CuentaCOD
+ * Pagina para manejar la administración de parametros relacionados con la entidad CuentaCOD
  * </p>
  * 
  */
@@ -158,7 +158,7 @@ public void init() throws Exception {
 				nuevoMensaje(FacesMessage.SEVERITY_WARN, "La cuenta contable debe ser Divisa o Multidivisa");
 			}
 		} else {
-			nuevoMensaje(FacesMessage.SEVERITY_WARN, "La cuenta contable no es una cuenta vlida");
+			nuevoMensaje(FacesMessage.SEVERITY_WARN, "La cuenta contable no es una cuenta válida");
 		}
 	}
 

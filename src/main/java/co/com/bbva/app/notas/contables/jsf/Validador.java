@@ -17,7 +17,7 @@ public class Validador {
 
 	public void validarEMail(String aValidar, String nombre) {
 		if (aValidar != null && !aValidar.toString().contains("@")) {
-			page.nuevoMensaje(FacesMessage.SEVERITY_WARN, "El campo '" + nombre + "' debe ser un correo vlido");
+			page.nuevoMensaje(FacesMessage.SEVERITY_WARN, "El campo '" + nombre + "' debe ser un correo válido");
 		}
 	}
 

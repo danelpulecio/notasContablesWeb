@@ -128,7 +128,7 @@ public class TerceroDAO extends CommonDAO<Tercero> {
 		if (sql_SELECT_BY_PRIMARY_KEY_SENTENCE != null) {
 			return getXMLDataGeneral(con, sql_SELECT_BY_PRIMARY_KEY_SENTENCE, new Object[] { row.getTipoIdentificacion(), row.getNumeroIdentificacion() });
 		}
-		throw new Exception("Se debe definir la llave primaria para realizar la accin");
+		throw new Exception("Se debe definir la llave primaria para realizar la acción");
 	}
 
 	@Override

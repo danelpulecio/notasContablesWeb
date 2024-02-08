@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * <p>
- * Pagina para manejar la administracin de parametros relacionados con la
+ * Pagina para manejar la administración de parametros relacionados con la
  * entidad TipoEvento
  * </p>
  * 

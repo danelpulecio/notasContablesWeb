@@ -50,7 +50,7 @@ import co.com.bbva.app.notas.contables.util.StringUtils;
 
 /**
  * <p>
- * Pagina para manejar la administracin de parametros relacionados con la entidad TipoEvento
+ * Pagina para manejar la administración de parametros relacionados con la entidad TipoEvento
  * </p>
  * 
  */
@@ -153,7 +153,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 			}
 		} catch (Exception e) {
 			LOGGER.error("{} Error al intentar configurar los valores iniciales: NC", e);
-			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema, la aplicacin no se pudo iniciar correctamente");
+			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema, la aplicación no se pudo iniciar correctamente");
 		}
 		return null;
 	}
@@ -420,7 +420,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 		LOGGER.info("{} Validando si el cambio de sucursal aplica para la partida y contrapartida");
 		String partida = temaActual.getTema().getPartidaContable().substring(0, 2);
 		String contraPartida = temaActual.getTema().getContraPartidaContable().substring(0, 2);
-		LOGGER.info("{} Verificando si es vlido el cambio de sucursal: {} ", sucursal);
+		LOGGER.info("{} Verificando si es válido el cambio de sucursal: {} ", sucursal);
 		if (partida.equals("61") && contraPartida.equals("62") || partida.equals("62") && contraPartida.equals("61")) {
 			return true;
 		}
@@ -623,7 +623,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 			cliente.setNumeroIdentificacion(numero);
 			cliente = cargaAltamiraManager.getClientePorTipoYNumeroIdentificacion(cliente);
 
-			LOGGER.info("{} Verificando si se encontr Info. en clientes");
+			LOGGER.info("{} Verificando si se encontró Info. en clientes");
 			if (!cliente.getNumeroIdentificacion().equals("")) {
 				LOGGER.info("{} Estableciendo propiedades del tercero:cliente");
 				numTercero = cliente.getNumeroIdentificacion();
@@ -644,21 +644,21 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 					}
 				}
 			} else {
-				LOGGER.info("{} No se encontr Info. en Clientes - Buscando en Terceros");
+				LOGGER.info("{} No se encontró Info. en Clientes - Buscando en Terceros");
 				Tercero tercero = new Tercero();
 				tercero.setTipoIdentificacion(tipo);
 				tercero.setNumeroIdentificacion(numero);
 				tercero = cargaAltamiraManager.getTerceroPorTipoYNumeroIdentificacion(tercero);
 
-				LOGGER.info("{} Verificando si se encontr Info. en terceros");
+				LOGGER.info("{} Verificando si se encontró Info. en terceros");
 				if (!tercero.getTipoIdentificacion().equals("")) {
 					LOGGER.info("{} Estableciendo propiedades del tercero:tercero");
 					numTercero = tercero.getNumeroIdentificacion();
 					dvTercero = tercero.getDigitoVerificacion();
 					nombreTercero = tercero.getPrimerNombre().trim() + " " + tercero.getPrimerApellido().trim() + " " + tercero.getSegundoApellido().trim();
 				} else {
-					LOGGER.warn("{} No se encontr Info. del tercero consultado: {}", numero);
-					nuevoMensaje(FacesMessage.SEVERITY_WARN, "No se encontr ningn cliente ni tercero con la combinacin tipo y nmero de identificacin");
+					LOGGER.warn("{} No se encontró Info. del tercero consultado: {}", numero);
+					nuevoMensaje(FacesMessage.SEVERITY_WARN, "No se encontró ningún cliente ni tercero con la combinacin tipo y número de identificación");
 				}
 			}
 			LOGGER.info("{} Estableciendo atributos del tercero");
@@ -688,7 +688,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 			}
 		} catch (Exception e) {
 			LOGGER.error("{} Error intentando buscar el tercero: {}", numero, e);
-			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema al buscar el tercero con identificacin " + numero);
+			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema al buscar el tercero con identificación " + numero);
 		}
 	}
 
@@ -831,7 +831,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 							notaContable = notasContablesManager.getNotaContable(notaContable);
 							LOGGER.info("{} El registro de la NOTA CONTABLE: {} fue exitoso", notaContable.getNumeroRadicacion());
 							cancelarNota();
-							nuevoMensaje(FacesMessage.SEVERITY_INFO, "La nota ha sido radicada correctamente con el nmero: " + notaContable.getNumeroRadicacion());
+							nuevoMensaje(FacesMessage.SEVERITY_INFO, "La nota ha sido radicada correctamente con el número: " + notaContable.getNumeroRadicacion());
 							UsuarioModulo usuarioModulo = new UsuarioModulo();
 							try {
 								LOGGER.info("{} Intentando enviar email de la nota grabada");
@@ -847,7 +847,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 					}
 				} else {
 					LOGGER.warn("{} No ha registrado Info. para un tema");
-					nuevoMensaje(FacesMessage.SEVERITY_WARN, "No ha diligenciado la informacin de ningn tema para la Nota Contable");
+					nuevoMensaje(FacesMessage.SEVERITY_WARN, "No ha diligenciado la información de ningún tema para la Nota Contable");
 				}
 			}
 		} catch (Exception e) {
@@ -878,7 +878,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 		LOGGER.info("{} Validando que temas obligatorios se encuentren diligenciado");
 		for (NotaContableTema tema : temasNotaContable) {
 			if (tema.isObligatorio() && tema.getMonto().doubleValue() <= 0) {
-				nuevoMensaje(FacesMessage.SEVERITY_WARN, "No ha diligenciado la informacin de los temas obligatorios para la Nota Contable");
+				nuevoMensaje(FacesMessage.SEVERITY_WARN, "No ha diligenciado la información de los temas obligatorios para la Nota Contable");
 				return false;
 			}
 		}
@@ -997,7 +997,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 						notasContablesManager.getRiesgoPorNotaContableYTemaNotaContable(temaActual.getCodigoNotaContable().intValue(), temaActual.getCodigo().intValue()));
 			} catch (Exception e) {
 
-				lanzarError(e, "Error recuperando la informacin de riesgo operacional");
+				lanzarError(e, "Error recuperando la información de riesgo operacional");
 			}
 		}
 		return null;
@@ -1023,7 +1023,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 	 * @return
 	 */
 	private boolean validarTema() {
-		LOGGER.info("{} Validacin de campos requeridos");
+		LOGGER.info("{} validación de campos requeridos");
 		validarFecha();
 		validador.validarRequerido(temaActual.getCodigoSucursalDestinoPartida(), "Sucursal destino de la Partida");
 		validador.validarRequerido(temaActual.getCodigoSucursalDestinoContraPartida(), "Sucursal destino de la Contrapartida");
@@ -1035,10 +1035,10 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 		}
 		if (temaActual.getTema().getTercero1().equals("S")) {
 			validador.validarSeleccion(temaActual.getTipoIdentificacion1(), "Tipo de documento del tercero asociado a la Partida");
-			validador.validarRequerido(temaActual.getNumeroIdentificacion1(), "Nmero de documento del tercero asociado a la Partida");
+			validador.validarRequerido(temaActual.getNumeroIdentificacion1(), "número de documento del tercero asociado a la Partida");
 
 			if (temaActual.getNombreCompleto1().isEmpty()) {
-				nuevoMensaje(FacesMessage.SEVERITY_WARN, "La informacin del tercero asociado a la Partida es requerida");
+				nuevoMensaje(FacesMessage.SEVERITY_WARN, "La información del tercero asociado a la Partida es requerida");
 			}
 			if (temaActual.getTema().getContrato1().equals("S")) {
 				validador.validarSeleccion(temaActual.getContrato1(), "Contrato del tercero asociado a la Partida");
@@ -1046,9 +1046,9 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 		}
 		if (temaActual.getTema().getTercero2().equals("S")) {
 			validador.validarSeleccion(temaActual.getTipoIdentificacion2(), "Tipo de documento del tercero asociado a la Contrapartida");
-			validador.validarRequerido(temaActual.getNumeroIdentificacion2(), "Nmero de documento del tercero asociado a la Contrapartida");
+			validador.validarRequerido(temaActual.getNumeroIdentificacion2(), "número de documento del tercero asociado a la Contrapartida");
 			if (temaActual.getNombreCompleto2().isEmpty()) {
-				nuevoMensaje(FacesMessage.SEVERITY_WARN, "La informacin del tercero asociado a la Contrapartida es requerida");
+				nuevoMensaje(FacesMessage.SEVERITY_WARN, "La información del tercero asociado a la Contrapartida es requerida");
 			}
 			if (temaActual.getTema().getContrato2().equals("S")) {
 				validador.validarSeleccion(temaActual.getContrato2(), "Contrato del tercero asociado a la Contrapartida");
@@ -1067,7 +1067,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 		}
 		if (temaActual.getTema().getRiesgoOperacional().equals("S")) {
 			if (temaActual.getRiesgoOperacional().getImporteParcial().doubleValue() <= 0) {
-				nuevoMensaje(FacesMessage.SEVERITY_WARN, "El tema requiere informacin de Riesgo Operacional");
+				nuevoMensaje(FacesMessage.SEVERITY_WARN, "El tema requiere información de Riesgo Operacional");
 			}
 		}
 		if (nota.getConcepto().getSoportes().equals("S") && temaActual.getAnexoTema().isEmpty()) {
@@ -1119,7 +1119,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 						File f = new File(context.getRealPath(DIR_SOPORTES + anexo.getArchivo()));
 						f.delete();
 					}
-					LOGGER.info("{} Restableciendo los parmetros iniciales");
+					LOGGER.info("{} Restableciendo los parámetros iniciales");
 					newNota.setAnexoTema(new ArrayList<>());
 					newNota.setRiesgoOperacional(new RiesgoOperacional());
 					for (NotaContableTemaImpuesto impuestoTNC : nct.getImpuestoTema()) {
@@ -1139,7 +1139,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 						verNota();
 					} catch (Exception e) {
 						LOGGER.error("{} Error al recuperar la Info. diligenciada del tema");
-						nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema al recuperar la informacin del tema");
+						nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema al recuperar la información del tema");
 					}
 				}
 				temaActual = new NotaContableTema();

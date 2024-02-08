@@ -58,13 +58,13 @@
                 </h:panelGrid>
                 <h:panelGrid columns="3" id="uniAnalisis">
                     <h:outputText value="Visto bueno de Unidad de Análisis" styleClass="name"/>
-                    <p:selectBooleanCheckbox value="#{conceptoPage.objActual.boolVistoBuenoAnalisis}" immediate="true">
+                    <p:selectBooleanCheckbox value="#{conceptoPage.objActual.boolVistoBuenoAnalisis}">
                         <p:ajax event="change" update="uniAnalisis"/>
                     </p:selectBooleanCheckbox>
-                    <p:selectOneMenu id="menuSelect" value="#{conceptoPage.objActual.codigoUnidadAnalisis}" immediate="true"
+                    <p:selectOneMenu id="menuSelect" value="#{conceptoPage.objActual.codigoUnidadAnalisis}"
+                                     immediate="true"
                                      rendered="#{conceptoPage.objActual.boolVistoBuenoAnalisis}"
                                      converter="javax.faces.Integer">
-                        
                         <f:selectItems value="#{conceptoPage.unidadesAnalisis}"/>
                         <f:selectItem itemValue="0" itemLabel="Seleccione una opcion"/>
                     </p:selectOneMenu>
@@ -75,7 +75,6 @@
                     <p:selectOneMenu id="menuSelectDos" value="#{conceptoPage.objActual.codigoTemaAutorizacion}"
                                      immediate="true"
                                      converter="javax.faces.Integer">
-                        
                         <f:selectItems value="#{conceptoPage.temasAut}"/>
                         <f:selectItem itemValue="0" itemLabel="Ninguna"/>
                     </p:selectOneMenu>
@@ -116,7 +115,7 @@
         <p:growl id="growl" showDetail="false" life="3000" />
 
 
-        <!--Filtro de busqueda	-->
+        <!--Filtro de busqueda  -->
         <div style="width: 950px;">
             <h:panelGrid columns="1" width="100%"><h1 align="center">Conceptos</h1></h:panelGrid>
             <!-- Panel de opciones -->
@@ -157,7 +156,7 @@
                              rowIndexVar="rowIndex"
                              widgetVar="table" rows="15" paginator="true"
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                             currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
                              paginatorPosition="top">
                     <p:column headerText="Fila">
                         <h:outputText value="#{rowIndex+1}"/>
@@ -197,28 +196,31 @@
                                          style="width: 24px; height: 24px; padding: 0; background-image: url('#{request.contextPath}/common/images/edit.png'); background-size: cover; border-radius: 50%;"
                                          oncomplete="PF('editor').show()"
                                          update="globalForm:editor">
-                            <f:setPropertyActionListener for="codEdit" value="#{dato.codigo}" target="#{conceptoPage.objActual.codigo}"/>
-                            <f:setPropertyActionListener for="nombEdit" value="#{dato.nombre}" target="#{conceptoPage.objActual.nombre}"/>
-                            <f:setPropertyActionListener for="unAnEdit" value="#{dato.codigoUnidadAnalisis}" target="#{conceptoPage.objActual.codigoUnidadAnalisis}"
+                            <f:setPropertyActionListener value="#{dato.codigo}"
+                                                         target="#{conceptoPage.objActual.codigo}"/>
+                            <f:setPropertyActionListener value="#{dato.nombre}"
+                                                         target="#{conceptoPage.objActual.nombre}"/>
+                            <f:setPropertyActionListener for="teAuEdit" value="#{dato.codigoUnidadAnalisis}"
+                                                         target="#{conceptoPage.objActual.codigoUnidadAnalisis}"
                                                          converter="javax.faces.Integer"/>
-                            <f:setPropertyActionListener for="teAuEdit" value="#{dato.codigoTemaAutorizacion}"
+                            <f:setPropertyActionListener value="#{dato.codigoTemaAutorizacion}"
                                                          target="#{conceptoPage.objActual.codigoTemaAutorizacion}"
                                                          converter="javax.faces.Integer"/>
-                            <f:setPropertyActionListener for="auSuEdit" value="#{dato.centrosAutSucursales eq 'S'}"
+                            <f:setPropertyActionListener value="#{dato.centrosAutSucursales eq 'S'}"
                                                          target="#{conceptoPage.objActual.boolCentrosAutSucursales}"/>
-                            <f:setPropertyActionListener for="auAcEdit" value="#{dato.centrosAutAreasCentrales eq 'S'}"
+                            <f:setPropertyActionListener value="#{dato.centrosAutAreasCentrales eq 'S'}"
                                                          target="#{conceptoPage.objActual.boolCentrosAutAreasCentrales}"/>
-                            <f:setPropertyActionListener for="auCeEdit" value="#{dato.centrosAutCentroEspecial eq 'S'}"
+                            <f:setPropertyActionListener value="#{dato.centrosAutCentroEspecial eq 'S'}"
                                                          target="#{conceptoPage.objActual.boolCentrosAutCentroEspecial}"/>
-                            <f:setPropertyActionListener for="vbAnEdit" value="#{dato.vistoBuenoAnalisis eq 'S'}"
+                            <f:setPropertyActionListener value="#{dato.vistoBuenoAnalisis eq 'S'}"
                                                          target="#{conceptoPage.objActual.boolVistoBuenoAnalisis}"/>
-                            <f:setPropertyActionListener for="auTeEdit" value="#{dato.autorizacionTercero eq 'S'}"
+                            <f:setPropertyActionListener value="#{dato.autorizacionTercero eq 'S'}"
                                                          target="#{conceptoPage.objActual.boolAutorizacionTercero}"/>
-                            <f:setPropertyActionListener for="sopEdit" value="#{dato.soportes eq 'S'}"
+                            <f:setPropertyActionListener value="#{dato.soportes eq 'S'}"
                                                          target="#{conceptoPage.objActual.boolSoportes}"/>
-                            <f:setPropertyActionListener for="ordEdit" value="#{dato.origenDestino eq 'S'}"
+                            <f:setPropertyActionListener value="#{dato.origenDestino eq 'S'}"
                                                          target="#{conceptoPage.objActual.boolOrigenDestino}"/>
-                            <f:setPropertyActionListener for="estEdit" value="#{dato.estado}"
+                            <f:setPropertyActionListener value="#{dato.estado}"
                                                          target="#{conceptoPage.objActual.estado}"/>
                         </p:commandButton>
                     </p:column>

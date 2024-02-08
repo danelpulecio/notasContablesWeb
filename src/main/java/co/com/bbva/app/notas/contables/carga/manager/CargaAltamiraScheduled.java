@@ -68,12 +68,12 @@ public class CargaAltamiraScheduled extends CargaAltamiraBase {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CargaAltamiraScheduled.class);
 
 	/**
-	 * la informacin debe estar formateada con:</p> datos originales separados por punto y coma, prefijo <code>Schedule,</code>, y datos de informacin separados por coma en el siguiente orden:
+	 * la información debe estar formateada con:</p> datos originales separados por punto y coma, prefijo <code>Schedule,</code>, y datos de información separados por coma en el siguiente orden:
 	 * <ul>
 	 * <li>Fecha en formato yyyyMMddHH</li>
 	 * <li>Periodo en milisegundos</li>
-	 * <li>Si se debe eliminar la info completa; 0 para no, cualquier otro nmero para s</li>
-	 * <li>Si se debe ejecutar en un hilo independiente; 0 para no, cualquier otro nmero para s</li>
+	 * <li>Si se debe eliminar la info completa; 0 para no, cualquier otro número para s</li>
+	 * <li>Si se debe ejecutar en un hilo independiente; 0 para no, cualquier otro número para s</li>
 	 * </ul>
 	 */
 	public synchronized void loadDatosAltamiraScheduled(File file) throws Exception {
@@ -124,7 +124,7 @@ public class CargaAltamiraScheduled extends CargaAltamiraBase {
 
 							if (!dataToProcess[2]) {// proceso en serie
 								
-								LOGGER.info("  Inici Carga Archivo: " + DateUtils.getTimestamp() + ": " + ls_nombreArchivo);
+								LOGGER.info("  Inicio Carga Archivo: " + DateUtils.getTimestamp() + ": " + ls_nombreArchivo);
 								/** MODIFICACION DE LOGS EN ARCHIVO INDEPENDIENTE**/
 								try {
 									getDatos(ls_nombreTabla, fileMod, ls_nombreArchivo, estructurasCarga, dataToProcess[1]);
