@@ -59,7 +59,6 @@ public class TemaPage extends GeneralParametrosPage<Concepto, Tema> {
 //    }
 
 
-
     public TemaPage() {
         super(true);
     }
@@ -186,13 +185,24 @@ public class TemaPage extends GeneralParametrosPage<Concepto, Tema> {
             }
 
             // llenado picklist source & target
-                productoSource = new ArrayList<>();
-                productoTarget = new ArrayList<>();
+            productoSource = new ArrayList<>();
+            productoTarget = new ArrayList<>();
             for (SelectItem producto : productos) {
-                if (productosSel.contains(producto.getValue()))
-                    productoTarget.add(new SelectItem(producto.getLabel()));
-                else
-                    productoSource.add(new SelectItem(producto.getLabel()));
+                LOGGER.info("producto value {}", producto.getValue());
+                LOGGER.info("producto value class {}", producto.getValue().getClass());
+                if (productosSel.contains(producto.getValue())) {
+                    String value = (String) producto.getValue();
+                    String label = producto.getLabel();
+                    SelectItem si = new SelectItem(value, label);
+//                    productoTarget.add(new SelectItem(producto.getValue(), producto.getLabel()));
+                    productoTarget.add(si);
+                } else {
+                    String value = (String) producto.getValue();
+                    String label = producto.getLabel();
+                    SelectItem si= new SelectItem(value,label);
+//                    productoSource.add(new SelectItem(producto.getValue(), producto.getLabel()));
+                    productoSource.add(si);
+                }
             }
             LOGGER.info("productoSource {}", productoSource.size());
             dualListModel = new DualListModel<>(productoSource, productoTarget);
@@ -323,28 +333,20 @@ public class TemaPage extends GeneralParametrosPage<Concepto, Tema> {
     }
 
     public String cambioNat1() {
-        LOGGER.info("cambio 2 obj NT1 actual {}", objActual.getNaturaleza1());
-        LOGGER.info("cambio 2 obj NT2 actual {}", objActual.getNaturaleza2());
         if (objActual.getNaturaleza1().equals("D")) {
             objActual.setNaturaleza2("H");
         } else {
             objActual.setNaturaleza2("D");
         }
-        LOGGER.info("cambio 2 obj NT1 actual {}", objActual.getNaturaleza1());
-        LOGGER.info("cambio 2 obj NT2 actual {}", objActual.getNaturaleza2());
         return null;
     }
 
     public String cambioNat2() {
-        LOGGER.info("cambio 2 obj NT1 actual {}", objActual.getNaturaleza1());
-        LOGGER.info("cambio 2 obj NT2 actual {}", objActual.getNaturaleza2());
         if (objActual.getNaturaleza2().equals("D")) {
             objActual.setNaturaleza1("H");
         } else {
             objActual.setNaturaleza1("D");
         }
-        LOGGER.info("cambio 2 obj NT1 actual {}", objActual.getNaturaleza1());
-        LOGGER.info("cambio 2 obj NT2 actual {}", objActual.getNaturaleza2());
         return null;
     }
 
@@ -501,7 +503,13 @@ public class TemaPage extends GeneralParametrosPage<Concepto, Tema> {
     }
 
     public DualListModel<SelectItem> getDualListModel() {
-        LOGGER.info("get dual list ");
+        LOGGER.info("<<<<<<<<<<<<<<get dual list source {}>>>>>>>>>>>>>> ", dualListModel.getSource().size());
+        LOGGER.info("<<<<<<<<<<<<<<get dual list target {}>>>>>>>>>>>>>> ", dualListModel.getTarget().size());
+        LOGGER.info("<<<<<<<<<<<<<<get dual list source class {}>>>>>>>>>>>>>> ", dualListModel.getSource().getClass());
+//        LOGGER.info("<<<<<<<<<<<<<<get dual list target value source {}>>>>>>>>>>>>>> ", dualListModel.getSource().get(0).getValue());
+//        LOGGER.info("<<<<<<<<<<<<<<get dual list target value target {}>>>>>>>>>>>>>> ", dualListModel.getTarget().get(0).getValue());
+        LOGGER.info("<<<<<<<<<<<<<<get dual list target label source {}>>>>>>>>>>>>>> ", dualListModel.getSource().get(0));
+//        LOGGER.info("<<<<<<<<<<<<<<get dual list target label target {}>>>>>>>>>>>>>> ", dualListModel.getTarget().get(0).getLabel());
         return dualListModel;
     }
 
