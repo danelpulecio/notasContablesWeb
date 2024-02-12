@@ -456,3 +456,5 @@ i
 9src/main/webapp/jsf/parametros/temaAutorizacionPage.xhtml,1/7/1756e0650ed3d444f54844082ccd04040adfc92e
 †
 Vsrc/main/java/co/com/bbva/app/notas/contables/jsf/parametros/TemaAutorizacionPage.java,e/8/e8820a4ac51e818cff595c0044be35209b0760b4
+‹
+[src/main/java/co/com/bbva/app/notas/contables/schedule/historico/ScheduleCierreMensual.java,5/2/524fbd863e66680005275d2c6b72c7b5a63afb18

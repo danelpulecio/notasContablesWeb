@@ -60,7 +60,7 @@
                 </h:panelGrid>
             </h:panelGrid>
         </p:dialog>
-        <p:growl id="growl" showDetail="false" life="3000" />
+        <p:growl id="growl" showDetail="false" life="5000" />
 
         <!-- Formulario Modal de creacion y edicion de nuevos registros-->
         <p:dialog id="editor" widgetVar="editor" style="max-height: 500px; overflow: auto">
@@ -115,7 +115,7 @@
                                         <p:inputText value="#{temaPage.partidaContable}" immediate="true"
                                                      maxlength="20" size="12"/>
                                         <p:commandButton action="#{temaPage.buscarPartidaContable}" value="Buscar"
-                                                         update="partContable"/>
+                                                         update="partContable, globalForm:growl"/>
                                     </h:panelGrid>
                                     <h:panelGrid columns="2" id="partContable">
                                         <p:selectOneMenu value="#{temaPage.objActual.partidaContable}"
@@ -170,7 +170,7 @@
                                         <p:inputText value="#{temaPage.contraPartidaContable}" immediate="true"
                                                      maxlength="20" size="12"/>
                                         <p:commandButton action="#{temaPage.buscarContraPartidaContable}"
-                                                         value="Buscar" update="contraPartContable"/>
+                                                         value="Buscar" update="contraPartContable, globalForm:growl"/>
                                     </h:panelGrid>
                                     <h:panelGrid columns="2" id="contraPartContable">
                                         <p:selectOneMenu value="#{temaPage.objActual.contraPartidaContable}"
@@ -252,7 +252,7 @@
                         <p:panel style="width: 100%" header="productos"
                                  rendered='#{temaPage.objActual.contrato1 eq "S" or temaPage.objActual.contrato2 eq "S"}'>
                             <p:pickList id="example" value="#{temaPage.dualListModel}" var="pr"
-                                        itemValue="#{pr}" itemLabel="#{pr}" />
+                                        itemValue="#{pr.value}" itemLabel="#{pr.label}" />
                             <f:selectItems value="#{temaPage.productos}"/>
                             <h:outputText rendered="${empty temaPage.productosSel}"
                                           value="El tema requiere Contrato(s) y no ha seleccionado ningún producto."/><br/>
@@ -261,7 +261,7 @@
                         </p:panel>
 
                     </h:panelGrid>
-                    <ui:include src="../../common/mensajes.xhtml"/>
+<!--                    <ui:include src="../../common/mensajes.xhtml"/>-->
                 </div>
                 <!--                </h:outputText>-->
                 <!-- Seccion de mensajes y botones de envio y cancelacion-->

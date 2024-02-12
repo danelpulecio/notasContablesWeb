@@ -89,27 +89,27 @@
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
                          paginatorPosition="top">
-                <p:column headerText="Fila">
+                <p:column headerText="Fila" style="width: 10%; text-align: center">
                     <h:outputText value="#{rowIndex+1}"/>
                     <p:selectBooleanCheckbox value="#{dato.selected}">
                         <p:ajax event="change" update="globalForm:cambio"/>
                     </p:selectBooleanCheckbox>
                 </p:column>
 
-                <p:column headerText="Código Sucursal" sortable="true" sortBy="#{dato.codigoSucursal}">
+                <p:column headerText="Código Sucursal" sortable="true" sortBy="#{dato.codigoSucursal}" style="width: 20%">
                     <h:outputText value="#{dato.codigoSucursal}"/>
                 </p:column>
 
-                <p:column headerText="Nombre Sucursal" sortable="true" sortBy="#{dato.nombreSucursal}">
+                <p:column headerText="Nombre Sucursal" sortable="true" sortBy="#{dato.nombreSucursal}" style="width: 40%">
                     <h:outputText value="#{dato.nombreSucursal}"/>
                 </p:column>
 
-                <p:column headerText="Días" sortable="true" sortBy="#{dato.dias}">
+                <p:column headerText="Días" sortable="true" sortBy="#{dato.dias}" style="width: 15%">
                     <h:outputText value="#{dato.dias}"/>
                 </p:column>
 
                 <!-- Opcion de cambio de editar informacion-->
-                <p:column headerText="Editar" style="text-align: center;">
+                <p:column headerText="Editar" style="text-align: center; width: 15%">
                     <p:commandButton value=""
                                      alt="Editar"
                                      style="width: 24px; height: 24px; padding: 0; background-image: url('#{request.contextPath}/common/images/edit.png'); background-size: cover; border-radius: 50%;"

@@ -137,20 +137,20 @@
                 <f:facet name="header">
 
                 </f:facet>
-                <p:column>
+                <p:column style="width: 5%; text-align: center;">
                     <f:facet name="header">
                         <h:outputText value="Fila"/>
                     </f:facet>
                     <h:outputText value="#{rowKey+1}"/>
                 </p:column>
 
-                <p:column sortBy="#{dato.codigoSucursal}" sortable="true">
+                <p:column sortBy="#{dato.codigoSucursal}" sortable="true" style="width: 10%; text-align: center;">
                     <f:facet name="header">
                         <h:outputText value="Código Sucursal"/>
                     </f:facet>
                     <h:outputText value="#{dato.codigoSucursal}"/>
                 </p:column>
-                <p:column sortBy="#{dato.nombreSucursal}" sortable="true">
+                <p:column sortBy="#{dato.nombreSucursal}" sortable="true" style="width: 55%;">
                     <f:facet name="header">
                         <h:outputText value="Nombre Sucursal"/>
                     </f:facet>
@@ -158,7 +158,7 @@
                 </p:column>
 
                 <!-- Opcion de cambio de estado-->
-                <p:column style="text-align: center;">
+                <p:column style="text-align: center; width: 15%">
                     <f:facet name="header">
                         <h:outputText value="Estado"/>
                     </f:facet>
@@ -172,7 +172,7 @@
                 </p:column>
 
                 <!-- Opcion de cambio de borrado-->
-                <p:column style="text-align: center;">
+                <p:column style="text-align: center; width: 15%">
                     <f:facet name="header">
                         <h:outputText value="Borrar"/>
                     </f:facet>

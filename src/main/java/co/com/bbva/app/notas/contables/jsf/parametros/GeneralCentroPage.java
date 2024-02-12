@@ -37,9 +37,9 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
     protected List<String> tipoCentrosSel = new ArrayList<String>();
     protected List<String> centrosAutSel = new ArrayList<String>();
 
-    protected List<SelectItem> centrosAutTarget = new ArrayList<SelectItem>();
-    protected List<SelectItem> centrosAutSource = new ArrayList<SelectItem>();
-    protected DualListModel<SelectItem> dualListModel;
+    private List<SelectItem> centrosAutTarget = new ArrayList<SelectItem>();
+    private List<SelectItem> centrosAutSource = new ArrayList<SelectItem>();
+    private DualListModel<SelectItem> dualListModel;
 
     protected String indicadorSel = "I";
 
@@ -66,6 +66,8 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
     public GeneralCentroPage(boolean origen) {
         super(false);
         this.origen = origen;
+        dualListModel = new DualListModel<>(centrosAut, centrosAutTarget);
+
     }
 
     /**
@@ -355,77 +357,16 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
      * @return
      */
     public String selccionarTipoCentro() {
-        LOGGER.info("Seleccionar Tipo Centro sucursales paso 4 {}", sucursales.size());
-        centrosAut = new ArrayList<SelectItem>();
-        LOGGER.info("<<<<<indicador seleccionado 4.1 {}>>><", indicadorSel);
-        LOGGER.info("<<<<<centroAuto Seleccionado seleccionado 4.2 {}>>><", seleccionados);
-        // se filtran los centros autorizados segun lo seleccionado por el usuario
-
-
-        centrosAutTarget = new ArrayList<>();
-        LOGGER.info("<<<<<centro auto sel 4.3 {}>>><", centrosAutSel);
-        LOGGER.info("<<<<<centro auto sel 4.4 {}>>><", sucursales.size());
-        LOGGER.info("<<<<<centro auto sel 4.5 {}>>><", seleccionados.get(0).getCentrosDestinoAutorizados().replaceAll("\\s+$", ""));
-        List<String> LstStrCentrosAutorizadosDestino = new ArrayList<>();
-        Integer size = 4;
-        for (PUC pucSeleccionado : seleccionados) {
-            Integer queue = 4;
-            String centroAutorizadoPUC = pucSeleccionado.getCentrosDestinoAutorizados().replaceAll("\\s+$", "");
-            if (!centroAutorizadoPUC.equals("")) {
-                for (int i = 0; i < centroAutorizadoPUC.length(); i += size) {
-                    String cdaReal = centroAutorizadoPUC.substring(i, queue);
-                    queue *= 2;
-                    LstStrCentrosAutorizadosDestino.add(String.format("%04d", Integer.parseInt(cdaReal.trim())));
-                }
-            }
-        }
-        LOGGER.info("<<<<lst centro de destinoAutorizados {}", LstStrCentrosAutorizadosDestino);
-        List<String> centrosAutorizadosDestino = new ArrayList<>();
-        centrosAutorizadosDestino = LstStrCentrosAutorizadosDestino.stream().distinct().toList();
-
         centrosAut = new ArrayList<SelectItem>();
         // se filtran los centros autorizados segun lo seleccionado por el usuario
         for (Sucursal s : sucursales) {
             // si corresponde al tipo de centro y se trata de excluir
             if (indicadorSel.contains("E") && tipoCentrosSel.contains(s.getTipoCentro())) {
-                if (centrosAutorizadosDestino.contains(s.getCodigo()))
-                    centrosAutTarget.add(new SelectItem(s.getTipoCentro() + s.getCodigo(), s.getTipoCentro() + "-" + s.getCodigo() + " " + s.getNombre()));
-                else
-                    centrosAut.add(new SelectItem(s.getTipoCentro() + s.getCodigo(), s.getTipoCentro() + "-" + s.getCodigo() + " " + s.getNombre()));
+                centrosAut.add(new SelectItem(s.getTipoCentro() + s.getCodigo(), s.getTipoCentro() + "-" + s.getCodigo() + " " + s.getNombre()));
             } else if (indicadorSel.contains("I") && !tipoCentrosSel.contains(s.getTipoCentro())) {
-                if (centrosAutorizadosDestino.contains(s.getCodigo()))
-                    centrosAutTarget.add(new SelectItem(s.getTipoCentro() + s.getCodigo(), s.getTipoCentro() + "-" + s.getCodigo() + " " + s.getNombre()));
-                else
-                    centrosAut.add(new SelectItem(s.getTipoCentro() + s.getCodigo(), s.getTipoCentro() + "-" + s.getCodigo() + " " + s.getNombre()));
+                centrosAut.add(new SelectItem(s.getTipoCentro() + s.getCodigo(), s.getTipoCentro() + "-" + s.getCodigo() + " " + s.getNombre()));
             }
         }
-
-
-//        for (Sucursal s : sucursales) {
-//            // si corresponde al tipo de centro y se trata de excluir
-//            if (indicadorSel.contains("E") && tipoCentrosSel.contains(s.getTipoCentro())) {
-//                if (origen) {
-//                    centrosAutTarget.add(new SelectItem(s.getTipoCentro() + s.getCodigo(), s.getTipoCentro() + "-" + s.getCodigo() + " " + s.getNombre()));
-//                }
-//                centrosAut.add(new SelectItem(s.getTipoCentro() + s.getCodigo(), s.getTipoCentro() + "-" + s.getCodigo() + " " + s.getNombre()));
-//            } else if (indicadorSel.contains("I") && !tipoCentrosSel.contains(s.getTipoCentro())) {
-//                centrosAut.add(new SelectItem(s.getTipoCentro() + s.getCodigo(), s.getTipoCentro() + "-" + s.getCodigo() + " " + s.getNombre()));
-//            }
-//        }
-        LOGGER.info("<<<<<seleccionar Tipo centro con data metodo paso 5) {}>>>>>", centrosAut.size());
-        /**
-         * pasar de centroAutoSel al target duaList
-         */
-//        for (String centro : centrosAutSel) {
-//            // Crear un nuevo SelectItem con el valor y la etiqueta iguales
-//            SelectItem selectItem = new SelectItem(centro, centro);
-//
-//            // Agregar el nuevo SelectItem a la lista
-//            centrosAutTarget.add(selectItem);
-//        }
-        LOGGER.info("<<<<<centroAuto target 5) {}>>>>>", centrosAutTarget.size());
-        dualListModel = new DualListModel<>(centrosAut, centrosAutTarget);
-        LOGGER.info("<<<<<tamaño dualist {}>>>>>", dualListModel.getSource().size());
         // si el usuario tenia centros autorizados seleccionados, se valida que sigan cumpliendo las condiciones de tipo centro e indicador
         if (!centrosAutSel.isEmpty()) {
             List<String> nuevosCentros = new ArrayList<String>();
@@ -449,8 +390,8 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
             }
             if (!omitidos.isEmpty()) {
                 centrosAutSel = nuevosCentros;
-//                nuevoMensaje(FacesMessage.SEVERITY_WARN, "Al cambiar la informacin del indicador o de los tipos de centros autorizados, los siguientes centros se han omitido ya que no cumplen con el nuevo criterio:");
-//                nuevoMensaje(FacesMessage.SEVERITY_WARN, omitidos.toString());
+                nuevoMensaje(FacesMessage.SEVERITY_WARN, "Al cambiar la información del indicador o de los tipos de centros autorizados, los siguientes centros se han omitido ya que no cumplen con el nuevo criterio:");
+                nuevoMensaje(FacesMessage.SEVERITY_WARN, omitidos.toString());
             }
         }
         return null;
@@ -628,6 +569,11 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
     }
 
     public DualListModel<SelectItem> getDualListModel() {
+        LOGGER.info("<<<<<<<<<<<<<<get dual list source {}>>>>>>>>>>>>>> ", dualListModel.getSource().size());
+        LOGGER.info("<<<<<<<<<<<<<<get dual list target {}>>>>>>>>>>>>>> ", dualListModel.getTarget().size());
+        LOGGER.info("Datos centro destino target {}", dualListModel.getTarget().size());
+
+
         return dualListModel;
     }
 

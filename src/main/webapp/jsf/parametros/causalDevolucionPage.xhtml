@@ -144,16 +144,16 @@
                      currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
                      paginatorPosition="top">
 
-            <p:column headerText="Fila">
+            <p:column headerText="Fila" style="width: 5%; text-align: center;">
                 <h:outputText value="#{rowIndex+1}"/>
             </p:column>
 
-            <p:column headerText="Nombre" sortBy="#{dato.nombre}" sortable="true">
+            <p:column headerText="Nombre" sortBy="#{dato.nombre}" sortable="true" style="width: 50%">
                 <h:outputText value="#{dato.nombre}"/>
             </p:column>
 
             <!-- Opcion de cambio de estado-->
-            <p:column headerText="Estado" style="text-align: center;">
+            <p:column headerText="Estado" style="text-align: center; width: 15%">
                 <p:commandButton value="#{dato.estado eq 'A'? 'Activo': 'Inactivo'}"
                                  onclick="PF('popupEstado').show()">
                     <f:setPropertyActionListener for="codCambio" value="#{dato.codigo}"
@@ -164,7 +164,7 @@
             </p:column>
 
             <!-- Opcion de cambio de editar informacion-->
-            <p:column headerText="Editar" style="text-align: center;">
+            <p:column headerText="Editar" style="text-align: center; width: 15%">
                 <p:commandButton value=""
                                  alt="Editar"
                                  style="width: 24px; height: 24px; padding: 0; background-image: url('#{request.contextPath}/common/images/edit.png'); background-size: cover; border-radius: 50%;"
@@ -182,7 +182,7 @@
             </p:column>
 
             <!-- Opcion de cambio de borrado-->
-            <p:column headerText="Eliminar" style="text-align: center;">
+            <p:column headerText="Eliminar" style="text-align: center; width: 15%">
                 <p:commandButton value=""
                                  style="width: 24px; height: 24px; padding: 0; background-image: url('#{request.contextPath}/common/images/delete.png'); background-size: cover; border-radius: 50%;"
                                  alt="Borrar"
@@ -191,11 +191,6 @@
                     <f:setPropertyActionListener for="codBorrar" value="#{dato.codigo}"
                                                  target="#{causalDevolucionPage.objActual.codigo}"/>
                 </p:commandButton>
-                <!--                <p:commandButton value="Eliminar" icon="ui-icon-delete" styleClass="ui-priority-primary">-->
-                <!--                    <p:graphicImage library="common" name="images/delete.png" />-->
-                <!--                    &lt;!&ndash; Agrega aquí cualquier otra acción o configuración necesaria &ndash;&gt;-->
-                <!--                </p:commandButton>-->
-
             </p:column>
         </p:dataTable>
         <!--            </h:panelGrid>-->

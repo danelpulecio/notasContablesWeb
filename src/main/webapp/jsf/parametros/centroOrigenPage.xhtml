@@ -118,7 +118,8 @@
 
                     <h:panelGrid columns="2">
                         <p:inputText value="#{centroOrigenPage.param}" maxlength="15"/>
-                        <p:commandButton action="#{centroOrigenPage.buscarPorFiltro}" value="Filtrar" onclick="PF('statusPanel').show()"/>
+                        <p:commandButton action="#{centroOrigenPage.buscarPorFiltro}" value="Filtrar"
+                                         onclick="Richfaces.showModalPanel('statusPanel')"/>
                     </h:panelGrid>
                 </h:panelGrid>
             </p:panel>
@@ -137,30 +138,30 @@
                              currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
                              paginatorPosition="top">
 
-                    <p:column headerText="Fila">
+                    <p:column headerText="Fila" style="width: 5%; text-align: center">
                         <h:outputText value="#{rowIndex+1}"/>
                         <p:selectBooleanCheckbox value="#{dato.selected}" immediate="true">
                         </p:selectBooleanCheckbox>
                     </p:column>
 
-                    <p:column headerText="Cuenta">
+                    <p:column headerText="Cuenta" style="width: 20%">
                         <h:outputText value="#{dato.numeroCuenta}"/>
                     </p:column>
 
-                    <p:column headerText="Descripción">
+                    <p:column headerText="Descripción" style="width: 40%">
                         <h:outputText value="#{dato.descripcion}"/>
                     </p:column>
 
-                    <p:column headerText="Tipo Centro Autorizado">
+                    <p:column headerText="Tipo Centro Autorizado" style="width: 10%">
                         <h:outputText value="#{dato.tipoCentroOrigenAutorizado}"/>
                     </p:column>
 
-                    <p:column headerText="Indicador">
+                    <p:column headerText="Indicador" style="width: 10%">
                         <h:outputText
                                 value="#{dato.indicadorCentroOrigen eq 'T' ? 'Todas':(dato.indicadorCentroOrigen eq 'I' ? 'Incluir' : (dato.indicadorCentroOrigen eq 'E' ? 'Excluir' : ''))}"/>
                     </p:column>
 
-                    <p:column headerText="Centro Autorizados">
+                    <p:column headerText="Centro Autorizados" style="width: 15%">
                         <h:outputText value="#{dato.centrosOrigenAutorizados}"/>
                     </p:column>
                 </p:dataTable>

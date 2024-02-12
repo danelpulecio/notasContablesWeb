@@ -142,7 +142,7 @@ public abstract class GeneralParametrosPage<T extends CommonVO<T>, D> extends Ge
 				nuevoMensaje(FacesMessage.SEVERITY_INFO, "La información ha sido guardada correctamente");
 				ocultarPopupGuardar = true;
 				LOGGER.info("<<<<datos x filtro {}>>>>", getDatos().size());
-				setDatos(new ArrayList<>(_buscarTodos()));
+//				setDatos(new ArrayList<>(_buscarTodos()));
 				LOGGER.info("<<<Guardar datosssssssss {}>>>", getDatos().size());
 			}
 		} catch (Exception e) {

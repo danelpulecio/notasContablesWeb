@@ -64,7 +64,7 @@
                         <!--                            <f:selectItems value="#{centroDestinoPage.centrosAut}"/>-->
                         <!--                        </p:selectManyMenu>-->
                         <p:pickList id="example" value="#{centroDestinoPage.dualListModel}" var="pr"
-                                    itemLabel="#{pr}" itemValue="#{pr}"/>
+                                    itemValue="#{pr.value}" itemLabel="#{pr.label}" />
                     </p:panel>
 
                 </h:panelGrid>
@@ -118,30 +118,30 @@
                          currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
                          paginatorPosition="top">
 
-                <p:column headerText="Fila">
+                <p:column headerText="Fila" style="width: 5%; text-align: center">
                     <h:outputText value="#{rowIndex+1}"/>
                     <p:selectBooleanCheckbox value="#{dato.selected}" immediate="true">
                     </p:selectBooleanCheckbox>
                 </p:column>
 
-                <p:column headerText="Cuenta">
+                <p:column headerText="Cuenta" style="width: 20%">
                     <h:outputText value="#{dato.numeroCuenta}"/>
                 </p:column>
 
-                <p:column headerText="Descripción">
+                <p:column headerText="Descripción" style="width: 40%">
                     <h:outputText value="#{dato.descripcion}"/>
                 </p:column>
 
-                <p:column headerText="Tipo Centro Autorizado">
+                <p:column headerText="Tipo Centro Autorizado" style="width: 10%">
                     <h:outputText value="#{dato.tipoCentroDestinoAutorizado}"/>
                 </p:column>
 
-                <p:column headerText="Indicador">
+                <p:column headerText="Indicador" style="width: 10%">
                     <h:outputText
                             value="#{dato.indicadorCentroDestino eq 'T' ? 'Todas':(dato.indicadorCentroDestino eq 'I' ? 'Incluir' : (dato.indicadorCentroDestino eq 'E' ? 'Excluir' : ''))}"/>
                 </p:column>
 
-                <p:column headerText="Centros Autorizados">
+                <p:column headerText="Centros Autorizados" style="width: 15%">
                     <h:outputText value="#{dato.centrosDestinoAutorizados}"/>
                 </p:column>
 

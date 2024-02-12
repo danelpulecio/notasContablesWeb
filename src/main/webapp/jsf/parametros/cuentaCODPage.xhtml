@@ -113,16 +113,16 @@
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
                          paginatorPosition="top">
-                <p:column headerText="Fila">
+                <p:column headerText="Fila" style="width: 10%; text-align: center">
                     <h:outputText value="#{rowIndex+1}"/>
                 </p:column>
 
-                <p:column headerText="Cuenta Contable" sortable="true" sortBy="#{dato.cuentaContable}">
+                <p:column headerText="Cuenta Contable" sortable="true" sortBy="#{dato.cuentaContable}" style="width: 70%">
                     <h:outputText value="#{dato.cuentaContable}"/>
                 </p:column>
 
                 <!-- Opcion de borrado-->
-                <p:column headerText="Borrar" style="text-align: center;">
+                <p:column headerText="Borrar" style="text-align: center; width: 20%">
                     <p:commandButton value=""
                                      style="width: 24px; height: 24px; padding: 0; background-image: url('#{request.contextPath}/common/images/delete.png'); background-size: cover; border-radius: 50%;"
                                      alt="Borrar"

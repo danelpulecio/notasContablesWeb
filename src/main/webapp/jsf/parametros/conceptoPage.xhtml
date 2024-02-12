@@ -158,28 +158,28 @@
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
                              paginatorPosition="top">
-                    <p:column headerText="Fila">
+                    <p:column headerText="Fila" style="width: 5%; text-align: center">
                         <h:outputText value="#{rowIndex+1}"/>
                     </p:column>
 
-                    <p:column headerText="Código" sortable="true" sortBy="#{dato.codigo}">
+                    <p:column headerText="Código" sortable="true" sortBy="#{dato.codigo}" style="width: 5%">
                         <h:outputText value="#{dato.codigo}"/>
                     </p:column>
 
-                    <p:column headerText="Nombre" sortable="true" sortBy="#{dato.nombre}">
+                    <p:column headerText="Nombre" sortable="true" sortBy="#{dato.nombre}" style="width: 25%">
                         <h:outputText value="#{dato.nombre}"/>
                     </p:column>
 
-                    <p:column headerText="Código Unidad Análisis" sortable="true" sortBy="#{dato.codSucursal}">
+                    <p:column headerText="Código Unidad Análisis" sortable="true" sortBy="#{dato.codSucursal}" style="width: 10%;">
                         <h:outputText value="#{dato.codSucursal}"/>
                     </p:column>
 
-                    <p:column headerText="Nombre Unidad Análisis" sortable="true" sortBy="#{dato.nombreSucursal}">
+                    <p:column headerText="Nombre Unidad Análisis" sortable="true" sortBy="#{dato.nombreSucursal}" style="width: 25%">
                         <h:outputText value="#{dato.nombreSucursal}"/>
                     </p:column>
 
                     <!-- Opcion de cambio de estado-->
-                    <p:column headerText="Estado" style="text-align: center;">
+                    <p:column headerText="Estado" style="text-align: center; width: 15%">
                         <p:commandButton value="#{dato.estado eq 'A'? 'Activo': 'Inactivo'}"
                                          onclick="PF('popupEstado').show()">
                             <f:setPropertyActionListener for="codCambio" value="#{dato.codigo}"
@@ -190,7 +190,7 @@
                     </p:column>
 
                     <!-- Opcion de cambio de editar informacion-->
-                    <p:column headerText="Editar" style="text-align: center;">
+                    <p:column headerText="Editar" style="text-align: center; width: 15%">
                         <p:commandButton value=""
                                          alt="Editar"
                                          style="width: 24px; height: 24px; padding: 0; background-image: url('#{request.contextPath}/common/images/edit.png'); background-size: cover; border-radius: 50%;"

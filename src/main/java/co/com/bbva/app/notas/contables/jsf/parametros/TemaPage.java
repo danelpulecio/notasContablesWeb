@@ -44,23 +44,23 @@ public class TemaPage extends GeneralParametrosPage<Concepto, Tema> {
     private List<String> impuestosSel = new ArrayList<String>();
     private List<String> productosSel = new ArrayList<String>();
 
-    protected List<SelectItem> productoSource = new ArrayList<>();
-    protected List<SelectItem> productoTarget = new ArrayList<>();
-    protected DualListModel<SelectItem> dualListModel;
+    private List<SelectItem> productoSource = new ArrayList<>();
+    private List<SelectItem> productoTarget = new ArrayList<>();
+    private DualListModel<SelectItem> dualListModel;
 
 
     //	Session session = getContablesSessionBean().getSessionTrace();
 
 //    @PostConstruct
 //    protected void init() throws Exception {
-//        super._init();
-//        setDatos(new ArrayList<>(_buscarTodos()));
-//        LOGGER.info("postConstructo datos {}", getDatos().size());
+//        getDualListModel();
 //    }
+
 
 
     public TemaPage() {
         super(true);
+        dualListModel = new DualListModel<>(productoSource, productoTarget);
     }
 
     /**
@@ -85,9 +85,11 @@ public class TemaPage extends GeneralParametrosPage<Concepto, Tema> {
      */
     @Override
     public Collection<Concepto> _buscarTodos() throws Exception {
+        LOGGER.info("Buscar todos tema page guardar");
         Concepto concepto = new Concepto();
         concepto.setEstado("A");
         Collection<Concepto> conceptos = notasContablesManager.getConceptosPorEstado(concepto);
+        LOGGER.info("conceptos {}", conceptos);
         return getTemas(conceptos);
     }
 
@@ -184,28 +186,6 @@ public class TemaPage extends GeneralParametrosPage<Concepto, Tema> {
                 impuestosSel.add("" + ti.getCodigoImpuesto());
             }
 
-            // llenado picklist source & target
-            productoSource = new ArrayList<>();
-            productoTarget = new ArrayList<>();
-            for (SelectItem producto : productos) {
-                LOGGER.info("producto value {}", producto.getValue());
-                LOGGER.info("producto value class {}", producto.getValue().getClass());
-                if (productosSel.contains(producto.getValue())) {
-                    String value = (String) producto.getValue();
-                    String label = producto.getLabel();
-                    SelectItem si = new SelectItem(value, label);
-//                    productoTarget.add(new SelectItem(producto.getValue(), producto.getLabel()));
-                    productoTarget.add(si);
-                } else {
-                    String value = (String) producto.getValue();
-                    String label = producto.getLabel();
-                    SelectItem si= new SelectItem(value,label);
-//                    productoSource.add(new SelectItem(producto.getValue(), producto.getLabel()));
-                    productoSource.add(si);
-                }
-            }
-            LOGGER.info("productoSource {}", productoSource.size());
-            dualListModel = new DualListModel<>(productoSource, productoTarget);
         } else {
             objActual = new Tema();
         }
@@ -214,9 +194,16 @@ public class TemaPage extends GeneralParametrosPage<Concepto, Tema> {
     @Override
     protected boolean _guardar() throws Exception {
         Number codInicial = objActual.getCodigo();
+        productosSel = new ArrayList<>();
         try {
             Collection<TemaImpuesto> impuestosTema = new ArrayList<TemaImpuesto>();
             Collection<TemaProducto> productosTema = new ArrayList<TemaProducto>();
+            LOGGER.info("productos seleccionados 1 {}", productosSel.size());
+            LOGGER.info("productos target  {}", dualListModel.getTarget().size());
+            for (Object productSelected : dualListModel.getTarget()){
+                productosSel.add(productSelected.toString());
+            }
+            LOGGER.info("<<<<<productos seleccionados 2 {}>>>>>", productosSel.size());
             if (objActual.getContrato1().equals("S") || objActual.getContrato2().equals("S")) {
                 for (String cod : productosSel) {
                     TemaProducto tp = new TemaProducto();
@@ -505,11 +492,15 @@ public class TemaPage extends GeneralParametrosPage<Concepto, Tema> {
     public DualListModel<SelectItem> getDualListModel() {
         LOGGER.info("<<<<<<<<<<<<<<get dual list source {}>>>>>>>>>>>>>> ", dualListModel.getSource().size());
         LOGGER.info("<<<<<<<<<<<<<<get dual list target {}>>>>>>>>>>>>>> ", dualListModel.getTarget().size());
-        LOGGER.info("<<<<<<<<<<<<<<get dual list source class {}>>>>>>>>>>>>>> ", dualListModel.getSource().getClass());
-//        LOGGER.info("<<<<<<<<<<<<<<get dual list target value source {}>>>>>>>>>>>>>> ", dualListModel.getSource().get(0).getValue());
-//        LOGGER.info("<<<<<<<<<<<<<<get dual list target value target {}>>>>>>>>>>>>>> ", dualListModel.getTarget().get(0).getValue());
-        LOGGER.info("<<<<<<<<<<<<<<get dual list target label source {}>>>>>>>>>>>>>> ", dualListModel.getSource().get(0));
-//        LOGGER.info("<<<<<<<<<<<<<<get dual list target label target {}>>>>>>>>>>>>>> ", dualListModel.getTarget().get(0).getLabel());
+        productoSource = new ArrayList<>();
+        productoTarget = new ArrayList<>();
+        for (SelectItem producto : productos) {
+            if (productosSel.contains(producto.getValue()))
+                productoTarget.add(producto);
+            else
+                productoSource.add(producto);
+        }
+        dualListModel = new DualListModel<>(productoSource, productoTarget);
         return dualListModel;
     }
 
