@@ -37,23 +37,25 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
     protected List<String> tipoCentrosSel = new ArrayList<String>();
     protected List<String> centrosAutSel = new ArrayList<String>();
 
-    private List<SelectItem> centrosAutTarget = new ArrayList<SelectItem>();
-    private List<SelectItem> centrosAutSource = new ArrayList<SelectItem>();
+    private List<SelectItem> centrosAutTarget = new ArrayList<>();
+    private List<SelectItem> centrosAutSource = new ArrayList<>();
     private DualListModel<SelectItem> dualListModel;
 
     protected String indicadorSel = "I";
 
     private final Boolean origen;
-    
-    
+
+
     // variables picklist primefaces
-    
+
     private DualListModel<String> centrosAutorizados;
-    
-    
+
+    private Boolean isValidSelection = true;
+
+
 //    protected List<String> centrosAutSelPF = new ArrayList<String>();
 //    protected List<String> centrosAutPF = new ArrayList<String>();
-    
+
 
 //	Session session = getContablesSessionBean().getSessionTrace();
 
@@ -148,6 +150,7 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
      */
     @Override
     protected void _editar() throws Exception {
+        isValidSelection = true;
         if (seleccionValida()) {
             LOGGER.info("Editar GeneralPage paso 2");
             // se limpian las variables para evitar informacion errada
@@ -193,8 +196,8 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
                 LOGGER.info("No selecciono registro");
                 nuevoMensaje(FacesMessage.SEVERITY_WARN, "Debe seleccionar por lo menos un registro");
             }
-        }
-        else {
+        } else {
+            isValidSelection = false;
             nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Las cuentas que seleccione deben tener la misma configuracin para Tipo Centro Autorizado, Indicador, Centros Autorizados");
         }
     }
@@ -208,17 +211,16 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
 
     @Override
     protected boolean _guardar() throws Exception {
-
         // se formatean los centros autorizados seleccionados
         LOGGER.info("<<<<flujo Guardar>>>>");
-        LOGGER.info("<<<<centrosAutSel {}>>>>", centrosAutSel);
-        LOGGER.info("<<<<tipoCentrosSel {}>>>>", tipoCentrosSel);
         String centros = "";
-        for (String c : centrosAutSel) {
-            String exp = "    " + Integer.valueOf(c.substring(2, 6));
+        for (Object centroAutoSelect : dualListModel.getTarget()) {
+            String c = centroAutoSelect.toString();
+            String exp = "    " + Integer.valueOf(c.substring(1));
             centros += exp.substring(exp.length() - 4, exp.length());
         }
         // se formatean los tipos de centros autorizados seleccionados
+        LOGGER.info("<<<<<<<<<<<centros {}>>>>>>>>>>>", centros);
         String tCentros = "";
         for (String c : tipoCentrosSel) {
             tCentros += c;
@@ -569,11 +571,18 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
     }
 
     public DualListModel<SelectItem> getDualListModel() {
-        LOGGER.info("<<<<<<<<<<<<<<get dual list source {}>>>>>>>>>>>>>> ", dualListModel.getSource().size());
-        LOGGER.info("<<<<<<<<<<<<<<get dual list target {}>>>>>>>>>>>>>> ", dualListModel.getTarget().size());
         LOGGER.info("Datos centro destino target {}", dualListModel.getTarget().size());
+        centrosAutSource = new ArrayList<>();
+        centrosAutTarget = new ArrayList<>();
 
+        for (SelectItem centroAutorizado : centrosAut) {
+            if (centrosAutSel.contains(centroAutorizado.getValue().toString()))
+                centrosAutTarget.add(centroAutorizado);
+            else
+                centrosAutSource.add(centroAutorizado);
+        }
 
+        dualListModel = new DualListModel<>(centrosAutSource, centrosAutTarget);
         return dualListModel;
     }
 
@@ -596,12 +605,20 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
         LOGGER.info("centros Autoeizados Sel metodo {}", centrosAutSel);
     }
 
-	public DualListModel<String> getCentrosAutorizados() {
-		return centrosAutorizados;
-	}
+    public DualListModel<String> getCentrosAutorizados() {
+        return centrosAutorizados;
+    }
 
-	public void setCentrosAutorizados(DualListModel<String> centrosAutorizados) {
-		this.centrosAutorizados = centrosAutorizados;
-	}
-    
+    public void setCentrosAutorizados(DualListModel<String> centrosAutorizados) {
+        this.centrosAutorizados = centrosAutorizados;
+    }
+
+    public Boolean getValidSelection() {
+        LOGGER.info("valid Seleccion {}", isValidSelection);
+        return isValidSelection;
+    }
+
+    public void setValidSelection(Boolean validSelection) {
+        isValidSelection = validSelection;
+    }
 }

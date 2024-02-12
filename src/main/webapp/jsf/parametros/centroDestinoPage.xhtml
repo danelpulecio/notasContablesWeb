@@ -55,14 +55,6 @@
 
                     <p:panel style="width: 100%" header="Centros Autorizados"
                              rendered="#{not empty centroDestinoPage.centrosAut}">
-                        <!--                        <p:selectManyMenu value="#{centroDestinoPage.centrosAutSel}"-->
-                        <!--                                          itemLabel="#{centroDestinoPage.dualListModel}"-->
-                        <!--                                          itemValue="#{centroDestinoPage.dualListModel}"-->
-                        <!--                                          scrollHeight="150"-->
-                        <!--                                          filter="true"-->
-                        <!--                                          filterMatchMode="startsWith">-->
-                        <!--                            <f:selectItems value="#{centroDestinoPage.centrosAut}"/>-->
-                        <!--                        </p:selectManyMenu>-->
                         <p:pickList id="example" value="#{centroDestinoPage.dualListModel}" var="pr"
                                     itemValue="#{pr.value}" itemLabel="#{pr.label}" />
                     </p:panel>
@@ -94,7 +86,7 @@
                                      update="globalForm:lista,globalForm:cambio"
                                      value="#{centroDestinoPage.selectedAll?'Limpiar Selección':'Seleccionar Todos'}"/>
                     <p:commandButton action="#{centroDestinoPage.editar}"
-                                     oncomplete="if (#{facesContext.maximumSeverity != null}) PF('editor').hide(); else PF('editor').show();"
+                                     oncomplete="if (#{centroDestinoPage.validSelection}) PF('editor').hide(); else PF('editor').show();"
                                      update="globalForm:growl,globalForm:editor"
                                      value="Modificar Seleccionados"/>
                 </h:panelGrid>
