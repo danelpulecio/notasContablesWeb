@@ -150,9 +150,8 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
      */
     @Override
     protected void _editar() throws Exception {
-        isValidSelection = true;
         if (seleccionValida()) {
-            LOGGER.info("Editar GeneralPage paso 2");
+            LOGGER.info("Editar GeneralPage paso 2 {}", isValidSelection);
             // se limpian las variables para evitar informacion errada
             seleccionados = new ArrayList<PUC>();
             tipoCentrosSel = new ArrayList<String>();
@@ -197,7 +196,7 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
                 nuevoMensaje(FacesMessage.SEVERITY_WARN, "Debe seleccionar por lo menos un registro");
             }
         } else {
-            isValidSelection = false;
+            LOGGER.info("is valid selection {}", isValidSelection);
             nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Las cuentas que seleccione deben tener la misma configuracin para Tipo Centro Autorizado, Indicador, Centros Autorizados");
         }
     }
@@ -410,7 +409,7 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
         String centrosAutorizados = "";
         int count = 0;
         boolean indValido = true;
-
+        isValidSelection = true;
         for (PUC row : getDatos()) {
             // se evaluan las cuentas seleccionadas
             if (row.getSelected()) {
@@ -438,6 +437,7 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
                 }
                 if (!indValido) {
                     LOGGER.info("Carga sucursales paso 3 centros autorizadosSel: {}", centrosAutSel);
+                    isValidSelection = false;
                     return false;
                 }
                 count++;

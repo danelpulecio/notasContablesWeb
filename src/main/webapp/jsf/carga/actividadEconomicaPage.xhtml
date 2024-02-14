@@ -15,7 +15,7 @@
                 <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
                     <h:panelGrid columns="2" id="filtro" style="text-align: center; margin: 0 auto;">
                         <p:inputText id="param" value="#{actividadEconomicaPage.param}"/>
-                        <p:commandButton action="#{actividadEconomicaPage.buscarPorFiltro}" value="Filtrar"/>
+                        <p:commandButton action="#{actividadEconomicaPage.buscarPorFiltro}" value="Filtrar" ajax="false"/>
                     </h:panelGrid>
                     <ui:include src="../../common/mensajes.xhtml"/>
                     <p:dataTable id="actividadTable" value="#{actividadEconomicaPage.datos}" var="actividad" rowIndexVar="rowIndex"

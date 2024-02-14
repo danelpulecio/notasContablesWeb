@@ -13,7 +13,7 @@
             <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
                 <h:panelGrid columns="2" id="filtro" style="text-align: center; margin: 0 auto;">
                     <p:inputText id="param" value="#{sucursalPage.param}"/>
-                    <p:commandButton action="#{sucursalPage.buscarPorFiltro}" value="Filtrar"/>
+                    <p:commandButton action="#{sucursalPage.buscarPorFiltro}" value="Filtrar" ajax="false"/>
                 </h:panelGrid>
 
                 <!--	Tabla de resultados	-->

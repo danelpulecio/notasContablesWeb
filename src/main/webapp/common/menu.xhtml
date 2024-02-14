@@ -24,25 +24,5 @@
 	                    rendered="#{! empty contablesSessionBean.loginUser.opcionesMenu}"/></td>
 	        </tr>
 	    </table>
-	    <p:menubar model="#{contablesSessionBean.loginUser.model}"/>
-<!--	<p:toolbar style="width: 100%; border: 0px;">-->
-<!--		<c:forEach items="#{contablesSessionBean.loginUser.opcionesMenu}" var="entry">-->
-<!--			<p:submenu label="#{entry.nombre}">-->
-<!--				<c:forEach items="#{entry.menuItems}" var="menuItem">-->
-<!--					<p:menuitem value="#{menuItem.value}" action="#{menuItem.action}"-->
-<!--								process="@this" update="@form"-->
-<!--								onclick="PF('statusPanel').show()"-->
-<!--								oncomplete="PF('statusPanel').hide()" />-->
-<!--				</c:forEach>-->
-<!--			</p:submenu>-->
-<!--		</c:forEach>-->
-<!--		<p:toolbarGroup align="right">-->
-<!--			<p:menuitem value="Ingresar" action="#{homePage.start}" rendered="#{contablesSessionBean.loginUser == null}"-->
-<!--						onclick="PF('statusPanel').show()" oncomplete="PF('statusPanel').hide()"-->
-<!--						style="color: #ffffff; font-weight: bold; cursor: pointer;" />-->
-<!--			<p:menuitem value="Salir" action="#{homePage.logout}" rendered="#{contablesSessionBean.loginUser != null}"-->
-<!--						onclick="PF('statusPanel').show()" oncomplete="PF('statusPanel').hide()"-->
-<!--						style="color: #ffffff; font-weight: bold; cursor: pointer;" />-->
-<!--		</p:toolbarGroup>-->
-<!--	</p:toolbar>-->
+	    <p:menubar model="#{contablesSessionBean.loginUser.model}" autoDisplay="false"/>
 </ui:composition>

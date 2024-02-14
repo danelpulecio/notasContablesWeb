@@ -21,7 +21,7 @@
 				</h:panelGrid>
 				<p:commandButton actionListener="#{notaRefCrucePage.seleccionar}" value="Seleccionar/Deseleccionar" update="cuentas"/>
 				<p:inputText  styleClass="bold" value="#{notaRefCrucePage.param}" immediate="true"/>
-				<p:commandButton actionListener="#{notaRefCrucePage.buscarFiltro}" value="Buscar" ajax="false" update="partPendientes"/>
+				<p:commandButton actionListener="#{notaRefCrucePage.buscarFiltro}" value="Buscar" ajax="false" update="globalForm:partPendientes"/>
 			</p:tab>
 		</p:accordionPanel>
 <!-- 		</p:panel> -->
@@ -77,7 +77,7 @@
 					
 					<p:column style="text-align: center;">
 	                    <f:facet name="header"><h:outputText value="Agregar" /></f:facet>
-	                    <p:commandButton action="#{notaRefCrucePage.adicionar}" update="partPendientes,partSeleccionadas,opcionesNotaRefCruce" value="+">
+	                    <p:commandButton action="#{notaRefCrucePage.adicionar}" update="globalForm:partPendientes,globalForm:partSeleccionadas,globalForm:opcionesNotaRefCruce" value="+">
 		                    <f:setPropertyActionListener for="selPart" value="true" target="#{partida.seleccionada}" />
 	                    </p:commandButton>
 	                </p:column>
@@ -136,7 +136,7 @@
 	                
 					<p:column style="text-align: center;">
 	                    <f:facet name="header"><h:outputText value="Quitar" /></f:facet>
-	                    <p:commandButton action="#{notaRefCrucePage.remover}" update="partPendientes,partSeleccionadas,opcionesNotaRefCruce" value="-">
+	                    <p:commandButton action="#{notaRefCrucePage.remover}" update="globalForm:partPendientes,globalForm:partSeleccionadas,globalForm:opcionesNotaRefCruce" value="-">
 	                    	<f:setPropertyActionListener for="selPart1" value="true" target="#{partida.seleccionada}" />
 	                    </p:commandButton>
 	                </p:column>
@@ -161,8 +161,8 @@
 			</p:panel>
 		</h:panelGroup>
 		<h:panelGrid columns="2" styleClass="center" width="100%" id="opcionesNotaRefCruce">
-			<p:commandButton actionListener="#{notaRefCrucePage.guardar}" value="Enviar a Visto Bueno" update="partPendientes,partSeleccionadas,opcionesNotaRefCruce" rendered="#{! empty notaRefCrucePage.partidasSeleccionadas}"/>
-			<p:commandButton value="Cancelar" actionListener="#{notaRefCrucePage.cancelar}" update="partPendientes,partSeleccionadas,opcionesNotaRefCruce"  rendered="#{! empty notaRefCrucePage.partidasSeleccionadas}"/>
+			<p:commandButton actionListener="#{notaRefCrucePage.guardar}" value="Enviar a Visto Bueno" update="globalForm:partPendientes,globalForm:partSeleccionadas,globalForm:opcionesNotaRefCruce" rendered="#{! empty notaRefCrucePage.partidasSeleccionadas}"/>
+			<p:commandButton value="Cancelar" actionListener="#{notaRefCrucePage.cancelar}" update="globalForm:partPendientes,globalForm:partSeleccionadas,globalForm:opcionesNotaRefCruce"  rendered="#{! empty notaRefCrucePage.partidasSeleccionadas}"/>
 		</h:panelGrid>
 	</h:panelGrid>
 </ui:composition>

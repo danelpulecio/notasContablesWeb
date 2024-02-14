@@ -116,7 +116,7 @@
                             <h:outputText styleClass="bold" value="Fecha Contable"/>
 
                             <p:calendar id="fecha" value="#{notaContablePage.temaActual.fechaContablePF}"
-                                        immediate="false">
+                                        immediate="false" showOn="button">
                                 <p:ajax event="dateSelect" listener="#{notaContablePage.validarFecha}"
                                         update="globalForm:fecha,globalForm:msgs"/>
                             </p:calendar>

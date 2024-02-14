@@ -6,6 +6,7 @@
                 template="../../common/template.xhtml">
     <ui:param name="title" value="Temas"/>
     <ui:define name="body">
+        <p:growl id="growl" showDetail="false" life="5000"/>
         <p:dialog id="popupEstado" widgetVar="popupEstado" autosized="true" width="250">
             <f:facet name="header">
                 <h:panelGroup><h:outputText value="Confirmación de cambio de estado"/></h:panelGroup>
@@ -60,7 +61,7 @@
                 </h:panelGrid>
             </h:panelGrid>
         </p:dialog>
-        <p:growl id="growl" showDetail="false" life="5000" />
+
 
         <!-- Formulario Modal de creacion y edicion de nuevos registros-->
         <p:dialog id="editor" widgetVar="editor" style="max-height: 500px; overflow: auto">

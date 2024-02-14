@@ -153,7 +153,7 @@
        <p:ajaxStatus onstart="PF('statusPanel').show();"
                      oncomplete="PF('statusPanel').hide();"
                      id="none"/>
-       <p:dialog widgetVar="statusPanel" modal="true" draggable="false" resizable="false" closable="false"
+       <p:dialog widgetVar="statusPanel" id="statusPanel" modal="true" draggable="false" resizable="false" closable="false"
                  height="100" width="220" appendToBody="true" dynamic="true">
            <h:outputText value="Procesando..."/>
            <div style="width: 100%; text-align: center">

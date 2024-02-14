@@ -208,8 +208,7 @@
 
                     <h:panelGrid columns="2">
                         <p:inputText id="param" value="#{terceroPage.param}"/>
-                        <p:commandButton action="#{terceroPage.buscarPorFiltro}" value="Filtrar"
-                                         onclick="PF('statusPanel').show();"/>
+                        <p:commandButton action="#{terceroPage.buscarPorFiltro}" value="Filtrar" ajax="false"/>
                     </h:panelGrid>
 
                 </h:panelGrid>
@@ -232,7 +231,7 @@
                     <p:column width="30px;" headerText="Fila">
                         <h:outputText value="#{rowIndex+1}"/>
                     </p:column>
-                    <p:column sortable="true" sortBy="#{dato.tipoIdentificacionStr}">
+                    <p:column sortable="true" sortBy="#{dato.tipoIdentificacionStr}" width="120px">
                         <f:facet name="header">
                             <h:panelGroup>
                                 <h:outputText value="Tipo"/><br/>
@@ -241,7 +240,7 @@
                         </f:facet>
                         <h:outputText value="#{dato.tipoIdentificacionStr} "/>
                     </p:column>
-                    <p:column sortable="true" sortBy="#{dato.numeroIdentificacion}">
+                    <p:column sortable="true" sortBy="#{dato.numeroIdentificacion}" width="105px">
                         <f:facet name="header">
                             <h:panelGroup>
                                 <h:outputText value="Número de"/><br/>

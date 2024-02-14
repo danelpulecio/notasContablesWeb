@@ -25,7 +25,8 @@ o	java:S1005"NRename this method name to match the regular expression '^[a-z][
 i	java:S100<"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³…À 8ÌÎÝËÑ1
 ^
 java:S3457a"AFormat specifiers should be used instead of string concatenation.(‹Žî8ÎÎÝËÑ1
-X	java:S125f"<This block of commented-out lines of code should be removed.(ê‘±£8ÎÎÝËÑ1
+7
+java:S3457f"Not enough arguments.(Ž¿Ãýÿÿÿÿ8Á¹ç¨Ú1
 ]	java:S125{"<This block of commented-out lines of code should be removed.(’Òóéýÿÿÿÿ8ÏÎÝËÑ1
 n
 java:S1128"LRemove this unused import 'co.com.bbva.app.notas.contables.session.Session'.(•Ö¥åøÿÿÿÿ8ÐÎÝËÑ1

@@ -17,7 +17,7 @@
             <h:panelGrid columns="2" id="filtro">
                 <p:inputText id="param" value="#{perdidaOperacionalClaseRiesgoTipoPerdidaPage.param}"/>
                 <p:commandButton action="#{perdidaOperacionalClaseRiesgoTipoPerdidaPage.buscarPorFiltro}"
-                                 value="Filtrar"/>
+                                 value="Filtrar" ajax="false"/>
             </h:panelGrid>
 
             <ui:include src="../../common/mensajes.xhtml"/>

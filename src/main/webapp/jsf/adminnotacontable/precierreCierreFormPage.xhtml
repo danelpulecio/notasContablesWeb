@@ -18,10 +18,10 @@
         <p:column headerText="Estado" sortable="true" width="50px;" sortBy="#{dato.estado}">
             <h:outputText value="#{dato.nombreEstado}"/>
         </p:column>
-        <p:column headerText="Detalle de la nota contable" style="text-align: right; border:0px;">
+        <p:column headerText="Detalle de la nota contable" style="text-align: center;">
 
-            <h:panelGrid columns="1" rendered="#{dato.NC.tipoNota eq 'R' }" border="0" style="border-width: 0px;">
-                <p:dataTable style="border-width: 0px; background-color: transparent;" value="#{dato.NC.temas}"
+<!--            <h:panelGrid columns="1" rendered="#{dato.NC.tipoNota eq 'R' }" border="0" style="border-width: 0px;">-->
+                <p:dataTable style="border-width: 0px; background-color: transparent;" value="#{dato.NC.temas}" rendered="#{dato.NC.tipoNota eq 'R' }"
                              var="tema">
                     <p:column style="border-width: 0px; text-align: left;">
                         <h:outputText value="${tema.tema.nombre}"/>
@@ -45,7 +45,7 @@
                         <h:outputText value="#{tema.monto}"><f:convertNumber type="currency"/></h:outputText>
                     </p:column>
                 </p:dataTable>
-            </h:panelGrid>
+<!--            </h:panelGrid>-->
 
             <h:panelGrid columns="1" rendered="#{dato.NC.tipoNota eq 'C' }" border="0">
                 <p:dataTable style="border-width: 0px; background-color: transparent;" var="temaCruce"

@@ -19,14 +19,16 @@
                 <h1 align="center">Notas Contables en Precierre</h1>
             </h:panelGrid>
 
-            <ui:include src="../../common/mensajes.xhtml"/>
+            <h:panelGroup id="msgPreCierre">
+                <ui:include src="../../common/mensajes.xhtml"/>
+            </h:panelGroup>
 
             <!-- Tabla de registros -->
             <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
                 <p:poll listener="#{precierrePage.mostrar}"
                         rendered="#{empty precierreCierrePage.datos and facesContext.maximumSeverity == null}"
-                        update="lista"
-                        interval="0"/>
+                        update="lista, globalForm:msgPreCierre"
+                        autoStart="true" interval="1"/>
                 <h:panelGrid columns="2" width="100%" style="text-align:center;">
                     <p:commandButton value="Generar Archivo Altamira"
                                      action="#{precierrePage.generarArchivoAltamira}"

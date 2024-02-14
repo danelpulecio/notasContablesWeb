@@ -6,6 +6,9 @@ package co.com.bbva.app.notas.contables.carga.dao;
 
 import co.com.bbva.app.notas.contables.carga.dto.TipoTelefono;
 import co.com.bbva.app.notas.contables.dao.CommonDAO;
+import co.com.bbva.app.notas.contables.jsf.carga.TipoTelefonoPage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -13,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class TipoTelefonoDAO extends CommonDAO<TipoTelefono> {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(TipoTelefonoDAO.class);
 
 	private static String cs_COLUMNAS = "CODIGO, NOMBRE, ESTADO_CARGA, FECHA_ULTIMA_CARGA";
 
@@ -54,6 +59,7 @@ public class TipoTelefonoDAO extends CommonDAO<TipoTelefono> {
 	}
 
 	public Collection<TipoTelefono> findBy(String palabraClave) throws Exception {
+		LOGGER.info("palabra filtro {}", palabraClave);
 		ArrayList<Object> params = new ArrayList<Object>();
 		for (int count = 1; count <= NUMERO_COLUMNAS_BUSQUEDA; count++) {
 			if (count != 1) {

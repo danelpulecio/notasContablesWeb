@@ -20,11 +20,16 @@
                 <h1 align="center">Mis Pendientes</h1>
             </h:panelGrid>
 
-            <ui:include src="../../common/mensajes.xhtml"/>
+            <h:panelGroup id="msgPendientes">
+                <ui:include src="../../common/mensajes.xhtml"/>
+            </h:panelGroup>
+
 
             <!-- Tabla de registros -->
             <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
-
+                <p:poll listener="#{pendientePage.cargarPendientes()}"
+                        update="lista, globalForm:msgPendientes"
+                        interval="0" autoStart="false"/>
                 <p:dataTable value="#{pendientePage.datos}" var="dato" id="tablePendiente" rowIndexVar="rowIndex"
                              rendered="#{! empty pendientePage.datos}"
                              widgetVar="economicActivityTable" rows="15" paginator="true"

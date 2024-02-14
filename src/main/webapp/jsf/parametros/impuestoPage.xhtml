@@ -97,9 +97,10 @@
                 </h:panelGrid>
 
                 <!-- Seccion de mensajes y botones de envio y cancelacion-->
-<!--                <ui:include src="../../common/mensajes.xhtml"/>-->
+                <!--                <ui:include src="../../common/mensajes.xhtml"/>-->
                 <h:panelGrid columns="2" styleClass="center" width="100%">
-                    <p:commandButton action="#{impuestoPage.guardar}" update="globalForm:informacion,globalForm:lista, globalForm:growl"
+                    <p:commandButton action="#{impuestoPage.guardar}"
+                                     update="globalForm:informacion,globalForm:lista, globalForm:growl"
                                      value="Guardar"
                                      oncomplete="if (#{impuestoPage.ocultarPopupGuardar}) PF('editor').hide();"/>
                     <p:commandButton onclick="PF('editor').hide()" value="Cerrar"/>
@@ -107,7 +108,7 @@
             </h:panelGrid>
         </p:dialog>
 
-        <p:growl id="growl" showDetail="false" life="3000" />
+        <p:growl id="growl" showDetail="false" life="3000"/>
 
         <!--Filtro de busqueda	-->
         <div style="width: 950px;">
@@ -212,10 +213,11 @@
                     <!-- Opcion de cambio de borrado-->
                     <p:column style="text-align: center;">
                         <f:facet name="header"><h:outputText value="Borrar"/></f:facet>
-                        <p:commandButton
-                                style="width: 24px; height: 24px; padding: 0; background-image: url('#{request.contextPath}/common/images/delete.png'); background-size: cover; border-radius: 50%;"
-                                value="" alt="Borrar" onclick="PF('popupBorrar'.show()"
-                                rendered="#{dato.estado eq 'I'}">
+                        <p:commandButton value=""
+                                         alt="Borrar"
+                                         onclick="PF('popupBorrar').show()"
+                                         style="width: 24px; height: 24px; padding: 0; background-image: url('#{request.contextPath}/common/images/delete.png'); background-size: cover; border-radius: 50%;"
+                                         rendered="#{dato.estado eq 'I'}">
                             <f:setPropertyActionListener for="codBorrar" value="#{dato.codigo}"
                                                          target="#{impuestoPage.objActual.codigo}"
                                                          converter="javax.faces.Integer"/>

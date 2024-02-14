@@ -33,7 +33,7 @@
                     </p:accordionPanel>
 
                     <p:panel style="width: 100%" header="Tipos de Centros Autorizados">
-                        <h:selectManyCheckbox value="#{centroOrigenPage.tipoCentrosSel}" immediate="true">
+                        <h:selectManyCheckbox value="#{centroOrigenPage.tipoCentrosSel}">
                             <p:ajax event="change" listener="#{centroOrigenPage.selccionarTipoCentro}"
                                     update="informacion"/>
                             <f:selectItems value="#{centroOrigenPage.tiposCentrosAut}"/>
@@ -47,43 +47,37 @@
                             <f:selectItems value="#{centroOrigenPage.indicadores}"/>
                         </h:selectOneRadio>
                     </p:panel>
+<!--                    <rich:panel style="width: 100%" header="Centros Autorizados"-->
+<!--                                rendered="#{!empty centroOrigenPage.centrosAut}">-->
+<!--                        <rich:pickList value="#{centroOrigenPage.centrosAutSel}" listsHeight="150" sourceListWidth="370"-->
+<!--                                       targetListWidth="370" showButtonsLabel="false">-->
+<!--                            <p:aja event="onlistchanged" action="#{centroOrigenPage.validarCentrosAut}"-->
+<!--                                   ajaxSingle="true" status="status" reRender="informacion"/>-->
+<!--                            <f:selectItems value="#{centroOrigenPage.centrosAut}"/>-->
+<!--                        </rich:pickList>-->
+<!--                    </rich:panel>-->
 
-                    <p:panel style="width: 100%" header="Centros Autorizados" rendered="#{not empty centroOrigenPage.centrosAut}">
-                        
-                        <p:selectManyMenu value="#{centroOrigenPage.centrosAutSel}" listsHeight="150"
-                                          sourceListWidth="370"
-                                          targetListWidth="370" showButtonsLabel="false">
-                            <p:ajax event="change" listener="#{centroOrigenPage.validarCentrosAut}"
-                                    update="informacion"/>
-                            <f:selectItems value="#{centroOrigenPage.centrosAut}"/>
-                        </p:selectManyMenu>
-                        
-<!-- 						 <p:pickList id="pickList" value="#{centroOrigenPage.centrosAut}" var="centros" itemLabel="#{centros}" itemValue="#{centros}"/> -->
-                        
-                        
-<!--                         	<rich:panel style="width: 100%" header="Centros Autorizados" rendered="#{!empty centroOrigenPage.centrosAut}"> -->
-<!-- 									<rich:pickList value="#{centroOrigenPage.centrosAutSel}"  -->
-<!-- 										listsHeight="150"  -->
-<!-- 										sourceListWidth="370"  -->
-<!-- 										targetListWidth="370"  -->
-<!-- 										showButtonsLabel="false" > -->
-<!-- 										<a4j:support event="onlistchanged"  -->
-<!-- 													action="#{centroOrigenPage.validarCentrosAut}"  -->
-<!-- 													ajaxSingle="true"  -->
-<!-- 													status="status"  -->
-<!-- 													reRender="informacion"/> -->
-<!-- 					            		<f:selectItems value="#{centroOrigenPage.centrosAut}"/> -->
-					            		
-<!-- 					        		</rich:pickList> -->
-<!--         					</rich:panel> -->                        
-        		
+                    <p:panel style="width: 100%" header="Centros Autorizados" rendered="#{not empty centroDestinoPage.centrosAut}">
+                        <p:pickList value="#{centroDestinoPage.centrosAutSel}"
+                                    style="height: 150px;"
+                                    sourceCaption="Available"
+                                    targetCaption="Selected"
+                                    showSourceFilter="true"
+                                    showTargetFilter="true"
+                                    filterMatchMode="contains"
+                                    itemLabel="#{item}"
+                                    itemValue="#{item}">
+                            <p:ajax event="transfer" listener="#{centroDestinoPage.validarCentrosAut()}"
+                                    update="informacion" />
+                            <f:selectItems value="#{centroDestinoPage.centrosAut}" />
+                        </p:pickList>
                     </p:panel>
                 </h:panelGrid>
 
                 <!-- Seccion de mensajes y botones de envio y cancelacion-->
-                <h:panelGroup id="msg_centroOrigenAction">
-                	<ui:include src="../../common/mensajes.xhtml"/>
-                </h:panelGroup>
+<!--                <h:panelGroup id="msg_centroOrigenAction">-->
+<!--                    <ui:include src="../../common/mensajes.xhtml"/>-->
+<!--                </h:panelGroup>-->
                 <h:panelGrid columns="2" styleClass="center" width="100%">
                     <p:commandButton action="#{centroOrigenPage.guardar}"
                                      update="globalForm:informacion,globalForm:lista"
@@ -95,24 +89,26 @@
         </p:dialog>
 
         <!--Filtro de busqueda	-->
-        <div style="width: 950px;">
-            <h:panelGrid columns="1" width="100%"><h1 align="center">Centros de origen</h1></h:panelGrid>
+<!--        <div style="width: 950px;">-->
+            <h:panelGrid columns="1" width="100%">
+                <h1 align="center">Centros de origen</h1>
+            </h:panelGrid>
 
             <!-- Panel de opciones -->
             <p:panel header="Opciones" style="width: 100%;">
                 <h:panelGrid columns="2" id="filtro">
 
                     <h:panelGrid columns="2" width="380" id="cambio">
-                    
+
                         <p:commandButton action="#{centroOrigenPage.selecccionar}"
                                          rendered="#{!empty centroOrigenPage.datos}"
                                          update="globalForm:lista,globalForm:cambio"
                                          value="#{centroOrigenPage.selectedAll?'Limpiar Selección':'Seleccionar Todos'}"
                                          ajaxSingle="true" immediate="true"/>
-                                         
+
                         <p:commandButton action="#{centroOrigenPage.editar}"
                                          oncomplete="if (#{facesContext.maximumSeverity==null}) PF('editor').show()"
-                                         update="globalForm:editor" 
+                                         update="globalForm:editor"
                                          value="Modificar Seleccionados"/>
                     </h:panelGrid>
 
@@ -123,10 +119,10 @@
                     </h:panelGrid>
                 </h:panelGrid>
             </p:panel>
-			
-			<h:panelGroup id="msg_centroOrigen">
-            	<ui:include src="../../common/mensajes.xhtml"/>
-			</h:panelGroup>
+
+            <h:panelGroup id="msg_centroOrigen">
+                <ui:include src="../../common/mensajes.xhtml"/>
+            </h:panelGroup>
             <!-- Tabla de registros -->
             <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
 
@@ -166,6 +162,6 @@
                     </p:column>
                 </p:dataTable>
             </h:panelGrid>
-        </div>
+<!--        </div>-->
     </ui:define>
 </ui:composition>

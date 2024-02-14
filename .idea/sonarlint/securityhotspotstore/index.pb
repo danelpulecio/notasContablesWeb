@@ -458,3 +458,5 @@ i
 Vsrc/main/java/co/com/bbva/app/notas/contables/jsf/parametros/TemaAutorizacionPage.java,e/8/e8820a4ac51e818cff595c0044be35209b0760b4
 ‹
 [src/main/java/co/com/bbva/app/notas/contables/schedule/historico/ScheduleCierreMensual.java,5/2/524fbd863e66680005275d2c6b72c7b5a63afb18
+g
+7src/main/webapp/jsf/notacontable/notaRefCrucePage.xhtml,f/4/f4e3028afb4fe47556b956223ccbf71ba75c9f39

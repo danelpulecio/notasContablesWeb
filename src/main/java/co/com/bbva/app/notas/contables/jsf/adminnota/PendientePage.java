@@ -42,7 +42,7 @@ public class PendientePage extends GeneralConsultaPage<Instancia> {
 			Instancia instancia = new Instancia();
 			instancia.setCodigoUsuarioActual( contablesSessionBean.getLoginUser().getUsuario().getCodigo());
 			ArrayList<Instancia> instancias = new ArrayList<>(notasContablesManager.getInstanciasPorUsuario(instancia));
-			setDatos(instancias);
+//			setDatos(instancias);
 			//if (esUltimaFase() && getDatos().isEmpty() && !hayMensajes()) {
 			if (getDatos().isEmpty()) {
 				nuevoMensaje(FacesMessage.SEVERITY_INFO, "Usted no tiene pendientes");

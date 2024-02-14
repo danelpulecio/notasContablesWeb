@@ -5,7 +5,11 @@ d
 java:S6813"BRemove this field injection and use constructor injection instead.(Áº–üÿÿÿÿ8“«ÓÑÖ1
 W
 java:S1161"":Add the "@Override" annotation above this method signature( Üó8˜«ÓÑÖ1
-]	java:S125."<This block of commented-out lines of code should be removed.(ş‘¼çÿÿÿÿÿ8«ÓÑÖ1
+`
+java:S1854,">Remove this useless assignment to local variable "instancias".(ÿÊÄ©ùÿÿÿÿ8Îú¢©Ú1
+Q
+java:S1481,"/Remove this unused "instancias" local variable.(ÿÊÄ©ùÿÿÿÿ8Ñú¢©Ú1
+]	java:S125-"<This block of commented-out lines of code should be removed.(ü¢ó¾ùÿÿÿÿ8Ñú¢©Ú1
 2
 java:S34571"Not enough arguments.(êÓĞ8Ÿ«ÓÑÖ1
 7
