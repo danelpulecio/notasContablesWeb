@@ -23,6 +23,8 @@ public class PendientePage extends GeneralConsultaPage<Instancia> {
 	private static final long serialVersionUID = -6709113217662690209L;
 	private static final Logger LOGGER = LoggerFactory.getLogger(PendientePage.class);
 	
+	protected boolean stopPoll = false;
+	
 	@Inject
 	private ContablesSessionBean contablesSessionBean;
 
@@ -42,13 +44,16 @@ public class PendientePage extends GeneralConsultaPage<Instancia> {
 			Instancia instancia = new Instancia();
 			instancia.setCodigoUsuarioActual( contablesSessionBean.getLoginUser().getUsuario().getCodigo());
 			ArrayList<Instancia> instancias = new ArrayList<>(notasContablesManager.getInstanciasPorUsuario(instancia));
-//			setDatos(instancias);
+			setDatos(instancias);
 			//if (esUltimaFase() && getDatos().isEmpty() && !hayMensajes()) {
 			if (getDatos().isEmpty()) {
 				nuevoMensaje(FacesMessage.SEVERITY_INFO, "Usted no tiene pendientes");
 				LOGGER.info("{} El usuario no tiene pendientes ");
+				
 			}
+			this.stopPoll = true;
 		} catch (final Exception e) {
+			this.stopPoll = true;
 			LOGGER.error("{} Error al consultar los pendientes ", e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema al realizar la consulta de pendientes" );
 		}
@@ -71,5 +76,15 @@ public class PendientePage extends GeneralConsultaPage<Instancia> {
 	protected String _getPage() {
 		return ADMIN_PENDIENTES;
 	}
+
+	public boolean isStopPoll() {
+		return stopPoll;
+	}
+
+	public void setStopPoll(boolean stopPoll) {
+		this.stopPoll = stopPoll;
+	}
+	
+	
 
 }
