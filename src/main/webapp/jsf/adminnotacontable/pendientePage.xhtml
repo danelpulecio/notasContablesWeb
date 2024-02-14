@@ -28,8 +28,8 @@
             <!-- Tabla de registros -->
             <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
                 <p:poll listener="#{pendientePage.cargarPendientes()}"
-                        update="lista, globalForm:msgPendientes"
-                        interval="0" autoStart="false"/>
+                        update="lista, msgPendientes"
+                        interval="1" stop="#{pendientePage.stopPoll}" autoStart="true"/>
                 <p:dataTable value="#{pendientePage.datos}" var="dato" id="tablePendiente" rowIndexVar="rowIndex"
                              rendered="#{! empty pendientePage.datos}"
                              widgetVar="economicActivityTable" rows="15" paginator="true"
@@ -95,15 +95,12 @@
                         </p:commandButton>
 
                         <p:commandButton value="Editar"
-                                         action="#{notaRefCrucePage.consultarFlujo}"
+                                         action="#{notaContablePage.iniciarPagina}"
                                          oncomplete="PF('popupNotaContable').show();"
-                                         update="globalForm:popupFlujoNotaContableRefCruceVer"
-                                         rendered="#{dato.NC.tipoNota eq 'C'}">
-                            <f:setPropertyActionListener for="codNotaRefCruceVer" value="#{dato.codigoNotaContable}"
-                                                         target="#{notaRefCrucePage.nota.codigo}"/>
-                            <f:setPropertyActionListener for="codUsuRefCruceVer"
-                                                         value="#{contablesSessionBean.loginUser.usuario.codigo}"
-                                                         target="#{notaRefCrucePage.nota.codUsuAsignado}"/>
+                                         update="globalForm:popupNotaContable"
+                                         rendered="#{dato.NC.tipoNota eq 'R' and dato.estado eq 1}">
+                            <f:setPropertyActionListener for="codNotaEditar" value="#{dato.codigoNotaContable}"
+                                                         target="#{notaContablePage.nota.codigo}"/>
                         </p:commandButton>
 
                         <p:commandButton value="Editar"
