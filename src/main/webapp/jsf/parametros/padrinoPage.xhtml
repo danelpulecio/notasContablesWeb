@@ -166,7 +166,7 @@
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
                              paginatorPosition="top">
-                    <p:column>
+                    <p:column width="15px">
                         <f:facet name="header">
                             <h:outputText value="Fila"/>
                         </f:facet>
@@ -199,7 +199,7 @@
                     </p:column>
 
                     <!-- Opcion de cambio de estado-->
-                    <p:column style="text-align: center;">
+                    <p:column style="text-align: center; width: 63px">
                         <f:facet name="header">
                             <h:outputText value="Estado"/>
                         </f:facet>
@@ -213,7 +213,7 @@
                     </p:column>
 
                     <!-- Opcion de cambio de borrado-->
-                    <p:column style="text-align: center;">
+                    <p:column style="text-align: center; width: 30px">
                         <f:facet name="header">
                             <h:outputText value="Borrar"/>
                         </f:facet>

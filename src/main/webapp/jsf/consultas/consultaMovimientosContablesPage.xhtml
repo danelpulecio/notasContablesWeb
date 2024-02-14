@@ -45,10 +45,10 @@
                                 <p:inputText value="#{consultaMovimientosContablesPage.numIdentificacion}"/>
 
                                 <h:outputText value="Desde"/>
-                                <p:calendar label="Desde" id="desde" required="false" value="#{consultaMovimientosContablesPage.desde}" showOn="button"/>
+                                <p:calendar label="Desde" id="desde" required="false" value="#{consultaMovimientosContablesPage.desde}" showOn="button" navigator="true"/>
 
                                 <h:outputText value="Hasta"/>
-                                <p:calendar label="Hasta" id="hasta" required="false" value="#{consultaMovimientosContablesPage.hasta}" showOn="button"/>
+                                <p:calendar label="Hasta" id="hasta" required="false" value="#{consultaMovimientosContablesPage.hasta}" showOn="button" navigator="true"/>
 
                                 <h:outputText value="Divisa"/>
                                 <p:selectOneMenu value="#{consultaMovimientosContablesPage.divisa}">
@@ -102,9 +102,9 @@
                         <h:outputText value="#{dato.NC.fechaRegistroAltamira}"/>
                     </p:column>
                     <p:column headerText="Detalle de la nota contable" width="570px;" style="text-align: center;">
-                        <h:panelGrid cellpadding="0" cellspacing="0" style="border-width: 0px;" columns="1" rendered="#{dato.NC.tipoNota eq 'R' }" width="100%">
+<!--                        <h:panelGrid cellpadding="0" cellspacing="0" style="border-width: 0px;" columns="1" rendered="#{dato.NC.tipoNota eq 'R' }" width="100%">-->
                             <p:dataTable style="border-width: 0px; background-color: transparent;" var="tema"
-                                         value="#{dato.NC.temas}">
+                                         value="#{dato.NC.temas}" rendered="#{dato.NC.tipoNota eq 'R' }">
                                 <p:column style="border-width: 0px; text-align: left;">
                                     <h:outputText value="${tema.tema.nombre}"/>
                                 </p:column>
@@ -128,9 +128,9 @@
                                             type="currency"/></h:outputText>
                                 </p:column>
                             </p:dataTable>
-                        </h:panelGrid>
-                        <h:panelGrid columns="1" rendered="#{dato.NC.tipoNota eq 'C' }" style="width:100%">
-                            <p:dataTable style="border-width: 0px; background-color: transparent;" var="temaCruce"
+<!--                        </h:panelGrid>-->
+<!--                        <h:panelGrid columns="1" rendered="#{dato.NC.tipoNota eq 'C' }" style="width:100%">-->
+                            <p:dataTable style="border-width: 0px; background-color: transparent;" var="temaCruce" rendered="#{dato.NC.tipoNota eq 'C' }"
                                          value="#{dato.NC.temasCruce}" cellpadding="0" cellspacing="0">
                                 <p:column style="border-width: 0px; text-align: left;">
                                     <h:outputText value="REFERENCIA DE CRUCE"/>
@@ -150,9 +150,9 @@
                                 </p:column>
 
                             </p:dataTable>
-                        </h:panelGrid>
-                        <h:panelGrid columns="1" rendered="#{dato.NC.tipoNota eq 'L' }" width="100%">
-                            <p:dataTable style="border-width: 0px; background-color: transparent; " var="temaLibre"
+<!--                        </h:panelGrid>-->
+<!--                        <h:panelGrid columns="1" rendered="#{dato.NC.tipoNota eq 'L' }" width="100%">-->
+                            <p:dataTable style="border-width: 0px; background-color: transparent; " var="temaLibre" rendered="#{dato.NC.tipoNota eq 'L' }"
                                          value="#{dato.NC.temasLibre}" cellpadding="0" cellspacing="0">
                                 <p:column style="border-width: 0px; text-align: left;">
                                     <h:outputText value="CONTABILIDAD LIBRE"/>
@@ -171,7 +171,7 @@
                                             type="currency"/></h:outputText>
                                 </p:column>
                             </p:dataTable>
-                        </h:panelGrid>
+<!--                        </h:panelGrid>-->
                     </p:column>
 
                     <p:column headerText="Ver Nota Contable" width="50px;" style="text-align: center;">

@@ -166,7 +166,7 @@
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
                          paginatorPosition="top">
-                <p:column headerText="Fila">
+                <p:column headerText="Fila" width="20px">
                     <h:outputText value="#{rowIndex+1}"/>
                 </p:column>
 
@@ -176,13 +176,13 @@
                     <h:outputText value="#{dato.nombreTipoEvento}"/>
                 </p:column>
 
-                <p:column sortBy="#{dato.codigoSucursal}" sortable="true">
+                <p:column sortBy="#{dato.codigoSucursal}" sortable="true" width="57px">
                     <f:facet name="header"><h:panelGroup><h:outputText value="Cód. Ente"/><br/><h:outputText
                             value="Autorizador"/></h:panelGroup></f:facet>
                     <h:outputText value="#{dato.codigoSucursal}"/>
                 </p:column>
 
-                <p:column sortBy="#{dato.nombreSucursal}" sortable="true">
+                <p:column sortBy="#{dato.nombreSucursal}" sortable="true" width="120px">
                     <f:facet name="header"><h:outputText value="Ente Autorizador"/></f:facet>
                     <h:outputText value="#{dato.nombreSucursal}"/>
                 </p:column>
@@ -193,18 +193,18 @@
                     <h:outputText value="#{dato.codigoEmpleado}"/>
                 </p:column>
 
-                <p:column sortBy="#{dato.nombreTeamAut}" sortable="true">
+                <p:column sortBy="#{dato.nombreTeamAut}" sortable="true" width="120px">
                     <f:facet name="header"><h:outputText value="Tema de Autorización"/></f:facet>
                     <h:outputText value="#{dato.nombreTeamAut}"/>
                 </p:column>
 
-                <p:column style="text-align: right;" sortBy="#{dato.monto}" sortable="true">
-                    <f:facet name="header"><h:outputText value="Limite"/></f:facet>
+                <p:column style="text-align: right; width: 140px;" sortBy="#{dato.monto}" sortable="true">
+                    <f:facet name="header"><h:outputText value="Limite" style="text-align: center"/></f:facet>
                     <h:outputText value="#{dato.monto}"><f:convertNumber type="currency"/></h:outputText>
                 </p:column>
 
                 <!-- Opcion de cambio de estado-->
-                <p:column style="text-align: center;">
+                <p:column style="text-align: center; width: 63px;">
                     <f:facet name="header"><h:outputText value="Estado"/></f:facet>
                     <p:commandButton value="#{dato.estado eq 'A'? 'Activo': 'Inactivo'}"
                                      onclick="PF('popupEstado').show()">
@@ -217,7 +217,7 @@
                 </p:column>
 
                 <!-- Opcion de cambio de editar informacion-->
-                <p:column style="text-align: center;">
+                <p:column style="text-align: center; width: 27px;">
                     <f:facet name="header"><h:outputText value="Editar"/></f:facet>
                     <p:commandButton value=""
                                      alt="Editar"
@@ -240,7 +240,7 @@
                 </p:column>
 
                 <!-- Opcion de cambio de borrado-->
-                <p:column style="text-align: center;">
+                <p:column style="text-align: center; width: 30px">
                     <f:facet name="header"><h:outputText value="Borrar"/></f:facet>
                     <p:commandButton value=""
                                      style="width: 24px; height: 24px; padding: 0; background-image: url('#{request.contextPath}/common/images/delete.png'); background-size: cover; border-radius: 50%;"
