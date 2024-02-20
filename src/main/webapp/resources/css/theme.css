@@ -24,7 +24,7 @@ div#layout {
     /* necesario para el posicionamiento */
     margin: 0 auto;
     /* lo centramos, aunque no funciona para explorer 5 */
-    width: 1000px;
+    width: 1200px;
     height: auto !important;
     /* para los navegadores de verdad */
     height: 100%;

@@ -202,4 +202,25 @@ public class UsuarioModulo extends CommonVO<UsuarioModulo> implements Serializab
 	public void setLastUpdate(String lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
+
+	@Override
+	public String toString() {
+		return "UsuarioModulo{" +
+				"codigo=" + codigo +
+				", codigoEmpleado='" + codigoEmpleado + '\'' +
+				", codigoRol=" + codigoRol +
+				", codigoAreaModificado='" + codigoAreaModificado + '\'' +
+				", nombreAreaModificado='" + nombreAreaModificado + '\'' +
+				", codigoPerfilModificado='" + codigoPerfilModificado + '\'' +
+				", nombrePerfilModificado='" + nombrePerfilModificado + '\'' +
+				", eMailModificado='" + eMailModificado + '\'' +
+				", actualizarAutomatico='" + actualizarAutomatico + '\'' +
+				", estado='" + estado + '\'' +
+				", lastUpdate='" + lastUpdate + '\'' +
+				", usuAlt=" + usuAlt +
+				", duracionPromedio=" + duracionPromedio +
+				", actividades=" + actividades +
+				", rol=" + rol +
+				'}';
+	}
 }

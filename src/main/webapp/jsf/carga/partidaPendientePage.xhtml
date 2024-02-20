@@ -8,58 +8,67 @@
     <ui:define name="body">
 
         <!--Filtro de busqueda	-->
-        <div style="width: auto;">
+        <div style="width: 1200px;">
             <h:form>
-            <h:panelGrid columns="1" width="100%"><h1 align="center">Partidas Pendientes</h1></h:panelGrid>
+                <p:panel style="width: 1200px">
+                    <h:panelGrid columns="1" width="100%"><h1 align="center">Partidas Pendientes</h1></h:panelGrid>
 
-            <h:panelGrid columns="2" id="filtro">
-                <p:inputText id="param" value="#{partidaPendientePage.param}"/>
-                <p:commandButton action="#{partidaPendientePage.buscarPorFiltro}" value="Filtrar" ajax="false"/>
-            </h:panelGrid>
+                    <h:panelGrid columns="2" id="filtro">
+                        <p:inputText id="param" value="#{partidaPendientePage.param}"/>
+                        <p:commandButton action="#{partidaPendientePage.buscarPorFiltro}" value="Filtrar" ajax="false"/>
+                    </h:panelGrid>
 
-            <ui:include src="../../common/mensajes.xhtml"/>
+                    <ui:include src="../../common/mensajes.xhtml"/>
 
-            <!--	Tabla de resultados	-->
-           <!-- <h:panelGrid columns="1" width="100%" style="align:center;" id="lista"> -->
+                    <!--	Tabla de resultados	-->
+                    <!-- <h:panelGrid columns="1" width="100%" style="align:center;" id="lista"> -->
 
-                <p:dataTable value="#{partidaPendientePage.datos}" var="dato" id="table" rowIndexVar="rowIndex"
-                             widgetVar="economicActivityTable" rows="15" paginator="true"
-                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
-                             paginatorPosition="top">
+                    <p:dataTable value="#{partidaPendientePage.datos}" var="dato" id="table" rowIndexVar="rowIndex"
+                                 widgetVar="economicActivityTable" rows="15" paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
+                                 paginatorPosition="top">
 
-                    <p:column width="30px;" headerText="Fila">
-                        <h:outputText value="#{rowIndex+1}"/>
-                    </p:column>
-                    <p:column headerText="Cuenta" sortable="true" sortBy="#{dato.cuenta}" width="75px">
-                        <h:outputText value="#{dato.cuenta} "/>
-                    </p:column>
-                    <p:column headerText="Sucursal Destino" width="45px;" sortable="true" sortBy="#{dato.sucursalDestino}">
-                        <h:outputText value="#{dato.sucursalDestino}"/>
-                    </p:column>
-                    <p:column headerText="Naturaleza" sortable="true" sortBy="#{dato.naturaleza}" width="55px;">
-                        <h:outputText value="#{dato.naturaleza}"/>
-                    </p:column>
-                    <p:column headerText="Referencia Cruce" width="100px;" sortable="true" sortBy="#{dato.referenciaCruce}">
-                        <h:outputText value="#{dato.referenciaCruce}"/>
-                    </p:column>
-                    <p:column headerText="Divísa" style="text-align: right;" sortable="true" sortBy="#{dato.divisa}" width="55px;">
-                        <h:outputText value="#{dato.divisa}"/>
-                    </p:column>
-                    <p:column headerText="Importe" width="120px;" style="text-align: right;" sortable="true" sortBy="#{dato.importe}">
-                        <h:outputText value="#{dato.importe}"><f:convertNumber pattern="#,###,##0.00"/></h:outputText>
-                    </p:column>
-                    <p:column headerText="Concepto" width="130px;" sortable="true" sortBy="#{dato.concepto}">
-                        <h:outputText value="#{dato.concepto}"/>
-                    </p:column>
-                    <p:column headerText="FechaContable" width="100px;" sortable="true" sortBy="#{dato.fechaContable}">
-                        <h:outputText value="#{dato.fechaContable}" style="text-transform: uppercase"><f:convertDateTime
-                                timeZone="GMT-5" locale="es-co" pattern="dd-MMM-yyyy"/></h:outputText>
-                    </p:column>
+                        <p:column width="30px;" headerText="Fila">
+                            <h:outputText value="#{rowIndex+1}"/>
+                        </p:column>
+                        <p:column headerText="Cuenta" sortable="true" sortBy="#{dato.cuenta}" width="75px">
+                            <h:outputText value="#{dato.cuenta} "/>
+                        </p:column>
+                        <p:column headerText="Sucursal Destino" width="45px;" sortable="true"
+                                  sortBy="#{dato.sucursalDestino}">
+                            <h:outputText value="#{dato.sucursalDestino}"/>
+                        </p:column>
+                        <p:column headerText="Naturaleza" sortable="true" sortBy="#{dato.naturaleza}" width="55px;">
+                            <h:outputText value="#{dato.naturaleza}"/>
+                        </p:column>
+                        <p:column headerText="Referencia Cruce" width="100px;" sortable="true"
+                                  sortBy="#{dato.referenciaCruce}">
+                            <h:outputText value="#{dato.referenciaCruce}"/>
+                        </p:column>
+                        <p:column headerText="Divísa" style="text-align: right;" sortable="true" sortBy="#{dato.divisa}"
+                                  width="55px;">
+                            <h:outputText value="#{dato.divisa}"/>
+                        </p:column>
+                        <p:column headerText="Importe" width="120px;" style="text-align: right;" sortable="true"
+                                  sortBy="#{dato.importe}">
+                            <h:outputText value="#{dato.importe}"><f:convertNumber
+                                    pattern="#,###,##0.00"/></h:outputText>
+                        </p:column>
+                        <p:column headerText="Concepto" width="130px;" sortable="true" sortBy="#{dato.concepto}">
+                            <h:outputText value="#{dato.concepto}"/>
+                        </p:column>
+                        <p:column headerText="FechaContable" width="100px;" sortable="true"
+                                  sortBy="#{dato.fechaContable}">
+                            <h:outputText value="#{dato.fechaContable}"
+                                          style="text-transform: uppercase"><f:convertDateTime
+                                    timeZone="GMT-5" locale="es-co" pattern="dd-MMM-yyyy"/></h:outputText>
+                        </p:column>
 
 
-                </p:dataTable>
-            <!--</h:panelGrid>-->
+                    </p:dataTable>
+                    <!--</h:panelGrid>-->
+                </p:panel>
             </h:form>
         </div>
     </ui:define>

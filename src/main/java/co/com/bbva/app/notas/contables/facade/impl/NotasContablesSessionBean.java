@@ -99,6 +99,9 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 
 	@Override
 	public void changeEstadoUsuarioModulo(UsuarioModulo row, int codigoUsuario) throws Exception {
+
+		LOGGER.info("<<<<<<Row {}>>>>>>", row);
+		LOGGER.info("<<<<<<codigo usuario {}>>>>>>", codigoUsuario);
 		Connection con = null;
 		try {
 			con = usuarioModuloDAO.getConexion(false);

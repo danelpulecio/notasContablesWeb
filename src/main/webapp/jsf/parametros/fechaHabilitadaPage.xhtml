@@ -46,88 +46,92 @@
         </p:dialog>
 
         <!--Filtro de busqueda	-->
-        <h:panelGrid columns="1" width="100%">
-            <h1 align="center">Fechas Habilitadas</h1>
-        </h:panelGrid>
+        <div style="width: 1200px;">
+            <h:panelGrid columns="1" width="100%">
+                <h1 align="center">Fechas Habilitadas</h1>
+            </h:panelGrid>
 
-        <!-- Panel de opciones -->
-        <p:panel header="Opciones" style="width: 100%;">
-            <h:panelGrid columns="2" id="filtro">
+            <!-- Panel de opciones -->
+            <p:panel header="Opciones" style="width: 100%;">
+                <h:panelGrid columns="2" id="filtro">
 
-                <h:panelGrid columns="2" width="380" id="cambio">
-                    <p:commandButton action="#{fechaHabilitadaPage.selecccionar}"
-                                     update="globalForm:lista,globalForm:cambio"
-                                     value="#{fechaHabilitadaPage.selectedAll?'Limpiar Selección':'Seleccionar Todos'}"/>
-                    <h:panelGrid columns="3" width="100%" rendered="#{fechaHabilitadaPage.haySeleccion}">
-                        <h:outputText value="Días"/>
-                        <p:inputText value="#{fechaHabilitadaPage.nuevosDias}" size="2"
-                                     converter="javax.faces.Integer"
-                                     converterMessage="Error al convertir la información del campo a número"/>
-                        <p:commandButton action="#{fechaHabilitadaPage.actualizarTodos}"
+                    <h:panelGrid columns="2" width="380" id="cambio">
+                        <p:commandButton action="#{fechaHabilitadaPage.selecccionar}"
                                          update="globalForm:lista,globalForm:cambio"
-                                         value="Actualizar Seleccionados"/>
+                                         value="#{fechaHabilitadaPage.selectedAll?'Limpiar Selección':'Seleccionar Todos'}"/>
+                        <h:panelGrid columns="3" width="100%" rendered="#{fechaHabilitadaPage.haySeleccion}">
+                            <h:outputText value="Días"/>
+                            <p:inputText value="#{fechaHabilitadaPage.nuevosDias}" size="2"
+                                         converter="javax.faces.Integer"
+                                         converterMessage="Error al convertir la información del campo a número"/>
+                            <p:commandButton action="#{fechaHabilitadaPage.actualizarTodos}"
+                                             update="globalForm:lista,globalForm:cambio"
+                                             value="Actualizar Seleccionados"/>
+                        </h:panelGrid>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="2">
+                        <p:inputText value="#{fechaHabilitadaPage.param}"/>
+                        <p:commandButton action="#{fechaHabilitadaPage.buscarPorFiltro}" value="Filtrar"
+                                         onclick="Richfaces.showModalPanel('statusPanel')"/>
                     </h:panelGrid>
                 </h:panelGrid>
+            </p:panel>
 
-                <h:panelGrid columns="2">
-                    <p:inputText value="#{fechaHabilitadaPage.param}"/>
-                    <p:commandButton action="#{fechaHabilitadaPage.buscarPorFiltro}" value="Filtrar"
-                                     onclick="Richfaces.showModalPanel('statusPanel')"/>
-                </h:panelGrid>
+            <ui:include src="../../common/mensajes.xhtml"/>
+
+            <!-- Tabla de registros -->
+            <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
+
+                <p:dataTable value="#{fechaHabilitadaPage.datos}" var="dato" id="table"
+                             rendered="#{! empty fechaHabilitadaPage.datos}"
+                             rowIndexVar="rowIndex"
+                             widgetVar="table" rows="15" paginator="true"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
+                             paginatorPosition="top">
+                    <p:column headerText="Fila" style="width: 10%; text-align: center">
+                        <h:outputText value="#{rowIndex+1}"/>
+                        <p:selectBooleanCheckbox value="#{dato.selected}">
+                            <p:ajax event="change" update="globalForm:cambio"/>
+                        </p:selectBooleanCheckbox>
+                    </p:column>
+
+                    <p:column headerText="Código Sucursal" sortable="true" sortBy="#{dato.codigoSucursal}"
+                              style="width: 20%">
+                        <h:outputText value="#{dato.codigoSucursal}"/>
+                    </p:column>
+
+                    <p:column headerText="Nombre Sucursal" sortable="true" sortBy="#{dato.nombreSucursal}"
+                              style="width: 40%">
+                        <h:outputText value="#{dato.nombreSucursal}"/>
+                    </p:column>
+
+                    <p:column headerText="Días" sortable="true" sortBy="#{dato.dias}" style="width: 15%">
+                        <h:outputText value="#{dato.dias}"/>
+                    </p:column>
+
+                    <!-- Opcion de cambio de editar informacion-->
+                    <p:column headerText="Editar" style="text-align: center; width: 15%">
+                        <p:commandButton value=""
+                                         alt="Editar"
+                                         style="width: 24px; height: 24px; padding: 0; background-image: url('#{request.contextPath}/common/images/edit.png'); background-size: cover; border-radius: 50%;"
+                                         oncomplete="PF('editor').show()"
+                                         update="globalForm:editor">
+                            <f:setPropertyActionListener for="codEdit" value="#{dato.codigo}"
+                                                         target="#{fechaHabilitadaPage.objActual.codigo}"
+                                                         converter="javax.faces.Integer"/>
+                            <f:setPropertyActionListener for="codSucEdit" value="#{dato.codigoSucursal}"
+                                                         target="#{fechaHabilitadaPage.objActual.codigoSucursal}"/>
+                            <f:setPropertyActionListener for="nombSucEdit" value="#{dato.nombreSucursal}"
+                                                         target="#{fechaHabilitadaPage.objActual.nombreSucursal}"/>
+                            <f:setPropertyActionListener for="diasEdit" value="#{dato.dias}"
+                                                         target="#{fechaHabilitadaPage.objActual.dias}"
+                                                         converter="javax.faces.Integer"/>
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
             </h:panelGrid>
-        </p:panel>
-
-        <ui:include src="../../common/mensajes.xhtml"/>
-
-        <!-- Tabla de registros -->
-        <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
-
-            <p:dataTable value="#{fechaHabilitadaPage.datos}" var="dato" id="table"
-                         rendered="#{! empty fechaHabilitadaPage.datos}"
-                         rowIndexVar="rowIndex"
-                         widgetVar="table" rows="15" paginator="true"
-                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
-                         paginatorPosition="top">
-                <p:column headerText="Fila" style="width: 10%; text-align: center">
-                    <h:outputText value="#{rowIndex+1}"/>
-                    <p:selectBooleanCheckbox value="#{dato.selected}">
-                        <p:ajax event="change" update="globalForm:cambio"/>
-                    </p:selectBooleanCheckbox>
-                </p:column>
-
-                <p:column headerText="Código Sucursal" sortable="true" sortBy="#{dato.codigoSucursal}" style="width: 20%">
-                    <h:outputText value="#{dato.codigoSucursal}"/>
-                </p:column>
-
-                <p:column headerText="Nombre Sucursal" sortable="true" sortBy="#{dato.nombreSucursal}" style="width: 40%">
-                    <h:outputText value="#{dato.nombreSucursal}"/>
-                </p:column>
-
-                <p:column headerText="Días" sortable="true" sortBy="#{dato.dias}" style="width: 15%">
-                    <h:outputText value="#{dato.dias}"/>
-                </p:column>
-
-                <!-- Opcion de cambio de editar informacion-->
-                <p:column headerText="Editar" style="text-align: center; width: 15%">
-                    <p:commandButton value=""
-                                     alt="Editar"
-                                     style="width: 24px; height: 24px; padding: 0; background-image: url('#{request.contextPath}/common/images/edit.png'); background-size: cover; border-radius: 50%;"
-                                     oncomplete="PF('editor').show()"
-                                     update="globalForm:editor">
-                        <f:setPropertyActionListener for="codEdit" value="#{dato.codigo}"
-                                                     target="#{fechaHabilitadaPage.objActual.codigo}"
-                                                     converter="javax.faces.Integer"/>
-                        <f:setPropertyActionListener for="codSucEdit" value="#{dato.codigoSucursal}"
-                                                     target="#{fechaHabilitadaPage.objActual.codigoSucursal}"/>
-                        <f:setPropertyActionListener for="nombSucEdit" value="#{dato.nombreSucursal}"
-                                                     target="#{fechaHabilitadaPage.objActual.nombreSucursal}"/>
-                        <f:setPropertyActionListener for="diasEdit" value="#{dato.dias}"
-                                                     target="#{fechaHabilitadaPage.objActual.dias}"
-                                                     converter="javax.faces.Integer"/>
-                    </p:commandButton>
-                </p:column>
-            </p:dataTable>
-        </h:panelGrid>
+        </div>
     </ui:define>
 </ui:composition>

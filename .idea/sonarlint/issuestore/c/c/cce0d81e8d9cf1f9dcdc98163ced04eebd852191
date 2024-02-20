@@ -16,18 +16,18 @@ t
 java:S1149"VReplace the synchronized class "Hashtable" by an unsynchronized one such as "HashMap".(ìõÔ×8ğË—À¿1
 g
 java:S4275M"ERefactor this getter so that it actually refers to the field "start".(£¦Ê€ÿÿÿÿÿ8øË—À¿1
-^	java:S125¹"<This block of commented-out lines of code should be removed.(‘ÆÎÓûÿÿÿÿ8ıË—À¿1
-Y	java:S125½"<This block of commented-out lines of code should be removed.(•Âå¼8ıË—À¿1
-Y	java:S125¿"<This block of commented-out lines of code should be removed.(£¼ÃÊ8ıË—À¿1
-Y	java:S125Á"<This block of commented-out lines of code should be removed.(í÷ÎÆ8§²ÉØ1
-^	java:S125É"<This block of commented-out lines of code should be removed.(‘ÆÎÓûÿÿÿÿ8ıË—À¿1
-^	java:S125Ü"<This block of commented-out lines of code should be removed.(ÜŸ¯™øÿÿÿÿ8ÿË—À¿1
-Y	java:S125å"<This block of commented-out lines of code should be removed.(ãĞÑª8€Ì—À¿1
-^	java:S125é"<This block of commented-out lines of code should be removed.(‡ËØàşÿÿÿÿ8€Ì—À¿1
-Y	java:S125í"<This block of commented-out lines of code should be removed.(å´Ê£8€Ì—À¿1
-^	java:S125ğ"<This block of commented-out lines of code should be removed.(‡ËØàşÿÿÿÿ8€Ì—À¿1
+^	java:S125º"<This block of commented-out lines of code should be removed.(‘ÆÎÓûÿÿÿÿ8ıË—À¿1
+Y	java:S125À"<This block of commented-out lines of code should be removed.(•Âå¼8à¯°ÍÚ1
+Y	java:S125Â"<This block of commented-out lines of code should be removed.(£¼ÃÊ8à¯°ÍÚ1
+Y	java:S125Ä"<This block of commented-out lines of code should be removed.(í÷ÎÆ8à¯°ÍÚ1
+^	java:S125Ì"<This block of commented-out lines of code should be removed.(‘ÆÎÓûÿÿÿÿ8à¯°ÍÚ1
+^	java:S125ß"<This block of commented-out lines of code should be removed.(ÜŸ¯™øÿÿÿÿ8â¯°ÍÚ1
+Y	java:S125è"<This block of commented-out lines of code should be removed.(ãĞÑª8â¯°ÍÚ1
+^	java:S125ì"<This block of commented-out lines of code should be removed.(‡ËØàşÿÿÿÿ8ã¯°ÍÚ1
+Y	java:S125ğ"<This block of commented-out lines of code should be removed.(å´Ê£8ã¯°ÍÚ1
+^	java:S125ó"<This block of commented-out lines of code should be removed.(‡ËØàşÿÿÿÿ8ã¯°ÍÚ1
 u
-java:S3776ô"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(¢Å»ıÿÿÿÿ8€Ì—À¿1
+java:S3776÷"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(¢Å»ıÿÿÿÿ8ã¯°ÍÚ1
 `
 java:S1128"CRemove this unused import 'javax.enterprise.context.RequestScoped'.(‚Õ…½8¯§²ÉØ1
 \

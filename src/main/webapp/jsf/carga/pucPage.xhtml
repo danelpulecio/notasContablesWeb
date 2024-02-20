@@ -8,51 +8,61 @@
     <ui:define name="body">
 
         <!--Filtro de busqueda	-->
-        <div style="width: auto;">
+        <div style="width: 1200px;">
             <h:form>
-                <h:panelGrid columns="1" width="100%"><h1 align="center">Plan Único de Cuentas (PUC)</h1></h:panelGrid>
-                <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
-                    <h:panelGrid columns="2" id="filtro" style="text-align: center; margin: 0 auto;">
-                        <p:inputText id="param" value="#{pucPage.param}"/>
-                        <p:commandButton action="#{pucPage.buscarPorFiltro}" value="Filtrar" ajax="false"/>
+                <p:panel style="width: 1200px">
+                    <h:panelGrid columns="1" width="100%"><h1 align="center">Plan Único de Cuentas (PUC)</h1>
                     </h:panelGrid>
-                    <ui:include src="../../common/mensajes.xhtml"/>
+                    <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
+                        <h:panelGrid columns="2" id="filtro" style="text-align: center; margin: 0 auto;">
+                            <p:inputText id="param" value="#{pucPage.param}"/>
+                            <p:commandButton action="#{pucPage.buscarPorFiltro}" value="Filtrar" ajax="false"/>
+                        </h:panelGrid>
+                        <ui:include src="../../common/mensajes.xhtml"/>
 
-                    <!--	Tabla de resultados	-->
-                    <p:dataTable id="table" value="#{pucPage.datos}" var="dato" rowIndexVar="rowIndex" rendered="#{! empty pucPage.datos}"
-                                 widgetVar="pucPageTable" rows="15" paginator="true"
-                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                 currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
-                                 paginatorPosition="top">
-                        <p:column width="30px;" headerText="Fila">
-                            <h:outputText value="#{rowIndex+1}"/>
-                        </p:column>
-                        <p:column headerText="Número Cuenta" sortable="true" sortBy="#{dato.numeroCuenta}">
-                            <h:outputText value="#{dato.numeroCuenta} "/>
-                        </p:column>
-                        <p:column headerText="Descripcion" width="250" sortable="true" sortBy="#{dato.descripcion}">
-                            <h:outputText value="#{dato.descripcion}"/>
-                        </p:column>
-                        <p:column headerText="Tipo Cent. Aut. Ori." sortable="true" sortBy="#{dato.tipoCentroOrigenAutorizado}">
-                            <h:outputText value="#{dato.tipoCentroOrigenAutorizado}"/>
-                        </p:column>
-                        <p:column headerText="Indicador Cent. Orig." sortable="true" sortBy="#{dato.indicadorCentroOrigen}">
-                            <h:outputText value="#{dato.indicadorCentroOrigen}"/>
-                        </p:column>
-                        <p:column headerText="Cent. Orig. Autorizados " sortable="true" sortBy="#{dato.centrosOrigenAutorizados}">
-                            <h:outputText value="#{dato.centrosOrigenAutorizados}"/>
-                        </p:column>
-                        <p:column headerText="Tipo Cent. Aut. Dest." sortable="true" sortBy="#{dato.tipoCentroDestinoAutorizado}">
-                            <h:outputText value="#{dato.tipoCentroDestinoAutorizado}"/>
-                        </p:column>
-                        <p:column headerText="Indicador Cent. Dest." sortable="true" sortBy="#{dato.indicadorCentroDestino}">
-                            <h:outputText value="#{dato.indicadorCentroDestino}"/>
-                        </p:column>
-                        <p:column headerText="Cent, Dest. Autorizados" sortable="true" sortBy="#{dato.centrosDestinoAutorizados}">
-                            <h:outputText value="#{dato.centrosDestinoAutorizados}"/>
-                        </p:column>
-                    </p:dataTable>
-                </h:panelGrid>
+                        <!--	Tabla de resultados	-->
+                        <p:dataTable id="table" value="#{pucPage.datos}" var="dato" rowIndexVar="rowIndex"
+                                     rendered="#{! empty pucPage.datos}"
+                                     widgetVar="pucPageTable" rows="15" paginator="true"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
+                                     paginatorPosition="top">
+                            <p:column width="30px;" headerText="Fila">
+                                <h:outputText value="#{rowIndex+1}"/>
+                            </p:column>
+                            <p:column headerText="Número Cuenta" sortable="true" sortBy="#{dato.numeroCuenta}">
+                                <h:outputText value="#{dato.numeroCuenta} "/>
+                            </p:column>
+                            <p:column headerText="Descripcion" width="250" sortable="true" sortBy="#{dato.descripcion}">
+                                <h:outputText value="#{dato.descripcion}"/>
+                            </p:column>
+                            <p:column headerText="Tipo Cent. Aut. Ori." sortable="true"
+                                      sortBy="#{dato.tipoCentroOrigenAutorizado}">
+                                <h:outputText value="#{dato.tipoCentroOrigenAutorizado}"/>
+                            </p:column>
+                            <p:column headerText="Indicador Cent. Orig." sortable="true"
+                                      sortBy="#{dato.indicadorCentroOrigen}">
+                                <h:outputText value="#{dato.indicadorCentroOrigen}"/>
+                            </p:column>
+                            <p:column headerText="Cent. Orig. Autorizados " sortable="true"
+                                      sortBy="#{dato.centrosOrigenAutorizados}">
+                                <h:outputText value="#{dato.centrosOrigenAutorizados}"/>
+                            </p:column>
+                            <p:column headerText="Tipo Cent. Aut. Dest." sortable="true"
+                                      sortBy="#{dato.tipoCentroDestinoAutorizado}">
+                                <h:outputText value="#{dato.tipoCentroDestinoAutorizado}"/>
+                            </p:column>
+                            <p:column headerText="Indicador Cent. Dest." sortable="true"
+                                      sortBy="#{dato.indicadorCentroDestino}">
+                                <h:outputText value="#{dato.indicadorCentroDestino}"/>
+                            </p:column>
+                            <p:column headerText="Cent, Dest. Autorizados" sortable="true"
+                                      sortBy="#{dato.centrosDestinoAutorizados}">
+                                <h:outputText value="#{dato.centrosDestinoAutorizados}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:panelGrid>
+                </p:panel>
             </h:form>
         </div>
     </ui:define>

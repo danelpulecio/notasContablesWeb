@@ -3,6 +3,8 @@ package co.com.bbva.app.notas.contables.deletefilesiro;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 
+import javax.annotation.PreDestroy;
+
 import static org.quartz.CronScheduleBuilder.cronSchedule;
 import static org.quartz.JobBuilder.newJob;
 import static org.quartz.TriggerBuilder.newTrigger;
@@ -35,7 +37,7 @@ public class ScheduleDeleteFileSiro {
 
 		sched.start();
 	}
-	
+	@PreDestroy
 	public void destroy() {
 		try {
 			if (sched != null && sched.isStarted()) {

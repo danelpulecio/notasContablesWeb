@@ -8,6 +8,8 @@ import org.quartz.impl.StdSchedulerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PreDestroy;
+
 import static org.quartz.CronScheduleBuilder.cronSchedule;
 import static org.quartz.JobBuilder.newJob;
 import static org.quartz.TriggerBuilder.newTrigger;
@@ -36,7 +38,7 @@ public class ScheduleLoadData {
 		sched.start();
 
 	}
-
+	@PreDestroy
 	public void destroy() {
 		try {
 			if (sched != null && sched.isStarted()) {

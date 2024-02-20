@@ -5,6 +5,7 @@ import co.com.bbva.app.notas.contables.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.util.Collection;
@@ -16,8 +17,9 @@ import java.util.Collection;
  * </p>
  * 
  */
-@SessionScoped
+
 @Named
+@SessionScoped
 public class ClaseRiesgoPage extends GeneralCargaPage<ClaseRiesgo> {
 
 	String param = getParam();

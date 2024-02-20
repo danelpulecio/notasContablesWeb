@@ -1,12 +1,12 @@
 
 v
-java:S22936"YReplace the type specification in this constructor call with the diamond operator ("<>").(±³­Ç8Ÿ×ÒüÃ1
-]	java:S125 "<This block of commented-out lines of code should be removed.(‘ÆÎÓûÿÿÿÿ8ò¡ÒüÃ1
-]	java:S1252"<This block of commented-out lines of code should be removed.(×…áœÿÿÿÿÿ8¯ÃÒüÃ1
-]	java:S125A"<This block of commented-out lines of code should be removed.(ÄÏüüÿÿÿÿ8ô¡ÒüÃ1
+java:S2293:"YReplace the type specification in this constructor call with the diamond operator ("<>").(±³­Ç8Ÿ×ÒüÃ1
+]	java:S125""<This block of commented-out lines of code should be removed.(‘ÆÎÓûÿÿÿÿ8…ÉõÌÚ1
+7
+java:S3457E"Not enough arguments.(Ì¶†¶øÿÿÿÿ8ÆøñÊÚ1
 n
-java:S1128"LRemove this unused import 'co.com.bbva.app.notas.contables.session.Session'.(•Ö¥åøÿÿÿÿ8õ¡ÒüÃ1
+java:S1128"LRemove this unused import 'co.com.bbva.app.notas.contables.session.Session'.(•Ö¥åøÿÿÿÿ8‡ÉõÌÚ1
+`
+java:S1128	"CRemove this unused import 'javax.enterprise.context.RequestScoped'.(‚Õ…½8È’ÀÌÚ1
 U
-java:S1128	"8Remove this unused import 'javax.faces.view.ViewScoped'.(çâŒ¨8õ¡ÒüÃ1
-G
-java:S1068"*Remove this unused "LOGGER" private field.(Ğ˜ÔÈ8°ÃÒüÃ1
+java:S1128"8Remove this unused import 'javax.faces.view.ViewScoped'.(çâŒ¨8ˆóÿËÚ1

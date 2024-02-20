@@ -8,40 +8,42 @@
     <ui:define name="body">
 
         <!--Filtro de busqueda	-->
-        <div style="width: 400px;">
+        <div style="width: 1200px;">
             <h:form>
-            <h:panelGrid columns="1" width="100%"><h1 align="center">Cuentas PUC que Requieren Contrato</h1>
-            </h:panelGrid>
+                <p:panel style="width: 850px">
+                    <h:panelGrid columns="1" width="850px"><h1 align="center">Cuentas PUC que Requieren Contrato</h1>
+                    </h:panelGrid>
 
-            <h:panelGrid columns="2" id="filtro">
-                <p:inputText id="param" value="#{hadtaplPage.param}"/>
-                <p:commandButton action="#{hadtaplPage.buscarPorFiltro}" value="Filtrar" ajax="false"/>
-            </h:panelGrid>
+                    <h:panelGrid columns="2" id="filtro">
+                        <p:inputText id="param" value="#{hadtaplPage.param}"/>
+                        <p:commandButton action="#{hadtaplPage.buscarPorFiltro}" value="Filtrar" ajax="false"/>
+                    </h:panelGrid>
 
-            <ui:include src="../../common/mensajes.xhtml"/>
+                    <ui:include src="../../common/mensajes.xhtml"/>
 
-            <!--	Tabla de resultados	-->
-     <!--       <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">-->
+                    <!--	Tabla de resultados	-->
+                    <!--            <h:panelGrid columns="1" width="850px" style="align:center;" id="lista">-->
 
-                <p:dataTable value="#{hadtaplPage.datos}" var="dato" id="table" rowIndexVar="rowIndex"
-                             widgetVar="economicActivityTable" rows="15" paginator="true"
-                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
-                             paginatorPosition="top">
+                    <p:dataTable value="#{hadtaplPage.datos}" var="dato" id="table" rowIndexVar="rowIndex"
+                                 widgetVar="economicActivityTable" rows="15" paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
+                                 paginatorPosition="top">
 
-                    <p:column headerText="Fila">
-                        <h:outputText value="#{rowIndex+1}"/>
-                    </p:column>
-                    <p:column headerText="Cuenta_Contable" sortable="true" sortBy="#{dato.cuentaContable}">
-                        <h:outputText value="#{dato.cuentaContable} "/>
-                    </p:column>
-                    <p:column headerText="Indicador_Contratro" sortable="true" sortBy="#{dato.indicadorContrato}">
-                        <h:outputText value="#{dato.indicadorContrato}"/>
-                    </p:column>
+                        <p:column headerText="Fila">
+                            <h:outputText value="#{rowIndex+1}"/>
+                        </p:column>
+                        <p:column headerText="Cuenta_Contable" sortable="true" sortBy="#{dato.cuentaContable}">
+                            <h:outputText value="#{dato.cuentaContable} "/>
+                        </p:column>
+                        <p:column headerText="Indicador_Contratro" sortable="true" sortBy="#{dato.indicadorContrato}">
+                            <h:outputText value="#{dato.indicadorContrato}"/>
+                        </p:column>
 
 
-                </p:dataTable>
-           <!-- </h:panelGrid>-->
+                    </p:dataTable>
+                    <!--            </h:panelGrid>-->
+                </p:panel>
             </h:form>
         </div>
     </ui:define>

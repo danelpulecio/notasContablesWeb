@@ -18,7 +18,7 @@
         <!-- fin gp12833 - aseguramiento anexos -->
 
         <!--Filtro de busqueda  -->
-        <div style="width: auto;">
+        <div style="width: 1200px;">
             <h:panelGrid columns="1" width="100%">
                 <h1 align="center">Notas Contables</h1>
             </h:panelGrid>
@@ -66,7 +66,7 @@
 
             <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
 
-                <p:dataTable value="#{consultaNotaContablePage.datos}" var="dato" id="table" rowIndexVar="rowIndex"
+                <p:dataTable value="#{consultaNotaContablePage.datos}" rendered="#{! empty consultaNotaContablePage.datos}" var="dato" id="table" rowIndexVar="rowIndex"
                              rows="10" paginator="true"
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"

@@ -1,9 +1,11 @@
 
 R
-java:S2387"5"param" is the name of a field in "GeneralCargaPage".(¨¬“£8äÉüÁÁ1
-V	java:S125"<This block of commented-out lines of code should be removed.(‘ÆÎÓûÿÿÿÿ
-]	java:S125="<This block of commented-out lines of code should be removed.(¿´ß›ÿÿÿÿÿ8ê“ÀŸ¿1
+java:S2387"5"param" is the name of a field in "GeneralCargaPage".(¨¬“£8äÉüÁÁ1
+V	java:S125!"<This block of commented-out lines of code should be removed.(‘ÆÎÓûÿÿÿÿ
+]	java:S125?"<This block of commented-out lines of code should be removed.(¿´ß›ÿÿÿÿÿ8ê“ÀŸ¿1
 n
 java:S1128"LRemove this unused import 'co.com.bbva.app.notas.contables.session.Session'.(•Ö¥åøÿÿÿÿ8ê“ÀŸ¿1
+`
+java:S1128"CRemove this unused import 'javax.enterprise.context.RequestScoped'.(‚Õ…½8ß£äĞÚ1
 L
-java:S1068"*Remove this unused "LOGGER" private field.(úğÉ±ùÿÿÿÿ8ë“ÀŸ¿1
+java:S1068"*Remove this unused "LOGGER" private field.(úğÉ±ùÿÿÿÿ8ë“ÀŸ¿1

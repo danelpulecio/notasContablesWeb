@@ -8,36 +8,39 @@
     <ui:define name="body">
 
         <!--Filtro de busqueda	-->
-        <div style="width: 300px;">
+        <div style="width: 1200px;">
             <h:form>
-            <h:panelGrid columns="1" width="100%"><h1 align="center">Días no Habiles</h1></h:panelGrid>
+                <p:panel style="width: 850px">
+                    <h:panelGrid columns="1" width="850px"><h1 align="center">Días no Habiles</h1></h:panelGrid>
 
-            <ui:include src="../../common/mensajes.xhtml"/>
+                    <ui:include src="../../common/mensajes.xhtml"/>
 
-            <!--	Tabla de resultados	-->
-            <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
+                    <!--	Tabla de resultados	-->
+<!--                    <h:panelGrid columns="1" width="850px" style="align:center;" id="lista">-->
 
-                <p:dataTable value="#{festivoPage.datos}" var="dato" id="table" rowIndexVar="rowIndex"
-                             widgetVar="economicActivityTable" rows="15" paginator="true"
-                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
-                             paginatorPosition="top">
-                   <p:column headerText="Fila">
-                        <h:outputText value="#{rowIndex+1}"/>
-                    </p:column>
-                    <p:column headerText="Día">
-                        <h:outputText value="#{dato.fecha}" style="text-transform: capitalize"><f:convertDateTime
-                                timeZone="GMT-5" locale="es" pattern="EEEEEE"/></h:outputText>
-                    </p:column>
-                    <p:column headerText="Nombre" sortable="true" sortBy="#{dato.fecha}">
-                        <h:outputText value="#{dato.fecha}" style="text-transform: uppercase"><f:convertDateTime
-                                timeZone="GMT-5" locale="es" pattern="dd-MMM-yyyy"/></h:outputText>
-                    </p:column>
+                        <p:dataTable value="#{festivoPage.datos}" var="dato" id="table" rowIndexVar="rowIndex"
+                                     widgetVar="economicActivityTable" rows="15" paginator="true"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
+                                     paginatorPosition="top">
+                            <p:column headerText="Fila">
+                                <h:outputText value="#{rowIndex+1}"/>
+                            </p:column>
+                            <p:column headerText="Día">
+                                <h:outputText value="#{dato.fecha}"
+                                              style="text-transform: capitalize"><f:convertDateTime
+                                        timeZone="GMT-5" locale="es" pattern="EEEEEE"/></h:outputText>
+                            </p:column>
+                            <p:column headerText="Nombre" sortable="true" sortBy="#{dato.fecha}">
+                                <h:outputText value="#{dato.fecha}" style="text-transform: uppercase"><f:convertDateTime
+                                        timeZone="GMT-5" locale="es" pattern="dd-MMM-yyyy"/></h:outputText>
+                            </p:column>
 
 
-                </p:dataTable>
-            </h:panelGrid>
-        </h:form>
+                        </p:dataTable>
+<!--                    </h:panelGrid>-->
+                </p:panel>
+            </h:form>
         </div>
     </ui:define>
 </ui:composition>

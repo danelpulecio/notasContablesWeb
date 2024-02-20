@@ -19,7 +19,6 @@ public class GetProperties {
         try {
             entrada = new FileInputStream("/app/properties/config.properties");
             propiedades.load(entrada);
-            LOGGER.info("activarLdap {}",  propiedades.getProperty("activar.ldap"));
 
         } catch (IOException e) {
             LOGGER.error("Error al cargar el archivo: " );

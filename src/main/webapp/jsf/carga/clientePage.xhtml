@@ -7,25 +7,26 @@
     <ui:param name="title" value="Clientes"/>
     <ui:define name="body">
         <!--Filtro de busqueda	-->
-        <div style="width: auto;">
+        <div style="width: 1200px;">
             <h:form>
-                <h:panelGrid columns="1" width="100%"><h1 align="center">Clientes</h1></h:panelGrid>
+                <p:panel style="width: 1200px">
+                    <h:panelGrid columns="1" width="100%"><h1 align="center">Clientes</h1></h:panelGrid>
 
-                <h:panelGrid columns="2" id="filtro">
-                    <p:inputText id="param" value="#{clientePage.param}"/>
-                    <p:commandButton action="#{clientePage.buscarPorFiltro}" value="Filtrar" ajax="false"/>
-                </h:panelGrid>
-                <ui:include src="../../common/mensajes.xhtml"/>
+                    <h:panelGrid columns="2" id="filtro">
+                        <p:inputText id="param" value="#{clientePage.param}"/>
+                        <p:commandButton action="#{clientePage.buscarPorFiltro}" value="Filtrar" ajax="false"/>
+                    </h:panelGrid>
+                    <ui:include src="../../common/mensajes.xhtml"/>
 
-                <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
+                    <!--                <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">-->
 
-                    <p:dataTable value="#{clientePage.datos}" var="dato" rowIndexVar="rowIndex" rendered="#{! empty clientePage.datos}"
+                    <p:dataTable id="customerTable" value="#{clientePage.datos}" var="dato" rowIndexVar="rowIndex"
+                                 rendered="#{! empty clientePage.datos}"
                                  widgetVar="clienteTable" rows="15" paginator="true"
-                                 currentPageReportTemplate=" Visualizando del {startRecord} al {endRecord} de un total de {totalRecords} registros"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                 paginatorPosition="top"
-                                 resizableColumns="true" showGridlines="true">
-                        <p:column headerText="Fila">
+                                 paginatorPosition="top">
+                        <p:column headerText="Fila" width="20px">
                             <h:outputText value="#{rowIndex+1}"/>
                         </p:column>
                         <p:column headerText="Código" sortable="true" sortBy="#{dato.numeroCliente}">
@@ -51,7 +52,8 @@
                             <h:outputText value="#{dato.primerNombre}"/>
                         </p:column>
                     </p:dataTable>
-                </h:panelGrid>
+                    <!--                </h:panelGrid>-->
+                </p:panel>
             </h:form>
         </div>
     </ui:define>

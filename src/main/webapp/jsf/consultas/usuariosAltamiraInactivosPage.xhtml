@@ -8,17 +8,27 @@
 	<ui:define name="body">
 
 		<!--Filtro de busqueda	-->
-		<div style="width: 990px;">
+		<div style="width: 1200px;">
 
 			<h:panelGrid columns="1" width="100%">
 				<h1 align="center">Usuarios Altamira Inactivos</h1>
-			</h:panelGrid> 
-		
-			<!-- Tabla de registros --> 
-			
+			</h:panelGrid>
+
+
+			<h:panelGroup id="msgUsuariosInactivos">
+				<ui:include src="../../common/mensajes.xhtml"/>
+			</h:panelGroup>
+
+			<!-- Tabla de registros -->
+
 			<h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
 
-				<p:dataTable value="#{usuariosAltamiraInactivosPage.datos}" var="dato" id="table" rowIndexVar="rowIndex" rows="15" paginator="true"
+				<p:poll listener="#{usuariosAltamiraInactivosPage.cargarUsuariosInactivosAltamira()}"
+						update="lista, msgUsuariosInactivos"
+						interval="1" stop="#{usuariosAltamiraInactivosPage.stopPoll}" autoStart="true"/>
+
+				<p:dataTable value="#{usuariosAltamiraInactivosPage.datos}" var="dato" id="table" rendered="#{! empty usuariosAltamiraInactivosPage.datos}"
+							 rowIndexVar="rowIndex" rows="15" paginator="true"
 							 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 							 currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
 							 paginatorPosition="top">
@@ -51,7 +61,7 @@
 					</p:column>
 
 				</p:dataTable>
-.			</h:panelGrid>
+				.			</h:panelGrid>
 		</div>
 	</ui:define>
 </ui:composition>

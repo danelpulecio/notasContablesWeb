@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
@@ -31,7 +32,7 @@ import java.util.List;
  * 
  */
 @Named
-@RequestScoped
+@SessionScoped
 public class UsuarioPage extends GeneralParametrosPage<UsuarioModulo, UsuarioModulo> {
 
 
@@ -71,11 +72,11 @@ public class UsuarioPage extends GeneralParametrosPage<UsuarioModulo, UsuarioMod
 		return new UsuarioModulo();
 	}
 
-	@Override
-	protected void _init() {
-		super._init();
-		consultarListasAuxiliares();
-	}
+//	@Override
+//	protected void _init() {
+//		super._init();
+//		consultarListasAuxiliares();
+//	}
 
 	/**
 	 * Funcion llamada cuando se desea inciar la edicion o creacion de un nuevo usuario
@@ -249,11 +250,11 @@ public class UsuarioPage extends GeneralParametrosPage<UsuarioModulo, UsuarioMod
 
 				// es ente autorizador
 				if (enteAutorizador.getCodigo().intValue() != 0) {
-					nuevoMensaje(FacesMessage.SEVERITY_WARN, "No se puede cambiar el rol del usuario porque est asociado a un Ente Autorizador");
+					nuevoMensaje(FacesMessage.SEVERITY_WARN, "No se puede cambiar el rol del usuario porque está asociado a un Ente Autorizador");
 					return false;
 				}
 			} else {
-				nuevoMensaje(FacesMessage.SEVERITY_WARN, "No se puede cambiar el rol del usuario porque est asociado a un Padrino");
+				nuevoMensaje(FacesMessage.SEVERITY_WARN, "No se puede cambiar el rol del usuario porque está asociado a un Padrino");
 				return false;
 			}
 		}

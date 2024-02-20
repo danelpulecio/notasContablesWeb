@@ -8,18 +8,21 @@
     <ui:define name="body">
 
         <!--Filtro de busqueda	-->
-        <div style="width: 370px;">
-            <h:panelGrid columns="1" width="100%"><h1 align="center">Cierre Mensual</h1></h:panelGrid>
+        <div style="width: 1200px;">
+            <p:panel style="width: 850px">
+                <h:panelGrid columns="1" width="850px"><h1 align="center">Cierre Mensual</h1></h:panelGrid>
 
-            <p:panel header="Detalle" style="width: 100%;">
-                <h:panelGrid columns="2" width="100%">
-                    <h:outputText style="font-weight: bold;font-size: 12px" value="Último Cierre Mensual:"/>
-                    <h:outputText value="#{cierreMensualPage.cierreMensual}" style="text-transform: capitalize;"/>
-                    <h:outputText style="font-weight: bold;font-size: 12px"
-                                  value="Días Hábiles Desde el Último Cierre Mensual:"/>
-                    <h:outputText value="#{cierreMensualPage.diasDesdeCierre}"/>
-                </h:panelGrid>
+                <p:panel header="Detalle" >
+                    <h:panelGrid columns="2" width="850px">
+                        <h:outputText style="font-weight: bold;font-size: 12px" value="Último Cierre Mensual:"/>
+                        <h:outputText value="#{cierreMensualPage.cierreMensual}" style="text-transform: capitalize;"/>
+                        <h:outputText style="font-weight: bold;font-size: 12px"
+                                      value="Días Hábiles Desde el Último Cierre Mensual:"/>
+                        <h:outputText value="#{cierreMensualPage.diasDesdeCierre}"/>
+                    </h:panelGrid>
+                </p:panel>
             </p:panel>
+
         </div>
     </ui:define>
 </ui:composition>

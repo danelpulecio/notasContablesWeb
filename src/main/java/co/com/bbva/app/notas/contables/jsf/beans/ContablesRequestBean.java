@@ -5,6 +5,10 @@
 
 package co.com.bbva.app.notas.contables.jsf.beans;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.annotation.PreDestroy;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -27,6 +31,8 @@ import java.io.Serializable;
 @Named
 @SessionScoped
 public class ContablesRequestBean implements Serializable {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(ContablesRequestBean.class);
 
 	@Inject
 	private ContablesSessionBean contablesSessionBean;
@@ -88,6 +94,10 @@ public class ContablesRequestBean implements Serializable {
 //	@Override
 //	public void destroy() {
 //	}
+	@PreDestroy
+	public void destroy (){
+		LOGGER.info("DestruyendoContableRequestBeanBean");
+	}
 
 	/**
 	 * <p>

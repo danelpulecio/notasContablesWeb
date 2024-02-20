@@ -5,6 +5,8 @@ import co.com.bbva.app.notas.contables.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -30,6 +32,12 @@ public class ClientePage extends GeneralCargaPage<Cliente> {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ClientePage.class);
 
 //	Session session = getContablesSessionBean().getSessionTrace();
+
+	@PostConstruct
+	public void init() throws Exception {
+		setDatos(new ArrayList<>(_buscarTodos()));
+		LOGGER.info("postConstructo datos {}", getDatos().size());
+	}
 
 	/**
 	 * <p>

@@ -8,7 +8,7 @@
     <ui:define name="body">
 
         <!--Filtro de busqueda	-->
-        <div style="width: 850px;">
+        <div style="width: 1200px;">
             <h:panelGrid columns="1" width="100%"><h1 align="center">Usuarios Altamíra</h1></h:panelGrid>
 
             <h:panelGrid columns="2" id="filtro" style="text-align: center; margin: 0 auto;">
@@ -19,42 +19,42 @@
             <ui:include src="../../common/mensajes.xhtml"/>
 
             <!--	Tabla de resultados	-->
-            <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
+            <!--            <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">-->
 
-                <p:dataTable value="#{usuarioAltamiraPage.datos}" var="dato" id="table" rowIndexVar="rowIndex"
-                             widgetVar="economicActivityTable" rows="15" paginator="true"
-                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
-                             paginatorPosition="top">
-                    <p:column headerText="Fila">
-                        <h:outputText value="#{rowIndex+1}"/>
-                    </p:column>
-                    <p:column headerText="Código Empleado" sortable="true" sortBy="#{dato.codigoEmpleado}">
-                        <h:outputText value="#{dato.codigoEmpleado} "/>
-                    </p:column>
-                    <p:column headerText="Nombre Empleado" sortable="true" sortBy="#{dato.nombreEmpleado}">
-                        <h:outputText value="#{dato.nombreEmpleado}"/>
-                    </p:column>
-                    <p:column  headerText="Código Área" sortable="true" sortBy="#{dato.codigoArea}">
-                        <h:outputText value="#{dato.codigoArea}"/>
-                    </p:column>
-                    <p:column headerText="Nombre Área" sortable="true" sortBy="#{dato.nombreArea}">
-                        <h:outputText value="#{dato.nombreArea}"/>
-                    </p:column>
-                    <p:column headerText="Código Perfil" sortable="true" sortBy="#{dato.codigoPerfil}">
-                        <h:outputText value="#{dato.codigoPerfil}"/>
-                    </p:column>
-                    <p:column headerText="Nombre Perfil" sortable="true" sortBy="#{dato.nombrePerfil}">
-                        <h:outputText value="#{dato.nombrePerfil}"/>
-                    </p:column>
-                    <p:column headerText="Correo Electrónico" sortable="true" sortBy="#{dato.correoElectronico}">
-                        <h:outputText value="#{dato.correoElectronico}"/>
-                    </p:column>
-                    <p:column headerText="Estado Altamira" sortable="true" sortBy="#{dato.estadoCarga}">
-                        <h:outputText value="#{dato.estadoCarga eq 'A'? 'Activo': 'Inactivo'}"/>
-                    </p:column>
-                </p:dataTable>
-            </h:panelGrid>
+            <p:dataTable value="#{usuarioAltamiraPage.datos}" var="dato" id="table" rowIndexVar="rowIndex"
+                         widgetVar="economicActivityTable" rows="15" paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
+                         paginatorPosition="top">
+                <p:column headerText="Fila" width="15px">
+                    <h:outputText value="#{rowIndex+1}"/>
+                </p:column>
+                <p:column headerText="Código Empleado" sortable="true" sortBy="#{dato.codigoEmpleado}">
+                    <h:outputText value="#{dato.codigoEmpleado} "/>
+                </p:column>
+                <p:column headerText="Nombre Empleado" sortable="true" sortBy="#{dato.nombreEmpleado}" width="120px">
+                    <h:outputText value="#{dato.nombreEmpleado}"/>
+                </p:column>
+                <p:column headerText="Código Área" sortable="true" sortBy="#{dato.codigoArea}" width="50px">
+                    <h:outputText value="#{dato.codigoArea}"/>
+                </p:column>
+                <p:column headerText="Nombre Área" sortable="true" sortBy="#{dato.nombreArea}" width="120px">
+                    <h:outputText value="#{dato.nombreArea}"/>
+                </p:column>
+                <p:column headerText="Código Perfil" sortable="true" sortBy="#{dato.codigoPerfil}" width="50px">
+                    <h:outputText value="#{dato.codigoPerfil}"/>
+                </p:column>
+                <p:column headerText="Nombre Perfil" sortable="true" sortBy="#{dato.nombrePerfil}" width="120px">
+                    <h:outputText value="#{dato.nombrePerfil}"/>
+                </p:column>
+                <p:column headerText="Correo Electrónico" sortable="true" sortBy="#{dato.correoElectronico}" width="120px">
+                    <h:outputText value="#{dato.correoElectronico}"/>
+                </p:column>
+                <p:column headerText="Estado Altamira" sortable="true" sortBy="#{dato.estadoCarga}">
+                    <h:outputText value="#{dato.estadoCarga eq 'A'? 'Activo': 'Inactivo'}"/>
+                </p:column>
+            </p:dataTable>
+            <!--            </h:panelGrid>-->
         </div>
     </ui:define>
 </ui:composition>

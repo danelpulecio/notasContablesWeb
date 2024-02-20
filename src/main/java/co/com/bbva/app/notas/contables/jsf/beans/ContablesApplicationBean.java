@@ -1,5 +1,10 @@
 package co.com.bbva.app.notas.contables.jsf.beans;
 
+import co.com.bbva.app.notas.contables.jsf.BasePage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.annotation.PreDestroy;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -18,7 +23,7 @@ import java.io.Serializable;
 @SessionScoped
 public class ContablesApplicationBean implements Serializable {
 
-
+	private static final Logger LOGGER = LoggerFactory.getLogger(ContablesApplicationBean.class);
 
 	/**
 	 * <p>
@@ -71,6 +76,10 @@ public class ContablesApplicationBean implements Serializable {
 //	@Override
 //	public void destroy() {
 //	}
+	@PreDestroy
+	public void destroy (){
+		LOGGER.info("DestruyendoContableApplicationBean");
+	}
 
 	/**
 	 * <p>

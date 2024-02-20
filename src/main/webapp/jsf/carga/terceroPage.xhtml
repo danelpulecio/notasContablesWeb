@@ -6,7 +6,6 @@
                 template="../../common/template.xhtml">
     <ui:param name="title" value="Terceros"/>
     <ui:define name="body">
-
         <!-- Formulario Modal de creacion y edicion de nuevos registros-->
         <!--        <p:dialog id="editor"
                     widgetVar="editorDlg"
@@ -70,10 +69,10 @@
                                 <h:selectOneMenu value="#{terceroPage.objActual.pais}" immediate="false">
                                     <f:selectItems value="#{terceroPage.paises}"/>
                                     <p:ajax event="change" listener="#{terceroPage.cargarDepartamentos}"
-                                                 update="municipioPanel,departamentosPanel"/>
+                                            update="municipioPanel,departamentosPanel"/>
                                 </h:selectOneMenu>
 
-                                <h:panelGroup id="departamentosPanel" >
+                                <h:panelGroup id="departamentosPanel">
                                     <h:outputText value="Departamento" rendered="#{!empty terceroPage.departamentos}"/>
                                     <h:selectOneMenu value="#{terceroPage.objActual.departamento}"
                                                      rendered="#{!empty terceroPage.departamentos}" immediate="false">
@@ -162,7 +161,8 @@
 
 
                     <!-- Modal para cancelacion de datos de riesgo-->
-                    <p:dialog id="popupCancel" widgetVar="popupCancelDlg" autosized="true" domElementAttachment="form" width="450">
+                    <p:dialog id="popupCancel" widgetVar="popupCancelDlg" autosized="true" domElementAttachment="form"
+                              width="450">
                         <f:facet name="header">
                             <h:panelGroup><h:outputText styleClass="bold"
                                                         value="Confirmación de cancelación de registro"/></h:panelGroup>
@@ -191,124 +191,126 @@
         </p:dialog>
 
         <!--Filtro de busqueda	-->
-        <div style="width: 850px;">
-            <h:panelGrid columns="1" width="100%"><h1 align="center">Terceros</h1></h:panelGrid>
+        <div style="width: 1200px;">
+            <p:panel style="width: 1200px">
+                <h:panelGrid columns="1" width="100%"><h1 align="center">Terceros</h1></h:panelGrid>
 
 
-            <!-- Panel de opciones -->
-            <p:panel header="Opciones" style="width: 100%;">
-                <h:panelGrid columns="2" id="filtro">
-                    <h:panelGrid columns="1" width="380">
-                        <!-- Funcionalidad para abrir el editor y crear un nuevo registro-->
-                        <p:commandButton action="#{terceroPage.editar}"
-                                         oncomplete="PF('editorDlg').show();" update="editor, informacion"
-                                         value="Nuevo Registro"
-                                         rendered="#{terceroPage.usuarioLogueado.rolActual.codigo eq 6 or  terceroPage.usuarioLogueado.rolActual.codigo eq 7}"/>
+                <!-- Panel de opciones -->
+                <p:panel header="Opciones" style="width: 100%;">
+                    <h:panelGrid columns="2" id="filtro">
+                        <h:panelGrid columns="1" width="380">
+                            <!-- Funcionalidad para abrir el editor y crear un nuevo registro-->
+                            <p:commandButton action="#{terceroPage.editar}"
+                                             oncomplete="PF('editorDlg').show();" update="editor, informacion"
+                                             value="Nuevo Registro"
+                                             rendered="#{terceroPage.usuarioLogueado.rolActual.codigo eq 6 or  terceroPage.usuarioLogueado.rolActual.codigo eq 7}"/>
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="2">
+                            <p:inputText id="param" value="#{terceroPage.param}"/>
+                            <p:commandButton action="#{terceroPage.buscarPorFiltro}" value="Filtrar" ajax="false"/>
+                        </h:panelGrid>
+
                     </h:panelGrid>
+                </p:panel>
 
-                    <h:panelGrid columns="2">
-                        <p:inputText id="param" value="#{terceroPage.param}"/>
-                        <p:commandButton action="#{terceroPage.buscarPorFiltro}" value="Filtrar" ajax="false"/>
-                    </h:panelGrid>
+                <ui:include src="../../common/mensajes.xhtml"/>
 
+                <!--	Tabla de resultados	-->
+                <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
+
+                    <p:dataTable value="#{terceroPage.datos}" var="dato" id="table" rows="15"
+                                 rendered="#{! empty terceroPage.datos}" rowIndexVar="rowIndex"
+                                 footerClass="row2" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
+                                 onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"
+                                 rowClasses="row1, row2" paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
+                                 paginatorPosition="top">
+
+                        <p:column width="30px;" headerText="Fila">
+                            <h:outputText value="#{rowIndex+1}"/>
+                        </p:column>
+                        <p:column sortable="true" sortBy="#{dato.tipoIdentificacionStr}" width="120px">
+                            <f:facet name="header">
+                                <h:panelGroup>
+                                    <h:outputText value="Tipo"/><br/>
+                                    <h:outputText value="Identificación"/>
+                                </h:panelGroup>
+                            </f:facet>
+                            <h:outputText value="#{dato.tipoIdentificacionStr} "/>
+                        </p:column>
+                        <p:column sortable="true" sortBy="#{dato.numeroIdentificacion}" width="105px">
+                            <f:facet name="header">
+                                <h:panelGroup>
+                                    <h:outputText value="Número de"/><br/>
+                                    <h:outputText value="Identificación"/>
+                                </h:panelGroup>
+                            </f:facet>
+                            <h:outputText value="#{dato.numeroIdentificacion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header"><h:outputText value="DV"/></f:facet>
+                            <h:outputText value="#{dato.digitoVerificacion}"/>
+                        </p:column>
+                        <p:column sortable="true" sortBy="#{dato.primerApellido}">
+                            <f:facet name="header">
+                                <h:panelGroup>
+                                    <h:outputText value="Primer "/><br/>
+                                    <h:outputText value="Apellido"/>
+                                </h:panelGroup>
+                            </f:facet>
+                            <h:outputText value="#{dato.primerApellido}"/>
+                        </p:column>
+                        <p:column sortable="true" sortBy="#{dato.segundoApellido}">
+                            <f:facet name="header">
+                                <h:panelGroup>
+                                    <h:outputText value="Segundo"/><br/>
+                                    <h:outputText value="Apellido"/>
+                                </h:panelGroup>
+                            </f:facet>
+                            <h:outputText value="#{dato.segundoApellido}"/>
+                        </p:column>
+                        <p:column sortable="true" sortBy="#{dato.primerNombre}">
+                            <f:facet name="header">
+                                <h:panelGroup>
+                                    <h:outputText value="Primer"/><br/>
+                                    <h:outputText value="Nombre"/>
+                                </h:panelGroup>
+                            </f:facet>
+                            <h:outputText value="#{dato.primerNombre}"/>
+                        </p:column>
+                        <p:column sortable="true" sortBy="#{dato.segundoNombre}">
+                            <f:facet name="header">
+                                <h:panelGroup>
+                                    <h:outputText value="Segundo"/><br/>
+                                    <h:outputText value="Nombre"/>
+                                </h:panelGroup>
+                            </f:facet>
+                            <h:outputText value="#{dato.segundoNombre}"/>
+                        </p:column>
+                        <p:column sortable="true" sortBy="#{dato.actividadEconomica}">
+                            <f:facet name="header">
+                                <h:panelGroup>
+                                    <h:outputText value="Actividad "/><br/>
+                                    <h:outputText value="Económica"/>
+                                </h:panelGroup>
+                            </f:facet>
+                            <h:outputText value="#{dato.actividadEconomica}"/>
+                        </p:column>
+                        <p:column sortable="true" sortBy="#{dato.ingresoApp}">
+                            <f:facet name="header">
+                                <h:panelGroup>
+                                    <h:outputText value="Ingreso "/><br/>
+                                    <h:outputText value="Manual"/>
+                                </h:panelGroup>
+                            </f:facet>
+                            <h:outputText value="#{dato.ingresoApp == 0 ? 'No' : 'Si'}"/>
+                        </p:column>
+                    </p:dataTable>
                 </h:panelGrid>
             </p:panel>
-
-            <ui:include src="../../common/mensajes.xhtml"/>
-
-            <!--	Tabla de resultados	-->
-            <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
-
-                <p:dataTable value="#{terceroPage.datos}" var="dato" id="table" rows="15"
-				             rendered="#{! empty terceroPage.datos}" rowIndexVar="rowIndex"
-				             footerClass="row2" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
-				             onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"
-				             rowClasses="row1, row2"  paginator="true"
-				             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-				             currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
-				             paginatorPosition="top">
-                    
-                    <p:column width="30px;" headerText="Fila">
-                        <h:outputText value="#{rowIndex+1}"/>
-                    </p:column>
-                    <p:column sortable="true" sortBy="#{dato.tipoIdentificacionStr}" width="120px">
-                        <f:facet name="header">
-                            <h:panelGroup>
-                                <h:outputText value="Tipo"/><br/>
-                                <h:outputText value="Identificación"/>
-                            </h:panelGroup>
-                        </f:facet>
-                        <h:outputText value="#{dato.tipoIdentificacionStr} "/>
-                    </p:column>
-                    <p:column sortable="true" sortBy="#{dato.numeroIdentificacion}" width="105px">
-                        <f:facet name="header">
-                            <h:panelGroup>
-                                <h:outputText value="Número de"/><br/>
-                                <h:outputText value="Identificación"/>
-                            </h:panelGroup>
-                        </f:facet>
-                        <h:outputText value="#{dato.numeroIdentificacion}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header"><h:outputText value="DV"/></f:facet>
-                        <h:outputText value="#{dato.digitoVerificacion}"/>
-                    </p:column>
-                    <p:column sortable="true" sortBy="#{dato.primerApellido}">
-                        <f:facet name="header">
-                            <h:panelGroup>
-                                <h:outputText value="Primer "/><br/>
-                                <h:outputText value="Apellido"/>
-                            </h:panelGroup>
-                        </f:facet>
-                        <h:outputText value="#{dato.primerApellido}"/>
-                    </p:column>
-                    <p:column sortable="true" sortBy="#{dato.segundoApellido}">
-                        <f:facet name="header">
-                            <h:panelGroup>
-                                <h:outputText value="Segundo"/><br/>
-                                <h:outputText value="Apellido"/>
-                            </h:panelGroup>
-                        </f:facet>
-                        <h:outputText value="#{dato.segundoApellido}"/>
-                    </p:column>
-                    <p:column sortable="true" sortBy="#{dato.primerNombre}">
-                        <f:facet name="header">
-                            <h:panelGroup>
-                                <h:outputText value="Primer"/><br/>
-                                <h:outputText value="Nombre"/>
-                            </h:panelGroup>
-                        </f:facet>
-                        <h:outputText value="#{dato.primerNombre}"/>
-                    </p:column>
-                    <p:column sortable="true" sortBy="#{dato.segundoNombre}">
-                        <f:facet name="header">
-                            <h:panelGroup>
-                                <h:outputText value="Segundo"/><br/>
-                                <h:outputText value="Nombre"/>
-                            </h:panelGroup>
-                        </f:facet>
-                        <h:outputText value="#{dato.segundoNombre}"/>
-                    </p:column>
-                    <p:column sortable="true" sortBy="#{dato.actividadEconomica}">
-                        <f:facet name="header">
-                            <h:panelGroup>
-                                <h:outputText value="Actividad "/><br/>
-                                <h:outputText value="Económica"/>
-                            </h:panelGroup>
-                        </f:facet>
-                        <h:outputText value="#{dato.actividadEconomica}"/>
-                    </p:column>
-                    <p:column sortable="true" sortBy="#{dato.ingresoApp}">
-                        <f:facet name="header">
-                            <h:panelGroup>
-                                <h:outputText value="Ingreso "/><br/>
-                                <h:outputText value="Manual"/>
-                            </h:panelGroup>
-                        </f:facet>
-                        <h:outputText value="#{dato.ingresoApp == 0 ? 'No' : 'Si'}"/>
-                    </p:column>
-                </p:dataTable>
-            </h:panelGrid>
         </div>
     </ui:define>
 </ui:composition>

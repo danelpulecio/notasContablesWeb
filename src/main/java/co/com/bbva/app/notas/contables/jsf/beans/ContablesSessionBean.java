@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -122,6 +123,10 @@ public class ContablesSessionBean implements Serializable {
 //	@Override
 //	public void destroy() {
 //	}
+    @PreDestroy
+    public void destroy (){
+        LOGGER.info("DestruyendoContableSessionBeanBean");
+    }
 
     /**
      * <p>

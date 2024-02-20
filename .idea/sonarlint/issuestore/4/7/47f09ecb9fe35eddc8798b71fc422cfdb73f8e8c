@@ -1,14 +1,25 @@
 
+T
+java:S2629N"7Use the built-in formatting to construct this argument.(Ğ¸¥¼8”´ŸĞÚ1
+Y
+java:S2629O"7Use the built-in formatting to construct this argument.(£ü·Èøÿÿÿÿ8”´ŸĞÚ1
 s
-java:S2095]"QUse try-with-resources or close this "ReadableByteChannel" in a "finally" clause.(Ø–øÿÿÿÿ8³ïñÃ¿1
+java:S2095d"QUse try-with-resources or close this "ReadableByteChannel" in a "finally" clause.(Ø–øÿÿÿÿ8³ïñÃ¿1
 V	java:S125%"<This block of commented-out lines of code should be removed.(æÈ–úøÿÿÿÿ
-V	java:S125,"<This block of commented-out lines of code should be removed.(ÄóÁÿÿÿÿÿ
-V	java:S125K"<This block of commented-out lines of code should be removed.(õ‹‚¥úÿÿÿÿ
-X	java:S125X"<This block of commented-out lines of code should be removed.(Œ­Ú¹8„¼¦Ÿ¿1
-]	java:S125_"<This block of commented-out lines of code should be removed.(½£“ëşÿÿÿÿ8…¼¦Ÿ¿1
-7	java:S131u""Add a default case to this switch.(ÜŸ•
-p	java:S100˜"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨ßùôıÿÿÿÿ8ÄïñÃ¿1
-p	java:S100œ"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¡™éÒşÿÿÿÿ8ÄïñÃ¿1
-p	java:S100 "NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(†™ãÿÿÿÿÿ8ÅïñÃ¿1
+]	java:S125+"<This block of commented-out lines of code should be removed.(ŒæÏıÿÿÿÿ8§´ŸĞÚ1
+2
+java:S3457L"Not enough arguments.(‚”·²8§´ŸĞÚ1
+^
+java:S3457N"AFormat specifiers should be used instead of string concatenation.(Ğ¸¥¼8§´ŸĞÚ1
+c
+java:S3457O"AFormat specifiers should be used instead of string concatenation.(£ü·Èøÿÿÿÿ8§´ŸĞÚ1
+2
+java:S3457_"Not enough arguments.(ÕËş8«´ŸĞÚ1
+7	java:S131|""Add a default case to this switch.(ÜŸ•
+p	java:S100Ÿ"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨ßùôıÿÿÿÿ8ÄïñÃ¿1
+p	java:S100£"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¡™éÒşÿÿÿÿ8ÄïñÃ¿1
+p	java:S100§"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(†™ãÿÿÿÿÿ8ÅïñÃ¿1
 n
 java:S1128"LRemove this unused import 'co.com.bbva.app.notas.contables.session.Session'.(•Ö¥åøÿÿÿÿ8ÅïñÃ¿1
+S
+java:S1128"1Remove this unused import 'java.io.OutputStream'.(Ó ³ÿÿÿÿÿ8±´ŸĞÚ1

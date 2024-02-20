@@ -275,7 +275,7 @@ public class CargaAltamiraSessionBean implements CargaAltamiraSession {
 	public Collection<Cliente> searchCliente(String palabraClave) throws Exception {
 		LOGGER.info("Palabra clave buscar filtro cliente {}", palabraClave);
 		Collection<Cliente> clienteDato =clienteDAO.findBy(palabraClave);
-		LOGGER.info("respuesta cliente dao por filtro {}", clienteDato);
+		LOGGER.info("respuesta cliente dao por filtro {}", clienteDato.size());
 		return clienteDato;
 	}
 

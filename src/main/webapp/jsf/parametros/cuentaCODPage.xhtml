@@ -57,7 +57,8 @@
                 <h:panelGrid columns="3">
                     <h:outputText value="Cuenta Contable"/>
                     <p:inputText value="#{cuentaCODPage.filtroCuentas }" immediate="true"/>
-                    <p:commandButton value="Buscar" action="#{cuentaCODPage.buscarCuentas }" update="globalForm:informacion,globalForm:growl"/>
+                    <p:commandButton value="Buscar" action="#{cuentaCODPage.buscarCuentas }"
+                                     update="globalForm:informacion,globalForm:growl"/>
                 </h:panelGrid>
                 <h:panelGrid columns="2" rendered="#{!empty cuentaCODPage.cuentas }">
                     <h:outputText value="Descripción"/>
@@ -68,7 +69,8 @@
 
                 <!-- Seccion de mensajes y botones de envio y cancelacion-->
                 <h:panelGrid columns="2" styleClass="center" width="100%">
-                    <p:commandButton action="#{cuentaCODPage.guardar}" update="globalForm:informacion,globalForm:lista,globalForm:growl"
+                    <p:commandButton action="#{cuentaCODPage.guardar}"
+                                     update="globalForm:informacion,globalForm:lista,globalForm:growl"
                                      value="Guardar"
                                      oncomplete="if (#{cuentaCODPage.ocultarPopupGuardar}) PF('editor').hide();"/>
                     <p:commandButton onclick="PF('editor').hide()" value="Cerrar"/>
@@ -79,60 +81,61 @@
         <p:growl id="growl" showDetail="false" life="3000"/>
 
         <!--Filtro de busqueda	-->
-        <!--        <div style="width: 950px;">-->
-        <h:panelGrid columns="1" width="100%">
-            <h1 align="center">Cuentas COD</h1>
-        </h:panelGrid> <!-- Panel de opciones -->
-        <p:panel header="Opciones" style="width: 100%;">
-            <h:panelGrid columns="2" id="filtro">
+        <div style="width: 1200px;">
+            <h:panelGrid columns="1" width="100%">
+                <h1 align="center">Cuentas COD</h1>
+            </h:panelGrid> <!-- Panel de opciones -->
+            <p:panel header="Opciones" style="width: 100%;">
+                <h:panelGrid columns="2" id="filtro">
 
-                <h:panelGrid columns="1" width="180">
-                    <!-- Funcionalidad para abrir el editor y crear un nuevo registro-->
-                    <p:commandButton action="#{cuentaCODPage.editar}"
-                                     oncomplete="PF('editor').show()"
-                                     update="globalForm:editor" value="Nuevo Registro">
-                        <f:setPropertyActionListener for="codNuevo" value="0"
-                                                     target="#{cuentaCODPage.objActual.codigo}"/>
-                    </p:commandButton>
-                </h:panelGrid>
+                    <h:panelGrid columns="1" width="180">
+                        <!-- Funcionalidad para abrir el editor y crear un nuevo registro-->
+                        <p:commandButton action="#{cuentaCODPage.editar}"
+                                         oncomplete="PF('editor').show()"
+                                         update="globalForm:editor" value="Nuevo Registro">
+                            <f:setPropertyActionListener for="codNuevo" value="0"
+                                                         target="#{cuentaCODPage.objActual.codigo}"/>
+                        </p:commandButton>
+                    </h:panelGrid>
 
-                <h:panelGrid columns="2">
-                    <p:inputText value="#{cuentaCODPage.param}"/>
-                    <p:commandButton action="#{cuentaCODPage.buscarPorFiltro}" value="Filtrar"
-                                     onclick="Richfaces.showModalPanel('statusPanel')"/>
+                    <h:panelGrid columns="2">
+                        <p:inputText value="#{cuentaCODPage.param}"/>
+                        <p:commandButton action="#{cuentaCODPage.buscarPorFiltro}" value="Filtrar"
+                                         onclick="Richfaces.showModalPanel('statusPanel')"/>
+                    </h:panelGrid>
                 </h:panelGrid>
+            </p:panel> <ui:include src="../../common/mensajes.xhtml"/>
+            <!-- Tabla de registros -->
+            <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
+
+                <p:dataTable value="#{cuentaCODPage.datos}" var="dato" id="table"
+                             rendered="#{! empty cuentaCODPage.datos}"
+                             rowIndexVar="rowIndex"
+                             widgetVar="table" rows="15" paginator="true"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
+                             paginatorPosition="top">
+                    <p:column headerText="Fila" style="width: 10%; text-align: center">
+                        <h:outputText value="#{rowIndex+1}"/>
+                    </p:column>
+
+                    <p:column headerText="Cuenta Contable" sortable="true" sortBy="#{dato.cuentaContable}"
+                              style="width: 70%">
+                        <h:outputText value="#{dato.cuentaContable}"/>
+                    </p:column>
+
+                    <!-- Opcion de borrado-->
+                    <p:column headerText="Borrar" style="text-align: center; width: 20%">
+                        <p:commandButton value=""
+                                         style="width: 24px; height: 24px; padding: 0; background-image: url('#{request.contextPath}/common/images/delete.png'); background-size: cover; border-radius: 50%;"
+                                         alt="Borrar"
+                                         onclick="PF('popupBorrar').show()">
+                            <f:setPropertyActionListener for="codBorrar" value="#{dato.codigo}"
+                                                         target="#{cuentaCODPage.objActual.codigo}"/>
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
             </h:panelGrid>
-        </p:panel> <ui:include src="../../common/mensajes.xhtml"/>
-        <!-- Tabla de registros -->
-        <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
-
-            <p:dataTable value="#{cuentaCODPage.datos}" var="dato" id="table"
-                         rendered="#{! empty cuentaCODPage.datos}"
-                         rowIndexVar="rowIndex"
-                         widgetVar="table" rows="15" paginator="true"
-                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
-                         paginatorPosition="top">
-                <p:column headerText="Fila" style="width: 10%; text-align: center">
-                    <h:outputText value="#{rowIndex+1}"/>
-                </p:column>
-
-                <p:column headerText="Cuenta Contable" sortable="true" sortBy="#{dato.cuentaContable}" style="width: 70%">
-                    <h:outputText value="#{dato.cuentaContable}"/>
-                </p:column>
-
-                <!-- Opcion de borrado-->
-                <p:column headerText="Borrar" style="text-align: center; width: 20%">
-                    <p:commandButton value=""
-                                     style="width: 24px; height: 24px; padding: 0; background-image: url('#{request.contextPath}/common/images/delete.png'); background-size: cover; border-radius: 50%;"
-                                     alt="Borrar"
-                                     onclick="PF('popupBorrar').show()">
-                        <f:setPropertyActionListener for="codBorrar" value="#{dato.codigo}"
-                                                     target="#{cuentaCODPage.objActual.codigo}"/>
-                    </p:commandButton>
-                </p:column>
-            </p:dataTable>
-        </h:panelGrid>
-        <!--    </div>-->
+        </div>
     </ui:define>
 </ui:composition>

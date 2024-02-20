@@ -8,33 +8,38 @@
     <ui:define name="body">
 
         <!--Filtro de busqueda	-->
-        <div style="width: 400px;">
-            <h:panelGrid columns="1" width="100%"><h1 align="center">Riesgo Operacional - Línea Operativa</h1>
-            </h:panelGrid>
-            <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
-                <h:panelGrid columns="2" id="filtro" style="text-align: center; margin: 0 auto;">
-                    <p:inputText id="param" value="#{riesgoOperacionalLineaOperativaPage.param}"/>
-                    <p:commandButton action="#{riesgoOperacionalLineaOperativaPage.buscarPorFiltro}" value="Filtrar" ajax="false"/>
+        <div style="width: 1200px;">
+            <p:panel style="width: 850px">
+                <h:panelGrid columns="1" width="100%"><h1 align="center">Riesgo Operacional - Línea Operativa</h1>
                 </h:panelGrid>
-                <ui:include src="../../common/mensajes.xhtml"/>
+                <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
+                    <h:panelGrid columns="2" id="filtro" style="text-align: center; margin: 0 auto;">
+                        <p:inputText id="param" value="#{riesgoOperacionalLineaOperativaPage.param}"/>
+                        <p:commandButton action="#{riesgoOperacionalLineaOperativaPage.buscarPorFiltro}" value="Filtrar"
+                                         ajax="false"/>
+                    </h:panelGrid>
+                    <ui:include src="../../common/mensajes.xhtml"/>
 
-                <!--	Tabla de resultados	-->
-                <p:dataTable id="table" value="#{riesgoOperacionalLineaOperativaPage.datos}" var="dato" rowIndexVar="rowIndex"
-                             widgetVar="riesgoTable" rows="15" paginator="true"
-                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
-                             paginatorPosition="top">
-                    <p:column headerText="Fila">
-                        <h:outputText value="#{rowIndex+1}"/>
-                    </p:column>
-                    <p:column headerText="Codigo" sortable="true" comparator="#{riesgoOperacionalLineaOperativaPage.pkComparator }">
-                        <h:outputText value="#{dato.codigo}"/>
-                    </p:column>
-                    <p:column headerText="Nombre" sortable="true" sortBy="#{dato.nombre}">
-                        <h:outputText value="#{dato.nombre}"/>
-                    </p:column>
-                </p:dataTable>
-            </h:panelGrid>
+                    <!--	Tabla de resultados	-->
+                    <p:dataTable id="table" value="#{riesgoOperacionalLineaOperativaPage.datos}" var="dato"
+                                 rowIndexVar="rowIndex"
+                                 widgetVar="riesgoTable" rows="15" paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
+                                 paginatorPosition="top">
+                        <p:column headerText="Fila">
+                            <h:outputText value="#{rowIndex+1}"/>
+                        </p:column>
+                        <p:column headerText="Codigo" sortable="true"
+                                  comparator="#{riesgoOperacionalLineaOperativaPage.pkComparator }">
+                            <h:outputText value="#{dato.codigo}"/>
+                        </p:column>
+                        <p:column headerText="Nombre" sortable="true" sortBy="#{dato.nombre}">
+                            <h:outputText value="#{dato.nombre}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:panelGrid>
+            </p:panel>
         </div>
     </ui:define>
 </ui:composition>

@@ -22,7 +22,7 @@
                 <h:outputText value="Está seguro que desea cambiar el estado del registro actual?"/>
 
                 <!-- Seccion de mensajes y botones de envio y cancelacion-->
-<!--                <ui:include src="../../common/mensajes.xhtml"/>-->
+                <!--                <ui:include src="../../common/mensajes.xhtml"/>-->
                 <h:panelGrid columns="2" styleClass="center" width="100%">
                     <p:commandButton value="Si"
                                      action="#{temaPage.cambiarEstado()}"
@@ -53,7 +53,7 @@
                 <h:outputText value="Está seguro que desea borrar la información del registro actual?"/>
 
                 <!-- Seccion de mensajes y botones de envio y cancelacion-->
-<!--                <ui:include src="../../common/mensajes.xhtml"/>-->
+                <!--                <ui:include src="../../common/mensajes.xhtml"/>-->
                 <h:panelGrid columns="2" styleClass="center" width="100%">
                     <p:commandButton action="#{temaPage.borrar}" value="Si" oncomplete="PF('popupBorrar').hide()"
                                      update="globalForm:table"/>
@@ -134,7 +134,8 @@
                             <h:panelGrid columns="5" id="opcPartida">
                                 <h:outputText value="Naturaleza"/>
                                 <p:selectOneMenu value="#{temaPage.objActual.naturaleza1}">
-                                    <p:ajax event="change" update="globalForm:opcContraPartida" process="@this" listener="#{temaPage.cambioNat1}" />
+                                    <p:ajax event="change" update="globalForm:opcContraPartida" process="@this"
+                                            listener="#{temaPage.cambioNat1}"/>
                                     <f:selectItem itemValue="D" itemLabel="Debe"/>
                                     <f:selectItem itemValue="H" itemLabel="Haber"/>
                                 </p:selectOneMenu>
@@ -154,10 +155,11 @@
 
                                 <p:spacer width="50"/>
 
-                                <p:outputLabel for="contrato1" value="Contrato" />
-                                <p:selectOneMenu id="contrato1" value="#{temaPage.objActual.contrato1}" immediate="true">
-                                    <p:ajax event="change" update="globalForm:prodGroup" process="@this" />
-                                    <f:selectItems value="#{temaPage.selectItemSiNo}" />
+                                <p:outputLabel for="contrato1" value="Contrato"/>
+                                <p:selectOneMenu id="contrato1" value="#{temaPage.objActual.contrato1}"
+                                                 immediate="true">
+                                    <p:ajax event="change" update="globalForm:prodGroup" process="@this"/>
+                                    <f:selectItems value="#{temaPage.selectItemSiNo}"/>
                                 </p:selectOneMenu>
 
                             </h:panelGrid>
@@ -188,8 +190,9 @@
 
                             <h:panelGrid columns="5" id="opcContraPartida">
                                 <h:outputText value="Naturaleza"/>
-                                <p:selectOneMenu value="#{temaPage.objActual.naturaleza2}" >
-                                    <p:ajax event="change" update="globalForm:opcPartida" process="@this" listener="#{temaPage.cambioNat2}"  />
+                                <p:selectOneMenu value="#{temaPage.objActual.naturaleza2}">
+                                    <p:ajax event="change" update="globalForm:opcPartida" process="@this"
+                                            listener="#{temaPage.cambioNat2}"/>
                                     <f:selectItem itemValue="D" itemLabel="Debe"/>
                                     <f:selectItem itemValue="H" itemLabel="Haber"/>
                                 </p:selectOneMenu>
@@ -210,7 +213,7 @@
 
                                 <h:outputText value="Contrato"/>
                                 <p:selectOneMenu value="#{temaPage.objActual.contrato2}" immediate="true">
-                                    <p:ajax event="change" update="globalForm:prodGroup" process="@this" />
+                                    <p:ajax event="change" update="globalForm:prodGroup" process="@this"/>
                                     <f:selectItems value="#{temaPage.selectItemSiNo}"/>
                                 </p:selectOneMenu>
 
@@ -253,7 +256,7 @@
                         <p:panel style="width: 100%" header="productos"
                                  rendered='#{temaPage.objActual.contrato1 eq "S" or temaPage.objActual.contrato2 eq "S"}'>
                             <p:pickList id="example" value="#{temaPage.dualListModel}" var="pr"
-                                        itemValue="#{pr.value}" itemLabel="#{pr.label}" />
+                                        itemValue="#{pr.value}" itemLabel="#{pr.label}"/>
                             <f:selectItems value="#{temaPage.productos}"/>
                             <h:outputText rendered="${empty temaPage.productosSel}"
                                           value="El tema requiere Contrato(s) y no ha seleccionado ningún producto."/><br/>
@@ -262,7 +265,7 @@
                         </p:panel>
 
                     </h:panelGrid>
-<!--                    <ui:include src="../../common/mensajes.xhtml"/>-->
+                    <!--                    <ui:include src="../../common/mensajes.xhtml"/>-->
                 </div>
                 <!--                </h:outputText>-->
                 <!-- Seccion de mensajes y botones de envio y cancelacion-->
@@ -274,118 +277,113 @@
                 </h:panelGrid>
             </h:panelGrid>
         </p:dialog>
+        <div style="width: 1200px;">
+            <!--Filtro de busqueda -->
+            <h:panelGrid columns="1" width="100%"><h1 align="center">Temas</h1></h:panelGrid>
 
-        <!--Filtro de busqueda -->
-        <h:panelGrid columns="1" width="100%"><h1 align="center">Temas</h1></h:panelGrid>
+            <!-- Panel de opciones -->
+            <p:panel header="Opciones" style="width: 100%;">
+                <h:panelGrid columns="2" id="filtro">
 
-        <!-- Panel de opciones -->
-        <p:panel header="Opciones" style="width: 100%;">
-            <h:panelGrid columns="2" id="filtro">
-
-                <h:panelGrid columns="1" width="380">
-                    <!-- Funcionalidad para abrir el editor y crear un nuevo registro-->
-                    <p:commandButton action="#{temaPage.editar}"
-                                     oncomplete="PF('editor').show()"
-                                     update="globalForm:editor"
-                                     value="Nuevo Registro"
-                                     ajax="true">
-                        <f:setPropertyActionListener for="codNuevo" value="#{0}"
-                                                     target="#{temaPage.objActual.codigo}"/>
-                    </p:commandButton>
-                </h:panelGrid>
-
-                <h:panelGrid columns="2">
-                    <p:inputText value="#{temaPage.param}"/>
-                    <p:commandButton action="#{temaPage.buscarPorFiltro}" value="Filtrar"
-                                     onclick="Richfaces.showModalPanel('statusPanel')"/>
-                </h:panelGrid>
-            </h:panelGrid>
-        </p:panel>
-
-<!--        <ui:include src="../../common/mensajes.xhtml"/>-->
-        <!--        <h:panelGrid columns="1" width="100%" style="text-align:center;" id="lista">-->
-        <p:dataTable value="#{temaPage.datos}" var="dato" id="table" rows="3" widgetVar="table"
-                     rendered="#{! empty temaPage.datos}"
-                     rowKey="#{0}" width="100%"
-                     footerClass="row2" rowClasses="row1"
-                     paginator="true"
-                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                     currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
-                     paginatorPosition="top">
-            <p:column headerText="Concepto" sortBy="ASCENDING">
-                <h:outputText value="#{dato.codigo}: #{dato.nombre}"/>
-            </p:column>
-
-            <p:column headerText="Temas asociados a cada concepto">
-                <h:outputText value="#{dato.codSucursal} : #{dato.nombreSucursal}"/>
-            </p:column>
-
-            <f:facet name="header">
-                Expand rows to see detailed information
-            </f:facet>
-            <p:column style="width:2rem" colspan="2">
-                <p:rowToggler/>
-            </p:column>
-
-
-            <p:rowExpansion>
-                <!--                    <div class="product">-->
-                <!--                        <div class="product-list-item">-->
-                <!--                            <h:panelGrid columns="1" width="100%" style="text-align:center;" id="rowexpan">-->
-                <p:dataTable value="#{dato.temas}" var="tema" rows="5" id="tableRowExapand">
-                    <p:column headerText="Unidad de Análisis" breakBefore="true">
-                        <h:outputText value=""/>
-                    </p:column>
-                    <p:column headerText="Nombre del tema" breakBefore="true">
-                        <h:outputText value="#{tema.nombre}"/>
-                    </p:column>
-                    <p:column headerText="Partida">
-                        <h:outputText value="#{tema.partidaContable}"/>
-                    </p:column>
-                    <p:column headerText="Contrapartida">
-                        <h:outputText value="#{tema.contraPartidaContable}"/>
-                    </p:column>
-                    <p:column headerText="Estado" style="text-align:center;">
-                        <p:commandButton value="#{tema.estado eq 'A'? 'Activo': 'Inactivo'}"
-                                         onclick="PF('popupEstado').show()">
-                            <f:setPropertyActionListener for="codCambio" value="#{tema.codigo}"
-                                                         target="#{temaPage.objActual.codigo}"/>
-                            <f:setPropertyActionListener for="estadoCambio" value="#{tema.estado}"
-                                                         target="#{temaPage.objActual.estado}"/>
-                        </p:commandButton>
-                    </p:column>
-                    <p:column headerText="Editar" style="text-align:center;">
-                        <p:commandButton value=""
-                                         alt="Editar"
-                                         style="width: 24px; height: 24px; padding: 0; background-image: url('#{request.contextPath}/common/images/edit.png'); background-size: cover; border-radius: 50%;"
-                                         action="#{temaPage.editar}"
+                    <h:panelGrid columns="1" width="380">
+                        <!-- Funcionalidad para abrir el editor y crear un nuevo registro-->
+                        <p:commandButton action="#{temaPage.editar}"
                                          oncomplete="PF('editor').show()"
-                                         update="globalForm:editor">
-                            <f:setPropertyActionListener for="codEdit" value="#{tema.codigo}"
+                                         update="globalForm:editor"
+                                         value="Nuevo Registro"
+                                         ajax="true">
+                            <f:setPropertyActionListener for="codNuevo" value="#{0}"
                                                          target="#{temaPage.objActual.codigo}"/>
                         </p:commandButton>
-                    </p:column>
-                    <p:column headerText="Eliminar" style="text-align:center;">
-                        <p:commandButton value=""
-                                         alt="Borrar"
-                                         style="width: 24px; height: 24px; padding: 0; background-image: url('#{request.contextPath}/common/images/delete.png'); background-size: cover; border-radius: 50%;"
-                                         onclick="PF('popupBorrar').show()"
-                                         rendered="#{tema.estado eq 'I'}">
-                            <f:setPropertyActionListener for="codBorrar" value="#{tema.codigo}"
-                                                         target="#{temaPage.objActual.codigo}"/>
-                        </p:commandButton>
-                    </p:column>
-                </p:dataTable>
-                <!--                            </h:panelGrid>-->
-                <!--                        </div>-->
-                <!--                    </div>-->
-            </p:rowExpansion>
-        </p:dataTable>
+                    </h:panelGrid>
 
-        <!--            <p:panel>-->
-        <!--                <p:pickList id="example" value="#{productoController.dualListModelS}" var="product"-->
-        <!--                itemLabel="#{product.value} - $ #{product.label}" itemValue="#{product.value} "/>-->
-        <!--            </p:panel>-->
-        <!--        </h:panelGrid>-->
+                    <h:panelGrid columns="2">
+                        <p:inputText value="#{temaPage.param}"/>
+                        <p:commandButton action="#{temaPage.buscarPorFiltro}" value="Filtrar"
+                                         onclick="Richfaces.showModalPanel('statusPanel')"/>
+                    </h:panelGrid>
+                </h:panelGrid>
+            </p:panel>
+
+            <!--        <ui:include src="../../common/mensajes.xhtml"/>-->
+            <!--        <h:panelGrid columns="1" width="100%" style="text-align:center;" id="lista">-->
+            <p:dataTable value="#{temaPage.datos}" var="dato" id="table" rows="3" widgetVar="table"
+                         rendered="#{! empty temaPage.datos}"
+                         rowKey="#{0}" width="100%"
+                         footerClass="row2" rowClasses="row1"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
+                         paginatorPosition="top">
+                <p:column headerText="Concepto     -     Temas asociados a cada concepto" sortBy="ASCENDING">
+                    <h:outputText value="#{dato.codigo}: #{dato.nombre}     -     #{dato.codSucursal} : #{dato.nombreSucursal}"/>
+                </p:column>
+
+<!--                <p:column headerText="Temas asociados a cada concepto">-->
+<!--                    <h:outputText value="#{dato.codSucursal} : #{dato.nombreSucursal}"/>-->
+<!--                </p:column>-->
+
+                <f:facet name="header">
+                    Expand rows to see detailed information
+                </f:facet>
+                <p:column style="width:2rem" colspan="2">
+                    <p:rowToggler/>
+                </p:column>
+
+
+                <p:rowExpansion>
+                    <!--                    <div class="product">-->
+                    <!--                        <div class="product-list-item">-->
+                    <!--                            <h:panelGrid columns="1" width="100%" style="text-align:center;" id="rowexpan">-->
+                    <p:dataTable value="#{dato.temas}" var="tema" rows="5" id="tableRowExapand">
+                        <p:column headerText="Unidad de Análisis" breakBefore="true">
+                            <h:outputText value=""/>
+                        </p:column>
+                        <p:column headerText="Nombre del tema" breakBefore="true">
+                            <h:outputText value="#{tema.nombre}"/>
+                        </p:column>
+                        <p:column headerText="Partida">
+                            <h:outputText value="#{tema.partidaContable}"/>
+                        </p:column>
+                        <p:column headerText="Contrapartida">
+                            <h:outputText value="#{tema.contraPartidaContable}"/>
+                        </p:column>
+                        <p:column headerText="Estado" style="text-align:center;">
+                            <p:commandButton value="#{tema.estado eq 'A'? 'Activo': 'Inactivo'}"
+                                             onclick="PF('popupEstado').show()">
+                                <f:setPropertyActionListener for="codCambio" value="#{tema.codigo}"
+                                                             target="#{temaPage.objActual.codigo}"/>
+                                <f:setPropertyActionListener for="estadoCambio" value="#{tema.estado}"
+                                                             target="#{temaPage.objActual.estado}"/>
+                            </p:commandButton>
+                        </p:column>
+                        <p:column headerText="Editar" style="text-align:center;">
+                            <p:commandButton value=""
+                                             alt="Editar"
+                                             style="width: 24px; height: 24px; padding: 0; background-image: url('#{request.contextPath}/common/images/edit.png'); background-size: cover; border-radius: 50%;"
+                                             action="#{temaPage.editar}"
+                                             oncomplete="PF('editor').show()"
+                                             update="globalForm:editor">
+                                <f:setPropertyActionListener for="codEdit" value="#{tema.codigo}"
+                                                             target="#{temaPage.objActual.codigo}"/>
+                            </p:commandButton>
+                        </p:column>
+                        <p:column headerText="Eliminar" style="text-align:center;">
+                            <p:commandButton value=""
+                                             alt="Borrar"
+                                             style="width: 24px; height: 24px; padding: 0; background-image: url('#{request.contextPath}/common/images/delete.png'); background-size: cover; border-radius: 50%;"
+                                             onclick="PF('popupBorrar').show()"
+                                             rendered="#{tema.estado eq 'I'}">
+                                <f:setPropertyActionListener for="codBorrar" value="#{tema.codigo}"
+                                                             target="#{temaPage.objActual.codigo}"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                    <!--                            </h:panelGrid>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                </p:rowExpansion>
+            </p:dataTable>
+        </div>
     </ui:define>
 </ui:composition>

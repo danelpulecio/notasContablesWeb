@@ -197,7 +197,7 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
             }
         } else {
             LOGGER.info("is valid selection {}", isValidSelection);
-            nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Las cuentas que seleccione deben tener la misma configuracin para Tipo Centro Autorizado, Indicador, Centros Autorizados");
+            nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Las cuentas que seleccione deben tener la misma configuración para Tipo Centro Autorizado, Indicador, Centros Autorizados");
         }
     }
 

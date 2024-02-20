@@ -7,33 +7,36 @@
     <ui:param name="title" value="Perdida Operacional"/>
     <ui:define name="body">
         <!--Filtro de busqueda	-->
-        <div style="width: 850px;">
+        <div style="width: 1200px;">
             <h:form>
-                <h:panelGrid columns="1" width="100%"><h1 align="center">Perdida Operacional</h1></h:panelGrid>
+                <p:panel style="width: 1200px">
+                    <h:panelGrid columns="1" width="100%"><h1 align="center">Perdida Operacional</h1></h:panelGrid>
 
-                <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
-                    <h:panelGrid columns="2" id="filtro" style="text-align: center; margin: 0 auto;">
-                        <p:inputText id="param" value="#{perdidaOperacionalPage.param}"/>
-                        <p:commandButton action="#{perdidaOperacionalPage.buscarPorFiltro}" value="Filtrar" ajax="false"/>
+                    <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
+                        <h:panelGrid columns="2" id="filtro" style="text-align: center; margin: 0 auto;">
+                            <p:inputText id="param" value="#{perdidaOperacionalPage.param}"/>
+                            <p:commandButton action="#{perdidaOperacionalPage.buscarPorFiltro}" value="Filtrar"
+                                             ajax="false"/>
+                        </h:panelGrid>
+                        <ui:include src="../../common/mensajes.xhtml"/>
+                        <p:dataTable id="perdidaOperacionalPageTable" value="#{perdidaOperacionalPage.datos}" var="dato"
+                                     rowIndexVar="rowIndex"
+                                     widgetVar="perdidaTable" rows="15" paginator="true"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
+                                     paginatorPosition="top">
+                            <p:column headerText="Fila">
+                                <h:outputText value="#{rowIndex+1}"/>
+                            </p:column>
+                            <p:column headerText="Codigo" sortable="true" sortBy="#{dato.codigo}">
+                                <h:outputText value="#{dato.codigo} "/>
+                            </p:column>
+                            <p:column headerText="Descripción" sortable="true" sortBy="#{dato.descripcion}">
+                                <h:outputText value="#{dato.descripcion}"/>
+                            </p:column>
+                        </p:dataTable>
                     </h:panelGrid>
-                    <ui:include src="../../common/mensajes.xhtml"/>
-                    <p:dataTable id="perdidaOperacionalPageTable" value="#{perdidaOperacionalPage.datos}" var="dato"
-                                 rowIndexVar="rowIndex"
-                                 widgetVar="perdidaTable" rows="15" paginator="true"
-                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                 currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
-                                 paginatorPosition="top">
-                        <p:column headerText="Fila">
-                            <h:outputText value="#{rowIndex+1}"/>
-                        </p:column>
-                        <p:column headerText="Codigo" sortable="true" sortBy="#{dato.codigo}">
-                            <h:outputText value="#{dato.codigo} "/>
-                        </p:column>
-                        <p:column headerText="Descripción" sortable="true" sortBy="#{dato.descripcion}">
-                            <h:outputText value="#{dato.descripcion}"/>
-                        </p:column>
-                    </p:dataTable>
-                </h:panelGrid>
+                </p:panel>
             </h:form>
         </div>
     </ui:define>

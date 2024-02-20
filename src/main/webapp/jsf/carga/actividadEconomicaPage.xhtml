@@ -7,18 +7,20 @@
     <ui:param name="title" value="Actividad Económica"/>
     <ui:define name="body">
         <!--Filtro de busqueda	-->
-        <div style="width: 850px;">
+        <div style="width: 1200px;">
             <h:form>
+                <p:panel style="width: 850px">
+                    <h:panelGrid columns="1" width="850px"><h1 align="center">Actividades Económicas</h1></h:panelGrid>
 
-                <h:panelGrid columns="1" width="100%"><h1 align="center">Actividades Económicas</h1></h:panelGrid>
-
-                <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
+                    <!--                    <h:panelGrid columns="1" width="850px" style="align:center;" id="lista">-->
                     <h:panelGrid columns="2" id="filtro" style="text-align: center; margin: 0 auto;">
                         <p:inputText id="param" value="#{actividadEconomicaPage.param}"/>
-                        <p:commandButton action="#{actividadEconomicaPage.buscarPorFiltro}" value="Filtrar" ajax="false"/>
+                        <p:commandButton action="#{actividadEconomicaPage.buscarPorFiltro}" value="Filtrar"
+                                         ajax="false"/>
                     </h:panelGrid>
                     <ui:include src="../../common/mensajes.xhtml"/>
-                    <p:dataTable id="actividadTable" value="#{actividadEconomicaPage.datos}" var="actividad" rowIndexVar="rowIndex"
+                    <p:dataTable id="actividadTable" value="#{actividadEconomicaPage.datos}" var="actividad"
+                                 rowIndexVar="rowIndex"
                                  widgetVar="economicActivityTable" rows="15" paginator="true"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
@@ -35,7 +37,8 @@
                         </p:column>
                     </p:dataTable>
 
-                </h:panelGrid>
+                    <!--                    </h:panelGrid>-->
+                </p:panel>
             </h:form>
         </div>
     </ui:define>

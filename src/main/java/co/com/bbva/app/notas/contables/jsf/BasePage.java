@@ -11,6 +11,7 @@ import co.com.bbva.app.notas.contables.util.GetProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PreDestroy;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
@@ -49,16 +50,27 @@ public abstract class BasePage implements Serializable  {
 
 		java.util.Properties propiedades = properties.readProperties();
 
-		DIR_SOPORTES = context.getInitParameter("DIR_SOPORTES");
-		DIR_REPORTES_EXCEL = context.getInitParameter("DIR_REPORTES_EXCEL");
-		DIR_RECEPCION_ALTAMIRA = context.getInitParameter("DIR_RECEPCION_ALTAMIRA");
-		DIR_TRANSMISION_ALTAMIRA = context.getInitParameter("DIR_TRANSMISION_ALTAMIRA");
-		DIR_CARGA = context.getInitParameter("DIR_CARGA");
-//		ACTIVAR_LDAP = "0";
+		DIR_SOPORTES = propiedades.getProperty("dirSoportes");
+//     context.getInitParameter("DIR_SOPORTES");
+		DIR_REPORTES_EXCEL = propiedades.getProperty("dirReportesExcel");
+//     DIR_REPORTES_EXCEL = context.getInitParameter("DIR_REPORTES_EXCEL");
+		DIR_RECEPCION_ALTAMIRA = propiedades.getProperty("dirTransmisionAltamira");
+//     DIR_RECEPCION_ALTAMIRA = context.getInitParameter("DIR_RECEPCION_ALTAMIRA");
+		DIR_TRANSMISION_ALTAMIRA = propiedades.getProperty("dirRecepcionAltamira");
+//     DIR_TRANSMISION_ALTAMIRA = context.getInitParameter("DIR_TRANSMISION_ALTAMIRA");
+		DIR_CARGA = propiedades.getProperty("dirCarga");
+//     DIR_CARGA = context.getInitParameter("DIR_CARGA");
+//     ACTIVAR_LDAP = "0";
 		ACTIVAR_LDAP = propiedades.getProperty("activar.ldap");
 
-		DIR_SIRO = context.getInitParameter("DIR_SIRO");
+		DIR_SIRO =  propiedades.getProperty("dirSiro");
+//     DIR_SIRO = context.getInitParameter("DIR_SIRO");
 		LOGGER.info("constructor finaliza");
+	}
+
+	@PreDestroy
+	public void destroy (){
+		LOGGER.info("DestruyendoBasePageBean");
 	}
 
 	/**

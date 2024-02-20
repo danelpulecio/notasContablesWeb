@@ -27,16 +27,16 @@
                         <h:outputText value="${tema.tema.nombre}"/>
                     </p:column>
                     <p:column style="border-width: 0px; text-align: left;" width="80px">
-                        <h:panelGrid columns="1" cellpadding="0" cellspacing="0">
+<!--                        <h:panelGrid columns="1" cellpadding="0" cellspacing="0">-->
                             <h:outputText value="#{tema.partidaContable} "/>
                             <h:outputText value="#{tema.contrapartidaContable}"/>
-                        </h:panelGrid>
+<!--                        </h:panelGrid>-->
                     </p:column>
                     <p:column style="border-width: 0px; text-align: left;" width="35px">
-                        <h:panelGrid columns="1" cellpadding="0" cellspacing="0">
+<!--                        <h:panelGrid columns="1" cellpadding="0" cellspacing="0">-->
                             <h:outputText value="[#{tema.naturalezaPartidaContable}]"/>
                             <h:outputText value="[#{tema.naturalezaContrapartidaContable}]"/>
-                        </h:panelGrid>
+<!--                        </h:panelGrid>-->
                     </p:column>
                     <p:column style="border-width: 0px; text-align: left;" width="30px">
                         <h:outputText value="#{tema.codigoDivisa}"/>
@@ -47,8 +47,8 @@
                 </p:dataTable>
 <!--            </h:panelGrid>-->
 
-            <h:panelGrid columns="1" rendered="#{dato.NC.tipoNota eq 'C' }" border="0">
-                <p:dataTable style="border-width: 0px; background-color: transparent;" var="temaCruce"
+<!--            <h:panelGrid columns="1" rendered="#{dato.NC.tipoNota eq 'C' }" border="0">-->
+                <p:dataTable style="border-width: 0px; background-color: transparent;" var="temaCruce" rendered="#{dato.NC.tipoNota eq 'C' }"
                              value="#{dato.NC.temasCruce}" cellpadding="0" cellspacing="0">
                     <p:column style="border-width: 0px; text-align: left;">
                         <h:outputText value="REFERENCIA DE CRUCE"/>
@@ -67,10 +67,10 @@
                     </p:column>
 
                 </p:dataTable>
-            </h:panelGrid>
+<!--            </h:panelGrid>-->
 
-            <h:panelGrid columns="1" rendered="#{dato.NC.tipoNota eq 'L' }" border="0">
-                <p:dataTable style="border-width: 0px; background-color: transparent; " var="temaLibre"
+<!--            <h:panelGrid columns="1" rendered="#{dato.NC.tipoNota eq 'L' }" border="0">-->
+                <p:dataTable style="border-width: 0px; background-color: transparent; " var="temaLibre" rendered="#{dato.NC.tipoNota eq 'L' }"
                              value="#{dato.NC.temasLibre}" cellpadding="0" cellspacing="0">
                     <p:column style="border-width: 0px; text-align: left;">
                         <h:outputText value="CONTABILIDAD LIBRE"/>
@@ -88,7 +88,7 @@
                         <h:outputText value="#{temaLibre.monto}"><f:convertNumber type="currency"/></h:outputText>
                     </p:column>
                 </p:dataTable>
-            </h:panelGrid>
+<!--            </h:panelGrid>-->
 
         </p:column>
         <p:column headerText="Causales de Rechazo" rendered="#{precierreCierrePage.esPrecierre }" width="120px;">

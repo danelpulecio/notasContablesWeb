@@ -7,7 +7,7 @@
     <ui:param name="title" value="Centros de Destino"/>
     <ui:define name="body">
 
-        <p:growl id="growl" showDetail="false" life="10000"/>
+<!--        <p:growl id="growl" showDetail="false" life="10000"/>-->
 
         <!-- Formulario Modal de creacion y edicion de nuevos registros-->
         <p:dialog id="editor" widgetVar="editor" autosized="true">
@@ -22,7 +22,7 @@
             </f:facet>
 
             <!-- Campos del formulario -->
-            <h:panelGrid columns="1" width="850" id="informacion">
+            <h:panelGrid columns="1" width="850" id="informacion" rendered="#{centroDestinoPage.validSelection}">
                 <h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="5">
                     <p:accordionPanel style="width: 100%" label="Cuentas Seleccionadas"
                                       switchType="client">
@@ -46,7 +46,7 @@
                     </p:panel>
 
                     <p:panel style="width: 100%" header="Indicador">
-                        <h:selectOneRadio value="#{centroDestinoPage.indicadorSel}" >
+                        <h:selectOneRadio value="#{centroDestinoPage.indicadorSel}">
                             <p:ajax event="change" listener="#{centroDestinoPage.selccionarTipoCentro}"
                                     update="informacion"/>
                             <f:selectItems value="#{centroDestinoPage.indicadores}"/>
@@ -56,7 +56,10 @@
                     <p:panel style="width: 100%" header="Centros Autorizados"
                              rendered="#{not empty centroDestinoPage.centrosAut}">
                         <p:pickList id="example" value="#{centroDestinoPage.dualListModel}" var="pr"
-                                    itemValue="#{pr.value}" itemLabel="#{pr.label}" />
+                                    itemValue="#{pr.value}" itemLabel="#{pr.label}">
+                            <p:ajax event="transfer" listener="#{centroDestinoPage.validarCentrosAut}"
+                                    update="informacion"/>
+                        </p:pickList>
                     </p:panel>
 
                 </h:panelGrid>
@@ -69,76 +72,84 @@
                                      oncomplete="if (#{centroDestinoPage.ocultarPopupGuardar}) PF('editor').hide();"/>
                     <p:commandButton onclick="PF('editor').hide()" value="Cerrar"/>
                 </h:panelGrid>
+                <h:panelGroup id="msg_centroDestinoActionIn">
+                    <ui:include src="../../common/mensajes.xhtml"/>
+                </h:panelGroup>
             </h:panelGrid>
+            <h:panelGroup id="msg_centroDestinoAction">
+                <ui:include src="../../common/mensajes.xhtml"/>
+            </h:panelGroup>
         </p:dialog>
         <!--Filtro de busqueda	-->
-        <h:panelGrid columns="1" width="100%">
-            <h1 align="center">Centros de Destino</h1>
-        </h:panelGrid>
-
-        <!-- Panel de opciones -->
-        <p:panel header="Opciones" style="width: 100%;">
-            <h:panelGrid columns="2" id="filtro">
-
-                <h:panelGrid columns="2" width="380" id="cambio">
-                    <p:commandButton action="#{centroDestinoPage.selecccionar}"
-                                     rendered="#{!empty centroDestinoPage.datos}"
-                                     update="globalForm:lista,globalForm:cambio"
-                                     value="#{centroDestinoPage.selectedAll?'Limpiar Selección':'Seleccionar Todos'}"/>
-                    <p:commandButton action="#{centroDestinoPage.editar}"
-                                     oncomplete="if (#{facesContext.maximumSeverity != null}) PF('editor').hide(); else PF('editor').show();"
-                                     update="globalForm:growl,globalForm:editor"
-                                     value="Modificar Seleccionados"/>
-                </h:panelGrid>
-
-                <h:panelGrid columns="2">
-                    <p:inputText value="#{centroDestinoPage.param}" maxlength="15"/>
-                    <p:commandButton action="#{centroDestinoPage.buscarPorFiltro}" value="Filtrar"
-                                     onclick="Richfaces.showModalPanel('statusPanel')"/>
-                </h:panelGrid>
+        <div style="width: 1200px;">
+            <h:panelGrid columns="1" width="100%">
+                <h1 align="center">Centros de Destino</h1>
             </h:panelGrid>
-        </p:panel>
-        <!--        <ui:include src="../../common/mensajes.xhtml"/>-->
-        <!-- Tabla de registros -->
-        <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
 
-            <p:dataTable value="#{centroDestinoPage.datos}" var="dato" id="table"
-                         rendered="#{! empty centroDestinoPage.datos}"
-                         rowIndexVar="rowIndex"
-                         widgetVar="table" rows="15" paginator="true"
-                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
-                         paginatorPosition="top">
+            <!-- Panel de opciones -->
+            <p:panel header="Opciones" style="width: 100%;">
+                <h:panelGrid columns="2" id="filtro">
 
-                <p:column headerText="Fila" style="width: 5%; text-align: center">
-                    <h:outputText value="#{rowIndex+1}"/>
-                    <p:selectBooleanCheckbox value="#{dato.selected}" immediate="true">
-                    </p:selectBooleanCheckbox>
-                </p:column>
+                    <h:panelGrid columns="2" width="380" id="cambio">
+                        <p:commandButton action="#{centroDestinoPage.selecccionar}"
+                                         rendered="#{!empty centroDestinoPage.datos}"
+                                         update="globalForm:lista,globalForm:cambio"
+                                         value="#{centroDestinoPage.selectedAll?'Limpiar Selección':'Seleccionar Todos'}"/>
+                        <p:commandButton action="#{centroDestinoPage.editar}"
+                                         oncomplete="if (#{facesContext.maximumSeverity != null}) PF('editor').hide(); else PF('editor').show();"
+                                         update="globalForm:editor"
+                                         value="Modificar Seleccionados"/>
+                    </h:panelGrid>
 
-                <p:column headerText="Cuenta" style="width: 20%">
-                    <h:outputText value="#{dato.numeroCuenta}"/>
-                </p:column>
+                    <h:panelGrid columns="2">
+                        <p:inputText value="#{centroDestinoPage.param}" maxlength="15"/>
+                        <p:commandButton action="#{centroDestinoPage.buscarPorFiltro}" value="Filtrar"
+                                         onclick="Richfaces.showModalPanel('statusPanel')"/>
+                    </h:panelGrid>
+                </h:panelGrid>
 
-                <p:column headerText="Descripción" style="width: 40%">
-                    <h:outputText value="#{dato.descripcion}"/>
-                </p:column>
+            </p:panel>
+            <!--        <ui:include src="../../common/mensajes.xhtml"/>-->
+            <!-- Tabla de registros -->
+            <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
 
-                <p:column headerText="Tipo Centro Autorizado" style="width: 10%">
-                    <h:outputText value="#{dato.tipoCentroDestinoAutorizado}"/>
-                </p:column>
+                <p:dataTable value="#{centroDestinoPage.datos}" var="dato" id="table"
+                             rendered="#{! empty centroDestinoPage.datos}"
+                             rowIndexVar="rowIndex"
+                             widgetVar="table" rows="15" paginator="true"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
+                             paginatorPosition="top">
 
-                <p:column headerText="Indicador" style="width: 10%">
-                    <h:outputText
-                            value="#{dato.indicadorCentroDestino eq 'T' ? 'Todas':(dato.indicadorCentroDestino eq 'I' ? 'Incluir' : (dato.indicadorCentroDestino eq 'E' ? 'Excluir' : ''))}"/>
-                </p:column>
+                    <p:column headerText="Fila" style="width: 5%; text-align: center">
+                        <h:outputText value="#{rowIndex+1}"/>
+                        <p:selectBooleanCheckbox value="#{dato.selected}" immediate="true">
+                        </p:selectBooleanCheckbox>
+                    </p:column>
 
-                <p:column headerText="Centros Autorizados" style="width: 15%">
-                    <h:outputText value="#{dato.centrosDestinoAutorizados}"/>
-                </p:column>
+                    <p:column headerText="Cuenta" style="width: 20%">
+                        <h:outputText value="#{dato.numeroCuenta}"/>
+                    </p:column>
 
-            </p:dataTable>
-        </h:panelGrid>
-        <!--        </div>-->
+                    <p:column headerText="Descripción" style="width: 40%">
+                        <h:outputText value="#{dato.descripcion}"/>
+                    </p:column>
+
+                    <p:column headerText="Tipo Centro Autorizado" style="width: 10%">
+                        <h:outputText value="#{dato.tipoCentroDestinoAutorizado}"/>
+                    </p:column>
+
+                    <p:column headerText="Indicador" style="width: 10%">
+                        <h:outputText
+                                value="#{dato.indicadorCentroDestino eq 'T' ? 'Todas':(dato.indicadorCentroDestino eq 'I' ? 'Incluir' : (dato.indicadorCentroDestino eq 'E' ? 'Excluir' : ''))}"/>
+                    </p:column>
+
+                    <p:column headerText="Centros Autorizados" style="width: 15%">
+                        <h:outputText value="#{dato.centrosDestinoAutorizados}"/>
+                    </p:column>
+
+                </p:dataTable>
+            </h:panelGrid>
+        </div>
     </ui:define>
 </ui:composition>

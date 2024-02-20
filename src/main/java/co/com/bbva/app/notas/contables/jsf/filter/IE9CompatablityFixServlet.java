@@ -1,5 +1,6 @@
 package co.com.bbva.app.notas.contables.jsf.filter;
 
+import javax.annotation.PreDestroy;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -12,7 +13,7 @@ public class IE9CompatablityFixServlet implements Filter {
 		((HttpServletResponse) response).setHeader("X-UA-Compatible", "IE=EmulateIE7"); // or IE=EmulateIE8
 		chain.doFilter(request, response);
 	}
-
+	@PreDestroy
 	public void destroy() {
 	}
 }

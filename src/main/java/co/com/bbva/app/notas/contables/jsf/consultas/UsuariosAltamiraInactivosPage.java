@@ -20,6 +20,7 @@ public class UsuariosAltamiraInactivosPage extends GeneralConsultaPage<UsuarioMo
 	private static final long serialVersionUID = -6709113217662690209L;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(UsuariosAltamiraInactivosPage.class);
+	protected boolean stopPoll = false;
 
 	public UsuariosAltamiraInactivosPage() {
 		super();
@@ -28,12 +29,21 @@ public class UsuariosAltamiraInactivosPage extends GeneralConsultaPage<UsuarioMo
 	@PostConstruct
 	public void init() {
 		super._init();
+		this.cargarUsuariosInactivosAltamira();
+	}
+	public void cargarUsuariosInactivosAltamira() {
 		try {
 			if (getDatos() == null || getDatos().isEmpty()) {
-				LOGGER.info("ENTRANDO A CONSULTAR LOS USUARIOS INACTIVOS ALTAMIRA-...");
+				LOGGER.info("CONSULTANDO LOS USUARIOS INACTIVOS ALTAMIRA-...");
 				setDatos(notasContablesManager.getUsuariosAltamiraInactivos());
+				if(getDatos().isEmpty()) {
+					nuevoMensaje(FacesMessage.SEVERITY_WARN, "No se encontraron usuarios altamira inactivos");
+					LOGGER.info("No se encuentrán usuarios altamira inactivos. ");
+				}
 			}
+			this.stopPoll = true;
 		} catch (Exception e) {
+			this.stopPoll = true;
 			LOGGER.error("{} Error ingresar a UsuariosAltamiraInactivosPage ", e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error ingresar a UsuariosAltamiraInactivosPage");
 		}
@@ -53,4 +63,11 @@ public class UsuariosAltamiraInactivosPage extends GeneralConsultaPage<UsuarioMo
 		return USUARIOS_INACTIVOS;
 	}
 
+	public boolean isStopPoll() {
+		return stopPoll;
+	}
+
+	public void setStopPoll(boolean stopPoll) {
+		this.stopPoll = stopPoll;
+	}
 }

@@ -8,56 +8,39 @@
     <ui:define name="body">
 
         <!--Filtro de busqueda	-->
-        <div style="width: 400px;">
+        <div style="width: 1200px;">
             <h:form>
-            <h:panelGrid columns="1" width="100%"><h1 align="center">Errores de Validación</h1></h:panelGrid>
+                <p:panel style="width: 850px">
+                    <h:panelGrid columns="1" width="850px"><h1 align="center">Errores de Validación</h1></h:panelGrid>
 
-            <h:panelGrid columns="2" id="filtro">
-                <p:inputText id="param" value="#{errorValidacionPage.param}"/>
-                <p:commandButton action="#{errorValidacionPage.buscarPorFiltro}" value="Filtrar" ajax="false"/>
-            </h:panelGrid>
+                    <h:panelGrid columns="2" id="filtro">
+                        <p:inputText id="param" value="#{errorValidacionPage.param}"/>
+                        <p:commandButton action="#{errorValidacionPage.buscarPorFiltro}" value="Filtrar" ajax="false"/>
+                    </h:panelGrid>
 
-            <ui:include src="../../common/mensajes.xhtml"/>
+                    <ui:include src="../../common/mensajes.xhtml"/>
 
-            <!--	Tabla de resultados	-->
-           <!-- <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">-->
+                    <!--	Tabla de resultados	-->
+<!--                    <h:panelGrid columns="1" width="850px" style="align:center;" id="lista">-->
 
-                <p:dataTable value="#{errorValidacionPage.datos}" var="dato" id="table" rowIndexVar="rowIndex"
-                             widgetVar="economicActivityTable" rows="15" paginator="true"
-                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
-                             paginatorPosition="top">
-                  <!--  <f:facet name="header">
-                        <p:dataScroller fastControls="false" pageIndexVar="pageIndex" pagesVar="pages"
-                                           style="color:black;" for="table" maxPages="5" renderIfSinglePage="false"
-                                           page="#{errorValidacionPage.scrollPage}" id="up" reRender="lista, filtro"
-                                           limitToList="true" ajaxSingle="true">
-                        </p:dataScroller>
-                    </f:facet> -->
-                    <p:column headerText="Fila">
-                        <h:outputText value="#{rowIndex+1}"/>
+                        <p:dataTable value="#{errorValidacionPage.datos}" var="dato" id="table" rowIndexVar="rowIndex"
+                                     widgetVar="economicActivityTable" rows="15" paginator="true"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
+                                     paginatorPosition="top">
+                            <p:column headerText="Fila" width="20px">
+                                <h:outputText value="#{rowIndex+1}"/>
 
-                    </p:column>
-                    <p:column headerText="Código" sortable="true" sortBy="#{dato.codigo}">
-                        <h:outputText value="#{dato.codigo} "/>
-                    </p:column>
-                    <p:column headerText="Nombre" sortable="true" sortBy="#{dato.nombre}">
-                        <h:outputText value="#{dato.nombre}"/>
-                    </p:column>
-
-                    <!--	Se muestra la información de la cantidad de registros y la pagina actual	-->
-                <!--    <f:facet name="footer">
-                        <p:dataScroller style="color:black;" align="center" for="table"
-                                           page="#{errorValidacionPage.scrollPage}" boundaryControls="hide"
-                                           fastControls="hide" stepControls="hide">
-                            <f:facet name="pages">
-                                <h:outputText
-                                        value="Visualizando del #{((pageIndex-1)*15)+1 } al #{(pages!=pageIndex)?(pageIndex*15):errorValidacionPage.totalFilas} de un total de #{errorValidacionPage.totalFilas} registros."/>
-                            </f:facet>
-                        </p:dataScroller>
-                    </f:facet>-->
-                </p:dataTable>
-           <!-- </h:panelGrid>-->
+                            </p:column>
+                            <p:column headerText="Código" sortable="true" sortBy="#{dato.codigo}" width="250px">
+                                <h:outputText value="#{dato.codigo} "/>
+                            </p:column>
+                            <p:column headerText="Nombre" sortable="true" sortBy="#{dato.nombre}" width="400px">
+                                <h:outputText value="#{dato.nombre}"/>
+                            </p:column>
+                        </p:dataTable>
+<!--                    </h:panelGrid>-->
+                </p:panel>
             </h:form>
         </div>
     </ui:define>

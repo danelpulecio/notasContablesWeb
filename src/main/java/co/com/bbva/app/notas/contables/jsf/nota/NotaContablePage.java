@@ -8,10 +8,12 @@ import java.sql.Timestamp;
 import java.text.NumberFormat;
 import java.util.*;
 
+import javax.annotation.PreDestroy;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
 
@@ -54,7 +56,7 @@ import co.com.bbva.app.notas.contables.util.StringUtils;
  * </p>
  * 
  */
-@SessionScoped
+@ViewScoped
 @Named
 public class NotaContablePage extends FlujoNotaContablePage implements Serializable {
 

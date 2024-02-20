@@ -117,4 +117,19 @@ public class UsuarioAltamira extends CommonVO<UsuarioAltamira> implements java.i
 		return codigoEmpleado;
 	}
 
+	@Override
+	public String toString() {
+		return "UsuarioAltamira{" +
+				"codigoEmpleado='" + codigoEmpleado + '\'' +
+				", nombreEmpleado='" + nombreEmpleado + '\'' +
+				", codigoArea=" + codigoArea +
+				", nombreArea='" + nombreArea + '\'' +
+				", codigoPerfil='" + codigoPerfil + '\'' +
+				", nombrePerfil='" + nombrePerfil + '\'' +
+				", correoElectronico='" + correoElectronico + '\'' +
+				", estadoCarga='" + estadoCarga + '\'' +
+				", fechaUltimaCarga=" + fechaUltimaCarga +
+				", rol=" + rol +
+				'}';
+	}
 }

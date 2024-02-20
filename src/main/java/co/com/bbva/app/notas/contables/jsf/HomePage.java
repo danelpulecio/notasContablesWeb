@@ -182,9 +182,12 @@ public class HomePage extends GeneralPage implements Serializable, IPages {
     public String logout() {
         LOGGER.info("<<<<<<<<entro hace logout>>>>>>>>");
         UsuarioLogueado usrLoggedIn = getContablesSessionBean().getLoginUser();
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 //        Session session = getContablesSessionBean().getSessionTrace();
         try {
             notasContablesManager.addRegistroAuditoriaIngreso(usrLoggedIn.getUsuario().getCodigo().intValue(), "Salir de la aplicacin", "Logout", "0");
+            request.logout();
+            request.getSession().invalidate();
         } catch (Exception e) {
 //            LOGGER.error("{} Error al cerrar la sesin", session.getTraceLog(), e);
         }

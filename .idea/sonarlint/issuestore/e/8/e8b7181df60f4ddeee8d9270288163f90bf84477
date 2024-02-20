@@ -1,12 +1,11 @@
 
-]	java:S125#"<This block of commented-out lines of code should be removed.(‘ÆÎÓûÿÿÿÿ8ØëË¨Ä1
-X	java:S125H"<This block of commented-out lines of code should be removed.(œ“ÙÅ8ÛëË¨Ä1
+]	java:S125#"<This block of commented-out lines of code should be removed.(‘ÆÎÓûÿÿÿÿ8€ƒ­ÍÚ1
+X	java:S125H"<This block of commented-out lines of code should be removed.(œ“ÙÅ8‚ƒ­ÍÚ1
 n
-java:S1128"LRemove this unused import 'co.com.bbva.app.notas.contables.session.Session'.(•Ö¥åøÿÿÿÿ8ÛëË¨Ä1
+java:S1128"LRemove this unused import 'co.com.bbva.app.notas.contables.session.Session'.(•Ö¥åøÿÿÿÿ8¸ÚÒÍÚ1
+\
+java:S1128":Remove this unused import 'jakarta.faces.view.ViewScoped'.(ÄˆÈ¿ıÿÿÿÿ8É¿ãĞÚ1
 [
-java:S1128"9Remove this unused import 'javax.annotation.ManagedBean'.(¾¦®Ãúÿÿÿÿ8ÛëË¨Ä1
+java:S1128	"9Remove this unused import 'javax.annotation.ManagedBean'.(¾¦®Ãúÿÿÿÿ8¹ÚÒÍÚ1
 `
-java:S1128
-"CRemove this unused import 'javax.enterprise.context.RequestScoped'.(‚Õ…½8ÛëË¨Ä1
-U
-java:S1128"8Remove this unused import 'javax.faces.view.ViewScoped'.(çâŒ¨8ÛëË¨Ä1
+java:S1128"CRemove this unused import 'javax.enterprise.context.RequestScoped'.(‚Õ…½8¹ÚÒÍÚ1
