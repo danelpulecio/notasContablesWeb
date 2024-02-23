@@ -48,7 +48,7 @@ Usrc/main/java/co/com/bbva/app/notas/contables/jsf/beans/ContablesApplicationBea
 Å
 Qsrc/main/java/co/com/bbva/app/notas/contables/jsf/beans/ContablesRequestBean.java,8/c/8c9af8b283be7797e6d0ff070d3870bcf6f6682c
 o
-?src/main/java/co/com/bbva/app/notas/contables/jsf/HomePage.java,c/c/cce0d81e8d9cf1f9dcdc98163ced04eebd852191
+?src/main/java/co/com/bbva/app/notas/contables/jsf/HomePage.java,c\c\cce0d81e8d9cf1f9dcdc98163ced04eebd852191
 Z
 *src/main/webapp/WEB-INF/layouts/main.xhtml,f/e/fec41e1ba9eb420a9b17cc1b5e8a40a77e7adfca
 W
@@ -145,7 +145,7 @@ a
 W
 'src/main/webapp/jsf/carga/pucPage.xhtml,0/5/058b600be08a06c822f3dfc2f9c034627dbb30c7
 U
-%src/main/webapp/common/template.xhtml,3/3/33fb4dbabd7a3b665e7964a0dfc7f03d3b4bb5e9
+%src/main/webapp/common/template.xhtml,3\3\33fb4dbabd7a3b665e7964a0dfc7f03d3b4bb5e9
 `
 0src/main/webapp/jsf/carga/departamentoPage.xhtml,5/7/570dbddf29c1cb31060f6ae55c66848197324777
 Z
@@ -199,7 +199,7 @@ Zsrc/main/java/co/com/bbva/app/notas/contables/jsf/carga/RiesgoOperacionalProduc
 y
 Isrc/main/java/co/com/bbva/app/notas/contables/jsf/carga/SucursalPage.java,c/9/c9137744e89f9ea4f5804812bdea1373654e75dd
 [
-+src/main/webapp/jsf/carga/terceroPage.xhtml,8/5/85d44d217cd8583ef208f35fdaa97f501293ceb0
++src/main/webapp/jsf/carga/terceroPage.xhtml,8\5\85d44d217cd8583ef208f35fdaa97f501293ceb0
 f
 6src/main/webapp/jsf/carga/tipoIdentificacionPage.xhtml,3/7/37a6418cf14c12ae5c65a1e6b6876826e491e552
 É
@@ -281,9 +281,9 @@ f
 i
 9src/main/webapp/jsf/adminnotacontable/pendientePage.xhtml,3/3/33d65dddf49ab50469851d8bce0b9ea4ea15d712
 s
-Csrc/main/webapp/jsf/adminnotacontable/precierreCierreFormPage.xhtml,f/5/f58bc9f4e6dd777fe51b5f01c09782d0a487eb20
+Csrc/main/webapp/jsf/adminnotacontable/precierreCierreFormPage.xhtml,f\5\f58bc9f4e6dd777fe51b5f01c09782d0a487eb20
 i
-9src/main/webapp/jsf/adminnotacontable/precierrePage.xhtml,a/f/af1338c9dda4a2270c75336affca784c99439f3f
+9src/main/webapp/jsf/adminnotacontable/precierrePage.xhtml,a\f\af1338c9dda4a2270c75336affca784c99439f3f
 l
 <src/main/webapp/jsf/adminnotacontable/cargaUsuarioPage.xhtml,3/e/3e7e6181dedb9e2738b2d7e52ae28fee2c2118e7
 ]
@@ -345,7 +345,7 @@ Ysrc/main/java/co/com/bbva/app/notas/contables/jsf/consultas/ConsultaNotaContabl
 {
 Ksrc/main/java/co/com/bbva/app/notas/contables/dao/bk/BKNotaContableDAO.java,8/3/8301d08f5cec01284f259a8c153a489cd52df944
 v
-Fsrc/main/java/co/com/bbva/app/notas/contables/dao/NotaContableDAO.java,b/a/ba26d114b54e688226bbbf96b721b630d4224ba5
+Fsrc/main/java/co/com/bbva/app/notas/contables/dao/NotaContableDAO.java,b\a\ba26d114b54e688226bbbf96b721b630d4224ba5
 s
 Csrc/main/java/co/com/bbva/app/notas/contables/dao/InstanciaDAO.java,4/7/4759d916163213de42604fadd64d58041ee8d6c9
 s
@@ -387,11 +387,11 @@ h
 g
 7src/main/webapp/jsf/notacontable/notaContablePage.xhtml,8/2/82d95a0204d174e807201e119269aa5161d61534
 k
-;src/main/webapp/jsf/notacontable/formNotaContablePage.xhtml,3/3/33656d637c491f9008c4a81d0ed69e07e5e2a0ff
+;src/main/webapp/jsf/notacontable/formNotaContablePage.xhtml,3\3\33656d637c491f9008c4a81d0ed69e07e5e2a0ff
 q
 Asrc/main/webapp/jsf/notacontable/flujoAnexoNotaContablePage.xhtml,6/e/6e74adb0fdaa1549ae7e5b6d038f7d5192516135
 p
-@src/main/webapp/jsf/notacontable/formNotaContableLibrePage.xhtml,1/1/11f2a09be923cb924224105c678f7c3968f80ec3
+@src/main/webapp/jsf/notacontable/formNotaContableLibrePage.xhtml,1\1\11f2a09be923cb924224105c678f7c3968f80ec3
 k
 ;src/main/webapp/jsf/notacontable/formNotaRefCrucePage.xhtml,b/8/b8725f2b1ff4029f877e46ba992d8815173920a2
 l
@@ -441,7 +441,7 @@ p
 \
 ,src/main/webapp/jsf/parametros/rolPage.xhtml,6/d/6d7521fed21c454264eaf7164311b063f0b65f0b
 }
-Msrc/main/java/co/com/bbva/app/notas/contables/jsf/parametros/UsuarioPage.java,6/3/63d9a93ff4bcb6eee422cd334c504514b43a7564
+Msrc/main/java/co/com/bbva/app/notas/contables/jsf/parametros/UsuarioPage.java,6\3\63d9a93ff4bcb6eee422cd334c504514b43a7564
 x
 Hsrc/main/java/co/com/bbva/app/notas/contables/dto/UsuarioInstancias.java,9/5/9511f8f33dfd40f77d236d558872219509d23028
 É
@@ -478,3 +478,9 @@ Ysrc/main/java/co/com/bbva/app/notas/contables/schedule/cierre/ScheduleLoadCierr
 Lsrc/main/java/co/com/bbva/app/notas/contables/jsf/nota/NotaContablePage.java,b/0/b01b668318c46080ec4783c69c66049694fb1602
 é
 ^src/main/java/co/com/bbva/app/notas/contables/jsf/consultas/UsuariosAltamiraInactivosPage.java,b/e/be6e9239fe2b8ec97dbf02a83697a29a40bea2d8
+w
+Gsrc/main/java/co/com/bbva/app/notas/contables/carga/dao/TerceroDAO.java,4\b\4be3b7742c1a66e751a3b1339bde0614cf8e9c91
+É
+Ssrc/main/java/co/com/bbva/app/notas/contables/dao/NotaContableRegistroLibreDAO.java,2\5\25726e8e0f0a55170654251576eb9b0fc5835a1d
+z
+Jsrc/main/java/co/com/bbva/app/notas/contables/dao/NotaContableTemaDAO.java,9\b\9b3396ee47e044568c78a4b40ae39ecc9dbd3740

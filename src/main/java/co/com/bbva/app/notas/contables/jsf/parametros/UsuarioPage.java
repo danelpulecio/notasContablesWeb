@@ -3,7 +3,6 @@ package co.com.bbva.app.notas.contables.jsf.parametros;
 import co.com.bbva.app.notas.contables.carga.dto.Perfil;
 import co.com.bbva.app.notas.contables.carga.dto.Sucursal;
 import co.com.bbva.app.notas.contables.carga.dto.UsuarioAltamira;
-import co.com.bbva.app.notas.contables.dao.SuperDAO;
 import co.com.bbva.app.notas.contables.dto.EnteAutorizador;
 import co.com.bbva.app.notas.contables.dto.Padrino;
 import co.com.bbva.app.notas.contables.dto.Rol;
@@ -36,35 +35,20 @@ import java.util.List;
 public class UsuarioPage extends GeneralParametrosPage<UsuarioModulo, UsuarioModulo> {
 
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -2612093503479337549L;
-
 	private static final Logger LOGGER = LoggerFactory.getLogger(UsuarioPage.class);
 	private static final String MSG_CREATE_USER = "SUCCESS CREATED USER - APP";
 	private static final String MSG_UPDATE_USER = "UPDATED USER INFO - APP";
+	private final Session session = getContablesSessionBean().getSessionTrace();
 	private List<SelectItem> roles;
 	private List<SelectItem> sucursales;
 	private List<SelectItem> perfiles;
-//	Session session = getContablesSessionBean().getSessionTrace();
-	protected final SuperDAO actividadSuperDAO = new SuperDAO(null);
+
 	private String rolSel;
 
-	@PostConstruct
-	public void init() throws Exception {
-		super._init();
-		setDatos(new ArrayList<>(_buscarTodos()));
-		consultarListasAuxiliares();
-		LOGGER.info("postConstructo datos {}", getDatos().size());
-	}
-	/**
-	 * <p>
-	 * Construct a new Page bean instance.
-	 * </p>
-	 */
 	public UsuarioPage() {
 		super(true);
+		LOGGER.info("{} Gestión de Usuarios", session.getTraceLog());
 	}
 
 	@Override
@@ -72,11 +56,11 @@ public class UsuarioPage extends GeneralParametrosPage<UsuarioModulo, UsuarioMod
 		return new UsuarioModulo();
 	}
 
-//	@Override
-//	protected void _init() {
-//		super._init();
-//		consultarListasAuxiliares();
-//	}
+	@Override
+	protected void _init() {
+		super._init();
+	consultarListasAuxiliares();
+	}
 
 	/**
 	 * Funcion llamada cuando se desea inciar la edicion o creacion de un nuevo usuario
@@ -86,19 +70,16 @@ public class UsuarioPage extends GeneralParametrosPage<UsuarioModulo, UsuarioMod
 	public String buscarUsuarioAltamira() {
 		String codEmpleado = objActual.getCodigoEmpleado().trim();
 		objActual = new UsuarioModulo();
+		LOGGER.info("{} Buscando Usuario de ALTAMIRA: {}", session.getTraceLog(), codEmpleado);
 		try {
 			if (codEmpleado.length() > 0) {
 
-
-				LOGGER.info("{} Buscar codigo usuario: {}", codEmpleado );
-
-				// se busca el usuario altamira
 				UsuarioAltamira usuarioAltamira = new UsuarioAltamira();
 				usuarioAltamira.setCodigoEmpleado(codEmpleado);
 				usuarioAltamira = cargaAltamiraManager.getUsuarioAltamira(usuarioAltamira);
 
-				// si se encuentra el usuario
 				if (usuarioAltamira != null && usuarioAltamira.getCodigoEmpleado().trim().length() > 0) {
+					LOGGER.info("{} Se recupero información para usuario de ALTAMIRA {} ", session.getTraceLog(), usuarioAltamira.getCodigoEmpleado());
 					objActual.setCodigoEmpleado(usuarioAltamira.getCodigoEmpleado());
 					objActual.setCodigoPerfilModificado(usuarioAltamira.getCodigoPerfil());
 					objActual.setNombrePerfilModificado(usuarioAltamira.getNombrePerfil());
@@ -109,25 +90,21 @@ public class UsuarioPage extends GeneralParametrosPage<UsuarioModulo, UsuarioMod
 					setRolSel("-1");
 				} else {
 					objActual.setCodigoEmpleado(codEmpleado);
+					LOGGER.info("{} Sin información para usuario de ALTAMIRA {}", session.getTraceLog(), codEmpleado);
 					nuevoMensaje(FacesMessage.SEVERITY_WARN, "No se encontró el usuario asociado al código " + codEmpleado);
 				}
 			} else {
 				nuevoMensaje(FacesMessage.SEVERITY_WARN, "Debe indicar el código completo del usuario a buscar");
+
 			}
 			consultarListasAuxiliares();
 
 		} catch (Exception e) {
-			LOGGER.error("{} Error al inicializar el editor de creacin de usuarios" ,  e);
-			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al inicializar el editor de creación de usuarios");
+			LOGGER.error("{} Error recuperando la información para usuario de ALTAMIRA: {}" , session.getTraceLog(), codEmpleado, e);
+			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al cargar formulario para crear usuario");
 		}
 		return null;
 	}
-
-	/**
-	 * Se realiza el proceso de busqueda completo
-	 * 
-	 * @return
-	 */
 	@Override
 	public Collection<UsuarioModulo> _buscarTodos() throws Exception {
 		return notasContablesManager.getUsuariosModulo();
@@ -141,7 +118,7 @@ public class UsuarioPage extends GeneralParametrosPage<UsuarioModulo, UsuarioMod
 	@Override
 	public Collection<UsuarioModulo> _buscarPorFiltro() throws Exception {
 		if(!param.isEmpty()){
-			LOGGER.info("{} Buscar usuario: {}", param );
+			LOGGER.info("{} Buscando Usuario: {}", session.getTraceLog(), param);
 		}
 		return notasContablesManager.searchUsuarioModulo(param);
 	}
@@ -153,6 +130,7 @@ public class UsuarioPage extends GeneralParametrosPage<UsuarioModulo, UsuarioMod
 	 */
 	@Override
 	protected void _editar() throws Exception {
+		LOGGER.info("{} Iniciando Proceso Creación de Usuario - Por: {}", session.getTraceLog(), session.getUser());
 		objActual = new UsuarioModulo();
 		rolSel = "-1";
 		consultarListasAuxiliares();
@@ -162,10 +140,9 @@ public class UsuarioPage extends GeneralParametrosPage<UsuarioModulo, UsuarioMod
 	protected boolean _guardar() throws Exception {
 		try {
 			objActual.setCodigoRol(Integer.valueOf(rolSel));
-			// si se trata de un usuario nuevo
 			if (objActual.getCodigo().intValue() <= 0) {
 
-				// chambonazo para tapar las brutalidades del desarrollador anterior... (como no normaliza los datos??????)
+				LOGGER.info("{} Creando Usuario: {} | Ejecutado por: {}", session.getTraceLog(), objActual.getCodigoEmpleado(), session.getUser());
 				for (SelectItem s : sucursales) {
 					if (s.getValue().toString().equals(objActual.getCodigoAreaModificado())) {
 						objActual.setNombreAreaModificado(s.getLabel().substring(s.getLabel().indexOf("- ") + 2));
@@ -179,15 +156,17 @@ public class UsuarioPage extends GeneralParametrosPage<UsuarioModulo, UsuarioMod
 					}
 				}
 				objActual.setLastUpdate(MSG_CREATE_USER);
-				LOGGER.info("{} Creacin de Usuario: {} - {} | Rol {} | {}",  objActual.getCodigoEmpleado(), objActual.getCodigo(), objActual.getCodigoRol(), objActual.getLastUpdate());
 				notasContablesManager.addUsuarioModulo(objActual, getCodUsuarioLogueado());
+				LOGGER.info("{} Usuario: {} Creado Correctamente - ID: {} - Rol: {} | Ejecutado por: {}", session.getTraceLog(), objActual.getCodigoEmpleado(), objActual.getCodigo(), objActual.getCodigoRol(), session.getUser());
 			}
 
 		else{
+				LOGGER.info("{} Editando Usuario: {} | Ejecutado por: {}", session.getTraceLog(), objActual.getCodigoEmpleado(), session.getUser());
 				UsuarioModulo usuarioModuloOriginal = notasContablesManager.getUsuarioModulo(objActual);
-				// si se trata de un cambio de rol
+				LOGGER.info("{} Usuario: ({}) {} - Datos iniciales: Area {} - Perfil {} - Rol {}", session.getTraceLog(), usuarioModuloOriginal.getCodigo(), usuarioModuloOriginal.getCodigoEmpleado(), usuarioModuloOriginal.getCodigoAreaModificado(), usuarioModuloOriginal.getCodigoPerfilModificado(), usuarioModuloOriginal.getCodigoRol());
 				boolean cambioRol = usuarioModuloOriginal.getCodigoRol().intValue() != objActual.getCodigoRol().intValue();
-				if (cambioRol && !canUpdate()) {// si se trata de una actualizacion y el cambio es valido
+				if (cambioRol && !canUpdate()) {
+					LOGGER.warn("{} NO es posible realizar la edición del Usuario: {}", session.getTraceLog(), objActual.getCodigoEmpleado());
 					return false;
 				}else{
 					for (SelectItem s : sucursales) {
@@ -204,14 +183,17 @@ public class UsuarioPage extends GeneralParametrosPage<UsuarioModulo, UsuarioMod
 					}
 					canUpdate();
 				}
+				LOGGER.info("{} Usuario: ({}) {} - Datos Finales: Area {} - Perfil {} - Rol {}", session.getTraceLog(), objActual.getCodigo(), objActual.getCodigoEmpleado(), objActual.getCodigoAreaModificado(), objActual.getCodigoPerfilModificado(), objActual.getCodigoRol());
+				if (!objActual.getEMailModificado().equalsIgnoreCase(usuarioModuloOriginal.getEMailModificado())) {
+					LOGGER.info("{} Usuario: {} - Email Modificado", session.getTraceLog(), objActual.getCodigoEmpleado());
+				}
 				objActual.setLastUpdate(MSG_UPDATE_USER);
-				LOGGER.info("{} Actualizacin de Usuario: {} - {} | Rol {} | {}",  objActual.getCodigoEmpleado(), objActual.getCodigo(), objActual.getCodigoRol(), objActual.getLastUpdate() );
 				notasContablesManager.updateUsuarioModulo(objActual, getCodUsuarioLogueado(), cambioRol && objActual.getEstado().equals("A"));
+				LOGGER.info("{} Usuario: {} Actualizado Correctamente - ID: {} - Rol: {} | Ejecutado por: {}", session.getTraceLog(), objActual.getCodigoEmpleado(), objActual.getCodigo(), objActual.getCodigoRol(), session.getUser());
 			}
-				//}
 				return true;
 		} catch (Exception e) {
-			LOGGER.error("{} Ya existe el usuario con el mismo Rol: {}", objActual.getCodigo() + " "+objActual.getCodigoEmpleado() + " "+objActual.getCodigoRol() +" "+ objActual.getNombreAreaModificado()  , e);
+			LOGGER.error("{} Falla al intentar Crear o Editar el Usuario: {} con Rol: {}", session.getTraceLog(), objActual.getCodigoEmpleado(), objActual.getCodigoRol(), e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Ya existe el usuario con el mismo Rol");
 			return false;
 		}
@@ -265,21 +247,12 @@ public class UsuarioPage extends GeneralParametrosPage<UsuarioModulo, UsuarioMod
 	public boolean _cambiarEstado() throws Exception {
 		try {
 			String status = objActual.getEstado().equals("A") ? "ACTIVO" : "INACTIVO";
-			
-			LOGGER.info("objActual.getNombreAreaModificado() --->" + objActual.getNombreAreaModificado());
-			LOGGER.info("objActual.getEstado() ---> " + objActual.getEstado());
-			LOGGER.info("status-->" + status);
-			LOGGER.info("objActual.getCodigoEmpleado()-->" + objActual.getCodigoEmpleado());
-			LOGGER.info("objActual.getCodigo()-->" + objActual.getCodigo());
-			LOGGER.info("getCodUsuarioLogueado() --->" + getCodUsuarioLogueado());
-			
 			notasContablesManager.changeEstadoUsuarioModulo(notasContablesManager.getUsuarioModulo(objActual), getCodUsuarioLogueado());
-			
-			//setDatos(new ArrayList<>(_buscarTodos()));
+			LOGGER.info("{} Usuario: ({}) {} Se ha Modificado el Estado a: {}  | Ejecutado por: {}", session.getTraceLog(), objActual.getCodigo(), objActual.getCodigoEmpleado(), status, session.getUser());
 			return true;
 			
 		} catch (Exception e) {
-			LOGGER.error("{} No existe otro Usario con el mismo Rol para este Centro ",  e);
+			LOGGER.error("{} Falla al intentar cambiar el Estado del Usuario: {} ", session.getTraceLog(), objActual.getCodigoEmpleado(), e);
 			nuevoMensaje(FacesMessage.SEVERITY_WARN, "No existe otro Usario con el mismo Rol para este Centro");
 		}
 		
@@ -288,7 +261,8 @@ public class UsuarioPage extends GeneralParametrosPage<UsuarioModulo, UsuarioMod
 
 	@Override
 	public boolean _borrar() throws Exception {
-		LOGGER.info("{} Borra usuario: {}", objActual.getCodigo() + " "+objActual.getCodigoEmpleado() + " "+objActual.getCodigoRol() );
+		LOGGER.info("{} Eliminación de Usuario: {} ID: {} Rol: {} | Ejecutado por: {}", session.getTraceLog(), objActual.getCodigoEmpleado(), objActual.getCodigo(), objActual.getCodigoRol(), session.getUser());
+		LOGGER.error("{} NO es Permitido Eliminar Usuario: {} - Rol: {} - WARNING", session.getTraceLog(), objActual.getCodigoEmpleado(), objActual.getCodigoRol());
 		notasContablesManager.deleteUsuarioModulo(objActual, getCodUsuarioLogueado());
 		return true;
 	}
@@ -300,8 +274,7 @@ public class UsuarioPage extends GeneralParametrosPage<UsuarioModulo, UsuarioMod
 				sucursales = getSelectItemList(notasContablesManager.getCV(Sucursal.class));
 				perfiles = getSelectItemList(notasContablesManager.getCV(Perfil.class));
 			} catch (Exception e) {
-				//e.printStackTrace();
-				LOGGER.error("{} Error al inicializar el mdulo de administración de usuarios ",  e);
+				LOGGER.error("{} Error al obtener la información de ROLES, SUCURSALES y PERFILES", session.getTraceLog(), e);
 				nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al inicializar el mdulo de administración de usuarios");
 			}
 //		}

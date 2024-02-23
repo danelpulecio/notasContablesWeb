@@ -411,7 +411,7 @@
                             <p:outputLabel value="Clase de Riesgo" styleClass="propertie" style="width : 150px;"/>
                             <h:selectOneMenu
                                     value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoClaseRiesgo}"
-                                    style="width : 50%" immediate="true">
+                                    style="width : 50%" >
 
                                 <p:ajax event="change" listener="#{notaContableLibrePage.buscarPerdidasCuenta}"
                                         update="IdPanelPartida,panelClaseRiesgoN2Libre"/>
@@ -424,7 +424,7 @@
                             <p:outputPanel id="IdPanelPartida">
                                 <h:selectOneMenu
                                         value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoTipoPerdida}"
-                                        style="width : 50%" immediate="true">
+                                        style="width : 50%">
                                     <f:selectItem itemValue="" itemLabel="Seleccione una opcion"/>
                                     <f:selectItems value="#{notaContableLibrePage.perdidaOper}"/>
                                 </h:selectOneMenu>
@@ -432,7 +432,7 @@
 
                             <p:outputLabel value="Proceso" styleClass="propertie" style="width : 150px;"/>
                             <h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoProceso}"
-                                             style="width : 50%" immediate="true">
+                                             style="width : 50%">
                                 <f:selectItem itemValue="" itemLabel="Seleccione una opcion"/>
                                 <f:selectItems value="#{notaContableLibrePage.procesos}"/>
                             </h:selectOneMenu>
@@ -440,7 +440,7 @@
                             <p:outputLabel value="Línea Operativa" styleClass="propertie" style="width : 150px;"/>
                             <h:selectOneMenu
                                     value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoLineaOperativa}"
-                                    style="width : 50%" immediate="true">
+                                    style="width : 50%">
                                 <f:selectItem itemValue="" itemLabel="Seleccione una opcion"/>
                                 <f:selectItems value="#{notaContableLibrePage.lineasOperativas}"/>
                             </h:selectOneMenu>
@@ -448,7 +448,7 @@
                             <p:outputLabel value="Producto Afectado" styleClass="propertie"/>
                             <h:selectOneMenu
                                     value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoProducto}"
-                                    style="width : 50%" immediate="true">
+                                    style="width : 50%">
 
                                 <p:ajax event="change" listener="#{notaContableLibrePage.buscarSubProducto}"
                                         update="panelSubProductoLibre"/>
@@ -461,7 +461,7 @@
                             <p:outputPanel id="panelSubProductoLibre">
                                 <h:selectOneMenu
                                         value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoSubProducto}"
-                                        style="width : 50%" immediate="true">
+                                        style="width : 50%">
                                     <f:selectItem itemValue="" itemLabel="Seleccione una opcion"/>
                                     <f:selectItems value="#{notaContableLibrePage.subProductos}"/>
                                 </h:selectOneMenu>
@@ -469,7 +469,7 @@
 
                             <p:outputLabel styleClass="propertie" value="Canal" style="width : 150px;"/>
                             <h:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoCanal}"
-                                             style="width : 50%" immediate="true">
+                                             style="width : 50%" >
 
                                 <p:ajax event="change" listener="#{notaContableLibrePage.buscarSubCanal}"
                                         update="panelSubCanalLibre"/>
@@ -482,7 +482,7 @@
                             <p:outputPanel id="panelSubCanalLibre">
                                 <h:selectOneMenu
                                         value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoSubCanal}"
-                                        style="width : 50%" immediate="true">
+                                        style="width : 50%">
                                     <f:selectItem itemValue="" itemLabel="Seleccione una opcion"/>
                                     <f:selectItems value="#{notaContableLibrePage.subcanales}"/>
                                 </h:selectOneMenu>
@@ -492,7 +492,7 @@
                             <p:outputPanel id="panelClaseRiesgoN2Libre">
                                 <h:selectOneMenu
                                         value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoClaseRiesgoN2}"
-                                        style="width : 50%" immediate="true">
+                                        style="width : 50%">
 
                                     <p:ajax event="change" listener="#{notaContableLibrePage.buscarClaseRiesgoN3}"
                                             update="panelClaseRiesgoN3Libre"/>
@@ -506,21 +506,23 @@
                             <p:outputPanel id="panelClaseRiesgoN3Libre">
                                 <h:selectOneMenu
                                         value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoClaseRiesgoN3}"
-                                        style="width : 50%" immediate="true">
+                                        style="width : 50%">
                                     <f:selectItem itemValue="" itemLabel="Seleccione una opcion"/>
                                     <f:selectItems value="#{notaContableLibrePage.clasesRiesgoN3}"/>
                                 </h:selectOneMenu>
                             </p:outputPanel>
                             <p:outputLabel styleClass="bold" value="Nombre Outsourcing" style="width : 150px;"/>
-                            <h:inputTextarea
-                                    value="#{notaContableLibrePage.temaActual.riesgoOperacional.nombreOutSource}"
-                                    style="width : 50%;" cols="50" rows="2"/>
+                            <h:inputTextarea value="#{notaContableLibrePage.temaActual.riesgoOperacional.nombreOutSource}"
+                                             onkeyup="this.value=removeAccents(this.value,6)"
+                                             onkeypress="return characterRestriction(event,6)"
+                                             onmouseup="this.value=removeAccents(this.value,6)"
+                                             onmousedown="this.value=removeAccents(this.value,6)"
+                                             style="width : 50%;" cols="50" rows="2" />
                             <p:outputLabel styleClass="bold" value="Aplica Recuperación" style="width : 150px;"
                                            rendered="#{notaContableLibrePage.aplicaRecuperacion}"/>
                             <h:selectOneMenu
                                     value="#{notaContableLibrePage.temaActual.riesgoOperacional.appRecuperacion}"
-                                    style="width : 50%" rendered="#{notaContableLibrePage.aplicaRecuperacion}"
-                                    immediate="true">
+                                    style="width : 50%" rendered="#{notaContableLibrePage.aplicaRecuperacion}">
 
                                 <p:ajax event="change" immediate="true"
                                         update="panelFechaTxtLibre, panelFechaValueLibre, panelHoraTxtLibre, panelHoraValueLibre, panelTipoRLibre, panelTipoRecValueLibre"/>
@@ -679,9 +681,11 @@
 
                 <h:outputText value="Descripción" styleClass="propertie"/>
                 <p:inputText value="#{notaContableLibrePage.nota.descripcion}"
-                             onkeyup="this.value=removeAccents(this.value)"
-                             onkeypress="return characterRestriction(event)" maxlength="500" immediate="true"
-                             size="80"/>
+                             onkeyup="this.value=removeAccents(this.value,6)"
+                             onkeypress="return characterRestriction(event,6)"
+                             onmouseup="this.value=removeAccents(this.value,6)"
+                             onmousedown="this.value=removeAccents(this.value,6)"
+                             maxlength="500" immediate="true" size="80" />
 
                 <p:commandButton actionListener="#{notaContableLibrePage.editar}"
                                  oncomplete="PF('editorRegLibre').show()"
