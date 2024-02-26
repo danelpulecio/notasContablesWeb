@@ -362,9 +362,11 @@
 
                             <h:outputText styleClass="bold" value="Descripción"/>
                             <p:inputTextarea value="#{notaContablePage.temaActual.descripcion}"
-                                             onkeyup="this.value=removeAccents(this.value)"
-                                             onkeypress="return characterRestriction(event)" maxlength="500" cols="139"
-                                             rows="2"/>
+                                             onkeyup="this.value=removeAccents(this.value,6)"
+                                             onkeypress="return characterRestriction(event,6)"
+                                             onmouseup="this.value=removeAccents(this.value,6)"
+                                             onmousedown="this.value=removeAccents(this.value,6)"
+                                             maxlength="500" cols="139" rows="2" />
 
                             <h:outputText styleClass="bold" value="Divisa"/>
                             <h:panelGrid columns="4" width="100%" cellpadding="0" cellspacing="0">
@@ -876,7 +878,10 @@
 
                             <h:outputText styleClass="bold" value="Nombre Outsourcing"/>
                             <p:inputTextarea value="#{notaContablePage.temaActual.riesgoOperacional.nombreOutSource}"
-                                             cols="50" rows="2"/>
+                                             onkeyup="this.value=removeAccents(this.value,6)"
+                                             onkeypress="return characterRestriction(event,6)"
+                                             onmouseup="this.value=removeAccents(this.value,6)"
+                                             onmousedown="this.value=removeAccents(this.value,6)"  cols="50" rows="2" />
 
                             <h:outputText styleClass="bold" value="Aplica Recuperación"
                                           rendered="#{notaContablePage.aplicaRecuperacion}"/>

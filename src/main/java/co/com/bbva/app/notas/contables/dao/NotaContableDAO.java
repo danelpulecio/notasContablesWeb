@@ -45,7 +45,7 @@ public class NotaContableDAO extends CommonSeqDAO<NotaContable> {
 
 	private final static String QUERY_EXPORT = "  SELECT  \r\n" +
 			"     '0013'  \r\n" +
-			"    || TRANSLATE(REPLACE(REPLACE(RPAD(NVL(k.DESCRIPCION, ' '), 500, ' '), chr(13), ' '), chr(10), ' '),'ѿ?!', 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN      ') \r\n" +
+			"    || TRANSLATE(REPLACE(REPLACE(RPAD(NVL(k.DESCRIPCION, ' '), 500, ' '), chr(13), ' '), chr(10), ' '),'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160), 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ') \r\n" +
 			"    || LPAD('0','12','0')   \r\n" +
 			"    || LPAD(' ','12',' ')   \r\n" +
 			"    || LPAD(' ','1',' ')    \r\n" +
@@ -72,7 +72,7 @@ public class NotaContableDAO extends CommonSeqDAO<NotaContable> {
 			"    || LPAD('0' ,'18','0')  \r\n" +
 			"    || RPAD('BBVA COLOMBIA','60',' ')  \r\n" +
 			"    || LPAD(NVL(g.CODIGO,'0'),'4','0')  \r\n" +
-			"    || TRANSLATE(RPAD(NVL(g.NOMBRE,' '),'80',' '),'ѿ?!', 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN      ')  \r\n" +
+			"    || TRANSLATE(RPAD(NVL(g.NOMBRE,' '),'80',' '),'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160), 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ')  \r\n" +
 			"    ||	LPAD (' ','40',' ')  \r\n" +
 			"    ||	LPAD (' ','40',' ')  \r\n" +
 			"    ||	LPAD (' ','40',' ')  \r\n" +
@@ -85,25 +85,25 @@ public class NotaContableDAO extends CommonSeqDAO<NotaContable> {
 			"    || LPAD((SELECT TO_CHAR(sysdate, 'HH24:MI:SS') FROM DUAL),'8',' ')  \r\n" +
 			"    || LPAD(NVL(TO_CHAR(r.FECHA_RECUPERACION,'YYYY-MM-DD'),' '),'10',' ')  \r\n" +
 			"    || CASE WHEN ((r.HORA_RECUPERACION IS NOT NULL) AND (SUBSTR(NVL(r.HORA_RECUPERACION,LPAD(' ','8',' ')) ,7,3)) = 'P.M') THEN LPAD(TO_CHAR(to_number(SUBSTR(NVL(r.HORA_RECUPERACION,LPAD(' ','8',' ')),0,2))+12)||(SUBSTR(NVL(r.HORA_RECUPERACION,LPAD(' ','8',' ')) ,3,4))||'00','8','0') WHEN ((r.HORA_RECUPERACION IS NOT NULL) AND (SUBSTR(NVL(r.HORA_RECUPERACION,LPAD(' ','8',' ')) ,7,3)) = 'A.M') THEN LPAD(TO_CHAR(to_number(SUBSTR(r.HORA_RECUPERACION,0,2)))||(SUBSTR(r.HORA_RECUPERACION ,3,4))||'00','8','0') ELSE LPAD(' ','8',' ') END   \r\n" +
-			"    || TRANSLATE(RPAD(NVL(h.NOMBRE,' '),'40',' '),'ѿ?!', 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN      ')  \r\n" +
-			"    || TRANSLATE(RPAD(NVL(j.NOMBRE,' '),'40',' '),'ѿ?!', 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN      ')  \r\n" +
+			"    || TRANSLATE(RPAD(NVL(h.NOMBRE,' '),'40',' '),'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160), 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ')  \r\n" +
+			"    || TRANSLATE(RPAD(NVL(j.NOMBRE,' '),'40',' '),'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160), 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ')  \r\n" +
 			"    || CASE WHEN (k.CONTRATO1 IS NOT NULL) THEN LPAD(k.CONTRATO1,'30','0') ELSE LPAD('0','30','0') END  \r\n" +
 			"    || CASE WHEN (k.CONTRATO2 IS NOT NULL) THEN LPAD(k.CONTRATO2,'30','0') ELSE LPAD('0','30','0') END  \r\n" +
 			"    || CASE WHEN (k.NUMERO_IDENTIFICACION1 IS NOT NULL) THEN LPAD(k.NUMERO_IDENTIFICACION1,'15','0') ELSE LPAD('0','15','0') END  \r\n" +
 			"    || CASE WHEN (k.NUMERO_IDENTIFICACION2 IS NOT NULL) THEN LPAD(k.NUMERO_IDENTIFICACION2,'15','0') ELSE LPAD('0','15','0') END  \r\n" +
-			"    || CASE WHEN (k.NOMBRE_COMPLETO1 IS NOT NULL) THEN TRANSLATE(RPAD(k.NOMBRE_COMPLETO1,'80',' '),'ѿ?!', 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN      ') ELSE LPAD(' ','80',' ') END  \r\n" +
-			"    || CASE WHEN (k.NOMBRE_COMPLETO2 IS NOT NULL) THEN TRANSLATE(RPAD(k.NOMBRE_COMPLETO2,'80',' '),'ѿ?!', 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN      ') ELSE LPAD(' ','80',' ') END  \r\n" +
+			"    || CASE WHEN (k.NOMBRE_COMPLETO1 IS NOT NULL) THEN TRANSLATE(RPAD(k.NOMBRE_COMPLETO1,'80',' '),'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160), 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ') ELSE LPAD(' ','80',' ') END  \r\n" +
+			"    || CASE WHEN (k.NOMBRE_COMPLETO2 IS NOT NULL) THEN TRANSLATE(RPAD(k.NOMBRE_COMPLETO2,'80',' '),'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160), 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ') ELSE LPAD(' ','80',' ') END  \r\n" +
 			"    || RPAD('NOTAS CONTABLES','40',' ')  \r\n" +
-			"    || TRANSLATE(RPAD(NVL(m.DESCRIPCION,' '),'40',' '),'ѿ?!', 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN      ')  \r\n" +
+			"    || TRANSLATE(RPAD(NVL(m.DESCRIPCION,' '),'40',' '),'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160), 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ')  \r\n" +
 			"    || CASE WHEN (proce.CODIGO_PROCESO_ARIS IS NOT NULL) THEN LPAD(proce.CODIGO_PROCESO_ARIS,'10',' ') ELSE LPAD(' ','10',' ') END  \r\n" +
-			"    || TRANSLATE(RPAD(NVL(proce.NOMBRE,' '),'200',' '),'ѿ?!', 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN      ')  \r\n" +
+			"    || TRANSLATE(RPAD(NVL(proce.NOMBRE,' '),'200',' '),'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160), 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ')  \r\n" +
 			"    || CASE WHEN k.NATURALEZA1='H'  THEN '-'||(REPLACE(REPLACE(LTRIM(TO_CHAR(r.IMPORTE_TOTAL, '000000000000000D00')), ',', ''), '.', '')) ELSE '+'||(REPLACE(REPLACE(LTRIM(TO_CHAR(r.IMPORTE_TOTAL, '000000000000000D00')), ',', ''), '.', '')) END  \r\n" +
-			"    || TRANSLATE(REPLACE(REPLACE(RPAD(NVL(r.NOMBRE_OUTSOURCE, ' '), 60, ' '), chr(13), ' '), chr(10), ' '),'ѿ?!', 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN      ')  \r\n" +
+			"    || TRANSLATE(REPLACE(REPLACE(RPAD(NVL(r.NOMBRE_OUTSOURCE, ' '), 60, ' '), chr(13), ' '), chr(10), ' '),'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160), 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ')  \r\n" +
 			"    ||LPAD('0','15','0')  \r\n" +
 			"    ||LPAD(NVL(q.CODIGO,' '),'4',' ')  \r\n" +
-			"    ||TRANSLATE(RPAD(NVL(q.NOMBRE,' '),'150',' '),'ѿ?!', 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN      ')  \r\n" +
+			"    ||TRANSLATE(RPAD(NVL(q.NOMBRE,' '),'150',' '),'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160), 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ')  \r\n" +
 			"    ||LPAD(NVL(s.CODIGO,' '),'6',' ')  \r\n" +
-			"    ||TRANSLATE(RPAD(NVL(s.NOMBRE,' '),'150',' '),'ѿ?!', 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN      ')  \r\n" +
+			"    ||TRANSLATE(RPAD(NVL(s.NOMBRE,' '),'150',' '),'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160), 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ')  \r\n" +
 			"    ||LPAD(NVL(k.CODIGO_DIVISA,' '),'3',' ')  \r\n" +
 			"    ||LPAD(NVL(a.NUMERO_RADICACION,'0'),'15','0')  \r\n" +
 			"    FROM CONTABLES.NC_NOTA_CONTABLE a   \r\n" +
@@ -124,7 +124,7 @@ public class NotaContableDAO extends CommonSeqDAO<NotaContable> {
 			"    union all  \r\n" +
 			"    SELECT  \r\n" +
 			"    '0013'  \r\n" +
-			"  || TRANSLATE(REPLACE(REPLACE(RPAD(NVL(a.DESCRIPCION, ' '), 500, ' '), chr(13), ' '), chr(10), ' '),'ѿ?!', 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN      ')  \r\n" +
+			"  || TRANSLATE(REPLACE(REPLACE(RPAD(NVL(a.DESCRIPCION, ' '), 500, ' '), chr(13), ' '), chr(10), ' '),'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160), 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ')  \r\n" +
 			"  || LPAD('0','12','0')  \r\n" +
 			"  || LPAD(' ','12',' ')  \r\n" +
 			"  || LPAD(' ','1',' ')  \r\n" +
@@ -151,7 +151,7 @@ public class NotaContableDAO extends CommonSeqDAO<NotaContable> {
 			"  || LPAD('0' ,'18','0')  \r\n" +
 			"  || RPAD('BBVA COLOMBIA','60',' ')  \r\n" +
 			"  || LPAD(NVL(g.CODIGO,'0'),'4','0')  \r\n" +
-			"  || TRANSLATE(RPAD(NVL(g.NOMBRE,' '),'80',' '),'ѿ?!', 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN      ')  \r\n" +
+			"  || TRANSLATE(RPAD(NVL(g.NOMBRE,' '),'80',' '),'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160), 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ')  \r\n" +
 			"  || LPAD (' ','40',' ')  \r\n" +
 			"  || LPAD (' ','40',' ')  \r\n" +
 			"  || LPAD (' ','40',' ')  \r\n" +
@@ -164,25 +164,25 @@ public class NotaContableDAO extends CommonSeqDAO<NotaContable> {
 			"  || LPAD((SELECT TO_CHAR(sysdate, 'HH24:MI:SS') FROM DUAL),'8',' ')  \r\n" +
 			"  || LPAD(NVL(TO_CHAR(r.FECHA_RECUPERACION,'YYYY-MM-DD'),' '),'10',' ')   \r\n" +
 			"  || CASE WHEN ((r.HORA_RECUPERACION IS NOT NULL) AND (SUBSTR(NVL(r.HORA_RECUPERACION,LPAD(' ','8',' ')) ,7,3)) = 'P.M') THEN LPAD(TO_CHAR(to_number(SUBSTR(NVL(r.HORA_RECUPERACION,LPAD(' ','8',' ')),0,2))+12)||(SUBSTR(NVL(r.HORA_RECUPERACION,LPAD(' ','8',' ')) ,3,4))||'00','8','0') WHEN ((r.HORA_RECUPERACION IS NOT NULL) AND (SUBSTR(NVL(r.HORA_RECUPERACION,LPAD(' ','8',' ')) ,7,3)) = 'A.M') THEN LPAD(TO_CHAR(to_number(SUBSTR(r.HORA_RECUPERACION,0,2)))||(SUBSTR(r.HORA_RECUPERACION ,3,4))||'00','8','0') ELSE LPAD(' ','8',' ') END  \r\n" +
-			"  || TRANSLATE(RPAD(NVL(h.NOMBRE,' '),'40',' '),'ѿ?!', 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN      ')  \r\n" +
-			"  || TRANSLATE(RPAD(NVL(j.NOMBRE,' '),'40',' '),'ѿ?!', 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN      ')  \r\n" +
+			"  || TRANSLATE(RPAD(NVL(h.NOMBRE,' '),'40',' '),'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160), 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ')  \r\n" +
+			"  || TRANSLATE(RPAD(NVL(j.NOMBRE,' '),'40',' '),'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160), 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ')  \r\n" +
 			"  || CASE WHEN (k.CONTRATO IS NOT NULL) THEN LPAD(k.CONTRATO,'30','0') ELSE LPAD('0','30','0') END  \r\n" +
 			"  || LPAD('0','30','0')  \r\n" +
 			"  || CASE WHEN (k.NUMERO_IDENTIFICACION IS NOT NULL) THEN LPAD(k.NUMERO_IDENTIFICACION,'15','0') ELSE LPAD('0','15','0') END   \r\n" +
 			"  || LPAD('0','15','0')  \r\n" +
-			"  || CASE WHEN (k.NOMBRE_COMPLETO IS NOT NULL) THEN TRANSLATE(RPAD(k.NOMBRE_COMPLETO,'80',' '),'ѿ?!', 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN      ') ELSE LPAD(' ','80',' ') END  \r\n" +
+			"  || CASE WHEN (k.NOMBRE_COMPLETO IS NOT NULL) THEN TRANSLATE(RPAD(k.NOMBRE_COMPLETO,'80',' '),'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160), 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ') ELSE LPAD(' ','80',' ') END  \r\n" +
 			"  || LPAD(' ','80',' ')  \r\n" +
 			"  || RPAD('NOTAS CONTABLES','40',' ')  \r\n" +
-			"  || TRANSLATE(RPAD(NVL(m.DESCRIPCION,' '),'40',' '),'ѿ?!', 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN      ')  \r\n" +
+			"  || TRANSLATE(RPAD(NVL(m.DESCRIPCION,' '),'40',' '),'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160), 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ')  \r\n" +
 			"  || CASE WHEN (proce.CODIGO_PROCESO_ARIS IS NOT NULL) THEN LPAD(proce.CODIGO_PROCESO_ARIS,'10',' ') ELSE LPAD(' ','10',' ')  END  \r\n" +
-			"  || TRANSLATE(RPAD(proce.NOMBRE,'200',' '),'ѿ?!', 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN      ')  \r\n" +
+			"  || TRANSLATE(RPAD(proce.NOMBRE,'200',' '),'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160), 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ')  \r\n" +
 			"  || CASE WHEN k.NATURALEZA='H'  THEN '-'||(REPLACE(REPLACE(LTRIM(TO_CHAR(r.IMPORTE_TOTAL, '000000000000000D00')), ',', ''), '.', '')) ELSE '+'||(REPLACE(REPLACE(LTRIM(TO_CHAR(r.IMPORTE_TOTAL, '000000000000000D00')), ',', ''), '.', '')) END  \r\n" +
-			"  || TRANSLATE(REPLACE(REPLACE(RPAD(NVL(r.NOMBRE_OUTSOURCE, ' '), 60, ' '), chr(13), ' '), chr(10), ' '),'ѿ?!', 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN      ')  \r\n" +
+			"  || TRANSLATE(REPLACE(REPLACE(RPAD(NVL(r.NOMBRE_OUTSOURCE, ' '), 60, ' '), chr(13), ' '), chr(10), ' '),'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160), 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ')  \r\n" +
 			"  || LPAD('0','15','0')  \r\n" +
 			"  || LPAD(NVL(q.CODIGO,' '),'4',' ')  \r\n" +
-			"  || TRANSLATE(RPAD(NVL(q.NOMBRE,' '),'150',' '),'ѿ?!', 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN      ')  \r\n" +
+			"  || TRANSLATE(RPAD(NVL(q.NOMBRE,' '),'150',' '),'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160), 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ')  \r\n" +
 			"  || LPAD(NVL(s.CODIGO,' '),'6',' ')  \r\n" +
-			"  || TRANSLATE(RPAD(NVL(s.NOMBRE,' '),'150',' '),'ѿ?!', 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN      ')  \r\n" +
+			"  || TRANSLATE(RPAD(NVL(s.NOMBRE,' '),'150',' '),'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160), 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ')  \r\n" +
 			"  || LPAD(NVL(k.CODIGO_DIVISA,' '),'3',' ')  \r\n" +
 			"  || LPAD(NVL(a.NUMERO_RADICACION,'0'),'15','0')   \r\n" +
 			"  FROM CONTABLES.NC_NOTA_CONTABLE a  \r\n" +
@@ -203,7 +203,7 @@ public class NotaContableDAO extends CommonSeqDAO<NotaContable> {
 			"    union all  \r\n" +
 			"  SELECT  \r\n" +
 			"     '0013'  \r\n" +
-			"    || TRANSLATE(REPLACE(REPLACE(RPAD(NVL(k.DESCRIPCION, ' '), 500, ' '), chr(13), ' '), chr(10), ' '),'ѿ?!', 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN      ') \r\n" +
+			"    || TRANSLATE(REPLACE(REPLACE(RPAD(NVL(k.DESCRIPCION, ' '), 500, ' '), chr(13), ' '), chr(10), ' '),'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160), 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ') \r\n" +
 			"    || LPAD('0','12','0')   \r\n" +
 			"    || LPAD(' ','12',' ')   \r\n" +
 			"    || LPAD(' ','1',' ')    \r\n" +
@@ -230,7 +230,7 @@ public class NotaContableDAO extends CommonSeqDAO<NotaContable> {
 			"    || LPAD('0' ,'18','0')  \r\n" +
 			"    || RPAD('BBVA COLOMBIA','60',' ')  \r\n" +
 			"    || LPAD(NVL(g.CODIGO,'0'),'4','0')  \r\n" +
-			"    || TRANSLATE(RPAD(NVL(g.NOMBRE,' '),'80',' '),'ѿ?!', 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN      ')  \r\n" +
+			"    || TRANSLATE(RPAD(NVL(g.NOMBRE,' '),'80',' '),'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160), 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ')  \r\n" +
 			"    ||	LPAD (' ','40',' ')  \r\n" +
 			"    ||	LPAD (' ','40',' ')  \r\n" +
 			"    ||	LPAD (' ','40',' ')  \r\n" +
@@ -243,25 +243,25 @@ public class NotaContableDAO extends CommonSeqDAO<NotaContable> {
 			"    || LPAD((SELECT TO_CHAR(sysdate, 'HH24:MI:SS') FROM DUAL),'8',' ')  \r\n" +
 			"    || LPAD(NVL(TO_CHAR(r.FECHA_RECUPERACION,'YYYY-MM-DD'),' '),'10',' ')  \r\n" +
 			"    || CASE WHEN ((r.HORA_RECUPERACION IS NOT NULL) AND (SUBSTR(NVL(r.HORA_RECUPERACION,LPAD(' ','8',' ')) ,7,3)) = 'P.M') THEN LPAD(TO_CHAR(to_number(SUBSTR(NVL(r.HORA_RECUPERACION,LPAD(' ','8',' ')),0,2))+12)||(SUBSTR(NVL(r.HORA_RECUPERACION,LPAD(' ','8',' ')) ,3,4))||'00','8','0') WHEN ((r.HORA_RECUPERACION IS NOT NULL) AND (SUBSTR(NVL(r.HORA_RECUPERACION,LPAD(' ','8',' ')) ,7,3)) = 'A.M') THEN LPAD(TO_CHAR(to_number(SUBSTR(r.HORA_RECUPERACION,0,2)))||(SUBSTR(r.HORA_RECUPERACION ,3,4))||'00','8','0') ELSE LPAD(' ','8',' ') END   \r\n" +
-			"    || TRANSLATE(RPAD(NVL(h.NOMBRE,' '),'40',' '),'ѿ?!', 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN      ')  \r\n" +
-			"    || TRANSLATE(RPAD(NVL(j.NOMBRE,' '),'40',' '),'ѿ?!', 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN      ')  \r\n" +
+			"    || TRANSLATE(RPAD(NVL(h.NOMBRE,' '),'40',' '),'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160), 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ')  \r\n" +
+			"    || TRANSLATE(RPAD(NVL(j.NOMBRE,' '),'40',' '),'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160), 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ')  \r\n" +
 			"    || CASE WHEN (k.CONTRATO1 IS NOT NULL) THEN LPAD(k.CONTRATO1,'30','0') ELSE LPAD('0','30','0') END  \r\n" +
 			"    || CASE WHEN (k.CONTRATO2 IS NOT NULL) THEN LPAD(k.CONTRATO2,'30','0') ELSE LPAD('0','30','0') END  \r\n" +
 			"    || CASE WHEN (k.NUMERO_IDENTIFICACION1 IS NOT NULL) THEN LPAD(k.NUMERO_IDENTIFICACION1,'15','0') ELSE LPAD('0','15','0') END  \r\n" +
 			"    || CASE WHEN (k.NUMERO_IDENTIFICACION2 IS NOT NULL) THEN LPAD(k.NUMERO_IDENTIFICACION2,'15','0') ELSE LPAD('0','15','0') END  \r\n" +
-			"    || CASE WHEN (k.NOMBRE_COMPLETO1 IS NOT NULL) THEN TRANSLATE(RPAD(k.NOMBRE_COMPLETO1,'80',' '),'ѿ?!', 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN      ') ELSE LPAD(' ','80',' ') END  \r\n" +
-			"    || CASE WHEN (k.NOMBRE_COMPLETO2 IS NOT NULL) THEN TRANSLATE(RPAD(k.NOMBRE_COMPLETO2,'80',' '),'ѿ?!', 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN      ') ELSE LPAD(' ','80',' ') END  \r\n" +
+			"    || CASE WHEN (k.NOMBRE_COMPLETO1 IS NOT NULL) THEN TRANSLATE(RPAD(k.NOMBRE_COMPLETO1,'80',' '),'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160), 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ') ELSE LPAD(' ','80',' ') END  \r\n" +
+			"    || CASE WHEN (k.NOMBRE_COMPLETO2 IS NOT NULL) THEN TRANSLATE(RPAD(k.NOMBRE_COMPLETO2,'80',' '),'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160), 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ') ELSE LPAD(' ','80',' ') END  \r\n" +
 			"    || RPAD('NOTAS CONTABLES','40',' ')  \r\n" +
-			"    || TRANSLATE(RPAD(NVL(m.DESCRIPCION,' '),'40',' '),'ѿ?!', 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN      ')  \r\n" +
+			"    || TRANSLATE(RPAD(NVL(m.DESCRIPCION,' '),'40',' '),'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160), 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ')  \r\n" +
 			"    || CASE WHEN (proce.CODIGO_PROCESO_ARIS IS NOT NULL) THEN LPAD(proce.CODIGO_PROCESO_ARIS,'10',' ') ELSE LPAD(' ','10',' ') END  \r\n" +
-			"    || TRANSLATE(RPAD(NVL(proce.NOMBRE,' '),'200',' '),'ѿ?!', 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN      ')  \r\n" +
+			"    || TRANSLATE(RPAD(NVL(proce.NOMBRE,' '),'200',' '),'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160), 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ')  \r\n" +
 			"    || CASE WHEN k.NATURALEZA2='H'  THEN '-'||(REPLACE(REPLACE(LTRIM(TO_CHAR(r.IMPORTE_TOTAL, '000000000000000D00')), ',', ''), '.', '')) ELSE '+'||(REPLACE(REPLACE(LTRIM(TO_CHAR(r.IMPORTE_TOTAL, '000000000000000D00')), ',', ''), '.', '')) END  \r\n" +
-			"    || TRANSLATE(REPLACE(REPLACE(RPAD(NVL(r.NOMBRE_OUTSOURCE, ' '), 60, ' '), chr(13), ' '), chr(10), ' '),'ѿ?!', 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN      ')  \r\n" +
+			"    || TRANSLATE(REPLACE(REPLACE(RPAD(NVL(r.NOMBRE_OUTSOURCE, ' '), 60, ' '), chr(13), ' '), chr(10), ' '),'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160), 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ')  \r\n" +
 			"    ||LPAD('0','15','0')  \r\n" +
 			"    ||LPAD(NVL(q.CODIGO,' '),'4',' ')  \r\n" +
-			"    ||TRANSLATE(RPAD(NVL(q.NOMBRE,' '),'150',' '),'ѿ?!', 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN      ')  \r\n" +
+			"    ||TRANSLATE(RPAD(NVL(q.NOMBRE,' '),'150',' '),'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160), 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ')  \r\n" +
 			"    ||LPAD(NVL(s.CODIGO,' '),'6',' ')  \r\n" +
-			"    ||TRANSLATE(RPAD(NVL(s.NOMBRE,' '),'150',' '),'ѿ?!', 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN      ')  \r\n" +
+			"    ||TRANSLATE(RPAD(NVL(s.NOMBRE,' '),'150',' '),'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160), 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ')  \r\n" +
 			"    ||LPAD(NVL(k.CODIGO_DIVISA,' '),'3',' ')  \r\n" +
 			"    ||LPAD(NVL(a.NUMERO_RADICACION,'0'),'15','0')  \r\n" +
 			"    FROM CONTABLES.NC_NOTA_CONTABLE a   \r\n" +

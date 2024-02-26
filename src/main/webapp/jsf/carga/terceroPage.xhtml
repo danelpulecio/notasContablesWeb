@@ -20,7 +20,6 @@
 
             <!-- Campos del formulario -->
             <h:panelGrid columns="1" width="820" id="informacion" cellpadding="0" cellspacing="0">
-
                     <div style="height:auto; overflow:auto; width: 100%;">
                         <h:panelGrid columns="1" width="800">
                             <h:panelGrid columns="8" width="100%" id="identificacion">
@@ -36,32 +35,59 @@
                                 </h:selectOneMenu>
 
                                 <h:outputText value="Número de Identificación" style="width: 100px;"/>
-                                <p:inputText value="#{terceroPage.objActual.numeroIdentificacion}" maxlength="15"/>
+                                <p:inputText value="#{terceroPage.objActual.numeroIdentificacion}"
+                                             onkeypress="return characterRestriction(event,1)"
+                                             onkeyup="this.value=removeAccents(this.value,1)"
+                                             onmouseup="this.value=removeAccents(this.value,1)"
+                                             onmousedown="this.value=removeAccents(this.value,1)" maxlength="15"/>
 
                                 <h:outputText value="Dígito de Verificación" style="width: 100px;"
                                               rendered="#{terceroPage.objActual.tipoIdentificacion eq 3 or terceroPage.objActual.tipoIdentificacion eq 9}"/>
                                 <p:inputText value="#{terceroPage.objActual.digitoVerificacion}" maxlength="1" size="1"
                                              onkeypress="return onKeyPressNumbersNoZero(event,this.value);"
+                                             onkeyup="this.value=removeAccents(this.value,4)"
+                                             onmouseup="this.value=removeAccents(this.value,4)"
+                                             onmousedown="this.value=removeAccents(this.value,4)"
                                              rendered="#{terceroPage.objActual.tipoIdentificacion eq 3 or terceroPage.objActual.tipoIdentificacion eq 9}"/>
                             </h:panelGrid>
 
                             <h:panelGrid columns="8" width="100%">
                                 <h:outputText value="Primer Apellido" style="width: 100px;"/>
-                                <p:inputText value="#{terceroPage.objActual.primerApellido}" maxlength="20"/>
+                                <p:inputText value="#{terceroPage.objActual.primerApellido}" onkeypress="return characterRestriction(event,2)"
+                                             onkeyup="this.value=removeAccents(this.value,2)" onmouseup="this.value=removeAccents(this.value,2)"
+                                             onmousedown="this.value=removeAccents(this.value,2)"  maxlength="20"/>
                                 <h:outputText value="Segundo Apellido" style="width: 100px;"/>
-                                <p:inputText value="#{terceroPage.objActual.segundoApellido}" maxlength="20"/>
+                                <p:inputText value="#{terceroPage.objActual.segundoApellido}"
+                                             onkeypress="return characterRestriction(event,2)"
+                                             onkeyup="this.value=removeAccents(this.value,2)"
+                                             onmouseup="this.value=removeAccents(this.value,2)"
+                                             onmousedown="this.value=removeAccents(this.value,2)"  maxlength="20"/>
                                 <h:outputText value="Primer Nombre" style="width: 100px;"/>
-                                <p:inputText value="#{terceroPage.objActual.primerNombre}" maxlength="20"/>
+                                <p:inputText value="#{terceroPage.objActual.primerNombre}"
+                                             onkeypress="return characterRestriction(event,2)"
+                                             onkeyup="this.value=removeAccents(this.value,2)"
+                                             onmouseup="this.value=removeAccents(this.value,2)"
+                                             onmousedown="this.value=removeAccents(this.value,2)" maxlength="20"/>
                                 <h:outputText value="Segundo Nombre" style="width: 100px;"/>
-                                <p:inputText value="#{terceroPage.objActual.segundoNombre}" maxlength="20"/>
+                                <p:inputText value="#{terceroPage.objActual.segundoNombre}"
+                                             onkeypress="return characterRestriction(event,2)"
+                                             onkeyup="this.value=removeAccents(this.value,2)"
+                                             onmouseup="this.value=removeAccents(this.value,2)"
+                                             onmousedown="this.value=removeAccents(this.value,2)"  maxlength="20"/>
                             </h:panelGrid>
 
                             <h:panelGrid columns="4" width="100%">
                                 <h:outputText value="Correo electrónico"/>
-                                <p:inputText value="#{terceroPage.objActual.EMail}" maxlength="40"/>
+                                <p:inputText value="#{terceroPage.objActual.EMail}" onkeypress="return characterRestriction(event,3)"
+                                             onkeyup="this.value=removeAccents(this.value,3)"
+                                             onmouseup="this.value=removeAccents(this.value,3)"
+                                             onmousedown="this.value=removeAccents(this.value,3)" maxlength="40"/>
 
                                 <h:outputText value="Dirección"/>
-                                <p:inputText value="#{terceroPage.objActual.direccion}" maxlength="50"/>
+                                <p:inputText value="#{terceroPage.objActual.direccion}" onkeypress="return characterRestriction(event,5)"
+                                             onkeyup="this.value=removeAccents(this.value,5)"
+                                             onmouseup="this.value=removeAccents(this.value,5)"
+                                             onmousedown="this.value=removeAccents(this.value,5)" maxlength="50"/>
 
                             </h:panelGrid>
                             <h:panelGrid columns="6" width="100%">
@@ -105,12 +131,21 @@
                                     </h:selectOneMenu>
                                     <p:inputText value="#{terceroPage.objActual.indicativo}" maxlength="3"
                                                  rendered="#{!terceroPage.mostrarListaIndicativos1}"
-                                                 onkeypress="return onKeyPressNumbersNoZero(event,this.value);"/>
+                                                 onkeypress="return onKeyPressNumbersNoZero(event,this.value);"
+                                                 onkeyup="this.value=removeAccents(this.value,4)"
+                                                 onmouseup="this.value=removeAccents(this.value,4)"
+                                                 onmousedown="this.value=removeAccents(this.value,4)" />
                                 </h:panelGroup>
                                 <h:outputText value="Teléfono" style="width: 50px;"/>
-                                <p:inputText value="#{terceroPage.objActual.telefono}" maxlength="7"/>
+                                <p:inputText value="#{terceroPage.objActual.telefono}" onkeypress="return characterRestriction(event,4)"
+                                             onkeyup="this.value=removeAccents(this.value,4)"
+                                             onmouseup="this.value=removeAccents(this.value,4)"
+                                             onmousedown="this.value=removeAccents(this.value,4)"  maxlength="7"/>
                                 <h:outputText value="Extensión" style="width: 50px;"/>
-                                <p:inputText value="#{terceroPage.objActual.extension}" maxlength="3"
+                                <p:inputText value="#{terceroPage.objActual.extension}" onkeypress="return characterRestriction(event,4)"
+                                             onkeyup="this.value=removeAccents(this.value,4)"
+                                             onmouseup="this.value=removeAccents(this.value,4)"
+                                             onmousedown="this.value=removeAccents(this.value,4)" maxlength="3"
                                              converter="javax.faces.Integer" style="width: 50px;"/>
 
                                 <h:outputText value="Tipo de Teléfono 2" style="width: 50px;"/>
@@ -124,20 +159,33 @@
                                                      rendered="#{terceroPage.mostrarListaIndicativos2}">
                                         <f:selectItems value="#{terceroPage.indicativos}"/>
                                     </h:selectOneMenu>
-                                    <p:inputText value="#{terceroPage.objActual.indicativo2}" maxlength="3"
+                                    <p:inputText value="#{terceroPage.objActual.indicativo2}"  maxlength="3"
                                                  rendered="#{!terceroPage.mostrarListaIndicativos2}"
-                                                 onkeypress="return onKeyPressNumbersNoZero(event,this.value);"/>
+                                                 onkeypress="return onKeyPressNumbersNoZero(event,this.value);"
+                                                 onkeyup="this.value=removeAccents(this.value,4)"
+                                                 onmouseup="this.value=removeAccents(this.value,4)"
+                                                 onmousedown="this.value=removeAccents(this.value,4)" />
                                 </h:panelGroup>
                                 <h:outputText value="Teléfono 2" style="width: 50px;"/>
-                                <p:inputText value="#{terceroPage.objActual.telefono2}" maxlength="7"/>
+                                <p:inputText value="#{terceroPage.objActual.telefono2}" onkeypress="return characterRestriction(event,4)"
+                                             onkeyup="this.value=removeAccents(this.value,4)"
+                                             onmouseup="this.value=removeAccents(this.value,4)"
+                                             onmousedown="this.value=removeAccents(this.value,4)" maxlength="7"/>
                                 <h:outputText value="Extensión 2" style="width: 50px;"/>
-                                <p:inputText value="#{terceroPage.objActual.extension2}" maxlength="3"
+                                <p:inputText value="#{terceroPage.objActual.extension2}"
+                                             onkeypress="return characterRestriction(event,4)"
+                                             onkeyup="this.value=removeAccents(this.value,4)"
+                                             onmouseup="this.value=removeAccents(this.value,4)"
+                                             onmousedown="this.value=removeAccents(this.value,4)" maxlength="3"
                                              converter="javax.faces.Integer" style="width: 50px;"/>
                             </h:panelGrid>
                             <h:panelGrid columns="2" width="100%">
                                 <h:outputText value="Actividad Económica"/>
                                 <h:panelGrid columns="2" id="tipoActividad">
-                                    <p:inputText value="#{terceroPage.actividad}" size="70"/>
+                                    <p:inputText value="#{terceroPage.actividad}"  onkeypress="return characterRestriction(event,7)"
+                                                 onkeyup="this.value=removeAccents(this.value,7)"
+                                                 onmouseup="this.value=removeAccents(this.value,7)"
+                                                 onmousedown="this.value=removeAccents(this.value,7)"  size="70"/>
                                     <p:commandButton action="#{terceroPage.buscarActividades}"
                                                      value="Buscar Actividad" update="tipoActividad"/>
                                     <h:selectOneMenu value="#{terceroPage.objActual.actividadEconomica}"

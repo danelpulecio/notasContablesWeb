@@ -72,16 +72,84 @@
                 return text;
             }
 
-            function removeAccents(texto) {
-                var retorno = texto.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
-                return retorno.replace(/[^\w\s,._-]/gi, ' ');
-            }
+            function removeAccents(texto,argumento) {
 
-            function characterRestriction(e) {
-                var k;
-                document.all ? k = e.key : k = e.which;
-                return ((k &gt; 64 &amp;&amp; k &lt; 91) || (k &gt; 96 &amp;&amp; k &lt; 123) || k == 46 || k == 44 || k == 45 || k == 95 || k == 8 || k == 225 || k == 193 || k == 233 || k == 237 || k == 243 || k == 201 || k == 250 || k == 205 || k == 211 || k == 209 || k == 241 || k == 218 || k == 32 || (k &gt;= 48 &amp;&amp; k &lt;= 57));
-            }
+   if (argumento==1) /* Numero Identificacion */
+   {
+      var retorno = texto.normalize('NFD').replace(/[\u0300-\u036f]/g,"");
+      return retorno.replace(/[^\w\s]/gi, ' ');
+   }
+   else if(argumento==2)    /* Nombres y Apellidos */
+   {
+      var retorno = texto.normalize('NFD').replace(/[\u0300-\u036f]/g,"");;
+      return retorno.replace(/[^\w\s,\u00D1._-]/gi, ' ');
+   }
+   else if(argumento==3)  /* Correo */
+   {
+      var retorno = texto.normalize('NFD').replace(/[\u0300-\u036f]/g,"");
+      return retorno.replace(/[^\w\s,\u0040._-]/gi, ' ');
+   }
+   else if(argumento==4) /* Indicativo */
+   {
+      var retorno = texto.normalize('NFD').replace(/[\u0300-\u036f]/g,"");
+      return retorno.replace(/[^\d]/gi, ' ');
+   }
+   else if(argumento==5) /* Direccion */
+   {
+      var retorno = texto.normalize('NFD').replace(/[\u0300-\u036f]/g,"");
+      return retorno.replace(/[^\w\s,._-]/gi, ' ');
+   }
+   else if (argumento==6)  /* Descripcion y Outsourcing */
+   {
+      var retorno = texto.normalize('NFD').replace(/[\u0300-\u036f]/g,"");
+      return retorno.replace(/[^\w\s,._-]/gi, ' ');
+   }
+   else if (argumento==7)  /* Actividad Economica*/
+   {
+      var retorno = texto.normalize('NFD').replace(/[\u0300-\u036f]/g,"");
+      return retorno.replace(/[^\w]/gi, ' ');
+   }
+   else
+   {
+      var retorno = texto.normalize('NFD').replace(/[\u0300-\u036f]/g,"");
+      return retorno.replace(/[^\w\s,._-]/gi, ' ');
+   }
+}
+
+function characterRestriction(e,texto) { var k; document.all ? k = e.key : k = e.which;
+   if (argumento==1)
+   {
+      return ((k &gt; 64 &amp;&amp; k &lt; 91) || (k &gt; 96 &amp;&amp; k &lt; 123) || k == 8 || (k &gt;= 48 &amp;&amp; k &lt;= 57));
+   }
+   else if (argumento==2)
+   {
+      return ((k &gt; 64 &amp;&amp; k &lt; 91) || (k &gt; 96 &amp;&amp; k &lt; 123) || k == 8 || k == 209 || k == 241 || k == 32 || (k &gt;= 48 &amp;&amp; k &lt;= 57));
+   }
+   else if (argumento==3)
+   {
+      return ((k &gt; 63 &amp;&amp; k &lt; 91) || (k &gt; 96 &amp;&amp; k &lt; 123)  || k == 46  || k == 44 || k == 45 || k == 95 || k == 8 ||  k == 32 || (k &gt;= 48 &amp;&amp; k &lt;= 57));
+   }
+   else if (argumento==4)
+   {
+         return ( k == 8 || (k &gt;= 48 &amp;&amp; k &lt;= 57));
+   }
+   else if (argumento==5)
+   {
+      return ((k &gt; 64 &amp;&amp; k &lt; 91) || (k &gt; 96 &amp;&amp; k &lt; 123)  || k == 46  || k == 44 || k == 45 || k == 95 || k == 8 ||  k == 32 || (k &gt;= 48 &amp;&amp; k &lt;= 57));
+   }
+   else if (argumento==6)
+   {
+      return ((k &gt; 64 &amp;&amp; k &lt; 91) || (k &gt; 96 &amp;&amp; k &lt; 123)  || k == 46  || k == 44 || k == 45 || k == 95 || k == 8 || k == 225 || k == 193 || k == 233 || k == 237 || k == 243  || k == 201 || k == 250 || k == 205 || k == 211 || k == 209 || k == 241 || k == 218 || k == 32 || (k &gt;= 48 &amp;&amp; k &lt;= 57));
+   }
+   else if (argumento==7)
+   {
+      return ((k &gt; 64 &amp;&amp; k &lt; 91) || (k &gt; 96 &amp;&amp; k &lt; 123)  || k == 46  || k == 44 || k == 45 || k == 95 || k == 8 || k == 225 || k == 193 || k == 233 || k == 237 || k == 243  || k == 201 || k == 250 || k == 205 || k == 211  || k == 218 || k == 32 || (k &gt;= 48 &amp;&amp; k &lt;= 57));
+   }
+   else
+   {
+      return ((k &gt; 64 &amp;&amp; k &lt; 91) || (k &gt; 96 &amp;&amp; k &lt; 123)  || k == 46  || k == 44 || k == 45 || k == 95 || k == 8 || k == 225 || k == 193 || k == 233 || k == 237 || k == 243  || k == 201 || k == 250 || k == 205 || k == 211 || k == 209 || k == 241 || k == 218 || k == 32 || (k &gt;= 48 &amp;&amp; k &lt;= 57));
+   }
+}
 
 
             function isDayEnabled(day){

@@ -44,11 +44,11 @@ public class TerceroDAO extends CommonDAO<Tercero> {
 			" RPAD(NVL(TIPO_IDENTIFICACION, '0'), 1 , ' ')   \n" + //
 			" || RPAD(NVL(NUMERO_IDENTIFICACION, '0'), 15 , ' ')  \n" + //
 			" || RPAD(NVL(DIGITO_VERIFICACION, '0'), 1 , ' ')  \n" + //
-			" || TRANSLATE(RPAD(NVL(PRIMER_APELLIDO, ' '), 20 , ' ') ,'ѿ?','aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN    ')  \n" + //
-			" || TRANSLATE(RPAD(NVL(SEGUNDO_APELLIDO, ' '), 20 , ' ') ,'ѿ?','aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN    ')   \n" + //
-			" || TRANSLATE(RPAD(NVL(PRIMER_NOMBRE, ' '), 20 , ' ')  ,'ѿ?','aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN    ')   \n" + //
-			" || TRANSLATE(RPAD(NVL(SEGUNDO_APELLIDO, ' '), 20 , ' ') ,'ѿ?','aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN    ')   \n" + //
-			" || TRANSLATE(RPAD(NVL(DIRECCION, ' '), 50 , ' ')  ,'ѿ?','aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN    ')   \n" + //
+			" || TRANSLATE(RPAD(NVL(PRIMER_APELLIDO, ' '), 20 , ' ') ,'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160),'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ')  \n" + //
+			" || TRANSLATE(RPAD(NVL(SEGUNDO_APELLIDO, ' '), 20 , ' ') ,'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160),'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ')   \n" + //
+			" || TRANSLATE(RPAD(NVL(PRIMER_NOMBRE, ' '), 20 , ' ')  ,'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160),'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ')   \n" + //
+			" || TRANSLATE(RPAD(NVL(SEGUNDO_APELLIDO, ' '), 20 , ' ') ,'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160),'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ')   \n" + //
+			" || TRANSLATE(RPAD(NVL(DIRECCION, ' '), 50 , ' ')  ,'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160),'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ')   \n" + //
 			" || LPAD(NVL(DEPARTAMENTO, '0'), 2 , '0') \n" + //
 			" || LPAD(NVL(MUNICIPIO, '0'), 3 , '0') \n" + //
 			" || LPAD(NVL(ACTIVIDAD_ECONOMICA, '0'), 5 , '0')\n" + //
@@ -63,7 +63,7 @@ public class TerceroDAO extends CommonDAO<Tercero> {
 			" || LPAD(NVL(EXTENSION2, '0'), 3 , '0') \n" + //
 			" || 'COP'   \n" + // RPAD(NVL(MONEDA, ' '), 3 , ' ')
 			" || ' '  \n" + //
-			" || TRANSLATE(RPAD(NVL(EMAIL, ' '), 40 , ' '),'ѿ?','aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN    ') \n" + //
+			" || TRANSLATE(RPAD(NVL(EMAIL, ' '), 40 , ' '),'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160),'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ') \n" + //
 			" || '     ' \n" + //
 			" || RPAD(NVL(SEXO, ' '), 1 , ' ') \n" + //
 			" FROM NC_TERCERO WHERE INGRESO_APP = 1  ";

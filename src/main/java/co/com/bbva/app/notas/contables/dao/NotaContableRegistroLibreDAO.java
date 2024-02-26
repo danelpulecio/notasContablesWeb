@@ -51,7 +51,7 @@ public class NotaContableRegistroLibreDAO extends CommonSeqDAO<NotaContableRegis
 			" || LPAD(NVL(NCTR.CODIGO_PROCESO, '0'), 6, '0')  \n" + // 
 			" || LPAD(NVL(NCTR.CODIGO_LINEA_OPER, '0'), 4, '0')  \n" + // 
 			/**" || REPLACE(REPLACE(RPAD(NVL(NC.DESCRIPCION, '0'), 30, ' '), chr(13), ' '), chr(10), ' ')   \n" + **/
-			" || TRANSLATE(REPLACE(REPLACE(RPAD(NVL(NC.DESCRIPCION, '0'), 30, ' '), chr(13), ' '), chr(10), ' '),'ѿ?!', 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN      ')   \n" + //
+			" || TRANSLATE(REPLACE(REPLACE(RPAD(NVL(NC.DESCRIPCION, '0'), 30, ' '), chr(13), ' '), chr(10), ' '),'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇñÑ¿?°ª¡!·'||CHR(160), 'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUCnN        ')   \n" + //
 			" || SUBSTR(NC.NUMERO_RADICACION, 5)  \n" + // 
 			" FROM NC_NOTA_CONT_REGISTRO_LIBRE NCC  \n" + // 
 			" LEFT JOIN NC_NOTA_CONTABLE NC ON NCC.CODIGO_NOTA_CONTABLE = NC.CODIGO \n" + //  
