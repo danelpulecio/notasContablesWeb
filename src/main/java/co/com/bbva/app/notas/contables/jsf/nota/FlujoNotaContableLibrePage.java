@@ -192,7 +192,7 @@ public class FlujoNotaContableLibrePage extends GeneralPage implements IPages {
 			String errorMessage = notasContablesManager.verificarUsuarioSiguienteActividad(instancia, getCodUsuarioLogueado(), true, 0);
 			// Codigo nuevo
 			// Para Resolver incidencia que ocurre cuando una
-			// Nota Contable Es Aprobada en una misma sesin; en diferentes Navegadores Web
+			// Nota Contable Es Aprobada en una misma sesión; en diferentes Navegadores Web
 			// lo que ocasionaba que se saltara de Estado; y subsequentemente que notas no
 			// se encuentren en Altamira
 			this.chequeoReasignacion = true;
@@ -263,7 +263,7 @@ public class FlujoNotaContableLibrePage extends GeneralPage implements IPages {
 
 			// Codigo nuevo
 			// Para Resolver incidencia que ocurre cuando una
-			// Nota Contable Es Aprobada en una misma sesin; en diferentes Navegadores Web
+			// Nota Contable Es Aprobada en una misma sesión; en diferentes Navegadores Web
 			// lo que ocasionaba que se saltara de Estado; y subsequentemente que notas no
 			// se encuentren en Altamira
 			this.chequeoReasignacion = true;
@@ -342,7 +342,7 @@ public class FlujoNotaContableLibrePage extends GeneralPage implements IPages {
 
 			// Codigo nuevo
 			// Para Resolver incidencia que ocurre cuando una
-			// Nota Contable Es Aprobada en una misma sesin; en diferentes Navegadores Web
+			// Nota Contable Es Aprobada en una misma sesión; en diferentes Navegadores Web
 			// lo que ocasionaba que se saltara de Estado; y subsequentemente que notas no
 			// se encuentren en Altamira
 			this.chequeoReasignacion = true;

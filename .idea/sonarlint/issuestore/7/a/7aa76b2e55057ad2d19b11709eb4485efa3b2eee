@@ -2,13 +2,13 @@
 `	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(ª¤ùÿÿÿÿÿ
 Z	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(Øãä6
 [	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(¼ŸÍÒ
-\	java:S112•"FDefine and throw a dedicated exception instead of using a generic one.(§½‚×
-\	java:S112·"FDefine and throw a dedicated exception instead of using a generic one.(§½‚×
-\	java:S112ç"FDefine and throw a dedicated exception instead of using a generic one.(§½‚×
-\	java:S112˜"FDefine and throw a dedicated exception instead of using a generic one.(§½‚×
-\	java:S112¹"FDefine and throw a dedicated exception instead of using a generic one.(§½‚×
+a	java:S112•"FDefine and throw a dedicated exception instead of using a generic one.(ççûĞÿÿÿÿÿ
+a	java:S112·"FDefine and throw a dedicated exception instead of using a generic one.(ççûĞÿÿÿÿÿ
+a	java:S112ç"FDefine and throw a dedicated exception instead of using a generic one.(ççûĞÿÿÿÿÿ
+a	java:S112˜"FDefine and throw a dedicated exception instead of using a generic one.(ççûĞÿÿÿÿÿ
+a	java:S112¹"FDefine and throw a dedicated exception instead of using a generic one.(ççûĞÿÿÿÿÿ
 \	java:S112Ó"FDefine and throw a dedicated exception instead of using a generic one.(ÈÕß£
-\	java:S112Ø"FDefine and throw a dedicated exception instead of using a generic one.(§½‚×
+a	java:S112Ø"FDefine and throw a dedicated exception instead of using a generic one.(ççûĞÿÿÿÿÿ
 a	java:S112í"FDefine and throw a dedicated exception instead of using a generic one.(Ï˜œøÿÿÿÿ
 a	java:S112ì"FDefine and throw a dedicated exception instead of using a generic one.(ëêìîÿÿÿÿÿ
 u
@@ -19,8 +19,8 @@ u
 java:S2293å"YReplace the type specification in this constructor call with the diamond operator ("<>").(€’Ñ¶ûÿÿÿÿ
 p
 java:S2293¯"YReplace the type specification in this constructor call with the diamond operator ("<>").(…âô
-
-java:S1192•"yDefine a constant instead of duplicating this literal "Se debe definir la llave primaria para realizar la accin" 6 times.(§½‚×
+
+java:S1192•"{Define a constant instead of duplicating this literal "Se debe definir la llave primaria para realizar la acciÃ³n" 6 times.(ççûĞÿÿÿÿÿ8´È¾ßÜ1
 f
 java:S1192É"JDefine a constant instead of duplicating this literal "duracin: " 5 times.(¢±§şÿÿÿÿ
 K
@@ -35,9 +35,9 @@ java:S1643*"Use a StringBuilder instead.(îÕ†¤ıÿÿÿÿ
 k
 java:S2095À"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(î•Íüÿÿÿÿ
 k
-java:S2095£"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(î•Íüÿÿÿÿ
-k
 java:S2095Š"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(î•Íüÿÿÿÿ
+k
+java:S2095£"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(î•Íüÿÿÿÿ
 |	java:S116"gRename this field "sql_SELECT_MAX_CODE_SENTENCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ğ·şÈ
 |	java:S116"gRename this field "sql_SELECT_SEQUENCE_SENTENCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(á¸Ÿ®
 x	java:S116"^Rename this field "sql_INSERT_SENTENCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÔÏóÿÿÿÿÿ

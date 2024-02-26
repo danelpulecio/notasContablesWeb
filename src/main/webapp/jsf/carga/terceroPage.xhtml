@@ -20,8 +20,8 @@
 
             <!-- Campos del formulario -->
             <h:panelGrid columns="1" width="820" id="informacion" cellpadding="0" cellspacing="0">
-                <h:outputText>
-                    <div style="height:320px; overflow:auto; width: 100%;">
+
+                    <div style="height:auto; overflow:auto; width: 100%;">
                         <h:panelGrid columns="1" width="800">
                             <h:panelGrid columns="8" width="100%" id="identificacion">
                                 <h:outputText value="Sexo"/>
@@ -66,7 +66,7 @@
                             </h:panelGrid>
                             <h:panelGrid columns="6" width="100%">
                                 <h:outputText value="País"/>
-                                <h:selectOneMenu value="#{terceroPage.objActual.pais}" immediate="false">
+                                <h:selectOneMenu value="#{terceroPage.objActual.pais}" >
                                     <f:selectItems value="#{terceroPage.paises}"/>
                                     <p:ajax event="change" listener="#{terceroPage.cargarDepartamentos}"
                                             update="municipioPanel,departamentosPanel"/>
@@ -75,7 +75,7 @@
                                 <h:panelGroup id="departamentosPanel">
                                     <h:outputText value="Departamento" rendered="#{!empty terceroPage.departamentos}"/>
                                     <h:selectOneMenu value="#{terceroPage.objActual.departamento}"
-                                                     rendered="#{!empty terceroPage.departamentos}" immediate="false">
+                                                     rendered="#{!empty terceroPage.departamentos}" >
                                         <f:selectItems value="#{terceroPage.departamentos}"/>
                                         <p:ajax event="change" action="#{terceroPage.cargarMunicipios }"
                                                 update="municipioPanel"/>
@@ -152,7 +152,6 @@
                         </h:panelGrid>
                         <ui:include src="../../common/mensajes.xhtml"/>
                     </div>
-                </h:outputText>
                 <!-- Seccion de mensajes y botones de envio y cancelacion-->
                 <h:panelGrid columns="2" styleClass="center" width="100%">
                     <p:commandButton action="#{terceroPage.guardar}" update="informacion,lista" value="Guardar"

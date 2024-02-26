@@ -13,21 +13,22 @@
                 <p:panel style="width: 850px">
                     <h:panelGrid columns="1" width="850px"><h1 align="center">Errores de Validación</h1></h:panelGrid>
 
-                    <h:panelGrid columns="2" id="filtro">
-                        <p:inputText id="param" value="#{errorValidacionPage.param}"/>
-                        <p:commandButton action="#{errorValidacionPage.buscarPorFiltro}" value="Filtrar" ajax="false"/>
-                    </h:panelGrid>
-
                     <ui:include src="../../common/mensajes.xhtml"/>
 
                     <!--	Tabla de resultados	-->
 <!--                    <h:panelGrid columns="1" width="850px" style="align:center;" id="lista">-->
 
                         <p:dataTable value="#{errorValidacionPage.datos}" var="dato" id="table" rowIndexVar="rowIndex"
+                                     rendered="#{! empty errorValidacionPage.datos}"
                                      widgetVar="economicActivityTable" rows="15" paginator="true"
                                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                      currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
                                      paginatorPosition="top">
+
+                            <f:facet name="header">
+                                <p:inputText id="param" value="#{errorValidacionPage.param}"/>
+                                <p:commandButton actionListener="#{errorValidacionPage.buscarPorFiltro}" value="Filtrar" update="table" />
+                            </f:facet>
                             <p:column headerText="Fila" width="20px">
                                 <h:outputText value="#{rowIndex+1}"/>
 

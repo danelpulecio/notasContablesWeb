@@ -12,10 +12,6 @@
                 <p:panel style="width: 850px">
                     <h:panelGrid columns="1" width="850px"><h1 align="center">Departamentos</h1></h:panelGrid>
 
-                    <h:panelGrid columns="2" id="filtro">
-                        <p:inputText id="param" value="#{departamentoPage.param}"/>
-                        <p:commandButton action="#{departamentoPage.buscarPorFiltro}" value="Filtrar" ajax="false"/>
-                    </h:panelGrid>
                     <ui:include src="../../common/mensajes.xhtml"/>
 
                     <!--	Tabla de resultados	-->
@@ -26,6 +22,10 @@
                                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                      currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
                                      paginatorPosition="top">
+                            <f:facet name="header">
+                                <p:inputText id="param" value="#{departamentoPage.param}"/>
+                                <p:commandButton actionListener="#{departamentoPage.buscarPorFiltro}" value="Filtrar" update="table" />
+                            </f:facet>
                             <p:column headerText="Fila">
                                 <h:outputText value="#{rowIndex+1}"/>
                             </p:column>

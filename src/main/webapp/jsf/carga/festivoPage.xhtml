@@ -19,6 +19,7 @@
 <!--                    <h:panelGrid columns="1" width="850px" style="align:center;" id="lista">-->
 
                         <p:dataTable value="#{festivoPage.datos}" var="dato" id="table" rowIndexVar="rowIndex"
+                                     rendered="#{! empty festivoPage.datos}"
                                      widgetVar="economicActivityTable" rows="15" paginator="true"
                                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                      currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"

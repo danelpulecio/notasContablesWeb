@@ -1,67 +1,69 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-				xmlns:ui="http://java.sun.com/jsf/facelets"
-				xmlns:h="http://java.sun.com/jsf/html"
-				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:p="http://primefaces.org/ui"
-				template="../../common/template.xhtml">
-	<ui:param name="title" value="Usuarios Altamira Inactivos" />
-	<ui:define name="body">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../common/template.xhtml">
+    <ui:param name="title" value="Usuarios Altamira Inactivos"/>
+    <ui:define name="body">
 
-		<!--Filtro de busqueda	-->
-		<div style="width: 1200px;">
+        <!--Filtro de busqueda	-->
+        <div style="width: 1200px;">
+            <p:panel style="width: 1200px">
+                <h:panelGrid columns="1" width="100%">
+                    <h1 align="center">Usuarios Altamira Inactivos</h1>
+                </h:panelGrid>
 
-			<h:panelGrid columns="1" width="100%">
-				<h1 align="center">Usuarios Altamira Inactivos</h1>
-			</h:panelGrid>
 
+                <h:panelGroup id="msgUsuariosInactivos">
+                    <ui:include src="../../common/mensajes.xhtml"/>
+                </h:panelGroup>
 
-			<h:panelGroup id="msgUsuariosInactivos">
-				<ui:include src="../../common/mensajes.xhtml"/>
-			</h:panelGroup>
+                <!-- Tabla de registros -->
 
-			<!-- Tabla de registros -->
+                <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
 
-			<h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
+                    <p:poll listener="#{usuariosAltamiraInactivosPage.cargarUsuariosInactivosAltamira()}"
+                            update="lista, msgUsuariosInactivos"
+                            interval="1" stop="#{usuariosAltamiraInactivosPage.stopPoll}" autoStart="true"/>
 
-				<p:poll listener="#{usuariosAltamiraInactivosPage.cargarUsuariosInactivosAltamira()}"
-						update="lista, msgUsuariosInactivos"
-						interval="1" stop="#{usuariosAltamiraInactivosPage.stopPoll}" autoStart="true"/>
+                    <p:dataTable value="#{usuariosAltamiraInactivosPage.datos}" var="dato" id="table"
+                                 rendered="#{! empty usuariosAltamiraInactivosPage.datos}"
+                                 rowIndexVar="rowIndex" rows="15" paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
+                                 paginatorPosition="top">
 
-				<p:dataTable value="#{usuariosAltamiraInactivosPage.datos}" var="dato" id="table" rendered="#{! empty usuariosAltamiraInactivosPage.datos}"
-							 rowIndexVar="rowIndex" rows="15" paginator="true"
-							 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-							 currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
-							 paginatorPosition="top">
+                        <p:column headerText="Código Empleado" sortable="true" sortBy="#{dato.usuAlt.codigoEmpleado}">
+                            <h:outputText value="#{dato.usuAlt.codigoEmpleado}"/>
+                        </p:column>
+                        <p:column headerText="Nombre Empleado" sortable="true" sortBy="#{dato.usuAlt.nombreEmpleado}">
+                            <h:outputText value="#{dato.usuAlt.codigoEmpleado}"/>
+                        </p:column>
 
-					<p:column headerText="Código Empleado" sortable="true" sortBy="#{dato.usuAlt.codigoEmpleado}">
-						<h:outputText value="#{dato.usuAlt.codigoEmpleado}" />
-					</p:column>
-					<p:column headerText="Nombre Empleado" sortable="true" sortBy="#{dato.usuAlt.nombreEmpleado}">
-						<h:outputText value="#{dato.usuAlt.codigoEmpleado}" />
-					</p:column>
+                        <p:column headerText="Código Área" sortable="true" sortBy="#{dato.codigoAreaModificado}">
+                            <h:outputText value="#{dato.codigoAreaModificado}"/>
+                        </p:column>
 
-					<p:column headerText="Código Área" sortable="true" sortBy="#{dato.codigoAreaModificado}">
-						<h:outputText value="#{dato.codigoAreaModificado}" />
-					</p:column>
+                        <p:column headerText="Nombre Área" sortable="true" sortBy="#{dato.nombreAreaModificado}">
+                            <h:outputText value="#{dato.nombreAreaModificado}"/>
+                        </p:column>
 
-					<p:column headerText="Nombre Área" sortable="true" sortBy="#{dato.nombreAreaModificado}">
-						<h:outputText value="#{dato.nombreAreaModificado}" />
-					</p:column>
+                        <p:column headerText="Código Perfil" sortable="true" sortBy="#{dato.codigoPerfilModificado}">
+                            <h:outputText value="#{dato.codigoPerfilModificado}"/>
+                        </p:column>
 
-					<p:column headerText="Código Perfil" sortable="true" sortBy="#{dato.codigoPerfilModificado}">
-						<h:outputText value="#{dato.codigoPerfilModificado}" />
-					</p:column>
+                        <p:column headerText="Nombre Perfil" sortable="true" sortBy="#{dato.nombrePerfilModificado}">
+                            <h:outputText value="#{dato.nombrePerfilModificado}"/>
+                        </p:column>
 
-					<p:column headerText="Nombre Perfil" sortable="true" sortBy="#{dato.nombrePerfilModificado}">
-						<h:outputText value="#{dato.nombrePerfilModificado}" />
-					</p:column>
+                        <p:column headerText="Rol" sortable="true" sortBy="#{dato.Rol}">
+                            <h:outputText value="#{dato.rol.nombre}"/>
+                        </p:column>
 
-					<p:column headerText="Rol" sortable="true" sortBy="#{dato.Rol}">
-						<h:outputText value="#{dato.rol.nombre}" />
-					</p:column>
-
-				</p:dataTable>
-				.			</h:panelGrid>
-		</div>
-	</ui:define>
+                    </p:dataTable>
+                </h:panelGrid>
+            </p:panel>
+        </div>
+    </ui:define>
 </ui:composition>

@@ -307,8 +307,8 @@
 
             <!--        <ui:include src="../../common/mensajes.xhtml"/>-->
             <!--        <h:panelGrid columns="1" width="100%" style="text-align:center;" id="lista">-->
+<!--                         rendered="#{! empty temaPage.datos}"-->
             <p:dataTable value="#{temaPage.datos}" var="dato" id="table" rows="3" widgetVar="table"
-                         rendered="#{! empty temaPage.datos}"
                          rowKey="#{0}" width="100%"
                          footerClass="row2" rowClasses="row1"
                          paginator="true"

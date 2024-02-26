@@ -1,17 +1,6 @@
 
-X	java:S125"<This block of commented-out lines of code should be removed.(‰½Ï8°“÷çÑ1
+X	java:S125"<This block of commented-out lines of code should be removed.(‰½Ï8ÓïÆİ1
 K
-java:S1948".Make "selectedDato" transient or serializable.(ÊæŠğ8ßº±èÑ1
-]	java:S125&"<This block of commented-out lines of code should be removed.(‹„ÍÚÿÿÿÿÿ8ÆïÂèÑ1
-[
-java:S1128"9Remove this unused import 'javax.annotation.ManagedBean'.(¾¦®Ãúÿÿÿÿ8¶“÷çÑ1
-X
-java:S1128";Remove this unused import 'javax.annotation.PostConstruct'.(›ÅÁ8ÈïÂèÑ1
-`
-java:S1128	"CRemove this unused import 'javax.enterprise.context.SessionScoped'.(¦€ê8¶“÷çÑ1
-M
-java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8¶“÷çÑ1
-O
-java:S1128"-Remove this unused import 'java.util.Arrays'.(î–˜Éüÿÿÿÿ8¶“÷çÑ1
-M
-java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8¶“÷çÑ1
+java:S1948".Make "selectedDato" transient or serializable.(ÊæŠğ8ÓïÆİ1
+Q
+java:S1948C"/Make "listaFiltrada" transient or serializable.(äØ²Óúÿÿÿÿ8ÓïÆİ1

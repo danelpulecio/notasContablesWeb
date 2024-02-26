@@ -2,12 +2,14 @@ package co.com.bbva.app.notas.contables.jsf.carga;
 
 import co.com.bbva.app.notas.contables.carga.dto.UsuarioAltamira;
 import co.com.bbva.app.notas.contables.session.Session;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,8 +20,8 @@ import java.util.Collection;
  * behavior to respond to incoming events.
  * </p>
  */
-@SessionScoped
 @Named
+@ViewScoped
 public class UsuarioAltamiraPage extends GeneralCargaPage<UsuarioAltamira> {
 
     /**

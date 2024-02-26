@@ -21,6 +21,7 @@
                     <ui:include src="../../common/mensajes.xhtml"/>
 
                     <p:dataTable id="table" value="#{sucursalPage.datos}" var="dato" rowIndexVar="rowIndex"
+                                 rendered="#{! empty sucursalPage.datos}"
                                  widgetVar="sucursalPageTable" rows="15" paginator="true"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"

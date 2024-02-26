@@ -4,35 +4,38 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
                 template="../../common/template.xhtml">
-    <ui:param name="title" value="Conciliación Automática" />
+    <ui:param name="title" value="Conciliación Automática"/>
     <ui:define name="body">
 
         <!--Filtro de busqueda	-->
         <div style="width: 1200px;">
-            <h:panelGrid columns="1" width="100%">
-                <h1 align="center">Conciliación Automatica</h1>
-            </h:panelGrid>
+            <p:panel style="width: 1200px">
+                <h:panelGrid columns="1" width="100%">
+                    <h1 align="center">Conciliación Automatica</h1>
+                </h:panelGrid>
 
-            <!-- Tabla de registros -->
-            <h:panelGrid id="filtro" columns="1" width="60%" cellpadding="0" cellspacing="0">
-                <p:accordionPanel label="Filtro" width="60%" switchType="client">
-                	<p:tab title="Filtro de búsqueda">
-	                    <h:panelGrid columns="3" width="60%" cellpadding="0" cellspacing="5">
-	
-	                        <h:outputText value="Período" />
-	                        <h:selectOneMenu value="#{reporteConciliacionPage.anio}" immediate="true">
-	                            <f:selectItems value="#{reporteConciliacionPage.anios}" />
-	                        </h:selectOneMenu>
-	
-	                        <p:commandButton value="Ejecutar" action="#{reporteConciliacionPage.generarArchivoTXT}" update="globalForm:filtro,globalForm:msgInfo"  />
-	
-	                    </h:panelGrid>
-	                 </p:tab>
-                </p:accordionPanel>
-            </h:panelGrid>
-			<h:panelGrid cellpadding="0" cellspacing="0" id="msgInfo">
-            	<ui:include src="../../common/mensajes.xhtml" />
-			</h:panelGrid>
+                <!-- Tabla de registros -->
+                <h:panelGrid id="filtro" columns="1" width="60%" cellpadding="0" cellspacing="0">
+                    <p:accordionPanel label="Filtro" width="60%" switchType="client">
+                        <p:tab title="Filtro de búsqueda">
+                            <h:panelGrid columns="3" width="60%" cellpadding="0" cellspacing="5">
+
+                                <h:outputText value="Período"/>
+                                <h:selectOneMenu value="#{reporteConciliacionPage.anio}" immediate="true">
+                                    <f:selectItems value="#{reporteConciliacionPage.anios}"/>
+                                </h:selectOneMenu>
+
+                                <p:commandButton value="Ejecutar" action="#{reporteConciliacionPage.generarArchivoTXT}"
+                                                 update="globalForm:filtro,globalForm:msgInfo"/>
+
+                            </h:panelGrid>
+                        </p:tab>
+                    </p:accordionPanel>
+                </h:panelGrid>
+                <h:panelGrid cellpadding="0" cellspacing="0" id="msgInfo">
+                    <ui:include src="../../common/mensajes.xhtml"/>
+                </h:panelGrid>
+            </p:panel>
         </div>
     </ui:define>
 </ui:composition>

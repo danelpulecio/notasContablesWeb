@@ -15,10 +15,10 @@
         <p:column headerText="Número Radicación" width="100px;" sortable="true" sortBy="#{dato.NC.numeroRadicacion}">
             <h:outputText value="#{dato.NC.numeroRadicacion}"/>
         </p:column>
-        <p:column headerText="Estado" sortable="true" width="50px;" sortBy="#{dato.estado}">
+        <p:column headerText="Estado" sortable="true" width="44px;" sortBy="#{dato.estado}">
             <h:outputText value="#{dato.nombreEstado}"/>
         </p:column>
-        <p:column headerText="Detalle de la nota contable" style="text-align: center;">
+        <p:column headerText="Detalle de la nota contable" style="text-align: center; width: 419px">
 
 <!--            <h:panelGrid columns="1" rendered="#{dato.NC.tipoNota eq 'R' }" border="0" style="border-width: 0px;">-->
                 <p:dataTable style="border-width: 0px; background-color: transparent;" value="#{dato.NC.temas}" rendered="#{dato.NC.tipoNota eq 'R' }"
@@ -91,7 +91,7 @@
 <!--            </h:panelGrid>-->
 
         </p:column>
-        <p:column headerText="Causales de Rechazo" rendered="#{precierreCierrePage.esPrecierre }" width="120px;">
+        <p:column headerText="Causales de Rechazo" rendered="#{precierreCierrePage.esPrecierre }" width="360px;">
             <h:outputText value="#{dato.NC.causalDeRechazo}" escape="false"/>
         </p:column>
         <p:column headerText="Ver Nota Contable" width="50px;" style="text-align: center;">

@@ -9,52 +9,64 @@
 
         <!--Filtro de busqueda	-->
         <div style="width: 1200px;">
+            <p:panel style="width: 1200px">
             <h:panelGrid columns="1" width="100%"><h1 align="center">Usuarios Altamíra</h1></h:panelGrid>
-
-            <h:panelGrid columns="2" id="filtro" style="text-align: center; margin: 0 auto;">
-                <p:inputText id="param" value="#{usuarioAltamiraPage.param}"/>
-                <p:commandButton action="#{usuarioAltamiraPage.buscarPorFiltro}" value="Filtrar" ajax="false"/>
-            </h:panelGrid>
 
             <ui:include src="../../common/mensajes.xhtml"/>
 
             <!--	Tabla de resultados	-->
-            <!--            <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">-->
 
-            <p:dataTable value="#{usuarioAltamiraPage.datos}" var="dato" id="table" rowIndexVar="rowIndex"
-                         widgetVar="economicActivityTable" rows="15" paginator="true"
-                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+            <p:dataTable id="table" var="dato" value="#{usuarioAltamiraPage.datos}"
+                         rendered="#{! empty usuarioAltamiraPage.datos}"
+                         paginator="true" rows="15" emptyMessage="No hay registros"
+                         widgetVar="economicActivityTable"
+                         rowIndexVar="rowIndex"
                          currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          paginatorPosition="top">
+
+                <f:facet name="header">
+                    <p:inputText id="param" value="#{usuarioAltamiraPage.param}"/>
+                    <p:commandButton actionListener="#{usuarioAltamiraPage.buscarPorFiltro}" value="Filtrar" update="table" />
+                </f:facet>
+
                 <p:column headerText="Fila" width="15px">
                     <h:outputText value="#{rowIndex+1}"/>
                 </p:column>
-                <p:column headerText="Código Empleado" sortable="true" sortBy="#{dato.codigoEmpleado}">
+                <p:column headerText="Código Empleado" sortable="true" sortBy="#{dato.codigoEmpleado}" width="60px"
+                          filterBy="#{dato.codigoEmpleado}" filterStyle="display: none;">
                     <h:outputText value="#{dato.codigoEmpleado} "/>
                 </p:column>
-                <p:column headerText="Nombre Empleado" sortable="true" sortBy="#{dato.nombreEmpleado}" width="120px">
+                <p:column headerText="Nombre Empleado" sortable="true" sortBy="#{dato.nombreEmpleado}" width="120px"
+                          filterBy="#{dato.nombreEmpleado}" filterStyle="display: none;">
                     <h:outputText value="#{dato.nombreEmpleado}"/>
                 </p:column>
-                <p:column headerText="Código Área" sortable="true" sortBy="#{dato.codigoArea}" width="50px">
+                <p:column headerText="Código Área" sortable="true" sortBy="#{dato.codigoArea}" width="35px"
+                          filterBy="#{dato.codigoArea}" filterStyle="display: none;">
                     <h:outputText value="#{dato.codigoArea}"/>
                 </p:column>
-                <p:column headerText="Nombre Área" sortable="true" sortBy="#{dato.nombreArea}" width="120px">
+                <p:column headerText="Nombre Área" sortable="true" sortBy="#{dato.nombreArea}" width="120px"
+                          filterBy="#{dato.nombreArea}" filterStyle="display: none;">
                     <h:outputText value="#{dato.nombreArea}"/>
                 </p:column>
-                <p:column headerText="Código Perfil" sortable="true" sortBy="#{dato.codigoPerfil}" width="50px">
+                <p:column headerText="Código Perfil" sortable="true" sortBy="#{dato.codigoPerfil}" width="35px"
+                          filterBy="#{dato.codigoPerfil}" filterStyle="display: none;">
                     <h:outputText value="#{dato.codigoPerfil}"/>
                 </p:column>
-                <p:column headerText="Nombre Perfil" sortable="true" sortBy="#{dato.nombrePerfil}" width="120px">
+                <p:column headerText="Nombre Perfil" sortable="true" sortBy="#{dato.nombrePerfil}" width="120px"
+                          filterBy="#{dato.nombrePerfil}" filterStyle="display: none;">
                     <h:outputText value="#{dato.nombrePerfil}"/>
                 </p:column>
-                <p:column headerText="Correo Electrónico" sortable="true" sortBy="#{dato.correoElectronico}" width="120px">
+                <p:column headerText="Correo Electrónico" sortable="true" sortBy="#{dato.correoElectronico}" width="120px"
+                          filterBy="#{dato.correoElectronico}" filterStyle="display: none;">
                     <h:outputText value="#{dato.correoElectronico}"/>
                 </p:column>
-                <p:column headerText="Estado Altamira" sortable="true" sortBy="#{dato.estadoCarga}">
+                <p:column headerText="Estado Altamira" sortable="true" sortBy="#{dato.estadoCarga}" width="57px"
+                          filterBy="#{dato.estadoCarga}" filterStyle="display: none;">
                     <h:outputText value="#{dato.estadoCarga eq 'A'? 'Activo': 'Inactivo'}"/>
                 </p:column>
             </p:dataTable>
-            <!--            </h:panelGrid>-->
+            </p:panel>
         </div>
     </ui:define>
 </ui:composition>

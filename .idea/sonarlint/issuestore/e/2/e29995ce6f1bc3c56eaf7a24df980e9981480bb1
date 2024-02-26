@@ -1,12 +1,6 @@
 
 v
-java:S2293:"YReplace the type specification in this constructor call with the diamond operator ("<>").(±³­Ç8Ÿ×ÒüÃ1
-]	java:S125""<This block of commented-out lines of code should be removed.(‘ÆÎÓûÿÿÿÿ8…ÉõÌÚ1
+java:S22937"YReplace the type specification in this constructor call with the diamond operator ("<>").(±³­Ç8Ÿ×ÒüÃ1
+]	java:S125"<This block of commented-out lines of code should be removed.(‘ÆÎÓûÿÿÿÿ8…ÉõÌÚ1
 7
-java:S3457E"Not enough arguments.(Ì¶†¶øÿÿÿÿ8ÆøñÊÚ1
-n
-java:S1128"LRemove this unused import 'co.com.bbva.app.notas.contables.session.Session'.(•Ö¥åøÿÿÿÿ8‡ÉõÌÚ1
-`
-java:S1128	"CRemove this unused import 'javax.enterprise.context.RequestScoped'.(‚Õ…½8È’ÀÌÚ1
-U
-java:S1128"8Remove this unused import 'javax.faces.view.ViewScoped'.(çâŒ¨8ˆóÿËÚ1
+java:S3457B"Not enough arguments.(Ì¶†¶øÿÿÿÿ8ÆøñÊÚ1

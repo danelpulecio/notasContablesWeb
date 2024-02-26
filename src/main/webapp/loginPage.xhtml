@@ -31,7 +31,7 @@
                         <f:selectItems value="#{homePage.roles}"/>
                     </p:selectOneMenu>
                 </p:panelGrid>
-                <ui:include src="./common/mensajes.xhtml"/>
+                <p:messages id="msgs"/>
                 <p:panelGrid columns="1" width="100%" style="text-align:center;">
                     <p:commandButton action="#{homePage.login}" value="Ingresar"
                                      rendered="#{contablesSessionBean.loginUser==null}" update="loginform"/>

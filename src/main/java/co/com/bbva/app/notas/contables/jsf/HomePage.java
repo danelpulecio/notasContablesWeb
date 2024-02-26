@@ -159,7 +159,7 @@ public class HomePage extends GeneralPage implements Serializable, IPages {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         Session session = new Session(username, request.getRemoteAddr());
         getContablesSessionBean().setSessionTrace(session);
-        LOGGER.info("{} El usuario {} est intentando iniciar sesin", session.getTraceLog(), session.getUser());
+        LOGGER.info("{} El usuario {} est intentando iniciar sesión", session.getTraceLog(), session.getUser());
         try {
             LOGGER.info("{} Persistiendo datos al intentar ingresar", session.getTraceLog());
             sessionTrace.saveTrace(new SessionTraceDto(session));
@@ -174,7 +174,7 @@ public class HomePage extends GeneralPage implements Serializable, IPages {
             }
         } catch (Exception e) {
             LOGGER.error("{} Error al ingresar al aplicativo con el usuario: {} ", session.getTraceLog(), session.getUser(), e);
-            nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema al iniciar sesin");
+            nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema al iniciar sesión");
         }
         return null;
     }
@@ -189,9 +189,9 @@ public class HomePage extends GeneralPage implements Serializable, IPages {
             request.logout();
             request.getSession().invalidate();
         } catch (Exception e) {
-//            LOGGER.error("{} Error al cerrar la sesin", session.getTraceLog(), e);
+//            LOGGER.error("{} Error al cerrar la sesión", session.getTraceLog(), e);
         }
-//        LOGGER.info("{} El usuario {} cerro la sesin de forma exitosa", session.getTraceLog(), session.getUser());
+//        LOGGER.info("{} El usuario {} cerro la sesión de forma exitosa", session.getTraceLog(), session.getUser());
         getContablesSessionBean().setLoginUser(null);
         //return INICIO;
         return LOGIN;
@@ -220,7 +220,7 @@ public class HomePage extends GeneralPage implements Serializable, IPages {
                 centroEspecial = notasContablesManager.getCentroEspecialPorSucursal(centroEspecial);
                 usrLoggedIn.setCentroEspecial(centroEspecial);
                 // end of the new code to fix deploy  temas and conceptos
-//                LOGGER.info("{} Persistiendo datos del inicio de sesin", session.getTraceLog());
+//                LOGGER.info("{} Persistiendo datos del inicio de sesión", session.getTraceLog());
 //                sTrace.setUserId(usrLoggedIn.getUsuario().getCodigo().intValue());
 //                sTrace.setLoginSuccess(Boolean.TRUE);
 //                sessionTrace.updateTrace(sTrace);
@@ -233,14 +233,14 @@ public class HomePage extends GeneralPage implements Serializable, IPages {
                 PendientePage bean = pendientePage;
                 bean.cargarPendientes();
                 if (!bean.getDatos().isEmpty()) {
-//                    LOGGER.info("{} Inicio de sesin exitoso", session.getTraceLog());
+//                    LOGGER.info("{} Inicio de sesión exitoso", session.getTraceLog());
                     return ADMIN_PENDIENTES;
                 }
             } catch (Exception e) {
 //                LOGGER.error("{} Error al establecer la configuracin del rol", session.getTraceLog(), e);
             }
         }
-//        LOGGER.info("{} Inicio de sesin exitoso", session.getTraceLog());
+//        LOGGER.info("{} Inicio de sesión exitoso", session.getTraceLog());
         return BIENVENIDO;
     }
 

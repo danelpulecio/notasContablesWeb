@@ -34,6 +34,7 @@ public abstract class GeneralCargaPage<T extends CommonVO<T>> extends GeneralPag
 	 * usado para filtrar los datos a mostrar
 	 */
 	protected String param = "";
+	protected String filterText = "";
 
 	/**
 	 * indica el numero de pagina del scroller
@@ -164,6 +165,7 @@ public abstract class GeneralCargaPage<T extends CommonVO<T>> extends GeneralPag
 			long time = System.currentTimeMillis();
 			LOGGER.info("Ejecutando el metodo buscarPorFiltro");
 			datos = new ArrayList<T>(_buscarPorFiltro());
+			LOGGER.info("DATOS DESPUES DEL FILTRO : {}", datos.size());
 			if (datos.isEmpty()) {
 				LOGGER.info("sin datos {}", datos);
 				nuevoMensaje(FacesMessage.SEVERITY_INFO, "No se encontraron resultados para el filtro: " + param);
@@ -221,5 +223,13 @@ public abstract class GeneralCargaPage<T extends CommonVO<T>> extends GeneralPag
 
 	public void setPkComparator(Comparator<T> pkComparator) {
 		this.pkComparator = pkComparator;
+	}
+
+	public String getFilterText() {
+		return filterText;
+	}
+
+	public void setFilterText(String filterText) {
+		this.filterText = filterText;
 	}
 }

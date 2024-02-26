@@ -12,10 +12,10 @@
         <link rel="icon" type="image/jpg" href="${pageContext.request.contextPath}/./common/images/bbva_logo_icon.jpg"/>
 
         <title>::: SISTEMA DE CONTABILIDAD -- BBVA - Seccion #{title} :::</title>
-        <h:outputStylesheet library = "css" name = "theme.css" /> 
+        <h:outputStylesheet library = "css" name = "theme.css" />
         <h:outputStylesheet library = "css" name = "theme.xcss" />
         <script type="text/javascript">
-        
+
             function onKeyPressNumbers(e, value) {
                 var flag = 0;
                 value = replaceAll(value, ',', '');
@@ -85,82 +85,82 @@
 
 
             function isDayEnabled(day){
-				var fechaMin = document.getElementById('globalForm:fechaMinLibre').value;
-				var fechaMax = document.getElementById('globalForm:fechaMaxLibre').value;
-			   	var min=new Date();
-			   	min.setFullYear(parseInt(fechaMin.substring(6, 10), 10),parseInt(fechaMin.substring(3, 5), 10)-1,parseInt(fechaMin.substring(0, 2), 10)-1);
-			   	var max=new Date();
-			   	max.setFullYear(parseInt(fechaMax.substring(6, 10), 10),parseInt(fechaMax.substring(3, 5), 10)-1,parseInt(fechaMax.substring(0, 2), 10));
-			   	var date = new Date(day.date);
-			   	if(date.getDay() == 6){
-					return false;	
-				}
-			   	if(date.getDay() == 0){
-					return false;	
-				}
-			   	if(date &gt; min){
-					if(max &gt; date){ //solo fechas entre min y max
-						return true;
-					} 
-				} 
-				return false;
-			}
-			
-			function isDayEnabledRiesgo(day){
-			   	var max=new Date();
-			   	var date = new Date(day.date);
-				if(max &gt; date){ //solo fechas menores o iguales a hoy
-					return true;
-				}
-				return false;
-			}
-			
-			function getDisabledStyle(day){
-			   if (!isDayEnabled(day)) return 'rich-calendar-boundary-dates disabledDay';
-			}
+                var fechaMin = document.getElementById('globalForm:fechaMinLibre').value;
+                var fechaMax = document.getElementById('globalForm:fechaMaxLibre').value;
+                var min=new Date();
+                min.setFullYear(parseInt(fechaMin.substring(6, 10), 10),parseInt(fechaMin.substring(3, 5), 10)-1,parseInt(fechaMin.substring(0, 2), 10)-1);
+                var max=new Date();
+                max.setFullYear(parseInt(fechaMax.substring(6, 10), 10),parseInt(fechaMax.substring(3, 5), 10)-1,parseInt(fechaMax.substring(0, 2), 10));
+                var date = new Date(day.date);
+                if(date.getDay() == 6){
+                    return false;
+                }
+                if(date.getDay() == 0){
+                    return false;
+                }
+                if(date &gt; min){
+                    if(max &gt; date){ //solo fechas entre min y max
+                        return true;
+                    }
+                }
+                return false;
+            }
 
-			function getDisabledStyleRiesgo(day){
-			   if (!isDayEnabledRiesgo(day)) return 'rich-calendar-boundary-dates disabledDay';
-			}
-			
-			function validarMontoLibreAlert(value){
-				var alertCOP = parseFloat(document.getElementById('globalForm:montoAlertaCOPLibre').value);
-				var alertEXT = parseFloat(document.getElementById('globalForm:montoAlertaEXTLibre').value);
-				var divisa = document.getElementById('globalForm:codDivisaNotaContableLibre').value;
-				var warn=false;
-				if(divisa == 'COP'){
-					warn=value &gt; alertCOP;
-				}else{
-					warn=value &gt; alertEXT;
-				}
-				if(warn){
-					alert('Por favor verifique si el importe ingresado es el adecuado.');
-				}
-			}
+            function isDayEnabledRiesgo(day){
+                var max=new Date();
+                var date = new Date(day.date);
+                if(max &gt; date){ //solo fechas menores o iguales a hoy
+                    return true;
+                }
+                return false;
+            }
 
-			
+            function getDisabledStyle(day){
+                if (!isDayEnabled(day)) return 'rich-calendar-boundary-dates disabledDay';
+            }
+
+            function getDisabledStyleRiesgo(day){
+                if (!isDayEnabledRiesgo(day)) return 'rich-calendar-boundary-dates disabledDay';
+            }
+
+            function validarMontoLibreAlert(value){
+                var alertCOP = parseFloat(document.getElementById('globalForm:montoAlertaCOPLibre').value);
+                var alertEXT = parseFloat(document.getElementById('globalForm:montoAlertaEXTLibre').value);
+                var divisa = document.getElementById('globalForm:codDivisaNotaContableLibre').value;
+                var warn=false;
+                if(divisa == 'COP'){
+                    warn=value &gt; alertCOP;
+                }else{
+                    warn=value &gt; alertEXT;
+                }
+                if(warn){
+                    alert('Por favor verifique si el importe ingresado es el adecuado.');
+                }
+            }
+
+
         </script>
         <style>
-.disabledDay {
-	background-color: #dedede;
-}
-</style>
+            .disabledDay {
+                background-color: #dedede;
+            }
+        </style>
         <ui:insert name="head"/>
     </h:head>
     <body>
 
     <div id="layout">
-       <p:ajaxStatus onstart="PF('statusPanel').show();"
-                     oncomplete="PF('statusPanel').hide();"
-                     id="none"/>
-       <p:dialog widgetVar="statusPanel" id="statusPanel" modal="true" draggable="false" resizable="false" closable="false"
-                 height="100" width="220" appendToBody="true" dynamic="true">
-           <h:outputText value="Procesando..."/>
-           <div style="width: 100%; text-align: center">
-               <p>Un momento por favor...</p>
-               <p:graphicImage value="/common/images/loading.gif" alt="Logo - BBVA" width="200"/>
-           </div>
-       </p:dialog>
+        <p:ajaxStatus onstart="PF('statusPanel').show();"
+                      oncomplete="PF('statusPanel').hide();"
+                      id="none"/>
+        <p:dialog widgetVar="statusPanel" id="statusPanel" modal="true" draggable="false" resizable="false" closable="false"
+                  height="100" width="220" appendToBody="true" dynamic="true">
+            <h:outputText value="Procesando..."/>
+            <div style="width: 100%; text-align: center">
+                <p>Un momento por favor...</p>
+                <p:graphicImage value="/common/images/loading.gif" alt="Logo - BBVA" width="200"/>
+            </div>
+        </p:dialog>
         <div id="contenido">
             <h:form id="globalForm">
                 <p:outputPanel>

@@ -1,148 +1,158 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-				xmlns:ui="http://java.sun.com/jsf/facelets"
-				xmlns:h="http://java.sun.com/jsf/html"
-				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:p="http://primefaces.org/ui"
-				template="../../common/template.xhtml">
-	<ui:param name="title" value="Reporte de Tiempos por Usuario" />
-	<ui:define name="body">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../common/template.xhtml">
+    <ui:param name="title" value="Reporte de Tiempos por Usuario"/>
+    <ui:define name="body">
 
-		<!--Filtro de busqueda	-->
-		<div style="width: 1200px;">
+        <!--Filtro de busqueda	-->
+        <div style="width: 1200px;">
+            <p:panel style="width: 1200px">
+                <h:panelGrid columns="1" width="100%">
+                    <h1 align="center">Reporte de Tiempos por Usuario</h1>
+                </h:panelGrid>
 
-			<h:panelGrid columns="1" width="100%">
-				<h1 align="center">Reporte de Tiempos por Usuario</h1>
-			</h:panelGrid> 
-		
-		
-			<p:dialog id="popupDetalle" 
-				widgetVar="popupDetalle" 
-				autosized="true" 
-				domElementAttachment="form" 
-				minWidth="550"
-				showEffect="fade" hideEffect="explode" modal="true">
-				<f:facet name="header">
-					<h:panelGroup>
-						<h:outputText value="Detalle por Usuario" />
-					</h:panelGroup>
-				</f:facet>
-				<f:facet name="controls">
-					<h:panelGroup>
-						<h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink" id="hidelink" height="20" width="20" />
-					</h:panelGroup>
-				</f:facet>
-				
-				<h:panelGrid columns="1" id="detalleAct" width="550px;" cellspacing="0" cellpadding="0">
-				
-                <p:dataTable value="#{reporteTiemposPage.objActual.actividades}" var="act" id="tableAct"
-                             rowIndexVar="rowKeyAct"
-                             widgetVar="economicActivityTable" rows="15" paginator="true"
-                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
-                             paginatorPosition="top">				
-		
-		
-						<p:column >
-							<f:facet name="header"><h:outputText value="Num Radicación" /></f:facet>
-							<h:outputText value="#{act.numeroRadicacionNC}"/>
-						</p:column>
 
-						<p:column >
-							<f:facet name="header"><h:outputText value="Recepción" /></f:facet>
-							<h:outputText value="#{act.fechaHora}" />
-						</p:column>
+                <p:dialog id="popupDetalle"
+                          widgetVar="popupDetalle"
+                          autosized="true"
+                          domElementAttachment="form"
+                          minWidth="550"
+                          showEffect="fade" hideEffect="explode" modal="true">
+                    <f:facet name="header">
+                        <h:panelGroup>
+                            <h:outputText value="Detalle por Usuario"/>
+                        </h:panelGroup>
+                    </f:facet>
+                    <f:facet name="controls">
+                        <h:panelGroup>
+                            <h:graphicImage value="../../../common/images/close.png" alt="cerrar" styleClass="hidelink"
+                                            id="hidelink" height="20" width="20"/>
+                        </h:panelGroup>
+                    </f:facet>
 
-						<p:column >
-							<f:facet name="header"><h:outputText value="Cierre" /></f:facet>
-							<h:outputText value="#{act.fechaHoraCierre}" />
-						</p:column>
+                    <h:panelGrid columns="1" id="detalleAct" width="550px;" cellspacing="0" cellpadding="0">
 
-						<p:column >
-							<f:facet name="header"><h:outputText value="Duración" /></f:facet>
-							<h:outputText value="#{act.duracionActividad}" />
-						</p:column>
-		
-					</p:dataTable>
-				</h:panelGrid>
-			</p:dialog>
-			
-			<!-- Tabla de registros --> 
-			<h:panelGrid id="filtro" columns="1" width="60%" cellpadding="0" cellspacing="0">
-				<p:accordionPanel label="Filtro de búsqueda" width="100%" switchType="client">
-					<p:tab title="Filtro de búsqueda">
-						<h:panelGrid columns="2" width="100%" cellpadding="0" cellspacing="5">
-		
-							<h:outputText value="Año" />
-							<p:selectOneMenu value="#{reporteTiemposPage.anio}" immediate="true">
-								<f:selectItems value="#{reporteTiemposPage.anios}" />
-							</p:selectOneMenu>
-		
-							<h:outputText value="Mes" />
-							<p:selectOneMenu value="#{reporteTiemposPage.mes}" immediate="true" >
-								<f:selectItems value="#{reporteTiemposPage.meses}" />
-							</p:selectOneMenu>
-		
-							<p:commandButton action="#{reporteTiemposPage.buscar}" update="globalForm:filtro,globalForm:lista" value="Buscar" />
-						</h:panelGrid>
-					</p:tab>
-				</p:accordionPanel>
-			</h:panelGrid> 
-			
-			<ui:include src="../../common/mensajes.xhtml" />
-			
-			<h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
-				
-				<p:commandButton value="Generar Archivo Excel" action="#{reporteTiemposPage.generarArchivoExcel}" 
-					update="globalForm:lista"
-					rendered="#{! empty reporteTiemposPage.datos}"/>
-				
-			
-				<p:commandLink action="#{downloadGeneralPage.download}" styleClass="bold" 
-                	value="#{reporteTiemposPage.excelFileName}" target="_blank"  ajax="false" 
-                	rendered="#{reporteTiemposPage.mostrarArchExc}">
-	                    <f:setPropertyActionListener for="type1" value="#{downloadGeneralPage.REPORTE_EXCEL}" target="#{downloadGeneralPage.type}" />
-	                    <f:setPropertyActionListener for="file1" value="#{reporteTiemposPage.excelFileName}" target="#{downloadGeneralPage.file}"/>
-                </p:commandLink>
-                
-                <p:dataTable value="#{reporteTiemposPage.datos}" var="dato" id="table" rendered="#{! empty reporteTiemposPage.datos}"
-                             rowIndexVar="rowKey"
-                             rows="10" paginator="true"
-                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
-                             paginatorPosition="top">
-                
-					<p:column headerText="Código Empleado" sortable="true" sortBy="#{dato.codigoEmpleado}">
-						<h:outputText value="#{dato.codigoEmpleado}" />
-					</p:column>
-					<p:column headerText="Nombre Empleado" sortable="true" sortBy="#{dato.usuAlt.nombreEmpleado}">
-						<h:outputText value="#{dato.usuAlt.nombreEmpleado}" />
-					</p:column>
+                        <p:dataTable value="#{reporteTiemposPage.objActual.actividades}" var="act" id="tableAct"
+                                     rowIndexVar="rowKeyAct"
+                                     widgetVar="economicActivityTable" rows="15" paginator="true"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
+                                     paginatorPosition="top">
 
-					<p:column headerText="Código Área" sortable="true" sortBy="#{dato.codigoAreaModificado}">
-						<h:outputText value="#{dato.codigoAreaModificado}" />
-					</p:column>
 
-					<p:column headerText="Nombre Área" sortable="true" sortBy="#{dato.nombreAreaModificado}">
-						<h:outputText value="#{dato.nombreAreaModificado}" />
-					</p:column>
+                            <p:column>
+                                <f:facet name="header"><h:outputText value="Num Radicación"/></f:facet>
+                                <h:outputText value="#{act.numeroRadicacionNC}"/>
+                            </p:column>
 
-					<p:column headerText="Rol" sortable="true" sortBy="#{dato.Rol}">
-						<h:outputText value="#{dato.rol.nombre}" />
-					</p:column>
+                            <p:column>
+                                <f:facet name="header"><h:outputText value="Recepción"/></f:facet>
+                                <h:outputText value="#{act.fechaHora}"/>
+                            </p:column>
 
-					<p:column headerText="Promedio (Minutos)" sortable="true" sortBy="#{dato.duracionPromedio}" style="text-align: right;">
-						<h:outputText value="#{dato.duracionPromedio}" ><f:convertNumber maxFractionDigits="2"/></h:outputText>
-					</p:column>
+                            <p:column>
+                                <f:facet name="header"><h:outputText value="Cierre"/></f:facet>
+                                <h:outputText value="#{act.fechaHoraCierre}"/>
+                            </p:column>
 
-					<p:column headerText="Detalle" style="text-align: center;">
-						<p:commandButton value="Ver" oncomplete="PF('popupDetalle').show()" action="#{reporteTiemposPage.obtenerListaDetalle}"  update="globalForm:popupDetalle" >
-							<f:setPropertyActionListener for="codUsuario" value="#{dato.codigo}" target="#{reporteTiemposPage.objActual.codigo}"/>
-						</p:commandButton>
-					</p:column>
+                            <p:column>
+                                <f:facet name="header"><h:outputText value="Duración"/></f:facet>
+                                <h:outputText value="#{act.duracionActividad}"/>
+                            </p:column>
 
-				</p:dataTable>
-			</h:panelGrid>
+                        </p:dataTable>
+                    </h:panelGrid>
+                </p:dialog>
 
-		</div>
-	</ui:define>
+                <!-- Tabla de registros -->
+                <h:panelGrid id="filtro" columns="1" width="60%" cellpadding="0" cellspacing="0">
+                    <p:accordionPanel label="Filtro de búsqueda" width="100%" switchType="client">
+                        <p:tab title="Filtro de búsqueda">
+                            <h:panelGrid columns="2" width="100%" cellpadding="0" cellspacing="5">
+
+                                <h:outputText value="Año"/>
+                                <p:selectOneMenu value="#{reporteTiemposPage.anio}" immediate="true">
+                                    <f:selectItems value="#{reporteTiemposPage.anios}"/>
+                                </p:selectOneMenu>
+
+                                <h:outputText value="Mes"/>
+                                <p:selectOneMenu value="#{reporteTiemposPage.mes}" immediate="true">
+                                    <f:selectItems value="#{reporteTiemposPage.meses}"/>
+                                </p:selectOneMenu>
+
+                                <p:commandButton action="#{reporteTiemposPage.buscar}"
+                                                 update="globalForm:filtro,globalForm:lista" value="Buscar"/>
+                            </h:panelGrid>
+                        </p:tab>
+                    </p:accordionPanel>
+                </h:panelGrid>
+
+
+                <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
+                    <ui:include src="../../common/mensajes.xhtml"/>
+
+                    <p:commandButton value="Generar Archivo Excel" action="#{reporteTiemposPage.generarArchivoExcel}"
+                                     update="globalForm:lista"
+                                     rendered="#{! empty reporteTiemposPage.datos}"/>
+
+
+                    <p:commandLink action="#{downloadGeneralPage.download}" styleClass="bold"
+                                   value="#{reporteTiemposPage.excelFileName}" target="_blank" ajax="false"
+                                   rendered="#{reporteTiemposPage.mostrarArchExc}">
+                        <f:setPropertyActionListener for="type1" value="#{downloadGeneralPage.REPORTE_EXCEL}"
+                                                     target="#{downloadGeneralPage.type}"/>
+                        <f:setPropertyActionListener for="file1" value="#{reporteTiemposPage.excelFileName}"
+                                                     target="#{downloadGeneralPage.file}"/>
+                    </p:commandLink>
+
+                    <p:dataTable value="#{reporteTiemposPage.datos}" var="dato" id="table"
+                                 rendered="#{! empty reporteTiemposPage.datos}"
+                                 rowIndexVar="rowKey"
+                                 rows="10" paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
+                                 paginatorPosition="top">
+
+                        <p:column headerText="Código Empleado" sortable="true" sortBy="#{dato.codigoEmpleado}">
+                            <h:outputText value="#{dato.codigoEmpleado}"/>
+                        </p:column>
+                        <p:column headerText="Nombre Empleado" sortable="true" sortBy="#{dato.usuAlt.nombreEmpleado}">
+                            <h:outputText value="#{dato.usuAlt.nombreEmpleado}"/>
+                        </p:column>
+
+                        <p:column headerText="Código Área" sortable="true" sortBy="#{dato.codigoAreaModificado}">
+                            <h:outputText value="#{dato.codigoAreaModificado}"/>
+                        </p:column>
+
+                        <p:column headerText="Nombre Área" sortable="true" sortBy="#{dato.nombreAreaModificado}">
+                            <h:outputText value="#{dato.nombreAreaModificado}"/>
+                        </p:column>
+
+                        <p:column headerText="Rol" sortable="true" sortBy="#{dato.Rol}">
+                            <h:outputText value="#{dato.rol.nombre}"/>
+                        </p:column>
+
+                        <p:column headerText="Promedio (Minutos)" sortable="true" sortBy="#{dato.duracionPromedio}"
+                                  style="text-align: right;">
+                            <h:outputText value="#{dato.duracionPromedio}"><f:convertNumber
+                                    maxFractionDigits="2"/></h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Detalle" style="text-align: center;">
+                            <p:commandButton value="Ver" oncomplete="PF('popupDetalle').show()"
+                                             action="#{reporteTiemposPage.obtenerListaDetalle}"
+                                             update="globalForm:popupDetalle">
+                                <f:setPropertyActionListener for="codUsuario" value="#{dato.codigo}"
+                                                             target="#{reporteTiemposPage.objActual.codigo}"/>
+                            </p:commandButton>
+                        </p:column>
+
+                    </p:dataTable>
+                </h:panelGrid>
+            </p:panel>
+        </div>
+    </ui:define>
 </ui:composition>

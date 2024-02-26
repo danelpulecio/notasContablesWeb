@@ -14,212 +14,215 @@
 
         <!--Filtro de busqueda  -->
         <div style="width: 1200px;">
-            <h:panelGrid columns="1" width="100%">
-                <h1 align="center">Movimientos Contables</h1>
-            </h:panelGrid>
+            <p:panel style="width: 1200px">
+                <h:panelGrid columns="1" width="100%">
+                    <h1 align="center">Movimientos Contables</h1>
+                </h:panelGrid>
 
-            <!-- Panel de opciones -->
-            <h:panelGrid id="informacion" columns="1" width="100%" cellpadding="0" cellspacing="0">
-                <p:accordionPanel widgetVar="client" value="Filtro de búsqueda">
-                    <p:tab title="Filtro de búsqueda">
-                        <h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="5">
-                            <h:panelGrid columns="2" id="filtro">
-                                <h:outputText value="Sucursal Origen"
-                                              rendered="#{consultaMovimientosContablesPage.usuarioLogueado.rolActual.codigo != 6 and consultaMovimientosContablesPage.usuarioLogueado.rolActual.codigo != 7 and consultaMovimientosContablesPage.usuarioLogueado.rolActual.codigo != 10}"/>
-                                <p:selectOneMenu value="#{consultaMovimientosContablesPage.sucOrigen}"
-                                                 rendered="#{consultaMovimientosContablesPage.usuarioLogueado.rolActual.codigo != 6 and consultaMovimientosContablesPage.usuarioLogueado.rolActual.codigo != 7 and consultaMovimientosContablesPage.usuarioLogueado.rolActual.codigo != 10}">
-                                    <f:selectItem itemValue="" itemLabel="Cualquiera"/>
-                                    <f:selectItems value="#{consultaMovimientosContablesPage.sucursales}"/>
-                                </p:selectOneMenu>
+                <!-- Panel de opciones -->
+                <h:panelGrid id="informacion" columns="1" width="100%" cellpadding="0" cellspacing="0">
+                    <p:accordionPanel widgetVar="client" value="Filtro de búsqueda">
+                        <p:tab title="Filtro de búsqueda">
+                            <h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="5">
+                                <h:panelGrid columns="2" id="filtro">
+                                    <h:outputText value="Sucursal Origen"
+                                                  rendered="#{consultaMovimientosContablesPage.usuarioLogueado.rolActual.codigo != 6 and consultaMovimientosContablesPage.usuarioLogueado.rolActual.codigo != 7 and consultaMovimientosContablesPage.usuarioLogueado.rolActual.codigo != 10}"/>
+                                    <p:selectOneMenu value="#{consultaMovimientosContablesPage.sucOrigen}"
+                                                     rendered="#{consultaMovimientosContablesPage.usuarioLogueado.rolActual.codigo != 6 and consultaMovimientosContablesPage.usuarioLogueado.rolActual.codigo != 7 and consultaMovimientosContablesPage.usuarioLogueado.rolActual.codigo != 10}">
+                                        <f:selectItem itemValue="" itemLabel="Cualquiera"/>
+                                        <f:selectItems value="#{consultaMovimientosContablesPage.sucursales}"/>
+                                    </p:selectOneMenu>
 
-                                <h:outputText value="Sucursal Destino"/>
-                                <p:selectOneMenu value="#{consultaMovimientosContablesPage.sucDestino}">
-                                    <f:selectItem itemValue="" itemLabel="Cualquiera"/>
-                                    <f:selectItems value="#{consultaMovimientosContablesPage.sucursales}"/>
-                                </p:selectOneMenu>
+                                    <h:outputText value="Sucursal Destino"/>
+                                    <p:selectOneMenu value="#{consultaMovimientosContablesPage.sucDestino}">
+                                        <f:selectItem itemValue="" itemLabel="Cualquiera"/>
+                                        <f:selectItems value="#{consultaMovimientosContablesPage.sucursales}"/>
+                                    </p:selectOneMenu>
 
-                                <h:outputText value="Cuenta Contable"/>
-                                <p:inputText value="#{consultaMovimientosContablesPage.partida}"/>
+                                    <h:outputText value="Cuenta Contable"/>
+                                    <p:inputText value="#{consultaMovimientosContablesPage.partida}"/>
 
-                                <h:outputText value="Número Identificación"/>
-                                <p:inputText value="#{consultaMovimientosContablesPage.numIdentificacion}"/>
+                                    <h:outputText value="Número Identificación"/>
+                                    <p:inputText value="#{consultaMovimientosContablesPage.numIdentificacion}"/>
 
-                                <h:outputText value="Desde"/>
-                                <p:calendar label="Desde" id="desde" required="false"
-                                            value="#{consultaMovimientosContablesPage.desde}" showOn="button"
-                                            navigator="true"/>
+                                    <h:outputText value="Desde"/>
+                                    <p:calendar label="Desde" id="desde" required="false"
+                                                value="#{consultaMovimientosContablesPage.desde}" showOn="button"
+                                                navigator="true"/>
 
-                                <h:outputText value="Hasta"/>
-                                <p:calendar label="Hasta" id="hasta" required="false"
-                                            value="#{consultaMovimientosContablesPage.hasta}" showOn="button"
-                                            navigator="true"/>
+                                    <h:outputText value="Hasta"/>
+                                    <p:calendar label="Hasta" id="hasta" required="false"
+                                                value="#{consultaMovimientosContablesPage.hasta}" showOn="button"
+                                                navigator="true"/>
 
-                                <h:outputText value="Divisa"/>
-                                <p:selectOneMenu value="#{consultaMovimientosContablesPage.divisa}">
-                                    <f:selectItem itemValue="" itemLabel="Cualquiera"/>
-                                    <f:selectItems value="#{consultaMovimientosContablesPage.divisas}"/>
-                                </p:selectOneMenu>
+                                    <h:outputText value="Divisa"/>
+                                    <p:selectOneMenu value="#{consultaMovimientosContablesPage.divisa}">
+                                        <f:selectItem itemValue="" itemLabel="Cualquiera"/>
+                                        <f:selectItems value="#{consultaMovimientosContablesPage.divisas}"/>
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+                                <h:panelGrid columns="1" styleClass="center">
+                                    <p:commandButton action="#{consultaMovimientosContablesPage.buscar}"
+                                                     value="Buscar" ajax="false"
+                                                     update="informacion,lista,lista2"
+                                                     onclick="PF('statusPanel').show();"/>
+                                </h:panelGrid>
+
                             </h:panelGrid>
-                            <h:panelGrid columns="1" styleClass="center">
-                                <p:commandButton action="#{consultaMovimientosContablesPage.buscar}"
-                                                 value="Buscar" ajax="false"
-                                                 update="informacion,lista,lista2" onclick="PF('statusPanel').show();"/>
-                            </h:panelGrid>
+                        </p:tab>
+                    </p:accordionPanel>
+                </h:panelGrid>
 
-                        </h:panelGrid>
-                    </p:tab>
-                </p:accordionPanel>
-            </h:panelGrid>
+                <h:panelGrid columns="1" width="100%" id="infoMsg" styleClass="center">
+                    <ui:include src="../../common/mensajes.xhtml"/>
+                </h:panelGrid>
+                <!-- Tabla de registros -->
 
-            <h:panelGrid columns="1" width="100%" id="infoMsg" styleClass="center">
-                <ui:include src="../../common/mensajes.xhtml"/>
-            </h:panelGrid>
-            <!-- Tabla de registros -->
+                <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
+                    <p:commandButton value="Generar Archivo Excel" update="lista,infoMsg"
+                                     action="#{consultaMovimientosContablesPage.generarArchivoExcelMovimiento}"
+                                     rendered="#{! empty consultaMovimientosContablesPage.datos}"/>
 
-            <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
-                <p:commandButton value="Generar Archivo Excel" update="lista,infoMsg"
-                                 action="#{consultaMovimientosContablesPage.generarArchivoExcelMovimiento}"
-                                 rendered="#{! empty consultaMovimientosContablesPage.datos}"/>
+                    <p:commandLink id="descargarExcel" action="#{downloadGeneralPage.download}" styleClass="bold"
+                                   value="#{precierreCierrePage.excelFileName}" target="_blank" ajax="false"
+                                   rendered="#{precierreCierrePage.mostrarArchExc}">
+                        <f:setPropertyActionListener for="type1" value="#{downloadGeneralPage.REPORTE_EXCEL}"
+                                                     target="#{downloadGeneralPage.type}"/>
+                        <f:setPropertyActionListener for="file1" value="#{precierreCierrePage.excelFileName}"
+                                                     target="#{downloadGeneralPage.file}"/>
+                    </p:commandLink>
+                </h:panelGrid>
+                <h:panelGrid columns="1" width="100%" style="align:center;" id="lista2">
+                    <p:dataTable value="#{consultaMovimientosContablesPage.datos}" var="dato" id="table"
+                                 rendered="#{! empty consultaMovimientosContablesPage.datos}"
+                                 rowIndexVar="rowIndex"
+                                 widgetVar="economicActivityTable" rows="15" paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
+                                 paginatorPosition="top">
 
-                <p:commandLink id="descargarExcel" action="#{downloadGeneralPage.download}" styleClass="bold"
-                               value="#{precierreCierrePage.excelFileName}" target="_blank" ajax="false"
-                               rendered="#{precierreCierrePage.mostrarArchExc}">
-                    <f:setPropertyActionListener for="type1" value="#{downloadGeneralPage.REPORTE_EXCEL}"
-                                                 target="#{downloadGeneralPage.type}"/>
-                    <f:setPropertyActionListener for="file1" value="#{precierreCierrePage.excelFileName}"
-                                                 target="#{downloadGeneralPage.file}"/>
-                </p:commandLink>
-            </h:panelGrid>
-            <h:panelGrid columns="1" width="100%" style="align:center;" id="lista2">
-                <p:dataTable value="#{consultaMovimientosContablesPage.datos}" var="dato" id="table"
-                             rendered="#{! empty consultaMovimientosContablesPage.datos}"
-                             rowIndexVar="rowIndex"
-                             widgetVar="economicActivityTable" rows="15" paginator="true"
-                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
-                             paginatorPosition="top">
+                        <p:column headerText="Número Radicación" width="110px;" sortable="true"
+                                  sortBy="#{dato.NC.numeroRadicacion}">
+                            <h:outputText value="#{dato.NC.numeroRadicacion}"/>
+                        </p:column>
+                        <p:column headerText="Sucursal Origen" width="110px;" sortable="true"
+                                  sortBy="#{dato.sucursal.codigo}">
+                            <h:outputText value="#{dato.sucursal.codigo} : #{dato.sucursal.nombre} "/>
+                        </p:column>
+                        <p:column headerText="Fecha" sortable="true" width="80px;"
+                                  sortBy="#{dato.NC.fechaRegistroAltamira}">
+                            <h:outputText value="#{dato.NC.fechaRegistroAltamira}"/>
+                        </p:column>
+                        <p:column headerText="Detalle de la nota contable" width="360px;" style="text-align: center;">
+                            <p:dataTable style="border-width: 0; background-color: transparent;" var="tema"
+                                         rendered="#{dato.NC.tipoNota eq 'R' }"
+                                         value="#{dato.NC.temas}" cellpadding="0" cellspacing="0">
+                                <p:column style="border-width: 0; text-align: left; width: 100px">
+                                    <h:outputText value="${tema.tema.nombre}"/>
+                                </p:column>
+                                <p:column style="border-width: 0; text-align: left; width: 80">
+                                    <h:outputText value="#{tema.partidaContable} "/>
+                                    <br/>
+                                    <h:outputText value="#{tema.contrapartidaContable}"/>
+                                </p:column>
+                                <p:column style="border-width: 0; text-align: left; width: 20px">
+                                    <h:outputText value="[#{tema.naturalezaPartidaContable}]"/>
+                                    <br/>
+                                    <h:outputText value="[#{tema.naturalezaContrapartidaContable}]"/>
+                                </p:column>
+                                <p:column style="border-width: 0; text-align: left; width: 30px">
+                                    <h:outputText value="#{tema.codigoDivisa}"/>
+                                </p:column>
+                                <p:column style="border-width: 0; text-align:right; width: 140px">
+                                    <h:outputText value="#{tema.monto}"><f:convertNumber
+                                            type="currency"/></h:outputText>
+                                </p:column>
+                            </p:dataTable>
+                            <p:dataTable style="border-width: 0; background-color: transparent;" var="temaCruce"
+                                         rendered="#{dato.NC.tipoNota eq 'C' }"
+                                         value="#{dato.NC.temasCruce}" cellpadding="0" cellspacing="0">
+                                <p:column style="border-width: 0; text-align: left; width: 100px">
+                                    <h:outputText value="REFERENCIA DE CRUCE"/>
+                                </p:column>
+                                <p:column style="border-width: 0; text-align: left; width: 80px">
+                                    <h:outputText value="${temaCruce.cuentaContable}"/>
+                                </p:column>
+                                <p:column style="border-width: 0; text-align: left; width: 20px">
+                                    <h:outputText value="[${temaCruce.naturaleza}]"/>
+                                </p:column>
+                                <p:column style="border-width: 0; text-align: left; width: 30px">
+                                    <h:outputText value="${temaCruce.divisa}"/>
+                                </p:column>
+                                <p:column style="border-width: 0; text-align:right; width: 140px">
+                                    <h:outputText value="#{temaCruce.importe}"><f:convertNumber
+                                            type="currency"/></h:outputText>
+                                </p:column>
 
-                    <p:column headerText="Número Radicación" width="110px;" sortable="true"
-                              sortBy="#{dato.NC.numeroRadicacion}">
-                        <h:outputText value="#{dato.NC.numeroRadicacion}"/>
-                    </p:column>
-                    <p:column headerText="Sucursal Origen" width="110px;" sortable="true"
-                              sortBy="#{dato.sucursal.codigo}">
-                        <h:outputText value="#{dato.sucursal.codigo} : #{dato.sucursal.nombre} "/>
-                    </p:column>
-                    <p:column headerText="Fecha" sortable="true" width="80px;"
-                              sortBy="#{dato.NC.fechaRegistroAltamira}">
-                        <h:outputText value="#{dato.NC.fechaRegistroAltamira}"/>
-                    </p:column>
-                    <p:column headerText="Detalle de la nota contable" width="360px;" style="text-align: center;">
-                        <p:dataTable style="border-width: 0; background-color: transparent;" var="tema"
-                                     rendered="#{dato.NC.tipoNota eq 'R' }"
-                                     value="#{dato.NC.temas}" cellpadding="0" cellspacing="0">
-                            <p:column style="border-width: 0; text-align: left; width: 100px">
-                                <h:outputText value="${tema.tema.nombre}"/>
-                            </p:column>
-                            <p:column style="border-width: 0; text-align: left; width: 80">
-                                <h:outputText value="#{tema.partidaContable} "/>
-                                <br/>
-                                <h:outputText value="#{tema.contrapartidaContable}"/>
-                            </p:column>
-                            <p:column style="border-width: 0; text-align: left; width: 20px">
-                                <h:outputText value="[#{tema.naturalezaPartidaContable}]"/>
-                                <br/>
-                                <h:outputText value="[#{tema.naturalezaContrapartidaContable}]"/>
-                            </p:column>
-                            <p:column style="border-width: 0; text-align: left; width: 30px">
-                                <h:outputText value="#{tema.codigoDivisa}"/>
-                            </p:column>
-                            <p:column style="border-width: 0; text-align:right; width: 140px">
-                                <h:outputText value="#{tema.monto}"><f:convertNumber
-                                        type="currency"/></h:outputText>
-                            </p:column>
-                        </p:dataTable>
-                        <p:dataTable style="border-width: 0; background-color: transparent;" var="temaCruce"
-                                     rendered="#{dato.NC.tipoNota eq 'C' }"
-                                     value="#{dato.NC.temasCruce}" cellpadding="0" cellspacing="0">
-                            <p:column style="border-width: 0; text-align: left; width: 100px">
-                                <h:outputText value="REFERENCIA DE CRUCE"/>
-                            </p:column>
-                            <p:column style="border-width: 0; text-align: left; width: 80px">
-                                <h:outputText value="${temaCruce.cuentaContable}"/>
-                            </p:column>
-                            <p:column style="border-width: 0; text-align: left; width: 20px">
-                                <h:outputText value="[${temaCruce.naturaleza}]"/>
-                            </p:column>
-                            <p:column style="border-width: 0; text-align: left; width: 30px">
-                                <h:outputText value="${temaCruce.divisa}"/>
-                            </p:column>
-                            <p:column style="border-width: 0; text-align:right; width: 140px">
-                                <h:outputText value="#{temaCruce.importe}"><f:convertNumber
-                                        type="currency"/></h:outputText>
-                            </p:column>
+                            </p:dataTable>
+                            <p:dataTable style="border-width: 0px; background-color: transparent; " var="temaLibre"
+                                         rendered="#{dato.NC.tipoNota eq 'L' }"
+                                         value="#{dato.NC.temasLibre}" cellpadding="0" cellspacing="0">
+                                <p:column style="border-width: 0; text-align: left; width: 100px">
+                                    <h:outputText value="CONTABILIDAD LIBRE"/>
+                                </p:column>
+                                <p:column style="border-width: 0; text-align: left; width: 80px;">
+                                    <h:outputText value="${temaLibre.cuentaContable}"/>
+                                </p:column>
+                                <p:column style="border-width: 0; text-align: left; width: 20px">
+                                    <h:outputText value="[${temaLibre.naturalezaCuentaContable}]"/>
+                                </p:column>
+                                <p:column style="border-width: 0; text-align: left; width: 30px">
+                                    <h:outputText value="${temaLibre.codigoDivisa}"/>
+                                </p:column>
+                                <p:column style="border-width: 0; text-align:right; width: 140px">
+                                    <h:outputText value="#{temaLibre.monto}"><f:convertNumber
+                                            type="currency"/></h:outputText>
+                                </p:column>
+                            </p:dataTable>
+                        </p:column>
 
-                        </p:dataTable>
-                        <p:dataTable style="border-width: 0px; background-color: transparent; " var="temaLibre"
-                                     rendered="#{dato.NC.tipoNota eq 'L' }"
-                                     value="#{dato.NC.temasLibre}" cellpadding="0" cellspacing="0">
-                            <p:column style="border-width: 0; text-align: left; width: 100px">
-                                <h:outputText value="CONTABILIDAD LIBRE"/>
-                            </p:column>
-                            <p:column style="border-width: 0; text-align: left; width: 80px;">
-                                <h:outputText value="${temaLibre.cuentaContable}"/>
-                            </p:column>
-                            <p:column style="border-width: 0; text-align: left; width: 20px">
-                                <h:outputText value="[${temaLibre.naturalezaCuentaContable}]"/>
-                            </p:column>
-                            <p:column style="border-width: 0; text-align: left; width: 30px">
-                                <h:outputText value="${temaLibre.codigoDivisa}"/>
-                            </p:column>
-                            <p:column style="border-width: 0; text-align:right; width: 140px">
-                                <h:outputText value="#{temaLibre.monto}"><f:convertNumber
-                                        type="currency"/></h:outputText>
-                            </p:column>
-                        </p:dataTable>
-                    </p:column>
+                        <p:column headerText="Ver Nota Contable" width="50px;" style="text-align: center;">
 
-                    <p:column headerText="Ver Nota Contable" width="50px;" style="text-align: center;">
+                            <p:commandButton value="Ver"
+                                             action="#{flujoNotaContablePage.consultarFlujo}"
+                                             oncomplete="PF('popupFlujoNotaContableVer').show();"
+                                             update="globalForm:popupFlujoNotaContableVer"
+                                             rendered="#{dato.NC.tipoNota eq 'R'}">
+                                <f:setPropertyActionListener for="codNotaVer" value="#{dato.codigoNotaContable}"
+                                                             target="#{flujoNotaContablePage.nota.codigo}"/>
+                            </p:commandButton>
+                            <p:commandButton value="Ver"
+                                             oncomplete="PF('notaContableLibreVer').show();"
+                                             action="#{flujoNotaContableLibrePage.consultarFlujo}"
+                                             update="globalForm:notaContableLibreVer"
+                                             rendered="#{dato.NC.tipoNota eq 'L'}">
+                                <f:setPropertyActionListener for="codNotaLibreVer" value="#{dato.codigoNotaContable}"
+                                                             target="#{flujoNotaContableLibrePage.nota.codigo}"/>
+                            </p:commandButton>
+                            <p:commandButton value="Ver"
+                                             oncomplete="PF('popupFlujoNotaContableRefCruceVer').show();"
+                                             action="#{notaRefCrucePage.consultarFlujo}"
+                                             update="globalForm:popupFlujoNotaContableRefCruceVer"
+                                             rendered="#{dato.NC.tipoNota eq 'C'}">
+                                <f:setPropertyActionListener for="codNotaRefCruceVer" value="#{dato.codigoNotaContable}"
+                                                             target="#{notaRefCrucePage.nota.codigo}"/>
+                            </p:commandButton>
+                        </p:column>
+                        <p:column headerText="Flujo Nota Contable" width="75px;" style="text-align: center;">
 
-                        <p:commandButton value="Ver"
-                                         action="#{flujoNotaContablePage.consultarFlujo}"
-                                         oncomplete="PF('popupFlujoNotaContableVer').show();"
-                                         update="globalForm:popupFlujoNotaContableVer"
-                                         rendered="#{dato.NC.tipoNota eq 'R'}">
-                            <f:setPropertyActionListener for="codNotaVer" value="#{dato.codigoNotaContable}"
-                                                         target="#{flujoNotaContablePage.nota.codigo}"/>
-                        </p:commandButton>
-                        <p:commandButton value="Ver"
-                                         oncomplete="PF('notaContableLibreVer').show();"
-                                         action="#{flujoNotaContableLibrePage.consultarFlujo}"
-                                         update="globalForm:notaContableLibreVer"
-                                         rendered="#{dato.NC.tipoNota eq 'L'}">
-                            <f:setPropertyActionListener for="codNotaLibreVer" value="#{dato.codigoNotaContable}"
-                                                         target="#{flujoNotaContableLibrePage.nota.codigo}"/>
-                        </p:commandButton>
-                        <p:commandButton value="Ver"
-                                         oncomplete="PF('popupFlujoNotaContableRefCruceVer').show();"
-                                         action="#{notaRefCrucePage.consultarFlujo}"
-                                         update="globalForm:popupFlujoNotaContableRefCruceVer"
-                                         rendered="#{dato.NC.tipoNota eq 'C'}">
-                            <f:setPropertyActionListener for="codNotaRefCruceVer" value="#{dato.codigoNotaContable}"
-                                                         target="#{notaRefCrucePage.nota.codigo}"/>
-                        </p:commandButton>
-                    </p:column>
-                    <p:column headerText="Flujo Nota Contable" width="75px;" style="text-align: center;">
+                            <p:commandButton value="Consultar"
+                                             oncomplete="PF('popupFlujo').show()"
+                                             action="#{flujoSubPage.consultarFlujo}"
+                                             update="globalForm:popupFlujo">
+                                <f:setPropertyActionListener for="codConsultar" value="#{dato.codigo}"
+                                                             target="#{flujoSubPage.actividadRealizada.codigoInstancia}"/>
+                            </p:commandButton>
+                        </p:column>
 
-                        <p:commandButton value="Consultar"
-                                         oncomplete="PF('popupFlujo').show()"
-                                         action="#{flujoSubPage.consultarFlujo}"
-                                         update="globalForm:popupFlujo">
-                            <f:setPropertyActionListener for="codConsultar" value="#{dato.codigo}"
-                                                         target="#{flujoSubPage.actividadRealizada.codigoInstancia}"/>
-                        </p:commandButton>
-                    </p:column>
+                    </p:dataTable>
 
-                </p:dataTable>
-
-            </h:panelGrid>
+                </h:panelGrid>
+            </p:panel>
         </div>
     </ui:define>
 </ui:composition>

@@ -1,15 +1,11 @@
 package co.com.bbva.app.notas.contables.jsf.carga;
 
 import co.com.bbva.app.notas.contables.carga.dto.Departamento;
-import co.com.bbva.app.notas.contables.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -19,7 +15,7 @@ import java.util.Collection;
  * </p>
  * 
  */
-@SessionScoped
+@ViewScoped
 @Named
 public class DepartamentoPage extends GeneralCargaPage<Departamento> {
 
@@ -32,11 +28,11 @@ public class DepartamentoPage extends GeneralCargaPage<Departamento> {
 
 //	Session session = getContablesSessionBean().getSessionTrace();
 
-	@PostConstruct
-	public void init() throws Exception {
-		setDatos(new ArrayList<>(_buscarTodos()));
-		LOGGER.info("postConstructo datos {}", getDatos().size());
-	}
+//	@PostConstruct
+//	public void init() throws Exception {
+//		setDatos(new ArrayList<>(_buscarTodos()));
+//		LOGGER.info("postConstructo datos {}", getDatos().size());
+//	}
 
 	/**
 	 * <p>
@@ -67,6 +63,9 @@ public class DepartamentoPage extends GeneralCargaPage<Departamento> {
 		if(!param.isEmpty()){
 //			LOGGER.info("{} Buscar Departamento: {}", session.getTraceLog(),param );
 		}
+		LOGGER.info("PARAM before {}", param);
+		param = "AMAZONAS";
+		LOGGER.info("PARAM AFTER {}", param);
 		return cargaAltamiraManager.searchDepartamento(param);
 	}
 

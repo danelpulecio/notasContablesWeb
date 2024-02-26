@@ -343,7 +343,7 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
                 }
             } else {
                 // se borran los adicionales
-                nuevoMensaje(FacesMessage.SEVERITY_WARN, "Solamente puede incluir 21 Sucursales en la lista. El resto se omitirn");
+                nuevoMensaje(FacesMessage.SEVERITY_WARN, "Solamente puede incluir 21 Sucursales en la lista. El resto se omitirán");
                 break;
             }
         }

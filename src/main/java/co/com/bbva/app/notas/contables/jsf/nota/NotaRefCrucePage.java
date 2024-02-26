@@ -363,7 +363,7 @@ public class NotaRefCrucePage extends GeneralPage implements IPages, Serializabl
 
 			// Codigo nuevo
 			// Para Resolver incidencia que ocurre cuando una
-			// Nota Contable Es Aprobada en una misma sesin; en diferentes Navegadores Web
+			// Nota Contable Es Aprobada en una misma sesión; en diferentes Navegadores Web
 			// lo que ocasionaba que se saltara de Estado; y subsequentemente que notas no se encuentren en Altamira
 			this.chequeoReasignacion = true;
 			this.usuariologueado = getCodUsuarioLogueado();
@@ -426,7 +426,7 @@ public class NotaRefCrucePage extends GeneralPage implements IPages, Serializabl
 
 			// Codigo nuevo
 			// Para Resolver incidencia que ocurre cuando una
-			// Nota Contable Es Aprobada en una misma sesin; en diferentes Navegadores Web
+			// Nota Contable Es Aprobada en una misma sesión; en diferentes Navegadores Web
 			// lo que ocasionaba que se saltara de Estado; y subsequentemente que notas no se encuentren en Altamira
 			this.chequeoReasignacion = true;
 			this.usuariologueado = getCodUsuarioLogueado();
@@ -498,7 +498,7 @@ public class NotaRefCrucePage extends GeneralPage implements IPages, Serializabl
 			instanciado = notasContablesManager.getInstanciaPorNotaContable(instanciado);
 
 			// Para Resolver incidencia que ocurre cuando una
-			// Nota Contable Es Aprobada en una misma sesin; en diferentes Navegadores Web
+			// Nota Contable Es Aprobada en una misma sesión; en diferentes Navegadores Web
 			// lo que ocasionaba que se saltara de Estado; y subsequentemente que notas no se encuentren en Altamira
 			this.chequeoReasignacion = true;
 			this.usuariologueado = getCodUsuarioLogueado();

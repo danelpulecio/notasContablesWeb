@@ -21,6 +21,7 @@
 
                     <!--	Tabla de resultados	-->
                     <p:dataTable id="table" value="#{riesgoOperacionalProcesoPage.datos}" var="dato"
+                                 rendered="#{! empty riesgoOperacionalProcesoPage.datos}"
                                  rowIndexVar="rowIndex"
                                  widgetVar="riesgoTable" rows="15" paginator="true"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"

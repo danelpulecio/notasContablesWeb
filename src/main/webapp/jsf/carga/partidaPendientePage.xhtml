@@ -13,21 +13,22 @@
                 <p:panel style="width: 1200px">
                     <h:panelGrid columns="1" width="100%"><h1 align="center">Partidas Pendientes</h1></h:panelGrid>
 
-                    <h:panelGrid columns="2" id="filtro">
-                        <p:inputText id="param" value="#{partidaPendientePage.param}"/>
-                        <p:commandButton action="#{partidaPendientePage.buscarPorFiltro}" value="Filtrar" ajax="false"/>
-                    </h:panelGrid>
-
                     <ui:include src="../../common/mensajes.xhtml"/>
 
                     <!--	Tabla de resultados	-->
                     <!-- <h:panelGrid columns="1" width="100%" style="align:center;" id="lista"> -->
 
                     <p:dataTable value="#{partidaPendientePage.datos}" var="dato" id="table" rowIndexVar="rowIndex"
+                                 rendered="#{! empty partidaPendientePage.datos}"
                                  widgetVar="economicActivityTable" rows="15" paginator="true"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
                                  paginatorPosition="top">
+
+                        <f:facet name="header">
+                            <p:inputText id="param" value="#{partidaPendientePage.param}"/>
+                            <p:commandButton actionListener="#{partidaPendientePage.buscarPorFiltro}" value="Filtrar" update="table" />
+                        </f:facet>
 
                         <p:column width="30px;" headerText="Fila">
                             <h:outputText value="#{rowIndex+1}"/>

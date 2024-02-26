@@ -3,12 +3,9 @@ package co.com.bbva.app.notas.contables.jsf.carga;
 import co.com.bbva.app.notas.contables.carga.dto.CierreMensual;
 import co.com.bbva.app.notas.contables.jsf.GeneralPage;
 import co.com.bbva.app.notas.contables.jsf.IPages;
-import co.com.bbva.app.notas.contables.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -26,7 +23,7 @@ import java.util.Locale;
  * 
  */
 @Named
-@SessionScoped
+@ViewScoped
 public class CierreMensualPage extends GeneralPage implements IPages, Serializable {
 
 	private String cierreMensual;

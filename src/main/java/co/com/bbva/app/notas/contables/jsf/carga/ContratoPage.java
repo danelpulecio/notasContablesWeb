@@ -1,12 +1,9 @@
 package co.com.bbva.app.notas.contables.jsf.carga;
 
 import co.com.bbva.app.notas.contables.carga.dto.Contrato;
-import co.com.bbva.app.notas.contables.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.util.ArrayList;
@@ -20,7 +17,7 @@ import java.util.Collection;
  * 
  */
 @Named
-@SessionScoped
+@ViewScoped
 public class ContratoPage extends GeneralCargaPage<Contrato> {
 
 	/**

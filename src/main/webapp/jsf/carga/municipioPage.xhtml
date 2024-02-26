@@ -13,21 +13,21 @@
                 <p:panel style="width: 850px">
                     <h:panelGrid columns="1" width="100%"><h1 align="center">Municipios</h1></h:panelGrid>
 
-                    <h:panelGrid columns="2" id="filtro">
-                        <p:inputText id="param" value="#{municipioPage.param}"/>
-                        <p:commandButton action="#{municipioPage.buscarPorFiltro}" value="Filtrar" ajax="false"/>
-                    </h:panelGrid>
-
                     <ui:include src="../../common/mensajes.xhtml"/>
 
                     <!--	Tabla de resultados	-->
                     <!--    <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">-->
 
                     <p:dataTable value="#{municipioPage.datos}" var="dato" id="table" rowIndexVar="rowIndex"
+                                 rendered="#{! empty municipioPage.datos}"
                                  widgetVar="economicActivityTable" rows="15" paginator="true"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
                                  paginatorPosition="top">
+                        <f:facet name="header">
+                            <p:inputText id="param" value="#{municipioPage.param}"/>
+                            <p:commandButton actionListener="#{municipioPage.buscarPorFiltro}" value="Filtrar" update="table" />
+                        </f:facet>
 
                         <p:column headerText="Fila">
                             <h:outputText value="#{rowIndex+1}"/>

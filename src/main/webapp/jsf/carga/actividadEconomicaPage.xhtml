@@ -8,38 +8,36 @@
     <ui:define name="body">
         <!--Filtro de busqueda	-->
         <div style="width: 1200px;">
-            <h:form>
-                <p:panel style="width: 850px">
-                    <h:panelGrid columns="1" width="850px"><h1 align="center">Actividades Económicas</h1></h:panelGrid>
+            <p:panel style="width: 850px">
+                <h:panelGrid columns="1" width="850px"><h1 align="center">Actividades Económicas</h1></h:panelGrid>
 
-                    <!--                    <h:panelGrid columns="1" width="850px" style="align:center;" id="lista">-->
-                    <h:panelGrid columns="2" id="filtro" style="text-align: center; margin: 0 auto;">
+                <ui:include src="../../common/mensajes.xhtml"/>
+                <p:dataTable id="actividadTable" var="actividad" value="#{actividadEconomicaPage.datos}"
+                             paginator="true" rows="15" emptyMessage="No hay registros"
+                             widgetVar="economicActivityTable"
+                             rowIndexVar="rowIndex"
+                             currentPageReportTemplate="{startRecord} - {endRecord} de {totalRecords} registros"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             paginatorPosition="top">
+
+                    <f:facet name="header">
                         <p:inputText id="param" value="#{actividadEconomicaPage.param}"/>
-                        <p:commandButton action="#{actividadEconomicaPage.buscarPorFiltro}" value="Filtrar"
-                                         ajax="false"/>
-                    </h:panelGrid>
-                    <ui:include src="../../common/mensajes.xhtml"/>
-                    <p:dataTable id="actividadTable" value="#{actividadEconomicaPage.datos}" var="actividad"
-                                 rowIndexVar="rowIndex"
-                                 widgetVar="economicActivityTable" rows="15" paginator="true"
-                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                 currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
-                                 paginatorPosition="top">
+                        <p:commandButton actionListener="#{actividadEconomicaPage.buscarPorFiltro}" value="Filtrar" update="actividadTable" />
+                    </f:facet>
 
-                        <p:column headerText="Fila">
-                            <h:outputText value="#{rowIndex + 1}"/>
-                        </p:column>
-                        <p:column headerText="Codigo" sortable="true" sortBy="#{actividad.codigo}">
-                            <h:outputText value="#{actividad.codigo} "/>
-                        </p:column>
-                        <p:column headerText="Nombre" sortable="true" sortBy="#{actividad.nombre}">
-                            <h:outputText value="#{actividad.nombre}"/>
-                        </p:column>
-                    </p:dataTable>
-
-                    <!--                    </h:panelGrid>-->
-                </p:panel>
-            </h:form>
+                    <p:column headerText="Fila">
+                        <h:outputText value="#{rowIndex + 1}"/>
+                    </p:column>
+                    <p:column headerText="Codigo" sortable="true" sortBy="#{actividad.codigo}"
+                              filterBy="#{actividad.codigo} #{actividad.nombre}" filterStyle="display: none;">
+                        <h:outputText value="#{actividad.codigo} "/>
+                    </p:column>
+                    <p:column headerText="Nombre" sortable="true" sortBy="#{actividad.nombre}"
+                              filterMatchMode="contains">
+                        <h:outputText value="#{actividad.nombre}"/>
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
         </div>
     </ui:define>
 </ui:composition>
