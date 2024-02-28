@@ -10,7 +10,12 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public abstract class CommonDAO<T extends CommonVO<T>> extends SuperDAO<T> {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(CommonDAO.class);
 
 	private String sql_SELECT_MAX_CODE_SENTENCE = null;
 
@@ -119,8 +124,12 @@ public abstract class CommonDAO<T extends CommonVO<T>> extends SuperDAO<T> {
 	 * @throws Exception
 	 */
 	final public int add(Connection con, T row, int codigoUsuario) throws Exception {
+		LOGGER.info("CommonDAO : add : Connection : {}", con);
+		LOGGER.info("CommonDAO : add : T row : {}", row);
+		LOGGER.info("CommonDAO : add : codigoUsuario : {}", codigoUsuario);
 		if (sql_INSERT_SENTENCE != null) {
 			Object idAnt = row.getPK();
+			LOGGER.info("CommonDAO : add : if : {}", idAnt);
 			try {
 				int id = 0;
 				internalAdd(con, row);

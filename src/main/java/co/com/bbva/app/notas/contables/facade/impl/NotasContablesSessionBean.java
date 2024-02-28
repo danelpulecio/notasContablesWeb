@@ -872,7 +872,7 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 
 		if (codigoUsuarioAsignadoInstancia != 0) {
 			codigoNotaContable = notaContableDAO.add(con, row, codigoUsuario);
-
+			
 			codigoSucursalOrigenAsignadaInstancia = row.getCodigoSucursalOrigen();
 			instancia.setCodigoNotaContable(codigoNotaContable);
 			instancia.setCodigoUsuarioActual(codigoUsuarioAsignadoInstancia);
@@ -2563,7 +2563,7 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 		usuarioModulo.setCodigo(codigoUsuarioAsignado);
 		usuarioModulo = getUsuarioModulo(usuarioModulo);
 
-		enviarEMail.sendEmail(usuarioModulo.getEMailModificado(), usuarioLogueado.getUsuario().getEMailModificado(), "Mdulo Notas Contables - Registro para aprobar",
+		enviarEMail.sendEmail(usuarioModulo.getEMailModificado(), usuarioLogueado.getUsuario().getEMailModificado(), "Módulo Notas Contables - Registro para aprobar",
 				"Por favor ingrese al mdulo de Notas Contables, se le ha asignado un registro que requiere su verificacin");
 	}
 

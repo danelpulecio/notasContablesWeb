@@ -140,29 +140,43 @@
 	                    	<f:setPropertyActionListener for="selPart1" value="true" target="#{partida.seleccionada}" />
 	                    </p:commandButton>
 	                </p:column>
+	                
+				        
 	                <f:facet name="footer" >
-						<p:columnGroup rendered="#{! empty notaRefCrucePage.totalesNota}">
-							<p:column colspan="6" style="text-align:right;"><h:outputText value="Totales" /></p:column>
-							<p:column style="padding: 0px;">
-								<p:dataTable style="border-width: 0px; background-color: transparent;" value="#{notaRefCrucePage.totalesNota}" var="total" >
-									<p:column style="border-width: 0px;"><h:outputText value="#{total.codigoDivisa }" /></p:column>
-								</p:dataTable>
-							</p:column>
-							<p:column style="padding: 0px;">
-								<p:dataTable style="border-width: 0px; background-color: transparent;" value="#{notaRefCrucePage.totalesNota}" var="total" >
-									<p:column  style="border-width: 0px; text-align:right;"><h:outputText value="#{total.total}" ><f:convertNumber type="currency" /></h:outputText></p:column>
-								</p:dataTable>
-							</p:column>
-							<p:column ></p:column>
-						</p:columnGroup>
+	                
+		                <h:panelGroup rendered="#{! empty notaRefCrucePage.totalesNota}">
+			                <p:dataTable style="border-width: 0px; background-color: transparent;" 
+			                	value="#{notaRefCrucePage.totalesNota}" var="total" >
+			                	<p:column style="border-width: 1px; text-align:right;">
+			                		<h:outputText value="Totales" />
+			                	</p:column>
+								<p:column style="border-width: 1px; text-align:left;" width="106px">
+									<h:outputText value="#{total.codigoDivisa }" />
+								</p:column>
+								<p:column style="border-width: 1px; text-align:right;" width="106px">
+									<h:outputText value="#{total.total}" >
+										<f:convertNumber type="currency" />
+									</h:outputText>
+								</p:column>
+								<p:column style="border-width: 1px; text-align:right;" width="96px">
+			                		<h:outputText value="" />
+			                	</p:column>
+							</p:dataTable>
+		                </h:panelGroup>
+	                
 					</f:facet>
 					
 				</p:dataTable>
 			</p:panel>
 		</h:panelGroup>
 		<h:panelGrid columns="2" styleClass="center" width="100%" id="opcionesNotaRefCruce">
-			<p:commandButton actionListener="#{notaRefCrucePage.guardar}" value="Enviar a Visto Bueno" update="globalForm:partPendientes,globalForm:partSeleccionadas,globalForm:opcionesNotaRefCruce" rendered="#{! empty notaRefCrucePage.partidasSeleccionadas}"/>
-			<p:commandButton value="Cancelar" actionListener="#{notaRefCrucePage.cancelar}" update="globalForm:partPendientes,globalForm:partSeleccionadas,globalForm:opcionesNotaRefCruce"  rendered="#{! empty notaRefCrucePage.partidasSeleccionadas}"/>
+			<p:commandButton action="#{notaRefCrucePage.guardar}" value="Enviar a Visto Bueno" 
+				update="globalForm:partPendientes,globalForm:partSeleccionadas,globalForm:opcionesNotaRefCruce" 
+				rendered="#{! empty notaRefCrucePage.partidasSeleccionadas}"/>
+			<p:commandButton value="Cancelar" 
+				action="#{notaRefCrucePage.cancelar}" 
+				update="globalForm:partPendientes,globalForm:partSeleccionadas,globalForm:opcionesNotaRefCruce"  
+				rendered="#{! empty notaRefCrucePage.partidasSeleccionadas}"/>
 		</h:panelGrid>
 	</h:panelGrid>
 </ui:composition>

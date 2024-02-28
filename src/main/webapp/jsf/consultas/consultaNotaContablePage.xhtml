@@ -32,10 +32,10 @@
 
                                 <h:panelGrid columns="2">
                                     <h:outputText value="Criterio"/>
-                                    <h:selectOneMenu value="#{consultaNotaContablePage.criterio}" immediate="true">
+                                    <p:selectOneMenu value="#{consultaNotaContablePage.criterio}">
                                         <p:ajax event="change" update="filtro"></p:ajax>
                                         <f:selectItems value="#{consultaNotaContablePage.tiposCriterio}"/>
-                                    </h:selectOneMenu>
+                                    </p:selectOneMenu>
                                 </h:panelGrid>
                                 <h:panelGrid columns="2" id="filtro">
                                     <h:outputText value="Número de radicación"
@@ -62,12 +62,13 @@
                     </p:accordionPanel>
                 </h:panelGrid>
 
-                <ui:include src="../../common/mensajes.xhtml"/>
+                
 
                 <!-- Tabla de registros -->
 
                 <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
-
+					<ui:include src="../../common/mensajes.xhtml"/>
+					
                     <p:dataTable value="#{consultaNotaContablePage.datos}"
                                  rendered="#{! empty consultaNotaContablePage.datos}" var="dato" id="table"
                                  rowIndexVar="rowIndex"

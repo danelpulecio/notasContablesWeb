@@ -98,7 +98,7 @@ public class TerceroPage extends GeneralParametrosPage<Tercero, Tercero> {
 					actividades.add(new SelectItem(ti.getCodigo(), ti.getCodigo() + " - " + ti.getNombre()));
 				}
 			} else {
-				nuevoMensaje(FacesMessage.SEVERITY_WARN, "Por favor ingrese un filtro de bsqueda de 4 caracteres o mas");
+				nuevoMensaje(FacesMessage.SEVERITY_WARN, "Por favor ingrese un filtro de búsqueda de 4 caracteres o mas");
 			}
 		} catch (Exception e) {
 			LOGGER.error("Error consultando las actividades econmicas  " ,e);

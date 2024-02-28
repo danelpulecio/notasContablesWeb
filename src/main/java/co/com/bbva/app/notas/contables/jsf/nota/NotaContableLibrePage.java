@@ -5,6 +5,8 @@ import co.com.bbva.app.notas.contables.dto.*;
 import co.com.bbva.app.notas.contables.session.Session;
 import co.com.bbva.app.notas.contables.util.DateUtils;
 import co.com.bbva.app.notas.contables.util.StringUtils;
+
+import org.primefaces.PrimeFaces;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.file.UploadedFile;
 import org.slf4j.Logger;
@@ -98,7 +100,7 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 							montoAlertaEXT = monto.getMontoMaximoAlerta();
 						}
 					}
-					LOGGER.info("{} Obteniendo Info. de los das no hbiles");
+					LOGGER.info("{} Obteniendo Info. de los das no hábiles");
 					diasNoHabiles = new ArrayList<>(cargaAltamiraManager.getFestivosFecha());
 
 					FechaHabilitada fechaHabilitada = new FechaHabilitada();
@@ -208,14 +210,14 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 						LOGGER.warn("{} Ninguna cuenta es válida para la sucursal");
 						nuevoMensaje(FacesMessage.SEVERITY_WARN, "Centro no Autorizado para afectar la cuenta " + cuentaContable);
 					} else if (cuentas.size() == 1) {
-						LOGGER.info("{} La bsqueda de la cuenta contable coincide con un registro");
+						LOGGER.info("{} La búsqueda de la cuenta contable coincide con un registro");
 						temaActual.setCuentaContable(pucs.iterator().next().getNumeroCuenta());
 						seleccionarCuenta();
 					}
 				}
 			} else {
-				LOGGER.warn("{} Para realizar la bsqueda de la(s) cuenta(s) contable(s) se requiere mnimo 4 caracteres");
-				nuevoMensaje(FacesMessage.SEVERITY_WARN, "Por favor indique un número de cuenta de 4 dgitos o ms");
+				LOGGER.warn("{} Para realizar la búsqueda de la(s) cuenta(s) contable(s) se requiere mnimo 4 caracteres");
+				nuevoMensaje(FacesMessage.SEVERITY_WARN, "Por favor indique un número de cuenta de 4 dgitos o más");
 			}
 		} catch (Exception e) {
 			LOGGER.error("{} Error al realizar la consulta de la(s) cuenta contable", e);
@@ -347,7 +349,7 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 			nuevoMensaje(FacesMessage.SEVERITY_WARN, "La fecha no puede ser superior a HOY");
 			fechaNota = fecha;
 		} else if (fechaNota == null || diasNoHabiles.contains(fechaNota)) {
-			nuevoMensaje(FacesMessage.SEVERITY_WARN, "La fecha debe ser un da hbil");
+			nuevoMensaje(FacesMessage.SEVERITY_WARN, "La fecha debe ser un da hábil");
 			fechaNota = fecha;
 		} else if (fechaNota == null || fechaNota.after(fecha)) {
 			nuevoMensaje(FacesMessage.SEVERITY_WARN, "La fecha no puede ser superior a " + StringUtils.getString(fecha, "yyyy-MM-dd"));
@@ -608,6 +610,9 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 			anexo.setEstadoInstancia("1");
 			anexo.setUsuNombre(getUsuarioLogueado().getUsuAltamira().getNombreEmpleado());
 			anexos.add(anexo);
+			
+			nuevoMensaje(FacesMessage.SEVERITY_INFO, "Successful: El archivo : " + DIR_SOPORTES + fileName + " se subio correctamente.");
+			
 		} catch (Exception e) {
 			LOGGER.error("{} Error al intentar cargar el archivo (SOPORTE): {}", fileName, e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema al cargar el archivo: " + DIR_SOPORTES + fileName);
@@ -700,6 +705,7 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 						nuevoMensaje(FacesMessage.SEVERITY_INFO, "La nota ha sido radicada correctamente con el número: " + notaContable.getNumeroRadicacion());
 						ocultarPopupGuardarNota = true;
 						UsuarioModulo usuarioModulo = new UsuarioModulo();
+						PrimeFaces.current().executeScript("PF('popupNotaContableLibre').hide();");
 						try {
 							LOGGER.info("{} Intentando enviar email de la nota grabada");
 							int codigoUsuarioAsignado = instancia.getCodigoUsuarioActual().intValue();
@@ -729,7 +735,7 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 	private boolean validarNota() {
 		LOGGER.info("{} Validando campos requeridos");
 		validarFecha();
-		validador.validarRequerido(nota.getDescripcion(), "Descripcin de la nota");
+		validador.validarRequerido(nota.getDescripcion(), "Descripción de la nota");
 		if (anexos.isEmpty()) {
 			nuevoMensaje(FacesMessage.SEVERITY_WARN, "El registro de contabilidad libre exige soportes, por favor agregue al menos uno");
 		}
@@ -853,6 +859,7 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 		if (validarRiesgo()) {
 			nuevoMensaje(FacesMessage.SEVERITY_INFO, "La información de riesgo operacional se ha guardado temporalmente");
 			ocultarPopupRiesgo = true;
+			PrimeFaces.current().executeScript("PF('modalRiesgoRegLibre').hide();");
 		}
 		return null;
 	}
@@ -935,6 +942,7 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 			temaActual = new NotaContableRegistroLibre();
 			nuevoMensaje(FacesMessage.SEVERITY_INFO, "El tema se ha guardado temporalmente");
 			ocultarPopupTema = true;
+			PrimeFaces.current().executeScript("PF('editorRegLibre').hide();");
 		}
 		return null;
 	}

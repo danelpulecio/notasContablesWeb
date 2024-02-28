@@ -7,10 +7,15 @@ import co.com.bbva.app.notas.contables.datos.utilidades.DBUtils;
 import co.com.bbva.app.notas.contables.dto.Auditoria;
 import co.com.bbva.app.notas.contables.dto.AuditoriaDetalle;
 import co.com.bbva.app.notas.contables.dto.CommonVO;
+import co.com.bbva.app.notas.contables.jsf.nota.NotaContableLibrePage;
 import co.com.bbva.app.notas.contables.util.DateUtils;
 
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.lang.reflect.Field;
 import java.sql.*;
 import java.util.ArrayList;
@@ -19,6 +24,9 @@ import java.util.List;
 import java.util.Map;
 
 public class SuperDAO<T extends CommonVO<T>> extends DBUtils<T> implements IAuditoriaDetalleSentence, IAuditoriaSentence {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(SuperDAO.class);
+	
 	protected DataSource dataSource = null;
 
 	protected static String JNDI_DATASOURCE_NAME = "jdbc/notasContables";
@@ -359,9 +367,13 @@ public class SuperDAO<T extends CommonVO<T>> extends DBUtils<T> implements IAudi
 
 	public void executeUpdate(Connection con, String sentence, Object[] params) throws Exception {
 		PreparedStatement preparedStatementSentence = null;
+		LOGGER.info("SuperDAO : executeUpdate : Connection : {}",con);
+		LOGGER.info("SuperDAO : executeUpdate : sentence : {}",sentence);
+		LOGGER.info("SuperDAO : executeUpdate : params : {}",params);
 		try {
 			preparedStatementSentence = con.prepareStatement(sentence);
 			for (int i = 0; i < params.length; i++) {
+				LOGGER.info("SuperDAO : executeUpdate : for : {}",params[i]);
 				addParameter(preparedStatementSentence, i + 1, params[i]);
 			}
 			
@@ -385,11 +397,28 @@ public class SuperDAO<T extends CommonVO<T>> extends DBUtils<T> implements IAudi
 	}
 
 	protected void addParameter(PreparedStatement preparedStatementSentence, int i, Object object) throws Exception {
+		
+		LOGGER.info("addParameter : SuperDAO : preparedStatementSentence : {}",preparedStatementSentence.toString());
+		
+		LOGGER.info("addParameter : SuperDAO : {}",i);
+		LOGGER.info("addParameter : SuperDAO : {}",object);
+		
 		if (object instanceof String) {
+			
 			object = ((String) object).toUpperCase();
+			LOGGER.info("addParameter : SuperDAO : en el if --> {}",object);
+			
+			LOGGER.info("addParameter : SuperDAO : pasando a toString() --> {}",object.toString() );
+			
+			LOGGER.info("addParameter : SuperDAO : paso el toString ");
+			
 			preparedStatementSentence.setString(i, object.toString());
+			
+			LOGGER.info("addParameter : SuperDAO : paso el setString ");
 		} else {
+			LOGGER.info("addParameter : SuperDAO : em el else : {}",object);
 			preparedStatementSentence.setObject(i, object);
+			LOGGER.info("addParameter : SuperDAO : paso el setString en el else");
 		}
 	}
 

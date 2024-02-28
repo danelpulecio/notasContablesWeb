@@ -42,52 +42,52 @@
                     </h:panelGrid>
                     <h:panelGrid columns="4" width="100%" style="align:center;">
 
-                        <p:commandLink action="#{downloadGeneralPage.download}" styleClass="bold"
-                                       value="#{precierreCierrePage.excelFileName}" target="_blank"
-                                       rendered="#{precierreCierrePage.mostrarArchExc}" ajax="false">
-                            <f:setPropertyActionListener for="type1" value="#{downloadGeneralPage.REPORTE_EXCEL}"
-                                                         target="#{downloadGeneralPage.type}"/>
-                            <f:setPropertyActionListener for="file1" value="#{precierreCierrePage.excelFileName}"
-                                                         target="#{downloadGeneralPage.file}"/>
-                        </p:commandLink>
+                    <p:commandLink action="#{downloadGeneralPage.download}" styleClass="bold"
+                                   value="#{precierreCierrePage.excelFileName}" target="_blank"
+                                   rendered="#{precierreCierrePage.mostrarArchExc}" ajax="false">
+                        <f:setPropertyActionListener for="type1" value="#{downloadGeneralPage.REPORTE_EXCEL}"
+                                                     target="#{downloadGeneralPage.type}"/>
+                        <f:setPropertyActionListener for="file1" value="#{precierreCierrePage.excelFileName}"
+                                                     target="#{downloadGeneralPage.file}"/>
+                    </p:commandLink>
 
-                        <p:commandLink action="#{downloadGeneralPage.download}" styleClass="bold"
-                                       value="#{precierrePage.INTERFAZ_CONTABLE_FILE_NAME}" target="_blank"
-                                       rendered="#{precierreCierrePage.mostrarArchAlt}" ajax="false">
-                            <f:setPropertyActionListener for="type2" value="#{downloadGeneralPage.TRANSMISION_ALTAMIRA}"
-                                                         target="#{downloadGeneralPage.type}"/>
-                            <f:setPropertyActionListener for="file2"
-                                                         value="#{precierrePage.INTERFAZ_CONTABLE_FILE_NAME}"
-                                                         target="#{downloadGeneralPage.file}"/>
-                        </p:commandLink>
+                    <p:commandLink action="#{downloadGeneralPage.download}" styleClass="bold"
+                                   value="#{precierrePage.INTERFAZ_CONTABLE_FILE_NAME}" target="_blank"
+                                   rendered="#{precierreCierrePage.mostrarArchAlt}" ajax="false">
+                        <f:setPropertyActionListener for="type2" value="#{downloadGeneralPage.TRANSMISION_ALTAMIRA}"
+                                                     target="#{downloadGeneralPage.type}"/>
+                        <f:setPropertyActionListener for="file2"
+                                                     value="#{precierrePage.INTERFAZ_CONTABLE_FILE_NAME}"
+                                                     target="#{downloadGeneralPage.file}"/>
+                    </p:commandLink>
 
-                        <p:commandLink action="#{downloadGeneralPage.download}" styleClass="bold"
-                                       value="#{precierrePage.PUC_FILE_NAME}" target="_blank"
-                                       rendered="#{precierreCierrePage.mostrarArchAlt}" ajax="false">
-                            <f:setPropertyActionListener for="type3" value="#{downloadGeneralPage.TRANSMISION_ALTAMIRA}"
-                                                         target="#{downloadGeneralPage.type}"/>
-                            <f:setPropertyActionListener for="file3" value="#{precierrePage.PUC_FILE_NAME}"
-                                                         target="#{downloadGeneralPage.file}"/>
-                        </p:commandLink>
+                    <p:commandLink action="#{downloadGeneralPage.download}" styleClass="bold"
+                                   value="#{precierrePage.PUC_FILE_NAME}" target="_blank"
+                                   rendered="#{precierreCierrePage.mostrarArchAlt}" ajax="false">
+                        <f:setPropertyActionListener for="type3" value="#{downloadGeneralPage.TRANSMISION_ALTAMIRA}"
+                                                     target="#{downloadGeneralPage.type}"/>
+                        <f:setPropertyActionListener for="file3" value="#{precierrePage.PUC_FILE_NAME}"
+                                                     target="#{downloadGeneralPage.file}"/>
+                    </p:commandLink>
 
-                        <p:commandLink action="#{downloadGeneralPage.download}" styleClass="bold"
-                                       value="#{precierrePage.TERCEROS_FILE_NAME}" target="_blank"
-                                       rendered="#{precierreCierrePage.mostrarArchAlt}" ajax="false">
-                            <f:setPropertyActionListener for="type4" value="#{downloadGeneralPage.TRANSMISION_ALTAMIRA}"
-                                                         target="#{downloadGeneralPage.type}"/>
-                            <f:setPropertyActionListener for="file4" value="#{precierrePage.TERCEROS_FILE_NAME}"
-                                                         target="#{downloadGeneralPage.file}"/>
-                        </p:commandLink>
+                    <p:commandLink action="#{downloadGeneralPage.download}" styleClass="bold"
+                                   value="#{precierrePage.TERCEROS_FILE_NAME}" target="_blank"
+                                   rendered="#{precierreCierrePage.mostrarArchAlt}" ajax="false">
+                        <f:setPropertyActionListener for="type4" value="#{downloadGeneralPage.TRANSMISION_ALTAMIRA}"
+                                                     target="#{downloadGeneralPage.type}"/>
+                        <f:setPropertyActionListener for="file4" value="#{precierrePage.TERCEROS_FILE_NAME}"
+                                                     target="#{downloadGeneralPage.file}"/>
+                    </p:commandLink>
 
-                        <!-- arhivo NC_INDICAPC_NTCON.TXT -->
-                        <p:commandLink actionListener="#{downloadGeneralPage.download}" styleClass="bold"
-                                       value="#{precierrePage.NC_INDICAPC}" target="_blank"
-                                       rendered="#{precierreCierrePage.mostrarArchAlt}" ajax="false">
-                            <f:setPropertyActionListener for="type4" value="#{downloadGeneralPage.TRANSMISION_ALTAMIRA}"
-                                                         target="#{downloadGeneralPage.type}"/>
-                            <f:setPropertyActionListener for="file4" value="#{precierrePage.NC_INDICAPC}"
-                                                         target="#{downloadGeneralPage.file}"/>
-                        </p:commandLink>
+                    <!-- arhivo NC_INDICAPC_NTCON.TXT -->
+                    <p:commandLink action="#{downloadGeneralPage.download}" styleClass="bold"
+                                   value="#{precierrePage.NC_INDICAPC}" target="_blank"
+                                   rendered="#{precierreCierrePage.mostrarArchAlt}" ajax="false">
+                        <f:setPropertyActionListener for="type4" value="#{downloadGeneralPage.TRANSMISION_ALTAMIRA}"
+                                                     target="#{downloadGeneralPage.type}"/>
+                        <f:setPropertyActionListener for="file4" value="#{precierrePage.NC_INDICAPC}"
+                                                     target="#{downloadGeneralPage.file}"/>
+                    </p:commandLink>
 
                     </h:panelGrid>
                     <ui:include src="precierreCierreFormPage.xhtml"/>

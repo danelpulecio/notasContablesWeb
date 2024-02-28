@@ -17,6 +17,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
 
+import org.primefaces.PrimeFaces;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.file.UploadedFile;
 import org.slf4j.Logger;
@@ -102,10 +103,14 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 	private boolean ocultarPopupAnular = false;
 	private boolean aplicaRecuperacion = false;
 	//private Session session;
+	
+	private java.util.Date  fechaContablePF = null;
 
 	
 	public NotaContablePage() {
+		
 		super();
+		this.fechaContablePF = new Date();
 	}
 
 	public String iniciarPagina() {
@@ -125,7 +130,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 						montoAlertaEXT = monto.getMontoMaximoAlerta();
 					}
 				}
-				LOGGER.info("{} Obteniendo Info. de los das no hbiles");
+				LOGGER.info("{} Obteniendo Info. de los das no háxbiles");
 				diasNoHabiles = new ArrayList<>(cargaAltamiraManager.getFestivosFecha());
 
 				FechaHabilitada fechaHabilitada = new FechaHabilitada();
@@ -175,10 +180,10 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 		conceptos = new ArrayList<>();
 		try {
 			Sucursal sucursal = getUsuarioLogueado().getSucursal();
-			LOGGER.info("{} Obtener conceptos - Filtro: {}", concepto);
+			LOGGER.info("Obtener conceptos - Filtro: {}", concepto);
 			TreeSet<Concepto> set = new TreeSet<>(notasContablesManager.searchConcepto(concepto, "A"));
 			CentroEspecial centroEspecial = getUsuarioLogueado().getCentroEspecial();
-			LOGGER.info("{} Procensando {} Conceptos", set.size());
+			LOGGER.info(" Procensando {} Conceptos", set.size());
 			for (Concepto row : set) {
 				boolean indView = false;
 				if (row.getCentrosAutSucursales().equals("S") && sucursal.getTipoCentro().equals("O")) {
@@ -192,7 +197,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 					conceptos.add(new SelectItem(row.getCodigo().toString(), row.getNombre()));
 				}
 			}
-			LOGGER.info("{} Se encontraron {} Conceptos", conceptos.size());
+			LOGGER.info("Se encontraron {} Conceptos", conceptos.size());
 		} catch (Exception e) {
 			LOGGER.error("{} Error intentando consultar los conceptos", e);
 			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema consultando los conceptos");
@@ -370,13 +375,14 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 		java.sql.Date fecha = new java.sql.Date(DateUtils.getDate(maxFecha, "dd-MM-yyyy").getTime());
 		Date fechaActual = new Date();
 		java.sql.Date fechaAct = DateUtils.getSQLDate(fechaActual);
-		temaActual.setFechaContable(DateUtils.getSQLDate(temaActual.getFechaContablePF()));
+//		temaActual.setFechaContable(DateUtils.getSQLDate(temaActual.getFechaContablePF()));
+		temaActual.setFechaContable(DateUtils.getSQLDate(this.fechaContablePF));
 		
 		if (temaActual.getFechaContable().after(DateUtils.getSQLDate(fechaAct))) {
 			nuevoMensaje(FacesMessage.SEVERITY_WARN, "La fecha no puede ser superior a HOY");
 			temaActual.setFechaContable(fecha);
 		} else if (diasNoHabiles.contains(temaActual.getFechaContable())) {
-			nuevoMensaje(FacesMessage.SEVERITY_WARN, "La fecha debe ser un dia hbil");
+			nuevoMensaje(FacesMessage.SEVERITY_WARN, "La fecha debe ser un dia hábil");
 			temaActual.setFechaContable(fecha);
 		} else if (temaActual.getFechaContable().after(DateUtils.getDate(fecha))) {
 			nuevoMensaje(FacesMessage.SEVERITY_WARN, "La fecha no puede ser superior a " + StringUtils.getString(fecha, "yyyy-MM-dd"));
@@ -899,8 +905,9 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 
 	public String guardarRiesgo() {
 		if (validarRiesgo()) {
-			nuevoMensaje(FacesMessage.SEVERITY_INFO, "La informacion de riesgo operacional se ha guardado temporalmente");
+			nuevoMensaje(FacesMessage.SEVERITY_INFO, "La información de riesgo operacional se ha guardado temporalmente");
 			this.ocultarPopupRiesgo = true;
+			PrimeFaces.current().executeScript("PF('modalRiesgo').hide();");
 		}
 		return null;
 	}
@@ -910,7 +917,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 	 * @return
 	 */
 	private boolean validarRiesgo() {
-		LOGGER.info("{} Se va guardar la Info. diligenciada en ventana modal de Riesgo para Nota Contable Tipo Tema.  ");
+		LOGGER.info("Se va guardar la Info. diligenciada en ventana modal de Riesgo para Nota Contable Tipo Tema.  ");
 		validador.validarPositivo(temaActual.getRiesgoOperacional().getImporteParcial(), "Importe Parcial");
 		validador.validarPositivo(temaActual.getRiesgoOperacional().getImporteTotal(), "Importe Total");
 		
@@ -1015,6 +1022,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 			montoAnt = 0d;
 			nuevoMensaje(FacesMessage.SEVERITY_INFO, "El tema se ha guardado temporalmente");
 			ocultarPopupTema = true;
+			PrimeFaces.current().executeScript("PF('editor').hide();");
 		}
 		return null;
 	}
@@ -1056,7 +1064,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 				validador.validarSeleccion(temaActual.getContrato2(), "Contrato del tercero asociado a la Contrapartida");
 			}
 		}
-		validador.validarRequerido(temaActual.getDescripcion(), "Descripcin");
+		validador.validarRequerido(temaActual.getDescripcion(), "Descripción");
 		validador.validarSeleccion(temaActual.getCodigoDivisa(), "Tipo de Divisa");
 		validador.validarPositivo(temaActual.getMonto(), "Importe");
 
@@ -1481,5 +1489,15 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 	public void setAplicaRecuperacion(boolean aplicaRecuperacion) {
 		this.aplicaRecuperacion = aplicaRecuperacion;
 	}
+
+	public java.util.Date getFechaContablePF() {
+		
+		return fechaContablePF;
+	}
+
+	public void setFechaContablePF(java.util.Date fechaContablePF) {
+		this.fechaContablePF = fechaContablePF;
+	}
+	
 
 }

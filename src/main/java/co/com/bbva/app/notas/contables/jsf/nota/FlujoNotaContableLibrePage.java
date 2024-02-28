@@ -278,7 +278,7 @@ public class FlujoNotaContableLibrePage extends GeneralPage implements IPages {
 			if (chequeoReasignacion) {
 				validador.validarSeleccion(causalDevolucion, "Causal de devolucion");
 				if (causalDevolucion == 18) {// causal: otra
-					validador.validarRequerido(otraCausalDev, "Descripcin de la causal");
+					validador.validarRequerido(otraCausalDev, "Descripción de la causal");
 				}
 				// si no hay errores de validacion
 				if (!getFacesContext().getMessages().hasNext()) {
