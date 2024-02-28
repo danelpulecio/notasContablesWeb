@@ -61,4 +61,15 @@ public class NotaContableTotal extends CommonVO<NotaContableTotal> implements ja
 	public void restartPK(Object pk) {
 		codigo = Integer.valueOf(pk.toString());
 	}
+
+	@Override
+	public String toString() {
+		return "NotaContableTotal{" +
+				"codigo=" + codigo +
+				", codigoNotaContable=" + codigoNotaContable +
+				", codigoDivisa='" + codigoDivisa + '\'' +
+				", total=" + total +
+				", codSucursal='" + codSucursal + '\'' +
+				'}';
+	}
 }

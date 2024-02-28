@@ -122,9 +122,9 @@
                 </h:panelGrid>
 
                 <h:panelGrid columns="2">
-                    <p:inputText value="#{unidadAnalisisPage.param}"/>
-                    <p:commandButton action="#{unidadAnalisisPage.buscarPorFiltro}" value="Filtrar"
-                                     onclick="Richfaces.showModalPanel('statusPanel')"/>
+                    <p:inputText id="param" value="#{unidadAnalisisPage.param}"/>
+                    <p:commandButton actionListener="#{unidadAnalisisPage.buscarPorFiltro}" value="Filtrar"
+                                     update="table" onclick="Richfaces.showModalPanel('statusPanel')"/>
                 </h:panelGrid>
             </h:panelGrid>
         </p:panel> <ui:include src="../../common/mensajes.xhtml"/> <!-- Tabla de registros --> <h:panelGrid columns="1"

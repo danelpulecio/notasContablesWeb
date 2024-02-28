@@ -35,13 +35,13 @@ public class Instancia extends CommonVO<Instancia> implements java.io.Serializab
 		public static String getStateName(Integer state) {
 			switch (state) {
 			case 0:
-				return "Pendiente de aprobacin por Subgerente o Responsable rea Central";
+				return "Pendiente de aprobación por Subgerente o Responsable Área Central";
 			case 1:
-				return "Pendiente de revisin";
+				return "Pendiente de revisión";
 			case 2:
-				return "Pendiente de aprobacin por Padrino - Unidad de Anlisis";
+				return "Pendiente de aprobación por Padrino - Unidad de Análisis";
 			case 3:
-				return "Pendiente de aprobacin ente Autorizador";
+				return "Pendiente de aprobación ente Autorizador";
 			case 4:
 				return "Precierre";
 			case 5:
@@ -174,6 +174,7 @@ public class Instancia extends CommonVO<Instancia> implements java.io.Serializab
 
 	public Timestamp getFechaHoraInicioTs() {
 		try {
+
 			return fechaHoraInicio.timestampValue();
 		} catch (Exception e) {
 			return new Timestamp(new Date().getTime());
@@ -212,5 +213,25 @@ public class Instancia extends CommonVO<Instancia> implements java.io.Serializab
 	@Override
 	public void restartPK(Object pk) {
 		codigo = Integer.valueOf(pk.toString());
+	}
+
+
+	@Override
+	public String toString() {
+		return "Instancia{" +
+				"codigo=" + codigo +
+				", fechaHoraInicio=" + fechaHoraInicio +
+				", codigoNotaContable=" + codigoNotaContable +
+				", codigoSucursalOrigen='" + codigoSucursalOrigen + '\'' +
+				", codigoUsuarioActual=" + codigoUsuarioActual +
+				", ultimaActualizacion=" + ultimaActualizacion +
+				", estado='" + estado + '\'' +
+				", nc=" + nc +
+				", sucursal=" + sucursal +
+				", usuMod=" + usuMod +
+				", concepto=" + concepto +
+				", rol=" + rol +
+				", totales=" + totales +
+				'}';
 	}
 }

@@ -15,8 +15,8 @@
                 <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
                     <h:panelGrid columns="2" id="filtro" style="text-align: center; margin: 0 auto;">
                         <p:inputText id="param" value="#{riesgoOperacionalProductoPage.param}"/>
-                        <p:commandButton action="#{riesgoOperacionalProductoPage.buscarPorFiltro}" value="Filtrar"
-                                         ajax="false"/>
+                        <p:commandButton actionListener="#{riesgoOperacionalProductoPage.buscarPorFiltro}" value="Filtrar"
+                                         update="table" onclick="Richfaces.showModalPanel('statusPanel')"/>
                     </h:panelGrid>
                     <ui:include src="../../common/mensajes.xhtml"/>
 

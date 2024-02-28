@@ -1,6 +1,9 @@
 package co.com.bbva.app.notas.contables.dao;
 
 import co.com.bbva.app.notas.contables.dto.CommonVO;
+import co.com.bbva.app.notas.contables.facade.impl.NotasContablesSessionBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,6 +15,7 @@ import java.util.Map;
 
 public abstract class CommonDAO<T extends CommonVO<T>> extends SuperDAO<T> {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(CommonDAO.class);
 	private String sql_SELECT_MAX_CODE_SENTENCE = null;
 
 	protected String sql_SELECT_SEQUENCE_SENTENCE = null;
@@ -119,12 +123,23 @@ public abstract class CommonDAO<T extends CommonVO<T>> extends SuperDAO<T> {
 	 * @throws Exception
 	 */
 	final public int add(Connection con, T row, int codigoUsuario) throws Exception {
+		LOGGER.info("Sql insert paso 10 {}", sql_INSERT_SENTENCE);
+		LOGGER.info("con paso 11 {}", con);
+		LOGGER.info("row paso 12 {}", row);
+		LOGGER.info("codigo usuario paso 13 {}", codigoUsuario);
 		if (sql_INSERT_SENTENCE != null) {
+			LOGGER.info("row.getPK paso 13.1 {}", row.getPK());
+			LOGGER.info("row.getPK class paso 13.1 {}", row.getPK().getClass());
 			Object idAnt = row.getPK();
 			try {
 				int id = 0;
+				LOGGER.info("Object idAnt {}", idAnt);
 				internalAdd(con, row);
+				LOGGER.info("Internal OK");
 				if (codigoUsuario >= 0) {
+					LOGGER.info("sql_SELECT_MAX_CODE_SENTENCE paso 13.2 {}", sql_SELECT_MAX_CODE_SENTENCE);
+					LOGGER.info("row.getPK paso 13.3 {}", row.getPK());
+					LOGGER.info("row.getPK class paso 13.4 {}", row.getPK().getClass());
 					if (sql_SELECT_MAX_CODE_SENTENCE != null) {
 						id = ((Integer) row.getPK()).intValue();
 					}
@@ -140,6 +155,8 @@ public abstract class CommonDAO<T extends CommonVO<T>> extends SuperDAO<T> {
 				return id;
 			} catch (Exception e) {
 				// si hay excepcion, se restaura el codigo asignado previamente
+				LOGGER.info("error SQL paso 14 {}", e.getMessage());
+				LOGGER.info("error cause SQL paso 14 {}", e.getCause());
 				if (sql_SELECT_MAX_CODE_SENTENCE != null) {
 					row.restartPK(idAnt);
 				}

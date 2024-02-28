@@ -139,9 +139,9 @@
                             <f:selectItem itemValue="I" itemLabel="Inactivos"/>
                             <f:selectItem itemValue="A" itemLabel="Activos"/>
                         </p:selectOneMenu>
-                        <p:inputText value="#{conceptoPage.param}"/>
-                        <p:commandButton action="#{conceptoPage.buscarPorFiltro}" value="Filtrar"
-                                         onclick="Richfaces.showModalPanel('statusPanel')"/>
+                        <p:inputText id="param" value="#{conceptoPage.param}"/>
+                        <p:commandButton actionListener="#{conceptoPage.buscarPorFiltro}" value="Filtrar"
+                                         update="table" onclick="Richfaces.showModalPanel('statusPanel')"/>
                     </h:panelGrid>
                 </h:panelGrid>
             </p:panel>

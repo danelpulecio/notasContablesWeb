@@ -256,9 +256,9 @@
 
                         <h:panelGrid columns="2">
                             <p:inputText id="param" value="#{terceroPage.param}"/>
-                            <p:commandButton action="#{terceroPage.buscarPorFiltro}" value="Filtrar" ajax="false"/>
+                            <p:commandButton actionListener="#{terceroPage.buscarPorFiltro}" value="Filtrar"
+                                             update="table" onclick="Richfaces.showModalPanel('statusPanel')"/>
                         </h:panelGrid>
-
                     </h:panelGrid>
                 </p:panel>
 

@@ -99,9 +99,9 @@
                     </h:panelGrid>
 
                     <h:panelGrid columns="2">
-                        <p:inputText value="#{cuentaCODPage.param}"/>
-                        <p:commandButton action="#{cuentaCODPage.buscarPorFiltro}" value="Filtrar"
-                                         onclick="Richfaces.showModalPanel('statusPanel')"/>
+                        <p:inputText id="param" value="#{cuentaCODPage.param}"/>
+                        <p:commandButton actionListener="#{cuentaCODPage.buscarPorFiltro}" value="Filtrar"
+                                         update="table" onclick="Richfaces.showModalPanel('statusPanel')"/>
                     </h:panelGrid>
                 </h:panelGrid>
             </p:panel> <ui:include src="../../common/mensajes.xhtml"/>

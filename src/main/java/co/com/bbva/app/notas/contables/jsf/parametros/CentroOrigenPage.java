@@ -1,6 +1,6 @@
 package co.com.bbva.app.notas.contables.jsf.parametros;
 
-import javax.enterprise.context.SessionScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 /**
@@ -9,7 +9,7 @@ import javax.inject.Named;
  * </p>
  * 
  */
-@SessionScoped
+@ViewScoped
 @Named
 public class CentroOrigenPage extends GeneralCentroPage {
 

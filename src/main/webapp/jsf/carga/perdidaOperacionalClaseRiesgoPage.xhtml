@@ -16,6 +16,12 @@
 
                     <ui:include src="../../common/mensajes.xhtml"/>
 
+                    <h:panelGrid columns="2" id="filtro" style="text-align: center; margin: 0 auto;">
+                        <p:inputText id="param" value="#{perdidaOperacionalClaseRiesgoPage.param}"/>
+                        <p:commandButton actionListener="#{perdidaOperacionalClaseRiesgoPage.buscarPorFiltro}" value="Filtrar"
+                                         update="table" onclick="Richfaces.showModalPanel('statusPanel')"/>
+                    </h:panelGrid>
+
                     <!--	Tabla de resultados	-->
                     <!--    <h:panelGrid columns="1" width="100%" style="align:center;" id="lista"> -->
 
@@ -26,10 +32,6 @@
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
                                  paginatorPosition="top">
-                        <f:facet name="header">
-                            <p:inputText id="param" value="#{perdidaOperacionalClaseRiesgoPage.param}"/>
-                            <p:commandButton actionListener="#{perdidaOperacionalClaseRiesgoPage.buscarPorFiltro}" value="Filtrar" update="table" />
-                        </f:facet>
 
                         <p:column headerText="Fila">
                             <f:facet name="header"><h:outputText value="Fila"/></f:facet>

@@ -2,15 +2,13 @@ package co.com.bbva.app.notas.contables.jsf.carga;
 
 import co.com.bbva.app.notas.contables.carga.dto.*;
 import co.com.bbva.app.notas.contables.jsf.parametros.GeneralParametrosPage;
-import co.com.bbva.app.notas.contables.session.Session;
 import co.com.bbva.app.notas.contables.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.model.SelectItem;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -24,7 +22,7 @@ import java.util.*;
  */
 
 @Named(value="terceroPage")
-@SessionScoped
+@ViewScoped
 public class TerceroPage extends GeneralParametrosPage<Tercero, Tercero> {
 
 	private static final long serialVersionUID = -8330009617976284212L;

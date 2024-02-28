@@ -116,9 +116,9 @@
                     </h:panelGrid>
 
                     <h:panelGrid columns="2">
-                        <p:inputText value="#{centroEspecialPage.param}"/>
-                        <p:commandButton action="#{centroEspecialPage.buscarPorFiltro}" value="Filtrar"
-                                         onclick="Richfaces.showModalPanel('statusPanel')"/>
+                        <p:inputText id="param" value="#{centroEspecialPage.param}"/>
+                        <p:commandButton actionListener="#{centroEspecialPage.buscarPorFiltro}" value="Filtrar"
+                                         update="table" onclick="Richfaces.showModalPanel('statusPanel')"/>
                     </h:panelGrid>
                 </h:panelGrid>
             </p:panel>

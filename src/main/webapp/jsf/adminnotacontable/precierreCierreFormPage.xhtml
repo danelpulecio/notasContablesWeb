@@ -18,83 +18,105 @@
         <p:column headerText="Estado" sortable="true" width="44px;" sortBy="#{dato.estado}">
             <h:outputText value="#{dato.nombreEstado}"/>
         </p:column>
-        <p:column headerText="Detalle de la nota contable" style="text-align: center; width: 419px">
+        <p:column headerText="Detalle de la nota contable" style="text-align: center; width: 600px">
 
-<!--            <h:panelGrid columns="1" rendered="#{dato.NC.tipoNota eq 'R' }" border="0" style="border-width: 0px;">-->
-                <p:dataTable style="border-width: 0px; background-color: transparent;" value="#{dato.NC.temas}" rendered="#{dato.NC.tipoNota eq 'R' }"
-                             var="tema">
-                    <p:column style="border-width: 0px; text-align: left;">
-                        <h:outputText value="${tema.tema.nombre}"/>
-                    </p:column>
-                    <p:column style="border-width: 0px; text-align: left;" width="80px">
-<!--                        <h:panelGrid columns="1" cellpadding="0" cellspacing="0">-->
-                            <h:outputText value="#{tema.partidaContable} "/>
-                            <h:outputText value="#{tema.contrapartidaContable}"/>
-<!--                        </h:panelGrid>-->
-                    </p:column>
-                    <p:column style="border-width: 0px; text-align: left;" width="35px">
-<!--                        <h:panelGrid columns="1" cellpadding="0" cellspacing="0">-->
-                            <h:outputText value="[#{tema.naturalezaPartidaContable}]"/>
-                            <h:outputText value="[#{tema.naturalezaContrapartidaContable}]"/>
-<!--                        </h:panelGrid>-->
-                    </p:column>
-                    <p:column style="border-width: 0px; text-align: left;" width="30px">
-                        <h:outputText value="#{tema.codigoDivisa}"/>
-                    </p:column>
-                    <p:column style="border-width: 0px; text-align:right;" width="100px">
-                        <h:outputText value="#{tema.monto}"><f:convertNumber type="currency"/></h:outputText>
-                    </p:column>
-                </p:dataTable>
-<!--            </h:panelGrid>-->
+            <!--            <h:panelGrid columns="1" rendered="#{dato.NC.tipoNota eq 'R' }" border="0" style="border-width: 0px;">-->
+            <p:dataTable style="border-width: 0px; background-color: transparent;" value="#{dato.NC.temas}"
+                         rendered="#{dato.NC.tipoNota eq 'R' }"
+                         var="tema">
+                <p:column style="border-width: 0px; text-align: left;">
+                    <h:outputText value="${tema.tema.nombre}"/>
+                </p:column>
+                <p:column style="border-width: 0px; text-align: left;" width="80px">
+                    <!--                        <h:panelGrid columns="1" cellpadding="0" cellspacing="0">-->
+                    <h:outputText value="#{tema.partidaContable} "/>
+                    <h:outputText value="#{tema.contrapartidaContable}"/>
+                    <!--                        </h:panelGrid>-->
+                </p:column>
+                <p:column style="border-width: 0px; text-align: left;" width="35px">
+                    <!--                        <h:panelGrid columns="1" cellpadding="0" cellspacing="0">-->
+                    <h:outputText value="[#{tema.naturalezaPartidaContable}]"/>
+                    <h:outputText value="[#{tema.naturalezaContrapartidaContable}]"/>
+                    <!--                        </h:panelGrid>-->
+                </p:column>
+                <p:column style="border-width: 0px; text-align: left;" width="30px">
+                    <h:outputText value="#{tema.codigoDivisa}"/>
+                </p:column>
+                <p:column style="border-width: 0px; text-align:right;" width="100px">
+                    <h:outputText value="#{tema.monto}"><f:convertNumber type="currency"/></h:outputText>
+                </p:column>
+            </p:dataTable>
+            <!--            </h:panelGrid>-->
 
-<!--            <h:panelGrid columns="1" rendered="#{dato.NC.tipoNota eq 'C' }" border="0">-->
-                <p:dataTable style="border-width: 0px; background-color: transparent;" var="temaCruce" rendered="#{dato.NC.tipoNota eq 'C' }"
-                             value="#{dato.NC.temasCruce}" cellpadding="0" cellspacing="0">
-                    <p:column style="border-width: 0px; text-align: left;">
-                        <h:outputText value="REFERENCIA DE CRUCE"/>
-                    </p:column>
-                    <p:column style="border-width: 0px; text-align: left;" width="80px">
-                        <h:outputText value="${temaCruce.cuentaContable}"/>
-                    </p:column>
-                    <p:column style="border-width: 0px; text-align: left;" width="35px">
-                        <h:outputText value="[${temaCruce.naturaleza}]"/>
-                    </p:column>
-                    <p:column style="border-width: 0px; text-align: left;" width="30px">
-                        <h:outputText value="${temaCruce.divisa}"/>
-                    </p:column>
-                    <p:column style="border-width: 0px; text-align:right;" width="100px">
-                        <h:outputText value="#{temaCruce.importe}"><f:convertNumber type="currency"/></h:outputText>
-                    </p:column>
+            <!--            <h:panelGrid columns="1" rendered="#{dato.NC.tipoNota eq 'C' }" border="0">-->
+            <p:dataTable style="border-width: 0px; background-color: transparent;" var="temaCruce"
+                         rendered="#{dato.NC.tipoNota eq 'C' }"
+                         value="#{dato.NC.temasCruce}" cellpadding="0" cellspacing="0">
+                <p:column style="border-width: 0px; text-align: left;">
+                    <h:outputText value="REFERENCIA DE CRUCE"/>
+                </p:column>
+                <p:column style="border-width: 0px; text-align: left;" width="80px">
+                    <h:outputText value="${temaCruce.cuentaContable}"/>
+                </p:column>
+                <p:column style="border-width: 0px; text-align: left;" width="35px">
+                    <h:outputText value="[${temaCruce.naturaleza}]"/>
+                </p:column>
+                <p:column style="border-width: 0px; text-align: left;" width="30px">
+                    <h:outputText value="${temaCruce.divisa}"/>
+                </p:column>
+                <p:column style="border-width: 0px; text-align:right;" width="100px">
+                    <h:outputText value="#{temaCruce.importe}"><f:convertNumber type="currency"/></h:outputText>
+                </p:column>
 
-                </p:dataTable>
-<!--            </h:panelGrid>-->
+            </p:dataTable>
+            <!--            </h:panelGrid>-->
 
-<!--            <h:panelGrid columns="1" rendered="#{dato.NC.tipoNota eq 'L' }" border="0">-->
-                <p:dataTable style="border-width: 0px; background-color: transparent; " var="temaLibre" rendered="#{dato.NC.tipoNota eq 'L' }"
-                             value="#{dato.NC.temasLibre}" cellpadding="0" cellspacing="0">
-                    <p:column style="border-width: 0px; text-align: left;">
-                        <h:outputText value="CONTABILIDAD LIBRE"/>
-                    </p:column>
-                    <p:column style="border-width: 0px; text-align: left;" width="80px">
-                        <h:outputText value="${temaLibre.cuentaContable}"/>
-                    </p:column>
-                    <p:column style="border-width: 0px; text-align: left;" width="35px">
-                        <h:outputText value="[${temaLibre.naturalezaCuentaContable}]"/>
-                    </p:column>
-                    <p:column style="border-width: 0px; text-align: left;" width="30px">
-                        <h:outputText value="${temaLibre.codigoDivisa}"/>
-                    </p:column>
-                    <p:column style="border-width: 0px; text-align:right;" width="100px">
-                        <h:outputText value="#{temaLibre.monto}"><f:convertNumber type="currency"/></h:outputText>
-                    </p:column>
-                </p:dataTable>
-<!--            </h:panelGrid>-->
+            <!--            <h:panelGrid columns="1" rendered="#{dato.NC.tipoNota eq 'L' }" border="0">-->
+            <p:dataTable style="border-width: 0px; background-color: transparent; " var="temaLibre"
+                         rendered="#{dato.NC.tipoNota eq 'L' }"
+                         value="#{dato.NC.temasLibre}" cellpadding="0" cellspacing="0">
+                <p:column style="border-width: 0px; text-align: left;">
+                    <h:outputText value="CONTABILIDAD LIBRE"/>
+                </p:column>
+                <p:column style="border-width: 0px; text-align: left;" width="80px">
+                    <h:outputText value="${temaLibre.cuentaContable}"/>
+                </p:column>
+                <p:column style="border-width: 0px; text-align: left;" width="35px">
+                    <h:outputText value="[${temaLibre.naturalezaCuentaContable}]"/>
+                </p:column>
+                <p:column style="border-width: 0px; text-align: left;" width="30px">
+                    <h:outputText value="${temaLibre.codigoDivisa}"/>
+                </p:column>
+                <p:column style="border-width: 0px; text-align:right;" width="100px">
+                    <h:outputText value="#{temaLibre.monto}"><f:convertNumber type="currency"/></h:outputText>
+                </p:column>
+            </p:dataTable>
+            <!--            </h:panelGrid>-->
 
         </p:column>
-        <p:column headerText="Causales de Rechazo" rendered="#{precierreCierrePage.esPrecierre }" width="360px;">
+        <p:column headerText="Causales de Rechazo" rendered="#{precierreCierrePage.esPrecierre }" width="70px;" style="text-align: center">
             <h:outputText value="#{dato.NC.causalDeRechazo}" escape="false"/>
+            <p:commandButton value="Ver"
+                             onclick="PF('popupCausalRechazoNotaContableVer').show()">
+
+            </p:commandButton>
+            <p:dialog id="popupCausalRechazoNotaContableVer"
+                      widgetVar="popupCausalRechazoNotaContableVer"
+                      domElementAttachment="form"
+                      autosized="true"
+                      showEffect="fade"
+                      hideEffect="explode"
+                      modal="true"
+                      width="900px">
+                <f:facet name="header">
+                    <h:panelGroup>
+                        <h:outputText value="Causales de Rechazo"/>
+                    </h:panelGroup>
+                </f:facet>
+                <h:outputText value="#{dato.NC.causalDeRechazo}" escape="false"/>
+            </p:dialog>
         </p:column>
-        <p:column headerText="Ver Nota Contable" width="50px;" style="text-align: center;">
+        <p:column headerText="Ver Nota Contable" width="70px;" style="text-align: center;">
             <p:commandButton value="Ver"
                              oncomplete="PF('popupFlujoNotaContableVer').show()"
                              action="#{flujoNotaContablePage.consultarFlujo}"
@@ -124,7 +146,7 @@
 
         </p:column>
 
-        <p:column headerText="Ver Nota Contable" width="50px;" style="te0xt-align: center;" rendered="false">
+        <p:column headerText="Ver Nota Contable" width="70px;" style="te0xt-align: center;" rendered="false">
 
             <p:commandButton value="Ver"
                              oncomplete="PF('popupFlujoNotaContableVer').show()"

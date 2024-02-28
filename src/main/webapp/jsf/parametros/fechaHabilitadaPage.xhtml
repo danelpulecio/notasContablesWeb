@@ -71,9 +71,9 @@
                     </h:panelGrid>
 
                     <h:panelGrid columns="2">
-                        <p:inputText value="#{fechaHabilitadaPage.param}"/>
-                        <p:commandButton action="#{fechaHabilitadaPage.buscarPorFiltro}" value="Filtrar"
-                                         onclick="Richfaces.showModalPanel('statusPanel')"/>
+                        <p:inputText id="param" value="#{fechaHabilitadaPage.param}"/>
+                        <p:commandButton actionListener="#{fechaHabilitadaPage.buscarPorFiltro}" value="Filtrar"
+                                         update="table" onclick="Richfaces.showModalPanel('statusPanel')"/>
                     </h:panelGrid>
                 </h:panelGrid>
             </p:panel>

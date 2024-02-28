@@ -287,6 +287,7 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
         LOGGER.info("validar Centro de destino {}", centrosAut.size());
         List<String> nuevosCentros = new ArrayList<String>();
         LOGGER.info("Datos centro destino target {}", dualListModel.getTarget().size());
+        centrosAutSel = new ArrayList<>();
 //        actualizarCentrosAutSel();
         for (Object selectItem : dualListModel.getTarget()) {
             LOGGER.info("hola for");

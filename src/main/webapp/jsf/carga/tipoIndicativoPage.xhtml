@@ -15,7 +15,8 @@
 
                     <h:panelGrid columns="2" id="filtro" style="text-align: center; margin: 0 auto;">
                         <p:inputText id="param" value="#{tipoIndicativoPage.param}"/>
-                        <p:commandButton action="#{tipoIndicativoPage.buscarPorFiltro}" value="Filtrar" ajax="false"/>
+                        <p:commandButton actionListener="#{tipoIndicativoPage.buscarPorFiltro}" value="Filtrar"
+                                         update="table" onclick="Richfaces.showModalPanel('statusPanel')"/>
                     </h:panelGrid>
 
                     <ui:include src="../../common/mensajes.xhtml"/>

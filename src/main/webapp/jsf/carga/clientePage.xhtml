@@ -12,7 +12,11 @@
                 <p:panel style="width: 1200px">
                     <h:panelGrid columns="1" width="100%"><h1 align="center">Clientes</h1></h:panelGrid>
 
-                    <!--                <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">-->
+                    <h:panelGrid columns="2" id="filtro" style="text-align: center; margin: 0 auto;">
+                        <p:inputText id="param" value="#{clientePage.param}"/>
+                        <p:commandButton actionListener="#{clientePage.buscarPorFiltro}" value="Filtrar"
+                                         update="customerTable" onclick="Richfaces.showModalPanel('statusPanel')"/>
+                    </h:panelGrid>
 
                     <p:dataTable id="customerTable" value="#{clientePage.datos}" var="dato" rowIndexVar="rowIndex"
                                  rendered="#{! empty clientePage.datos}"
@@ -20,10 +24,7 @@
                                  currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  paginatorPosition="top">
-                        <f:facet name="header">
-                            <p:inputText id="param" value="#{clientePage.param}"/>
-                            <p:commandButton actionListener="#{clientePage.buscarPorFiltro}" value="Filtrar" update="customerTable" />
-                        </f:facet>
+
                         <p:column headerText="Fila" width="20px">
                             <h:outputText value="#{rowIndex+1}"/>
                         </p:column>

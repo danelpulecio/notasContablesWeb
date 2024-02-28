@@ -54,8 +54,8 @@ public class ActividadRealizadaDAO extends CommonSeqDAO<ActividadRealizada> {
 	@Override
 	protected Object[] getDataToAdd(Connection con, ActividadRealizada row) throws Exception {
 		row.setCodigo(getMaxCode(con));
-		return new Object[] { row.getCodigo().intValue(), row.getFechaHora(), row.getCodigoInstancia().intValue(), row.getEstado(), row.getCodigoUsuario().intValue(), row.getValor1(), row.getValor2(), row.getValor3(), row.getValor4(),
-				row.getValor5(), row.getFechaHoraCierre(), row.getDuracionActividad() };
+		return new Object[] { row.getCodigo().intValue(), row.getFechaHoraTs(), row.getCodigoInstancia().intValue(), row.getEstado(), row.getCodigoUsuario().intValue(), row.getValor1(), row.getValor2(), row.getValor3(), row.getValor4(),
+				row.getValor5(), row.getFechaHoraCierreTs(), row.getDuracionActividad() };
 	}
 
 	@Override

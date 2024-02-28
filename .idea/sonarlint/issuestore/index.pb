@@ -345,7 +345,7 @@ Ysrc/main/java/co/com/bbva/app/notas/contables/jsf/consultas/ConsultaNotaContabl
 {
 Ksrc/main/java/co/com/bbva/app/notas/contables/dao/bk/BKNotaContableDAO.java,8/3/8301d08f5cec01284f259a8c153a489cd52df944
 v
-Fsrc/main/java/co/com/bbva/app/notas/contables/dao/NotaContableDAO.java,b\a\ba26d114b54e688226bbbf96b721b630d4224ba5
+Fsrc/main/java/co/com/bbva/app/notas/contables/dao/NotaContableDAO.java,b/a/ba26d114b54e688226bbbf96b721b630d4224ba5
 s
 Csrc/main/java/co/com/bbva/app/notas/contables/dao/InstanciaDAO.java,4/7/4759d916163213de42604fadd64d58041ee8d6c9
 s
@@ -387,7 +387,7 @@ h
 g
 7src/main/webapp/jsf/notacontable/notaContablePage.xhtml,8/2/82d95a0204d174e807201e119269aa5161d61534
 k
-;src/main/webapp/jsf/notacontable/formNotaContablePage.xhtml,3\3\33656d637c491f9008c4a81d0ed69e07e5e2a0ff
+;src/main/webapp/jsf/notacontable/formNotaContablePage.xhtml,3/3/33656d637c491f9008c4a81d0ed69e07e5e2a0ff
 q
 Asrc/main/webapp/jsf/notacontable/flujoAnexoNotaContablePage.xhtml,6/e/6e74adb0fdaa1549ae7e5b6d038f7d5192516135
 p
@@ -484,3 +484,15 @@ Gsrc/main/java/co/com/bbva/app/notas/contables/carga/dao/TerceroDAO.java,4\b\4b
 Ssrc/main/java/co/com/bbva/app/notas/contables/dao/NotaContableRegistroLibreDAO.java,2\5\25726e8e0f0a55170654251576eb9b0fc5835a1d
 z
 Jsrc/main/java/co/com/bbva/app/notas/contables/dao/NotaContableTemaDAO.java,9\b\9b3396ee47e044568c78a4b40ae39ecc9dbd3740
+…
+Usrc/main/java/co/com/bbva/app/notas/contables/jsf/parametros/EnteAutorizadorPage.java,c/7/c7f3f5a745138882a5059c95b271a15a53a495d3
+~
+Nsrc/main/java/co/com/bbva/app/notas/contables/jsf/parametros/ImpuestoPage.java,1/8/188d962dbf3ea408dc70a2b2f266d68b6e9352b8
+[
++src/main/webapp/jsf/producto/producto.xhtml,3/3/33fd5c8dcc664879a89e3bac688523472667ff48
+w
+Gsrc/main/java/co/com/bbva/app/notas/contables/dto/NotaContableTema.java,a/5/a5908e7e963a85f7b4b2e51003981b3d9b5d43b4
+x
+Hsrc/main/java/co/com/bbva/app/notas/contables/dto/NotaContableTotal.java,8/8/88dad8abd450ecc7f8f227a06f5ac89594a284f0
+|
+Lsrc/main/java/co/com/bbva/app/notas/contables/dao/ActividadRealizadaDAO.java,9/7/978eb9789e96fd2bac237f986b4e83486bcac60e

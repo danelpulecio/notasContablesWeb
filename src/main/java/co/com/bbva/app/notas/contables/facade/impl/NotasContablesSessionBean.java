@@ -849,6 +849,7 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 	 * REGISTRO DE NOTAS CONTABLES
 	 */
 	private int addNotaContableRegistro(Connection con, NotaContable row, Collection<NotaContableTema> temasNotaContable, Collection<NotaContableTotal> totalesNotaContable, int codigoUsuario) throws Exception {
+		LOGGER.info("Nota contable registro row: {}", row);
 		Instancia instancia = new Instancia();
 		Collection<UsuarioModulo> usuariosModulo;
 		Iterator<UsuarioModulo> itUsuariosModulo;
@@ -860,7 +861,7 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 		int codigoNotaContable = 0;
 
 		usuariosModulo = getUsuariosModuloPorAreaYRolYEstado(row.getCodigoSucursalOrigen(), cs_CODIGO_SUBGERENTE_GERENTE_Y_RESPONSABLE_DE_AREA_CENTRAL, "A");
-
+		LOGGER.info("usuario modolu paso 2: {}", usuariosModulo);
 		if (usuariosModulo.size() != 0) {
 			itUsuariosModulo = usuariosModulo.iterator();
 			if (itUsuariosModulo.hasNext()) {
@@ -871,23 +872,29 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 		}
 
 		if (codigoUsuarioAsignadoInstancia != 0) {
+			LOGGER.info("codigo usuario asignado instancia paso 3: {}", codigoUsuarioAsignadoInstancia);
 			codigoNotaContable = notaContableDAO.add(con, row, codigoUsuario);
-
+			LOGGER.info("codigo nota contable paso 4: {}", codigoNotaContable);
 			codigoSucursalOrigenAsignadaInstancia = row.getCodigoSucursalOrigen();
 			instancia.setCodigoNotaContable(codigoNotaContable);
 			instancia.setCodigoUsuarioActual(codigoUsuarioAsignadoInstancia);
+			LOGGER.info(" paso 5: {}", codigoNotaContable);
+			LOGGER.info(" datautils 6: {}", DateUtils.getTimestamp());
 			instancia.setFechaHoraInicioTs(DateUtils.getTimestamp());
+			LOGGER.info(" paso 7: {}", codigoNotaContable);
+			LOGGER.info(" datautils 7: {}", new TIMESTAMP(DateUtils.getTimestamp()));
 			instancia.setFechaHoraInicio(new TIMESTAMP(DateUtils.getTimestamp()));
 			instancia.setEstado("0");
 			instancia.setCodigoSucursalOrigen(codigoSucursalOrigenAsignadaInstancia);
 			instancia.setUltimaActualizacionTs(DateUtils.getTimestamp());
+			LOGGER.info(" paso 8");
 
 			idRow = addInstancia(con, instancia, codigoUsuario);
-
+			LOGGER.info(" paso 9");
 			addTemasNotaContable(con, temasNotaContable, codigoNotaContable, codigoUsuario);
 			addTotalesNotaContable(con, totalesNotaContable, codigoNotaContable, codigoUsuario);
 		}
-
+		LOGGER.info("idRow paso 9.1: {}", idRow);
 		return idRow;
 	}
 
@@ -1175,10 +1182,11 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 	@Override
 	public int crearInstanciaNotaContable(NotaContable notaContable, Collection<NotaContableTema> temasNotaContable, Collection<NotaContableRegistroLibre> registrosLibresNotaContable, Collection<Anexo> anexosNotaContable,
 										  Collection<NotaContableTotal> totalesNotaContable, Collection<PartidaPendiente> partidasPendientes, int codigoUsuario) throws Exception, NamingException, CreateException, RemoteException {
+		LOGGER.info("LLega al bean connection");
 		Connection con = null;
 		try {
 			con = actividadRealizadaDAO.getConexion(false);
-
+			LOGGER.info("connection: {}", con);
 			ActividadRealizada actividadRealizada = new ActividadRealizada();
 			// int idNotaContable = 0;
 			int idInstancia = 0;
@@ -1190,10 +1198,12 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 			} else if (notaContable.getTipoNota().equals("L")) {
 				idInstancia = addNotaContableRegistroLibre(con, notaContable, registrosLibresNotaContable, anexosNotaContable, codigoUsuario);
 			}
-
+			LOGGER.info("instancia: {}", idInstancia);
 			if (idInstancia != 0) {
 				actividadRealizada.setCodigoInstancia(idInstancia);
 				actividadRealizada.setCodigoUsuario(codigoUsuario);
+				LOGGER.info("LLega dentro de idInstancia");
+				LOGGER.info("get time :{}", DateUtils.getTimestamp());
 				actividadRealizada.setFechaHoraTs(DateUtils.getTimestamp());
 				actividadRealizada.setFechaHoraCierreTs(actividadRealizada.getFechaHoraTs());
 				actividadRealizada.setEstado("0");
@@ -1207,6 +1217,7 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 			con.commit();
 			return idInstancia;
 		} catch (final Exception e) {
+			LOGGER.info("error  bean connection {}", e);
 			con.rollback();
 			throw e;
 		} finally {
@@ -2563,8 +2574,8 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 		usuarioModulo.setCodigo(codigoUsuarioAsignado);
 		usuarioModulo = getUsuarioModulo(usuarioModulo);
 
-		enviarEMail.sendEmail(usuarioModulo.getEMailModificado(), usuarioLogueado.getUsuario().getEMailModificado(), "Mdulo Notas Contables - Registro para aprobar",
-				"Por favor ingrese al mdulo de Notas Contables, se le ha asignado un registro que requiere su verificacin");
+		enviarEMail.sendEmail(usuarioModulo.getEMailModificado(), usuarioLogueado.getUsuario().getEMailModificado(), "Módulo Notas Contables - Registro para aprobar",
+				"Por favor ingrese al módulo de Notas Contables, se le ha asignado un registro que requiere su verificación");
 	}
 
 	@Override

@@ -14,6 +14,12 @@
 
             <ui:include src="../../common/mensajes.xhtml"/>
 
+                <h:panelGrid columns="2" id="filtro" style="text-align: center; margin: 0 auto;">
+                    <p:inputText id="param" value="#{usuarioAltamiraPage.param}"/>
+                    <p:commandButton actionListener="#{usuarioAltamiraPage.buscarPorFiltro}" value="Filtrar"
+                                     update="table" onclick="Richfaces.showModalPanel('statusPanel')"/>
+                </h:panelGrid>
+
             <!--	Tabla de resultados	-->
 
             <p:dataTable id="table" var="dato" value="#{usuarioAltamiraPage.datos}"
@@ -24,11 +30,6 @@
                          currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          paginatorPosition="top">
-
-                <f:facet name="header">
-                    <p:inputText id="param" value="#{usuarioAltamiraPage.param}"/>
-                    <p:commandButton actionListener="#{usuarioAltamiraPage.buscarPorFiltro}" value="Filtrar" update="table" />
-                </f:facet>
 
                 <p:column headerText="Fila" width="15px">
                     <h:outputText value="#{rowIndex+1}"/>

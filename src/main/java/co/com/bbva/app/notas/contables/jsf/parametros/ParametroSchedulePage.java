@@ -3,13 +3,12 @@ package co.com.bbva.app.notas.contables.jsf.parametros;
 import co.com.bbva.app.notas.contables.dto.Parametro;
 import co.com.bbva.app.notas.contables.jsf.GeneralPage;
 import co.com.bbva.app.notas.contables.jsf.IPages;
-import co.com.bbva.app.notas.contables.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +19,7 @@ import java.util.List;
  * behavior to respond to incoming events.
  * </p>
  */
-@SessionScoped
+@ViewScoped
 @Named(value = "parametrosSchedulePage")
 public class ParametroSchedulePage extends GeneralPage implements IPages {
 

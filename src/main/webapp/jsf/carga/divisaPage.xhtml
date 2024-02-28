@@ -13,6 +13,11 @@
                     <h:panelGrid columns="1" width="850px"><h1 align="center">Divisas</h1></h:panelGrid>
 
                     <ui:include src="../../common/mensajes.xhtml"/>
+                    <h:panelGrid columns="2" id="filtro" style="text-align: center; margin: 0 auto;">
+                        <p:inputText id="param" value="#{divisaPage.param}"/>
+                        <p:commandButton actionListener="#{divisaPage.buscarPorFiltro}" value="Filtrar"
+                                         update="table" onclick="Richfaces.showModalPanel('statusPanel')"/>
+                    </h:panelGrid>
                     <!--	Tabla de resultados	-->
                     <!--                    <h:panelGrid columns="1" width="850px" style="align:center;" id="lista">-->
 
@@ -22,11 +27,6 @@
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
                                  paginatorPosition="top">
-                        <f:facet name="header">
-                            <p:inputText id="param" value="#{divisaPage.param}"/>
-                            <p:commandButton actionListener="#{divisaPage.buscarPorFiltro}" value="Filtrar"
-                                             update="table"/>
-                        </f:facet>
                         <p:column headerText="Fila">
                             <h:outputText value="#{rowIndex+1}"/>
                         </p:column>

@@ -75,7 +75,7 @@ public abstract class GeneralCargaPage<T extends CommonVO<T>> extends GeneralPag
 			// solo se realiza la busqueda si se est en la ultima fase del ciclo de vida de faces y se quieren buscar todos los datos
 			LOGGER.info("esUltimaFase {}", buscarTodos);
 			if (esUltimaFase() && buscarTodos /* && (getDatos() == null || getDatos().isEmpty()) */) {
-				LOGGER.info("entro al if {}");
+				LOGGER.info("  entro al if {}");
 				setDatos(new ArrayList<T>(_buscarTodos()));
 			}
 			//println("Finalizado el constructor en " + (System.currentTimeMillis() - time));

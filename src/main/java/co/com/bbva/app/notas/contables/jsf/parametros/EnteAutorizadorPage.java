@@ -3,15 +3,14 @@ package co.com.bbva.app.notas.contables.jsf.parametros;
 import co.com.bbva.app.notas.contables.carga.dto.Sucursal;
 import co.com.bbva.app.notas.contables.dto.EnteAutorizador;
 import co.com.bbva.app.notas.contables.dto.UsuarioModulo;
-import co.com.bbva.app.notas.contables.session.Session;
 import co.com.bbva.app.notas.contables.util.IRol;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.model.SelectItem;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -23,7 +22,7 @@ import java.util.TreeMap;
  * Pagina para manejar la administración de parametros relacionados con la entidad EnteAutorizador
  * </p>
  */
-@SessionScoped
+@ViewScoped
 @Named
 public class EnteAutorizadorPage extends GeneralParametrosPage<EnteAutorizador, EnteAutorizador> {
 

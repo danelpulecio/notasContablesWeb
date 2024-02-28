@@ -15,6 +15,12 @@
                 <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
                     <ui:include src="../../common/mensajes.xhtml"/>
 
+                    <h:panelGrid columns="2" id="filtro" style="text-align: center; margin: 0 auto;">
+                        <p:inputText id="param" value="#{riesgoOperacionalLineaOperativaPage.param}"/>
+                        <p:commandButton actionListener="#{riesgoOperacionalLineaOperativaPage.buscarPorFiltro}" value="Filtrar"
+                                         update="table" onclick="Richfaces.showModalPanel('statusPanel')"/>
+                    </h:panelGrid>
+
                     <!--	Tabla de resultados	-->
                     <p:dataTable id="table" value="#{riesgoOperacionalLineaOperativaPage.datos}" var="dato"
                                  rendered="#{! empty riesgoOperacionalLineaOperativaPage.datos}"
@@ -23,10 +29,6 @@
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
                                  paginatorPosition="top">
-                        <f:facet name="header">
-                            <p:inputText id="param" value="#{riesgoOperacionalLineaOperativaPage.param}"/>
-                            <p:commandButton actionListener="#{riesgoOperacionalLineaOperativaPage.buscarPorFiltro}" value="Filtrar" update="table" />
-                        </f:facet>
                         <p:column headerText="Fila">
                             <h:outputText value="#{rowIndex+1}"/>
                         </p:column>

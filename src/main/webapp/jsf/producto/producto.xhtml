@@ -10,7 +10,7 @@
         <!--        <p:growl id="growl" showDetail="false" life="10000"/>-->
 
         <!-- Formulario Modal de creacion y edicion de nuevos registros-->
-        <p:dialog id="editor" widgetVar="editor" autosized="true">
+        <p:panel id="editor" widgetVar="editor" autosized="true">
             <f:facet name="header">
                 <h:panelGroup><h:outputText value="Formulario de Centros de Destino"/></h:panelGroup>
             </f:facet>
@@ -53,16 +53,14 @@
                         </h:selectOneRadio>
                     </p:panel>
 
-                    <p:panel style="width: 100%" header="Centros Autorizados"
-                             rendered="#{not empty centroDestinoPage.centrosAut}">
-                        <p:pickList id="example" value="#{centroDestinoPage.dualListModel}" var="pr"
-                                    itemValue="#{pr.value}" itemLabel="#{pr.label}" >
-                            <p:ajax event="transfer" listener="#{centroDestinoPage.validarCentrosAut}"
-                                    update="informacion"/>
+                    <p:panel style="width: 100%" header="Centros Autorizados">
+                        <p:pickList id="example" value="#{productoController.dualListModel}" var="pr"
+                                    itemValue="#{pr.fruta}" itemLabel="#{pr.precio}">
                         </p:pickList>
                     </p:panel>
 
                 </h:panelGrid>
+
                 <!-- Seccion de mensajes y botones de envio y cancelacion-->
                 <h:panelGrid columns="2" styleClass="center" width="100%">
                     <p:commandButton action="#{centroDestinoPage.guardar}"
@@ -78,7 +76,7 @@
             <h:panelGroup id="msg_centroDestinoAction">
                 <ui:include src="../../common/mensajes.xhtml"/>
             </h:panelGroup>
-        </p:dialog>
+        </p:panel>
         <!--Filtro de busqueda	-->
         <div style="width: 1200px;">
             <h:panelGrid columns="1" width="100%">
@@ -94,8 +92,7 @@
                                          rendered="#{!empty centroDestinoPage.datos}"
                                          update="globalForm:lista,globalForm:cambio"
                                          value="#{centroDestinoPage.selectedAll?'Limpiar Selección':'Seleccionar Todos'}"/>
-                        <p:commandButton action="#{centroDestinoPage.editar}"
-                                         oncomplete="if (#{facesContext.maximumSeverity != null}) PF('editor').hide(); else PF('editor').show();"
+                        <p:commandButton onclick="PF('editor').show();"
                                          update="globalForm:editor"
                                          value="Modificar Seleccionados"/>
                     </h:panelGrid>

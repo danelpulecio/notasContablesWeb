@@ -148,9 +148,9 @@
                     </h:panelGrid>
 
                     <h:panelGrid columns="2">
-                        <p:inputText value="#{montoAutorizadoPage.param}"/>
-                        <p:commandButton action="#{montoAutorizadoPage.buscarPorFiltro}" value="Filtrar"
-                                         onclick="Richfaces.showModalPanel('statusPanel')"/>
+                        <p:inputText id="param" value="#{montoAutorizadoPage.param}"/>
+                        <p:commandButton actionListener="#{montoAutorizadoPage.buscarPorFiltro}" value="Filtrar"
+                                         update="table" onclick="Richfaces.showModalPanel('statusPanel')"/>
                     </h:panelGrid>
                 </h:panelGrid>
             </p:panel>

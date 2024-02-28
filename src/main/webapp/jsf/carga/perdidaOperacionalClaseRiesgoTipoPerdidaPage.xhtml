@@ -15,13 +15,13 @@
                     <h:panelGrid columns="1" width="100%"><h1 align="center">Riesgo Operacional - Clase Riesgo</h1>
                     </h:panelGrid>
 
-                    <h:panelGrid columns="2" id="filtro">
-                        <p:inputText id="param" value="#{perdidaOperacionalClaseRiesgoTipoPerdidaPage.param}"/>
-                        <p:commandButton action="#{perdidaOperacionalClaseRiesgoTipoPerdidaPage.buscarPorFiltro}"
-                                         value="Filtrar" ajax="false"/>
-                    </h:panelGrid>
-
                     <ui:include src="../../common/mensajes.xhtml"/>
+
+                    <h:panelGrid columns="2" id="filtro" style="text-align: center; margin: 0 auto;">
+                        <p:inputText id="param" value="#{perdidaOperacionalClaseRiesgoTipoPerdidaPage.param}"/>
+                        <p:commandButton actionListener="#{perdidaOperacionalClaseRiesgoTipoPerdidaPage.buscarPorFiltro}" value="Filtrar"
+                                         update="table" onclick="Richfaces.showModalPanel('statusPanel')"/>
+                    </h:panelGrid>
 
                     <!--	Tabla de resultados	-->
                     <!--      <h:panelGrid columns="1" width="100%" style="align:center;" id="lista"> -->

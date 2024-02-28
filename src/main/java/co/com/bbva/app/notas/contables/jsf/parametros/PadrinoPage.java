@@ -1,14 +1,13 @@
 package co.com.bbva.app.notas.contables.jsf.parametros;
 
 import co.com.bbva.app.notas.contables.dto.Padrino;
-import co.com.bbva.app.notas.contables.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.model.SelectItem;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,7 +20,7 @@ import java.util.TreeMap;
  * </p>
  * 
  */
-@SessionScoped
+@ViewScoped
 @Named
 public class PadrinoPage extends GeneralParametrosPage<Padrino, Padrino> {
 

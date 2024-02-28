@@ -438,4 +438,49 @@ public class NotaContableTema extends CommonVO<NotaContableTema> implements java
 
 	}
 
+	@Override
+	public String toString() {
+		return "NotaContableTema{" +
+				"codigo=" + codigo +
+				", obligatorio=" + obligatorio +
+				", codigoNotaContable=" + codigoNotaContable +
+				", codigoTema=" + codigoTema +
+				", fechaContable=" + fechaContable +
+				", fechaContablePF=" + fechaContablePF +
+				", fechaContableTS=" + fechaContableTS +
+				", partidaContable='" + partidaContable + '\'' +
+				", naturalezaPartidaContable='" + naturalezaPartidaContable + '\'' +
+				", contrapartidaContable='" + contrapartidaContable + '\'' +
+				", natContContable='" + natContContable + '\'' +
+				", codigoSucursalDestinoPartida='" + codigoSucursalDestinoPartida + '\'' +
+				", codSucDestContraPartida='" + codSucDestContraPartida + '\'' +
+				", codigoDivisa='" + codigoDivisa + '\'' +
+				", monto=" + monto +
+				", referencia1='" + referencia1 + '\'' +
+				", referencia2='" + referencia2 + '\'' +
+				", tipoIdentificacion1='" + tipoIdentificacion1 + '\'' +
+				", numeroIdentificacion1='" + numeroIdentificacion1 + '\'' +
+				", digitoVerificacion1='" + digitoVerificacion1 + '\'' +
+				", nombreCompleto1='" + nombreCompleto1 + '\'' +
+				", tipoIdentificacion2='" + tipoIdentificacion2 + '\'' +
+				", numeroIdentificacion2='" + numeroIdentificacion2 + '\'' +
+				", digitoVerificacion2='" + digitoVerificacion2 + '\'' +
+				", nombreCompleto2='" + nombreCompleto2 + '\'' +
+				", contrato1='" + contrato1 + '\'' +
+				", contrato2='" + contrato2 + '\'' +
+				", descripcion='" + descripcion + '\'' +
+				", riesgoOperacional=" + riesgoOperacional +
+				", impuestoTema=" + impuestoTema +
+				", anexoTema=" + anexoTema +
+				", numeroAsiento='" + numeroAsiento + '\'' +
+				", numeroApunte='" + numeroApunte + '\'' +
+				", tema=" + tema +
+				", autorizada=" + autorizada +
+				", sucursalDestinoPartida=" + sucursalDestinoPartida +
+				", sucursalDestinoContraPartida=" + sucursalDestinoContraPartida +
+				", nombreTipoDoc1='" + nombreTipoDoc1 + '\'' +
+				", nombreTipoDoc2='" + nombreTipoDoc2 + '\'' +
+				", editada=" + editada +
+				'}';
+	}
 }

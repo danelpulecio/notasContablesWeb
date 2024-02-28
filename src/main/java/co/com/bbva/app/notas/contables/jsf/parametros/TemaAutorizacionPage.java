@@ -1,12 +1,11 @@
 package co.com.bbva.app.notas.contables.jsf.parametros;
 
 import co.com.bbva.app.notas.contables.dto.TemaAutorizacion;
-import co.com.bbva.app.notas.contables.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.util.Collection;
 
@@ -16,7 +15,7 @@ import java.util.Collection;
  * </p>
  * 
  */
-@SessionScoped
+@ViewScoped
 @Named
 public class TemaAutorizacionPage extends GeneralParametrosPage<TemaAutorizacion, TemaAutorizacion> {
 

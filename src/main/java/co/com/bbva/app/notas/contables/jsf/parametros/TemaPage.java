@@ -3,15 +3,13 @@ package co.com.bbva.app.notas.contables.jsf.parametros;
 import co.com.bbva.app.notas.contables.carga.dto.PUC;
 import co.com.bbva.app.notas.contables.carga.dto.Producto;
 import co.com.bbva.app.notas.contables.dto.*;
-import co.com.bbva.app.notas.contables.session.Session;
 import org.primefaces.model.DualListModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.model.SelectItem;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -23,7 +21,7 @@ import java.util.TreeSet;
  * Pagina para manejar la administración de parametros relacionados con la entidad Tema
  * </p>
  */
-@SessionScoped
+@ViewScoped
 @Named(value = "temaPage")
 public class TemaPage extends GeneralParametrosPage<Concepto, Tema> {
 

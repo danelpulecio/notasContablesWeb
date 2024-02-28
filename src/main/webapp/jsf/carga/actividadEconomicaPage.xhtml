@@ -10,6 +10,11 @@
         <div style="width: 1200px;">
             <p:panel style="width: 850px">
                 <h:panelGrid columns="1" width="850px"><h1 align="center">Actividades Económicas</h1></h:panelGrid>
+                <h:panelGrid columns="2" id="filtro" style="text-align: center; margin: 0 auto;">
+                    <p:inputText id="param" value="#{actividadEconomicaPage.param}"/>
+                    <p:commandButton actionListener="#{actividadEconomicaPage.buscarPorFiltro}" value="Filtrar"
+                                     update="actividadTable" onclick="Richfaces.showModalPanel('statusPanel')"/>
+                </h:panelGrid>
 
                 <ui:include src="../../common/mensajes.xhtml"/>
                 <p:dataTable id="actividadTable" var="actividad" value="#{actividadEconomicaPage.datos}"
@@ -19,11 +24,6 @@
                              currentPageReportTemplate="{startRecord} - {endRecord} de {totalRecords} registros"
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              paginatorPosition="top">
-
-                    <f:facet name="header">
-                        <p:inputText id="param" value="#{actividadEconomicaPage.param}"/>
-                        <p:commandButton actionListener="#{actividadEconomicaPage.buscarPorFiltro}" value="Filtrar" update="actividadTable" />
-                    </f:facet>
 
                     <p:column headerText="Fila">
                         <h:outputText value="#{rowIndex + 1}"/>

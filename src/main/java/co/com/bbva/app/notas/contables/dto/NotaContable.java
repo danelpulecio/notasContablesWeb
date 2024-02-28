@@ -282,6 +282,36 @@ public class NotaContable extends CommonVO<NotaContable> implements java.io.Seri
 
 	@Override
 	public void restartPK(Object pk) {
-		codigo = Integer.valueOf(pk.toString());
+		codigo = Integer.parseInt(pk.toString());
+	}
+
+	@Override
+	public String toString() {
+		return "NotaContable{" +
+				"codigo=" + codigo +
+				", fechaRegistroModulo=" + fechaRegistroModulo +
+				", fechaRegistroAltamira=" + fechaRegistroAltamira +
+				", codigoSucursalOrigen='" + codigoSucursalOrigen + '\'' +
+				", codigoConcepto=" + codigoConcepto +
+				", codigoTipoEvento=" + codigoTipoEvento +
+				", numeroRadicacion='" + numeroRadicacion + '\'' +
+				", tipoNota='" + tipoNota + '\'' +
+				", descripcion='" + descripcion + '\'' +
+				", estado='" + estado + '\'' +
+				", asientoContable='" + asientoContable + '\'' +
+				", concepto=" + concepto +
+				", tipoEvento=" + tipoEvento +
+				", sucursalOrigen=" + sucursalOrigen +
+				", codUsuAsignado=" + codUsuAsignado +
+				", puedeAprobar=" + puedeAprobar +
+				", puedeRechazar=" + puedeRechazar +
+				", puedeAnular=" + puedeAnular +
+				", puedeEditar=" + puedeEditar +
+				", temas=" + temas +
+				", temasCruce=" + temasCruce +
+				", temasLibre=" + temasLibre +
+				", causalDeRechazo='" + causalDeRechazo + '\'' +
+				", rechazos=" + rechazos +
+				'}';
 	}
 }

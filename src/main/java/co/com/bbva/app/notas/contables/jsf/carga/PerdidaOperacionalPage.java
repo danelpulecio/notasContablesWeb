@@ -21,7 +21,7 @@ import java.util.Collection;
  * 
  */
 @Named
-@SessionScoped
+@ViewScoped
 public class PerdidaOperacionalPage extends GeneralCargaPage<PerdidaOperacional> {
 
 	/**

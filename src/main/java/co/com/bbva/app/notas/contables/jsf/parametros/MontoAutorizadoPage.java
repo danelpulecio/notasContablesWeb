@@ -3,14 +3,13 @@ package co.com.bbva.app.notas.contables.jsf.parametros;
 import co.com.bbva.app.notas.contables.dto.MontoAutorizado;
 import co.com.bbva.app.notas.contables.dto.TemaAutorizacion;
 import co.com.bbva.app.notas.contables.dto.TipoEvento;
-import co.com.bbva.app.notas.contables.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.model.SelectItem;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,7 +20,7 @@ import java.util.List;
  * Pagina para manejar la administración de parametros relacionados con la entidad MontoAutorizado
  * </p>
  */
-@SessionScoped
+@ViewScoped
 @Named
 public class MontoAutorizadoPage extends GeneralParametrosPage<MontoAutorizado, MontoAutorizado> {
 
