@@ -109,10 +109,10 @@ public class ReporteConciliacionPage extends GeneralConsultaPage<Instancia> {
                     LOGGER.info("{} Generar Archivo Conciliacin : {}", fecha1String +" "+ fecha2String );
                     nuevoMensaje(FacesMessage.SEVERITY_INFO, "Inicio el proceso y el archivo se ha  generado en: " + DIR_TRANSMISION_ALTAMIRA+ INTERFAZ_CONTABLE_FILE_NAME);
                 } else {
-                    nuevoMensaje(FacesMessage.SEVERITY_WARN, "La generacin de la conciliacin puede ejecutarse los das hbiles antes de las 10 pm, en caso contrario el procesamiento no ser exitoso.");
+                    nuevoMensaje(FacesMessage.SEVERITY_WARN, "La generacin de la conciliacin puede ejecutarse los das hábiles antes de las 10 pm, en caso contrario el procesamiento no ser exitoso.");
                 }
             } else {
-                nuevoMensaje(FacesMessage.SEVERITY_WARN, "La generacin de la conciliacin puede ejecutarse los das hbiles antes de las 10 pm, en caso contrario el procesamiento no ser exitoso.");
+                nuevoMensaje(FacesMessage.SEVERITY_WARN, "La generacin de la conciliacin puede ejecutarse los das hábiles antes de las 10 pm, en caso contrario el procesamiento no ser exitoso.");
             }
         } catch (Exception e) {
 //            LOGGER.error("{} Ocurrio un error al generar el archivo de Interfaz Contable", session.getTraceLog() , e);

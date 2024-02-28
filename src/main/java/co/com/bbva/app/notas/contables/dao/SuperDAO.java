@@ -7,12 +7,17 @@ import co.com.bbva.app.notas.contables.datos.utilidades.DBUtils;
 import co.com.bbva.app.notas.contables.dto.Auditoria;
 import co.com.bbva.app.notas.contables.dto.AuditoriaDetalle;
 import co.com.bbva.app.notas.contables.dto.CommonVO;
+import co.com.bbva.app.notas.contables.jsf.nota.NotaContableLibrePage;
 import co.com.bbva.app.notas.contables.util.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.lang.reflect.Field;
 import java.sql.*;
 import java.util.ArrayList;
@@ -559,5 +564,4 @@ public class SuperDAO<T extends CommonVO<T>> extends DBUtils<T> implements IAudi
         }
 
     }
-
 }

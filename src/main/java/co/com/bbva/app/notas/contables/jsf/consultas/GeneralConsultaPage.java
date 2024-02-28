@@ -87,15 +87,15 @@ public abstract class GeneralConsultaPage<T> extends GeneralPage implements IPag
 	 * @return
 	 */
 	public String buscar() {
-		LOGGER.info("buscar Consulta Page datos");
+		boolean control = false;
 		try {
 			if (datosValidos()) {
 				datos = new ArrayList<T>(_buscar());
 			} else {
+				control = true;
 				datos = new ArrayList<T>();
 			}
-			LOGGER.info("ARAY DATOS :::::: " + datos.size());
-			if (datos.isEmpty()) {
+			if (datos.isEmpty() && !control ) {
 				nuevoMensaje(FacesMessage.SEVERITY_INFO, "No se encontraron resultados para las caractersticas seleccionadas");
 			}
 		} catch (final Exception e) {

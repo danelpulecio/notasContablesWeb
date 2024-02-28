@@ -94,7 +94,7 @@ public class ConsultaNotaContablePage extends GeneralConsultaPage<Instancia> {
 	protected void _validar() throws Exception {
 		switch (Integer.valueOf(criterio.trim())) {
 		case 1:
-			validador.validarRequerido(numRadicacion, "número de radicacin");
+			validador.validarRequerido(numRadicacion, "número de radicación");
 			break;
 		case 2:
 			validador.validarRequerido(asientoContable, "Asiento contable");

@@ -4,15 +4,9 @@ a	java:S112<"FDefine and throw a dedicated exception instead of using a generi
 v
 java:S22931"YReplace the type specification in this constructor call with the diamond operator ("<>").(Üˆ€8µÎİËÑ1
 {
-java:S2293]"YReplace the type specification in this constructor call with the diamond operator ("<>").(“”Ÿ«ÿÿÿÿÿ8¶ÎİËÑ1
-{
-java:S2293_"YReplace the type specification in this constructor call with the diamond operator ("<>").(ƒ­öàşÿÿÿÿ8¶ÎİËÑ1
-{
 java:S2293s"YReplace the type specification in this constructor call with the diamond operator ("<>").(ƒ­öàşÿÿÿÿ8¶ÎİËÑ1
 {
 java:S2293y"YReplace the type specification in this constructor call with the diamond operator ("<>").(ƒ­öàşÿÿÿÿ8¶ÎİËÑ1
-y
-java:S2629a"\Invoke method(s) only conditionally. Use the built-in formatting to construct this argument.(‹î8·ÎİËÑ1
 [
 java:S5993C"9Change the visibility of this constructor to "protected".(é‘¢¦ÿÿÿÿÿ8ÆÎİËÑ1
 M
@@ -23,8 +17,6 @@ java:S19481"'Make "datos" transient or serializable.(Üˆ€8ÆÎİËÑ1
 j	java:S1003"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ˆÈğæ8ÌÎİËÑ1
 o	java:S1005"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(·Âûåûÿÿÿÿ8ÌÎİËÑ1
 i	java:S100<"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³…À 8ÌÎİËÑ1
-^
-java:S3457a"AFormat specifiers should be used instead of string concatenation.(‹î8ÎÎİËÑ1
 7
 java:S3457f"Not enough arguments.(¿Ãıÿÿÿÿ8Á¹ç¨Ú1
 ]	java:S125{"<This block of commented-out lines of code should be removed.(’Òóéıÿÿÿÿ8ÏÎİËÑ1

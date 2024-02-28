@@ -362,7 +362,7 @@ public class TemaPage extends GeneralParametrosPage<Concepto, Tema> {
 
             }
         } else {
-            nuevoMensaje(FacesMessage.SEVERITY_WARN, "Indique 4 dgitos o mas para realizar la bsqueda");
+            nuevoMensaje(FacesMessage.SEVERITY_WARN, "Indique 4 dgitos o mas para realizar la búsqueda");
         }
         return lista;
     }

@@ -103,7 +103,7 @@
                                     <h:selectOneMenu value="#{terceroPage.objActual.departamento}"
                                                      rendered="#{!empty terceroPage.departamentos}" >
                                         <f:selectItems value="#{terceroPage.departamentos}"/>
-                                        <p:ajax event="change" action="#{terceroPage.cargarMunicipios }"
+                                        <p:ajax event="change" listener="#{terceroPage.cargarMunicipios }"
                                                 update="municipioPanel"/>
                                     </h:selectOneMenu>
                                 </h:panelGroup>

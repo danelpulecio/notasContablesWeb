@@ -1,7 +1,6 @@
 package co.com.bbva.app.notas.contables.dao;
 
 import co.com.bbva.app.notas.contables.dto.CommonVO;
-import co.com.bbva.app.notas.contables.facade.impl.NotasContablesSessionBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class CommonDAO<T extends CommonVO<T>> extends SuperDAO<T> {
-
+	
 	private static final Logger LOGGER = LoggerFactory.getLogger(CommonDAO.class);
 	private String sql_SELECT_MAX_CODE_SENTENCE = null;
 
@@ -131,6 +130,7 @@ public abstract class CommonDAO<T extends CommonVO<T>> extends SuperDAO<T> {
 			LOGGER.info("row.getPK paso 13.1 {}", row.getPK());
 			LOGGER.info("row.getPK class paso 13.1 {}", row.getPK().getClass());
 			Object idAnt = row.getPK();
+			LOGGER.info("CommonDAO : add : if : {}", idAnt);
 			try {
 				int id = 0;
 				LOGGER.info("Object idAnt {}", idAnt);

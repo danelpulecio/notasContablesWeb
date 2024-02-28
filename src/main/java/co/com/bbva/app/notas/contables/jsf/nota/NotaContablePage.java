@@ -17,6 +17,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
 
+import org.primefaces.PrimeFaces;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.file.UploadedFile;
 import org.slf4j.Logger;
@@ -101,10 +102,11 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
     private boolean ocultarPopupAnular = false;
     private boolean aplicaRecuperacion = false;
     //private Session session;
-
+private java.util.Date  fechaContablePF = null;
 
     public NotaContablePage() {
         super();
+        this.fechaContablePF = new Date();
     }
 
     public String iniciarPagina() {
@@ -124,7 +126,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
                         montoAlertaEXT = monto.getMontoMaximoAlerta();
                     }
                 }
-                LOGGER.info("{} Obteniendo Info. de los das no hbiles");
+                LOGGER.info("{} Obteniendo Info. de los das no hábiles");
                 diasNoHabiles = new ArrayList<>(cargaAltamiraManager.getFestivosFecha());
 
                 FechaHabilitada fechaHabilitada = new FechaHabilitada();
@@ -369,13 +371,14 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
         java.sql.Date fecha = new java.sql.Date(DateUtils.getDate(maxFecha, "dd-MM-yyyy").getTime());
         Date fechaActual = new Date();
         java.sql.Date fechaAct = DateUtils.getSQLDate(fechaActual);
-        temaActual.setFechaContable(DateUtils.getSQLDate(temaActual.getFechaContablePF()));
+        //temaActual.setFechaContable(DateUtils.getSQLDate(temaActual.getFechaContablePF()));
+        temaActual.setFechaContable(DateUtils.getSQLDate(this.fechaContablePF));
 
         if (temaActual.getFechaContable().after(DateUtils.getSQLDate(fechaAct))) {
             nuevoMensaje(FacesMessage.SEVERITY_WARN, "La fecha no puede ser superior a HOY");
             temaActual.setFechaContable(fecha);
         } else if (diasNoHabiles.contains(temaActual.getFechaContable())) {
-            nuevoMensaje(FacesMessage.SEVERITY_WARN, "La fecha debe ser un dia hbil");
+            nuevoMensaje(FacesMessage.SEVERITY_WARN, "La fecha debe ser un dia hábil");
             temaActual.setFechaContable(fecha);
         } else if (temaActual.getFechaContable().after(DateUtils.getDate(fecha))) {
             nuevoMensaje(FacesMessage.SEVERITY_WARN, "La fecha no puede ser superior a " + StringUtils.getString(fecha, "yyyy-MM-dd"));
@@ -561,7 +564,6 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 
     /**
      * Permite obtener la lista de subcanales por medio del codigo del canal
-     *
      * @return
      */
     public String buscarSubCanal() {
@@ -575,7 +577,6 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 
     /**
      * Permite obtner el listado de clase riesgo N2 dependiendo de la clase de riesgo
-     *
      * @return
      */
     public String buscarClaseRiesgoN2() {
@@ -590,7 +591,6 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 
     /**
      * Permite obtner el listado de clase riesgo N3 dependiendo de la clase de riesgo N3
-     *
      * @return
      */
     public String buscarClaseRiesgoN3() {
@@ -749,6 +749,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
             throw e;
         }
     }
+
 //	public void listener(UploadEvent event) throws Exception {
 //		LOGGER.info("{} Iniciando la carga del archivo (SOPORTE)");
 //		String fileName = "";
@@ -836,13 +837,16 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
                             cancelarNota();
                             nuevoMensaje(FacesMessage.SEVERITY_INFO, "La nota ha sido radicada correctamente con el número: " + notaContable.getNumeroRadicacion());
                             UsuarioModulo usuarioModulo = new UsuarioModulo();
-                            try {
-                                LOGGER.info("{} Intentando enviar email de la nota grabada");
-                                notasContablesManager.sendMail(instancia, getUsuarioLogueado());
-                            } catch (Exception e) {
-                                LOGGER.error("{} Error al intentar enviar el email de la nota grabada", e);
-                                nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema al enviar el correo electronico a " + usuarioModulo.getEMailModificado());
-                            }
+                            /**
+                             * TODO
+                             */
+//                            try {
+//                                LOGGER.info("{} Intentando enviar email de la nota grabada");
+//                                notasContablesManager.sendMail(instancia, getUsuarioLogueado());
+//                            } catch (Exception e) {
+//                                LOGGER.error("{} Error al intentar enviar el email de la nota grabada", e);
+//                                nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema al enviar el correo electronico a " + usuarioModulo.getEMailModificado());
+//                            }
                         } else {
                             LOGGER.error("{} Error al crear la instancia de la Nota Contable");
                             nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema no fue posible crear la Nota Contable");
@@ -900,8 +904,9 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 
     public String guardarRiesgo() {
         if (validarRiesgo()) {
-            nuevoMensaje(FacesMessage.SEVERITY_INFO, "La informacion de riesgo operacional se ha guardado temporalmente");
+            nuevoMensaje(FacesMessage.SEVERITY_INFO, "La información de riesgo operacional se ha guardado temporalmente");
             this.ocultarPopupRiesgo = true;
+            PrimeFaces.current().executeScript("PF('modalRiesgo').hide();");
         }
         return null;
     }
@@ -912,10 +917,9 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
      * @return
      */
     private boolean validarRiesgo() {
-        LOGGER.info("{} Se va guardar la Info. diligenciada en ventana modal de Riesgo para Nota Contable Tipo Tema.  ");
+        LOGGER.info("Se va guardar la Info. diligenciada en ventana modal de Riesgo para Nota Contable Tipo Tema.  ");
         validador.validarPositivo(temaActual.getRiesgoOperacional().getImporteParcial(), "Importe Parcial");
         validador.validarPositivo(temaActual.getRiesgoOperacional().getImporteTotal(), "Importe Total");
-
 
         temaActual.getRiesgoOperacional().setFechaEvento(DateUtils.getSQLDate(temaActual.getRiesgoOperacional().getFechaEventoPF()));
         validador.validarRequerido(temaActual.getRiesgoOperacional().getFechaEvento(), "Fecha Inicio del Evento");
@@ -1017,6 +1021,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
             montoAnt = 0d;
             nuevoMensaje(FacesMessage.SEVERITY_INFO, "El tema se ha guardado temporalmente");
             ocultarPopupTema = true;
+            PrimeFaces.current().executeScript("PF('editor').hide();");
         }
         return null;
     }
@@ -1058,7 +1063,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
                 validador.validarSeleccion(temaActual.getContrato2(), "Contrato del tercero asociado a la Contrapartida");
             }
         }
-        validador.validarRequerido(temaActual.getDescripcion(), "Descripcin");
+        validador.validarRequerido(temaActual.getDescripcion(), "Descripción");
         validador.validarSeleccion(temaActual.getCodigoDivisa(), "Tipo de Divisa");
         validador.validarPositivo(temaActual.getMonto(), "Importe");
 
@@ -1483,5 +1488,15 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
     public void setAplicaRecuperacion(boolean aplicaRecuperacion) {
         this.aplicaRecuperacion = aplicaRecuperacion;
     }
+
+	public java.util.Date getFechaContablePF() {
+		
+		return fechaContablePF;
+	}
+
+	public void setFechaContablePF(java.util.Date fechaContablePF) {
+		this.fechaContablePF = fechaContablePF;
+	}
+	
 
 }

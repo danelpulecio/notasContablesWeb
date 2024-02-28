@@ -438,9 +438,9 @@ public class NotaRefCrucePage extends GeneralPage implements IPages, Serializabl
 				chequeoReasignacion = false;
 			} // fin codigo
 			if (chequeoReasignacion) {
-				validador.validarSeleccion(causalDevolucion, "Causal de devolucion");
+				validador.validarSeleccion(causalDevolucion, "Causal de devolución");
 				if (causalDevolucion == 18) {// causal: otra
-					validador.validarRequerido(otraCausalDev, "Descripcin de la causal");
+					validador.validarRequerido(otraCausalDev, "Descripción de la causal");
 				}
 				// si no hay errores de validacion
 				if (!getFacesContext().getMessages().hasNext()) {

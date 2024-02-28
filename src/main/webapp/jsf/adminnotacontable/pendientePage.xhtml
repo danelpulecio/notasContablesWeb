@@ -28,9 +28,9 @@
 
                 <!-- Tabla de registros -->
                 <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
-                    <p:poll listener="#{pendientePage.cargarPendientes()}"
-                            update="lista, msgPendientes"
-                            interval="1" stop="#{pendientePage.stopPoll}" autoStart="true"/>
+<!--                     <p:poll listener="#{pendientePage.cargarPendientes()}" -->
+<!--                             update="lista, msgPendientes" -->
+<!--                             interval="1" stop="#{pendientePage.stopPoll}" autoStart="true"/> -->
                     <p:dataTable value="#{pendientePage.datos}" var="dato" id="tablePendiente" rowIndexVar="rowIndex"
                                  rendered="#{! empty pendientePage.datos}"
                                  widgetVar="economicActivityTable" rows="15" paginator="true"
