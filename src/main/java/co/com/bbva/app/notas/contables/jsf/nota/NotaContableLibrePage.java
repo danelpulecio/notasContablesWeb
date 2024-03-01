@@ -868,12 +868,19 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 		LOGGER.info("{} Se va guardar la Info. diligenciada en ventana modal de Riesgo Para Nota Reg Libre. ");
 		validador.validarPositivo(temaActual.getRiesgoOperacional().getImporteParcial(), "Importe Parcial");
 		validador.validarPositivo(temaActual.getRiesgoOperacional().getImporteTotal(), "Importe Total");
+		
+		temaActual.getRiesgoOperacional().setFechaEvento(DateUtils.getSQLDate(temaActual.getRiesgoOperacional().getFechaEventoPF()));
 		validador.validarRequerido(temaActual.getRiesgoOperacional().getFechaEvento(), "Fecha Inicial del Evento");
-		validador.validarRequerido(temaActual.getRiesgoOperacional().getFechaFinEvento(), "Fecha Finalizacin del Evento");
+		
+		temaActual.getRiesgoOperacional().setFechaFinEvento(DateUtils.getSQLDate(temaActual.getRiesgoOperacional().getFechaFinEventoPF()));
+		validador.validarRequerido(temaActual.getRiesgoOperacional().getFechaFinEvento(), "Fecha Finalización del Evento");
+		
+		temaActual.getRiesgoOperacional().setFechaDescubrimientoEvento(DateUtils.getSQLDate(temaActual.getRiesgoOperacional().getFechaDescubrimientoEventoPF()));
 		validador.validarRequerido(temaActual.getRiesgoOperacional().getFechaDescubrimientoEvento(), "Fecha del Descubrimiento");
+		
 		validador.validarRequerido(temaActual.getRiesgoOperacional().getHoraInicioEvento(), "Hora Inicio Evento");
 		validador.validarRequerido(temaActual.getRiesgoOperacional().getMinutosInicioEvento(), "Minutos Inicio Evento");
-		validador.validarRequerido(temaActual.getRiesgoOperacional().getHoraFinalEvento(), "Hora Finalizacion Evento");
+		validador.validarRequerido(temaActual.getRiesgoOperacional().getHoraFinalEvento(), "Hora Finalización Evento");
 		validador.validarRequerido(temaActual.getRiesgoOperacional().getMinutosFinalEvento(), "Minutos Fin Evento");
 		validador.validarRequerido(temaActual.getRiesgoOperacional().getHoraDescubrimiento(), "Hora Descubrimiento");
 		validador.validarRequerido(temaActual.getRiesgoOperacional().getMinutosDescubrimiento(), "Minutos Descubrimiento");
@@ -881,9 +888,9 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 		validador.validarRequerido(temaActual.getRiesgoOperacional().getHorarioDescubre(), "horario descubrimiento");
 		validador.validarRequerido(temaActual.getRiesgoOperacional().getHorarioFinal(), "horario fecha final");
 		validador.validarSeleccion(temaActual.getRiesgoOperacional().getCodigoClaseRiesgo(), "Clase de Riesgo");
-		validador.validarSeleccion(temaActual.getRiesgoOperacional().getCodigoTipoPerdida(), "Tipo Prdida");
+		validador.validarSeleccion(temaActual.getRiesgoOperacional().getCodigoTipoPerdida(), "Tipo Pérdida");
 		validador.validarSeleccion(temaActual.getRiesgoOperacional().getCodigoProceso(), "Proceso");
-		validador.validarSeleccion(temaActual.getRiesgoOperacional().getCodigoLineaOperativa(), "Lnea Operativa");
+		validador.validarSeleccion(temaActual.getRiesgoOperacional().getCodigoLineaOperativa(), "Línea Operativa");
 		validador.validarSeleccion(temaActual.getRiesgoOperacional().getCodigoProducto(), "Producto");
 
 		validador.validarSeleccion(temaActual.getRiesgoOperacional().getCodigoSubProducto(), "SubProducto Afectado");
@@ -892,14 +899,17 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 		validador.validarSeleccion(temaActual.getRiesgoOperacional().getCodigoClaseRiesgoN2(), "SFC Clase Riesgo N2");
 		validador.validarSeleccion(temaActual.getRiesgoOperacional().getCodigoClaseRiesgoN3(), "SFC Clase Riesgo N3");
 		validador.validarRequerido(temaActual.getRiesgoOperacional().getNombreOutSource(), "Nombre Outsourcing");
-		validador.validarSeleccion(temaActual.getRiesgoOperacional().getAppRecuperacion(), "Aplica Recuperacin");
+		validador.validarSeleccion(temaActual.getRiesgoOperacional().getAppRecuperacion(), "Aplica Recuperación");
 
 		if (temaActual.getRiesgoOperacional().getAppRecuperacion().equals("S")) {
-			validador.validarRequerido(temaActual.getRiesgoOperacional().getFechaRecuperacion(), "Fecha Recuperacin");
-			validador.validarRequerido(temaActual.getRiesgoOperacional().getHoraRecuperacion(), "Hora Recuperacin");
-			validador.validarRequerido(temaActual.getRiesgoOperacional().getMinutosRecuperacion(), "Minutos Recuperacin");
-			validador.validarRequerido(temaActual.getRiesgoOperacional().getHorarioRecuperacion(), "horario Recuperacion");
-			validador.validarSeleccion(temaActual.getRiesgoOperacional().getTipoRecuperacion(), "Tipo Recuperacin");
+			
+			temaActual.getRiesgoOperacional().setFechaRecuperacion(DateUtils.getSQLDate(temaActual.getRiesgoOperacional().getFechaRecuperacionPF()));
+			validador.validarRequerido(temaActual.getRiesgoOperacional().getFechaRecuperacion(), "Fecha Recuperación");
+			
+			validador.validarRequerido(temaActual.getRiesgoOperacional().getHoraRecuperacion(), "Hora Recuperación");
+			validador.validarRequerido(temaActual.getRiesgoOperacional().getMinutosRecuperacion(), "Minutos Recuperación");
+			validador.validarRequerido(temaActual.getRiesgoOperacional().getHorarioRecuperacion(), "horario Recuperación");
+			validador.validarSeleccion(temaActual.getRiesgoOperacional().getTipoRecuperacion(), "Tipo Recuperación");
 		}
 
 		// Validacion para ocultar el popup una vez que la validacion es exitosa

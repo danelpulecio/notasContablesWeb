@@ -11,6 +11,8 @@ import co.com.bbva.app.notas.contables.jsf.adminnota.PendientePage;
 import co.com.bbva.app.notas.contables.session.Session;
 import co.com.bbva.app.notas.contables.util.DateUtils;
 import co.com.bbva.app.notas.contables.util.EMailSender;
+
+import org.primefaces.PrimeFaces;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,7 +36,7 @@ import java.util.List;
 @Named
 public class FlujoNotaContablePage extends GeneralPage implements IPages {
 
-
+	@Inject
 	private PendientePage pendientePage;
 
 	private static final long serialVersionUID = 1L;
@@ -324,6 +326,9 @@ public class FlujoNotaContablePage extends GeneralPage implements IPages {
 						causalDevolucion = 0;
 						otraCausalDev = "";
 						ocultarPopupAnular = true;
+						
+						PrimeFaces.current().executeScript("PF('popupRechazoVer').hide();");
+						PrimeFaces.current().executeScript("PF('popupFlujoNotaContableVer').hide();");
 
 						try {
 							enviarEMail.sendEmail(usuarioModulo.getEMailModificado(), getUsuarioLogueado().getUsuario().getEMailModificado(),
@@ -351,7 +356,9 @@ public class FlujoNotaContablePage extends GeneralPage implements IPages {
 
 	public String anular() {
 		try {
-
+			
+			LOGGER.info("FlujoNotaContablePage : anular --> ");
+			
 			Instancia instanciado = new Instancia();
 			instanciado.setCodigoNotaContable(nota.getCodigo());
 			instanciado = notasContablesManager.getInstanciaPorNotaContable(instanciado);
@@ -382,15 +389,19 @@ public class FlujoNotaContablePage extends GeneralPage implements IPages {
 				nota.setPuedeEditar(false);
 				nota.setPuedeAnular(false);
 				nuevoMensaje(FacesMessage.SEVERITY_INFO, "La nota ha sido anulada correctamente");
+				LOGGER.info("------------> La nota ha sido anulada correctamente");
 				pendientePage.cargarPendientes();
+				
+				PrimeFaces.current().executeScript("PF('popupAnularNota').hide();");
+				PrimeFaces.current().executeScript("PF('popupNotaContable').hide();");
 
 			} else {
 				nuevoMensaje(FacesMessage.SEVERITY_INFO,
-						"Se present un error al anular la nota: Verfique que el Aplicativo Notas Contables /n est  abierto en  un nico navegador Web y en una nica pestaa. ");
+						"Se presentó un error al anular la nota: Verfique que el Aplicativo Notas Contables /n está  abierto en  un único navegador Web y en una única pestaña. ");
 				return null;
 			}
 		} catch (Exception e) {
-			lanzarError(e, "Se present un error al anular la nota contable");
+			lanzarError(e, "Se presentó un error al anular la nota contable");
 		}
 		return null;
 	}

@@ -88,7 +88,7 @@
                             <p:commandButton action="#{temaPage.buscarConcepto}" value="Buscar Concepto"
                                              update="globalForm:tipoConcepto"/>
 
-                            <p:selectOneMenu value="#{temaPage.objActual.codigoConcepto}" immediate="true"
+                            <p:selectOneMenu value="#{temaPage.objActual.codigoConcepto}"
                                              converter="javax.faces.Integer"
                                              disabled="#{temaPage.objActual.codigo gt 0}" id="nombreCon"
                                              disabledClass="disabledItem" rendered="#{! empty temaPage.conceptos}">

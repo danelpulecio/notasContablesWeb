@@ -513,8 +513,8 @@
             </p:panel>
 
             <p:dialog id="popupRechazoVer" widgetVar="popupRechazoVer" autosized="true" domElementAttachment="form"
-                      width="500"
-                      showEffect="fade" hideEffect="explode" modal="true">
+                      width="750px"
+                      showEffect="fade" hideEffect="explode" modal="false">
                 <f:facet name="header">
                     <h:panelGroup>
                         <h:outputText value="Rechazar nota contable"/>
@@ -528,13 +528,14 @@
 
                     <p:separator width="100%"/>
                     <h:outputText value="Causal de devolución"/>
-                    <h:selectOneMenu value="#{flujoNotaContablePage.causalDevolucion}" immediate="true">
+                    <p:selectOneMenu value="#{flujoNotaContablePage.causalDevolucion}">
                         <f:selectItem itemValue="-1" itemLabel="Seleccione una opcion"/>
                         <f:selectItems value="#{flujoNotaContablePage.causalesDev}"/>
                         <!--
                         <a4j:support event="onchange" reRender="otraCausalVer" />
                         -->
-                    </h:selectOneMenu>
+                        <p:ajax event="change" update="globalForm:otraCausalVer"/>
+                    </p:selectOneMenu>
                     <h:panelGrid columns="1" width="100%" id="otraCausalVer">
                         <h:outputText value="Descripción de la causal"
                                       rendered="#{flujoNotaContablePage.causalDevolucion eq 18}"/>
@@ -545,7 +546,6 @@
                     <ui:include src="../../common/mensajes.xhtml"/>
                     <h:panelGrid columns="2" styleClass="center" width="100%">
                         <p:commandButton action="#{flujoNotaContablePage.rechazar}" value="Confirmar rechazo"
-                                         oncomplete="if (#{flujoNotaContablePage.ocultarPopupAnular}) {PF('popupRechazoVer').hide();PF('popupFlujoNotaContableVer').hide();}"
                                          update="lista,opcionesVer"/>
                         <p:commandButton onclick="PF('popupRechazoVer').hide()" value="Cancelar"/>
                     </h:panelGrid>

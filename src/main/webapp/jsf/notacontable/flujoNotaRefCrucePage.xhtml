@@ -150,13 +150,12 @@
 
 		<ui:include src="../../common/mensajes.xhtml" /> 
 		<h:panelGrid id="opcionesRefCruceVer" columns="2" styleClass="center" width="100%">
-		<p:commandButton action="#{notaRefCrucePage.aprobar}"
-			oncomplete="if (#{notaRefCrucePage.ocultarPopupAprobar}) PF('popupFlujoNotaContableRefCruceVer').hide()" 
-			update="lista,opcionesRefCruceVer" 
-			value="Aprobar" 
-			rendered="#{notaRefCrucePage.nota.puedeAprobar}"/>
-		<p:commandButton value="Anular" rendered="#{notaRefCrucePage.nota.puedeAnular}" oncomplete="PF('popupAnularRefCruce').show()"/>
-		<p:commandButton value="Rechazar" rendered="#{notaRefCrucePage.nota.puedeRechazar}" oncomplete="PF('popupRechazoRefCruceVer').show()"/>
+			<p:commandButton action="#{notaRefCrucePage.aprobar}"
+				update="lista,opcionesRefCruceVer" 
+				value="Aprobar" 
+				rendered="#{notaRefCrucePage.nota.puedeAprobar}"/>
+			<p:commandButton value="Anular" rendered="#{notaRefCrucePage.nota.puedeAnular}" oncomplete="PF('popupAnularRefCruce').show()"/>
+			<p:commandButton value="Rechazar" rendered="#{notaRefCrucePage.nota.puedeRechazar}" oncomplete="PF('popupRechazoRefCruceVer').show()"/>
 		</h:panelGrid>
 	</p:dialog>
 </ui:composition>
