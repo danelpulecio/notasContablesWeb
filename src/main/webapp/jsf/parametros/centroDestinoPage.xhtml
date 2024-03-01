@@ -103,15 +103,17 @@
                     <h:panelGrid columns="2">
                         <p:inputText id="param" value="#{centroDestinoPage.param}"/>
                         <p:commandButton actionListener="#{centroDestinoPage.buscarPorFiltro}" value="Filtrar"
-                                         update="table" onclick="Richfaces.showModalPanel('statusPanel')"/>
+                                         update="lista,table" onclick="Richfaces.showModalPanel('statusPanel')"/>
                     </h:panelGrid>
                 </h:panelGrid>
 
             </p:panel>
-            <!--        <ui:include src="../../common/mensajes.xhtml"/>-->
+            
             <!-- Tabla de registros -->
             <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
-
+				
+				<ui:include src="../../common/mensajes.xhtml"/>
+				
                 <p:dataTable value="#{centroDestinoPage.datos}" var="dato" id="table"
                              rendered="#{! empty centroDestinoPage.datos}"
                              rowIndexVar="rowIndex"

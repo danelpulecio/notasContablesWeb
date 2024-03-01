@@ -169,9 +169,14 @@
 				</p:dataTable>
 			</p:panel>
 		</h:panelGroup>
+		
+		<h:panelGroup id="msgCTRC">
+        	<ui:include src="../../common/mensajes.xhtml"/>
+        </h:panelGroup>
+		
 		<h:panelGrid columns="2" styleClass="center" width="100%" id="opcionesNotaRefCruce">
 			<p:commandButton action="#{notaRefCrucePage.guardar}" value="Enviar a Visto Bueno"
-							 update="globalForm:partPendientes,globalForm:partSeleccionadas,globalForm:opcionesNotaRefCruce"
+							 update="globalForm:partPendientes,globalForm:partSeleccionadas,globalForm:opcionesNotaRefCruce,globalForm:msgCTRC"
 							 rendered="#{! empty notaRefCrucePage.partidasSeleccionadas}"/>
 			<p:commandButton value="Cancelar"
 							 action="#{notaRefCrucePage.cancelar}"

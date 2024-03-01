@@ -95,16 +95,16 @@
                                                              target="#{notaRefCrucePage.nota.codUsuAsignado}"/>
                             </p:commandButton>
 
-                            <p:commandButton value="Editar"
+                            <p:commandButton value="Editar R"
                                              action="#{notaContablePage.iniciarPagina}"
                                              oncomplete="PF('popupNotaContable').show();"
                                              update="globalForm:popupNotaContable"
                                              rendered="#{dato.NC.tipoNota eq 'R' and dato.estado eq 1}">
-                                <f:setPropertyActionListener for="codNotaEditar" value="#{dato.codigoNotaContable}"
-                                                             target="#{notaContablePage.nota.codigo}"/>
+                                <f:setPropertyActionListener for="codNotaEditar" value="#{dato.codigoNotaContable}" 
+                                	target="#{notaContablePage.nota.codigo}"/>
                             </p:commandButton>
 
-                            <p:commandButton value="Editar"
+                            <p:commandButton value="Editar L"
                                              action="#{notaContableLibrePage.iniciarPagina}"
                                              oncomplete="PF('popupNotaContableLibre').show();"
                                              update="globalForm:popupNotaContableLibre"

@@ -5,7 +5,68 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui">
+<h:head>
+<script type="text/javascript">
+				function isDayEnabled(day){
+					var fechaMin = document.getElementById('globalForm:fechaMinLibre').value;
+					var fechaMax = document.getElementById('globalForm:fechaMaxLibre').value;
+				   	var min=new Date();
+				   	min.setFullYear(parseInt(fechaMin.substring(6, 10), 10),parseInt(fechaMin.substring(3, 5), 10)-1,parseInt(fechaMin.substring(0, 2), 10)-1);
+				   	var max=new Date();
+				   	max.setFullYear(parseInt(fechaMax.substring(6, 10), 10),parseInt(fechaMax.substring(3, 5), 10)-1,parseInt(fechaMax.substring(0, 2), 10));
+				   	var date = new Date(day.date);
+				   	if(date.getDay() == 6){
+						return false;	
+					}
+				   	if(date.getDay() == 0){
+						return false;	
+					}
+				   	if(date &gt; min){
+						if(max &gt; date){ //solo fechas entre min y max
+							return true;
+						} 
+					} 
+					return false;
+				}
+				
+				function isDayEnabledRiesgo(day){
+				   	var max=new Date();
+				   	var date = new Date(day.date);
+					if(max &gt; date){ //solo fechas menores o iguales a hoy
+						return true;
+					}
+					return false;
+				}
+				
+				function getDisabledStyle(day){
+				   if (!isDayEnabled(day)) return 'rich-calendar-boundary-dates disabledDay';
+				}
 
+				function getDisabledStyleRiesgo(day){
+				   if (!isDayEnabledRiesgo(day)) return 'rich-calendar-boundary-dates disabledDay';
+				}
+				
+				function validarMontoLibreAlert(value){
+					var alertCOP = parseFloat(document.getElementById('globalForm:montoAlertaCOPLibre').value);
+					var alertEXT = parseFloat(document.getElementById('globalForm:montoAlertaEXTLibre').value);
+					var divisa = document.getElementById('globalForm:codDivisaNotaContableLibre').value;
+					var warn=false;
+					if(divisa == 'COP'){
+						warn=value &gt; alertCOP;
+					}else{
+						warn=value &gt; alertEXT;
+					}
+					if(warn){
+						alert('Por favor verifique si el importe ingresado es el adecuado.');
+					}
+				}
+		</script>
+		<style>
+		.disabledDay {
+			background-color: #dedede;
+		}
+		</style>
+</h:head>
     <!-- Formulario de confirmacion de anulacion-->
     <p:dialog id="popupAnularNotaLibre" widgetVar="popupAnularNotaLibre" autosized="true" domElementAttachment="form"
               width="250">
@@ -133,8 +194,7 @@
                                         <p:inputText value="#{notaContableLibrePage.temaActual.monto}" size="16"
                                                      maxlength="16"
                                                      onkeypress="return onKeyPressNumbers(event,this.value);"
-                                                     converter="javax.faces.Double" immediate="true"
-                                                     converterMessage="Valor inválido para el Importe"
+                                                     converter="javax.faces.Double" converterMessage="Valor inválido para el Importe"
                                                      onblur="if(this.value==''){this.value='0'}validarMontoLibreAlert(this.value);">
                                             <f:convertNumber maxFractionDigits="2"/>
 
@@ -215,7 +275,9 @@
 
                             </p:panel>
                         </h:panelGrid>
-                        <ui:include src="../../common/mensajes.xhtml"/>
+                        <h:panelGroup id="msgRegistroNotasLibre">
+                        	<ui:include src="../../common/mensajes.xhtml"/>
+                        </h:panelGroup>
                     </h:panelGrid>
                 </div>
             </h:panelGroup>
@@ -223,7 +285,7 @@
             <h:panelGrid columns="2" styleClass="center" width="100%">
 
 
-                <p:commandButton action="#{notaContableLibrePage.guardarTema}" update="globalForm:formRegLibre,panelPrincipal"
+                <p:commandButton action="#{notaContableLibrePage.guardarTema}" update="globalForm:formRegLibre,globalForm:msgRegistroNotasLibre,panelPrincipal"
                                  rendered="#{notaContableLibrePage.temaActual.pucCuenta.numeroCuenta != ''}"
                                  value="Guardar"/>
                 <p:commandButton oncomplete="PF('popupCancelTemaRegLibre').show()" value="Cancelar"/>
@@ -255,17 +317,18 @@
                 </p:dialog>
 
                 <!-- seccion de riesgo operacional -->
-                <p:dialog id="modalRiesgoRegLibre" widgetVar="modalRiesgoRegLibre" domElementAttachment="form"
-                          autosized="true" width="750px;">
+                <p:dialog id="modalRiesgoRegLibre" widgetVar="modalRiesgoRegLibre" domElementAttachment="form" autosized="true"
+                          showEffect="fade" hideEffect="explode" modal="false" position="center center">
                     <f:facet name="header">
                         <h:panelGroup>
                             <h:outputText value="Riesgo operacional"/>
                         </h:panelGroup>
                     </f:facet>
-                    <h:panelGrid width="100%" style="text-align: left;">
+                    <h:panelGrid width="700px" style="text-align: left;">
                         <h:panelGrid columns="3" cellspacing="0" cellpadding="0" width="100%" id="selectsRiesgoRegLibre"
                                      style="text-align: left;">
                             <p:outputLabel value="Importe Total : " styleClass="propertie"/>
+                            
                             <p:inputText value="#{notaContableLibrePage.temaActual.riesgoOperacional.importeTotal}"
                                          size="16" maxlength="16"
                                          onkeypress="return onKeyPressNumbers(event,this.value);"
@@ -301,25 +364,28 @@
                                 </h:outputText>
                             </h:panelGrid>
                         </h:panelGrid>
-                        <h:panelGrid columns="2" width="400px;" id="fechasRiesgoLibre" style="text-align: left;">
+                        
+                        <h:panelGrid columns="2" width="100%" id="fechasRiesgoLibre" style="text-align: left;">
                             <p:outputLabel styleClass="propertie" value="Fecha del Evento : "/>
-                            <p:calendar value="#{notaContableLibrePage.temaActual.riesgoOperacional.fechaEvento}"
+                            
+                            <p:calendar value="#{notaContableLibrePage.temaActual.riesgoOperacional.fechaEventoPF}"
                                         isDayEnabled="isDayEnabledRiesgo" dayStyleClass="getDisabledStyleRiesgo"
-                                        immediate="true" id="fechaEventoRegLibre" showOn="button"/>
+                                        id="fechaEventoRegLibre" showOn="button"/>
 
                             <p:outputLabel styleClass="propertie" value="Fecha Finalización del Evento : "/>
-                            <p:calendar value="#{notaContableLibrePage.temaActual.riesgoOperacional.fechaFinEvento}"
+                            <p:calendar value="#{notaContableLibrePage.temaActual.riesgoOperacional.fechaFinEventoPF}"
                                         isDayEnabled="isDayEnabledRiesgo" dayStyleClass="getDisabledStyleRiesgo"
                                         immediate="true" id="idfechaFinEventoLibre" showOn="button"/>
 
                             <p:outputLabel value="Fecha del Descubrimiento : " styleClass="propertie"/>
                             <p:calendar
-                                    value="#{notaContableLibrePage.temaActual.riesgoOperacional.fechaDescubrimientoEvento}"
+                                    value="#{notaContableLibrePage.temaActual.riesgoOperacional.fechaDescubrimientoEventoPF}"
                                     isDayEnabled="isDayEnabledRiesgo"
                                     dayStyleClass="getDisabledStyleRiesgo" immediate="true"
                                     id="fechaDescubrimientoRegLibre" showOn="button"/>
 
                         </h:panelGrid>
+                        
                         <h:panelGrid columns="4" width="100%" id="selectsTiempoLibre" style="text-align: left;">
                             <h:outputText styleClass="bold" value="Hora Inicio Evento"/>
                             <p:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.horaInicioEvento}">
@@ -488,7 +554,7 @@
                                 </p:selectOneMenu>
                             </p:outputPanel>
                             <p:outputLabel styleClass="bold" value="Nombre Outsourcing" style="width : 150px;"/>
-                            <h:inputTextarea value="#{notaContableLibrePage.temaActual.riesgoOperacional.nombreOutSource}"
+                            <p:inputTextarea value="#{notaContableLibrePage.temaActual.riesgoOperacional.nombreOutSource}"
                                              onkeyup="this.value=removeAccents(this.value,6)"
                                              onkeypress="return characterRestriction(event,6)"
                                              onmouseup="this.value=removeAccents(this.value,6)"
@@ -500,8 +566,7 @@
                                     value="#{notaContableLibrePage.temaActual.riesgoOperacional.appRecuperacion}"
                                     style="width : 50%" rendered="#{notaContableLibrePage.aplicaRecuperacion}">
 
-                                <p:ajax event="change" immediate="true"
-                                        update="panelFechaTxtLibre, panelFechaValueLibre, panelHoraTxtLibre, panelHoraValueLibre, panelTipoRLibre, panelTipoRecValueLibre"/>
+                                <p:ajax event="change" update="panelFechaTxtLibre, panelFechaValueLibre, panelHoraTxtLibre, panelHoraValueLibre, panelTipoRLibre, panelTipoRecValueLibre"/>
 
                                 <f:selectItem itemValue="" itemLabel="Seleccione una opcion"/>
                                 <f:selectItem itemValue="S" itemLabel="SI"/>
@@ -514,7 +579,7 @@
                             </p:outputPanel>
                             <p:outputPanel id="panelFechaValueLibre" ajaxRendered="true">
                                 <p:calendar
-                                        value="#{notaContableLibrePage.temaActual.riesgoOperacional.fechaRecuperacion}"
+                                        value="#{notaContableLibrePage.temaActual.riesgoOperacional.fechaRecuperacionPF}"
                                         isDayEnabled="isDayEnabledRiesgo" dayStyleClass="getDisabledStyleRiesgo"
                                         immediate="true" id="fechaRecuperacionLibre"
                                         rendered="#{notaContableLibrePage.temaActual.riesgoOperacional.appRecuperacion eq 'S'}"
@@ -563,11 +628,16 @@
                             </p:outputPanel>
 
                         </h:panelGrid>
-
-                        <ui:include src="../../common/mensajes.xhtml"/>
-
+						
+						<h:panelGroup id="msgModalRiesgoLibre">
+                        	<ui:include src="../../common/mensajes.xhtml"/>
+						</h:panelGroup>
+						
                         <h:panelGrid columns="3" width="100%" style="text-align: left;">
-                            <p:commandButton value="Guardar" action="#{notaContableLibrePage.guardarRiesgo}"/>
+                        
+                            <p:commandButton value="Guardar" action="#{notaContableLibrePage.guardarRiesgo}" 
+                            update="msgModalRiesgoLibre,msgRegistroNotasLibre"/>
+                            
                             <p:commandButton oncomplete="PF('popupCancelRiesgoRegLibre').show()" value="Cancelar"/>
 
                             <!-- Modal para cancelación de datos de riesgo-->
@@ -604,8 +674,9 @@
     </p:dialog>
 
     <!-- seccion de soportes -->
-    <p:dialog id="modalSoportesRegLibre" widgetVar="modalSoportesRegLibre" domElementAttachment="form" autosized="true" showEffect="fade" hideEffect="explode"
-              modal="false" position="center center">
+    <p:dialog id="modalSoportesRegLibre" widgetVar="modalSoportesRegLibre" 
+    			domElementAttachment="form" autosized="true" showEffect="fade" hideEffect="explode"
+              	modal="false" position="center center">
         <f:facet name="header">
             <h:panelGroup>
                 <h:outputText value="Subir soportes para la nota contable"/>
@@ -631,7 +702,7 @@
                               sizeLimit="204800" allowTypes="/(\.|\/)(pdf)$/"
                               invalidSizeMessage="El archivo supera el límite permitido (200 KB)"
                               invalidFileMessage="Solo se permiten archivo | pdf "
-                              update="globalForm:mesgNL,globalForm:anexosLibre,globalForm:botonesNotaRegLibre"
+                              update="globalForm:mesgNL,globalForm:tableSoportes,globalForm:botonesNotaRegLibre"
                               listener="#{notaContableLibrePage.listener}"/>
 
             </h:panelGrid>
@@ -750,85 +821,88 @@
 
             </p:dataTable>
         </p:panel>
-        <p:panel header="Soportes de la nota contable" cellpadding="0" cellspacing="2" id="anexosLibre"
-                 style="text-align: center;" width="100%"
-                 rendered="#{! empty notaContableLibrePage.anexos}">
-            <p:dataTable value="#{notaContableLibrePage.anexos}" var="anexo" id="tableAnexosNotaLibre"
-                         rowKeyVar="rowKeyAnexos" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
-                         onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"
-                         rowClasses="row1, row2">
-
-                <p:column width="150" style="text-align: left;">
-                    <f:facet name="header">
-                        <h:outputText value="Fecha"/>
-                    </f:facet>
-                    <h:outputText value="#{anexo.fechaHora}"/>
-                </p:column>
-
-                <p:column style="text-align: right;">
-                    <f:facet name="header">
-                        <h:outputText value="Usuario"/>
-                    </f:facet>
-                    <h:outputText value="#{anexo.usuNombre}"/>
-                </p:column>
-
-                <p:column style="text-align: right;">
-                    <f:facet name="header">
-                        <h:outputText value="Archivo"/>
-                    </f:facet>
-                    <p:commandLink action="#{downloadGeneralPage.download}" styleClass="bold" value="#{anexo.nombre}"
-                                   target="_blank">
-                        <f:setPropertyActionListener for="type1" value="#{downloadGeneralPage.SOPORTE}"
-                                                     target="#{downloadGeneralPage.type}"/>
-                        <f:setPropertyActionListener for="file1" value="#{anexo.archivo}"
-                                                     target="#{downloadGeneralPage.file}"/>
-                    </p:commandLink>
-                </p:column>
-
-                <p:column width="80" style="text-align: center;">
-                    <f:facet name="header">
-                        <h:outputText value="Eliminar"/>
-                    </f:facet>
-
-                    <p:commandButton icon="pi pi-pencil" alt="Borrar"
-                                     onclick="PF('popupBorrarAnexoRegLibre').show()"/>
-
-                    <!-- Formulario de confirmacion de borrado de anexos-->
-                    <p:dialog id="popupBorrarAnexoRegLibre" widgetVar="popupBorrarAnexoRegLibre" autosized="true"
-                              domElementAttachment="form" minWidth="250">
-                        <f:facet name="header">
-                            <h:panelGroup>
-                                <h:outputText value="Confirmación de borrado de anexo"/>
-                            </h:panelGroup>
-                        </f:facet>
-                        <f:facet name="controls">
-                            <h:panelGroup>
-                                <h:graphicImage value="../../../common/images/close.png" alt="cerrar"
-                                                styleClass="hidelink" id="hidelinkBorrarAnexoRegLibre" height="20"
-                                                width="20"/>
-                            </h:panelGroup>
-                        </f:facet>
-
-                        <h:panelGrid columns="1" width="100%">
-
-                            <h:outputText value="¿Está seguro que desea borrar el anexo actual?"/>
-
-                            <!-- Seccion de mensajes y botones de envio y cancelacion-->
-
-                            <h:panelGrid columns="2" styleClass="center" width="100%">
-                                <p:commandButton action="#{notaContableLibrePage.borrarAnexo}" value="Si"
-                                                 oncomplete="PF('popupBorrarAnexoRegLibre').hide()"
-                                                 update="globalForm:formRegLibre">
-                                    <f:param name="anexoBorrarAnexoRegLibre" value="true" assignTo="#{anexo.borrar}"
-                                             converter="javax.faces.Boolean"/>
-                                </p:commandButton>
-                                <p:commandButton onclick="PF('popupBorrarAnexoRegLibre').hide()" value="No"/>
-                            </h:panelGrid>
-                        </h:panelGrid>
-                    </p:dialog>
-                </p:column>
-            </p:dataTable>
-        </p:panel>
+        
+        <h:panelGroup id="tableSoportes">
+	        <p:panel header="Soportes de la nota contable" cellpadding="0" cellspacing="2" id="anexosLibre"
+	                 style="text-align: center;" width="100%"
+	                 rendered="#{! empty notaContableLibrePage.anexos}">
+	            <p:dataTable value="#{notaContableLibrePage.anexos}" var="anexo" id="tableAnexosNotaLibre"
+	                         rowKeyVar="rowKeyAnexos" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
+	                         onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"
+	                         rowClasses="row1, row2">
+	
+	                <p:column width="150" style="text-align: left;">
+	                    <f:facet name="header">
+	                        <h:outputText value="Fecha"/>
+	                    </f:facet>
+	                    <h:outputText value="#{anexo.fechaHora}"/>
+	                </p:column>
+	
+	                <p:column style="text-align: right;">
+	                    <f:facet name="header">
+	                        <h:outputText value="Usuario"/>
+	                    </f:facet>
+	                    <h:outputText value="#{anexo.usuNombre}"/>
+	                </p:column>
+	
+	                <p:column style="text-align: right;">
+	                    <f:facet name="header">
+	                        <h:outputText value="Archivo"/>
+	                    </f:facet>
+	                    <p:commandLink action="#{downloadGeneralPage.download}" styleClass="bold" value="#{anexo.nombre}"
+	                                   target="_blank">
+	                        <f:setPropertyActionListener for="type1" value="#{downloadGeneralPage.SOPORTE}"
+	                                                     target="#{downloadGeneralPage.type}"/>
+	                        <f:setPropertyActionListener for="file1" value="#{anexo.archivo}"
+	                                                     target="#{downloadGeneralPage.file}"/>
+	                    </p:commandLink>
+	                </p:column>
+	
+	                <p:column width="80" style="text-align: center;">
+	                    <f:facet name="header">
+	                        <h:outputText value="Eliminar"/>
+	                    </f:facet>
+	
+	                    <p:commandButton icon="pi pi-pencil" alt="Borrar"
+	                                     onclick="PF('popupBorrarAnexoRegLibre').show()"/>
+	
+	                    <!-- Formulario de confirmacion de borrado de anexos-->
+	                    <p:dialog id="popupBorrarAnexoRegLibre" widgetVar="popupBorrarAnexoRegLibre" autosized="true"
+	                              domElementAttachment="form" minWidth="250">
+	                        <f:facet name="header">
+	                            <h:panelGroup>
+	                                <h:outputText value="Confirmación de borrado de anexo"/>
+	                            </h:panelGroup>
+	                        </f:facet>
+	                        <f:facet name="controls">
+	                            <h:panelGroup>
+	                                <h:graphicImage value="../../../common/images/close.png" alt="cerrar"
+	                                                styleClass="hidelink" id="hidelinkBorrarAnexoRegLibre" height="20"
+	                                                width="20"/>
+	                            </h:panelGroup>
+	                        </f:facet>
+	
+	                        <h:panelGrid columns="1" width="100%">
+	
+	                            <h:outputText value="¿Está seguro que desea borrar el anexo actual?"/>
+	
+	                            <!-- Seccion de mensajes y botones de envio y cancelacion-->
+	
+	                            <h:panelGrid columns="2" styleClass="center" width="100%">
+	                                <p:commandButton action="#{notaContableLibrePage.borrarAnexo}" value="Si"
+	                                                 oncomplete="PF('popupBorrarAnexoRegLibre').hide()"
+	                                                 update="globalForm:formRegLibre">
+	                                    <f:param name="anexoBorrarAnexoRegLibre" value="true" assignTo="#{anexo.borrar}"
+	                                             converter="javax.faces.Boolean"/>
+	                                </p:commandButton>
+	                                <p:commandButton onclick="PF('popupBorrarAnexoRegLibre').hide()" value="No"/>
+	                            </h:panelGrid>
+	                        </h:panelGrid>
+	                    </p:dialog>
+	                </p:column>
+	            </p:dataTable>
+	        </p:panel>
+        </h:panelGroup>
 
         <h:panelGroup id="msgPpalRegistroLibre">
             <ui:include src="../../common/mensajes.xhtml"/>

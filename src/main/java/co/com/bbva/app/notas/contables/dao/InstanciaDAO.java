@@ -78,7 +78,7 @@ public class InstanciaDAO extends CommonSeqDAO<Instancia> {
 
     @Override
     public void internalUpdate(Connection con, Instancia row) throws Exception {
-        executeUpdate(con, SQL_UPDATE_SENTENCE, new Object[]{row.getCodigoSucursalOrigen(), row.getCodigoUsuarioActual().intValue(), row.getUltimaActualizacion(), row.getEstado(), row.getCodigo().intValue()});
+        executeUpdate(con, SQL_UPDATE_SENTENCE, new Object[]{row.getCodigoSucursalOrigen(), row.getCodigoUsuarioActual().intValue(), row.getUltimaActualizacionTs(), row.getEstado(), row.getCodigo().intValue()});
     }
 
     public Instancia findByNotaContable(Instancia row) throws Exception {

@@ -35,7 +35,13 @@
             </h:panelGrid>
         </p:dialog>
 
-
+        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+        	<h:panelGrid columns="2" styleClass="center" width="100%">
+            	<p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" />
+            	<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+           	</h:panelGrid>
+        </p:confirmDialog>
+        
         <!-- Formulario de confirmacion de borrado de informacion-->
         <p:dialog widgetVar="popupBorrar" autosized="true" minWidth="250">
             <f:facet name="header">
@@ -215,8 +221,7 @@
                     <!-- Opcion de cambio de estado-->
                     <p:column style="text-align: center;" width="65px;">
                         <f:facet name="header"><h:outputText value="Estado"/></f:facet>
-                        <p:commandButton value="#{dato.estado eq 'A'? 'Activo':'Inactivo'}"
-                                         onclick="PF('popupEstado').show()">
+                        <p:commandButton action="#{usuarioPage.cambiarEstado}" value="#{dato.estado eq 'A'? 'Activo':'Inactivo'}" update="table,globalForm:mesg">
                             <f:setPropertyActionListener for="codUsu12" value="#{dato.codigo}"
                                                          target="#{usuarioPage.objActual.codigo}"/>
                             <f:setPropertyActionListener for="codUsu13" value="#{dato.codigoRol}"
@@ -228,6 +233,9 @@
 
                             <f:setPropertyActionListener value="#{dato.nombreAreaModificado}"
                                                          target="#{usuarioPage.objActual.nombreAreaModificado}"/>
+                                                         
+							<p:confirm header="Confirmation" message="Está seguro que desea cambiar el estado del registro actual?"/>
+							
                         </p:commandButton>
                     </p:column>
 

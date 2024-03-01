@@ -7,12 +7,15 @@ import co.com.bbva.app.notas.contables.jsf.IPages;
 import co.com.bbva.app.notas.contables.jsf.adminnota.PendientePage;
 import co.com.bbva.app.notas.contables.session.Session;
 import co.com.bbva.app.notas.contables.util.EMailSender;
+
+import org.primefaces.PrimeFaces;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.model.SelectItem;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.*;
@@ -27,7 +30,7 @@ import java.util.*;
 @Named
 public class NotaRefCrucePage extends GeneralPage implements IPages, Serializable {
 
-	
+	@Inject
 	private PendientePage pendientePage;
 
 	private static final long serialVersionUID = 1L;
@@ -385,7 +388,7 @@ public class NotaRefCrucePage extends GeneralPage implements IPages, Serializabl
 					codigoUsuarioAsignado = evaluoActividad;
 				} else {
 					nuevoMensaje(FacesMessage.SEVERITY_INFO,
-							"Se present un error al aprobar la nota: Verfique que el Aplicativo Notas Contables est  abierto en  un nico navegador Web y en una nica pestaa.  ");
+							"Se presentó un error al aprobar la nota: Verfique que el Aplicativo Notas Contables esté  abierto en  un único navegador Web y en una única pestaña.  ");
 
 					return null;
 				}
@@ -401,6 +404,8 @@ public class NotaRefCrucePage extends GeneralPage implements IPages, Serializabl
 				pendientePage.cargarPendientes();
 				nuevoMensaje(FacesMessage.SEVERITY_INFO, "La nota ha sido aprobada correctamente");
 				ocultarPopupAprobar = true;
+				PrimeFaces.current().executeScript("PF('popupFlujoNotaContableRefCruceVer').hide();");
+				
 				try {
 					enviarEMail.sendEmail(usuarioModulo.getEMailModificado(), getUsuarioLogueado().getUsuario().getEMailModificado(),
 							"Mdulo Notas Contables - Registro para aprobar",

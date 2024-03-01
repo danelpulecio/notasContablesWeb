@@ -85,7 +85,6 @@
 
             <h:panelGrid columns="2" styleClass="center" width="100%">
                 <p:commandButton action="#{notaContablePage.anular}" value="Si"
-                                 oncomplete="if (#{!notaContablePage.nota.puedeAnular}) {PF('popupAnularNota').hide(); PF('popupNotaContable').hide();}"
                                  update="globalForm:botonesNotaContable"/>
                 <p:commandButton onclick="PF('popupAnularNota').hide()" value="No"/>
             </h:panelGrid>
@@ -229,15 +228,13 @@
 
                                                 <h:outputText styleClass="bold" value="Contrato"
                                                               rendered="#{notaContablePage.temaActual.tema.contrato1 eq 'S'}"/>
-                                                <h:selectOneMenu value="#{notaContablePage.temaActual.contrato1}"
-                                                                 immediate="true"
+                                                <p:selectOneMenu value="#{notaContablePage.temaActual.contrato1}"
                                                                  rendered="#{notaContablePage.temaActual.tema.contrato1 eq 'S'}">
-                                                    <p:ajax event="change"
-                                                            listener="#{notaContablePage.cambiarContratoPartida}"
+                                                    <p:ajax event="change" listener="#{notaContablePage.cambiarContratoPartida}"
                                                             update="globalForm:tercero1,globalForm:tercero2"/>
                                                     <f:selectItem itemValue="" itemLabel="Seleccione una opcion"/>
                                                     <f:selectItems value="#{notaContablePage.contratos1}"/>
-                                                </h:selectOneMenu>
+                                                </p:selectOneMenu>
                                             </h:panelGrid>
                                         </h:panelGrid>
 
@@ -336,17 +333,15 @@
 
                                                 <h:outputText styleClass="bold" value="Contrato"
                                                               rendered="#{notaContablePage.temaActual.tema.contrato2 eq 'S'}"/>
-                                                <h:selectOneMenu value="#{notaContablePage.temaActual.contrato2}"
-                                                                 immediate="true"
+                                                <p:selectOneMenu value="#{notaContablePage.temaActual.contrato2}"
                                                                  rendered="#{notaContablePage.temaActual.tema.contrato2 eq 'S'}">
 
-                                                    <p:ajax event="change"
-                                                            listener="#{notaContablePage.cambiarContratoContraPartida}"
+                                                    <p:ajax event="change" listener="#{notaContablePage.cambiarContratoContraPartida}"
                                                             update="globalForm:tercero1,globalForm:tercero2"/>
 
                                                     <f:selectItem itemValue="" itemLabel="Seleccione una opcion"/>
                                                     <f:selectItems value="#{notaContablePage.contratos2}"/>
-                                                </h:selectOneMenu>
+                                                </p:selectOneMenu>
                                             </h:panelGrid>
                                         </h:panelGrid>
 
@@ -375,8 +370,7 @@
                                 <h:outputText styleClass="bold" value="Importe" style="width:150px;"/>
                                 <p:inputText value="#{notaContablePage.temaActual.monto}" size="20" maxlength="20"
                                              onkeypress="return onKeyPressNumbers(event,this.value);"
-                                             converter="javax.faces.Double"
-                                             immediate="true" converterMessage="Valor invalido para el Importe"
+                                             converter="javax.faces.Double" converterMessage="Valor invalido para el Importe"
                                              onblur="validarMontoAlert(this.value)">
                                     <f:convertNumber maxFractionDigits="2"/>
 
@@ -583,14 +577,11 @@
 
                             </p:dataTable>
                         </h:panelGrid>
-
+			                <h:panelGroup id="msgRegistroNotas">
+			                    <ui:include src="../../common/mensajes.xhtml"/>
+			                </h:panelGroup>
                     </h:panelGrid>
                 </div>
-
-                <h:panelGroup id="msgRegistroNotas">
-                    <ui:include src="../../common/mensajes.xhtml"/>
-                </h:panelGroup>
-
             </h:panelGroup>
 
             <h:panelGrid columns="2" styleClass="center" width="100%" id="opcionesTemaNotaContable" cellspacing="0"
@@ -599,7 +590,7 @@
 
                 <p:commandButton value="Guardar"
                                  action="#{notaContablePage.guardarTema}"
-                                 update="globalForm:informacion,globalForm:formulario,msgRegistroNotas" />
+                                 update="globalForm:informacion,globalForm:formulario,globalForm:msgRegistroNotas" />
 
                 <p:commandButton oncomplete="PF('popupCancelTema').show()" value="Cancelar"/>
 
@@ -687,17 +678,17 @@
 
                             <h:outputText styleClass="bold; width:191px;"  value="Fecha Inicial del Evento"/>
                             <p:calendar value="#{notaContablePage.temaActual.riesgoOperacional.fechaEventoPF}"
-                                        isDayEnabled="isDayEnabledRiesgoNC" id="fechaEvento"/>
+                                        isDayEnabled="isDayEnabledRiesgoNC" id="fechaEvento" showOn="button"/>
 
                             <h:outputText styleClass="bold" value="Fecha Finalización del Evento"/>
                             <p:calendar value="#{notaContablePage.temaActual.riesgoOperacional.fechaFinEventoPF}"
-                                        isDayEnabled="isDayEnabledRiesgoNC" id="idFechaFinEvento"/>
+                                        isDayEnabled="isDayEnabledRiesgoNC" id="idFechaFinEvento" showOn="button"/>
 
                             <h:outputText styleClass="bold" value="Fecha del Descubrimiento"/>
                             <p:calendar
                                     value="#{notaContablePage.temaActual.riesgoOperacional.fechaDescubrimientoEventoPF}"
                                     isDayEnabled="isDayEnabledRiesgoNC"
-                                    immediate="false" id="fechaDescubrimiento"/>
+                                    id="fechaDescubrimiento" showOn="button"/>
 
                         </h:panelGrid>
 
@@ -981,7 +972,7 @@
         </h:panelGrid>
     </p:dialog>
 
-    <h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="0" id="formulario">
+    <h:panelGrid columns="1" width="1200px" cellpadding="0" cellspacing="0" id="formulario">
         <p:panel header="Información básica" style="width: 100%;">
             <h:panelGrid columns="2">
                 <h:outputText styleClass="bold" value="Sucursal de Origen"/>

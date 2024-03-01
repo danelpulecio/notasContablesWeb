@@ -229,7 +229,7 @@ public class NotaContableTemaDAO extends CommonSeqDAO<NotaContableTema> {
 	@Override
 	protected Object[] getDataToAdd(Connection con, NotaContableTema row) throws Exception {
 		row.setCodigo(getMaxCode(con));
-		return new Object[] { row.getCodigo(), row.getCodigoNotaContable(), row.getCodigoTema(), row.getFechaContable(), row.getPartidaContable(), row.getNaturalezaPartidaContable(), row.getContrapartidaContable(),
+		return new Object[] { row.getCodigo(), row.getCodigoNotaContable(), row.getCodigoTema(), row.getFechaContableTS(), row.getPartidaContable(), row.getNaturalezaPartidaContable(), row.getContrapartidaContable(),
 				row.getNaturalezaContrapartidaContable(), row.getCodigoSucursalDestinoPartida(), row.getCodigoSucursalDestinoContraPartida(), row.getCodigoDivisa(), row.getMonto().doubleValue(), row.getReferencia1(), row.getReferencia2(),
 				row.getTipoIdentificacion1(), row.getNumeroIdentificacion1(), row.getDigitoVerificacion1(), row.getNombreCompleto1(), row.getTipoIdentificacion2(), row.getNumeroIdentificacion2(), row.getDigitoVerificacion2(),
 				row.getNombreCompleto2(), row.getContrato1(), row.getContrato2(), row.getDescripcion(), row.getNumeroAsiento(), row.getNumeroApunte() };
