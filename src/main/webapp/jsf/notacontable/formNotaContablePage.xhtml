@@ -1126,13 +1126,13 @@
 
             <p:commandButton action="#{notaContablePage.guardarNota}"
                              update="formulario,botonesNotaContable"
-                             value="Enviar a Visto Bueno"
+                             value="Enviar a Visto Bueno le" ajax="false"
                              rendered="#{notaContablePage.nota.codigo le 0 and ! empty notaContablePage.totalesNota}"/>
 
             <p:commandButton action="#{notaContablePage.guardarNota}"
                              oncomplete="PF('popupNotaContable').hide()"
                              update="globalForm:botonesNotaContable"
-                             value="Enviar a Visto Bueno"
+                             value="Enviar a Visto Bueno gt" ajax="false"
                              rendered="#{notaContablePage.nota.codigo gt 0 and notaContablePage.nota.puedeEditar}"/>
 
             <p:commandButton value="Anular" rendered="#{notaContablePage.nota.puedeAnular}"

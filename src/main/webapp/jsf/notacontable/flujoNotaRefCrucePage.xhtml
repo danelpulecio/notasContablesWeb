@@ -25,7 +25,7 @@
 			<!-- Seccion de mensajes y botones de envio y cancelacion-->
 			<ui:include src="../../common/mensajes.xhtml" /> 
 			<h:panelGrid columns="2" styleClass="center" width="100%">
-			<p:commandButton action="#{notaRefCrucePage.anular}" value="Si" oncomplete="if (#{notaRefCrucePage.ocultarPopupAnular}) {PF('popupAnularRefCruce').hide();PF('popupFlujoNotaContableRefCruceVer').hide()}" update="lista,opcionesRefCruceVer" />
+			<p:commandButton action="#{notaRefCrucePage.anular}" value="Si" update="lista,opcionesRefCruceVer" />
 			<p:commandButton onclick="PF('popupAnularRefCruce').hide()" value="No"/>
 			</h:panelGrid>
 		</h:panelGrid>
@@ -94,27 +94,41 @@
                    <f:facet name="header" ><h:outputText value="Importe" /></f:facet>
                    <h:outputText value="#{partida.importe}" ><f:convertNumber type="currency" /></h:outputText>
                </p:column>
-			
-			<f:facet name="footer" >
-				<p:columnGroup rendered="#{! empty notaRefCrucePage.totalesNota}">
-					<p:column colspan="#{notaRefCrucePage.mostrarAsiento?7:6}" style="text-align:right;"><h:outputText value="Totales" /></p:column>
-					<p:column style="padding: 0px;">
-						<p:dataTable style="border-width: 0px; background-color: transparent;" value="#{notaRefCrucePage.totalesNota}" var="total" >
-							<p:column style="border-width: 0px;"><h:outputText value="#{total.codigoDivisa }" /></p:column>
-						</p:dataTable>
-					</p:column>
-					<p:column style="padding: 0px;">
-						<p:dataTable style="border-width: 0px; background-color: transparent;" value="#{notaRefCrucePage.totalesNota}" var="total" >
-							<p:column  style="border-width: 0px; text-align:right;"><h:outputText value="#{total.total}" ><f:convertNumber type="currency" /></h:outputText></p:column>
-						</p:dataTable>
-					</p:column>
-				</p:columnGroup>
-			</f:facet>
+
+			<f:facet name="footer">
+	            <span class="font-bold">
+	            
+	            	<p:dataTable style="border-width: 0px; 
+	            				background-color: transparent;"
+                                      value="#{notaRefCrucePage.totalesNota}" 
+                                      var="total"
+                                      rendered="#{! empty notaRefCrucePage.totalesNota}">
+                                           
+                                  <p:column colspan="#{flujoNotaContableLibrePage.mostrarAsiento?5:4}" style="text-align:right; border-width: 0px;">
+                                <h:outputText value="Totales"/>
+                            </p:column>   
+                               
+                                  <p:column style="border-width: 0px; text-align:left;">
+                                      <h:outputText value="#{total.codigoDivisa }"/>
+                                  </p:column>
+                                  
+                                  <p:column style="border-width: 0px; text-align:right;">
+                                      <h:outputText value="#{total.total}">
+                                          <f:convertNumber type="currency"/>
+                                      </h:outputText>
+                                  </p:column>
+                                  <p:column style="border-width: 0px; text-align:lefth;"></p:column>
+                                  
+                           </p:dataTable>
+                           
+	            </span>
+	        </f:facet>
+				        
 		</p:dataTable>
-		<p:dialog id="popupRechazoRefCruceVer" autosized="true" domElementAttachment="form"  width="500"
+		<p:dialog id="popupRechazoRefCruceVer" widgetVar="popupRechazoRefCruceVer" autosized="true" domElementAttachment="form"  width="750px"
 		    showEffect="fade"
     		hideEffect="explode"
-    		modal="true">
+    		modal="false">
 			<f:facet name="header">
 				<h:panelGroup><h:outputText value="Rechazar nota contable"/></h:panelGroup>
 			</f:facet>
@@ -125,13 +139,11 @@
 	
 				<p:separator width="100%"/>
 				<h:outputText value="Causal de devolución" />
-				<h:selectOneMenu value="#{notaRefCrucePage.causalDevolucion}" immediate="true">
+				<p:selectOneMenu value="#{notaRefCrucePage.causalDevolucion}" immediate="true">
 					<f:selectItem itemValue="-1" itemLabel="Seleccione una opcion" />
 					<f:selectItems value="#{notaRefCrucePage.causalesDev}" />
-					<!--
-					<a4j:support event="onchange" reRender="otraCausalRefCruceVer"/>
-					-->
-				</h:selectOneMenu>
+					<p:ajax event="change" update="otraCausalRefCruceVer"/>
+				</p:selectOneMenu>
 				<h:panelGrid columns="1" width="100%" id="otraCausalRefCruceVer">
 					<h:outputText value="Descripción de la causal" rendered="#{notaRefCrucePage.causalDevolucion eq 18}"/>
 					<p:inputText value="#{notaRefCrucePage.otraCausalDev}" rendered="#{notaRefCrucePage.causalDevolucion eq 18}" size="80"/>
@@ -141,7 +153,6 @@
 				<h:panelGrid columns="2" styleClass="center" width="100%">
 				<p:commandButton action="#{notaRefCrucePage.rechazar}"
 					value="Confirmar rechazo" 
-					oncomplete="if (#{notaRefCrucePage.ocultarPopupAnular}) {PF('popupRechazoRefCruceVer').hide();PF('popupFlujoNotaContableRefCruceVer').hide();}" 
 					update="lista,opcionesRefCruceVer" />
 				<p:commandButton onclick="PF('popupRechazoRefCruceVer').hide()" value="Cancelar" />
 				</h:panelGrid>

@@ -16,6 +16,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
 
+import org.primefaces.PrimeFaces;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -219,7 +220,7 @@ public class FlujoNotaContableLibrePage extends GeneralPage implements IPages {
 					codigoUsuarioAsignado = evaluoActividad;
 				} else {
 					nuevoMensaje(FacesMessage.SEVERITY_INFO,
-							"Se present un error al aprobar la nota: Verfique que el Aplicativo Notas Contables est  abierto en  un nico navegador Web y en una nica pestaa.  ");
+							"Se presentó un error al aprobar la nota: Verfique que el Aplicativo Notas Contables est  abierto en  un nico navegador Web y en una nica pestaa.  ");
 
 					return null;
 				}
@@ -236,10 +237,12 @@ public class FlujoNotaContableLibrePage extends GeneralPage implements IPages {
 				nuevoMensaje(FacesMessage.SEVERITY_INFO, "La nota ha sido aprobada correctamente");
 
 				ocultarPopupAprobar = true;
+				
+				PrimeFaces.current().executeScript("PF('notaContableLibreVer').hide();");
 
 				try {
 					enviarEMail.sendEmail(usuarioModulo.getEMailModificado(), getUsuarioLogueado().getUsuario().getEMailModificado(),
-							"Mdulo Notas Contables - Registro para aprobar",
+							"Módulo Notas Contables - Registro para aprobar",
 							"Por favor ingrese al mdulo de Notas Contables, se le ha asignado un registro que requiere su verificacin ");
 				} catch (Exception e) {
 					nuevoMensaje(FacesMessage.SEVERITY_INFO, "Se present un error al enviar el correo a la direccin: " + usuarioModulo.getEMailModificado());
@@ -310,12 +313,16 @@ public class FlujoNotaContableLibrePage extends GeneralPage implements IPages {
 						causalDevolucion = 0;
 						otraCausalDev = "";
 						ocultarPopupAnular = true;
+						
+						PrimeFaces.current().executeScript("PF('popupRechazoNotaLibreVer').hide();");
+						PrimeFaces.current().executeScript("PF('notaContableLibreVer').hide();");
+						
 						try {
 							enviarEMail.sendEmail(usuarioModulo.getEMailModificado(), getUsuarioLogueado().getUsuario().getEMailModificado(),
-									"Mdulo Notas Contables - Registro rechazado",
-									"Por favor ingrese al mdulo de Notas Contables, se le ha asignado un registro que requiere su verificacin");
+									"Módulo Notas Contables - Registro rechazado",
+									"Por favor ingrese al módulo de Notas Contables, se le ha asignado un registro que requiere su verificación");
 						} catch (Exception e) {
-							nuevoMensaje(FacesMessage.SEVERITY_INFO, "Se present un error al enviar el correo a la direccin: " + usuarioModulo.getEMailModificado());
+							nuevoMensaje(FacesMessage.SEVERITY_INFO, "Se presentó un error al enviar el correo a la dirección: " + usuarioModulo.getEMailModificado());
 						}
 					} else {
 						nuevoMensaje(FacesMessage.SEVERITY_INFO, errorMessage);
@@ -324,18 +331,19 @@ public class FlujoNotaContableLibrePage extends GeneralPage implements IPages {
 				}
 			} else {
 				nuevoMensaje(FacesMessage.SEVERITY_INFO,
-						"Se present un error al rechazar la nota: Verfique que el Aplicativo Notas Contables /n est  abierto en  un nico navegador Web y en una nica pestaa. ");
+						"Se presentó un error al rechazar la nota: Verfique que el Aplicativo Notas Contables /n esté  abierto en  un único navegador Web y en una única pestaña. ");
 				
 				return null;
 			}
 		} catch (Exception e) {
-			lanzarError(e, "Se present un error al rechazar la nota contable");
+			lanzarError(e, "Se presentó un error al rechazar la nota contable");
 		}
 		return null;
 	}
 
 	public String anular() {
 		try {
+			LOGGER.info("Entrando anular la nota contable.");
 			Instancia instanciado = new Instancia();
 			instanciado.setCodigoNotaContable(nota.getCodigo());
 			instanciado = notasContablesManager.getInstanciaPorNotaContable(instanciado);
@@ -368,14 +376,16 @@ public class FlujoNotaContableLibrePage extends GeneralPage implements IPages {
 				pendientePage.cargarPendientes();
 				nuevoMensaje(FacesMessage.SEVERITY_INFO, "La nota ha sido anulada correctamente");
 				ocultarPopupAnular = true;
+				PrimeFaces.current().executeScript("PF('popupAnularNotaLibre').hide();PF('popupNotaContableLibre').hide();");
+//				PrimeFaces.current().executeScript("PF('popupNotaContableLibre').hide();");
 			} else {
 				nuevoMensaje(FacesMessage.SEVERITY_INFO,
-						"Se present un error al anular la nota: Verfique que el Aplicativo Notas Contables /n est  abierto en  un nico navegador Web y en una nica pestaa. ");
+						"Se presentó un error al anular la nota: Verfique que el Aplicativo Notas Contables /n esté  abierto en  un único navegador Web y en una única pestaña. ");
 				ocultarPopupAnular = false;
 				return null;
 			}
 		} catch (Exception e) {
-			lanzarError(e, "Se present un error al anular la nota contable");
+			lanzarError(e, "Se presentó un error al anular la nota contable");
 		}
 		return null;
 	}

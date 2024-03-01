@@ -235,7 +235,7 @@ public class FlujoNotaContablePage extends GeneralPage implements IPages {
 					codigoUsuarioAsignado = evaluoActividad;
 				} else {
 					nuevoMensaje(FacesMessage.SEVERITY_INFO,
-							"Se present un error al aprobar la nota: Verfique que el Aplicativo Notas Contables est  abierto en  un nico navegador Web y en una nica pestaa.  ");
+							"Se presentó un error al aprobar la nota: Verfique que el Aplicativo Notas Contables esté  abierto en  un único navegador Web y en una única pestaña.  ");
 
 					return null;
 				}
@@ -251,6 +251,8 @@ public class FlujoNotaContablePage extends GeneralPage implements IPages {
 				pendientePage.cargarPendientes();
 				nuevoMensaje(FacesMessage.SEVERITY_INFO, "La nota ha sido aprobada correctamente");
 				ocultarPopupAprobar = true;
+				
+				PrimeFaces.current().executeScript("PF('popupFlujoNotaContableVer').hide();");
 				try {
 					enviarEMail.sendEmail(usuarioModulo.getEMailModificado(), getUsuarioLogueado().getUsuario().getEMailModificado(),
 							"Mdulo Notas Contables - Registro para aprobar",

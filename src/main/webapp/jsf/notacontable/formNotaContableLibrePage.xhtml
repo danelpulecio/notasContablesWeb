@@ -69,7 +69,7 @@
 </h:head>
     <!-- Formulario de confirmacion de anulacion-->
     <p:dialog id="popupAnularNotaLibre" widgetVar="popupAnularNotaLibre" autosized="true" domElementAttachment="form"
-              width="250">
+              width="250px">
         <f:facet name="header">
             <h:panelGroup>
                 <h:outputText value="Confirmación de anulación"/>
@@ -92,8 +92,7 @@
 
             <h:panelGrid columns="2" styleClass="center" width="100%">
                 <p:commandButton action="#{notaContableLibrePage.anular}" value="Si"
-                                 oncomplete="if (#{!notaContableLibrePage.nota.puedeAnular}) {PF('popupAnularNotaLibre').hide(); PF('popupNotaContableLibre').hide();}"
-                                 update="globalForm:botonesNotaRegLibre"/>
+                                 update="globalForm:botonesNotaRegLibre,lista,popupAnularNotaLibre,popupNotaContableLibre"/>
 
                 <p:commandButton onclick="PF('popupAnularNotaLibre').hide()" value="No"/>
 
@@ -108,7 +107,7 @@
               autosized="true"
               showEffect="fade"
               hideEffect="explode"
-              modal="true">
+              modal="false">
         <f:facet name="header">
             <h:panelGroup>
                 <h:outputText value="Registro Nota Contable Libre "/>
@@ -909,13 +908,13 @@
         </h:panelGroup>
         <h:panelGrid columns="3" styleClass="center" width="100%" id="botonesNotaRegLibre">
             <p:commandButton action="#{notaContableLibrePage.guardarNota}"
-                             update="globalForm:formRegLibre,globalForm:botonesNotaRegLibre"
-                             value="Enviar a Visto Bueno"
+                             update="globalForm:formRegLibre,globalForm:botonesNotaRegLibre,msgPpalRegistroLibre"
+                             value="Enviar a Visto Bueno le"
                              rendered="#{notaContableLibrePage.nota.codigo le 0 and !empty notaContableLibrePage.temasNotaContable and !empty notaContableLibrePage.anexos}"/>
 
             <p:commandButton action="#{notaContableLibrePage.guardarNota}"
-                             update="globalForm:botonesNotaRegLibre"
-                             value="Enviar a Visto Bueno"
+                             update="globalForm:botonesNotaRegLibre,lista,msgPpalRegistroLibre"
+                             value="Enviar a Visto Bueno gt"
                              rendered="#{notaContableLibrePage.nota.codigo gt 0 and notaContableLibrePage.nota.puedeEditar and !empty notaContableLibrePage.temasNotaContable and !empty notaContableLibrePage.anexos}"/>
 
             <p:commandButton value="Anular"

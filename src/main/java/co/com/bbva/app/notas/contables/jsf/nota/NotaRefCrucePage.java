@@ -470,12 +470,16 @@ public class NotaRefCrucePage extends GeneralPage implements IPages, Serializabl
 						pendientePage.cargarPendientes();
 						nuevoMensaje(FacesMessage.SEVERITY_INFO, "La nota ha sido rechazada correctamente");
 						ocultarPopupAnular = true;
+						
+						PrimeFaces.current().executeScript("PF('popupAnularRefCruce').hide();");
+						PrimeFaces.current().executeScript("PF('popupFlujoNotaContableRefCruceVer').hide();");
+						
 						try {
 							enviarEMail.sendEmail(usuarioModulo.getEMailModificado(), getUsuarioLogueado().getUsuario().getEMailModificado(),
 									"Mdulo Notas Contables - Registro rechazado",
 									"Por favor ingrese al mdulo de Notas Contables, se le ha asignado un registro que requiere su verificacin");
 						} catch (Exception e) {
-							nuevoMensaje(FacesMessage.SEVERITY_INFO, "Se present un error al enviar el correo a la direccin: " + usuarioModulo.getEMailModificado());
+							nuevoMensaje(FacesMessage.SEVERITY_INFO, "Se presentó un error al enviar el correo a la dirección: " + usuarioModulo.getEMailModificado());
 							
 						}
 					} else {

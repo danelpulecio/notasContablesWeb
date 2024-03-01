@@ -313,34 +313,7 @@
                             </p:commandButton>
                         </p:column>
 						
-						<f:facet name="footer">
-				            <span class="font-bold">
-				            
-				            	<p:dataTable style="border-width: 0px; 
-				            				background-color: transparent;"
-	                                        value="#{flujoNotaContablePage.totalesNota}" 
-	                                        var="total"
-	                                        rendered="#{! empty flujoNotaContableLibrePage.totalesNota}">
-	                                             
-	                                    <p:column colspan="#{flujoNotaContableLibrePage.mostrarAsiento?5:4}" style="text-align:right; border-width: 0px;">
-			                                <h:outputText value="Totales"/>
-			                            </p:column>   
-			                               
-	                                    <p:column style="border-width: 0px; text-align:left;">
-	                                        <h:outputText value="#{total.codigoDivisa }"/>
-	                                    </p:column>
-	                                    
-	                                    <p:column style="border-width: 0px; text-align:right;">
-	                                        <h:outputText value="#{total.total}">
-	                                            <f:convertNumber type="currency"/>
-	                                        </h:outputText>
-	                                    </p:column>
-	                                    <p:column style="border-width: 0px; text-align:lefth;"></p:column>
-	                                    
-	                             </p:dataTable>
-	                             
-				            </span>
-				        </f:facet>
+						
                     </p:dataTable>
                 </p:panel>
                 
@@ -368,10 +341,11 @@
                         </p:column>
                     </p:dataTable>
                 </p:panel>
-                <p:dialog id="popupRechazoNotaLibreVer" widgetVar="popupRechazoNotaLibreVer" autosized="true" domElementAttachment="form" width="500"
+                
+                <p:dialog id="popupRechazoNotaLibreVer" widgetVar="popupRechazoNotaLibreVer" autosized="true" domElementAttachment="form" width="750px"
                     showEffect="fade"
     				hideEffect="explode"
-    				modal="true">
+    				modal="false">
                     <f:facet name="header">
                         <h:panelGroup>
                             <h:outputText value="Rechazar nota contable Libre"/>
@@ -385,13 +359,11 @@
 
                         <p:separator width="100%"/>
                         <h:outputText value="Causal de devolucion"/>
-                        <h:selectOneMenu value="#{flujoNotaContableLibrePage.causalDevolucion}" immediate="true">
+                        <p:selectOneMenu value="#{flujoNotaContableLibrePage.causalDevolucion}">
                             <f:selectItem itemValue="-1" itemLabel="Seleccione una opcion"/>
                             <f:selectItems value="#{flujoNotaContableLibrePage.causalesDev}"/>
-                            <!--
-                            <a4j:support event="onchange" reRender="otraCausalNotaLibreVer" />
-                            -->
-                        </h:selectOneMenu>
+                            <p:ajax event="change" update="globalForm:otraCausalNotaLibreVer"/>
+                        </p:selectOneMenu>
                         <h:panelGrid columns="1" width="100%" id="otraCausalNotaLibreVer">
                             <h:outputText value="Descripción de la causal"
                                           rendered="#{flujoNotaContableLibrePage.causalDevolucion eq 18}"/>
@@ -403,8 +375,7 @@
                         <h:panelGrid columns="2" styleClass="center" width="100%">
                             <p:commandButton action="#{flujoNotaContableLibrePage.rechazar}" 
                             value="Confirmar rechazo"
-							oncomplete="if (#{flujoNotaContableLibrePage.ocultarPopupAnular}) {PF('popupRechazoNotaLibreVer').hide();PF('notaContableLibreVer').hide();}"
-							update="globalForm:lista,globalForm:opcionesNotaLibreVer"/>
+							update="globalForm:lista,globalForm:opcionesNotaLibreVer,popupRechazoNotaLibreVer,notaContableLibreVer"/>
                             <p:commandButton onclick="PF('popupRechazoNotaLibreVer').hide()" value="Cancelar"/>
                         </h:panelGrid>
                     </h:panelGrid>
@@ -412,7 +383,6 @@
                 <ui:include src="../../common/mensajes.xhtml"/>
                 <h:panelGrid id="opcionesNotaLibreVer" columns="2" styleClass="center" width="100%">
                     <p:commandButton action="#{flujoNotaContableLibrePage.aprobar}"
-					oncomplete="if (#{flujoNotaContableLibrePage.ocultarPopupAprobar}) PF('notaContableLibreVer').hide()" 
 					update="globalForm:lista,globalForm:opcionesNotaLibreVer" value="Aprobar"
 					rendered="#{flujoNotaContableLibrePage.nota.puedeAprobar}"/>
                     <p:commandButton value="Rechazar" rendered="#{flujoNotaContableLibrePage.nota.puedeRechazar}" 

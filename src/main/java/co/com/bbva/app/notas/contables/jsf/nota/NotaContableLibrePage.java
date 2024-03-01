@@ -683,8 +683,12 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 			LOGGER.info("{} Procesando validaciones y Persistiendo Info.");
 			if (validarNota()) {
 				if (nota.getCodigo().intValue() > 0) {
+					LOGGER.info("En el segundo if de guardarNota para Nota Contable Libre");
 					notasContablesManager.updateNotaContableLibre(nota, anexos, temasNotaContable, getCodUsuarioLogueado());
+					LOGGER.info("Luego del updateNotaContableLibre");
 					aprobar();
+					LOGGER.info("Luego del aprobar()");
+					PrimeFaces.current().executeScript("PF('popupNotaContableLibre').hide();");
 				} else {
 					nota.setTipoNota("L");
 					nota.setCodigoSucursalOrigen(getUsuarioLogueado().getUsuario().getCodigoAreaModificado());
@@ -712,7 +716,7 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 							usuarioModulo.setCodigo(codigoUsuarioAsignado);
 							usuarioModulo = notasContablesManager.getUsuarioModulo(usuarioModulo);
 							enviarEMail.sendEmail(usuarioModulo.getEMailModificado(), getUsuarioLogueado().getUsuario().getEMailModificado(),
-									"Mdulo Notas Contables - Registro para aprobar",
+									"Módulo Notas Contables - Registro para aprobar",
 									"Por favor ingrese al mdulo de Notas Contables, se le ha asignado un registro que requiere su verificacin");
 						} catch (Exception e) {
 							LOGGER.error("{} Error al intentar enviar el email de la nota (L) grabada", e);
@@ -772,7 +776,7 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 				Date minFechaSuc = DateUtils.getDateTodayBeforeDays(fecha.getDias().intValue(), diasNoHabiles);
 
 				if (minFechaSuc.compareTo(fechaNota) > 0) {
-					nuevoMensaje(FacesMessage.SEVERITY_WARN, "El centro de destino " + reg.getCodigoSucursalDestino() + " no est habilitado para la fecha contable de la nota");
+					nuevoMensaje(FacesMessage.SEVERITY_WARN, "El centro de destino " + reg.getCodigoSucursalDestino() + " no está habilitado para la fecha contable de la nota");
 					break;
 				}
 			}

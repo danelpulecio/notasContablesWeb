@@ -102,10 +102,10 @@ public class PrecierreCierrePage extends GeneralConsultaPage<Instancia> {
                         rv.setCodigo(StringUtils.getStringLeftPadding(rs.getCodError().toString(), 4, '0'));
                         rv = cargaAltamiraManager.getErrorValidacion(rv);
                         rechazo += "<tr><td>" + rs.getCuenta() + "</td> <td>" + rs.getDivisa() + "</td> <td>" + rs.getCeDestin() + "</td> <td>" + rv.getNombre() + "</td> </tr>";
-                        causalDeRechazo.setCuenta(rs.getCuenta());
-                        causalDeRechazo.setDivisa(rs.getDivisa());
-                        causalDeRechazo.setDestino(rs.getCeDestin());
-                        causalDeRechazo.setError(rv.getNombre());
+//                        causalDeRechazo.setCuenta(rs.getCuenta());
+//                        causalDeRechazo.setDivisa(rs.getDivisa());
+//                        causalDeRechazo.setDestino(rs.getCeDestin());
+//                        causalDeRechazo.setError(rv.getNombre());
                         lstCausalRechazo.add(causalDeRechazo);
                     }
                     rechazo += "</table>";

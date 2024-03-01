@@ -531,9 +531,6 @@
                     <p:selectOneMenu value="#{flujoNotaContablePage.causalDevolucion}">
                         <f:selectItem itemValue="-1" itemLabel="Seleccione una opcion"/>
                         <f:selectItems value="#{flujoNotaContablePage.causalesDev}"/>
-                        <!--
-                        <a4j:support event="onchange" reRender="otraCausalVer" />
-                        -->
                         <p:ajax event="change" update="globalForm:otraCausalVer"/>
                     </p:selectOneMenu>
                     <h:panelGrid columns="1" width="100%" id="otraCausalVer">
@@ -556,7 +553,6 @@
 
             <h:panelGrid id="opcionesVer" columns="2" styleClass="center" width="100%">
                 <p:commandButton action="#{flujoNotaContablePage.aprobar}"
-                                 oncomplete="if (#{flujoNotaContablePage.ocultarPopupAprobar}) PF('popupFlujoNotaContableVer').hide()"
                                  update="lista,opcionesVer" value="Aprobar"
                                  rendered="#{flujoNotaContablePage.nota.puedeAprobar}"/>
                 <p:commandButton value="Rechazar" rendered="#{flujoNotaContablePage.nota.puedeRechazar}"
