@@ -33,9 +33,9 @@ java:S1643-"Use a StringBuilder instead.(îÕ†¤ýÿÿÿÿ8ÓÊ–Žß1
 r
 java:S2095Ñ"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(î•Ížüÿÿÿÿ8“Ì–Žß1
 r
-java:S2095´"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(î•Ížüÿÿÿÿ8“Ì–Žß1
-r
 java:S2095›"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(î•Ížüÿÿÿÿ8“Ì–Žß1
+r
+java:S2095´"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(î•Ížüÿÿÿÿ8“Ì–Žß1
 ƒ	java:S116"gRename this field "sql_SELECT_MAX_CODE_SENTENCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ð·þÈ8“Ì–Žß1
 ƒ	java:S116"gRename this field "sql_SELECT_SEQUENCE_SENTENCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(á¸Ÿ®8“Ì–Žß1
 	java:S116"^Rename this field "sql_INSERT_SENTENCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(žÔÏóÿÿÿÿÿ8“Ì–Žß1

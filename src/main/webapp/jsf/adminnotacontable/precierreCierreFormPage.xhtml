@@ -97,6 +97,7 @@
         <p:column headerText="Causales de Rechazo" rendered="#{precierreCierrePage.esPrecierre }" width="70px;" style="text-align: center">
             <h:outputText value="#{dato.NC.causalDeRechazo}" escape="false"/>
             <p:commandButton value="Ver"
+                             action="#{flujoSubPage.getCausalRechazoTable()}"
                              onclick="PF('popupCausalRechazoNotaContableVer').show()">
 
             </p:commandButton>
@@ -113,6 +114,20 @@
                         <h:outputText value="Causales de Rechazo"/>
                     </h:panelGroup>
                 </f:facet>
+                <p:dataTable id="causalRechazoTable" var="cr" value="#{dato.NC.causalesRechazoLst}">
+                    <p:column headerText="Cuenta">
+                        <h:outputText value="#{cr.cuenta} "/>
+                    </p:column>
+                    <p:column headerText="Divisa">
+                        <h:outputText value="#{cr.divisa} "/>
+                    </p:column>
+                    <p:column headerText="Destino">
+                        <h:outputText value="#{cr.destino} "/>
+                    </p:column>
+                    <p:column headerText="Motivo de Rechazo">
+                        <h:outputText value="#{cr.error} "/>
+                    </p:column>
+                </p:dataTable>
                 <h:outputText value="#{dato.NC.causalDeRechazo}" escape="false"/>
             </p:dialog>
         </p:column>

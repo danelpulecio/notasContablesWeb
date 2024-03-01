@@ -102,7 +102,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
     private boolean ocultarPopupAnular = false;
     private boolean aplicaRecuperacion = false;
     //private Session session;
-private java.util.Date  fechaContablePF = null;
+    private java.util.Date fechaContablePF = null;
 
     public NotaContablePage() {
         super();
@@ -564,6 +564,7 @@ private java.util.Date  fechaContablePF = null;
 
     /**
      * Permite obtener la lista de subcanales por medio del codigo del canal
+     *
      * @return
      */
     public String buscarSubCanal() {
@@ -840,13 +841,13 @@ private java.util.Date  fechaContablePF = null;
                             /**
                              * TODO
                              */
-//                            try {
-//                                LOGGER.info("{} Intentando enviar email de la nota grabada");
-//                                notasContablesManager.sendMail(instancia, getUsuarioLogueado());
-//                            } catch (Exception e) {
-//                                LOGGER.error("{} Error al intentar enviar el email de la nota grabada", e);
-//                                nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema al enviar el correo electronico a " + usuarioModulo.getEMailModificado());
-//                            }
+                            try {
+                                LOGGER.info("{} Intentando enviar email de la nota grabada");
+                                notasContablesManager.sendMail(instancia, getUsuarioLogueado());
+                            } catch (Exception e) {
+                                LOGGER.error("{} Error al intentar enviar el email de la nota grabada", e);
+                                nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema al enviar el correo electronico a " + usuarioModulo.getEMailModificado());
+                            }
                         } else {
                             LOGGER.error("{} Error al crear la instancia de la Nota Contable");
                             nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error: Hubo un problema no fue posible crear la Nota Contable");
@@ -1489,14 +1490,14 @@ private java.util.Date  fechaContablePF = null;
         this.aplicaRecuperacion = aplicaRecuperacion;
     }
 
-	public java.util.Date getFechaContablePF() {
-		
-		return fechaContablePF;
-	}
+    public java.util.Date getFechaContablePF() {
 
-	public void setFechaContablePF(java.util.Date fechaContablePF) {
-		this.fechaContablePF = fechaContablePF;
-	}
-	
+        return fechaContablePF;
+    }
+
+    public void setFechaContablePF(java.util.Date fechaContablePF) {
+        this.fechaContablePF = fechaContablePF;
+    }
+
 
 }

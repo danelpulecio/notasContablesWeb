@@ -55,6 +55,26 @@ public class NotaContable extends CommonVO<NotaContable> implements java.io.Seri
 
 	private List<RechazoSalida> rechazos = new ArrayList<RechazoSalida>();
 
+	/**
+	 * Se incluyen parametros para manejar las causales de rechazo en precierre
+	 * @param puedeEditar
+	 */
+
+	private List<CausalDeRechazoDTO> causalesRechazoLst;
+
+	public List<CausalDeRechazoDTO> getCausalesRechazoLst() {
+		return causalesRechazoLst;
+	}
+
+	public void setCausalesRechazoLst(List<CausalDeRechazoDTO> causalesRechazoLst) {
+		this.causalesRechazoLst = causalesRechazoLst;
+	}
+
+	/**
+	 * End
+	 * @param puedeEditar
+	 */
+
 	public void setPuedeEditar(Boolean puedeEditar) {
 		this.puedeEditar = puedeEditar;
 	}

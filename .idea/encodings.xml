@@ -201,6 +201,6 @@
     <file url="file://$PROJECT_DIR$/src/main/java/org/example/controller/CargaUsuarioPage.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/org/example/controller/GeneralConsultaPage.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/org/example/controller/GeneralPage.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/resources" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
   </component>
 </project>

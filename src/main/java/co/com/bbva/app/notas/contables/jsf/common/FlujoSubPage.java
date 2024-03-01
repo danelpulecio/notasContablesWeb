@@ -83,4 +83,8 @@ public class FlujoSubPage extends BasePage {
 	public void setActividadesRealizadas(ArrayList<ActividadRealizada> actividadesRealizadas) {
 		this.actividadesRealizadas = actividadesRealizadas;
 	}
+
+	public String getCausalRechazoTable(){
+		return null;
+	}
 }

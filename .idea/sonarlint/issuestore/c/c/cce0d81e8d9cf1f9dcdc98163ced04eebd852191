@@ -17,15 +17,15 @@ java:S1149Ž"VReplace the synchronized class "Hashtable" by an unsynchronized o
 g
 java:S4275M"ERefactor this getter so that it actually refers to the field "start".(£¦Ê€ÿÿÿÿÿ8øË—À¿1
 ^	java:S125º"<This block of commented-out lines of code should be removed.(‘ÆÎÓûÿÿÿÿ8ýË—À¿1
-Y	java:S125À"<This block of commented-out lines of code should be removed.(•Âå¼8à¯°ÍÚ1
-Y	java:S125Â"<This block of commented-out lines of code should be removed.(£¼ÃÊ8à¯°ÍÚ1
+^	java:S125À"<This block of commented-out lines of code should be removed.(œÜ‚êùÿÿÿÿ8à¯°ÍÚ1
+Y	java:S125Â"<This block of commented-out lines of code should be removed.(ÙãøÜ8à¯°ÍÚ1
 Y	java:S125Ä"<This block of commented-out lines of code should be removed.(í÷ÎÆ8à¯°ÍÚ1
 ^	java:S125Ì"<This block of commented-out lines of code should be removed.(‘ÆÎÓûÿÿÿÿ8à¯°ÍÚ1
-^	java:S125ß"<This block of commented-out lines of code should be removed.(ÜŸ¯™øÿÿÿÿ8â¯°ÍÚ1
+Y	java:S125ß"<This block of commented-out lines of code should be removed.(òÐÀŽ8â¯°ÍÚ1
 Y	java:S125è"<This block of commented-out lines of code should be removed.(ãÐÑª8â¯°ÍÚ1
-^	java:S125ì"<This block of commented-out lines of code should be removed.(‡ËØàþÿÿÿÿ8ã¯°ÍÚ1
+Y	java:S125ì"<This block of commented-out lines of code should be removed.(åÀ¿ü8ã¯°ÍÚ1
 Y	java:S125ð"<This block of commented-out lines of code should be removed.(å´Ê£8ã¯°ÍÚ1
-^	java:S125ó"<This block of commented-out lines of code should be removed.(‡ËØàþÿÿÿÿ8ã¯°ÍÚ1
+Y	java:S125ó"<This block of commented-out lines of code should be removed.(åÀ¿ü8ã¯°ÍÚ1
 u
 java:S3776÷"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(¢Å»ýÿÿÿÿ8ã¯°ÍÚ1
 `

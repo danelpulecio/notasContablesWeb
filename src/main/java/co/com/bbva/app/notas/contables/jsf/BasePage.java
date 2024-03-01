@@ -14,10 +14,14 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.PreDestroy;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
 
@@ -69,7 +73,7 @@ public abstract class BasePage implements Serializable  {
 	}
 
 	@PreDestroy
-	public void destroy (){
+	public void destroy () throws IOException {
 		LOGGER.info("DestruyendoBasePageBean");
 	}
 

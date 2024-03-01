@@ -197,7 +197,8 @@
                                             <h:panelGrid columns="2" border="0" cellspacing="0">
                                                 <p:inputText
                                                         value="#{notaContablePage.temaActual.numeroIdentificacion1}"
-                                                        size="15" immediate="true">
+                                                        size="15" immediate="true"
+                                                        onkeydown="return event.key !== 'Enter';">
                                                     <p:ajax event="keyup"
                                                             update="globalForm:filtroTercero1,globalForm:tercero1">
                                                         <f:setPropertyActionListener for="numDocRenN1" value=""
@@ -302,7 +303,8 @@
                                             <h:panelGrid columns="2" border="0" cellspacing="0">
                                                 <p:inputText
                                                         value="#{notaContablePage.temaActual.numeroIdentificacion2}"
-                                                        size="15" immediate="true">
+                                                        size="15" immediate="true"
+                                                        onkeydown="return event.key !== 'Enter';">
 
                                                     <p:ajax event="keyup"
                                                             update="globalForm:filtroTercero2,globalForm:tercero2">
@@ -363,7 +365,7 @@
                                              onkeypress="return characterRestriction(event,6)"
                                              onmouseup="this.value=removeAccents(this.value,6)"
                                              onmousedown="this.value=removeAccents(this.value,6)"
-                                             maxlength="500" cols="139" rows="2" />
+                                             maxlength="500" cols="139" rows="2"/>
 
                             <h:outputText styleClass="bold" value="Divisa"/>
                             <h:panelGrid columns="4" width="100%" cellpadding="0" cellspacing="0">
@@ -491,7 +493,8 @@
                         </p:dialog>
 
                         <!-- tabla soportes -->
-                        <h:panelGrid columns="1" cellpadding="0" cellspacing="2" id="anexos" style="text-align: center;" width="100%">
+                        <h:panelGrid columns="1" cellpadding="0" cellspacing="2" id="anexos" style="text-align: center;"
+                                     width="100%">
                             <p:dataTable value="#{notaContablePage.temaActual.anexoTema}" var="anexo" id="tableAnexos"
                                          rowKeyVar="rowKeyAnexos"
                                          rendered="#{! empty notaContablePage.temaActual.anexoTema}"
@@ -542,7 +545,8 @@
                                     <!-- Formulario de confirmacion de borrado de anexos-->
                                     <p:dialog id="popupBorrar" widgetVar="popupBorrar" autosized="true"
                                               domElementAttachment="form" minWidth="300"
-                                              showEffect="fade" hideEffect="explode" modal="false" position="center center">
+                                              showEffect="fade" hideEffect="explode" modal="false"
+                                              position="center center">
                                         <f:facet name="header">
                                             <h:panelGroup>
                                                 <h:outputText styleClass="bold"
@@ -599,7 +603,7 @@
 
                 <p:commandButton value="Guardar"
                                  action="#{notaContablePage.guardarTema}"
-                                 update="globalForm:informacion,globalForm:formulario,msgRegistroNotas" />
+                                 update="globalForm:informacion,globalForm:formulario,msgRegistroNotas"/>
 
                 <p:commandButton oncomplete="PF('popupCancelTema').show()" value="Cancelar"/>
 
@@ -685,7 +689,7 @@
 
                         <h:panelGrid columns="2" width="100%" id="fechasRiesgo">
 
-                            <h:outputText styleClass="bold; width:191px;"  value="Fecha Inicial del Evento"/>
+                            <h:outputText styleClass="bold; width:191px;" value="Fecha Inicial del Evento"/>
                             <p:calendar value="#{notaContablePage.temaActual.riesgoOperacional.fechaEventoPF}"
                                         isDayEnabled="isDayEnabledRiesgoNC" id="fechaEvento"/>
 
@@ -736,7 +740,8 @@
                             </p:selectOneMenu>
 
 
-                            <p:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.minutosFinalEvento}">
+                            <p:selectOneMenu
+                                    value="#{notaContablePage.temaActual.riesgoOperacional.minutosFinalEvento}">
                                 <h:outputText styleClass="bold" value="mm"/>
                                 <f:selectItem itemValue="" itemLabel="--"/>
                                 <f:selectItems value="#{notaContablePage.minutos}"/>
@@ -749,7 +754,8 @@
                             </p:selectOneMenu>
 
                             <h:outputText styleClass="bold" value="Hora Descubrimiento"/>
-                            <p:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.horaDescubrimiento}">
+                            <p:selectOneMenu
+                                    value="#{notaContablePage.temaActual.riesgoOperacional.horaDescubrimiento}">
                                 <h:outputText styleClass="bold" value="hh"/>
                                 <f:selectItem itemValue="" itemLabel="00"/>
                                 <f:selectItems value="#{notaContablePage.horas}"/>
@@ -835,7 +841,8 @@
 
                             <h:outputText styleClass="bold" value="subCanal"/>
                             <p:outputPanel id="panelSubCanal">
-                                <p:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.codigoSubCanal}">
+                                <p:selectOneMenu
+                                        value="#{notaContablePage.temaActual.riesgoOperacional.codigoSubCanal}">
                                     <f:selectItem itemValue="" itemLabel="Seleccione una opcion"/>
                                     <f:selectItems value="#{notaContablePage.subcanales}"/>
                                 </p:selectOneMenu>
@@ -868,14 +875,15 @@
                                              onkeyup="this.value=removeAccents(this.value,6)"
                                              onkeypress="return characterRestriction(event,6)"
                                              onmouseup="this.value=removeAccents(this.value,6)"
-                                             onmousedown="this.value=removeAccents(this.value,6)"  cols="50" rows="2"/>
+                                             onmousedown="this.value=removeAccents(this.value,6)" cols="50" rows="2"/>
 
                             <h:outputText styleClass="bold" value="Aplica Recuperación"
                                           rendered="#{notaContablePage.aplicaRecuperacion}"/>
                             <p:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.appRecuperacion}"
                                              rendered="#{notaContablePage.aplicaRecuperacion}">
 
-                                <p:ajax event="change" update="globalForm:panelFechaTxt, globalForm:panelFechaValue, globalForm:panelHoraTxt, globalForm:panelHoraValue, globalForm:panelTipoR, globalForm:panelTipoRecValue"/>
+                                <p:ajax event="change"
+                                        update="globalForm:panelFechaTxt, globalForm:panelFechaValue, globalForm:panelHoraTxt, globalForm:panelHoraValue, globalForm:panelTipoR, globalForm:panelTipoRecValue"/>
 
                                 <f:selectItem itemValue="" itemLabel="Seleccione una opcion"/>
                                 <f:selectItem itemValue="S" itemLabel="SI"/>
@@ -906,13 +914,15 @@
                                         <f:selectItems value="#{notaContablePage.horas}"/>
                                     </p:selectOneMenu>
 
-                                    <p:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.minutosRecuperacion}">
+                                    <p:selectOneMenu
+                                            value="#{notaContablePage.temaActual.riesgoOperacional.minutosRecuperacion}">
                                         <h:outputText styleClass="bold" value="mm"/>
                                         <f:selectItem itemValue="" itemLabel="--"/>
                                         <f:selectItems value="#{notaContablePage.minutos}"/>
                                     </p:selectOneMenu>
 
-                                    <p:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.horarioRecuperacion}">
+                                    <p:selectOneMenu
+                                            value="#{notaContablePage.temaActual.riesgoOperacional.horarioRecuperacion}">
                                         <h:outputText styleClass="bold" value="A.M/P.M"/>
                                         <f:selectItem itemValue="" itemLabel="--"/>
                                         <f:selectItems value="#{notaContablePage.horario}"/>
@@ -924,8 +934,9 @@
                                               rendered="#{notaContablePage.temaActual.riesgoOperacional.appRecuperacion eq 'S'}"/>
                             </p:outputPanel>
                             <p:outputPanel id="panelTipoRecValue" ajaxRendered="true">
-                                <p:selectOneMenu value="#{notaContablePage.temaActual.riesgoOperacional.tipoRecuperacion}"
-                                                 rendered="#{notaContablePage.temaActual.riesgoOperacional.appRecuperacion eq 'S'}">
+                                <p:selectOneMenu
+                                        value="#{notaContablePage.temaActual.riesgoOperacional.tipoRecuperacion}"
+                                        rendered="#{notaContablePage.temaActual.riesgoOperacional.appRecuperacion eq 'S'}">
                                     <f:selectItem itemValue="" itemLabel="Seleccione una opcion"/>
                                     <f:selectItem itemValue="R_SEGURO" itemLabel="RECUPERACIÓN POR SEGURO"/>
                                     <f:selectItem itemValue="R_DIRECTA" itemLabel="RECUPERACIÓN DIRECTA"/>
@@ -939,7 +950,8 @@
 
                         <h:panelGrid columns="3" width="100%" style="text-align: center;">
 
-                            <p:commandButton value="Guardar" action="#{notaContablePage.guardarRiesgo}" update="msgModalRiesgo,msgRegistroNotas" />
+                            <p:commandButton value="Guardar" action="#{notaContablePage.guardarRiesgo}"
+                                             update="msgModalRiesgo,msgRegistroNotas"/>
 
                             <p:commandButton oncomplete="PF('popupCancelRiesgo').show()" value="Cancelar"/>
 
@@ -949,7 +961,8 @@
                                       showEffect="fade" hideEffect="explode" modal="false" position="center center">
                                 <f:facet name="header">
                                     <h:panelGroup>
-                                        <h:outputText styleClass="bold" value="Confirmación de cancelación de registro de información"/>
+                                        <h:outputText styleClass="bold"
+                                                      value="Confirmación de cancelación de registro de información"/>
                                     </h:panelGroup>
                                 </f:facet>
 
@@ -1091,7 +1104,8 @@
                                      alt="Editar"
                                      rendered="#{temaNota.autorizada}">
 
-                        <f:setPropertyActionListener converter="javax.faces.Integer" for="codigoTema" value="#{temaNota.codigo}"
+                        <f:setPropertyActionListener converter="javax.faces.Integer" for="codigoTema"
+                                                     value="#{temaNota.codigo}"
                                                      target="#{notaContablePage.codigo}"/>
 
                     </p:commandButton>
