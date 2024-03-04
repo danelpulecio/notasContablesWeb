@@ -31,7 +31,8 @@ public class ConceptoPage extends GeneralParametrosPage<Concepto, Concepto> {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ConceptoPage.class);
 
 	private List<SelectItem> unidadesAnalisis;
-	private List<SelectItem> temasAut;
+	private List<SelectItem> temasAut = new ArrayList<>();
+	private List<SelectItem> temasAutTemp = new ArrayList<>();
 
 	private String defaultValue;
 
@@ -175,7 +176,14 @@ public class ConceptoPage extends GeneralParametrosPage<Concepto, Concepto> {
 //		if (esUltimaFase()) {
 			try {
 				unidadesAnalisis = getSelectItemList(cargaAltamiraManager.getCVSucursal(), false);
-				temasAut = getSelectItemList(notasContablesManager.getCV(TemaAutorizacion.class), false);
+				temasAutTemp = getSelectItemList(notasContablesManager.getCV(TemaAutorizacion.class), false);
+				for (SelectItem temaAut : temasAutTemp){
+					temasAut.add(new SelectItem(String.valueOf(temaAut.getValue()), temaAut.getLabel()));
+				}
+				LOGGER.info("temas auct value : {}", temasAut.get(0).getValue());
+				LOGGER.info("temas auct value class : {}", temasAut.get(0).getValue().getClass());
+				LOGGER.info("temas auct label : {}", temasAut.get(0).getLabel());
+				LOGGER.info("temas auct label class : {}", temasAut.get(0).getValue().getClass());
 			} catch (Exception e) {
 				LOGGER.error("{} Error al inicializar el mdulo de administración de conceptos",  e );
 				nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al inicializar el mdulo de administración de conceptos");
