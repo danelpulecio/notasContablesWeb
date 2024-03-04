@@ -1123,12 +1123,12 @@
 
         <h:panelGrid columns="3" styleClass="center" width="100%" id="botonesNotaContable">
 
-            <p:commandButton action="#{notaContablePage.guardarNota}"
+            <p:commandButton action="#{notaContablePage.guardarNota}" ajax="false"
                              update="formulario,botonesNotaContable"
                              value="Enviar a Visto Bueno"
                              rendered="#{notaContablePage.nota.codigo le 0 and ! empty notaContablePage.totalesNota}"/>
 
-            <p:commandButton action="#{notaContablePage.guardarNota}"
+            <p:commandButton action="#{notaContablePage.guardarNota}" ajax="false"
                              oncomplete="PF('popupNotaContable').hide()"
                              update="globalForm:botonesNotaContable"
                              value="Enviar a Visto Bueno"
