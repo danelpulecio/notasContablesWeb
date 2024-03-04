@@ -25,7 +25,7 @@
 			<!-- Seccion de mensajes y botones de envio y cancelacion-->
 			<ui:include src="../../common/mensajes.xhtml" /> 
 			<h:panelGrid columns="2" styleClass="center" width="100%">
-			<p:commandButton action="#{notaRefCrucePage.anular}" value="Si" update="lista,opcionesRefCruceVer" />
+			<p:commandButton action="#{notaRefCrucePage.anular}" value="Si" ajax="false" update="lista,opcionesRefCruceVer" />
 			<p:commandButton onclick="PF('popupAnularRefCruce').hide()" value="No"/>
 			</h:panelGrid>
 		</h:panelGrid>
@@ -152,7 +152,7 @@
 				<ui:include src="../../common/mensajes.xhtml" /> 
 				<h:panelGrid columns="2" styleClass="center" width="100%">
 				<p:commandButton action="#{notaRefCrucePage.rechazar}"
-					value="Confirmar rechazo" 
+					value="Confirmar rechazo" ajax="false"
 					update="lista,opcionesRefCruceVer" />
 				<p:commandButton onclick="PF('popupRechazoRefCruceVer').hide()" value="Cancelar" />
 				</h:panelGrid>
@@ -161,7 +161,7 @@
 
 		<ui:include src="../../common/mensajes.xhtml" /> 
 		<h:panelGrid id="opcionesRefCruceVer" columns="2" styleClass="center" width="100%">
-			<p:commandButton action="#{notaRefCrucePage.aprobar}"
+			<p:commandButton action="#{notaRefCrucePage.aprobar}" ajax="false"
 				update="lista,opcionesRefCruceVer" 
 				value="Aprobar" 
 				rendered="#{notaRefCrucePage.nota.puedeAprobar}"/>

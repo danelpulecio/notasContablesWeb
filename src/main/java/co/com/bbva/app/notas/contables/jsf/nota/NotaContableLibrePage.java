@@ -100,14 +100,14 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 							montoAlertaEXT = monto.getMontoMaximoAlerta();
 						}
 					}
-					LOGGER.info("{} Obteniendo Info. de los das no hábiles");
+					LOGGER.info("{} Obteniendo Info. de los días no hábiles");
 					diasNoHabiles = new ArrayList<>(cargaAltamiraManager.getFestivosFecha());
 
 					FechaHabilitada fechaHabilitada = new FechaHabilitada();
 					fechaHabilitada.setCodigoSucursal(getUsuarioLogueado().getSucursal().getCodigo());
 					fechaHabilitada = notasContablesManager.getFechaHabilitadaPorSucursal(fechaHabilitada);
 
-					LOGGER.info("{} Estableciendo fechas lmite");
+					LOGGER.info("{} Estableciendo fechas límite");
 					maxFecha = StringUtils.getString(DateUtils.getSQLDate(DateUtils.getNextWorkDay(diasNoHabiles)), "dd-MM-yyyy");
 					minFecha = StringUtils.getString(DateUtils.getDateTodayBeforeDays(fechaHabilitada.getDias().intValue(), diasNoHabiles), "dd-MM-yyyy");
 

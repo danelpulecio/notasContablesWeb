@@ -92,7 +92,7 @@
 
             <h:panelGrid columns="2" styleClass="center" width="100%">
                 <p:commandButton action="#{notaContableLibrePage.anular}" value="Si"
-                                 update="globalForm:botonesNotaRegLibre,lista,popupAnularNotaLibre,popupNotaContableLibre"/>
+                                 update="globalForm:botonesNotaRegLibre,lista,popupAnularNotaLibre,popupNotaContableLibre,globalForm:msgPendientes"/>
 
                 <p:commandButton onclick="PF('popupAnularNotaLibre').hide()" value="No"/>
 
@@ -284,7 +284,8 @@
             <h:panelGrid columns="2" styleClass="center" width="100%">
 
 
-                <p:commandButton action="#{notaContableLibrePage.guardarTema}" update="globalForm:formRegLibre,globalForm:msgRegistroNotasLibre,panelPrincipal"
+                <p:commandButton action="#{notaContableLibrePage.guardarTema}" 
+                	update="globalForm:formRegLibre,globalForm:msgRegistroNotasLibre,panelPrincipal"
                                  rendered="#{notaContableLibrePage.temaActual.pucCuenta.numeroCuenta != ''}"
                                  value="Guardar"/>
                 <p:commandButton oncomplete="PF('popupCancelTemaRegLibre').show()" value="Cancelar"/>
@@ -907,17 +908,17 @@
             <ui:include src="../../common/mensajes.xhtml"/>
         </h:panelGroup>
         <h:panelGrid columns="3" styleClass="center" width="100%" id="botonesNotaRegLibre">
-            <p:commandButton action="#{notaContableLibrePage.guardarNota}"
+            <p:commandButton action="#{notaContableLibrePage.guardarNota}" ajax="false"
                              update="globalForm:formRegLibre,globalForm:botonesNotaRegLibre,msgPpalRegistroLibre"
                              value="Enviar a Visto Bueno le"
                              rendered="#{notaContableLibrePage.nota.codigo le 0 and !empty notaContableLibrePage.temasNotaContable and !empty notaContableLibrePage.anexos}"/>
 
-            <p:commandButton action="#{notaContableLibrePage.guardarNota}"
+            <p:commandButton action="#{notaContableLibrePage.guardarNota}" ajax="false"
                              update="globalForm:botonesNotaRegLibre,lista,msgPpalRegistroLibre"
                              value="Enviar a Visto Bueno gt"
                              rendered="#{notaContableLibrePage.nota.codigo gt 0 and notaContableLibrePage.nota.puedeEditar and !empty notaContableLibrePage.temasNotaContable and !empty notaContableLibrePage.anexos}"/>
 
-            <p:commandButton value="Anular"
+            <p:commandButton value="Anular" ajax="false"
                              rendered="#{notaContableLibrePage.nota.codigo gt 0 and notaContableLibrePage.nota.puedeAnular}"
                              oncomplete="PF('popupAnularNotaLibre').show()"/>
 

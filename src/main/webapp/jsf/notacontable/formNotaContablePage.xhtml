@@ -84,7 +84,7 @@
             <ui:include src="../../common/mensajes.xhtml"/>
 
             <h:panelGrid columns="2" styleClass="center" width="100%">
-                <p:commandButton action="#{notaContablePage.anular}" value="Si"
+                <p:commandButton action="#{notaContablePage.anular}" value="Si" ajax="false"
                                  update="globalForm:botonesNotaContable"/>
                 <p:commandButton onclick="PF('popupAnularNota').hide()" value="No"/>
             </h:panelGrid>

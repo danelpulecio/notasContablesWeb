@@ -14,6 +14,7 @@ import co.com.bbva.app.notas.contables.util.EMailSender;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.model.SelectItem;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.primefaces.PrimeFaces;
@@ -36,6 +37,7 @@ public class FlujoNotaContableLibrePage extends GeneralPage implements IPages {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(FlujoNotaContableLibrePage.class);
 	
+	@Inject
 	private PendientePage pendientePage;
 
 	/**

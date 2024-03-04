@@ -542,7 +542,7 @@
                     <!-- Seccion de mensajes y botones de envio y cancelacion-->
                     <ui:include src="../../common/mensajes.xhtml"/>
                     <h:panelGrid columns="2" styleClass="center" width="100%">
-                        <p:commandButton action="#{flujoNotaContablePage.rechazar}" value="Confirmar rechazo"
+                        <p:commandButton action="#{flujoNotaContablePage.rechazar}" value="Confirmar rechazo" ajax="false"
                                          update="lista,opcionesVer"/>
                         <p:commandButton onclick="PF('popupRechazoVer').hide()" value="Cancelar"/>
                     </h:panelGrid>
@@ -553,7 +553,7 @@
 
             <h:panelGrid id="opcionesVer" columns="2" styleClass="center" width="100%">
                 <p:commandButton action="#{flujoNotaContablePage.aprobar}"
-                                 update="lista,opcionesVer" value="Aprobar"
+                                 update="lista,opcionesVer" ajax="false" value="Aprobar"
                                  rendered="#{flujoNotaContablePage.nota.puedeAprobar}"/>
                 <p:commandButton value="Rechazar" rendered="#{flujoNotaContablePage.nota.puedeRechazar}"
                                  oncomplete="PF('popupRechazoVer').show()"/>

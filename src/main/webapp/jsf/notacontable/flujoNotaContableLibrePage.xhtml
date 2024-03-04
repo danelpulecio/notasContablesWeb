@@ -374,7 +374,7 @@
                         <ui:include src="../../common/mensajes.xhtml"/>
                         <h:panelGrid columns="2" styleClass="center" width="100%">
                             <p:commandButton action="#{flujoNotaContableLibrePage.rechazar}" 
-                            value="Confirmar rechazo"
+                            value="Confirmar rechazo" ajax="false"
 							update="globalForm:lista,globalForm:opcionesNotaLibreVer,popupRechazoNotaLibreVer,notaContableLibreVer"/>
                             <p:commandButton onclick="PF('popupRechazoNotaLibreVer').hide()" value="Cancelar"/>
                         </h:panelGrid>
@@ -383,7 +383,7 @@
                 <ui:include src="../../common/mensajes.xhtml"/>
                 <h:panelGrid id="opcionesNotaLibreVer" columns="2" styleClass="center" width="100%">
                     <p:commandButton action="#{flujoNotaContableLibrePage.aprobar}"
-					update="globalForm:lista,globalForm:opcionesNotaLibreVer" value="Aprobar"
+					update="globalForm:lista,globalForm:opcionesNotaLibreVer" ajax="false" value="Aprobar"
 					rendered="#{flujoNotaContableLibrePage.nota.puedeAprobar}"/>
                     <p:commandButton value="Rechazar" rendered="#{flujoNotaContableLibrePage.nota.puedeRechazar}" 
                     	oncomplete="PF('popupRechazoNotaLibreVer').show()"/>
