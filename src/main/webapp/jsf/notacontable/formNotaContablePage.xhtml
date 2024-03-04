@@ -1000,12 +1000,11 @@
 
                     <p:commandButton action="#{notaContablePage.buscarConcepto}" value="Buscar Concepto"
                                      update="globalForm:tipoConcepto"/>
-
                     <p:selectOneMenu value="#{notaContablePage.nota.codigoConcepto}"
-                                     converter="javax.faces.Integer" id="nombreCon"
+                                     converter="javax.faces.Integer"
+                                     id="nombreCon"
                                      disabledClass="disabledItem"
                                      rendered="#{! empty notaContablePage.conceptos}">
-
                         <p:ajax event="change" listener="#{notaContablePage.seleccionarConcepto}"
                                 update="globalForm:formulario"/>
 
@@ -1126,13 +1125,13 @@
 
             <p:commandButton action="#{notaContablePage.guardarNota}"
                              update="formulario,botonesNotaContable"
-                             value="Enviar a Visto Bueno le" ajax="false"
+                             value="Enviar a Visto Bueno"
                              rendered="#{notaContablePage.nota.codigo le 0 and ! empty notaContablePage.totalesNota}"/>
 
             <p:commandButton action="#{notaContablePage.guardarNota}"
                              oncomplete="PF('popupNotaContable').hide()"
                              update="globalForm:botonesNotaContable"
-                             value="Enviar a Visto Bueno gt" ajax="false"
+                             value="Enviar a Visto Bueno"
                              rendered="#{notaContablePage.nota.codigo gt 0 and notaContablePage.nota.puedeEditar}"/>
 
             <p:commandButton value="Anular" rendered="#{notaContablePage.nota.puedeAnular}"

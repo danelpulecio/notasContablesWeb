@@ -261,4 +261,33 @@ public class Concepto extends CommonVO<Concepto> implements Comparable<Concepto>
 	public void restartPK(Object pk) {
 		codigo = Integer.valueOf(pk.toString());
 	}
+
+	@Override
+	public String toString() {
+		return "Concepto{" +
+				"codigo=" + codigo +
+				", nombre='" + nombre + '\'' +
+				", codigoUnidadAnalisis=" + codigoUnidadAnalisis +
+				", codigoTemaAutorizacion=" + codigoTemaAutorizacion +
+				", centrosAutSucursales='" + centrosAutSucursales + '\'' +
+				", centrosAutAreasCentrales='" + centrosAutAreasCentrales + '\'' +
+				", centrosAutCentroEspecial='" + centrosAutCentroEspecial + '\'' +
+				", vistoBuenoAnalisis='" + vistoBuenoAnalisis + '\'' +
+				", autorizacionTercero='" + autorizacionTercero + '\'' +
+				", soportes='" + soportes + '\'' +
+				", origenDestino='" + origenDestino + '\'' +
+				", estado='" + estado + '\'' +
+				", codSucursal='" + codSucursal + '\'' +
+				", nombreSucursal='" + nombreSucursal + '\'' +
+				", boolCentrosAutSucursales=" + boolCentrosAutSucursales +
+				", boolCentrosAutAreasCentrales=" + boolCentrosAutAreasCentrales +
+				", boolCentrosAutCentroEspecial=" + boolCentrosAutCentroEspecial +
+				", boolVistoBuenoAnalisis=" + boolVistoBuenoAnalisis +
+				", boolAutorizacionTercero=" + boolAutorizacionTercero +
+				", boolSoportes=" + boolSoportes +
+				", boolOrigenDestino=" + boolOrigenDestino +
+				", mostrarTemas=" + mostrarTemas +
+				", temas=" + temas +
+				'}';
+	}
 }

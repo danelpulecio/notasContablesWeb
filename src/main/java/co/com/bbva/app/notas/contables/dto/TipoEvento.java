@@ -52,4 +52,12 @@ public class TipoEvento extends CommonVO<TipoEvento> implements java.io.Serializ
 		codigo = Integer.valueOf(pk.toString());
 	}
 
+	@Override
+	public String toString() {
+		return "TipoEvento{" +
+				"codigo=" + codigo +
+				", nombre='" + nombre + '\'' +
+				", estado='" + estado + '\'' +
+				'}';
+	}
 }

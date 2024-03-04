@@ -1,6 +1,8 @@
 package co.com.bbva.app.notas.contables.controller;
 
 
+import lombok.Getter;
+import lombok.Setter;
 import org.primefaces.model.DualListModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +12,9 @@ import javax.faces.model.SelectItem;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
+
 public abstract class CategoriaController {
 
 
@@ -18,6 +23,10 @@ public abstract class CategoriaController {
     private List<Producto> target = new ArrayList<>();
     private List<SelectItem> source = new ArrayList<>();
     private List<SelectItem> targetS = new ArrayList<>();
+    private List<SelectItem> selecOne = new ArrayList<>();
+    private List<String> opcionesString;
+    private String opcion;
+
     private DualListModel<Producto> dualListModel;
     private DualListModel<SelectItem> dualListModelS = new DualListModel<>(source, targetS);
 
@@ -59,6 +68,39 @@ public abstract class CategoriaController {
     public void setLista(List<Producto> lista) {
         this.lista = lista;
     }
+
+    public List<SelectItem> getSelecOne() {
+        if (selecOne==null || selecOne.isEmpty()) {
+            SelectItem danel = new SelectItem("1", "goku");
+
+            selecOne.add(0, danel);
+            danel = new SelectItem("2", "vegueta");
+            selecOne.add(0, danel);
+
+            LOGGER.info("<<<<<< value: {}", selecOne.get(0).getValue());
+            LOGGER.info("<<<<<< value class: {}", selecOne.get(0).getValue().getClass());
+            LOGGER.info("<<<<<< label: {}", selecOne.get(0).getLabel());
+            LOGGER.info("<<<<<< label class: {}", selecOne.get(0).getLabel().getClass());
+            opcion = "1";
+            LOGGER.info("<<<<<< opcion class: {}", opcion.getClass());
+
+        }
+        return selecOne;
+    }
+
+    public void setSelecOne(List<SelectItem> selecOne) {
+        this.selecOne = selecOne;
+    }
+
+    public List<String> getOpcionesString() {
+        opcionesString = new ArrayList<>();
+        opcionesString.add("opcion 1");
+        opcionesString.add("opcion 2");
+        opcionesString.add("opcion 3");
+        opcion = "opcion 3";
+        return opcionesString;
+    }
+
 
     public void listarCat() {
         LOGGER.info("lista before: {}", lista);
