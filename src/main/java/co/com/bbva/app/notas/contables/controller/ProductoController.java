@@ -117,6 +117,7 @@ public class ProductoController extends CategoriaController implements Serializa
     }
 
     public String getParam() {
+        param = "goku";
         return param;
     }
 

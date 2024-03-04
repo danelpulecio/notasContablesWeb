@@ -514,3 +514,5 @@ s
 Csrc/main/java/co/com/bbva/app/notas/contables/dao/AuditoriaDAO.java,b/6/b649c6069eb182b421fb725e5abbdc18b6ef712a
 q
 Asrc/main/java/co/com/bbva/app/notas/contables/util/DateUtils.java,2/0/202e61d53538c6ec78884262b44ebffe76109a49
+q
+Asrc/main/java/co/com/bbva/app/notas/contables/dto/TipoEvento.java,e/0/e01698b1b87b7e080da27f560befc269c584aaf4

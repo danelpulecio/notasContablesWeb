@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.NumberFormat;
 import java.util.*;
@@ -65,6 +66,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
     private static int numArchivo = 1;
     private List<SelectItem> conceptos = new ArrayList<>();
     private List<SelectItem> tiposEvento = new ArrayList<>();
+    private List<SelectItem> tiposEventoTemporal = new ArrayList<>();
     private List<SelectItem> divisas = new ArrayList<>();
     private List<SelectItem> sucursalesPartida = new ArrayList<>();
     private List<SelectItem> sucursalesContraPartida = new ArrayList<>();
@@ -138,7 +140,18 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
                 minFecha = StringUtils.getString(DateUtils.getDateTodayBeforeDays(fechaHabilitada.getDias().intValue(), diasNoHabiles), "dd-MM-yyyy");
 
                 LOGGER.info("{} Obteniendo Info. de los tipos de evento");
-                tiposEvento = getSelectItemList(notasContablesManager.getCV(TipoEvento.class), false);
+                tiposEventoTemporal=getSelectItemList(notasContablesManager.getCV(TipoEvento.class), false);
+//                tiposEvento = getSelectItemList(notasContablesManager.getCV(TipoEvento.class), false);
+                for (SelectItem tipoEvento : tiposEventoTemporal){
+                    tiposEvento.add(new SelectItem(String.valueOf(tipoEvento.getValue()),tipoEvento.getLabel()));
+                }
+                LOGGER.info("<<<<<<tipo evento label: {}>>>>>>" ,tiposEvento.get(0).getLabel());
+                LOGGER.info("<<<<<<tipo evento label class: {}>>>>>>" ,tiposEvento.get(0).getLabel().getClass());
+                LOGGER.info("<<<<<<tipo evento value: {}>>>>>>" ,tiposEvento.get(0).getValue());
+                LOGGER.info("<<<<<<tipo evento value class: {}>>>>>>" ,tiposEvento.get(0).getValue().getClass());
+
+
+
 
                 concepto = "";
                 conceptos = new ArrayList<>();
@@ -148,7 +161,23 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
                     seleccionarConcepto();
                     nota.setPuedeEditar(true);
                     nota.setPuedeAnular(true);
-                    conceptos.add(new SelectItem(nota.getConcepto().getCodigo().toString(), nota.getConcepto().getNombre()));
+                    LOGGER.info("<<<<nota cod concepto.id value: {}>>>>", nota.getConcepto().getCodigo());
+                    LOGGER.info("<<<<nota cod concepto.id class: {}>>>>", nota.getConcepto().getCodigo().getClass());
+                    conceptos.add(new SelectItem(nota.getConcepto().getCodigo(), nota.getConcepto().getNombre()));
+                    LOGGER.info("<<<<Nota: {}>>>>", nota);
+                    LOGGER.info("<<<<conceptos size: {}>>>>", conceptos.size());
+                    LOGGER.info("<<<<conceptos value: {}>>>>", conceptos.get(0).getValue());
+                    LOGGER.info("<<<<conceptos value class: {}>>>>", conceptos.get(0).getValue().getClass());
+                    LOGGER.info("<<<<conceptos des: {}>>>>", conceptos.get(0).getDescription());
+                    LOGGER.info("<<<<conceptos label: {}>>>>", conceptos.get(0).getLabel());
+                    LOGGER.info("<<<<conceptos label class: {}>>>>", conceptos.get(0).getLabel().getClass());
+                    LOGGER.info("codigo concepto :{}", nota.getCodigoConcepto());
+                    LOGGER.info("codigo concepto class :{}", nota.getCodigoConcepto().getClass());
+                    LOGGER.info("<<<<<<Nota Codigo tipo evento : {}>>>>>>" ,nota.getCodigoTipoEvento());
+                    LOGGER.info("<<<<<<Nota Codigo tipo evento class: {}>>>>>>" ,nota.getCodigoTipoEvento().getClass());
+                    LOGGER.info("<<<<<<Nota Codigo tipo evento : {}>>>>>>" ,nota.getTipoEvento().getCodigo());
+                    LOGGER.info("<<<<<<Nota Codigo tipo evento class: {}>>>>>>" ,nota.getTipoEvento().getCodigo().getClass());
+
                 }
             } else {
                 LOGGER.warn("{} No se tiene parametrizado un autorizador");
@@ -205,6 +234,14 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
         try {
             LOGGER.info("{} Procesando el concepto seleccionado");
             Concepto concepto = new Concepto();
+            LOGGER.info("nota conceptoSt: {}", nota.getCodigoConceptoSt());
+            LOGGER.info("nota concepto: {}", nota.getCodigoConcepto());
+            LOGGER.info("nota concepto class: {}", nota.getCodigoConcepto().getClass());
+            LOGGER.info("nota: {}", nota);
+            Integer temporalCodConcepto = Integer.parseInt(String.valueOf(nota.getCodigoConcepto()));
+            nota.setCodigoConcepto(temporalCodConcepto);
+            LOGGER.info("nota concepto parse: {}", nota.getCodigoConcepto());
+            LOGGER.info("nota concepto parse class: {}", nota.getCodigoConcepto().getClass());
             concepto.setCodigo(nota.getCodigoConcepto());
             LOGGER.info("{} Obteniendo Info. del concepto: {}", concepto.getCodigo().intValue());
             concepto = notasContablesManager.getConcepto(concepto);
@@ -838,9 +875,6 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
                             cancelarNota();
                             nuevoMensaje(FacesMessage.SEVERITY_INFO, "La nota ha sido radicada correctamente con el número: " + notaContable.getNumeroRadicacion());
                             UsuarioModulo usuarioModulo = new UsuarioModulo();
-                            /**
-                             * TODO
-                             */
                             try {
                                 LOGGER.info("{} Intentando enviar email de la nota grabada");
                                 notasContablesManager.sendMail(instancia, getUsuarioLogueado());
@@ -876,6 +910,8 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 
     private boolean validarNota() {
         LOGGER.info("{} Validando campos requeridos");
+        LOGGER.info("<<<<nota codigo tipo evento: {}>>>>", nota.getCodigoTipoEvento());
+        LOGGER.info("<<<<nota codigo tipo evento class: {}>>>>", nota.getCodigoTipoEvento().getClass());
         validador.validarRequerido(nota.getCodigoTipoEvento(), "Tipo de evento");
         validador.validarRequerido(nota.getCodigoConcepto(), "Concepto");
         validarTemasObligatorios();

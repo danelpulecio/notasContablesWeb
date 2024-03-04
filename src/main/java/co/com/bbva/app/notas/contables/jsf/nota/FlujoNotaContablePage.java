@@ -73,6 +73,14 @@ public class FlujoNotaContablePage extends GeneralPage implements IPages {
 			nota = notasContablesManager.getNotaContable(nota);
 			Instancia instancia = new Instancia();
 			instancia.setCodigoNotaContable(nota.getCodigo());
+			Integer eventTypeIdTemp = nota.getCodigoTipoEvento().intValue();
+			LOGGER.info("<<<<<<codigo evento temporarl: {}>>>>>>", eventTypeIdTemp);
+			LOGGER.info("<<<<<<codigo evento temporarl class: {}>>>>>>", eventTypeIdTemp.getClass());
+			LOGGER.info("<<<<<<codigo evento before: {}>>>>>>", nota.getCodigoTipoEvento());
+			LOGGER.info("<<<<<<codigo evento before class: {}>>>>>>", nota.getCodigoTipoEvento().getClass());
+			nota.setCodigoTipoEvento(eventTypeIdTemp);
+			LOGGER.info("<<<<<<codigo evento after: {}>>>>>>", nota.getCodigoTipoEvento());
+			LOGGER.info("<<<<<<codigo evento after class: {}>>>>>>", nota.getCodigoTipoEvento().getClass());
 			instancia = notasContablesManager.getInstanciaPorNotaContable(instancia);
 
 			if (codUsuAsignado > 0 && !instancia.getEstado().equals("4") && !instancia.getEstado().equals("5") && !instancia.getEstado().equals("9")) {

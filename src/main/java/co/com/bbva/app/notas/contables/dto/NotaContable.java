@@ -27,6 +27,8 @@ public class NotaContable extends CommonVO<NotaContable> implements java.io.Seri
 	private TIMESTAMP fechaRegistroAltamira = null;
 	private String codigoSucursalOrigen = "";
 	private Number codigoConcepto = 0;
+	private String codigoConceptoSt;
+
 	private Number codigoTipoEvento = 0;
 	private String numeroRadicacion = "";
 	private String tipoNota = "";
@@ -175,6 +177,15 @@ public class NotaContable extends CommonVO<NotaContable> implements java.io.Seri
 
 	public void setCodigoConcepto(Number codigoConcepto) {
 		this.codigoConcepto = codigoConcepto;
+	}
+
+	public String getCodigoConceptoSt() {
+		codigoConceptoSt = codigoConcepto.toString();
+		return codigoConceptoSt;
+	}
+
+	public void setCodigoConceptoSt(String codigoConceptoSt) {
+		this.codigoConceptoSt = codigoConcepto.toString();
 	}
 
 	public Number getCodigoTipoEvento() {

@@ -145,6 +145,14 @@
                     </p:column>
 
                 </p:dataTable>
+
+
+                <p:selectOneMenu value="#{productoController.opcion}" id="nombreCon"
+                                 disabledClass="disabledItem"
+                                 rendered="#{! empty productoController.selecOne}">
+                    <f:selectItem itemValue="-1" itemLabel="Seleccione una opcion"/>
+                    <f:selectItems value="#{productoController.selecOne}"/>
+                </p:selectOneMenu>
             </h:panelGrid>
         </div>
     </ui:define>
