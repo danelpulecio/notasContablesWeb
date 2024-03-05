@@ -1,7 +1,4 @@
 
-g	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(ª¤ùÿÿÿÿÿ8ĞÊ–ß1
-a	java:S112 "FDefine and throw a dedicated exception instead of using a generic one.(Øãä68ĞÊ–ß1
-b	java:S112""FDefine and throw a dedicated exception instead of using a generic one.(¼ŸÍÒ8ĞÊ–ß1
 h	java:S112¦"FDefine and throw a dedicated exception instead of using a generic one.(ççûĞÿÿÿÿÿ8ĞÊ–ß1
 h	java:S112È"FDefine and throw a dedicated exception instead of using a generic one.(ççûĞÿÿÿÿÿ8ĞÊ–ß1
 h	java:S112ø"FDefine and throw a dedicated exception instead of using a generic one.(ççûĞÿÿÿÿÿ8ĞÊ–ß1
@@ -27,38 +24,12 @@ X
 java:S1141º"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8ÓÊ–ß1
 X
 java:S1141¢"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8ÓÊ–ß1
-r	java:S117>"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¯òîÄıÿÿÿÿ8ÓÊ–ß1
->
-java:S1643-"Use a StringBuilder instead.(îÕ†¤ıÿÿÿÿ8ÓÊ–ß1
 r
 java:S2095Ñ"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(î•Íüÿÿÿÿ8“Ì–ß1
 r
 java:S2095›"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(î•Íüÿÿÿÿ8“Ì–ß1
 r
 java:S2095´"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(î•Íüÿÿÿÿ8“Ì–ß1
-ƒ	java:S116"gRename this field "sql_SELECT_MAX_CODE_SENTENCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ğ·şÈ8“Ì–ß1
-ƒ	java:S116"gRename this field "sql_SELECT_SEQUENCE_SENTENCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(á¸Ÿ®8“Ì–ß1
-	java:S116"^Rename this field "sql_INSERT_SENTENCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÔÏóÿÿÿÿÿ8“Ì–ß1
-	java:S116"^Rename this field "sql_DELETE_SENTENCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(˜úÍ¤ûÿÿÿÿ8“Ì–ß1
-ƒ	java:S116"bRename this field "sql_DELETE_ALL_SENTENCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŸëÇıÿÿÿÿ8“Ì–ß1
-È
-java:S1845B"¥Rename method "getDataSource" to prevent any misunderstanding/clash with method "getDatasource" defined in superclass "co.com.bbva.app.notas.contables.dao.SuperDAO".(®¢àøùÿÿÿÿ8”Ì–ß1
-W
-java:S6397,"5Replace this character class by the character itself.(¨äò¿üÿÿÿÿ8˜Ì–ß1
-S
-java:S2696?"6Make the enclosing method "static" or remove this set.(‘ã¦”8˜Ì–ß1
-g
-java:S1124^"EReorder the modifiers to comply with the Java Language Specification.(Çÿ‘Ÿúÿÿÿÿ8™Ì–ß1
-b
-java:S1124b"EReorder the modifiers to comply with the Java Language Specification.(ÏÑ€ß8™Ì–ß1
-g
-java:S1124f"EReorder the modifiers to comply with the Java Language Specification.(¿áªÚıÿÿÿÿ8™Ì–ß1
-a
-java:S1124|"EReorder the modifiers to comply with the Java Language Specification.(Ôì„8šÌ–ß1
-v
-java:S2139œ"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾8›Ì–ß1
-8
-java:S3457Ÿ"Not enough arguments.(©Ü§ãıÿÿÿÿ8›Ì–ß1
 h
 java:S1124©"EReorder the modifiers to comply with the Java Language Specification.(‹ïÌßùÿÿÿÿ8œÌ–ß1
 c

@@ -28,9 +28,12 @@ public class MontoAutorizadoPage extends GeneralParametrosPage<MontoAutorizado, 
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MontoAutorizadoPage.class);
 
-    private List<SelectItem> tiposEvento;
-    private List<SelectItem> entesAut;
-    private List<SelectItem> temasAut;
+    private List<SelectItem> tiposEvento = new ArrayList<>();
+    private List<SelectItem> tiposEventoTemp = new ArrayList<>();
+    private List<SelectItem> entesAut = new ArrayList<>();
+    private List<SelectItem> entesAutTemp= new ArrayList<>();
+    private List<SelectItem> temasAut = new ArrayList<>();
+    private List<SelectItem> temasAutTemp = new ArrayList<>();
 
 //	Session session = getContablesSessionBean().getSessionTrace();
 
@@ -98,6 +101,9 @@ public class MontoAutorizadoPage extends GeneralParametrosPage<MontoAutorizado, 
     @Override
     protected boolean _guardar() throws Exception {
         Number codInicial = objActual.getCodigo();
+        objActual.setCodigoEnteAutorizador(objActual.getCodigoEnteAutorizadorTemp());
+        objActual.setCodigoTemaAutorizacion(objActual.getCodigoTemaAutorizacionTemp());
+        objActual.setCodigoTipoAutorizacion(objActual.getCodigoTipoAutorizacionTemp());
         try {
             if (objActual.getCodigo().intValue() <= 0) {
 //				LOGGER.info("{} Crea monto autorizado: {}", session.getTraceLog(),objActual.getNombreTipoEvento()+" "+objActual.getCodigoEnteAutorizador()+" "+objActual.getCodigoTemaAutorizacion() );
@@ -118,13 +124,13 @@ public class MontoAutorizadoPage extends GeneralParametrosPage<MontoAutorizado, 
 
     @Override
     protected void _validar() throws Exception {
-        if (objActual.getCodigoTipoAutorizacion().intValue() <= 0) {
+        if (objActual.getCodigoTipoAutorizacionTemp().intValue() <= 0) {
             nuevoMensaje(FacesMessage.SEVERITY_WARN, "Debe seleccionar el tipo de enveto");
         }
-        if (objActual.getCodigoEnteAutorizador().intValue() <= 0) {
+        if (objActual.getCodigoEnteAutorizadorTemp().intValue() <= 0) {
             nuevoMensaje(FacesMessage.SEVERITY_WARN, "Debe seleccionar el ente Autorizador");
         }
-        if (objActual.getCodigoTemaAutorizacion().intValue() <= 0) {
+        if (objActual.getCodigoTemaAutorizacionTemp().intValue() <= 0) {
             nuevoMensaje(FacesMessage.SEVERITY_WARN, "Debe seleccionar un tema de autorizacin");
         }
         validador.validarPositivo(objActual.getMonto(), "Lmite");
@@ -159,9 +165,18 @@ public class MontoAutorizadoPage extends GeneralParametrosPage<MontoAutorizado, 
         LOGGER.info("consultar lista auxiliares {}", esUltimaFase());
         // TODO : if (esUltimaFase()) {
         try {
-            tiposEvento = getSelectItemList(notasContablesManager.getCV(TipoEvento.class), false);
-            temasAut = getSelectItemList(notasContablesManager.getCV(TemaAutorizacion.class), false);
-            entesAut = getSelectItemList(notasContablesManager.getCVEntesAut(), false);
+            tiposEventoTemp = getSelectItemList(notasContablesManager.getCV(TipoEvento.class), false);
+            for (SelectItem tp :tiposEventoTemp){
+                tiposEvento.add(new SelectItem(Integer.parseInt(String.valueOf(tp.getValue())),tp.getLabel()));
+            }
+            temasAutTemp = getSelectItemList(notasContablesManager.getCV(TemaAutorizacion.class), false);
+            for (SelectItem ta :temasAutTemp){
+                temasAut.add(new SelectItem(Integer.parseInt(String.valueOf(ta.getValue())),ta.getLabel()));
+            }
+            entesAutTemp = getSelectItemList(notasContablesManager.getCVEntesAut(), false);
+            for (SelectItem ea :entesAutTemp){
+                entesAut.add(new SelectItem(Integer.parseInt(String.valueOf(ea.getValue())),ea.getLabel()));
+            }
         } catch (Exception e) {
 //				LOGGER.error("{} Error al inicializar el mdulo de administración de montos autorizados ", session.getTraceLog(), e);
             nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al inicializar el mdulo de administración de montos autorizados");

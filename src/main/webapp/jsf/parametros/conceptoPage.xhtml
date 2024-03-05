@@ -61,22 +61,22 @@
                     <p:selectBooleanCheckbox value="#{conceptoPage.objActual.boolVistoBuenoAnalisis}">
                         <p:ajax event="change" update="uniAnalisis"/>
                     </p:selectBooleanCheckbox>
-                    <p:selectOneMenu id="menuSelect" value="#{conceptoPage.objActual.codigoUnidadAnalisis}"
+                    <p:selectOneMenu id="menuSelect" value="#{conceptoPage.objActual.codigoUnidadAnalisisTemp}"
                                      immediate="true"
                                      rendered="#{conceptoPage.objActual.boolVistoBuenoAnalisis}"
                                      converter="javax.faces.Integer">
+                        <f:selectItem itemValue="-1" itemLabel="Seleccione una opcion"/>
                         <f:selectItems value="#{conceptoPage.unidadesAnalisis}"/>
-                        <f:selectItem itemValue="0" itemLabel="Seleccione una opcion"/>
                     </p:selectOneMenu>
                 </h:panelGrid>
 
                 <h:panelGrid columns="2" columnClasses="name,value">
                     <h:outputText value="Tema de Autorización"/>
-                    <p:selectOneMenu id="menuSelectDos" value="#{conceptoPage.objActual.codigoTemaAutorizacion}"
+                    <p:selectOneMenu id="menuSelectDos" value="#{conceptoPage.objActual.codigoTemaAutorizacionTemp}"
                                      immediate="true"
                                      converter="javax.faces.Integer">
+                        <f:selectItem itemValue="-1" itemLabel="Ninguna"/>
                         <f:selectItems value="#{conceptoPage.temasAut}"/>
-                        <f:selectItem itemValue="0" itemLabel="Ninguna"/>
                     </p:selectOneMenu>
 
                     <h:outputText value="Centros Autorizados"/>
@@ -200,12 +200,10 @@
                                                          target="#{conceptoPage.objActual.codigo}"/>
                             <f:setPropertyActionListener value="#{dato.nombre}"
                                                          target="#{conceptoPage.objActual.nombre}"/>
-                            <f:setPropertyActionListener for="teAuEdit" value="#{dato.codigoUnidadAnalisis}"
-                                                         target="#{conceptoPage.objActual.codigoUnidadAnalisis}"
-                                                         converter="javax.faces.Integer"/>
+                            <f:setPropertyActionListener value="#{dato.codigoUnidadAnalisis}"
+                                                         target="#{conceptoPage.objActual.codigoUnidadAnalisisTemp}"/>
                             <f:setPropertyActionListener value="#{dato.codigoTemaAutorizacion}"
-                                                         target="#{conceptoPage.objActual.codigoTemaAutorizacion}"
-                                                         converter="javax.faces.Integer"/>
+                                                         target="#{conceptoPage.objActual.codigoTemaAutorizacionTemp}"/>
                             <f:setPropertyActionListener value="#{dato.centrosAutSucursales eq 'S'}"
                                                          target="#{conceptoPage.objActual.boolCentrosAutSucursales}"/>
                             <f:setPropertyActionListener value="#{dato.centrosAutAreasCentrales eq 'S'}"
