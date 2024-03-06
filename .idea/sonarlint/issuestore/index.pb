@@ -516,3 +516,9 @@ q
 Asrc/main/java/co/com/bbva/app/notas/contables/util/DateUtils.java,2/0/202e61d53538c6ec78884262b44ebffe76109a49
 q
 Asrc/main/java/co/com/bbva/app/notas/contables/dto/TipoEvento.java,e/0/e01698b1b87b7e080da27f560befc269c584aaf4
+r
+Bsrc/main/java/co/com/bbva/app/notas/contables/dao/ConceptoDAO.java,3/c/3c12dbed7bd4d53e0a2854635a13abb063143eac
+v
+Fsrc/main/java/co/com/bbva/app/notas/contables/dto/MontoAutorizado.java,7/e/7ef6efac682e66100473ca5c4a3304bcacf7d671
+}
+Msrc/main/java/co/com/bbva/app/notas/contables/dto/MontoAutorizadoGeneral.java,9/6/967c961b118daae9ebd3c4f77690b26c97970dc8

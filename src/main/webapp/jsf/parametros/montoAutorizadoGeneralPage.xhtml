@@ -84,21 +84,21 @@
             <h:panelGrid columns="1" width="700" id="informacion">
                 <h:panelGrid columns="2" width="700" columnClasses="name,value">
                     <h:outputText value="Tipo de Evento"/>
-                    <p:selectOneMenu value="#{montoAutorizadoGeneralPage.objActual.codigoTipoAutorizacion}"
+                    <p:selectOneMenu value="#{montoAutorizadoGeneralPage.objActual.codigoTipoAutorizacionTemp}"
                                      immediate="true" converter="javax.faces.Integer">
                         <f:selectItem itemValue="-1" itemLabel="Seleccione una opcion"/>
                         <f:selectItems value="#{montoAutorizadoGeneralPage.tiposEvento}"/>
                     </p:selectOneMenu>
 
                     <h:outputText value="Rol"/>
-                    <p:selectOneMenu value="#{montoAutorizadoGeneralPage.objActual.codigoRol}" immediate="true"
+                    <p:selectOneMenu value="#{montoAutorizadoGeneralPage.objActual.codigoRolTemp}" immediate="true"
                                      converter="javax.faces.Integer">
                         <f:selectItem itemValue="-1" itemLabel="Seleccione una opcion"/>
                         <f:selectItems value="#{montoAutorizadoGeneralPage.roles}"/>
                     </p:selectOneMenu>
 
                     <h:outputText value="Tema de Autorización"/>
-                    <p:selectOneMenu value="#{montoAutorizadoGeneralPage.objActual.codigoTemaAutorizacion}"
+                    <p:selectOneMenu value="#{montoAutorizadoGeneralPage.objActual.codigoTemaAutorizacionTemp}"
                                      immediate="true" converter="javax.faces.Integer">
                         <f:selectItem itemValue="-1" itemLabel="Seleccione una opcion"/>
                         <f:selectItems value="#{montoAutorizadoGeneralPage.temasAut}"/>
@@ -233,22 +233,17 @@
                         </f:facet>
                         <p:commandButton oncomplete="PF('editor').show()" update="globalForm:editor"
                                          style="width: 24px; height: 24px; padding: 0; background-image: url('#{request.contextPath}/common/images/edit.png'); background-size: cover; border-radius: 50%;" value="" alt="Editar">
-                            <f:setPropertyActionListener for="codEdit" value="#{dato.codigo}"
-                                                         target="#{montoAutorizadoGeneralPage.objActual.codigo}"
-                                                         converter="javax.faces.Integer"/>
-                            <f:setPropertyActionListener for="codTipoAut" value="#{dato.codigoTipoAutorizacion}"
-                                                         target="#{montoAutorizadoGeneralPage.objActual.codigoTipoAutorizacion}"
-                                                         converter="javax.faces.Integer"/>
-                            <f:setPropertyActionListener for="codRol" value="#{dato.codigoRol}"
-                                                         target="#{montoAutorizadoGeneralPage.objActual.codigoRol}"
-                                                         converter="javax.faces.Integer"/>
-                            <f:setPropertyActionListener for="codTemaAut" value="#{dato.codigoTemaAutorizacion}"
-                                                         target="#{montoAutorizadoGeneralPage.objActual.codigoTemaAutorizacion}"
-                                                         converter="javax.faces.Integer"/>
-                            <f:setPropertyActionListener for="codMonto" value="#{dato.monto}"
-                                                         target="#{montoAutorizadoGeneralPage.objActual.monto}"
-                                                         converter="javax.faces.Double"/>
-                            <f:setPropertyActionListener for="codEstado" value="#{dato.estado}"
+                            <f:setPropertyActionListener value="#{dato.codigo}"
+                                                         target="#{montoAutorizadoGeneralPage.objActual.codigo}"/>
+                            <f:setPropertyActionListener value="#{dato.codigoTipoAutorizacion}"
+                                                         target="#{montoAutorizadoGeneralPage.objActual.codigoTipoAutorizacionTemp}"/>
+                            <f:setPropertyActionListener value="#{dato.codigoRol}"
+                                                         target="#{montoAutorizadoGeneralPage.objActual.codigoRolTemp}"/>
+                            <f:setPropertyActionListener value="#{dato.codigoTemaAutorizacion}"
+                                                         target="#{montoAutorizadoGeneralPage.objActual.codigoTemaAutorizacionTemp}"/>
+                            <f:setPropertyActionListener value="#{dato.monto}"
+                                                         target="#{montoAutorizadoGeneralPage.objActual.monto}"/>
+                            <f:setPropertyActionListener value="#{dato.estado}"
                                                          target="#{montoAutorizadoGeneralPage.objActual.estado}"/>
                         </p:commandButton>
                     </p:column>

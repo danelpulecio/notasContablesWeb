@@ -29,9 +29,12 @@ public class MontoAutorizadoGeneralPage extends GeneralParametrosPage<MontoAutor
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MontoAutorizadoGeneralPage.class);
 
-    private List<SelectItem> tiposEvento;
-    private List<SelectItem> roles;
-    private List<SelectItem> temasAut;
+    private List<SelectItem> tiposEvento = new ArrayList<>();
+    private List<SelectItem> tiposEventoTemp = new ArrayList<>();
+    private List<SelectItem> roles = new ArrayList<>();
+    private List<SelectItem> rolesTemp = new ArrayList<>();
+    private List<SelectItem> temasAut = new ArrayList<>();
+    private List<SelectItem> temasAutTemp = new ArrayList<>();
 
     //	Session session = getContablesSessionBean().getSessionTrace();
     @PostConstruct
@@ -56,11 +59,11 @@ public class MontoAutorizadoGeneralPage extends GeneralParametrosPage<MontoAutor
         return new MontoAutorizadoGeneral();
     }
 
-    @Override
-    protected void _init() {
-        super._init();
-        consultarListasAuxiliares();
-    }
+//    @Override
+//    protected void _init() {
+//        super._init();
+//        consultarListasAuxiliares();
+//    }
 
     /**
      * Se realiza el proceso de busqueda completo de entidades de tipo MontoAutorizadoGeneral
@@ -98,6 +101,9 @@ public class MontoAutorizadoGeneralPage extends GeneralParametrosPage<MontoAutor
     @Override
     protected boolean _guardar() throws Exception {
         Number codInicial = objActual.getCodigo();
+        objActual.setCodigoRol(objActual.getCodigoRolTemp());
+        objActual.setCodigoTemaAutorizacion(objActual.getCodigoTemaAutorizacionTemp());
+        objActual.setCodigoTipoAutorizacion(objActual.getCodigoTipoAutorizacionTemp());
         try {
             if (objActual.getCodigo().intValue() <= 0) {
                 LOGGER.info("{} Crea monto autorizado general: {}", objActual.getCodigoTipoAutorizacion() + " " + objActual.getCodigoRol() + " " + objActual.getCodigoTemaAutorizacion());
@@ -119,13 +125,13 @@ public class MontoAutorizadoGeneralPage extends GeneralParametrosPage<MontoAutor
     @Override
     protected void _validar() throws Exception {
         validador.validarPositivo(objActual.getMonto(), "Lmite");
-        if (objActual.getCodigoTipoAutorizacion().intValue() <= 0) {
+        if (objActual.getCodigoTipoAutorizacionTemp().intValue() <= 0) {
             nuevoMensaje(FacesMessage.SEVERITY_WARN, "Debe seleccionar un tipo de enveto");
         }
-        if (objActual.getCodigoRol().intValue() <= 0) {
+        if (objActual.getCodigoRolTemp().intValue() <= 0) {
             nuevoMensaje(FacesMessage.SEVERITY_WARN, "Debe seleccionar un rol");
         }
-        if (objActual.getCodigoTemaAutorizacion().intValue() <= 0) {
+        if (objActual.getCodigoTemaAutorizacionTemp().intValue() <= 0) {
             nuevoMensaje(FacesMessage.SEVERITY_WARN, "Debe seleccionar un tema de autorizacin");
         }
     }
@@ -158,9 +164,19 @@ public class MontoAutorizadoGeneralPage extends GeneralParametrosPage<MontoAutor
     private void consultarListasAuxiliares() {
 //		if (esUltimaFase()) {
         try {
-            tiposEvento = getSelectItemList(notasContablesManager.getCV(TipoEvento.class), false);
-            temasAut = getSelectItemList(notasContablesManager.getCV(TemaAutorizacion.class), false);
-            roles = getSelectItemList(notasContablesManager.getCV(Rol.class), false);
+            tiposEventoTemp = getSelectItemList(notasContablesManager.getCV(TipoEvento.class), false);
+            LOGGER.info("tipo esvento :{}", tiposEventoTemp.size());
+            for (SelectItem tp :tiposEventoTemp){
+                tiposEvento.add(new SelectItem(Integer.parseInt(String.valueOf(tp.getValue())),tp.getLabel()));
+            }
+            temasAutTemp = getSelectItemList(notasContablesManager.getCV(TemaAutorizacion.class), false);
+            for (SelectItem ta :temasAutTemp){
+                temasAut.add(new SelectItem(Integer.parseInt(String.valueOf(ta.getValue())),ta.getLabel()));
+            }
+            rolesTemp = getSelectItemList(notasContablesManager.getCV(Rol.class), false);
+            for (SelectItem rt :rolesTemp){
+                roles.add(new SelectItem(Integer.parseInt(String.valueOf(rt.getValue())),rt.getLabel()));
+            }
         } catch (Exception e) {
             LOGGER.error("{} Error al inicializar el mdulo de administración de montos autorizados generales ", e);
             nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al inicializar el mdulo de administración de montos autorizados generales");

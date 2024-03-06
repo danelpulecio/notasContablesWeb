@@ -24,8 +24,10 @@ public class Concepto extends CommonVO<Concepto> implements Comparable<Concepto>
 	private String nombre = "";
 	@Columna(nombreDB = "CODIGO_UNIDAD_ANALISIS", nombreApp = "codigoUnidadAnalisis")
 	private Number codigoUnidadAnalisis = 0;
+	private Integer codigoUnidadAnalisisTemp = 0;
 	@Columna(nombreDB = "CODIGO_TEMA_AUTORIZACION", nombreApp = "codigoTemaAutorizacion")
 	private Number codigoTemaAutorizacion = 0;
+	private Integer codigoTemaAutorizacionTemp = 0;
 	@Columna(nombreDB = "CEN_AUT_SUC", nombreApp = "centrosAutorizadosSucursales")
 	private String centrosAutSucursales = "N";
 	@Columna(nombreDB = "CEN_AUT_ARE", nombreApp = "centrosAutorizadosAreasCentrales")
@@ -78,11 +80,20 @@ public class Concepto extends CommonVO<Concepto> implements Comparable<Concepto>
 	public Number getCodigoUnidadAnalisis() {
 
 		LOGGER.info("CODIGO UNIDAD ANALISIS {}", codigoUnidadAnalisis);
+		LOGGER.info("CODIGO UNIDAD ANALISIS class {}", codigoUnidadAnalisis.getClass());
 		return codigoUnidadAnalisis;
 	}
 
 	public void setCodigoUnidadAnalisis(Number codigoUnidadAnalisis) {
 		this.codigoUnidadAnalisis = codigoUnidadAnalisis;
+	}
+
+	public Integer getCodigoUnidadAnalisisTemp() {
+		return codigoUnidadAnalisisTemp;
+	}
+
+	public void setCodigoUnidadAnalisisTemp(Integer codigoUnidadAnalisisTemp) {
+		this.codigoUnidadAnalisisTemp = codigoUnidadAnalisisTemp;
 	}
 
 	public Number getCodigoTemaAutorizacion() {
@@ -91,6 +102,14 @@ public class Concepto extends CommonVO<Concepto> implements Comparable<Concepto>
 
 	public void setCodigoTemaAutorizacion(Number codigoTemaAutorizacion) {
 		this.codigoTemaAutorizacion = codigoTemaAutorizacion;
+	}
+
+	public Integer getCodigoTemaAutorizacionTemp() {
+		return codigoTemaAutorizacionTemp;
+	}
+
+	public void setCodigoTemaAutorizacionTemp(Integer codigoTemaAutorizacionTemp) {
+		this.codigoTemaAutorizacionTemp = codigoTemaAutorizacionTemp;
 	}
 
 	public String getCentrosAutSucursales() {

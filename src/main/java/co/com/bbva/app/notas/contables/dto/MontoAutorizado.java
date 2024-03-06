@@ -13,10 +13,13 @@ public class MontoAutorizado extends CommonVO<MontoAutorizado> implements java.i
 	private Number codigo = 0;
 	@Columna(nombreDB = "CODIGO_TIPO_EVENTO", nombreApp = "codigoTipoAutorizacion")
 	private Number codigoTipoAutorizacion = 0;
+	private Integer codigoTipoAutorizacionTemp = 0;
 	@Columna(nombreDB = "CODIGO_ENTE_AUTORIZADOR", nombreApp = "codigoEnteAutorizador")
 	private Number codigoEnteAutorizador = 0;
+	private Integer codigoEnteAutorizadorTemp = 0;
 	@Columna(nombreDB = "CODIGO_TEMA_AUTORIZACION", nombreApp = "codigoTemaAutorizacion")
 	private Number codigoTemaAutorizacion = 0;
+	private Integer codigoTemaAutorizacionTemp = 0;
 	@Columna(nombreDB = "MONTO", nombreApp = "monto")
 	private Number monto = 0;
 	@Columna(nombreDB = "ESTADO", nombreApp = "estado", esEstado = true)
@@ -140,5 +143,29 @@ public class MontoAutorizado extends CommonVO<MontoAutorizado> implements java.i
 	@Override
 	public void restartPK(Object pk) {
 		codigo = Integer.valueOf(pk.toString());
+	}
+
+	public Integer getCodigoTipoAutorizacionTemp() {
+		return codigoTipoAutorizacionTemp;
+	}
+
+	public void setCodigoTipoAutorizacionTemp(Integer codigoTipoAutorizacionTemp) {
+		this.codigoTipoAutorizacionTemp = codigoTipoAutorizacionTemp;
+	}
+
+	public Integer getCodigoEnteAutorizadorTemp() {
+		return codigoEnteAutorizadorTemp;
+	}
+
+	public void setCodigoEnteAutorizadorTemp(Integer codigoEnteAutorizadorTemp) {
+		this.codigoEnteAutorizadorTemp = codigoEnteAutorizadorTemp;
+	}
+
+	public Integer getCodigoTemaAutorizacionTemp() {
+		return codigoTemaAutorizacionTemp;
+	}
+
+	public void setCodigoTemaAutorizacionTemp(Integer codigoTemaAutorizacionTemp) {
+		this.codigoTemaAutorizacionTemp = codigoTemaAutorizacionTemp;
 	}
 }

@@ -13,10 +13,13 @@ public class MontoAutorizadoGeneral extends CommonVO<MontoAutorizadoGeneral> imp
 	private Number codigo = 0;
 	@Columna(nombreDB = "CODIGO_TIPO_EVENTO", nombreApp = "codigoTipoAutorizacion")
 	private Number codigoTipoAutorizacion = 0;
+	private Integer codigoTipoAutorizacionTemp = 0;
 	@Columna(nombreDB = "CODIGO_ROL", nombreApp = "codigoRol")
 	private Number codigoRol = 0;
+	private Integer codigoRolTemp = 0;
 	@Columna(nombreDB = "CODIGO_TEMA_AUTORIZACION", nombreApp = "codigoTemaAutorizacion")
 	private Number codigoTemaAutorizacion = 0;
+	private Integer codigoTemaAutorizacionTemp = 0;
 	@Columna(nombreDB = "MONTO", nombreApp = "monto")
 	private Number monto = 0;
 	@Columna(nombreDB = "ESTADO", nombreApp = "estado", esEstado = true)
@@ -108,5 +111,29 @@ public class MontoAutorizadoGeneral extends CommonVO<MontoAutorizadoGeneral> imp
 	@Override
 	public void restartPK(Object pk) {
 		codigo = Integer.valueOf(pk.toString());
+	}
+
+	public Integer getCodigoTipoAutorizacionTemp() {
+		return codigoTipoAutorizacionTemp;
+	}
+
+	public void setCodigoTipoAutorizacionTemp(Integer codigoTipoAutorizacionTemp) {
+		this.codigoTipoAutorizacionTemp = codigoTipoAutorizacionTemp;
+	}
+
+	public Integer getCodigoRolTemp() {
+		return codigoRolTemp;
+	}
+
+	public void setCodigoRolTemp(Integer codigoRolTemp) {
+		this.codigoRolTemp = codigoRolTemp;
+	}
+
+	public Integer getCodigoTemaAutorizacionTemp() {
+		return codigoTemaAutorizacionTemp;
+	}
+
+	public void setCodigoTemaAutorizacionTemp(Integer codigoTemaAutorizacionTemp) {
+		this.codigoTemaAutorizacionTemp = codigoTemaAutorizacionTemp;
 	}
 }

@@ -91,9 +91,9 @@
                 </h:panelGrid>
                 <h:panelGrid columns="2" width="100%" rendered="#{!empty impuestoPage.cuentas }">
                     <h:outputText value="Partida Contable" style="width: 200px; font-weight: bold;"/>
-                    <h:selectOneMenu id="cuenta" value="#{impuestoPage.objActual.partidaContable}">
+                    <p:selectOneMenu id="cuenta" value="#{impuestoPage.objActual.partidaContable}">
                         <f:selectItems value="#{impuestoPage.cuentas}"/>
-                    </h:selectOneMenu>
+                    </p:selectOneMenu>
                 </h:panelGrid>
 
                 <!-- Seccion de mensajes y botones de envio y cancelacion-->

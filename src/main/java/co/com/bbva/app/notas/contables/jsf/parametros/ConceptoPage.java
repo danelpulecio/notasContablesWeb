@@ -10,6 +10,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -30,8 +31,10 @@ public class ConceptoPage extends GeneralParametrosPage<Concepto, Concepto> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ConceptoPage.class);
 
-	private List<SelectItem> unidadesAnalisis;
-	private List<SelectItem> temasAut;
+	private List<SelectItem> unidadesAnalisis = new ArrayList<>();
+	private List<SelectItem> unidadesAnalisisTem = new ArrayList<>();
+	private List<SelectItem> temasAut = new ArrayList<>();
+	private List<SelectItem> temasAutTemp = new ArrayList<>();
 
 	private String defaultValue;
 
@@ -106,6 +109,11 @@ public class ConceptoPage extends GeneralParametrosPage<Concepto, Concepto> {
 			objActual.setOrigenDestino(getStringFromBool(objActual.getBoolOrigenDestino()));
 			objActual.setSoportes(getStringFromBool(objActual.getBoolSoportes()));
 			objActual.setVistoBuenoAnalisis(getStringFromBool(objActual.getBoolVistoBuenoAnalisis()));
+			LOGGER.info("Obj actual codTemaAut {} ", objActual.getCodigoTemaAutorizacion());
+			LOGGER.info("Obj actual codTemaAut {} ", objActual.getCodigoTemaAutorizacionTemp());
+			objActual.setCodigoTemaAutorizacion(objActual.getCodigoTemaAutorizacionTemp());
+			LOGGER.info("Obj actual codTemaAut after {} ", objActual.getCodigoTemaAutorizacion());
+			objActual.setCodigoUnidadAnalisis(objActual.getCodigoUnidadAnalisisTemp());
 			if (!objActual.getBoolVistoBuenoAnalisis()) {
 				objActual.setCodigoUnidadAnalisis(0);
 			}
@@ -133,7 +141,7 @@ public class ConceptoPage extends GeneralParametrosPage<Concepto, Concepto> {
 	protected void _validar() throws Exception {
 		validador.validarRequerido(objActual.getNombre(), "Nombre");
 		if (objActual.getBoolVistoBuenoAnalisis()) {
-			validador.validarRequerido(objActual.getCodigoUnidadAnalisis(), "Unidad de anlisis");
+			validador.validarRequerido(objActual.getCodigoUnidadAnalisisTemp(), "Unidad de anlisis");
 		}
 		if (objActual.getBoolCentrosAutAreasCentrales() || objActual.getBoolCentrosAutCentroEspecial() || objActual.getBoolCentrosAutSucursales()) {
 			return;
@@ -174,8 +182,14 @@ public class ConceptoPage extends GeneralParametrosPage<Concepto, Concepto> {
 	private void consultarListasAuxiliares() {
 //		if (esUltimaFase()) {
 			try {
-				unidadesAnalisis = getSelectItemList(cargaAltamiraManager.getCVSucursal(), false);
-				temasAut = getSelectItemList(notasContablesManager.getCV(TemaAutorizacion.class), false);
+				unidadesAnalisisTem = getSelectItemList(cargaAltamiraManager.getCVSucursal(), false);
+				for (SelectItem unidadAnalisis : unidadesAnalisisTem){
+					unidadesAnalisis.add(new SelectItem(Integer.parseInt(String.valueOf(unidadAnalisis.getValue())),unidadAnalisis.getLabel()));
+				}
+				temasAutTemp = getSelectItemList(notasContablesManager.getCV(TemaAutorizacion.class), false);
+				for (SelectItem temaAut : temasAutTemp){
+					temasAut.add(new SelectItem(Integer.parseInt(String.valueOf(temaAut.getValue())), temaAut.getLabel()));
+				}
 			} catch (Exception e) {
 				LOGGER.error("{} Error al inicializar el mdulo de administración de conceptos",  e );
 				nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error al inicializar el mdulo de administración de conceptos");
@@ -195,6 +209,7 @@ public class ConceptoPage extends GeneralParametrosPage<Concepto, Concepto> {
 	public List<SelectItem> getUnidadesAnalisis() {
 		LOGGER.info("unidad de analisis label{}", unidadesAnalisis.get(8).getLabel());
 		LOGGER.info("unidad de analisis value{}", unidadesAnalisis.get(8).getValue());
+		LOGGER.info("unidad de analisis class value{}", unidadesAnalisis.get(8).getValue().getClass());
 		return unidadesAnalisis;
 	}
 

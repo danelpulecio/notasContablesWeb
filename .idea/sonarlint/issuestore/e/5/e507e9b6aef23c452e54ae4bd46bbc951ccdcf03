@@ -2,39 +2,39 @@
 {
 java:S2293y"YReplace the type specification in this constructor call with the diamond operator ("<>").(¦±Øùıÿÿÿÿ8’éñ®ß1
 ~
-java:S2629g"\Invoke method(s) only conditionally. Use the built-in formatting to construct this argument.(¯†òíøÿÿÿÿ8“éñ®ß1
-s	java:S116)"WRename this field "DIR_SOPORTES" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ù”ëş8›éñ®ß1
-~	java:S116*"]Rename this field "DIR_REPORTES_EXCEL" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ªúÒìûÿÿÿÿ8œéñ®ß1
-‚	java:S116+"aRename this field "DIR_RECEPCION_ALTAMIRA" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‰•ü™øÿÿÿÿ8œéñ®ß1
-	java:S116,"cRename this field "DIR_TRANSMISION_ALTAMIRA" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(É×˜à8œéñ®ß1
-u	java:S116-"TRename this field "DIR_CARGA" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‘éÿÿÿÿÿ8œéñ®ß1
-s	java:S116."WRename this field "ACTIVAR_LDAP" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(½¿±8œéñ®ß1
-t	java:S116/"SRename this field "DIR_SIRO" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(£ë½Àøÿÿÿÿ8œéñ®ß1
+java:S2629g"\Invoke method(s) only conditionally. Use the built-in formatting to construct this argument.(¯†òíøÿÿÿÿ8•”±Úà1
+s	java:S116)"WRename this field "DIR_SOPORTES" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ù”ëş8™”±Úà1
+~	java:S116*"]Rename this field "DIR_REPORTES_EXCEL" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ªúÒìûÿÿÿÿ8™”±Úà1
+‚	java:S116+"aRename this field "DIR_RECEPCION_ALTAMIRA" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‰•ü™øÿÿÿÿ8™”±Úà1
+	java:S116,"cRename this field "DIR_TRANSMISION_ALTAMIRA" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(É×˜à8™”±Úà1
+u	java:S116-"TRename this field "DIR_CARGA" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‘éÿÿÿÿÿ8™”±Úà1
+s	java:S116."WRename this field "ACTIVAR_LDAP" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(½¿±8™”±Úà1
+t	java:S116/"SRename this field "DIR_SIRO" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(£ë½Àøÿÿÿÿ8™”±Úà1
 d
-java:S6813"BRemove this field injection and use constructor injection instead.(Áº–üÿÿÿÿ8œéñ®ß1
+java:S6813"BRemove this field injection and use constructor injection instead.(Áº–üÿÿÿÿ8š”±Úà1
 [
-java:S59931"9Change the visibility of this constructor to "protected".(³Ì›¶şÿÿÿÿ8œéñ®ß1
+java:S59931"9Change the visibility of this constructor to "protected".(³Ì›¶şÿÿÿÿ8š”±Úà1
 M
-java:S1948#"+Make "validador" transient or serializable.(¥æã·úÿÿÿÿ8œéñ®ß1
+java:S1948#"+Make "validador" transient or serializable.(¥æã·úÿÿÿÿ8š”±Úà1
 I
-java:S1948&",Make "properties" transient or serializable.(´Å¾ì8œéñ®ß1
+java:S1948&",Make "properties" transient or serializable.(´Å¾ì8š”±Úà1
 N
-java:S14815",Remove this unused "context" local variable.(Œ³±Êùÿÿÿÿ8¯éñ®ß1
-X	java:S125:"<This block of commented-out lines of code should be removed.(æ›ÔÁ8¯éñ®ß1
-]	java:S125<"<This block of commented-out lines of code should be removed.(§Êˆßşÿÿÿÿ8¯éñ®ß1
-X	java:S125>"<This block of commented-out lines of code should be removed.(½¢Ã›8¯éñ®ß1
-X	java:S125@"<This block of commented-out lines of code should be removed.(äùì8¯éñ®ß1
-]	java:S125B"<This block of commented-out lines of code should be removed.(½Å£—ûÿÿÿÿ8¯éñ®ß1
-X	java:S125G"<This block of commented-out lines of code should be removed.(íÂÆÌ8°éñ®ß1
+java:S14815",Remove this unused "context" local variable.(Œ³±Êùÿÿÿÿ8¹”±Úà1
+X	java:S125:"<This block of commented-out lines of code should be removed.(æ›ÔÁ8º”±Úà1
+]	java:S125<"<This block of commented-out lines of code should be removed.(§Êˆßşÿÿÿÿ8»”±Úà1
+X	java:S125>"<This block of commented-out lines of code should be removed.(½¢Ã›8»”±Úà1
+X	java:S125@"<This block of commented-out lines of code should be removed.(äùì8»”±Úà1
+]	java:S125B"<This block of commented-out lines of code should be removed.(½Å£—ûÿÿÿÿ8»”±Úà1
+X	java:S125G"<This block of commented-out lines of code should be removed.(íÂÆÌ8¼”±Úà1
 ˆ
-java:S1130L"lRemove the declaration of thrown exception 'java.io.IOException', as it cannot be thrown from method's body.(¬ø·P8™½·°ß1
-X	java:S125X"<This block of commented-out lines of code should be removed.(Š‹Ïú8Âæ€Òß1
-]	java:S125b"<This block of commented-out lines of code should be removed.(©ÌÉÍøÿÿÿÿ8Âæ€Òß1
+java:S1130L"lRemove the declaration of thrown exception 'java.io.IOException', as it cannot be thrown from method's body.(¬ø·P8¼”±Úà1
+X	java:S125X"<This block of commented-out lines of code should be removed.(Š‹Ïú8½”±Úà1
+]	java:S125b"<This block of commented-out lines of code should be removed.(©ÌÉÍøÿÿÿÿ8½”±Úà1
 c
-java:S3457g"AFormat specifiers should be used instead of string concatenation.(¯†òíøÿÿÿÿ8Âæ€Òß1
+java:S3457g"AFormat specifiers should be used instead of string concatenation.(¯†òíøÿÿÿÿ8½”±Úà1
 b
-java:S1128"@Remove this unused import 'javax.faces.context.ExternalContext'.(¢ŸïŞùÿÿÿÿ8œ½·°ß1
+java:S1128"@Remove this unused import 'javax.faces.context.ExternalContext'.(¢ŸïŞùÿÿÿÿ8À”±Úà1
 X
-java:S1128";Remove this unused import 'javax.servlet.ServletException'.(Š‰™Œ8œ½·°ß1
+java:S1128";Remove this unused import 'javax.servlet.ServletException'.(Š‰™Œ8À”±Úà1
 _
-java:S1128"BRemove this unused import 'javax.servlet.http.HttpServletRequest'.(ø©¹…8œ½·°ß1
+java:S1128"BRemove this unused import 'javax.servlet.http.HttpServletRequest'.(ø©¹…8À”±Úà1
