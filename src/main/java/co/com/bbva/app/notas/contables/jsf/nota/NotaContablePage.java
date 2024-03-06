@@ -57,7 +57,7 @@ import co.com.bbva.app.notas.contables.util.StringUtils;
  * Pagina para manejar la administración de parametros relacionados con la entidad TipoEvento
  * </p>
  */
-@ViewScoped
+@SessionScoped
 @Named
 public class NotaContablePage extends FlujoNotaContablePage implements Serializable {
 
@@ -700,7 +700,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
                     nombreTercero = tercero.getPrimerNombre().trim() + " " + tercero.getPrimerApellido().trim() + " " + tercero.getSegundoApellido().trim();
                 } else {
                     LOGGER.warn("{} No se encontró Info. del tercero consultado: {}", numero);
-                    nuevoMensaje(FacesMessage.SEVERITY_WARN, "No se encontró ningún cliente ni tercero con la combinacin tipo y número de identificación");
+                    nuevoMensaje(FacesMessage.SEVERITY_WARN, "No se encontró ningún cliente ni tercero con la combinación tipo y número de identificación");
                 }
             }
             LOGGER.info("{} Estableciendo atributos del tercero");

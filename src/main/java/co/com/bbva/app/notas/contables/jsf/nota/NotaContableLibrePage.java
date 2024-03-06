@@ -553,7 +553,7 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 					nombreTercero = tercero.getPrimerNombre().trim() + " " + tercero.getPrimerApellido().trim() + " " + tercero.getSegundoApellido().trim();
 				} else {
 					LOGGER.warn("{} No se encontró Info. del tercero consultado: {}", numero);
-					nuevoMensaje(FacesMessage.SEVERITY_WARN, "No se encontró ningún cliente ni tercero con la combinacin tipo y número de identificación");
+					nuevoMensaje(FacesMessage.SEVERITY_WARN, "No se encontró ningún cliente ni tercero con la combinación tipo y número de identificación");
 				}
 			}
 			LOGGER.info("{} Estableciendo atributos del tercero");

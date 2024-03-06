@@ -489,11 +489,11 @@ public class NotaRefCrucePage extends GeneralPage implements IPages, Serializabl
 				}
 			} else {
 				nuevoMensaje(FacesMessage.SEVERITY_INFO,
-						"Se present un error al rechazar la nota: Verfique que el Aplicativo Notas Contables /n est  abierto en  un nico navegador Web y en una nica pestaa. ");
+						"Se presentó un error al rechazar la nota: Verfique que el Aplicativo Notas Contables /n está  abierto en  un único navegador Web y en una nica pestaña. ");
 				return null;
 			}
 		} catch (Exception e) {
-			lanzarError(e, "Se present un error al rechazar la nota contable");
+			lanzarError(e, "Se presentó un error al rechazar la nota contable");
 		}
 		return null;
 	}
@@ -535,13 +535,13 @@ public class NotaRefCrucePage extends GeneralPage implements IPages, Serializabl
 				ocultarPopupAnular = true;
 			} else {
 				nuevoMensaje(FacesMessage.SEVERITY_INFO,
-						"Se present un error al anular la nota: Verfique que el Aplicativo Notas Contables /n est  abierto en  un nico navegador Web y en una nica pestaa. ");
+						"Se presentó un error al anular la nota: Verfique que el Aplicativo Notas Contables /n está  abierto en  un único navegador Web y en una única pestaña. ");
 				ocultarPopupAnular = false;
 
 				return null;
 			}
 		} catch (Exception e) {
-			lanzarError(e, "Se present un error al anular la nota contable");
+			lanzarError(e, "Se presentó un error al anular la nota contable");
 		}
 		return null;
 	}

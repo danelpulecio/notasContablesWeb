@@ -20,7 +20,7 @@
                                     id="hidelinkEstado" height="20" width="20"/>
                 </h:panelGroup>
             </f:facet>
-
+			
             <!-- Campos del formulario -->
             <h:panelGrid columns="1" width="850" id="informacion" rendered="#{centroDestinoPage.validSelection}">
                 <h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="5">
@@ -75,10 +75,12 @@
                     <ui:include src="../../common/mensajes.xhtml"/>
                 </h:panelGroup>
             </h:panelGrid>
+            
             <h:panelGroup id="msg_centroDestinoAction">
                 <ui:include src="../../common/mensajes.xhtml"/>
             </h:panelGroup>
         </p:dialog>
+        
         <!--Filtro de busqueda	-->
         <div style="width: 1200px;">
             <h:panelGrid columns="1" width="100%">

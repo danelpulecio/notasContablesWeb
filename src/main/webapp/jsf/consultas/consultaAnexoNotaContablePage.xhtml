@@ -41,7 +41,7 @@
 						<h:outputText value="Asiento contable Altamira" rendered="#{consultaNotaContablePage.criterio eq '2'}" />
 						<p:inputText value="#{consultaNotaContablePage.asientoContable}" rendered="#{consultaNotaContablePage.criterio eq '2'}" />
 						<h:outputText value="Fecha Radicación Módulo" rendered="#{!(consultaNotaContablePage.criterio eq '1')}" />
-						<p:calendar value="#{consultaNotaContablePage.fecha}" rendered="#{!(consultaNotaContablePage.criterio eq '1')}" />
+						<p:calendar value="#{consultaNotaContablePage.fecha}" showOn="button" navigator="true" rendered="#{!(consultaNotaContablePage.criterio eq '1')}" />
 					</h:panelGrid>
 
 					<h:panelGrid columns="1" styleClass="center">

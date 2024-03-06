@@ -192,6 +192,8 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
                 LOGGER.info("Carga sucursales paso 3 centros autorizadosSel: {}", centrosAutSel);
                 selccionarTipoCentro();
             } else {
+            	
+            	this.isValidSelection = false;
                 LOGGER.info("No selecciono registro");
                 nuevoMensaje(FacesMessage.SEVERITY_WARN, "Debe seleccionar por lo menos un registro");
             }
@@ -412,9 +414,11 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
         boolean indValido = true;
         isValidSelection = true;
         for (PUC row : getDatos()) {
+        	LOGGER.info("GeneralCentroPage : seleccionValida : ENTRANDO POR EL FOR DE LOS DATOS");
             // se evaluan las cuentas seleccionadas
             if (row.getSelected()) {
                 if (count != 0) {
+                	LOGGER.info("GeneralCentroPage : seleccionValida : ENTRANDO POR EL IF DE LOS SELECCIONADOS");
                     if (!tipoCentro.equals(origen ? row.getTipoCentroOrigenAutorizado() : row.getTipoCentroDestinoAutorizado())) {
                         indValido = false;
                     }
@@ -425,6 +429,7 @@ public abstract class GeneralCentroPage extends GeneralParametrosPage<PUC, PUC> 
                         indValido = false;
                     }
                 } else {
+                	LOGGER.info("GeneralCentroPage : seleccionValida : ENTRANDO POR EL ELSE DE LOS SELECCIONADOS --> {}",origen);
                     if (origen) {
                         tipoCentro = row.getTipoCentroOrigenAutorizado() != null ? row.getTipoCentroOrigenAutorizado() : "";
                         indicadorCentro = row.getIndicadorCentroOrigen() != null ? row.getIndicadorCentroOrigen() : "";

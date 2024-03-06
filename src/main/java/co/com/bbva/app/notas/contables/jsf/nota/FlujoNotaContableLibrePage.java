@@ -222,7 +222,7 @@ public class FlujoNotaContableLibrePage extends GeneralPage implements IPages {
 					codigoUsuarioAsignado = evaluoActividad;
 				} else {
 					nuevoMensaje(FacesMessage.SEVERITY_INFO,
-							"Se presentó un error al aprobar la nota: Verfique que el Aplicativo Notas Contables est  abierto en  un nico navegador Web y en una nica pestaa.  ");
+							"Se presentó un error al aprobar la nota: Verfique que el Aplicativo Notas Contables esté  abierto en  un nico navegador Web y en una única pestaña.  ");
 
 					return null;
 				}

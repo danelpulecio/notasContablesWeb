@@ -116,7 +116,7 @@
                             <h:outputText styleClass="bold" value="Fecha Contable"/>
 
                             <p:calendar id="fecha" value="#{notaContablePage.fechaContablePF}"
-                                        immediate="false" showOn="button">
+                                        immediate="false" showOn="button" navigator="true">
                                 <p:ajax event="dateSelect" listener="#{notaContablePage.validarFecha}"
                                         update="globalForm:fecha,globalForm:informacion"/>
                             </p:calendar>
@@ -207,7 +207,7 @@
                                                 <h:panelGrid columns="1" id="filtroTercero1" cellspacing="0"
                                                              cellpadding="0" style="border-collapse: collapse;">
                                                     <p:commandButton action="#{notaContablePage.buscarTercero1}"
-                                                                     update="globalForm:documentoTercero1,globalForm:tercero1,globalForm:documentoTercero2,globalForm:tercero2"
+                                                                     update="globalForm:documentoTercero1,globalForm:tercero1,globalForm:documentoTercero2,globalForm:tercero2,globalForm:msgRegistroNotas"
                                                                      style="margin: 0; margin-left: 8px;"
                                                                      value="Buscar" status="status"
                                                                      rendered="#{!empty notaContablePage.temaActual.tipoIdentificacion1 and !empty notaContablePage.temaActual.numeroIdentificacion1}"/>
@@ -581,9 +581,9 @@
 
                             </p:dataTable>
                         </h:panelGrid>
-			                <h:panelGroup id="msgRegistroNotas">
-			                    <ui:include src="../../common/mensajes.xhtml"/>
-			                </h:panelGroup>
+		                <h:panelGroup id="msgRegistroNotas">
+		                    <ui:include src="../../common/mensajes.xhtml"/>
+		                </h:panelGroup>
                     </h:panelGrid>
                 </div>
             </h:panelGroup>
@@ -630,14 +630,14 @@
 
                 <!-- seccion de riesgo operacional -->
                 <p:dialog id="modalRiesgo" widgetVar="modalRiesgo" domElementAttachment="form" autosized="true"
-                          showEffect="fade" hideEffect="explode" modal="false" position="center center">
+                          showEffect="fade" hideEffect="explode" modal="false" position="center,center" width="1100px" height="450px">
                     <f:facet name="header">
                         <h:panelGroup>
                             <h:outputText styleClass="bold"
                                           value="Riesgo operacional para el tema: #{notaContablePage.temaActual.tema.nombre}"/>
                         </h:panelGroup>
                     </f:facet>
-                    <h:panelGrid width="550" style="text-align: left;">
+                    <h:panelGrid width="auto" style="text-align: left;">
                         <h:panelGrid columns="3" width="100%">
                             <h:outputText styleClass="bold" value="Importe Total" style="width:150px;"/>
                             <p:inputText value="#{notaContablePage.temaActual.riesgoOperacional.importeTotal}" size="16"
@@ -681,17 +681,18 @@
 
                             <h:outputText styleClass="bold; width:191px;" value="Fecha Inicial del Evento"/>
                             <p:calendar value="#{notaContablePage.temaActual.riesgoOperacional.fechaEventoPF}"
-                                        isDayEnabled="isDayEnabledRiesgoNC" id="fechaEvento" showOn="button"/>
+                            			onkeydown="return event.key !== 'Enter';"
+                                        isDayEnabled="isDayEnabledRiesgoNC" id="fechaEvento" showOn="button" navigator="true"/>
 
                             <h:outputText styleClass="bold" value="Fecha Finalización del Evento"/>
                             <p:calendar value="#{notaContablePage.temaActual.riesgoOperacional.fechaFinEventoPF}"
-                                        isDayEnabled="isDayEnabledRiesgoNC" id="idFechaFinEvento" showOn="button"/>
+                            			onkeydown="return event.key !== 'Enter';"
+                                        isDayEnabled="isDayEnabledRiesgoNC" id="idFechaFinEvento" showOn="button" navigator="true"/>
 
                             <h:outputText styleClass="bold" value="Fecha del Descubrimiento"/>
-                            <p:calendar
-                                    value="#{notaContablePage.temaActual.riesgoOperacional.fechaDescubrimientoEventoPF}"
-                                    isDayEnabled="isDayEnabledRiesgoNC"
-                                    id="fechaDescubrimiento" showOn="button"/>
+                            <p:calendar value="#{notaContablePage.temaActual.riesgoOperacional.fechaDescubrimientoEventoPF}"
+                                    isDayEnabled="isDayEnabledRiesgoNC" onkeydown="return event.key !== 'Enter';"
+                                    id="fechaDescubrimiento" showOn="button" navigator="true"/>
 
                         </h:panelGrid>
 
@@ -886,7 +887,7 @@
                             </p:outputPanel>
                             <p:outputPanel id="panelFechaValue" ajaxRendered="true">
                                 <p:calendar value="#{notaContablePage.temaActual.riesgoOperacional.fechaRecuperacionPF}"
-                                            isDayEnabled="isDayEnabledRiesgoNC" id="fechaRecuperacion"
+                                            isDayEnabled="isDayEnabledRiesgoNC" id="fechaRecuperacion" navigator="true" showOn="button"
                                             rendered="#{notaContablePage.temaActual.riesgoOperacional.appRecuperacion eq 'S'}"/>
                             </p:outputPanel>
 
