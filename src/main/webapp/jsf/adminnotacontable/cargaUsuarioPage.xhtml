@@ -21,35 +21,34 @@
                         <p:tab title="Filtro de búsqueda">
                             <h:panelGrid columns="2" width="100%" cellpadding="0" cellspacing="5">
                                 <h:outputText value="Sucursal Origen"/>
-                                <h:selectOneMenu value="#{cargaUsuarioPage.sucursal}" immediate="true">
+                                <p:selectOneMenu value="#{cargaUsuarioPage.sucursal}"> 
                                     <f:selectItems value="#{cargaUsuarioPage.sucursales}"/>
-                                </h:selectOneMenu>
+                                </p:selectOneMenu>
                                 <h:outputText value="Rol"/>
-                                <h:selectOneMenu value="#{cargaUsuarioPage.rol}" immediate="true">
+                                <p:selectOneMenu value="#{cargaUsuarioPage.rol}">
                                     <f:selectItems value="#{cargaUsuarioPage.roles}"/>
-                                </h:selectOneMenu>
+                                </p:selectOneMenu>
                                 <h:outputText value="Estado"/>
-                                <h:selectOneMenu value="#{cargaUsuarioPage.estado}" immediate="true">
-                                    <f:selectItem itemValue="0"
-                                                  itemLabel="Pendiente de aprobación por Subgenrente, Gerente, Área Central"/>
+                                <p:selectOneMenu value="#{cargaUsuarioPage.estado}">
+                                    <f:selectItem itemValue="0" itemLabel="Pendiente de aprobación por Subgenrente, Gerente, Área Central"/>
                                     <f:selectItem itemValue="1" itemLabel="Pendiente de Revisión"/>
-                                    <f:selectItem itemValue="2"
-                                                  itemLabel="Pendiente de aprobación por Padrino - Unidad de Análisis"/>
+                                    <f:selectItem itemValue="2" itemLabel="Pendiente de aprobación por Padrino - Unidad de Análisis"/>
                                     <f:selectItem itemValue="3" itemLabel="Pendiente de aprobación ente Autorizador"/>
                                     <f:selectItem itemValue="4" itemLabel="Precierre"/>
-                                </h:selectOneMenu>
+                                </p:selectOneMenu>
                             </h:panelGrid>
 
                             <h:panelGrid columns="1" styleClass="center">
                                 <p:commandButton action="#{cargaUsuarioPage.buscar}"
-                                                 update="globalForm:informacion,globalForm:lista" value="Buscar"/>
+                                                 update="globalForm:informacion,globalForm:lista,globalForm:msgCargaLaboral" value="Buscar"/>
                             </h:panelGrid>
                         </p:tab>
                     </p:accordionPanel>
                 </h:panelGrid>
 
-                <ui:include src="../../common/mensajes.xhtml"/>
-
+				<h:panelGroup id="msgCargaLaboral">
+                	<ui:include src="../../common/mensajes.xhtml"/>
+				</h:panelGroup>
                 <!-- Tabla de registros -->
 
                 <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">

@@ -354,7 +354,7 @@ public class FlujoNotaContablePage extends GeneralPage implements IPages {
 				}
 			} else {
 				nuevoMensaje(FacesMessage.SEVERITY_INFO,
-						"Se present un error al rechazar la nota: Verfique que el Aplicativo Notas Contables /n est  abierto en  un nico navegador Web y en una nica pestaa. ");
+						"Se presentó un error al rechazar la nota: Verfique que el Aplicativo Notas Contables /n esté  abierto en  un nico navegador Web y en una única pestaña. ");
 				ocultarPopupAnular = false;
 				return null;
 			}
@@ -500,13 +500,13 @@ public class FlujoNotaContablePage extends GeneralPage implements IPages {
 		LOGGER.info("{} Validando la PARTIDA y CONTRAPARTIDA contra el PUC");
 		if (!cargaAltamiraManager.isSucursalValidaPUCOrigen(sucursal, partidaContable)) {
 			nuevoMensaje(FacesMessage.SEVERITY_WARN,
-					"La partida contable del tema (" + tema.getNombre() + " - " + tema.getPartidaContable() + ") no est autorizada en el PUC para el centro origen");
+					"La partida contable del tema (" + tema.getNombre() + " - " + tema.getPartidaContable() + ") no está autorizada en el PUC para el centro origen");
 			temaNota.setAutorizada(false);
 			LOGGER.warn("{} La PARTIDA CONTABLE: {} no est autorizada en el PUC", partidaContable);
 		}
 		if (!cargaAltamiraManager.isSucursalValidaPUCOrigen(sucursal, contraPartidaContable)) {
 			nuevoMensaje(FacesMessage.SEVERITY_WARN,
-					"La contrapartida contable del tema (" + tema.getNombre() + " - " + tema.getContraPartidaContable() + ") no est autorizada en el PUC para el centro origen");
+					"La contrapartida contable del tema (" + tema.getNombre() + " - " + tema.getContraPartidaContable() + ") no está autorizada en el PUC para el centro origen");
 			temaNota.setAutorizada(false);
 			LOGGER.warn("{} La CONTRAPARTIDA CONTABLE: {} no est autorizada en el PUC", contraPartidaContable);
 		}

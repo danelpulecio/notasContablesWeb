@@ -95,4 +95,29 @@
         <extension>xcss</extension>
         <mime-type>css/theme.xcss</mime-type>
     </mime-mapping>
+
+	<listener>
+		<listener-class>com.sun.faces.config.ConfigureListener</listener-class>
+	</listener>
+    
+    
+    <session-config>
+    	<session-timeout>1</session-timeout>
+	</session-config>
+	<error-page>
+        <error-code>404</error-code>
+        <location>/loginPage.xhtml</location>
+	</error-page>
+	<error-page>
+        <error-code>500</error-code>
+        <location>/loginPage.xhtml</location>
+	</error-page>
+		<error-page>
+        <error-code>401</error-code>
+        <location>/loginPage.xhtml</location>
+	</error-page>
+		<error-page>
+        <error-code>403</error-code>
+        <location>/loginPage.xhtml</location>
+	</error-page>
 </web-app>

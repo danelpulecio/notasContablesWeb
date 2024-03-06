@@ -48,7 +48,7 @@
                                                  rendered="#{consultaNotaContablePage.criterio eq '2'}"/>
                                     <h:outputText value="Fecha Radicación Módulo"
                                                   rendered="#{!(consultaNotaContablePage.criterio eq '1')}"/>
-                                    <p:calendar value="#{consultaNotaContablePage.fecha}"
+                                    <p:calendar value="#{consultaNotaContablePage.fecha}" showOn="button" navigator="true"
                                                 rendered="#{!(consultaNotaContablePage.criterio eq '1')}"/>
                                 </h:panelGrid>
 
@@ -67,6 +67,7 @@
                 <!-- Tabla de registros -->
 
                 <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
+                
 					<ui:include src="../../common/mensajes.xhtml"/>
 					
                     <p:dataTable value="#{consultaNotaContablePage.datos}"

@@ -370,19 +370,19 @@
                             
                             <p:calendar value="#{notaContableLibrePage.temaActual.riesgoOperacional.fechaEventoPF}"
                                         isDayEnabled="isDayEnabledRiesgo" dayStyleClass="getDisabledStyleRiesgo"
-                                        id="fechaEventoRegLibre" showOn="button"/>
+                                        id="fechaEventoRegLibre" showOn="button" navigator="true"/>
 
                             <p:outputLabel styleClass="propertie" value="Fecha Finalización del Evento : "/>
                             <p:calendar value="#{notaContableLibrePage.temaActual.riesgoOperacional.fechaFinEventoPF}"
                                         isDayEnabled="isDayEnabledRiesgo" dayStyleClass="getDisabledStyleRiesgo"
-                                        immediate="true" id="idfechaFinEventoLibre" showOn="button"/>
+                                        immediate="true" id="idfechaFinEventoLibre" showOn="button" navigator="true"/>
 
                             <p:outputLabel value="Fecha del Descubrimiento : " styleClass="propertie"/>
                             <p:calendar
                                     value="#{notaContableLibrePage.temaActual.riesgoOperacional.fechaDescubrimientoEventoPF}"
                                     isDayEnabled="isDayEnabledRiesgo"
                                     dayStyleClass="getDisabledStyleRiesgo" immediate="true"
-                                    id="fechaDescubrimientoRegLibre" showOn="button"/>
+                                    id="fechaDescubrimientoRegLibre" showOn="button" navigator="true"/>
 
                         </h:panelGrid>
                         
@@ -583,7 +583,7 @@
                                         isDayEnabled="isDayEnabledRiesgo" dayStyleClass="getDisabledStyleRiesgo"
                                         immediate="true" id="fechaRecuperacionLibre"
                                         rendered="#{notaContableLibrePage.temaActual.riesgoOperacional.appRecuperacion eq 'S'}"
-                                        showOn="button"/>
+                                        showOn="button" navigator="true"/>
                             </p:outputPanel>
 
                             <p:outputPanel id="panelHoraTxtLibre" ajaxRendered="true">
@@ -719,7 +719,7 @@
 
                 <h:outputText value="Fecha Contable" styleClass="propertie"/>
 
-                <p:calendar id="event" value="#{notaContableLibrePage.fechaNota}" showOn="button">
+                <p:calendar id="event" value="#{notaContableLibrePage.fechaNota}" showOn="button" navigator="true">
                     <p:ajax event="dateSelect" listener="#{notaContableLibrePage.validarFecha}" update="formRegLibre"/>
                 </p:calendar>
 
