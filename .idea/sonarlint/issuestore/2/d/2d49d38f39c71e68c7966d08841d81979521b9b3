@@ -4,9 +4,9 @@ a	java:S112<"FDefine and throw a dedicated exception instead of using a generi
 v
 java:S22931"YReplace the type specification in this constructor call with the diamond operator ("<>").(Üžˆ€8µÎÝËÑ1
 {
-java:S2293s"YReplace the type specification in this constructor call with the diamond operator ("<>").(ƒ­öàþÿÿÿÿ8Š™»Óß1
+java:S2293v"YReplace the type specification in this constructor call with the diamond operator ("<>").(ƒ­öàþÿÿÿÿ8Š™»Óß1
 {
-java:S2293y"YReplace the type specification in this constructor call with the diamond operator ("<>").(ƒ­öàþÿÿÿÿ8Š™»Óß1
+java:S2293|"YReplace the type specification in this constructor call with the diamond operator ("<>").(ƒ­öàþÿÿÿÿ8Š™»Óß1
 [
 java:S5993C"9Change the visibility of this constructor to "protected".(é‘¢¦ÿÿÿÿÿ8ÆÎÝËÑ1
 M
@@ -18,7 +18,7 @@ j	java:S1003"NRename this method name to match the regular expression '^[a-z][
 o	java:S1005"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(·Âûåûÿÿÿÿ8ÌÎÝËÑ1
 i	java:S100<"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³…À 8ÌÎÝËÑ1
 7
-java:S3457f"Not enough arguments.(Ž¿Ãýÿÿÿÿ8Á¹ç¨Ú1
-]	java:S125{"<This block of commented-out lines of code should be removed.(’Òóéýÿÿÿÿ8ÏÎÝËÑ1
+java:S3457i"Not enough arguments.(Ž¿Ãýÿÿÿÿ8Á¹ç¨Ú1
+]	java:S125~"<This block of commented-out lines of code should be removed.(’Òóéýÿÿÿÿ8ÏÎÝËÑ1
 n
 java:S1128"LRemove this unused import 'co.com.bbva.app.notas.contables.session.Session'.(•Ö¥åøÿÿÿÿ8ÐÎÝËÑ1
