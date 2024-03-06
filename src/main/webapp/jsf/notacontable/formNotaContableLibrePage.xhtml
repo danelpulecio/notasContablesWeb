@@ -91,8 +91,8 @@
             <ui:include src="../../common/mensajes.xhtml"/>
 
             <h:panelGrid columns="2" styleClass="center" width="100%">
-                <p:commandButton action="#{notaContableLibrePage.anular}" value="Si"
-                                 update="globalForm:botonesNotaRegLibre,lista,popupAnularNotaLibre,popupNotaContableLibre,globalForm:msgPendientes"/>
+                <p:commandButton action="#{notaContableLibrePage.anular}" value="Si" ajax="false"
+                                 update="globalForm:botonesNotaRegLibre,popupAnularNotaLibre"/>
 
                 <p:commandButton onclick="PF('popupAnularNotaLibre').hide()" value="No"/>
 
@@ -318,7 +318,7 @@
 
                 <!-- seccion de riesgo operacional -->
                 <p:dialog id="modalRiesgoRegLibre" widgetVar="modalRiesgoRegLibre" domElementAttachment="form" autosized="true"
-                          showEffect="fade" hideEffect="explode" modal="false" position="center center">
+                          showEffect="fade" hideEffect="explode" modal="false" position="center,center" width="1100px" height="450px">
                     <f:facet name="header">
                         <h:panelGroup>
                             <h:outputText value="Riesgo operacional"/>
@@ -368,17 +368,17 @@
                         <h:panelGrid columns="2" width="100%" id="fechasRiesgoLibre" style="text-align: left;">
                             <p:outputLabel styleClass="propertie" value="Fecha del Evento : "/>
                             
-                            <p:calendar value="#{notaContableLibrePage.temaActual.riesgoOperacional.fechaEventoPF}"
+                            <p:calendar value="#{notaContableLibrePage.temaActual.riesgoOperacional.fechaEventoPF}" onkeydown="return event.key !== 'Enter';"
                                         isDayEnabled="isDayEnabledRiesgo" dayStyleClass="getDisabledStyleRiesgo"
                                         id="fechaEventoRegLibre" showOn="button" navigator="true"/>
 
                             <p:outputLabel styleClass="propertie" value="Fecha Finalización del Evento : "/>
-                            <p:calendar value="#{notaContableLibrePage.temaActual.riesgoOperacional.fechaFinEventoPF}"
+                            <p:calendar value="#{notaContableLibrePage.temaActual.riesgoOperacional.fechaFinEventoPF}" onkeydown="return event.key !== 'Enter';"
                                         isDayEnabled="isDayEnabledRiesgo" dayStyleClass="getDisabledStyleRiesgo"
                                         immediate="true" id="idfechaFinEventoLibre" showOn="button" navigator="true"/>
 
                             <p:outputLabel value="Fecha del Descubrimiento : " styleClass="propertie"/>
-                            <p:calendar
+                            <p:calendar onkeydown="return event.key !== 'Enter';"
                                     value="#{notaContableLibrePage.temaActual.riesgoOperacional.fechaDescubrimientoEventoPF}"
                                     isDayEnabled="isDayEnabledRiesgo"
                                     dayStyleClass="getDisabledStyleRiesgo" immediate="true"
@@ -914,7 +914,7 @@
                              rendered="#{notaContableLibrePage.nota.codigo le 0 and !empty notaContableLibrePage.temasNotaContable and !empty notaContableLibrePage.anexos}"/>
 
             <p:commandButton action="#{notaContableLibrePage.guardarNota}" ajax="false"
-                             update="globalForm:botonesNotaRegLibre,lista,msgPpalRegistroLibre"
+                             update="globalForm:botonesNotaRegLibre,msgPpalRegistroLibre"
                              value="Enviar a Visto Bueno gt"
                              rendered="#{notaContableLibrePage.nota.codigo gt 0 and notaContableLibrePage.nota.puedeEditar and !empty notaContableLibrePage.temasNotaContable and !empty notaContableLibrePage.anexos}"/>
 
