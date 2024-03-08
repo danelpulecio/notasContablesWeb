@@ -122,24 +122,12 @@ public abstract class CommonDAO<T extends CommonVO<T>> extends SuperDAO<T> {
 	 * @throws Exception
 	 */
 	final public int add(Connection con, T row, int codigoUsuario) throws Exception {
-		LOGGER.info("Sql insert paso 10 {}", sql_INSERT_SENTENCE);
-		LOGGER.info("con paso 11 {}", con);
-		LOGGER.info("row paso 12 {}", row);
-		LOGGER.info("codigo usuario paso 13 {}", codigoUsuario);
 		if (sql_INSERT_SENTENCE != null) {
-			LOGGER.info("row.getPK paso 13.1 {}", row.getPK());
-			LOGGER.info("row.getPK class paso 13.1 {}", row.getPK().getClass());
 			Object idAnt = row.getPK();
-			LOGGER.info("CommonDAO : add : if : {}", idAnt);
 			try {
 				int id = 0;
-				LOGGER.info("Object idAnt {}", idAnt);
 				internalAdd(con, row);
-				LOGGER.info("Internal OK");
 				if (codigoUsuario >= 0) {
-					LOGGER.info("sql_SELECT_MAX_CODE_SENTENCE paso 13.2 {}", sql_SELECT_MAX_CODE_SENTENCE);
-					LOGGER.info("row.getPK paso 13.3 {}", row.getPK());
-					LOGGER.info("row.getPK class paso 13.4 {}", row.getPK().getClass());
 					if (sql_SELECT_MAX_CODE_SENTENCE != null) {
 						id = ((Integer) row.getPK()).intValue();
 					}
@@ -155,8 +143,6 @@ public abstract class CommonDAO<T extends CommonVO<T>> extends SuperDAO<T> {
 				return id;
 			} catch (Exception e) {
 				// si hay excepcion, se restaura el codigo asignado previamente
-				LOGGER.info("error SQL paso 14 {}", e.getMessage());
-				LOGGER.info("error cause SQL paso 14 {}", e.getCause());
 				if (sql_SELECT_MAX_CODE_SENTENCE != null) {
 					row.restartPK(idAnt);
 				}
@@ -429,10 +415,6 @@ public abstract class CommonDAO<T extends CommonVO<T>> extends SuperDAO<T> {
 		PreparedStatement ps = null;
 		ResultSet result = null;
 		try {
-			imprimirInfo("getByGeneral", sentence, params);
-			for (Object o : params) {
-				print(o.toString());
-			}
 			ps = con.prepareStatement(sentence);
 			for (int i = 0; i < params.length; i++) {
 				addParameter(ps, i + 1, params[i]);
@@ -445,7 +427,6 @@ public abstract class CommonDAO<T extends CommonVO<T>> extends SuperDAO<T> {
 					}
 					return getResultSetToVO(result, transformationKind);
 				} catch (Exception e) {
-					println("Error al convertir resultado a TO ");
 					e.printStackTrace();
 					throw e;
 				}
@@ -532,10 +513,6 @@ public abstract class CommonDAO<T extends CommonVO<T>> extends SuperDAO<T> {
 		PreparedStatement ps = null;
 		ResultSet result = null;
 		try {
-			imprimirInfo("findByGeneral", sentence, params);
-			for (Object o : params) {
-				print(o.toString());
-			}
 			ps = con.prepareStatement(sentence);
 			for (int i = 0; i < params.length; i++) {
 				addParameter(ps, i + 1, params[i]);
@@ -550,7 +527,6 @@ public abstract class CommonDAO<T extends CommonVO<T>> extends SuperDAO<T> {
 						rows.add(getResultSetToVO(result, transformationKind));
 					}
 				} catch (Exception e) {
-					println("Error al convertir resultado a TO ");
 					e.printStackTrace();
 					throw e;
 				}
@@ -586,10 +562,6 @@ public abstract class CommonDAO<T extends CommonVO<T>> extends SuperDAO<T> {
 		PreparedStatement ps = null;
 		ResultSet result = null;
 		try {
-			long time = imprimirInfo("findByGeneral", sentence, params);
-			for (Object o : params) {
-				print(o.toString());
-			}
 			ps = con.prepareStatement(sentence);
 			for (int i = 0; i < params.length; i++) {
 				addParameter(ps, i + 1, params[i]);
@@ -599,7 +571,6 @@ public abstract class CommonDAO<T extends CommonVO<T>> extends SuperDAO<T> {
 			while (result.next()) {
 				rows.add(result.getString(1));
 			}
-			println("duracin: " + (System.currentTimeMillis() - time));
 			return rows;
 		} catch (Exception exception) {
 			throw exception;
@@ -655,13 +626,10 @@ public abstract class CommonDAO<T extends CommonVO<T>> extends SuperDAO<T> {
 
 	public T obtenerObjeto(Connection con, final String query, final Object... params) throws Exception {
 		try {
-			long time = imprimirInfo("obtenerObjeto", query, params);
 			final List<Map<String, Object>> list = ejecutarSentenciaSQL(con, 1, query, params);
 			if (list != null && !list.isEmpty()) {
-				println("duracin: " + (System.currentTimeMillis() - time));
 				return ObtenerEntidad(list.get(0), instance);
 			}
-			println("duracin: " + (System.currentTimeMillis() - time));
 			return instance;
 		} catch (Exception exception) {
 			throw exception;
@@ -691,56 +659,19 @@ public abstract class CommonDAO<T extends CommonVO<T>> extends SuperDAO<T> {
 
 	public List<T> obtenerLista(final Connection con, final String query, final Object... params) throws Exception {
 		try {
-			long time = imprimirInfo("obtenerLista", query, params);
 			// se ejecuta la consulta
 			final List<Map<String, Object>> list = ejecutarSentenciaSQL(con, maxRows, query, params);
 			// se construyen la lista de objetos a retornar usando instrospeccion
 			if (list != null && !list.isEmpty()) {
 				final List<T> objetos = ObtenerLista(list, instance);
-				println("duracin: " + (System.currentTimeMillis() - time));
 				return objetos;
 			}
-			println("duracin: " + (System.currentTimeMillis() - time));
 			return new ArrayList<T>();
 		} catch (Exception exception) {
 			throw exception;
 		}
 	}
-
-	private long imprimirInfo(String name, String sentence, Object[] params) {
-		long time = System.currentTimeMillis();
-		println("Ejecucin de " + name + " de la clase " + getClass().getSimpleName());
-		println("Sentencia:\t" + sentence);
-		if (params.length > 0) {
-			print("Parmetros:\t");
-			for (Object o : params) {
-				print("[" + o.toString() + "] ");
-			}
-			println();
-		}
-		return time;
-	}
-
-	private void println(String string) {
-		//System.out.println(string);
-		/** MODIFICACION DE LOGS EN ARCHIVO INDEPENDIENTE**/
-		//String linea = string;
-		//Log.escribirLogInfo(string);
-	}
-
-	private void println() {
-		println("");
-	}
-
-	private void print(String string) {
-		//System.out.print(string);
-		/** MODIFICACION DE LOGS EN ARCHIVO INDEPENDIENTE**/
-		//String linea = string;
-		//Log.escribirLogInfo(string);
-	}
-
 	protected void setMaxRows(int maxRows) {
 		this.maxRows = maxRows;
 	}
-
 }

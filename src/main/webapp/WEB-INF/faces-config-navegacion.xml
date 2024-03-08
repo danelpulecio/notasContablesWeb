@@ -458,6 +458,13 @@
    <to-view-id>/jsf/consultas/reporteConciliacionPage.xhtml</to-view-id>
   </navigation-case>
  </navigation-rule>
+ <navigation-rule>
+  <from-view-id>/jsf/consultas/reporteDocumentoSoportePage.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>reporteDocumentoSoportePage</from-outcome>
+   <to-view-id>/jsf/consultas/reporteDocumentoSoportePage.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
  <!--	Navegacion por menu	-->
  <navigation-rule>
   <display-name>home</display-name>
@@ -804,6 +811,11 @@
   <navigation-case>
    <from-outcome>reporteConciliacionPage</from-outcome>
    <to-view-id>/jsf/consultas/reporteConciliacionPage.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>reporteDocumentoSoportePage</from-outcome>
+   <to-view-id>/jsf/consultas/reporteDocumentoSoportePage.xhtml</to-view-id>
    <redirect/>
   </navigation-case>
  </navigation-rule>

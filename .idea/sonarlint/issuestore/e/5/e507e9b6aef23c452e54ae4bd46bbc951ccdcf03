@@ -1,8 +1,8 @@
 
 {
-java:S2293y"YReplace the type specification in this constructor call with the diamond operator ("<>").(¦±Øùýÿÿÿÿ8’éñ®ß1
+java:S2293z"YReplace the type specification in this constructor call with the diamond operator ("<>").(¦±Øùýÿÿÿÿ8’éñ®ß1
 ~
-java:S2629g"\Invoke method(s) only conditionally. Use the built-in formatting to construct this argument.(¯†òíøÿÿÿÿ8•”±Úà1
+java:S2629h"\Invoke method(s) only conditionally. Use the built-in formatting to construct this argument.(¯†òíøÿÿÿÿ8•”±Úà1
 s	java:S116)"WRename this field "DIR_SOPORTES" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ù”ëþ8™”±Úà1
 ~	java:S116*"]Rename this field "DIR_REPORTES_EXCEL" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ªúÒìûÿÿÿÿ8™”±Úà1
 ‚	java:S116+"aRename this field "DIR_RECEPCION_ALTAMIRA" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‰•ü™øÿÿÿÿ8™”±Úà1
@@ -29,12 +29,11 @@ X	java:S125G"<This block of commented-out lines of code should be removed.(íÂÆ
 ˆ
 java:S1130L"lRemove the declaration of thrown exception 'java.io.IOException', as it cannot be thrown from method's body.(¬ø·P8¼”±Úà1
 X	java:S125X"<This block of commented-out lines of code should be removed.(Š‹Ïú8½”±Úà1
-]	java:S125b"<This block of commented-out lines of code should be removed.(©ÌÉÍøÿÿÿÿ8½”±Úà1
 c
-java:S3457g"AFormat specifiers should be used instead of string concatenation.(¯†òíøÿÿÿÿ8½”±Úà1
+java:S3457h"AFormat specifiers should be used instead of string concatenation.(¯†òíøÿÿÿÿ8½”±Úà1
 b
-java:S1128"@Remove this unused import 'javax.faces.context.ExternalContext'.(¢ŸïÞùÿÿÿÿ8À”±Úà1
+java:S1128"@Remove this unused import 'javax.faces.context.ExternalContext'.(¢ŸïÞùÿÿÿÿ8‚ðËõá1
 X
-java:S1128";Remove this unused import 'javax.servlet.ServletException'.(Š‰™Œ8À”±Úà1
+java:S1128";Remove this unused import 'javax.servlet.ServletException'.(Š‰™Œ8‚ðËõá1
 _
-java:S1128"BRemove this unused import 'javax.servlet.http.HttpServletRequest'.(ø©¹…8À”±Úà1
+java:S1128"BRemove this unused import 'javax.servlet.http.HttpServletRequest'.(ø©¹…8‚ðËõá1

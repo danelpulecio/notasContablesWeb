@@ -70,13 +70,8 @@ public abstract class GeneralCargaPage<T extends CommonVO<T>> extends GeneralPag
 		_init();
 		LOGGER.info("this.buscarTodos ::::  >>> ", this.buscarTodos);
 		try {
-			long time = System.currentTimeMillis();
-			//println("Ejecutando el constructor de la clase " + getClass().getSimpleName());
-			// solo se realiza la busqueda si se est en la ultima fase del ciclo de vida de faces y se quieren buscar todos los datos
-			LOGGER.info("esUltimaFase {}", buscarTodos);
-			if (esUltimaFase() && buscarTodos /* && (getDatos() == null || getDatos().isEmpty()) */) {
-				LOGGER.info("  entro al if {}");
-				setDatos(new ArrayList<T>(_buscarTodos()));
+			if (esUltimaFase() && buscarTodos) {
+				setDatos(new ArrayList<>(_buscarTodos()));
 			}
 			//println("Finalizado el constructor en " + (System.currentTimeMillis() - time));
 			initComparators();
@@ -122,12 +117,8 @@ public abstract class GeneralCargaPage<T extends CommonVO<T>> extends GeneralPag
 	 */
 	public String buscarTodos() {
 		try {
-			LOGGER.info("<<< buscarTodos generalCargapage>>>>");
-			long time = System.currentTimeMillis();
-			// solo se realiza la busqueda si se est en la ultima fase del ciclo de vida de faces
 			if (esUltimaFase()) {
-				datos = new ArrayList<T>(_buscarTodos());
-				LOGGER.info("datos cargados busqueda {} ");
+				datos = new ArrayList<>(_buscarTodos());
 			}
 		} catch (final Exception e) {
 			LOGGER.error("Error al realizar la consulta", e);
@@ -137,7 +128,7 @@ public abstract class GeneralCargaPage<T extends CommonVO<T>> extends GeneralPag
 	}
 
 	public String iniciar() {
-		datos = new ArrayList<T>();
+		datos = new ArrayList<>();
 		return _getPage();
 	}
 
@@ -162,10 +153,8 @@ public abstract class GeneralCargaPage<T extends CommonVO<T>> extends GeneralPag
 					return _getPage();
 				}
 			}
-			long time = System.currentTimeMillis();
 			LOGGER.info("Ejecutando el metodo buscarPorFiltro");
-			datos = new ArrayList<T>(_buscarPorFiltro());
-			LOGGER.info("DATOS DESPUES DEL FILTRO : {}", datos.size());
+			datos = new ArrayList<>(_buscarPorFiltro());
 			if (datos.isEmpty()) {
 				LOGGER.info("sin datos {}", datos);
 				nuevoMensaje(FacesMessage.SEVERITY_INFO, "No se encontraron resultados para el filtro: " + param);
@@ -190,7 +179,7 @@ public abstract class GeneralCargaPage<T extends CommonVO<T>> extends GeneralPag
 
 	public List<T> getDatos() {
 		if (datos == null) {
-			datos = new ArrayList<T>();
+			datos = new ArrayList<>();
 		}
 		LOGGER.info("<<< getDatos size{}>>>>", datos.size());
 		return datos;

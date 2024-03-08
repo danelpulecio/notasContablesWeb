@@ -1,124 +1,145 @@
 
-h	java:S112¦"FDefine and throw a dedicated exception instead of using a generic one.(ççûĞÿÿÿÿÿ8ĞÊ–ß1
-h	java:S112È"FDefine and throw a dedicated exception instead of using a generic one.(ççûĞÿÿÿÿÿ8ĞÊ–ß1
-h	java:S112ø"FDefine and throw a dedicated exception instead of using a generic one.(ççûĞÿÿÿÿÿ8ĞÊ–ß1
-h	java:S112©"FDefine and throw a dedicated exception instead of using a generic one.(ççûĞÿÿÿÿÿ8ÑÊ–ß1
-h	java:S112Ê"FDefine and throw a dedicated exception instead of using a generic one.(ççûĞÿÿÿÿÿ8ÑÊ–ß1
-c	java:S112ä"FDefine and throw a dedicated exception instead of using a generic one.(ÈÕß£8ÑÊ–ß1
-h	java:S112é"FDefine and throw a dedicated exception instead of using a generic one.(ççûĞÿÿÿÿÿ8ÑÊ–ß1
-h	java:S112ş"FDefine and throw a dedicated exception instead of using a generic one.(Ï˜œøÿÿÿÿ8ÑÊ–ß1
-h	java:S112ı"FDefine and throw a dedicated exception instead of using a generic one.(ëêìîÿÿÿÿÿ8ÑÊ–ß1
+g	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(ª¤ùÿÿÿÿÿ8ĞÊ–ß1
+a	java:S112 "FDefine and throw a dedicated exception instead of using a generic one.(Øãä68ĞÊ–ß1
+b	java:S112""FDefine and throw a dedicated exception instead of using a generic one.(¼ŸÍÒ8ĞÊ–ß1
+h	java:S112˜"FDefine and throw a dedicated exception instead of using a generic one.(ççûĞÿÿÿÿÿ8ÑÊ–ß1
+h	java:S112º"FDefine and throw a dedicated exception instead of using a generic one.(ççûĞÿÿÿÿÿ8ÑÊ–ß1
+h	java:S112ê"FDefine and throw a dedicated exception instead of using a generic one.(ççûĞÿÿÿÿÿ8ÑÊ–ß1
+h	java:S112›"FDefine and throw a dedicated exception instead of using a generic one.(ççûĞÿÿÿÿÿ8ÑÊ–ß1
+h	java:S112¼"FDefine and throw a dedicated exception instead of using a generic one.(ççûĞÿÿÿÿÿ8ÑÊ–ß1
+c	java:S112Ö"FDefine and throw a dedicated exception instead of using a generic one.(ÈÕß£8ÑÊ–ß1
+h	java:S112Û"FDefine and throw a dedicated exception instead of using a generic one.(ççûĞÿÿÿÿÿ8†à½°á1
+h	java:S112á"FDefine and throw a dedicated exception instead of using a generic one.(Ï˜œøÿÿÿÿ8ˆà½°á1
+h	java:S112à"FDefine and throw a dedicated exception instead of using a generic one.(ëêìîÿÿÿÿÿ8‰à½°á1
 |
-java:S2293“"YReplace the type specification in this constructor call with the diamond operator ("<>").(½Àñ øÿÿÿÿ8ÒÊ–ß1
+java:S2293€"YReplace the type specification in this constructor call with the diamond operator ("<>").(½Àñ øÿÿÿÿ8ÒÊ–ß1
 |
-java:S2293É"YReplace the type specification in this constructor call with the diamond operator ("<>").(ôäùƒÿÿÿÿÿ8ÒÊ–ß1
+java:S2293±"YReplace the type specification in this constructor call with the diamond operator ("<>").(ôäùƒÿÿÿÿÿ8ÒÊ–ß1
 |
-java:S2293ö"YReplace the type specification in this constructor call with the diamond operator ("<>").(€’Ñ¶ûÿÿÿÿ8ÒÊ–ß1
+java:S2293Ù"YReplace the type specification in this constructor call with the diamond operator ("<>").(€’Ñ¶ûÿÿÿÿ8ÒÊ–ß1
 w
-java:S2293À"YReplace the type specification in this constructor call with the diamond operator ("<>").(…âô8ÒÊ–ß1
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(…âô8ÒÊ–ß1
 
-java:S1192¦"{Define a constant instead of duplicating this literal "Se debe definir la llave primaria para realizar la acciÃ³n" 6 times.(ççûĞÿÿÿÿÿ8ÒÊ–ß1
-m
-java:S1192Ú"JDefine a constant instead of duplicating this literal "duracin: " 5 times.(¢±§şÿÿÿÿ8ÒÊ–ß1
+java:S1192˜"{Define a constant instead of duplicating this literal "Se debe definir la llave primaria para realizar la acciÃ³n" 6 times.(ççûĞÿÿÿÿÿ8ÒÊ–ß1
+R
+java:S1066ƒ"/Merge this if statement with the enclosing one.(®Ù­øÿÿÿÿ8ºÜÀ°á1
 X
-java:S1141º"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8ÓÊ–ß1
+java:S1141¨"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8ÓÊ–ß1
 X
-java:S1141¢"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8ÓÊ–ß1
+java:S1141‹"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8ÓÊ–ß1
+r	java:S117>"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¯òîÄıÿÿÿÿ8Œà½°á1
+>
+java:S1643-"Use a StringBuilder instead.(îÕ†¤ıÿÿÿÿ8Œà½°á1
+‚
+java:S1488š"_Immediately return this expression instead of assigning it to the temporary variable "objetos".(á¹šúüÿÿÿÿ8åšÎ°á1
 r
-java:S2095Ñ"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(î•Íüÿÿÿÿ8“Ì–ß1
+java:S2095„"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(î•Íüÿÿÿÿ8“Ì–ß1
 r
-java:S2095›"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(î•Íüÿÿÿÿ8“Ì–ß1
+java:S2095µ"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(î•Íüÿÿÿÿ8“Ì–ß1
 r
-java:S2095´"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(î•Íüÿÿÿÿ8“Ì–ß1
+java:S2095¢"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(î•Íüÿÿÿÿ8“Ì–ß1
+ƒ	java:S116"gRename this field "sql_SELECT_MAX_CODE_SENTENCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ğ·şÈ8Šâ½°á1
+ƒ	java:S116"gRename this field "sql_SELECT_SEQUENCE_SENTENCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(á¸Ÿ®8Šâ½°á1
+	java:S116"^Rename this field "sql_INSERT_SENTENCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÔÏóÿÿÿÿÿ8Šâ½°á1
+	java:S116"^Rename this field "sql_DELETE_SENTENCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(˜úÍ¤ûÿÿÿÿ8Šâ½°á1
+ƒ	java:S116"bRename this field "sql_DELETE_ALL_SENTENCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŸëÇıÿÿÿÿ8Šâ½°á1
+È
+java:S1845B"¥Rename method "getDataSource" to prevent any misunderstanding/clash with method "getDatasource" defined in superclass "co.com.bbva.app.notas.contables.dao.SuperDAO".(®¢àøùÿÿÿÿ8‹â½°á1
+W
+java:S6397,"5Replace this character class by the character itself.(¨äò¿üÿÿÿÿ8â½°á1
+S
+java:S2696?"6Make the enclosing method "static" or remove this set.(‘ã¦”8â½°á1
+g
+java:S1124^"EReorder the modifiers to comply with the Java Language Specification.(Çÿ‘Ÿúÿÿÿÿ8œÌ–ß1
+b
+java:S1124b"EReorder the modifiers to comply with the Java Language Specification.(ÏÑ€ß8œÌ–ß1
+g
+java:S1124f"EReorder the modifiers to comply with the Java Language Specification.(¿áªÚıÿÿÿÿ8œÌ–ß1
+a
+java:S1124|"EReorder the modifiers to comply with the Java Language Specification.(Ôì„8Ì–ß1
 h
-java:S1124©"EReorder the modifiers to comply with the Java Language Specification.(‹ïÌßùÿÿÿÿ8œÌ–ß1
+java:S1124›"EReorder the modifiers to comply with the Java Language Specification.(‹ïÌßùÿÿÿÿ8Ì–ß1
 c
-java:S1124­"EReorder the modifiers to comply with the Java Language Specification.(şëçï8œÌ–ß1
+java:S1124Ÿ"EReorder the modifiers to comply with the Java Language Specification.(şëçï8Ì–ß1
 h
-java:S1124±"EReorder the modifiers to comply with the Java Language Specification.(ÑİÚ»ıÿÿÿÿ8œÌ–ß1
+java:S1124£"EReorder the modifiers to comply with the Java Language Specification.(ÑİÚ»ıÿÿÿÿ8Ì–ß1
 R
-java:S1172¾"4Remove this unused method parameter "codigoUsuario".(¶Ÿ¨ÿ8Ì–ß1
+java:S1172°"4Remove this unused method parameter "codigoUsuario".(¶Ÿ¨ÿ8Ì–ß1
 c
-java:S1124¾"EReorder the modifiers to comply with the Java Language Specification.(¶Ÿ¨ÿ8Ì–ß1
+java:S1124°"EReorder the modifiers to comply with the Java Language Specification.(¶Ÿ¨ÿ8Ì–ß1
 c
-java:S1124Ì"EReorder the modifiers to comply with the Java Language Specification.(€İÌà8Ì–ß1
+java:S1124¾"EReorder the modifiers to comply with the Java Language Specification.(€İÌà8Ì–ß1
 c
-java:S1124Ğ"EReorder the modifiers to comply with the Java Language Specification.(“—“8Ì–ß1
+java:S1124Â"EReorder the modifiers to comply with the Java Language Specification.(“—“8ŸÌ–ß1
 h
-java:S1124Ô"EReorder the modifiers to comply with the Java Language Specification.(ô‰©”şÿÿÿÿ8Ì–ß1
+java:S1124Æ"EReorder the modifiers to comply with the Java Language Specification.(ô‰©”şÿÿÿÿ8ŸÌ–ß1
 f
-java:S1854í"CRemove this useless assignment to local variable "xmlDataOriginal".(Ó–®ùÿÿÿÿ8Ì–ß1
+java:S1854ß"CRemove this useless assignment to local variable "xmlDataOriginal".(Ó–®ùÿÿÿÿ8Ì–ß1
 h
-java:S1124è"EReorder the modifiers to comply with the Java Language Specification.(‰É”æşÿÿÿÿ8Ì–ß1
+java:S1124Ú"EReorder the modifiers to comply with the Java Language Specification.(‰É”æşÿÿÿÿ8ŸÌ–ß1
 R
-java:S1481ê"4Remove this unused "xmlDataOriginal" local variable.(Ô¥µ‘8Ì–ß1
+java:S1481Ü"4Remove this unused "xmlDataOriginal" local variable.(Ô¥µ‘8Ì–ß1
 c
-java:S1124ü"EReorder the modifiers to comply with the Java Language Specification.(»­åï8Ì–ß1
+java:S1124î"EReorder the modifiers to comply with the Java Language Specification.(»­åï8 Ì–ß1
 c
-java:S1124€"EReorder the modifiers to comply with the Java Language Specification.(•Á…¨8ŸÌ–ß1
+java:S1124ò"EReorder the modifiers to comply with the Java Language Specification.(•Á…¨8 Ì–ß1
 h
-java:S1124„"EReorder the modifiers to comply with the Java Language Specification.(ªŸ§æÿÿÿÿÿ8ŸÌ–ß1
+java:S1124ö"EReorder the modifiers to comply with the Java Language Specification.(ªŸ§æÿÿÿÿÿ8â½°á1
 f
-java:S1854œ"CRemove this useless assignment to local variable "xmlDataOriginal".(Ó–®ùÿÿÿÿ8ŸÌ–ß1
+java:S1854"CRemove this useless assignment to local variable "xmlDataOriginal".(Ó–®ùÿÿÿÿ8ŸÌ–ß1
 h
-java:S1124˜"EReorder the modifiers to comply with the Java Language Specification.(Ú–®Åÿÿÿÿÿ8ŸÌ–ß1
+java:S1124Š"EReorder the modifiers to comply with the Java Language Specification.(Ú–®Åÿÿÿÿÿ8Ÿâ½°á1
 R
-java:S1481š"4Remove this unused "xmlDataOriginal" local variable.(Ô¥µ‘8ŸÌ–ß1
-Y	java:S125£"<This block of commented-out lines of code should be removed.(â‚í8 Ì–ß1
-^	java:S125¥"<This block of commented-out lines of code should be removed.(¨†²™ùÿÿÿÿ8 Ì–ß1
+java:S1481Œ"4Remove this unused "xmlDataOriginal" local variable.(Ô¥µ‘8ŸÌ–ß1
+Y	java:S125•"<This block of commented-out lines of code should be removed.(â‚í8 Ì–ß1
+^	java:S125—"<This block of commented-out lines of code should be removed.(¨†²™ùÿÿÿÿ8 Ì–ß1
 c
-java:S1124­"EReorder the modifiers to comply with the Java Language Specification.(çË¾€8 Ì–ß1
+java:S1124Ÿ"EReorder the modifiers to comply with the Java Language Specification.(çË¾€8 â½°á1
 f
-java:S1854¾"CRemove this useless assignment to local variable "xmlDataOriginal".(Ó–®ùÿÿÿÿ8 Ì–ß1
+java:S1854°"CRemove this useless assignment to local variable "xmlDataOriginal".(Ó–®ùÿÿÿÿ8 Ì–ß1
 h
-java:S1124º"EReorder the modifiers to comply with the Java Language Specification.(“¢‰—ıÿÿÿÿ8 Ì–ß1
+java:S1124¬"EReorder the modifiers to comply with the Java Language Specification.(“¢‰—ıÿÿÿÿ8¡â½°á1
 R
-java:S1481¼"4Remove this unused "xmlDataOriginal" local variable.(Ô¥µ‘8 Ì–ß1
-Y	java:S125Å"<This block of commented-out lines of code should be removed.(â‚í8¡Ì–ß1
+java:S1481®"4Remove this unused "xmlDataOriginal" local variable.(Ô¥µ‘8 Ì–ß1
+Y	java:S125·"<This block of commented-out lines of code should be removed.(â‚í8¡Ì–ß1
 u
-java:S2737Õ"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û8¡Ì–ß1
+java:S2737Ç"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û8¡Ì–ß1
 V
-java:S1874á"3Remove this use of "newInstance"; it is deprecated.(€¢ÓÜúÿÿÿÿ8¡Ì–ß1
+java:S1874Ó"3Remove this use of "newInstance"; it is deprecated.(€¢ÓÜúÿÿÿÿ8¡Ì–ß1
 u
-java:S2737ó"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û8¢Ì–ß1
+java:S2737å"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û8¢Ì–ß1
 u
-java:S2737„"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û8¢Ì–ß1
+java:S2737ö"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û8¢Ì–ß1
 u
-java:S2737•"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û8£Ì–ß1
+java:S2737‡"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û8£Ì–ß1
 u
-java:S2737¦"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û8£Ì–ß1
+java:S2737˜"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û8£Ì–ß1
 z
-java:S2737Ç"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(Ï·¡üÿÿÿÿ8£Ì–ß1
+java:S2737´"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(Ï·¡üÿÿÿÿ8£Ì–ß1
 u
-java:S2737Ù"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û8¤Ì–ß1
+java:S2737Æ"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û8¤Ì–ß1
 u
-java:S2737ê"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û8¥Ì–ß1
+java:S2737×"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û8¥Ì–ß1
 u
-java:S2737û"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û8¥Ì–ß1
+java:S2737è"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û8¥Ì–ß1
 u
-java:S2737Œ"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û8¦Ì–ß1
+java:S2737ù"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û8¦Ì–ß1
 z
-java:S2737°"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(Ï·¡üÿÿÿÿ8§Ì–ß1
+java:S2737˜"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(Ï·¡üÿÿÿÿ8§Ì–ß1
 u
-java:S2737Â"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û8¨Ì–ß1
+java:S2737ª"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û8¨Ì–ß1
 z
-java:S2737İ"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(Ï·¡üÿÿÿÿ8¨Ì–ß1
+java:S2737À"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(Ï·¡üÿÿÿÿ8¨Ì–ß1
 u
-java:S2737ï"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û8©Ì–ß1
+java:S2737Ò"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û8©Ì–ß1
 u
-java:S2737Š"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û8ªÌ–ß1
-^	java:S125‡"<This block of commented-out lines of code should be removed.(°É©úÿÿÿÿ8ªÌ–ß1
+java:S2737í"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û8ªÌ–ß1
+^	java:S125ê"<This block of commented-out lines of code should be removed.(°É©úÿÿÿÿ8ªÌ–ß1
 z
-java:S2737›"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(Ï·¡üÿÿÿÿ8«Ì–ß1
+java:S2737û"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(Ï·¡üÿÿÿÿ8«Ì–ß1
 u
-java:S2737®"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û8¬Ì–ß1
+java:S2737"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û8¬Ì–ß1
 z
-java:S2737Â"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(Ï·¡üÿÿÿÿ8¬Ì–ß1
-K
-java:S1172Ô"-Remove this unused method parameter "string".(Ÿó»°8­Ì–ß1
-Y	java:S125Õ"<This block of commented-out lines of code should be removed.(Ïª˜Ê8­Ì–ß1
-X	java:S125×"<This block of commented-out lines of code should be removed.(å‹ÃQ8­Ì–ß1
-K
-java:S1172ß"-Remove this unused method parameter "string".(ÿàö8®Ì–ß1
-Y	java:S125à"<This block of commented-out lines of code should be removed.(Îœ°¡8®Ì–ß1
-X	java:S125â"<This block of commented-out lines of code should be removed.(å‹ÃQ8®Ì–ß1
+java:S2737Ÿ"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(Ï·¡üÿÿÿÿ8¬Ì–ß1
+L
+java:S1068"*Remove this unused "LOGGER" private field.(ò»Ğ˜øÿÿÿÿ8ßøÀ°á1

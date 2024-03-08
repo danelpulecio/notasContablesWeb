@@ -2632,6 +2632,16 @@ public class NotasContablesSessionBean extends NotasContablesConsultaSessionBean
 	}
 
 	@Override
+	public Collection<String> getDocumentoSoporteByDate(String fechaDesde , String fechaHasta) throws Exception {
+		return notaContableDAO.getDataDocumentoSoporteByFecha(fechaDesde , fechaHasta);
+	}
+
+	public Collection<String> getDocumentoSoporteXCuentaByDate(String fechaDesde , String fechaHasta) throws Exception {
+		return notaContableDAO.getDataDocumentoSoporteXCuentaByFecha(fechaDesde , fechaHasta);
+	}
+
+
+	@Override
 	public void addRechazoSalida(RechazoSalida salida, int codigoUsuario) throws Exception {
 		String numRadicacion = salida.getNumNota();
 		// se envia la nota asociada a la siguiente actividad

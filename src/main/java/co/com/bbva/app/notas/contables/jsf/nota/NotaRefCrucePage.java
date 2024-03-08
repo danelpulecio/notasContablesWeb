@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.model.SelectItem;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -26,7 +27,7 @@ import java.util.*;
  * </p>
  * 
  */
-@SessionScoped
+@ViewScoped
 @Named
 public class NotaRefCrucePage extends GeneralPage implements IPages, Serializable {
 

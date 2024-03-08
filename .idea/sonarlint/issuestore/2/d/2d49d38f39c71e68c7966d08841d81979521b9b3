@@ -1,24 +1,28 @@
 
-b	java:S1123"FDefine and throw a dedicated exception instead of using a generic one.(ˆÈğæ8µÎİËÑ1
-a	java:S112<"FDefine and throw a dedicated exception instead of using a generic one.(³…À 8µÎİËÑ1
+b	java:S1125"FDefine and throw a dedicated exception instead of using a generic one.(ˆÈğæ8µÎİËÑ1
+a	java:S112>"FDefine and throw a dedicated exception instead of using a generic one.(³…À 8µÎİËÑ1
 v
-java:S22931"YReplace the type specification in this constructor call with the diamond operator ("<>").(Üˆ€8µÎİËÑ1
+java:S22933"YReplace the type specification in this constructor call with the diamond operator ("<>").(Üˆ€8µÎİËÑ1
 {
-java:S2293v"YReplace the type specification in this constructor call with the diamond operator ("<>").(ƒ­öàşÿÿÿÿ8Š™»Óß1
+java:S2293`"YReplace the type specification in this constructor call with the diamond operator ("<>").(“”Ÿ«ÿÿÿÿÿ8Š™»Óß1
 {
-java:S2293|"YReplace the type specification in this constructor call with the diamond operator ("<>").(ƒ­öàşÿÿÿÿ8Š™»Óß1
+java:S2293d"YReplace the type specification in this constructor call with the diamond operator ("<>").(ƒ­öàşÿÿÿÿ8Š™»Óß1
+{
+java:S2293x"YReplace the type specification in this constructor call with the diamond operator ("<>").(ƒ­öàşÿÿÿÿ8§»ÆËá1
+{
+java:S2293~"YReplace the type specification in this constructor call with the diamond operator ("<>").(ƒ­öàşÿÿÿÿ8¨»ÆËá1
 [
-java:S5993C"9Change the visibility of this constructor to "protected".(é‘¢¦ÿÿÿÿÿ8ÆÎİËÑ1
+java:S5993E"9Change the visibility of this constructor to "protected".(é‘¢¦ÿÿÿÿÿ8ÆÎİËÑ1
 M
-java:S1948'"+Make "objActual" transient or serializable.(»åº‚şÿÿÿÿ8ÆÎİËÑ1
+java:S1948)"+Make "objActual" transient or serializable.(»åº‚şÿÿÿÿ8ÆÎİËÑ1
 D
-java:S19481"'Make "datos" transient or serializable.(Üˆ€8ÆÎİËÑ1
-]	java:S125#"<This block of commented-out lines of code should be removed.(‘ÆÎÓûÿÿÿÿ8ÌÎİËÑ1
-j	java:S1003"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ˆÈğæ8ÌÎİËÑ1
-o	java:S1005"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(·Âûåûÿÿÿÿ8ÌÎİËÑ1
-i	java:S100<"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³…À 8ÌÎİËÑ1
+java:S19483"'Make "datos" transient or serializable.(Üˆ€8ÆÎİËÑ1
+]	java:S125%"<This block of commented-out lines of code should be removed.(‘ÆÎÓûÿÿÿÿ8ÌÎİËÑ1
+j	java:S1005"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ˆÈğæ8ÌÎİËÑ1
+o	java:S1007"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(·Âûåûÿÿÿÿ8ÌÎİËÑ1
+i	java:S100>"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³…À 8ÌÎİËÑ1
 7
-java:S3457i"Not enough arguments.(¿Ãıÿÿÿÿ8Á¹ç¨Ú1
-]	java:S125~"<This block of commented-out lines of code should be removed.(’Òóéıÿÿÿÿ8ÏÎİËÑ1
+java:S3457k"Not enough arguments.(¿Ãıÿÿÿÿ8Á¹ç¨Ú1
+^	java:S125€"<This block of commented-out lines of code should be removed.(’Òóéıÿÿÿÿ8ÏÎİËÑ1
 n
-java:S1128"LRemove this unused import 'co.com.bbva.app.notas.contables.session.Session'.(•Ö¥åøÿÿÿÿ8ĞÎİËÑ1
+java:S1128"LRemove this unused import 'co.com.bbva.app.notas.contables.session.Session'.(•Ö¥åøÿÿÿÿ8Šëßâ1

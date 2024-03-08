@@ -268,12 +268,13 @@ a	java:S112©"FDefine and throw a dedicated exception instead of using a gener
 a	java:S112«"FDefine and throw a dedicated exception instead of using a generic one.(Í‰Êõÿÿÿÿÿ
 a	java:S112­"FDefine and throw a dedicated exception instead of using a generic one.(Â÷§İúÿÿÿÿ
 [	java:S112¯"FDefine and throw a dedicated exception instead of using a generic one.(”›Ë%
-a	java:S112¸"FDefine and throw a dedicated exception instead of using a generic one.(§¶†øøÿÿÿÿ
-a	java:S112Á"FDefine and throw a dedicated exception instead of using a generic one.(–¡·òıÿÿÿÿ
-a	java:S112Ê"FDefine and throw a dedicated exception instead of using a generic one.(‚’¢áıÿÿÿÿ
-\	java:S112Ó"FDefine and throw a dedicated exception instead of using a generic one.(ğ«¶×
-[	java:S112Ú"FDefine and throw a dedicated exception instead of using a generic one.(ÉÓÓx
-a	java:S112â"FDefine and throw a dedicated exception instead of using a generic one.(˜±úìúÿÿÿÿ
+\	java:S112±"FDefine and throw a dedicated exception instead of using a generic one.(˜øò™
+a	java:S112º"FDefine and throw a dedicated exception instead of using a generic one.(§¶†øøÿÿÿÿ
+a	java:S112Ã"FDefine and throw a dedicated exception instead of using a generic one.(–¡·òıÿÿÿÿ
+a	java:S112Ì"FDefine and throw a dedicated exception instead of using a generic one.(‚’¢áıÿÿÿÿ
+\	java:S112Õ"FDefine and throw a dedicated exception instead of using a generic one.(ğ«¶×
+[	java:S112Ü"FDefine and throw a dedicated exception instead of using a generic one.(ÉÓÓx
+h	java:S112ä"FDefine and throw a dedicated exception instead of using a generic one.(˜±úìúÿÿÿÿ8¶§’°á1
 „
 java:S1319"hThe type of "notas" should be an interface such as "SortedMap" rather than the implementation "TreeMap".(ÊÏ®ûÿÿÿÿ
 ‘
@@ -325,10 +326,10 @@ java:S1130ÿ"sRemove the declaration of thrown exception 'java.rmi.RemoteExcept
 
 java:S1130"sRemove the declaration of thrown exception 'java.rmi.RemoteException' which is a subclass of 'java.lang.Exception'.(ïÔÄÚøÿÿÿÿ
 B
-java:S1452¸"&Remove usage of generic wildcard type.(§¶†øøÿÿÿÿ
+java:S1452º"&Remove usage of generic wildcard type.(§¶†øøÿÿÿÿ
 B
-java:S1452Á"&Remove usage of generic wildcard type.(–¡·òıÿÿÿÿ
+java:S1452Ã"&Remove usage of generic wildcard type.(–¡·òıÿÿÿÿ
 B
-java:S1452Ê"&Remove usage of generic wildcard type.(‚’¢áıÿÿÿÿ
+java:S1452Ì"&Remove usage of generic wildcard type.(‚’¢áıÿÿÿÿ
 =
-java:S1452Ó"&Remove usage of generic wildcard type.(ğ«¶×
+java:S1452Õ"&Remove usage of generic wildcard type.(ğ«¶×

@@ -57,7 +57,7 @@ import co.com.bbva.app.notas.contables.util.StringUtils;
  * Pagina para manejar la administración de parametros relacionados con la entidad TipoEvento
  * </p>
  */
-@SessionScoped
+@ViewScoped
 @Named
 public class NotaContablePage extends FlujoNotaContablePage implements Serializable {
 
@@ -495,6 +495,16 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
                 imp.setExonera("N");
             }
         }
+
+        Double maCOP = getMontoAlertaCOP();
+        Double maEXt = getMontoAlertaEXT();
+        String divisa = getTemaActual().getCodigoDivisa();
+        LOGGER.info("<<<<<<<<<<MONTO ALERTA COP: {}>>>>>>>>>>", maCOP);
+        LOGGER.info("<<<<<<<<<<MONTO ALERTA EXT: {}>>>>>>>>>>", maEXt);
+        LOGGER.info("<<<<<<<<<<CODIGO DIVISA: {}>>>>>>>>>>", divisa);
+        LOGGER.info("<<<<<<<<<<divisa: {}>>>>>>>>>>", divisas.size());
+        LOGGER.info("<<<<<<<<<<divisa value: {}>>>>>>>>>>", divisas.get(0).getValue());
+
         return null;
     }
 

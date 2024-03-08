@@ -5,68 +5,68 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui">
-<h:head>
-<script type="text/javascript">
-				function isDayEnabled(day){
-					var fechaMin = document.getElementById('globalForm:fechaMinLibre').value;
-					var fechaMax = document.getElementById('globalForm:fechaMaxLibre').value;
-				   	var min=new Date();
-				   	min.setFullYear(parseInt(fechaMin.substring(6, 10), 10),parseInt(fechaMin.substring(3, 5), 10)-1,parseInt(fechaMin.substring(0, 2), 10)-1);
-				   	var max=new Date();
-				   	max.setFullYear(parseInt(fechaMax.substring(6, 10), 10),parseInt(fechaMax.substring(3, 5), 10)-1,parseInt(fechaMax.substring(0, 2), 10));
-				   	var date = new Date(day.date);
-				   	if(date.getDay() == 6){
-						return false;	
-					}
-				   	if(date.getDay() == 0){
-						return false;	
-					}
-				   	if(date &gt; min){
-						if(max &gt; date){ //solo fechas entre min y max
-							return true;
-						} 
-					} 
-					return false;
-				}
-				
-				function isDayEnabledRiesgo(day){
-				   	var max=new Date();
-				   	var date = new Date(day.date);
-					if(max &gt; date){ //solo fechas menores o iguales a hoy
-						return true;
-					}
-					return false;
-				}
-				
-				function getDisabledStyle(day){
-				   if (!isDayEnabled(day)) return 'rich-calendar-boundary-dates disabledDay';
-				}
+    <h:head>
+        <script type="text/javascript">
+            function isDayEnabled(day) {
+                var fechaMin = document.getElementById('globalForm:fechaMinLibre').value;
+                var fechaMax = document.getElementById('globalForm:fechaMaxLibre').value;
+                var min = new Date();
+                min.setFullYear(parseInt(fechaMin.substring(6, 10), 10), parseInt(fechaMin.substring(3, 5), 10) - 1, parseInt(fechaMin.substring(0, 2), 10) - 1);
+                var max = new Date();
+                max.setFullYear(parseInt(fechaMax.substring(6, 10), 10), parseInt(fechaMax.substring(3, 5), 10) - 1, parseInt(fechaMax.substring(0, 2), 10));
+                var date = new Date(day.date);
+                if (date.getDay() == 6) {
+                    return false;
+                }
+                if (date.getDay() == 0) {
+                    return false;
+                }
+                if (date &gt; min) {
+                    if (max &gt; date) { //solo fechas entre min y max
+                        return true;
+                    }
+                }
+                return false;
+            }
 
-				function getDisabledStyleRiesgo(day){
-				   if (!isDayEnabledRiesgo(day)) return 'rich-calendar-boundary-dates disabledDay';
-				}
-				
-				function validarMontoLibreAlert(value){
-					var alertCOP = parseFloat(document.getElementById('globalForm:montoAlertaCOPLibre').value);
-					var alertEXT = parseFloat(document.getElementById('globalForm:montoAlertaEXTLibre').value);
-					var divisa = document.getElementById('globalForm:codDivisaNotaContableLibre').value;
-					var warn=false;
-					if(divisa == 'COP'){
-						warn=value &gt; alertCOP;
-					}else{
-						warn=value &gt; alertEXT;
-					}
-					if(warn){
-						alert('Por favor verifique si el importe ingresado es el adecuado.');
-					}
-				}
-		</script>
-		<style>
-		.disabledDay {
-			background-color: #dedede;
-		}
-		</style>
-</h:head>
+            function isDayEnabledRiesgo(day) {
+                var max = new Date();
+                var date = new Date(day.date);
+                if (max &gt; date) { //solo fechas menores o iguales a hoy
+                    return true;
+                }
+                return false;
+            }
+
+            function getDisabledStyle(day) {
+                if (!isDayEnabled(day)) return 'rich-calendar-boundary-dates disabledDay';
+            }
+
+            function getDisabledStyleRiesgo(day) {
+                if (!isDayEnabledRiesgo(day)) return 'rich-calendar-boundary-dates disabledDay';
+            }
+
+            function validarMontoLibreAlert(value) {
+                var alertCOP = parseFloat(document.getElementById('globalForm:montoAlertaCOPLibre').value);
+                var alertEXT = parseFloat(document.getElementById('globalForm:montoAlertaEXTLibre').value);
+                var divisa = document.getElementById('globalForm:codDivisaNotaContableLibre').value;
+                var warn = false;
+                if (divisa == 'COP') {
+                    warn = value &gt; alertCOP;
+                } else {
+                    warn = value &gt; alertEXT;
+                }
+                if (warn) {
+                    alert('Por favor verifique si el importe ingresado es el adecuado.');
+                }
+            }
+        </script>
+        <style>
+            .disabledDay {
+                background-color: #dedede;
+            }
+        </style>
+    </h:head>
     <!-- Formulario de confirmacion de anulacion-->
     <p:dialog id="popupAnularNotaLibre" widgetVar="popupAnularNotaLibre" autosized="true" domElementAttachment="form"
               width="250px">
@@ -127,16 +127,17 @@
                             <h:outputText value="Cuenta Contable" styleClass="propertie"/>
                             <h:panelGrid columns="1" id="cuentaContableRegLibre">
                                 <h:panelGrid columns="2" style="border-collapse: collapse;">
-                                    <p:inputText value="#{notaContableLibrePage.cuentaContable}"/>
+                                    <p:inputText value="#{notaContableLibrePage.cuentaContable}" onkeydown="return event.key !== 'Enter';"/>
 
-                                    <p:commandButton action="#{notaContableLibrePage.buscarCuentaContable}"
+                                    <p:commandButton actionListener="#{notaContableLibrePage.buscarCuentaContable}"
                                                      value="Buscar cuenta"
                                                      update="globalForm:cuentaContableRegLibre,globalForm:informacionRegLibre"
                                                      style="margin-left: 8px;"/>
 
                                 </h:panelGrid>
                                 <p:selectOneMenu value="#{notaContableLibrePage.temaActual.cuentaContable}"
-                                                 rendered="#{! empty notaContableLibrePage.cuentas}" style="width: 400px;">
+                                                 rendered="#{! empty notaContableLibrePage.cuentas}"
+                                                 style="width: 400px;">
 
                                     <p:ajax event="change" listener="#{notaContableLibrePage.seleccionarCuenta}"
                                             update="informacionRegLibre"/>
@@ -193,7 +194,8 @@
                                         <p:inputText value="#{notaContableLibrePage.temaActual.monto}" size="16"
                                                      maxlength="16"
                                                      onkeypress="return onKeyPressNumbers(event,this.value);"
-                                                     converter="javax.faces.Double" converterMessage="Valor inválido para el Importe"
+                                                     converter="javax.faces.Double"
+                                                     converterMessage="Valor inválido para el Importe"
                                                      onblur="if(this.value==''){this.value='0'}validarMontoLibreAlert(this.value);">
                                             <f:convertNumber maxFractionDigits="2"/>
 
@@ -213,9 +215,11 @@
                                              rendered="#{notaContableLibrePage.temaActual.pucCuenta.tipoApunte eq 'T' or notaContableLibrePage.temaActual.pucCuenta.indicadorTercero eq 'X' or notaContableLibrePage.temaActual.hadtapl.indicadorContrato eq 'S'}">
                                         <h:panelGrid columns="2" id="documentoTerceroRegLibreEd">
                                             <h:outputText value="Tipo de documento" styleClass="propertie"/>
-                                            <p:selectOneMenu value="#{notaContableLibrePage.temaActual.tipoIdentificacion}">
+                                            <p:selectOneMenu
+                                                    value="#{notaContableLibrePage.temaActual.tipoIdentificacion}">
 
-                                                <p:ajax event="change" update="globalForm:filtroTerceroRegLibre,globalForm:terceroRegLibre">
+                                                <p:ajax event="change"
+                                                        update="globalForm:filtroTerceroRegLibre,globalForm:terceroRegLibre">
                                                     <f:setPropertyActionListener value=""
                                                                                  target="#{notaContableLibrePage.temaActual.nombreCompleto}"/>
                                                 </p:ajax>
@@ -226,20 +230,21 @@
 
                                             <h:outputText value="Numero Documento" styleClass="propertie"/>
                                             <h:panelGrid columns="2" border="0" cellspacing="0">
-                                                <p:inputText
-                                                        value="#{notaContableLibrePage.temaActual.numeroIdentificacion}"
-                                                        size="20" immediate="true">
+                                                <p:inputText onkeydown="return event.key !== 'Enter';"
+                                                             value="#{notaContableLibrePage.temaActual.numeroIdentificacion}"
+                                                             size="20" immediate="true">
 
                                                     <p:ajax event="keyup"
                                                             update="filtroTerceroRegLibre,terceroRegLibre">
-                                                        <f:setPropertyActionListener for="numDocRenLibre" value="" target="#{notaContableLibrePage.temaActual.nombreCompleto}"/>
+                                                        <f:setPropertyActionListener for="numDocRenLibre" value=""
+                                                                                     target="#{notaContableLibrePage.temaActual.nombreCompleto}"/>
                                                     </p:ajax>
 
                                                 </p:inputText>
                                                 <h:panelGrid columns="1" id="filtroTerceroRegLibre" cellspacing="0"
                                                              cellpadding="0" style="border-collapse: collapse;">
                                                     <p:commandButton action="#{notaContableLibrePage.buscarTercero}"
-                                                                     update="globalForm:documentoTerceroRegLibreEd,terceroRegLibre"
+                                                                     update="globalForm:documentoTerceroRegLibreEd,terceroRegLibre,msgRegistroNotasLibre"
                                                                      style="margin: 0; margin-left: 8px;"
                                                                      value="Buscar" status="status"
                                                                      rendered="#{!empty notaContableLibrePage.temaActual.tipoIdentificacion and !empty notaContableLibrePage.temaActual.numeroIdentificacion}"/>
@@ -275,7 +280,7 @@
                             </p:panel>
                         </h:panelGrid>
                         <h:panelGroup id="msgRegistroNotasLibre">
-                        	<ui:include src="../../common/mensajes.xhtml"/>
+                            <ui:include src="../../common/mensajes.xhtml"/>
                         </h:panelGroup>
                     </h:panelGrid>
                 </div>
@@ -284,8 +289,8 @@
             <h:panelGrid columns="2" styleClass="center" width="100%">
 
 
-                <p:commandButton action="#{notaContableLibrePage.guardarTema}" 
-                	update="globalForm:formRegLibre,globalForm:msgRegistroNotasLibre,panelPrincipal"
+                <p:commandButton action="#{notaContableLibrePage.guardarTema}"
+                                 update="globalForm:formRegLibre,globalForm:msgRegistroNotasLibre,panelPrincipal"
                                  rendered="#{notaContableLibrePage.temaActual.pucCuenta.numeroCuenta != ''}"
                                  value="Guardar"/>
                 <p:commandButton oncomplete="PF('popupCancelTemaRegLibre').show()" value="Cancelar"/>
@@ -317,8 +322,10 @@
                 </p:dialog>
 
                 <!-- seccion de riesgo operacional -->
-                <p:dialog id="modalRiesgoRegLibre" widgetVar="modalRiesgoRegLibre" domElementAttachment="form" autosized="true"
-                          showEffect="fade" hideEffect="explode" modal="false" position="center,center" width="1100px" height="450px">
+                <p:dialog id="modalRiesgoRegLibre" widgetVar="modalRiesgoRegLibre" domElementAttachment="form"
+                          autosized="true"
+                          showEffect="fade" hideEffect="explode" modal="false" position="center,center" width="1100px"
+                          height="450px">
                     <f:facet name="header">
                         <h:panelGroup>
                             <h:outputText value="Riesgo operacional"/>
@@ -328,7 +335,7 @@
                         <h:panelGrid columns="3" cellspacing="0" cellpadding="0" width="100%" id="selectsRiesgoRegLibre"
                                      style="text-align: left;">
                             <p:outputLabel value="Importe Total : " styleClass="propertie"/>
-                            
+
                             <p:inputText value="#{notaContableLibrePage.temaActual.riesgoOperacional.importeTotal}"
                                          size="16" maxlength="16"
                                          onkeypress="return onKeyPressNumbers(event,this.value);"
@@ -364,31 +371,34 @@
                                 </h:outputText>
                             </h:panelGrid>
                         </h:panelGrid>
-                        
+
                         <h:panelGrid columns="2" width="100%" id="fechasRiesgoLibre" style="text-align: left;">
                             <p:outputLabel styleClass="propertie" value="Fecha del Evento : "/>
-                            
-                            <p:calendar value="#{notaContableLibrePage.temaActual.riesgoOperacional.fechaEventoPF}" onkeydown="return event.key !== 'Enter';"
+
+                            <p:calendar value="#{notaContableLibrePage.temaActual.riesgoOperacional.fechaEventoPF}"
+                                        onkeydown="return event.key !== 'Enter';"
                                         isDayEnabled="isDayEnabledRiesgo" dayStyleClass="getDisabledStyleRiesgo"
                                         id="fechaEventoRegLibre" showOn="button" navigator="true"/>
 
                             <p:outputLabel styleClass="propertie" value="Fecha Finalización del Evento : "/>
-                            <p:calendar value="#{notaContableLibrePage.temaActual.riesgoOperacional.fechaFinEventoPF}" onkeydown="return event.key !== 'Enter';"
+                            <p:calendar value="#{notaContableLibrePage.temaActual.riesgoOperacional.fechaFinEventoPF}"
+                                        onkeydown="return event.key !== 'Enter';"
                                         isDayEnabled="isDayEnabledRiesgo" dayStyleClass="getDisabledStyleRiesgo"
                                         immediate="true" id="idfechaFinEventoLibre" showOn="button" navigator="true"/>
 
                             <p:outputLabel value="Fecha del Descubrimiento : " styleClass="propertie"/>
                             <p:calendar onkeydown="return event.key !== 'Enter';"
-                                    value="#{notaContableLibrePage.temaActual.riesgoOperacional.fechaDescubrimientoEventoPF}"
-                                    isDayEnabled="isDayEnabledRiesgo"
-                                    dayStyleClass="getDisabledStyleRiesgo" immediate="true"
-                                    id="fechaDescubrimientoRegLibre" showOn="button" navigator="true"/>
+                                        value="#{notaContableLibrePage.temaActual.riesgoOperacional.fechaDescubrimientoEventoPF}"
+                                        isDayEnabled="isDayEnabledRiesgo"
+                                        dayStyleClass="getDisabledStyleRiesgo" immediate="true"
+                                        id="fechaDescubrimientoRegLibre" showOn="button" navigator="true"/>
 
                         </h:panelGrid>
-                        
+
                         <h:panelGrid columns="4" width="100%" id="selectsTiempoLibre" style="text-align: left;">
                             <h:outputText styleClass="bold" value="Hora Inicio Evento"/>
-                            <p:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.horaInicioEvento}">
+                            <p:selectOneMenu
+                                    value="#{notaContableLibrePage.temaActual.riesgoOperacional.horaInicioEvento}">
 
                                 <h:outputText styleClass="bold" value="hh"/>
                                 <f:selectItem itemValue="" itemLabel="00"/>
@@ -396,7 +406,8 @@
                             </p:selectOneMenu>
 
 
-                            <p:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.minutosInicioEvento}">
+                            <p:selectOneMenu
+                                    value="#{notaContableLibrePage.temaActual.riesgoOperacional.minutosInicioEvento}">
                                 <h:outputText styleClass="bold" value="mm"/>
                                 <f:selectItem itemValue="" itemLabel="--"/>
                                 <f:selectItems value="#{notaContableLibrePage.minutos}"/>
@@ -411,14 +422,16 @@
 
 
                             <h:outputText styleClass="bold" value="Hora Finalizacion Evento"/>
-                            <p:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.horaFinalEvento}">
+                            <p:selectOneMenu
+                                    value="#{notaContableLibrePage.temaActual.riesgoOperacional.horaFinalEvento}">
                                 <h:outputText styleClass="bold" value="hh"/>
                                 <f:selectItem itemValue="" itemLabel="00"/>
                                 <f:selectItems value="#{notaContableLibrePage.horas}"/>
                             </p:selectOneMenu>
 
 
-                            <p:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.minutosFinalEvento}">
+                            <p:selectOneMenu
+                                    value="#{notaContableLibrePage.temaActual.riesgoOperacional.minutosFinalEvento}">
                                 <h:outputText styleClass="bold" value="mm"/>
                                 <f:selectItem itemValue="" itemLabel="--"/>
                                 <f:selectItems value="#{notaContableLibrePage.minutos}"/>
@@ -431,19 +444,22 @@
                             </p:selectOneMenu>
 
                             <h:outputText styleClass="bold" value="Hora Descubrimiento"/>
-                            <p:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.horaDescubrimiento}">
+                            <p:selectOneMenu
+                                    value="#{notaContableLibrePage.temaActual.riesgoOperacional.horaDescubrimiento}">
                                 <h:outputText styleClass="bold" value="hh"/>
                                 <f:selectItem itemValue="" itemLabel="00"/>
                                 <f:selectItems value="#{notaContableLibrePage.horas}"/>
                             </p:selectOneMenu>
 
-                            <p:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.minutosDescubrimiento}">
+                            <p:selectOneMenu
+                                    value="#{notaContableLibrePage.temaActual.riesgoOperacional.minutosDescubrimiento}">
                                 <h:outputText styleClass="bold" value="mm"/>
                                 <f:selectItem itemValue="" itemLabel="--"/>
                                 <f:selectItems value="#{notaContableLibrePage.minutos}"/>
                             </p:selectOneMenu>
 
-                            <p:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.horarioDescubre}">
+                            <p:selectOneMenu
+                                    value="#{notaContableLibrePage.temaActual.riesgoOperacional.horarioDescubre}">
                                 <h:outputText styleClass="bold" value="A.M/P.M"/>
                                 <f:selectItem itemValue="" itemLabel="--"/>
                                 <f:selectItems value="#{notaContableLibrePage.horario}"/>
@@ -453,7 +469,7 @@
                             <p:outputLabel value="Clase de Riesgo" styleClass="propertie" style="width : 150px;"/>
                             <p:selectOneMenu
                                     value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoClaseRiesgo}"
-                                    style="width : 50%" >
+                                    style="width : 50%">
 
                                 <p:ajax event="change" listener="#{notaContableLibrePage.buscarPerdidasCuenta}"
                                         update="IdPanelPartida,panelClaseRiesgoN2Libre"/>
@@ -511,7 +527,7 @@
 
                             <p:outputLabel styleClass="propertie" value="Canal" style="width : 150px;"/>
                             <p:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.codigoCanal}"
-                                             style="width : 50%" >
+                                             style="width : 50%">
 
                                 <p:ajax event="change" listener="#{notaContableLibrePage.buscarSubCanal}"
                                         update="panelSubCanalLibre"/>
@@ -554,19 +570,21 @@
                                 </p:selectOneMenu>
                             </p:outputPanel>
                             <p:outputLabel styleClass="bold" value="Nombre Outsourcing" style="width : 150px;"/>
-                            <p:inputTextarea value="#{notaContableLibrePage.temaActual.riesgoOperacional.nombreOutSource}"
-                                             onkeyup="this.value=removeAccents(this.value,6)"
-                                             onkeypress="return characterRestriction(event,6)"
-                                             onmouseup="this.value=removeAccents(this.value,6)"
-                                             onmousedown="this.value=removeAccents(this.value,6)"
-                                             style="width : 50%;" cols="50" rows="2" />
+                            <p:inputTextarea
+                                    value="#{notaContableLibrePage.temaActual.riesgoOperacional.nombreOutSource}"
+                                    onkeyup="this.value=removeAccents(this.value,6)"
+                                    onkeypress="return characterRestriction(event,6)"
+                                    onmouseup="this.value=removeAccents(this.value,6)"
+                                    onmousedown="this.value=removeAccents(this.value,6)"
+                                    style="width : 50%;" cols="50" rows="2"/>
                             <p:outputLabel styleClass="bold" value="Aplica Recuperación" style="width : 150px;"
                                            rendered="#{notaContableLibrePage.aplicaRecuperacion}"/>
                             <p:selectOneMenu
                                     value="#{notaContableLibrePage.temaActual.riesgoOperacional.appRecuperacion}"
                                     style="width : 50%" rendered="#{notaContableLibrePage.aplicaRecuperacion}">
 
-                                <p:ajax event="change" update="panelFechaTxtLibre, panelFechaValueLibre, panelHoraTxtLibre, panelHoraValueLibre, panelTipoRLibre, panelTipoRecValueLibre"/>
+                                <p:ajax event="change"
+                                        update="panelFechaTxtLibre, panelFechaValueLibre, panelHoraTxtLibre, panelHoraValueLibre, panelTipoRLibre, panelTipoRecValueLibre"/>
 
                                 <f:selectItem itemValue="" itemLabel="Seleccione una opcion"/>
                                 <f:selectItem itemValue="S" itemLabel="SI"/>
@@ -593,19 +611,22 @@
                             <p:outputPanel id="panelHoraValueLibre" ajaxRendered="true">
                                 <h:panelGrid columns="4" width="90%" id="selectsTiempoRecuperacionLibre"
                                              rendered="#{notaContableLibrePage.temaActual.riesgoOperacional.appRecuperacion eq 'S'}">
-                                    <p:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.horaRecuperacion}">
+                                    <p:selectOneMenu
+                                            value="#{notaContableLibrePage.temaActual.riesgoOperacional.horaRecuperacion}">
                                         <h:outputText styleClass="bold" value="hh"/>
                                         <f:selectItem itemValue="" itemLabel="00"/>
                                         <f:selectItems value="#{notaContableLibrePage.horas}"/>
                                     </p:selectOneMenu>
 
-                                    <p:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.minutosRecuperacion}">
+                                    <p:selectOneMenu
+                                            value="#{notaContableLibrePage.temaActual.riesgoOperacional.minutosRecuperacion}">
                                         <h:outputText styleClass="bold" value="mm"/>
                                         <f:selectItem itemValue="" itemLabel="--"/>
                                         <f:selectItems value="#{notaContableLibrePage.minutos}"/>
                                     </p:selectOneMenu>
 
-                                    <p:selectOneMenu value="#{notaContableLibrePage.temaActual.riesgoOperacional.horarioRecuperacion}">
+                                    <p:selectOneMenu
+                                            value="#{notaContableLibrePage.temaActual.riesgoOperacional.horarioRecuperacion}">
                                         <h:outputText styleClass="bold" value="A.M/P.M"/>
                                         <f:selectItem itemValue="" itemLabel="--"/>
                                         <f:selectItems value="#{notaContableLibrePage.horario}"/>
@@ -628,16 +649,16 @@
                             </p:outputPanel>
 
                         </h:panelGrid>
-						
-						<h:panelGroup id="msgModalRiesgoLibre">
-                        	<ui:include src="../../common/mensajes.xhtml"/>
-						</h:panelGroup>
-						
+
+                        <h:panelGroup id="msgModalRiesgoLibre">
+                            <ui:include src="../../common/mensajes.xhtml"/>
+                        </h:panelGroup>
+
                         <h:panelGrid columns="3" width="100%" style="text-align: left;">
-                        
-                            <p:commandButton value="Guardar" action="#{notaContableLibrePage.guardarRiesgo}" 
-                            update="msgModalRiesgoLibre,msgRegistroNotasLibre"/>
-                            
+
+                            <p:commandButton value="Guardar" action="#{notaContableLibrePage.guardarRiesgo}"
+                                             update="msgModalRiesgoLibre,msgRegistroNotasLibre"/>
+
                             <p:commandButton oncomplete="PF('popupCancelRiesgoRegLibre').show()" value="Cancelar"/>
 
                             <!-- Modal para cancelación de datos de riesgo-->
@@ -674,9 +695,9 @@
     </p:dialog>
 
     <!-- seccion de soportes -->
-    <p:dialog id="modalSoportesRegLibre" widgetVar="modalSoportesRegLibre" 
-    			domElementAttachment="form" autosized="true" showEffect="fade" hideEffect="explode"
-              	modal="false" position="center center">
+    <p:dialog id="modalSoportesRegLibre" widgetVar="modalSoportesRegLibre"
+              domElementAttachment="form" autosized="true" showEffect="fade" hideEffect="explode"
+              modal="false" position="center center">
         <f:facet name="header">
             <h:panelGroup>
                 <h:outputText value="Subir soportes para la nota contable"/>
@@ -729,9 +750,9 @@
                              onkeypress="return characterRestriction(event,6)"
                              onmouseup="this.value=removeAccents(this.value,6)"
                              onmousedown="this.value=removeAccents(this.value,6)"
-                             maxlength="500" size="80" />
+                             maxlength="500" size="80"/>
 
-                <p:commandButton action="#{notaContableLibrePage.editar}"
+                <p:commandButton actionListener="#{notaContableLibrePage.editar}"
                                  oncomplete="PF('editorRegLibre').show()"
                                  update="globalForm:editorRegLibre"
                                  value="Agregar Registro"
@@ -821,87 +842,88 @@
 
             </p:dataTable>
         </p:panel>
-        
+
         <h:panelGroup id="tableSoportes">
-	        <p:panel header="Soportes de la nota contable" cellpadding="0" cellspacing="2" id="anexosLibre"
-	                 style="text-align: center;" width="100%"
-	                 rendered="#{! empty notaContableLibrePage.anexos}">
-	            <p:dataTable value="#{notaContableLibrePage.anexos}" var="anexo" id="tableAnexosNotaLibre"
-	                         rowKeyVar="rowKeyAnexos" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
-	                         onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"
-	                         rowClasses="row1, row2">
-	
-	                <p:column width="150" style="text-align: left;">
-	                    <f:facet name="header">
-	                        <h:outputText value="Fecha"/>
-	                    </f:facet>
-	                    <h:outputText value="#{anexo.fechaHora}"/>
-	                </p:column>
-	
-	                <p:column style="text-align: right;">
-	                    <f:facet name="header">
-	                        <h:outputText value="Usuario"/>
-	                    </f:facet>
-	                    <h:outputText value="#{anexo.usuNombre}"/>
-	                </p:column>
-	
-	                <p:column style="text-align: right;">
-	                    <f:facet name="header">
-	                        <h:outputText value="Archivo"/>
-	                    </f:facet>
-	                    <p:commandLink action="#{downloadGeneralPage.download}" styleClass="bold" value="#{anexo.nombre}"
-	                                   target="_blank">
-	                        <f:setPropertyActionListener for="type1" value="#{downloadGeneralPage.SOPORTE}"
-	                                                     target="#{downloadGeneralPage.type}"/>
-	                        <f:setPropertyActionListener for="file1" value="#{anexo.archivo}"
-	                                                     target="#{downloadGeneralPage.file}"/>
-	                    </p:commandLink>
-	                </p:column>
-	
-	                <p:column width="80" style="text-align: center;">
-	                    <f:facet name="header">
-	                        <h:outputText value="Eliminar"/>
-	                    </f:facet>
-	
-	                    <p:commandButton icon="pi pi-pencil" alt="Borrar"
-	                                     onclick="PF('popupBorrarAnexoRegLibre').show()"/>
-	
-	                    <!-- Formulario de confirmacion de borrado de anexos-->
-	                    <p:dialog id="popupBorrarAnexoRegLibre" widgetVar="popupBorrarAnexoRegLibre" autosized="true"
-	                              domElementAttachment="form" minWidth="250">
-	                        <f:facet name="header">
-	                            <h:panelGroup>
-	                                <h:outputText value="Confirmación de borrado de anexo"/>
-	                            </h:panelGroup>
-	                        </f:facet>
-	                        <f:facet name="controls">
-	                            <h:panelGroup>
-	                                <h:graphicImage value="../../../common/images/close.png" alt="cerrar"
-	                                                styleClass="hidelink" id="hidelinkBorrarAnexoRegLibre" height="20"
-	                                                width="20"/>
-	                            </h:panelGroup>
-	                        </f:facet>
-	
-	                        <h:panelGrid columns="1" width="100%">
-	
-	                            <h:outputText value="¿Está seguro que desea borrar el anexo actual?"/>
-	
-	                            <!-- Seccion de mensajes y botones de envio y cancelacion-->
-	
-	                            <h:panelGrid columns="2" styleClass="center" width="100%">
-	                                <p:commandButton action="#{notaContableLibrePage.borrarAnexo}" value="Si"
-	                                                 oncomplete="PF('popupBorrarAnexoRegLibre').hide()"
-	                                                 update="globalForm:formRegLibre">
-	                                    <f:param name="anexoBorrarAnexoRegLibre" value="true" assignTo="#{anexo.borrar}"
-	                                             converter="javax.faces.Boolean"/>
-	                                </p:commandButton>
-	                                <p:commandButton onclick="PF('popupBorrarAnexoRegLibre').hide()" value="No"/>
-	                            </h:panelGrid>
-	                        </h:panelGrid>
-	                    </p:dialog>
-	                </p:column>
-	            </p:dataTable>
-	        </p:panel>
+            <p:panel header="Soportes de la nota contable" cellpadding="0" cellspacing="2" id="anexosLibre"
+                     style="text-align: center;" width="100%"
+                     rendered="#{! empty notaContableLibrePage.anexos}">
+                <p:dataTable value="#{notaContableLibrePage.anexos}" var="anexo" id="tableAnexosNotaLibre"
+                             rowKeyVar="rowKeyAnexos" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
+                             onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"
+                             rowClasses="row1, row2">
+
+                    <p:column width="150" style="text-align: left;">
+                        <f:facet name="header">
+                            <h:outputText value="Fecha"/>
+                        </f:facet>
+                        <h:outputText value="#{anexo.fechaHora}"/>
+                    </p:column>
+
+                    <p:column style="text-align: right;">
+                        <f:facet name="header">
+                            <h:outputText value="Usuario"/>
+                        </f:facet>
+                        <h:outputText value="#{anexo.usuNombre}"/>
+                    </p:column>
+
+                    <p:column style="text-align: right;">
+                        <f:facet name="header">
+                            <h:outputText value="Archivo"/>
+                        </f:facet>
+                        <p:commandLink action="#{downloadGeneralPage.download}" styleClass="bold"
+                                       value="#{anexo.nombre}"
+                                       target="_blank">
+                            <f:setPropertyActionListener for="type1" value="#{downloadGeneralPage.SOPORTE}"
+                                                         target="#{downloadGeneralPage.type}"/>
+                            <f:setPropertyActionListener for="file1" value="#{anexo.archivo}"
+                                                         target="#{downloadGeneralPage.file}"/>
+                        </p:commandLink>
+                    </p:column>
+
+                    <p:column width="80" style="text-align: center;">
+                        <f:facet name="header">
+                            <h:outputText value="Eliminar"/>
+                        </f:facet>
+
+                        <p:commandButton icon="pi pi-pencil" alt="Borrar"
+                                         onclick="PF('popupBorrarAnexoRegLibre').show()"/>
+
+                        <!-- Formulario de confirmacion de borrado de anexos-->
+                        <p:dialog id="popupBorrarAnexoRegLibre" widgetVar="popupBorrarAnexoRegLibre" autosized="true"
+                                  domElementAttachment="form" minWidth="250">
+                            <f:facet name="header">
+                                <h:panelGroup>
+                                    <h:outputText value="Confirmación de borrado de anexo"/>
+                                </h:panelGroup>
+                            </f:facet>
+                            <f:facet name="controls">
+                                <h:panelGroup>
+                                    <h:graphicImage value="../../../common/images/close.png" alt="cerrar"
+                                                    styleClass="hidelink" id="hidelinkBorrarAnexoRegLibre" height="20"
+                                                    width="20"/>
+                                </h:panelGroup>
+                            </f:facet>
+
+                            <h:panelGrid columns="1" width="100%">
+
+                                <h:outputText value="¿Está seguro que desea borrar el anexo actual?"/>
+
+                                <!-- Seccion de mensajes y botones de envio y cancelacion-->
+
+                                <h:panelGrid columns="2" styleClass="center" width="100%">
+                                    <p:commandButton action="#{notaContableLibrePage.borrarAnexo}" value="Si"
+                                                     oncomplete="PF('popupBorrarAnexoRegLibre').hide()"
+                                                     update="globalForm:formRegLibre">
+                                        <f:param name="anexoBorrarAnexoRegLibre" value="true" assignTo="#{anexo.borrar}"
+                                                 converter="javax.faces.Boolean"/>
+                                    </p:commandButton>
+                                    <p:commandButton onclick="PF('popupBorrarAnexoRegLibre').hide()" value="No"/>
+                                </h:panelGrid>
+                            </h:panelGrid>
+                        </p:dialog>
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
         </h:panelGroup>
 
         <h:panelGroup id="msgPpalRegistroLibre">

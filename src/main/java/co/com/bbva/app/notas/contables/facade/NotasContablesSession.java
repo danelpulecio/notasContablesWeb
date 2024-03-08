@@ -1838,6 +1838,8 @@ public interface NotasContablesSession {
 
 	public Collection<UsuarioModulo> getTiemposPorUsuario(Timestamp desde) throws Exception;
 
+	public Collection<String> getDocumentoSoporteByDate(String fechaDesde , String fechaHasta ) throws Exception;
+
 	/**
 	 * Permite consultar el subproducto por medio del codigo del producto
 	 * 

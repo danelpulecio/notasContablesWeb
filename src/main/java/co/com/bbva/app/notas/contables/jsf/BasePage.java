@@ -95,7 +95,8 @@ public abstract class BasePage implements Serializable  {
 	}
 
 	public UsuarioLogueado getUsuarioLogueado() {
-		//LOGGER.info("contableSessionBean basePage {}", getContablesSessionBean());
+		LOGGER.info("<<<<<<<<<contableSessionBean basePage {}>>>>>>>>>", getContablesSessionBean());
+		LOGGER.info("<<<<<<<<contableSessionBean basePage login user{}>>>>>>>>", getContablesSessionBean().getLoginUser());
 		return getContablesSessionBean().getLoginUser();
 	}
 

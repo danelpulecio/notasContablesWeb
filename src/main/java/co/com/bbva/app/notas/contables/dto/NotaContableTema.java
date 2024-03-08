@@ -1,8 +1,11 @@
 package co.com.bbva.app.notas.contables.dto;
 
 import co.com.bbva.app.notas.contables.carga.dto.Sucursal;
+import co.com.bbva.app.notas.contables.jsf.nota.NotaContablePage;
 import co.com.bbva.app.notas.contables.util.DateUtils;
 import co.com.bbva.app.notas.contables.util.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -10,6 +13,7 @@ import java.util.ArrayList;
 
 public class NotaContableTema extends CommonVO<NotaContableTema> implements java.io.Serializable {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(NotaContableTema.class);
 	private static final long serialVersionUID = -1931903714644156940L;
 
 	private Number codigo = 0;
@@ -141,6 +145,7 @@ public class NotaContableTema extends CommonVO<NotaContableTema> implements java
 	}
 
 	public String getCodigoDivisa() {
+		LOGGER.info("<<<<<getCodigo dividsa: {}>>>>>", codigoDivisa);
 		return codigoDivisa;
 	}
 

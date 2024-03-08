@@ -81,4 +81,6 @@ public interface IPages {
 
 	public static final String REPORTE_CONCILIACION = "reporteConciliacionPage";
 
+	public static final String REPORTE_DOCUMENTO_SOPORTE = "reporteDocumentoSoportePage";
+
 }

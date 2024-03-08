@@ -42,7 +42,7 @@
             function validarMontoAlert(value) {
                 var alertCOP = parseFloat(document.getElementById('globalForm:montoAlertaCOP').value);
                 var alertEXT = parseFloat(document.getElementById('globalForm:montoAlertaEXT').value);
-                var divisa = document.getElementById('globalForm:codDivisaNotaContable').value;
+                var divisa = PF('codDivisaNotaContable').getSelectedValue();
                 var warn = false;
                 if (divisa == 'COP') {
                     warn = value &gt; alertCOP;
@@ -364,8 +364,8 @@
 
                             <h:outputText styleClass="bold" value="Divisa"/>
                             <h:panelGrid columns="4" width="100%" cellpadding="0" cellspacing="0">
-                                <p:selectOneMenu value="#{notaContablePage.temaActual.codigoDivisa}"
-                                                 style="width:180px;" id="codDivisaNotaContable">
+                                <p:selectOneMenu id="codDivisaNotaContable" widgetVar="codDivisaNotaContable" value="#{notaContablePage.temaActual.codigoDivisa}"
+                                                 style="width:180px;" >
                                     <f:selectItems value="#{notaContablePage.divisas}"/>
                                 </p:selectOneMenu>
 
@@ -999,7 +999,7 @@
 
                     <p:inputText value="#{notaContablePage.concepto}" size="70"/>
 
-                    <p:commandButton action="#{notaContablePage.buscarConcepto}" value="Buscar Concepto"
+                    <p:commandButton actionListener="#{notaContablePage.buscarConcepto}" value="Buscar Concepto"
                                      update="globalForm:tipoConcepto"/>
                     <p:selectOneMenu value="#{notaContablePage.nota.codigoConcepto}"
                                      converter="javax.faces.Integer"

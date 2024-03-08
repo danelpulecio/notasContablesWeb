@@ -473,4 +473,108 @@ public class ReportesExcel {
 		}
 	}
 
+	public void getReporteDocumentoSoporte(String reportTitle, String fechaDesde , String fechaHasta ) {
+		try {
+			String var_SEPARATOR = "//";
+			HSSFWorkbook wb = new HSSFWorkbook();
+			HSSFSheet sh = wb.createSheet("Documento Soporte");
+			sh.setDefaultColumnWidth((short) 30);
+			HSSFRow row;
+
+			HSSFCell cell;
+
+			// Labels del reporte
+			String[] labels = { "TIPO IDENTIFICACION", "IDENTIFICACION DEL PROVEEDOR", "DV", "NOMBRE O RAZON SOCIAL", "FECHA DE LA OPERACION", "CONCEPTO DE PAGO" , "IMPORTE OPERACION", "IVA" };
+			row = sh.createRow((short) 0);
+			labelsReport(row, labels, wb);
+
+			// Creación Reporte
+			int li_count = 0;
+			for (String str : notasContablesManager.getDocumentoSoporteByDate(fechaDesde ,fechaHasta )) {
+				li_count++;
+				String [] fields = str.split(var_SEPARATOR);
+
+				String v_tipo_identificacion = fields[0];
+				String v_identificacion = fields[1];
+				String v_DV = fields[2];
+				String v_nombre_razon_social = fields[3];
+				String v_fecha = fields[4];
+				String v_concepto = fields[5];
+				String v_importe = fields[6];
+				String v_iva = fields[7];
+
+				row = sh.createRow((short) (li_count + 1));
+				cell = row.createCell((short) 0);
+				cell.setCellValue(v_tipo_identificacion);
+
+				cell = row.createCell((short) 1);
+				cell.setCellValue(v_identificacion);
+
+				cell = row.createCell((short) 2);
+				cell.setCellValue(v_DV);
+
+				cell = row.createCell((short) 3);
+				cell.setCellValue(v_nombre_razon_social);
+
+				cell = row.createCell((short) 4);
+				cell.setCellValue(v_fecha);
+
+				cell = row.createCell((short) 5);
+				cell.setCellValue(v_concepto);
+
+				cell = row.createCell((short) 6);
+				cell.setCellValue(Double.parseDouble(v_importe) );
+
+				cell = row.createCell((short) 7);
+				cell.setCellValue(Double.parseDouble(v_iva) );
+
+			}
+
+			FileOutputStream fileOut = new FileOutputStream(strPath + nombreArchivo);
+			wb.write(fileOut);
+			fileOut.close();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public void getReporteDocumentoSoporteXCuentas(String reportTitle, String fechaDesde , String fechaHasta ) {
+		try {
+			String var_SEPARATOR = "//";
+			HSSFWorkbook wb = new HSSFWorkbook();
+			HSSFSheet sh = wb.createSheet("Documento Soporte Cuentas");
+			sh.setDefaultColumnWidth((short) 30);
+			HSSFRow row;
+
+			HSSFCell cell;
+
+			// Labels del reporte
+			String[] labels = { "CODIGO" , "CODIGO_NOTA_CONTABLE" , "FECHA_CONTABLE", "PARTIDA_CONTABLE1" , "NATURALEZA1" , "CONTRAPARTIDA_CONTABLE"
+					, "NATURALEZA2" , "CODIGO_DIVISA" , "MONTO" , "TIPO_IDENTIFICACION1" , "DIGITO_VERIFICACION1" ,"NOMBRE_COMPLETO1" ,
+					"NUMERO_IDENTIFICACION1" , "TIPO_IDENTIFICACION2", "NUMERO_IDENTIFICACION2" , "DIGITO_VERIFICACION2" , "NOMBRE_COMPLETO2" , "b_codigo"
+					,"b_CODIGO_NOTA_CONTABLE" , "estado" , "a_CODIGO" , "a_NUMERO_RADICACION" ,"a_TIPO_NOTA" ,"a_ESTADO" , "CODIGO_IMPUESTO"
+					, "base" , "CALCULADO" , "PARTIDA_CONTABLE_impuesto" , "NOMBRE_IMPUESTO" , "VALOR" , "status1" , "status2" , "doc_soporte_1" ,
+					"doc_soporte_2" , "descripcion" , "des_tema"  , "codigo_tema" , "NOM_TIPO_IDENTIFIACION1"  , "NOM_TIPO_IDENTIFIACION2" };
+			row = sh.createRow((short) 0);
+			labelsReport(row, labels, wb);
+
+			// Creación Reporte
+			int li_count = 0;
+			for (String str : notasContablesManager.getDocumentoSoporteXCuentaByDate(fechaDesde ,fechaHasta )) {
+				li_count++;
+				row = sh.createRow((short) (li_count + 1));
+				cell = row.createCell((short) 0);
+				cell.setCellValue(str);
+
+
+			}
+
+			FileOutputStream fileOut = new FileOutputStream(strPath + nombreArchivo);
+			wb.write(fileOut);
+			fileOut.close();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 }

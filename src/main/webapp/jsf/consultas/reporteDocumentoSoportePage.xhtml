@@ -1,0 +1,107 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../common/template.xhtml">
+    <ui:param name="title" value="Reporte Documento Soporte"/>
+    <ui:define name="body">
+
+        <!--Filtro de busqueda	-->
+        <div style="width: 1200px;">
+            <p:panel style="width: 1200px">
+                <h:panelGrid columns="1" width="100%">
+                    <h1 align="center">Reporte Documento Soporte</h1>
+                </h:panelGrid>
+
+                <p:dialog widgetVar="editor" id="editor" autosized="true">
+                    <f:facet name="header">
+                        <h:panelGroup>
+                            <h:outputText value="Descargar Archivos"/>
+                        </h:panelGroup>
+                    </f:facet>
+                    <f:facet name="controls">
+                        <h:panelGroup>
+                            <h:graphicImage value="../../common/images/close.png" alt="cerrar" styleClass="hidelink"
+                                            id="hidelink" height="20" width="20"/>
+                        </h:panelGroup>
+                    </f:facet>
+
+                    <!-- Campos del formulario -->
+                    <h:panelGrid columns="1" width="650" id="informacion">
+                        <h:panelGrid columns="2" width="650" columnClasses="name,value">
+                            <h:outputText value="Descargar Documento Doporte"/>
+                            <p:commandLink action="#{downloadGeneralPage.download}" styleClass="bold"
+                                           value="DocumentoSoporte.xls" target="_blank">
+                                <f:setPropertyActionListener value="#{downloadGeneralPage.REPORTE_EXCEL}"
+                                                             target="#{downloadGeneralPage.type}"/>
+                                <f:setPropertyActionListener value="DocumentoSoporte.xls"
+                                                             target="#{downloadGeneralPage.file}"/>
+                            </p:commandLink>
+
+                            <h:outputText value="Descargar Documento Soporte Detallado"/>
+                            <p:commandLink action="#{downloadGeneralPage.download}" styleClass="bold"
+                                           value="DocumentoSoporteXcuentas.xls" target="_blank">
+                                <f:setPropertyActionListener value="#{downloadGeneralPage.REPORTE_EXCEL}"
+                                                             target="#{downloadGeneralPage.type}"/>
+                                <f:setPropertyActionListener value="DocumentoSoporteXcuentas.xls"
+                                                             target="#{downloadGeneralPage.file}"/>
+                            </p:commandLink>
+                        </h:panelGrid>
+
+
+                        <!-- Seccion de mensajes y botones de envio y cancelacion-->
+                        <ui:include src="../../common/mensajes.xhtml"/>
+
+                    </h:panelGrid>
+                </p:dialog>
+
+
+                <!-- Tabla de registros -->
+                <h:panelGrid id="filtro" columns="1" width="60%" cellpadding="0" cellspacing="0">
+                    <p:accordionPanel label="Reporte Documento Soporte" width="100%" switchType="client">
+                        <p:tab title="Reporte Documento Soporte">
+                            <h:panelGrid columns="2" width="600px" cellpadding="0" cellspacing="5">
+
+                                <h:outputText value="Desde"/>
+                                <p:calendar showOn="button" navigator="true"
+                                            value="#{reporteDocumentoSoportePage.desde}"/>
+
+                                <h:outputText value="Hasta"/>
+                                <p:calendar showOn="button" navigator="true"
+                                            value="#{reporteDocumentoSoportePage.hasta}"/>
+
+
+                                <p:commandButton value="Generar Archivo Excel"
+                                                 action="#{reporteDocumentoSoportePage.generarArchivoExcel}"
+                                                 reRender="popupDetalle"/>
+
+
+                                <p:commandButton value="Generar Archivo Validacion"
+                                                 action="#{reporteDocumentoSoportePage.generarArchivoExcelXCcuentas}"
+                                                 reRender="popupDetalle"/>
+
+
+                                <h:panelGrid columns="1" width="380">
+                                    <!-- Funcionalidad para abrir el editor y crear un nuevo registro-->
+                                    <p:commandButton value="Descargar Archivos"
+                                                     oncomplete="PF('editor')}.show()"
+                                                     update="globalForm:editor"
+                                                     rendered="#{reporteDocumentoSoportePage.mostrarArchExc}">
+                                        <f:setPropertyActionListener name="codNuevo" value="0" target="0"
+                                                                     converter="javax.faces.Integer"/>
+                                    </p:commandButton>
+                                </h:panelGrid>
+
+
+                            </h:panelGrid>
+                        </p:tab>
+                    </p:accordionPanel>
+                </h:panelGrid>
+
+                <ui:include src="../../common/mensajes.xhtml"/>
+
+            </p:panel>
+        </div>
+    </ui:define>
+</ui:composition>

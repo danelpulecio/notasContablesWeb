@@ -28,8 +28,10 @@ public abstract class GeneralConsultaPage<T> extends GeneralPage implements IPag
 	
 	@PostConstruct
 	public void init() throws Exception {
-	    setDatos(new ArrayList<>(_buscar()));
-	    LOGGER.info("postConstructo buscar datos movimientos{}", getDatos().size());
+		LOGGER.info("<<<<<postConstructo generalConsultaPage>>>>>");
+		Collection<T> result = _buscar();
+		setDatos(result != null ? new ArrayList<>(result) : new ArrayList<>());
+		LOGGER.info("<<<<<postConstructo generalConsultaPage OK>>>>>");
 	}
 
 //	Session session = getContablesSessionBean().getSessionTrace();

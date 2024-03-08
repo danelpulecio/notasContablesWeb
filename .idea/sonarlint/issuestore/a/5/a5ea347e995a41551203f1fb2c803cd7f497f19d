@@ -1,12 +1,14 @@
 
 v
-java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(ä÷á…8Ö¡—©÷1
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(ä÷á…8Ö¡—©÷1
 v
-java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(û‘ùÈ8Ö¡—©÷1
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(û‘ùÈ8®ÿ≈Å‚1
 \
-java:S1161'":Add the "@Override" annotation above this method signature(ÿê€à¯ˇˇˇˇ8€ñÕÇŸ1
-]	java:S125$"<This block of commented-out lines of code should be removed.(ë∆Œ”˚ˇˇˇˇ8è¡—©÷1
-]	java:S1250"<This block of commented-out lines of code should be removed.(º¸¡Î¯ˇˇˇˇ8ê¡—©÷1
+java:S1161(":Add the "@Override" annotation above this method signature(ÿê€à¯ˇˇˇˇ8€ñÕÇŸ1
+]	java:S125%"<This block of commented-out lines of code should be removed.(ë∆Œ”˚ˇˇˇˇ8è¡—©÷1
+]	java:S1251"<This block of commented-out lines of code should be removed.(º¸¡Î¯ˇˇˇˇ8ê¡—©÷1
 7
-java:S3457<"Not enough arguments.(•ŒÅ„˝ˇˇˇˇ8ë¡—©÷1
-X	java:S125M"<This block of commented-out lines of code should be removed.(∑∞´£8í¡—©÷1
+java:S3457="Not enough arguments.(•ŒÅ„˝ˇˇˇˇ8ë¡—©÷1
+X	java:S125N"<This block of commented-out lines of code should be removed.(∑∞´£8í¡—©÷1
+`
+java:S1128"CRemove this unused import 'javax.enterprise.context.RequestScoped'.(Ç’ÖΩ8ºÿ≈Å‚1

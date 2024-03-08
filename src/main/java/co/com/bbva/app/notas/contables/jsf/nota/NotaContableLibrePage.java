@@ -16,6 +16,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
 import java.io.File;
@@ -32,7 +33,7 @@ import java.util.*;
  * </p>
  * 
  */
-@SessionScoped
+@ViewScoped
 @Named
 public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements Serializable {
 

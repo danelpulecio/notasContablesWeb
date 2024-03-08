@@ -522,3 +522,11 @@ v
 Fsrc/main/java/co/com/bbva/app/notas/contables/dto/MontoAutorizado.java,7/e/7ef6efac682e66100473ca5c4a3304bcacf7d671
 }
 Msrc/main/java/co/com/bbva/app/notas/contables/dto/MontoAutorizadoGeneral.java,9/6/967c961b118daae9ebd3c4f77690b26c97970dc8
+Œ
+\src/main/java/co/com/bbva/app/notas/contables/jsf/consultas/ReporteDocumentoSoportePage.java,b/b/bb2e08a634041a77693f4c51be3a21b4f6b0511b
+o
+?src/main/webapp/jsf/consultas/reporteDocumentoSoportePage.xhtml,2/0/2052bf396881bb4ab1a48efbbda57cc88d3b7f45
+~
+Nsrc/main/java/co/com/bbva/app/notas/contables/jsf/adminnota/FileGenerator.java,5/c/5c87715bfac92b5d61e3c57546a62321d91de375
+|
+Lsrc/main/java/co/com/bbva/app/notas/contables/jsf/nota/NotaRefCrucePage.java,c/f/cf7ce809059d13d63ed84848449528c8dbd6e37a

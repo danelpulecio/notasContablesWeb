@@ -1,6 +1,8 @@
 
 a	java:S112¬"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òιόÿÿÿÿ
 a	java:S112Ψ"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òιόÿÿÿÿ
+h	java:S112™"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òιόÿÿÿÿ8τυ…±α1
+h	java:S112ΐ"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òιόÿÿÿÿ8υυ…±α1
 ^
 java:S1192}"HDefine a constant instead of duplicating this literal "Verdana" 3 times.(τρΡ
 l	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨Ηη‹ψÿÿÿÿ
@@ -14,6 +16,22 @@ l	java:S117"QRename this local variable to match the regular expression '^[a
 l	java:S117·"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Λ³ψ ωÿÿÿÿ
 l	java:S117Ι"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Λ³ψ ωÿÿÿÿ
 l	java:S117Ύ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨Ηη‹ψÿÿÿÿ
+n	java:S117ή"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¤Ω΅8χυ…±α1
+s	java:S117μ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨Ηη‹ψÿÿÿÿ8χυ…±α1
+s	java:S117ρ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(†αν„ώÿÿÿÿ8χυ…±α1
+n	java:S117ς"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ΚΗÒÒ8χυ…±α1
+n	java:S117σ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(τ‡”ΰ8χυ…±α1
+n	java:S117τ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(†±η8χυ…±α1
+n	java:S117υ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ξτ΅8χυ…±α1
+n	java:S117φ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(΅ΒΙΔ8χυ…±α1
+n	java:S117χ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ψώήν8χυ…±α1
+n	java:S117ψ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(γ¶ί½8χυ…±α1
+n	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¤Ω΅8χυ…±α1
+s	java:S117²"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨Ηη‹ψÿÿÿÿ8χυ…±α1
+9
+java:S2066 "Make this inner class static(Αύ8±ύ°α1
+X	java:S125K"<This block of commented-out lines of code should be removed.(°µ©τ8’±ύ°α1
+X	java:S125Y"<This block of commented-out lines of code should be removed.(°µ©τ8”±ύ°α1
 V	java:S125s"<This block of commented-out lines of code should be removed.(ΓΎξ“ϋÿÿÿÿ
 V	java:S125u"<This block of commented-out lines of code should be removed.(έ €σύÿÿÿÿ
 V	java:S125{"<This block of commented-out lines of code should be removed.(ΰ’όΎωÿÿÿÿ
@@ -46,3 +64,13 @@ W	java:S125£"<This block of commented-out lines of code should be removed.(έ 
 W	java:S125©"<This block of commented-out lines of code should be removed.(ΰ’όΎωÿÿÿÿ
 W	java:S125®"<This block of commented-out lines of code should be removed.(…¶Άτύÿÿÿÿ
 R	java:S125°"<This block of commented-out lines of code should be removed.(ΆΏ΅ν
+O
+java:S1172ά"2Remove this unused method parameter "reportTitle".(£/8Τχ…±α1
+_
+java:S1854"ARemove this useless assignment to local variable "var_SEPARATOR".(¤Ω΅8Φχ…±α1
+U
+java:S1172"2Remove this unused method parameter "reportTitle".(ΊΩ―°ÿÿÿÿÿ8Φχ…±α1
+P
+java:S1481"2Remove this unused "var_SEPARATOR" local variable.(¤Ω΅8Φχ…±α1
+{
+java:S1128"^Remove this unused import 'co.com.bbva.app.notas.contables.jsf.adminnota.PrecierreCierrePage'.(Ί–ι”8Ώ±ύ°α1

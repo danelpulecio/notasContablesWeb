@@ -5,7 +5,7 @@ import co.com.bbva.app.notas.contables.dto.SessionTraceDto;
 import java.sql.Connection;
 import java.sql.ResultSet;
 
-public class SessionTraceDao extends CommonDAO<SessionTraceDto> {
+public class SessionTraceDao extends CommonSeqDAO<SessionTraceDto> {
 
     private static String TABLE = "NC_SESSION_TRACE";
     private static String COLUMNS = "TRACE_ID, USER_ID, USER_CODE, REMOTE_IP, HOST_IP, LOGIN_DATE, LOGIN_SUCCESS, LAST_WRITTEN";
@@ -22,9 +22,8 @@ public class SessionTraceDao extends CommonDAO<SessionTraceDto> {
     }
 
     public void saveTrace(SessionTraceDto sessionTrace) throws Exception {
-        Connection conn = null;
+        final Connection conn = getConexion(false);
         try {
-            conn = getConexion(false);
             executeUpdate(conn, SQL_INSERT_SENTENCE, new Object[]{sessionTrace.getTraceId(), sessionTrace.getUserCode(),
                     sessionTrace.getRemoteIp(), sessionTrace.getHostIp()});
             conn.commit();
@@ -37,9 +36,8 @@ public class SessionTraceDao extends CommonDAO<SessionTraceDto> {
     }
 
     public void updateTrace(SessionTraceDto sessionTrace) throws Exception {
-        Connection conn = null;
+        final Connection conn = getConexion(false);
         try {
-            conn = getConexion(false);
             executeUpdate(conn, SQL_UPDATE_SENTENCE, new Object[]{sessionTrace.getUserId(), sessionTrace.getLoginSuccess(),
                     sessionTrace.getTraceId()});
             conn.commit();

@@ -430,6 +430,65 @@ public class NotaContableDAO extends CommonSeqDAO<NotaContable> {
 			" ) y  "  ;
 
 
+	private final static String QUERY_EXPORT_DOC_SOPORTE_BY_FECHA =	"select  " +
+			"    case when k.status1 is not null then t.nombre \r\n" +
+			"     when k.status2 is not null then t2.nombre  \r\n" +
+			"     when k.doc_soporte_1  is not null then t.nombre \r\n" +
+			"     when k.doc_soporte_2  is not null then t2.nombre  \r\n" +
+			"   end ||'//'|| \r\n" +
+			"case when k.status1 is not null then k.NUMERO_IDENTIFICACION1 \r\n" +
+			"     when k.status2 is not null then k.NUMERO_IDENTIFICACION2 \r\n" +
+			"     when k.doc_soporte_1 is not null then k.NUMERO_IDENTIFICACION1 \r\n" +
+			"     when k.doc_soporte_2 is not null then k.NUMERO_IDENTIFICACION2 \r\n" +
+			"  end ||'//'|| \r\n" +
+			" case when k.status1 is not null then k.DIGITO_VERIFICACION1 \r\n" +
+			"      when k.status2 is not null then k.DIGITO_VERIFICACION2 \r\n" +
+			"      when k.doc_soporte_1 is not null then k.DIGITO_VERIFICACION1 \r\n" +
+			"     when k.doc_soporte_2 is not null then k.DIGITO_VERIFICACION2 \r\n" +
+			" end ||'//'|| \r\n" +
+			"  case when k.status1 is not null then k.NOMBRE_COMPLETO1 \r\n" +
+			"       when k.status2 is not null then k.NOMBRE_COMPLETO2 \r\n" +
+			"       when k.doc_soporte_1 is not null then k.NOMBRE_COMPLETO1 \r\n" +
+			"       when k.doc_soporte_2 is not null then k.NOMBRE_COMPLETO2 \r\n" +
+			"  end ||'//'|| \r\n" +
+			" TO_CHAR(k.FECHA_CONTABLE,'YYYY-MM-DD')||'//'|| \r\n" +
+			" case when k.codigo_tema is not null then k.des_tema \r\n" +
+			"    else replace( k.descripcion , '//' , ' ') end ||'//'|| \r\n" +
+			"  coalesce(k.MONTO, 0) ||'//'|| \r\n" +
+			"    coalesce( d.VALOR , 0)   \r\n" +
+			"from contables.documento_soporte_activo_view k \r\n" +
+			"left join contables.documento_soporte_impuesto_view d on k.CODIGO_NOTA_CONTABLE = d.CODIGO_NOTA_CONTABLE \r\n" +
+			"left join contables.nc_tipo_identificacion t on t.codigo = k.TIPO_IDENTIFICACION1 \r\n" +
+			"left join contables.nc_tipo_identificacion t2 on t2.codigo = k.TIPO_IDENTIFICACION2 \r\n" +
+			"where \r\n" +
+			" k.FECHA_CONTABLE >= TO_DATE( ? ,'DD/MM/YY') AND k.FECHA_CONTABLE < TO_DATE( ? ,'DD/MM/YY')   " ;
+
+
+
+	private final static String QUERY_EXPORT_DOC_SOPORTE_X_CUENTA_BY_FECHA =	"select \n" +
+			"k.CODIGO ||'/'||k.CODIGO_NOTA_CONTABLE||'/'||TO_CHAR(k.FECHA_CONTABLE,'YYYY-MM-DD') ||'/'||     \n" +
+			"k.PARTIDA_CONTABLE ||'/'||k.NATURALEZA1 ||'/'||k.CONTRAPARTIDA_CONTABLE ||'/'||  \n" +
+			"k.NATURALEZA2  ||'/'||k.CODIGO_DIVISA ||'/'||k.MONTO ||'/'||   \n" +
+			"k.TIPO_IDENTIFICACION1 ||'/'||k.DIGITO_VERIFICACION1 ||'/'||\n" +
+			"k.NOMBRE_COMPLETO1 ||'/'||k.NUMERO_IDENTIFICACION1 ||'/'||\n" +
+			"k.TIPO_IDENTIFICACION2 ||'/'||k.NUMERO_IDENTIFICACION2 ||'/'||   \n" +
+			"k.DIGITO_VERIFICACION2 ||'/'||k.NOMBRE_COMPLETO2 ||'/'||\n" +
+			"k.b_codigo ||'/'||k.b_CODIGO_NOTA_CONTABLE   ||'/'||\n" +
+			"k.b_estado  ||'/'||k.a_CODIGO  ||'/'||k.a_NUMERO_RADICACION  ||'/'||\n" +
+			"k.a_TIPO_NOTA  ||'/'||k.a_ESTADO ||'/'||\n" +
+			"d.CODIGO_IMPUESTO ||'/'||  d.base ||'/'|| d.CALCULADO ||'/'|| \n" +
+			"d.PARTIDA_CONTABLE_impuesto ||'/'|| d.NOMBRE ||'/'||  d.VALOR  ||'/'||\n" +
+			"k.status1 ||'/'||k.status2  ||'/'||k.doc_soporte_1   ||'/'||  k.doc_soporte_2  ||'/'||\n" +
+			"replace( k.descripcion , '/' , ' ')  ||'/'||k.des_tema  ||'/'||\n" +
+			"k.codigo_tema  ||'/'|| t.nombre   ||'/'|| t2.nombre \n" +
+			"from contables.documento_soporte_activo_view k \n" +
+			"left join contables.documento_soporte_impuesto_view d on k.CODIGO_NOTA_CONTABLE = d.CODIGO_NOTA_CONTABLE\n" +
+			"left join contables.nc_tipo_identificacion t on t.codigo = k.TIPO_IDENTIFICACION1\n" +
+			"left join contables.nc_tipo_identificacion t2 on t2.codigo = k.TIPO_IDENTIFICACION2\n" +
+			"where\n" +
+			" k.FECHA_CONTABLE >= TO_DATE( ? ,'DD/MM/YY') AND k.FECHA_CONTABLE < TO_DATE( ? ,'DD/MM/YY')  \n";
+
+
 	public NotaContableDAO() {
 		super(cs_TABLA, cs_COLUMNAS, cs_PK, new NotaContable());
 	}
@@ -535,5 +594,13 @@ public class NotaContableDAO extends CommonSeqDAO<NotaContable> {
 
 	public Collection<String> getDataConciliationFile(String fechaDesde , String fechaHasta) throws Exception {
 		return findToStringByGeneral(QUERY_EXPORT_CONCILIACION, new Object[] { fechaDesde , fechaHasta , fechaDesde , fechaHasta , fechaDesde , fechaHasta , fechaDesde , fechaHasta});
+	}
+
+	public Collection<String> getDataDocumentoSoporteByFecha(String fechaDesde , String fechaHasta) throws Exception {
+		return findToStringByGeneral(QUERY_EXPORT_DOC_SOPORTE_BY_FECHA, new Object[] {fechaDesde,fechaHasta});
+	}
+
+	public Collection<String> getDataDocumentoSoporteXCuentaByFecha(String fechaDesde , String fechaHasta) throws Exception {
+		return findToStringByGeneral(QUERY_EXPORT_DOC_SOPORTE_X_CUENTA_BY_FECHA, new Object[] {fechaDesde,fechaHasta});
 	}
 }
