@@ -2,13 +2,11 @@ package co.com.bbva.app.notas.contables.jsf.adminnota;
 
 import co.com.bbva.app.notas.contables.carga.dto.ErrorValidacion;
 import co.com.bbva.app.notas.contables.carga.dto.RechazoSalida;
-import co.com.bbva.app.notas.contables.dto.CausalDeRechazoDTO;
 import co.com.bbva.app.notas.contables.dto.Instancia;
 import co.com.bbva.app.notas.contables.dto.NotaContable;
 import co.com.bbva.app.notas.contables.dto.NotaContableTotal;
 import co.com.bbva.app.notas.contables.jsf.beans.ContablesSessionBean;
 import co.com.bbva.app.notas.contables.jsf.consultas.GeneralConsultaPage;
-import co.com.bbva.app.notas.contables.session.Session;
 import co.com.bbva.app.notas.contables.util.DateUtils;
 import co.com.bbva.app.notas.contables.util.ReportesExcel;
 import co.com.bbva.app.notas.contables.util.StringUtils;
@@ -89,7 +87,6 @@ public class PrecierreCierrePage extends GeneralConsultaPage<Instancia> {
         try {
             Collection<NotaContable> notasContables = notasContablesManager.getNotaContablesPrecierreCierre(esPrecierre);
             ArrayList<Instancia> instancias = new ArrayList<Instancia>();
-            List<CausalDeRechazoDTO> lstCausalRechazo = new ArrayList<>();
             for (NotaContable nc : notasContables) {
                 String rechazo = "";
                 Collection<RechazoSalida> res = notasContablesManager.getRechazoSalidaByNotaContable(nc.getNumeroRadicacion());
@@ -97,19 +94,12 @@ public class PrecierreCierrePage extends GeneralConsultaPage<Instancia> {
                 if (!res.isEmpty()) {
                     rechazo = "<table><th>Cuenta</th><th>Divisa</th><th>Destino</th><th>Error</th>";
                     for (RechazoSalida rs : res) {
-                        CausalDeRechazoDTO causalDeRechazo = new CausalDeRechazoDTO();
                         ErrorValidacion rv = new ErrorValidacion();
                         rv.setCodigo(StringUtils.getStringLeftPadding(rs.getCodError().toString(), 4, '0'));
                         rv = cargaAltamiraManager.getErrorValidacion(rv);
                         rechazo += "<tr><td>" + rs.getCuenta() + "</td> <td>" + rs.getDivisa() + "</td> <td>" + rs.getCeDestin() + "</td> <td>" + rv.getNombre() + "</td> </tr>";
-                        causalDeRechazo.setCuenta(rs.getCuenta());
-                        causalDeRechazo.setDivisa(rs.getDivisa());
-                        causalDeRechazo.setDestino(rs.getCeDestin());
-                        causalDeRechazo.setError(rv.getNombre());
-                        lstCausalRechazo.add(causalDeRechazo);
                     }
                     rechazo += "</table>";
-//                    nc.setCausalesRechazoLst(lstCausalRechazo);
                 }
                 nc.setCausalDeRechazo(rechazo);
                 Instancia instancia = new Instancia();
