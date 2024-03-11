@@ -143,7 +143,7 @@ public class FechaHabilitadaPage extends GeneralParametrosPage<FechaHabilitada, 
             } else {
                 int diasDesdeCierre = notasContablesManager.getDiasHabilesDesdeUltimoCierre();
                 if (dias.intValue() > diasDesdeCierre) {
-                    nuevoMensaje(FacesMessage.SEVERITY_WARN, "El valor debe ser menor a los das desde el ltimo cierre mensual: " + diasDesdeCierre);
+                    nuevoMensaje(FacesMessage.SEVERITY_WARN, "El valor debe ser menor a los días desde el último cierre mensual: " + diasDesdeCierre);
                 }
             }
         }

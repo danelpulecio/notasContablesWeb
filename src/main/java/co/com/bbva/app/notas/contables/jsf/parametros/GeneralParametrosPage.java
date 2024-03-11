@@ -3,6 +3,8 @@ package co.com.bbva.app.notas.contables.jsf.parametros;
 import co.com.bbva.app.notas.contables.dto.CommonVO;
 import co.com.bbva.app.notas.contables.jsf.carga.GeneralCargaPage;
 import co.com.bbva.app.notas.contables.session.Session;
+
+import org.primefaces.PrimeFaces;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -141,6 +143,7 @@ public abstract class GeneralParametrosPage<T extends CommonVO<T>, D> extends Ge
 				LOGGER.info("<<<<datos x filtro {}>>>>", getDatos().size());
 				nuevoMensaje(FacesMessage.SEVERITY_INFO, "La información ha sido guardada correctamente");
 				ocultarPopupGuardar = true;
+				PrimeFaces.current().executeScript("PF('editor').hide();");
 				LOGGER.info("<<<<datos x filtro {}>>>>", getDatos().size());
 //				setDatos(new ArrayList<>(_buscarTodos()));
 				LOGGER.info("<<<Guardar datosssssssss {}>>>", getDatos().size());

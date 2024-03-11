@@ -14,7 +14,7 @@
                     <h:outputText value="Nuevo Registro"/>
                 </h:panelGroup>
             </f:facet>
-            <f:facet name="controls">øø
+            <f:facet name="controls">
                 <h:panelGroup>
                     <h:graphicImage value="../../common/images/close.png" alt="cerrar" styleClass="hidelink"
                                     id="hidelinkEstado" height="20" width="20"/>
@@ -38,8 +38,7 @@
                 <h:panelGrid columns="2" styleClass="center" width="100%">
                     <p:commandButton action="#{fechaHabilitadaPage.guardar}"
                                      update="informacion,lista"
-                                     value="Guardar"
-                                     oncomplete="if (#{fechaHabilitadaPage.ocultarPopupGuardar}) PF('editor').hide();"/>
+                                     value="Guardar"/>
                     <p:commandButton onclick="PF('editor').hide()" value="Cerrar"/>
                 </h:panelGrid>
             </h:panelGrid>
@@ -65,7 +64,7 @@
                                          converter="javax.faces.Integer"
                                          converterMessage="Error al convertir la información del campo a número"/>
                             <p:commandButton action="#{fechaHabilitadaPage.actualizarTodos}"
-                                             update="globalForm:lista,globalForm:cambio"
+                                             update="globalForm:lista,globalForm:cambio,globalForm:msgActualizar"
                                              value="Actualizar Seleccionados"/>
                         </h:panelGrid>
                     </h:panelGrid>
@@ -77,9 +76,9 @@
                     </h:panelGrid>
                 </h:panelGrid>
             </p:panel>
-
-            <ui:include src="../../common/mensajes.xhtml"/>
-
+			<h:panelGroup id="msgActualizar">
+            	<ui:include src="../../common/mensajes.xhtml"/>
+			</h:panelGroup>
             <!-- Tabla de registros -->
             <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
 
