@@ -24,7 +24,9 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -52,6 +54,11 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 	private Collection<MontoMaximo> montos = new ArrayList<>();
 	private String minFecha = "";
 	private String maxFecha = "";
+	
+    private Date minDateTime;
+    private Date maxDateTime;
+
+    
 	private Double montoAlertaCOP = 0d;
 	private Double montoAlertaEXT = 0d;
 	private List<SelectItem> clasesRiesgo = new ArrayList<>();
@@ -111,6 +118,11 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 					LOGGER.info("{} Estableciendo fechas límite");
 					maxFecha = StringUtils.getString(DateUtils.getSQLDate(DateUtils.getNextWorkDay(diasNoHabiles)), "dd-MM-yyyy");
 					minFecha = StringUtils.getString(DateUtils.getDateTodayBeforeDays(fechaHabilitada.getDias().intValue(), diasNoHabiles), "dd-MM-yyyy");
+					
+	                DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+	                minDateTime = df.parse(minFecha);
+	                maxDateTime = df.parse(maxFecha);
+
 
 					if (nota.getCodigo().intValue() > 0) {
 						LOGGER.info("{} Validando Info. de la Nota Contable");
@@ -1435,6 +1447,22 @@ public class NotaContableLibrePage extends FlujoNotaContableLibrePage implements
 	 */
 	public void setAplicaRecuperacion(boolean aplicaRecuperacion) {
 		this.aplicaRecuperacion = aplicaRecuperacion;
+	}
+
+	public Date getMinDateTime() {
+		return minDateTime;
+	}
+
+	public void setMinDateTime(Date minDateTime) {
+		this.minDateTime = minDateTime;
+	}
+
+	public Date getMaxDateTime() {
+		return maxDateTime;
+	}
+
+	public void setMaxDateTime(Date maxDateTime) {
+		this.maxDateTime = maxDateTime;
 	}
 
 }

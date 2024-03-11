@@ -49,6 +49,10 @@ public abstract class GeneralConsultaPage<T> extends GeneralPage implements IPag
 	 * Lista de datos a mostrar en la tabla
 	 */
 	protected List<T> datos = new ArrayList<T>();
+	
+	protected List<T> selectedDatos = new ArrayList<T>();
+	
+	protected T selectedDato;
 
 	protected abstract Collection<T> _buscar() throws Exception;
 
@@ -94,6 +98,7 @@ public abstract class GeneralConsultaPage<T> extends GeneralPage implements IPag
 			if (datosValidos()) {
 				LOGGER.info("GeneralConsultaPage : buscar : EN EL IF DE DATOSVALIDOS ");
 				datos = new ArrayList<T>(_buscar());
+				this.selectedDatos = new ArrayList<T>(); 
 			} else {
 				LOGGER.info("GeneralConsultaPage : buscar : EN EL ELSE DE DATOSVALIDOS ");
 				control = true;
@@ -131,6 +136,22 @@ public abstract class GeneralConsultaPage<T> extends GeneralPage implements IPag
 
 	public void setDatos(List<T> datos) {
 		this.datos = datos;
+	}
+	
+	public List<T> getSelectedDatos() {
+		return selectedDatos;
+	}
+
+	public void setSelectedDatos(List<T> selectedDatos) {
+		this.selectedDatos = selectedDatos;
+	}
+	
+	public T getSelectedDato() {
+		return selectedDato;
+	}
+
+	public void setSelectedDato(T selectedDato) {
+		this.selectedDato = selectedDato;
 	}
 
 	public Integer getScrollPage() {

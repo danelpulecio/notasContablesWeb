@@ -6,7 +6,9 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.annotation.PreDestroy;
@@ -92,6 +94,10 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
     private Collection<TemaProducto> productosTema = new ArrayList<>();
     private ArrayList<Date> diasNoHabiles = new ArrayList<>();
     private Collection<MontoMaximo> montos = new ArrayList<>();
+    
+    private Date minDateTime;
+    private Date maxDateTime;
+    
     private String minFecha = "";
     private String maxFecha = "";
     private Double montoAlertaCOP = 0d;
@@ -135,9 +141,13 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
                 fechaHabilitada.setCodigoSucursal(getUsuarioLogueado().getSucursal().getCodigo());
                 fechaHabilitada = notasContablesManager.getFechaHabilitadaPorSucursal(fechaHabilitada);
 
-                LOGGER.info("{} Estableciendo fechas lmite");
+                LOGGER.info("{} Estableciendo fechas limite");
                 maxFecha = StringUtils.getString(DateUtils.getSQLDate(DateUtils.getNextWorkDay(diasNoHabiles)), "dd-MM-yyyy");
                 minFecha = StringUtils.getString(DateUtils.getDateTodayBeforeDays(fechaHabilitada.getDias().intValue(), diasNoHabiles), "dd-MM-yyyy");
+                
+                DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+                minDateTime = df.parse(minFecha);
+                maxDateTime = df.parse(maxFecha);
 
                 LOGGER.info("{} Obteniendo Info. de los tipos de evento");
                 tiposEventoTemporal=getSelectItemList(notasContablesManager.getCV(TipoEvento.class), false);
@@ -410,16 +420,22 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
         java.sql.Date fechaAct = DateUtils.getSQLDate(fechaActual);
         //temaActual.setFechaContable(DateUtils.getSQLDate(temaActual.getFechaContablePF()));
         temaActual.setFechaContable(DateUtils.getSQLDate(this.fechaContablePF));
-
+        LOGGER.info("Entrando a validar la fecha  : this.fechaContablePF : " + this.fechaContablePF);
+        LOGGER.info("Entrando a validar la fecha  : temaActual.getFechaContable() : " + temaActual.getFechaContable());
         if (temaActual.getFechaContable().after(DateUtils.getSQLDate(fechaAct))) {
+        	
             nuevoMensaje(FacesMessage.SEVERITY_WARN, "La fecha no puede ser superior a HOY");
             temaActual.setFechaContable(fecha);
+            LOGGER.info("La fecha no puede ser superior a HOY");
         } else if (diasNoHabiles.contains(temaActual.getFechaContable())) {
+        	
             nuevoMensaje(FacesMessage.SEVERITY_WARN, "La fecha debe ser un dia hábil");
             temaActual.setFechaContable(fecha);
+            LOGGER.info("La fecha debe ser un dia hábil");
         } else if (temaActual.getFechaContable().after(DateUtils.getDate(fecha))) {
             nuevoMensaje(FacesMessage.SEVERITY_WARN, "La fecha no puede ser superior a " + StringUtils.getString(fecha, "yyyy-MM-dd"));
             temaActual.setFechaContable(fecha);
+            LOGGER.info("La fecha no puede ser superior a \" + StringUtils.getString(fecha, \"yyyy-MM-dd");
         }
         return null;
     }
@@ -1545,5 +1561,22 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
         this.fechaContablePF = fechaContablePF;
     }
 
+	public Date getMinDateTime() {
+		return minDateTime;
+	}
+
+	public void setMinDateTime(Date minDateTime) {
+		this.minDateTime = minDateTime;
+	}
+
+	public Date getMaxDateTime() {
+		return maxDateTime;
+	}
+
+	public void setMaxDateTime(Date maxDateTime) {
+		this.maxDateTime = maxDateTime;
+	}
+
+    
 
 }

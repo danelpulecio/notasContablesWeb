@@ -27,12 +27,12 @@
                         </h:panelGroup>
                     </f:facet>
 
-                    <!-- Campos del formulario -->
+                    <!-- Campos del formulario -->d
                     <h:panelGrid columns="1" width="650" id="informacion">
                         <h:panelGrid columns="2" width="650" columnClasses="name,value">
                             <h:outputText value="Descargar Documento Doporte"/>
                             <p:commandLink action="#{downloadGeneralPage.download}" styleClass="bold"
-                                           value="DocumentoSoporte.xls" target="_blank">
+                                           value="DocumentoSoporte.xls" target="_blank" ajax="false">
                                 <f:setPropertyActionListener value="#{downloadGeneralPage.REPORTE_EXCEL}"
                                                              target="#{downloadGeneralPage.type}"/>
                                 <f:setPropertyActionListener value="DocumentoSoporte.xls"
@@ -41,7 +41,7 @@
 
                             <h:outputText value="Descargar Documento Soporte Detallado"/>
                             <p:commandLink action="#{downloadGeneralPage.download}" styleClass="bold"
-                                           value="DocumentoSoporteXcuentas.xls" target="_blank">
+                                           value="DocumentoSoporteXcuentas.xls" target="_blank" ajax="false">
                                 <f:setPropertyActionListener value="#{downloadGeneralPage.REPORTE_EXCEL}"
                                                              target="#{downloadGeneralPage.type}"/>
                                 <f:setPropertyActionListener value="DocumentoSoporteXcuentas.xls"
@@ -74,22 +74,21 @@
 
                                 <p:commandButton value="Generar Archivo Excel"
                                                  action="#{reporteDocumentoSoportePage.generarArchivoExcel}"
-                                                 reRender="popupDetalle"/>
+                                                 update="globalForm:msgReporteDocumentoSoporte,btnDescarga"/>
 
 
                                 <p:commandButton value="Generar Archivo Validacion"
                                                  action="#{reporteDocumentoSoportePage.generarArchivoExcelXCcuentas}"
-                                                 reRender="popupDetalle"/>
+                                                 update="globalForm:msgReporteDocumentoSoporte,btnDescarga"/>
 
 
-                                <h:panelGrid columns="1" width="380">
+                                <h:panelGrid columns="1" width="380" id="btnDescarga">
                                     <!-- Funcionalidad para abrir el editor y crear un nuevo registro-->
                                     <p:commandButton value="Descargar Archivos"
-                                                     oncomplete="PF('editor')}.show()"
+                                                     oncomplete="PF('editor').show()"
                                                      update="globalForm:editor"
                                                      rendered="#{reporteDocumentoSoportePage.mostrarArchExc}">
-                                        <f:setPropertyActionListener name="codNuevo" value="0" target="0"
-                                                                     converter="javax.faces.Integer"/>
+                                        <f:setPropertyActionListener name="codNuevo" value="0" target="0"/>
                                     </p:commandButton>
                                 </h:panelGrid>
 
@@ -98,9 +97,10 @@
                         </p:tab>
                     </p:accordionPanel>
                 </h:panelGrid>
-
-                <ui:include src="../../common/mensajes.xhtml"/>
-
+				
+				<h:panelGroup id="msgReporteDocumentoSoporte">
+                	<ui:include src="../../common/mensajes.xhtml"/>
+				</h:panelGroup>
             </p:panel>
         </div>
     </ui:define>

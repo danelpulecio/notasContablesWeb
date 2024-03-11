@@ -18,7 +18,7 @@
         <p:column headerText="Estado" sortable="true" width="44px;" sortBy="#{dato.estado}">
             <h:outputText value="#{dato.nombreEstado}"/>
         </p:column>
-        <p:column headerText="Detalle de la nota contable" style="text-align: center; width: 600px">
+        <p:column headerText="Detalle de la nota contable" style="text-align: center; width: 410px">
 
             <!--            <h:panelGrid columns="1" rendered="#{dato.NC.tipoNota eq 'R' }" border="0" style="border-width: 0px;">-->
             <p:dataTable style="border-width: 0px; background-color: transparent;" value="#{dato.NC.temas}"
@@ -94,42 +94,18 @@
             <!--            </h:panelGrid>-->
 
         </p:column>
-        <p:column headerText="Causales de Rechazo" rendered="#{precierreCierrePage.esPrecierre }" width="70px;" style="text-align: center">
-            <h:outputText value="#{dato.NC.causalDeRechazo}" escape="false"/>
-            <p:commandButton value="Ver"
-                             action="#{flujoSubPage.getCausalRechazoTable()}"
-                             onclick="PF('popupCausalRechazoNotaContableVer').show()">
-
-            </p:commandButton>
-            <p:dialog id="popupCausalRechazoNotaContableVer"
-                      widgetVar="popupCausalRechazoNotaContableVer"
-                      domElementAttachment="form"
-                      autosized="true"
-                      showEffect="fade"
-                      hideEffect="explode"
-                      modal="true"
-                      width="900px">
-                <f:facet name="header">
-                    <h:panelGroup>
-                        <h:outputText value="Causales de Rechazo"/>
-                    </h:panelGroup>
-                </f:facet>
-                <p:dataTable id="causalRechazoTable" var="cr" value="#{dato.NC.causalesRechazoLst}">
-                    <p:column headerText="Cuenta">
-                        <h:outputText value="#{cr.cuenta} "/>
-                    </p:column>
-                    <p:column headerText="Divisa">
-                        <h:outputText value="#{cr.divisa} "/>
-                    </p:column>
-                    <p:column headerText="Destino">
-                        <h:outputText value="#{cr.destino} "/>
-                    </p:column>
-                    <p:column headerText="Motivo de Rechazo">
-                        <h:outputText value="#{cr.error} "/>
-                    </p:column>
-                </p:dataTable>
-                <h:outputText value="#{dato.NC.causalDeRechazo}" escape="false"/>
-            </p:dialog>
+        <p:column headerText="Causales de Rechazo" rendered="#{precierreCierrePage.esPrecierre }" width="390px;" style="text-align: center">
+<!--             <h:outputText value="#{dato.NC.causalDeRechazo}"/> -->
+            <h:outputText value="#{dato.NC.causalDeRechazo}" escape="false" />
+<!--             	<p:commandButton value="Ver" -->
+<!--                              action="#{flujoSubPage.getCausalRechazoTable()}" -->
+<!--                              onclick="PF('popupCausalRechazoNotaContableVer').show()"> -->
+<!--               	</p:commandButton> -->
+                             
+<!--                 <p:commandButton value="Ver 2" oncomplete="PF('manageNotaDialog').show()" -->
+<!--                     styleClass="edit-button rounded-button ui-button-success" process="@this"> -->
+<!--                     <f:setPropertyActionListener value="#{dato}" target="#{precierreCierrePage.selectedDato}" /> -->
+<!--                 </p:commandButton>                              -->
         </p:column>
         <p:column headerText="Ver Nota Contable" width="70px;" style="text-align: center;">
             <p:commandButton value="Ver"
@@ -138,7 +114,7 @@
                              update="globalForm:popupFlujoNotaContableVer"
                              rendered="#{dato.NC.tipoNota eq 'R' and dato.estado != 1}">
                 <f:setPropertyActionListener for="codNotaVer" value="#{dato.codigoNotaContable}"
-                                             target="#{flujoNotaContablePage.nota.codigo}"/>
+                                             target="#{flujoNotaContablePage.nota.codigo}" converter="javax.faces.Integer"/>
             </p:commandButton>
 
             <p:commandButton value="Ver"
@@ -147,7 +123,7 @@
                              update="globalForm:notaContableLibreVer"
                              rendered="#{dato.NC.tipoNota eq 'L' and dato.estado != 1}">
                 <f:setPropertyActionListener for="codNotaLibreVer" value="#{dato.codigoNotaContable}"
-                                             target="#{flujoNotaContableLibrePage.nota.codigo}"/>
+                                             target="#{flujoNotaContableLibrePage.nota.codigo}" converter="javax.faces.Integer"/>
             </p:commandButton>
 
             <p:commandButton value="Ver"
@@ -156,7 +132,7 @@
                              update="globalForm:popupFlujoNotaContableRefCruceVer"
                              rendered="#{dato.NC.tipoNota eq 'C'}">
                 <f:setPropertyActionListener for="codNotaRefCruceVer" value="#{dato.codigoNotaContable}"
-                                             target="#{notaRefCrucePage.nota.codigo}"/>
+                                             target="#{notaRefCrucePage.nota.codigo}" converter="javax.faces.Integer"/>
             </p:commandButton>
 
         </p:column>
@@ -171,7 +147,7 @@
                 <f:setPropertyActionListener for="codEditar" value="#{dato.codigoNotaContable}"
                                              target="#{flujoNotaContablePage.nota.codigo}"/>
                 <f:setPropertyActionListener for="codUsuEditar" value="#{contablesSessionBean.loginUser.usuario.codigo}"
-                                             target="#{flujoNotaContablePage.nota.codUsuAsignado}"/>
+                                             target="#{flujoNotaContablePage.nota.codUsuAsignado}" converter="javax.faces.Integer"/>
             </p:commandButton>
 
             <p:commandButton value="Ver"
@@ -180,7 +156,7 @@
                              update="globalForm:popupNotaContable"
                              rendered="#{dato.NC.tipoNota eq 'R' and dato.estado eq 1}">
                 <f:setPropertyActionListener for="codConsultar" value="#{dato.codigo}"
-                                             target="#{notaContablePage.nota.codigo}"/>
+                                             target="#{notaContablePage.nota.codigo}" converter="javax.faces.Integer"/>
             </p:commandButton>
 
         </p:column>
@@ -189,7 +165,7 @@
             <p:commandButton value="Consultar" oncomplete="PF('popupFlujo').show()"
                              action="#{flujoSubPage.consultarFlujo}" update="globalForm:popupFlujo">
                 <f:setPropertyActionListener for="codConsultar" value="#{dato.codigo}"
-                                             target="#{flujoSubPage.actividadRealizada.codigoInstancia}"/>
+                                             target="#{flujoSubPage.actividadRealizada.codigoInstancia}" converter="javax.faces.Integer"/>
             </p:commandButton>
         </p:column>
 
@@ -213,5 +189,4 @@
         </f:facet>
 
     </p:dataTable>
-
 </ui:composition>

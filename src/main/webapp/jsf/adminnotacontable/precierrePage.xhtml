@@ -14,7 +14,7 @@
 
         <!--Filtro de busqueda	-->
         <div style="width: 1200px;">
-            <p:panel style="width: 1200px">
+            <p:panel style="width: 1320px">
                 <h:panelGrid columns="1" width="100%">
                     <h1 align="center">Notas Contables en Precierre</h1>
                 </h:panelGrid>
@@ -24,7 +24,7 @@
                 </h:panelGroup>
 
                 <!-- Tabla de registros -->
-                <h:panelGrid columns="1" width="100%" style="align:center;" id="lista">
+                <h:panelGrid columns="1" width="1300px" style="align:center;" id="lista">
                     <p:poll listener="#{precierrePage.mostrar}"
                             rendered="#{empty precierreCierrePage.datos and facesContext.maximumSeverity == null}"
                             update="lista, globalForm:msgPreCierre"
