@@ -16,7 +16,7 @@
 
                     <h:panelGrid columns="2" id="filtro">
                         <p:inputText id="param" value="#{hadtaplPage.param}"/>
-                        <p:commandButton action="#{hadtaplPage.buscarPorFiltro}" value="Filtrar" ajax="false"/>
+                        <p:commandButton actionListener="#{hadtaplPage.buscarPorFiltro}" value="Filtrar" ajax="false"/>
                     </h:panelGrid>
 
                     <ui:include src="../../common/mensajes.xhtml"/>
@@ -34,10 +34,10 @@
                         <p:column headerText="Fila">
                             <h:outputText value="#{rowIndex+1}"/>
                         </p:column>
-                        <p:column headerText="Cuenta_Contable" sortable="true" sortBy="#{dato.cuentaContable}">
+                        <p:column headerText="Cuenta Contable" sortable="true" sortBy="#{dato.cuentaContable}">
                             <h:outputText value="#{dato.cuentaContable} "/>
                         </p:column>
-                        <p:column headerText="Indicador_Contratro" sortable="true" sortBy="#{dato.indicadorContrato}">
+                        <p:column headerText="Indicador Contratro" sortable="true" sortBy="#{dato.indicadorContrato}">
                             <h:outputText value="#{dato.indicadorContrato}"/>
                         </p:column>
 

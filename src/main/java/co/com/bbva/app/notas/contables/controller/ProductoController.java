@@ -92,7 +92,16 @@ public class ProductoController extends CategoriaController implements Serializa
 
     public void listar() {
         if (lista.isEmpty()) {
-            Producto pr1 = new Producto("Pera", "10");
+            List<PuntosDeVentaDto> lstPvPera = new ArrayList<>();
+            PuntosDeVentaDto pvPera = new PuntosDeVentaDto();
+            pvPera.setId("1");
+            pvPera.setStoreName("Exito");
+            lstPvPera.add(pvPera);
+            PuntosDeVentaDto pvPera2 = new PuntosDeVentaDto();
+            pvPera2.setId("2");
+            pvPera2.setStoreName("Carulla");
+            lstPvPera.add(pvPera2);
+            Producto pr1 = new Producto("Pera", "10", lstPvPera);
             Producto pr2 = new Producto("Manzana", "20");
             Producto pr4 = new Producto("Naranja", "30");
             Producto pr5 = new Producto("Mango", "40");

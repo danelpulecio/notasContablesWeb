@@ -18,6 +18,7 @@
 
                 <ui:include src="../../common/mensajes.xhtml"/>
                 <p:dataTable id="actividadTable" var="actividad" value="#{actividadEconomicaPage.datos}"
+                             rendered="#{! empty actividadEconomicaPage.datos}"
                              paginator="true" rows="15" emptyMessage="No hay registros"
                              widgetVar="economicActivityTable"
                              rowIndexVar="rowIndex"

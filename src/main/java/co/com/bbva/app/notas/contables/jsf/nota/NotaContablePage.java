@@ -145,13 +145,6 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
                 for (SelectItem tipoEvento : tiposEventoTemporal){
                     tiposEvento.add(new SelectItem(String.valueOf(tipoEvento.getValue()),tipoEvento.getLabel()));
                 }
-                LOGGER.info("<<<<<<tipo evento label: {}>>>>>>" ,tiposEvento.get(0).getLabel());
-                LOGGER.info("<<<<<<tipo evento label class: {}>>>>>>" ,tiposEvento.get(0).getLabel().getClass());
-                LOGGER.info("<<<<<<tipo evento value: {}>>>>>>" ,tiposEvento.get(0).getValue());
-                LOGGER.info("<<<<<<tipo evento value class: {}>>>>>>" ,tiposEvento.get(0).getValue().getClass());
-
-
-
 
                 concepto = "";
                 conceptos = new ArrayList<>();
@@ -161,23 +154,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
                     seleccionarConcepto();
                     nota.setPuedeEditar(true);
                     nota.setPuedeAnular(true);
-                    LOGGER.info("<<<<nota cod concepto.id value: {}>>>>", nota.getConcepto().getCodigo());
-                    LOGGER.info("<<<<nota cod concepto.id class: {}>>>>", nota.getConcepto().getCodigo().getClass());
                     conceptos.add(new SelectItem(nota.getConcepto().getCodigo(), nota.getConcepto().getNombre()));
-                    LOGGER.info("<<<<Nota: {}>>>>", nota);
-                    LOGGER.info("<<<<conceptos size: {}>>>>", conceptos.size());
-                    LOGGER.info("<<<<conceptos value: {}>>>>", conceptos.get(0).getValue());
-                    LOGGER.info("<<<<conceptos value class: {}>>>>", conceptos.get(0).getValue().getClass());
-                    LOGGER.info("<<<<conceptos des: {}>>>>", conceptos.get(0).getDescription());
-                    LOGGER.info("<<<<conceptos label: {}>>>>", conceptos.get(0).getLabel());
-                    LOGGER.info("<<<<conceptos label class: {}>>>>", conceptos.get(0).getLabel().getClass());
-                    LOGGER.info("codigo concepto :{}", nota.getCodigoConcepto());
-                    LOGGER.info("codigo concepto class :{}", nota.getCodigoConcepto().getClass());
-                    LOGGER.info("<<<<<<Nota Codigo tipo evento : {}>>>>>>" ,nota.getCodigoTipoEvento());
-                    LOGGER.info("<<<<<<Nota Codigo tipo evento class: {}>>>>>>" ,nota.getCodigoTipoEvento().getClass());
-                    LOGGER.info("<<<<<<Nota Codigo tipo evento : {}>>>>>>" ,nota.getTipoEvento().getCodigo());
-                    LOGGER.info("<<<<<<Nota Codigo tipo evento class: {}>>>>>>" ,nota.getTipoEvento().getCodigo().getClass());
-
                 }
             } else {
                 LOGGER.warn("{} No se tiene parametrizado un autorizador");

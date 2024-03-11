@@ -94,42 +94,24 @@
             <!--            </h:panelGrid>-->
 
         </p:column>
-        <p:column headerText="Causales de Rechazo" rendered="#{precierreCierrePage.esPrecierre }" width="70px;" style="text-align: center">
-            <h:outputText value="#{dato.NC.causalDeRechazo}" escape="false"/>
+        <p:column headerText="Causales de Rechazo" rendered="#{precierreCierrePage.esPrecierre }" width="70px;"
+                  style="text-align: center">
             <p:commandButton value="Ver"
-                             action="#{flujoSubPage.getCausalRechazoTable()}"
-                             onclick="PF('popupCausalRechazoNotaContableVer').show()">
-
+                             oncomplete="PF('popupCausalRechazoNotaContableVer_#{dato.NC.numeroRadicacion}').show()">
             </p:commandButton>
-            <p:dialog id="popupCausalRechazoNotaContableVer"
-                      widgetVar="popupCausalRechazoNotaContableVer"
-                      domElementAttachment="form"
-                      autosized="true"
-                      showEffect="fade"
-                      hideEffect="explode"
-                      modal="true"
-                      width="900px">
-                <f:facet name="header">
-                    <h:panelGroup>
-                        <h:outputText value="Causales de Rechazo"/>
-                    </h:panelGroup>
-                </f:facet>
-                <p:dataTable id="causalRechazoTable" var="cr" value="#{dato.NC.causalesRechazoLst}">
-                    <p:column headerText="Cuenta">
-                        <h:outputText value="#{cr.cuenta} "/>
-                    </p:column>
-                    <p:column headerText="Divisa">
-                        <h:outputText value="#{cr.divisa} "/>
-                    </p:column>
-                    <p:column headerText="Destino">
-                        <h:outputText value="#{cr.destino} "/>
-                    </p:column>
-                    <p:column headerText="Motivo de Rechazo">
-                        <h:outputText value="#{cr.error} "/>
-                    </p:column>
-                </p:dataTable>
-                <h:outputText value="#{dato.NC.causalDeRechazo}" escape="false"/>
-            </p:dialog>
+            <ui:repeat value="#{precierreCierrePage.datos}" var="causalRechazo">
+                <p:dialog header="Causales de rechazo para el número de radicación #{dato.NC.numeroRadicacion}"
+                          id="popupCausalRechazoNotaContableVer"
+                          widgetVar="popupCausalRechazoNotaContableVer_#{dato.NC.numeroRadicacion}"
+                          domElementAttachment="form"
+                          autosized="true"
+                          showEffect="fade"
+                          hideEffect="explode"
+                          modal="true"
+                          width="900px">
+                    <h:outputText value="#{dato.NC.causalDeRechazo}" escape="false"/>
+                </p:dialog>
+            </ui:repeat>
         </p:column>
         <p:column headerText="Ver Nota Contable" width="70px;" style="text-align: center;">
             <p:commandButton value="Ver"
@@ -193,7 +175,7 @@
             </p:commandButton>
         </p:column>
 
-         <f:facet name="footer">
+        <f:facet name="footer">
             <p:columnGroup>
                 <p:column colspan="2" style="text-align:right;"></p:column>
                 <p:column>

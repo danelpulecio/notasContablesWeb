@@ -21,7 +21,7 @@ public class CargaAltamiraSessionBean implements CargaAltamiraSession {
 
 	static final long serialVersionUID = 3206093459760846163L;
 
-	private static final String bodyTema = "Los siguientes temas han sido inactivados debido a que estn asociados a cuentas contables no activas en el ltimo cargue:";
+	private static final String bodyTema = "Los siguientes temas han sido inactivados debido a que están asociados a cuentas contables no activas en el último cargue:";
 	private static final String enter = "\r\n";
 	protected final EMailSender enviarEMail = new EMailSender();
 	private final RegistroCargaDAO registroCargaDAO = new RegistroCargaDAO();
@@ -214,7 +214,7 @@ public class CargaAltamiraSessionBean implements CargaAltamiraSession {
 				auditoriaCarga.setCodigoRegistro(row.getCodigo());
 				auditoriaCarga.setDescripcionRegistro(row.getNombre());
 				auditoriaCarga.setNombreArchivo(nombreArchivo);
-				auditoriaCarga.setNotas("El registro exista y no viene en el archivo de carga");
+				auditoriaCarga.setNotas("El registro existía y no viene en el archivo de carga");
 				auditoriaCarga.setFecha(DateUtils.getTimestamp());
 
 				addAuditoriaCarga(auditoriaCarga);
@@ -273,10 +273,7 @@ public class CargaAltamiraSessionBean implements CargaAltamiraSession {
 
 	@Override
 	public Collection<Cliente> searchCliente(String palabraClave) throws Exception {
-		LOGGER.info("Palabra clave buscar filtro cliente {}", palabraClave);
-		Collection<Cliente> clienteDato =clienteDAO.findBy(palabraClave);
-		LOGGER.info("respuesta cliente dao por filtro {}", clienteDato.size());
-		return clienteDato;
+		return clienteDAO.findBy(palabraClave);
 	}
 
 	@Override
@@ -448,7 +445,7 @@ public class CargaAltamiraSessionBean implements CargaAltamiraSession {
 				auditoriaCarga.setCodigoRegistro(row.getCuenta() + " - " + row.getCodigoClaseRiesgo() + " - " + row.getCodigoTipoPerdida());
 				auditoriaCarga.setDescripcionRegistro("");
 				auditoriaCarga.setNombreArchivo(nombreArchivo);
-				auditoriaCarga.setNotas("El registro exista y no viene en el archivo de carga");
+				auditoriaCarga.setNotas("El registro existía y no viene en el archivo de carga");
 				auditoriaCarga.setFecha(DateUtils.getTimestamp());
 
 				addAuditoriaCarga(auditoriaCarga);
@@ -593,7 +590,6 @@ public class CargaAltamiraSessionBean implements CargaAltamiraSession {
 
 	@Override
 	public Collection<PerdidaOperacional> searchPerdidaOperacional(String palabraClave) throws Exception {
-		LOGGER.info("<<<Palabra clave {}>>>", palabraClave);
 		return perdidaOperacionalDAO.findBy(palabraClave);
 	}
 
@@ -614,7 +610,7 @@ public class CargaAltamiraSessionBean implements CargaAltamiraSession {
 				auditoriaCarga.setCodigoRegistro(row.getCodigo());
 				auditoriaCarga.setDescripcionRegistro(row.getDescripcion());
 				auditoriaCarga.setNombreArchivo(nombreArchivo);
-				auditoriaCarga.setNotas("El registro exista y no viene en el archivo de carga");
+				auditoriaCarga.setNotas("El registro existía y no viene en el archivo de carga");
 				auditoriaCarga.setFecha(DateUtils.getTimestamp());
 
 				addAuditoriaCarga(auditoriaCarga);
@@ -688,7 +684,7 @@ public class CargaAltamiraSessionBean implements CargaAltamiraSession {
 				auditoriaCarga.setCodigoRegistro(row.getCodigoEmpleado());
 				auditoriaCarga.setDescripcionRegistro(row.getNombreEmpleado());
 				auditoriaCarga.setNombreArchivo(nombreArchivo);
-				auditoriaCarga.setNotas("El registro exista y no viene en el archivo de carga");
+				auditoriaCarga.setNotas("El registro existía y no viene en el archivo de carga");
 				auditoriaCarga.setFecha(DateUtils.getTimestamp());
 
 				addAuditoriaCarga(auditoriaCarga);
@@ -767,7 +763,7 @@ public class CargaAltamiraSessionBean implements CargaAltamiraSession {
 				auditoriaCarga.setCodigoRegistro(row.getCuentaContable());
 				auditoriaCarga.setDescripcionRegistro(row.getIndicadorContrato());
 				auditoriaCarga.setNombreArchivo(nombreArchivo);
-				auditoriaCarga.setNotas("El registro exista y no viene en el archivo de carga");
+				auditoriaCarga.setNotas("El registro existía y no viene en el archivo de carga");
 				auditoriaCarga.setFecha(DateUtils.getTimestamp());
 
 				addAuditoriaCarga(auditoriaCarga);
@@ -841,7 +837,7 @@ public class CargaAltamiraSessionBean implements CargaAltamiraSession {
 				auditoriaCarga.setCodigoRegistro(row.getCodigo());
 				auditoriaCarga.setDescripcionRegistro(row.getNombre());
 				auditoriaCarga.setNombreArchivo(nombreArchivo);
-				auditoriaCarga.setNotas("El registro exista y no viene en el archivo de carga");
+				auditoriaCarga.setNotas("El registro existía y no viene en el archivo de carga");
 				auditoriaCarga.setFecha(DateUtils.getTimestamp());
 
 				addAuditoriaCarga(auditoriaCarga);
@@ -895,25 +891,21 @@ public class CargaAltamiraSessionBean implements CargaAltamiraSession {
 
 	@Override
 	public Collection<Sucursal> getSucursales() throws Exception {
-		LOGGER.info("getAllSucursales");
 		return sucursalDAO.findAll();
 	}
 
 	@Override
 	public Collection<Sucursal> searchSucursal(String palabraClave) throws Exception {
-		LOGGER.info("getSucursalesByFilter {}", palabraClave);
 		return sucursalDAO.findBy(palabraClave);
 	}
 
 	@Override
 	public Collection<Sucursal> getSucursalesPorTiposCentro(String tiposCentro) throws Exception {
-		LOGGER.info("getSucursalesByCenterType {}", tiposCentro);
 		return sucursalDAO.findByTipoCentro(tiposCentro);
 	}
 
 	@Override
 	public Collection<Sucursal> getSucursalesPorConcepto(Concepto concepto) throws Exception, RemoteException, NamingException, CreateException {
-		LOGGER.info("getSucursalesByConcept {}", concepto);
 		NotasContablesSessionBean notasContablesManager = new NotasContablesSessionBean();
 		ArrayList<Sucursal> sucursales;
 		Sucursal sucursal = new Sucursal();
@@ -1026,7 +1018,7 @@ public class CargaAltamiraSessionBean implements CargaAltamiraSession {
 				auditoriaCarga.setCodigoRegistro(String.valueOf(row.getCodigo()));
 				auditoriaCarga.setDescripcionRegistro(row.getNombre());
 				auditoriaCarga.setNombreArchivo(nombreArchivo);
-				auditoriaCarga.setNotas("El registro exista y no viene en el archivo de carga");
+				auditoriaCarga.setNotas("El registro existía y no viene en el archivo de carga");
 				auditoriaCarga.setFecha(DateUtils.getTimestamp());
 
 				addAuditoriaCarga(auditoriaCarga);
@@ -1152,7 +1144,7 @@ public class CargaAltamiraSessionBean implements CargaAltamiraSession {
 			auditoriaCarga.setCodigoRegistro(puc.getNumeroCuenta());
 			auditoriaCarga.setDescripcionRegistro(puc.getDescripcion());
 			auditoriaCarga.setNombreArchivo(nombreArchivo);
-			auditoriaCarga.setNotas("El registro exista y no viene en el archivo de carga");
+			auditoriaCarga.setNotas("El registro existía y no viene en el archivo de carga");
 			auditoriaCarga.setFecha(DateUtils.getTimestamp());
 			addAuditoriaCarga(auditoriaCarga);
 		}
@@ -1243,7 +1235,7 @@ public class CargaAltamiraSessionBean implements CargaAltamiraSession {
 				auditoriaCarga.setCodigoRegistro(row.getCodigo());
 				auditoriaCarga.setDescripcionRegistro(row.getNombre());
 				auditoriaCarga.setNombreArchivo(nombreArchivo);
-				auditoriaCarga.setNotas("El registro exista y no viene en el archivo de carga");
+				auditoriaCarga.setNotas("El registro existía y no viene en el archivo de carga");
 				auditoriaCarga.setFecha(DateUtils.getTimestamp());
 
 				addAuditoriaCarga(auditoriaCarga);
@@ -1358,7 +1350,7 @@ public class CargaAltamiraSessionBean implements CargaAltamiraSession {
 				auditoriaCarga.setCodigoRegistro(row.getTipoIdentificacion() + " - " + row.getNumeroIdentificacion());
 				auditoriaCarga.setDescripcionRegistro(row.getPrimerApellido() + " " + row.getSegundoApellido() + " " + row.getPrimerNombre() + " " + row.getSegundoNombre());
 				auditoriaCarga.setNombreArchivo(nombreArchivo);
-				auditoriaCarga.setNotas("El registro exista y no viene en el archivo de carga");
+				auditoriaCarga.setNotas("El registro existía y no viene en el archivo de carga");
 				auditoriaCarga.setFecha(DateUtils.getTimestamp());
 
 				addAuditoriaCarga(auditoriaCarga);
@@ -1432,7 +1424,7 @@ public class CargaAltamiraSessionBean implements CargaAltamiraSession {
 				auditoriaCarga.setCodigoRegistro(row.getCodigo());
 				auditoriaCarga.setDescripcionRegistro(row.getNombre());
 				auditoriaCarga.setNombreArchivo(nombreArchivo);
-				auditoriaCarga.setNotas("El registro exista y no viene en el archivo de carga");
+				auditoriaCarga.setNotas("El registro existía y no viene en el archivo de carga");
 				auditoriaCarga.setFecha(DateUtils.getTimestamp());
 
 				addAuditoriaCarga(auditoriaCarga);
@@ -1506,7 +1498,7 @@ public class CargaAltamiraSessionBean implements CargaAltamiraSession {
 				auditoriaCarga.setCodigoRegistro(row.getCodigo());
 				auditoriaCarga.setDescripcionRegistro(row.getNombre());
 				auditoriaCarga.setNombreArchivo(nombreArchivo);
-				auditoriaCarga.setNotas("El registro exista y no viene en el archivo de carga");
+				auditoriaCarga.setNotas("El registro existía y no viene en el archivo de carga");
 				auditoriaCarga.setFecha(DateUtils.getTimestamp());
 
 				addAuditoriaCarga(auditoriaCarga);
@@ -1585,7 +1577,7 @@ public class CargaAltamiraSessionBean implements CargaAltamiraSession {
 				auditoriaCarga.setCodigoRegistro(row.getCiudad() + " - " + row.getDepartamento());
 				auditoriaCarga.setDescripcionRegistro(row.getIndicativo());
 				auditoriaCarga.setNombreArchivo(nombreArchivo);
-				auditoriaCarga.setNotas("El registro exista y no viene en el archivo de carga");
+				auditoriaCarga.setNotas("El registro existía y no viene en el archivo de carga");
 				auditoriaCarga.setFecha(DateUtils.getTimestamp());
 
 				addAuditoriaCarga(auditoriaCarga);
@@ -1659,7 +1651,7 @@ public class CargaAltamiraSessionBean implements CargaAltamiraSession {
 				auditoriaCarga.setCodigoRegistro(row.getCodigo());
 				auditoriaCarga.setDescripcionRegistro(row.getNombre());
 				auditoriaCarga.setNombreArchivo(nombreArchivo);
-				auditoriaCarga.setNotas("El registro exista y no viene en el archivo de carga");
+				auditoriaCarga.setNotas("El registro existía y no viene en el archivo de carga");
 				auditoriaCarga.setFecha(DateUtils.getTimestamp());
 
 				addAuditoriaCarga(auditoriaCarga);
@@ -1733,7 +1725,7 @@ public class CargaAltamiraSessionBean implements CargaAltamiraSession {
 				auditoriaCarga.setCodigoRegistro(row.getCodigo());
 				auditoriaCarga.setDescripcionRegistro(row.getNombre());
 				auditoriaCarga.setNombreArchivo(nombreArchivo);
-				auditoriaCarga.setNotas("El registro exista y no viene en el archivo de carga");
+				auditoriaCarga.setNotas("El registro existía y no viene en el archivo de carga");
 				auditoriaCarga.setFecha(DateUtils.getTimestamp());
 
 				addAuditoriaCarga(auditoriaCarga);
@@ -1807,7 +1799,7 @@ public class CargaAltamiraSessionBean implements CargaAltamiraSession {
 				auditoriaCarga.setCodigoRegistro(row.getCodigo());
 				auditoriaCarga.setDescripcionRegistro(row.getNombre());
 				auditoriaCarga.setNombreArchivo(nombreArchivo);
-				auditoriaCarga.setNotas("El registro exista y no viene en el archivo de carga");
+				auditoriaCarga.setNotas("El registro existía y no viene en el archivo de carga");
 				auditoriaCarga.setFecha(DateUtils.getTimestamp());
 
 				addAuditoriaCarga(auditoriaCarga);
@@ -1886,7 +1878,7 @@ public class CargaAltamiraSessionBean implements CargaAltamiraSession {
 				auditoriaCarga.setCodigoRegistro(row.getCodigoDepartamento() + " - " + row.getCodigoMunicipio());
 				auditoriaCarga.setDescripcionRegistro(row.getNombre());
 				auditoriaCarga.setNombreArchivo(nombreArchivo);
-				auditoriaCarga.setNotas("El registro exista y no viene en el archivo de carga");
+				auditoriaCarga.setNotas("El registro existía y no viene en el archivo de carga");
 				auditoriaCarga.setFecha(DateUtils.getTimestamp());
 
 				addAuditoriaCarga(auditoriaCarga);
@@ -1960,7 +1952,7 @@ public class CargaAltamiraSessionBean implements CargaAltamiraSession {
 				auditoriaCarga.setCodigoRegistro(row.getCodigo());
 				auditoriaCarga.setDescripcionRegistro(row.getNombre());
 				auditoriaCarga.setNombreArchivo(nombreArchivo);
-				auditoriaCarga.setNotas("El registro exista y no viene en el archivo de carga");
+				auditoriaCarga.setNotas("El registro existía y no viene en el archivo de carga");
 				auditoriaCarga.setFecha(DateUtils.getTimestamp());
 
 				addAuditoriaCarga(auditoriaCarga);
@@ -2034,7 +2026,7 @@ public class CargaAltamiraSessionBean implements CargaAltamiraSession {
 				auditoriaCarga.setCodigoRegistro(row.getCodigo());
 				auditoriaCarga.setDescripcionRegistro(row.getNombre());
 				auditoriaCarga.setNombreArchivo(nombreArchivo);
-				auditoriaCarga.setNotas("El registro exista y no viene en el archivo de carga");
+				auditoriaCarga.setNotas("El registro existía y no viene en el archivo de carga");
 				auditoriaCarga.setFecha(DateUtils.getTimestamp());
 
 				addAuditoriaCarga(auditoriaCarga);
@@ -2129,7 +2121,7 @@ public class CargaAltamiraSessionBean implements CargaAltamiraSession {
 				auditoriaCarga.setCodigoRegistro(row.getCodigo());
 				auditoriaCarga.setDescripcionRegistro(row.getNombre());
 				auditoriaCarga.setNombreArchivo(nombreArchivo);
-				auditoriaCarga.setNotas("El registro exista y no viene en el archivo de carga");
+				auditoriaCarga.setNotas("El registro existía y no viene en el archivo de carga");
 				auditoriaCarga.setFecha(DateUtils.getTimestamp());
 
 				addAuditoriaCarga(auditoriaCarga);

@@ -320,8 +320,6 @@ public class NotaContable extends CommonVO<NotaContable> implements java.io.Seri
 	public String toString() {
 		return "NotaContable{" +
 				"codigo=" + codigo +
-				", fechaRegistroModulo=" + fechaRegistroModulo +
-				", fechaRegistroAltamira=" + fechaRegistroAltamira +
 				", codigoSucursalOrigen='" + codigoSucursalOrigen + '\'' +
 				", codigoConcepto=" + codigoConcepto +
 				", codigoTipoEvento=" + codigoTipoEvento +

@@ -73,14 +73,6 @@ public class FlujoNotaContablePage extends GeneralPage implements IPages {
 			nota = notasContablesManager.getNotaContable(nota);
 			Instancia instancia = new Instancia();
 			instancia.setCodigoNotaContable(nota.getCodigo());
-			Integer eventTypeIdTemp = nota.getCodigoTipoEvento().intValue();
-			LOGGER.info("<<<<<<codigo evento temporarl: {}>>>>>>", eventTypeIdTemp);
-			LOGGER.info("<<<<<<codigo evento temporarl class: {}>>>>>>", eventTypeIdTemp.getClass());
-			LOGGER.info("<<<<<<codigo evento before: {}>>>>>>", nota.getCodigoTipoEvento());
-			LOGGER.info("<<<<<<codigo evento before class: {}>>>>>>", nota.getCodigoTipoEvento().getClass());
-			nota.setCodigoTipoEvento(eventTypeIdTemp);
-			LOGGER.info("<<<<<<codigo evento after: {}>>>>>>", nota.getCodigoTipoEvento());
-			LOGGER.info("<<<<<<codigo evento after class: {}>>>>>>", nota.getCodigoTipoEvento().getClass());
 			instancia = notasContablesManager.getInstanciaPorNotaContable(instancia);
 
 			if (codUsuAsignado > 0 && !instancia.getEstado().equals("4") && !instancia.getEstado().equals("5") && !instancia.getEstado().equals("9")) {
@@ -94,7 +86,7 @@ public class FlujoNotaContablePage extends GeneralPage implements IPages {
 			iniciarConcepto();
 		} catch (Exception e) {
 			e.printStackTrace();
-			lanzarError(e, "No se ha podido completar la ejecucin solicitada ");
+			lanzarError(e, "No se ha podido completar la ejecución solicitada ");
 		}
 	}
 
@@ -263,17 +255,17 @@ public class FlujoNotaContablePage extends GeneralPage implements IPages {
 				PrimeFaces.current().executeScript("PF('popupFlujoNotaContableVer').hide();");
 				try {
 					enviarEMail.sendEmail(usuarioModulo.getEMailModificado(), getUsuarioLogueado().getUsuario().getEMailModificado(),
-							"Mdulo Notas Contables - Registro para aprobar",
-							"Por favor ingrese al mdulo de Notas Contables, se le ha asignado un registro que requiere su verificacin");
+							"Módulo Notas Contables - Registro para aprobar",
+							"Por favor ingrese al módulo de Notas Contables, se le ha asignado un registro que requiere su verificación");
 				} catch (Exception e) {
-					nuevoMensaje(FacesMessage.SEVERITY_INFO, "Se present un error al enviar el correo a la direccin: " + usuarioModulo.getEMailModificado());
+					nuevoMensaje(FacesMessage.SEVERITY_INFO, "Se presentó un error al enviar el correo a la dirección: " + usuarioModulo.getEMailModificado());
 				}
 			} else {
 				nuevoMensaje(FacesMessage.SEVERITY_INFO, errorMessage);
 				ocultarPopupAprobar = false;
 			}
 		} catch (Exception e) {
-			lanzarError(e, "Se present un error al aprobar la nota contable");
+			lanzarError(e, "Se presentó un error al aprobar la nota contable");
 		}
 		return null;
 	}
@@ -342,10 +334,10 @@ public class FlujoNotaContablePage extends GeneralPage implements IPages {
 
 						try {
 							enviarEMail.sendEmail(usuarioModulo.getEMailModificado(), getUsuarioLogueado().getUsuario().getEMailModificado(),
-									"Mdulo Notas Contables - Registro rechazado",
-									"Por favor ingrese al mdulo de Notas Contables, se le ha asignado un registro que requiere su verificacin");
+									"Módulo Notas Contables - Registro rechazado",
+									"Por favor ingrese al módulo de Notas Contables, se le ha asignado un registro que requiere su verificación");
 						} catch (Exception e) {
-							nuevoMensaje(FacesMessage.SEVERITY_INFO, "Se present un error al enviar el correo a la direccin: " + usuarioModulo.getEMailModificado());
+							nuevoMensaje(FacesMessage.SEVERITY_INFO, "Se presentó un error al enviar el correo a la dirección: " + usuarioModulo.getEMailModificado());
 						}
 					} else {
 						nuevoMensaje(FacesMessage.SEVERITY_INFO, errorMessage);
@@ -354,21 +346,19 @@ public class FlujoNotaContablePage extends GeneralPage implements IPages {
 				}
 			} else {
 				nuevoMensaje(FacesMessage.SEVERITY_INFO,
-						"Se presentó un error al rechazar la nota: Verfique que el Aplicativo Notas Contables /n esté  abierto en  un nico navegador Web y en una única pestaña. ");
+						"Se presentó un error al rechazar la nota: Verfique que el Aplicativo Notas Contables /n esté  abierto en  un único navegador Web y en una única pestaña. ");
 				ocultarPopupAnular = false;
 				return null;
 			}
 		} catch (Exception e) {
-			lanzarError(e, "Se present un error al rechazar la nota contable");
+			lanzarError(e, "Se presentó un error al rechazar la nota contable");
 		}
 		return null;
 	}
 
 	public String anular() {
 		try {
-			
-			LOGGER.info("FlujoNotaContablePage : anular --> ");
-			
+
 			Instancia instanciado = new Instancia();
 			instanciado.setCodigoNotaContable(nota.getCodigo());
 			instanciado = notasContablesManager.getInstanciaPorNotaContable(instanciado);
@@ -407,7 +397,7 @@ public class FlujoNotaContablePage extends GeneralPage implements IPages {
 
 			} else {
 				nuevoMensaje(FacesMessage.SEVERITY_INFO,
-						"Se presentó un error al anular la nota: Verfique que el Aplicativo Notas Contables /n está  abierto en  un único navegador Web y en una única pestaña. ");
+						"Se presentó un error al anular la nota: Verfique que el Aplicativo Notas Contables /n esté  abierto en  un único navegador Web y en una única pestaña. ");
 				return null;
 			}
 		} catch (Exception e) {

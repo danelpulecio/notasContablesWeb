@@ -154,6 +154,45 @@
                     <f:selectItems value="#{productoController.selecOne}"/>
                 </p:selectOneMenu>
             </h:panelGrid>
+            <!--            <p:dialog header="Causales de Rechazo" id="tiendaDisponible" widgetVar="tiendaDisponible" resizable="false">-->
+            <!--                <p:dataTable id="causalesTable" value="#{contrato}" var="causal">-->
+            <!--                    <p:column headerText="Causal">-->
+            <!--                        #{causal.nombre}-->
+            <!--                    </p:column>-->
+            <!--                    <p:column headerText="Descripción">-->
+            <!--                        #{causal.descripcion}-->
+            <!--                    </p:column>-->
+            <!--                </p:dataTable>-->
+
+
+            <!--            </p:dialog>-->
+            <p:dataTable value="#{productoController.lista}" var="producto">
+                <p:column headerText="Contrato">
+                    #{producto.fruta}
+                </p:column>
+                <p:column headerText="Descripción">
+                    #{producto.precio}
+                </p:column>
+                <p:column headerText="Tiendas Disponibles">
+                    <p:commandButton value="Ver Tiendas" oncomplete="PF('tiendasDialog_#{producto.fruta}').show()"/>
+                    <ui:repeat value="#{productoController.lista}" var="frutas">
+                        <p:dialog header="Tiendas Disponibles para #{producto.fruta}" widgetVar="tiendasDialog_#{producto.fruta}"
+                                  resizable="false" width="600px">
+
+                            <p:dataTable value="#{producto.puntoVenta}" var="tienda">
+                                <p:column headerText="Nombre">
+                                    #{tienda.id}
+                                </p:column>
+                                <p:column headerText="Dirección">
+                                    #{tienda.storeName}
+                                </p:column>
+                                <!-- Agrega más columnas si es necesario para mostrar más información sobre la tienda -->
+                            </p:dataTable>
+                        </p:dialog>
+                    </ui:repeat>
+                </p:column>
+            </p:dataTable>
+
         </div>
     </ui:define>
 </ui:composition>

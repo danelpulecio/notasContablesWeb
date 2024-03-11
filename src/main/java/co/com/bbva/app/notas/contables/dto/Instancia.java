@@ -220,7 +220,6 @@ public class Instancia extends CommonVO<Instancia> implements java.io.Serializab
 	public String toString() {
 		return "Instancia{" +
 				"codigo=" + codigo +
-				", fechaHoraInicio=" + fechaHoraInicio +
 				", codigoNotaContable=" + codigoNotaContable +
 				", codigoSucursalOrigen='" + codigoSucursalOrigen + '\'' +
 				", codigoUsuarioActual=" + codigoUsuarioActual +

@@ -29,4 +29,4 @@ V	java:S899†";Do something with the "boolean" value returned by "delete".(ÿšÊ
 j
 java:S4042†"NUse "java.nio.file.Files#delete" here for better messages on error conditions.(ÿšÊ•ùÿÿÿÿ
 n
-java:S1128"LRemove this unused import 'co.com.bbva.app.notas.contables.session.Session'.(•Ö¥åøÿÿÿÿ8ÈÄ…Ìá1
+java:S1128"LRemove this unused import 'co.com.bbva.app.notas.contables.session.Session'.(•Ö¥åøÿÿÿÿ8à³£ƒâ1

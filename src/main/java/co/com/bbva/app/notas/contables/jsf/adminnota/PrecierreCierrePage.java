@@ -89,12 +89,12 @@ public class PrecierreCierrePage extends GeneralConsultaPage<Instancia> {
         try {
             Collection<NotaContable> notasContables = notasContablesManager.getNotaContablesPrecierreCierre(esPrecierre);
             ArrayList<Instancia> instancias = new ArrayList<Instancia>();
+            List<CausalDeRechazoDTO> lstCausalRechazo = new ArrayList<>();
             for (NotaContable nc : notasContables) {
                 String rechazo = "";
                 Collection<RechazoSalida> res = notasContablesManager.getRechazoSalidaByNotaContable(nc.getNumeroRadicacion());
                 nc.setRechazos(new ArrayList<RechazoSalida>(res));
                 if (!res.isEmpty()) {
-                    List<CausalDeRechazoDTO> lstCausalRechazo = new ArrayList<>();
                     rechazo = "<table><th>Cuenta</th><th>Divisa</th><th>Destino</th><th>Error</th>";
                     for (RechazoSalida rs : res) {
                         CausalDeRechazoDTO causalDeRechazo = new CausalDeRechazoDTO();
@@ -102,14 +102,14 @@ public class PrecierreCierrePage extends GeneralConsultaPage<Instancia> {
                         rv.setCodigo(StringUtils.getStringLeftPadding(rs.getCodError().toString(), 4, '0'));
                         rv = cargaAltamiraManager.getErrorValidacion(rv);
                         rechazo += "<tr><td>" + rs.getCuenta() + "</td> <td>" + rs.getDivisa() + "</td> <td>" + rs.getCeDestin() + "</td> <td>" + rv.getNombre() + "</td> </tr>";
-//                        causalDeRechazo.setCuenta(rs.getCuenta());
-//                        causalDeRechazo.setDivisa(rs.getDivisa());
-//                        causalDeRechazo.setDestino(rs.getCeDestin());
-//                        causalDeRechazo.setError(rv.getNombre());
+                        causalDeRechazo.setCuenta(rs.getCuenta());
+                        causalDeRechazo.setDivisa(rs.getDivisa());
+                        causalDeRechazo.setDestino(rs.getCeDestin());
+                        causalDeRechazo.setError(rv.getNombre());
                         lstCausalRechazo.add(causalDeRechazo);
                     }
                     rechazo += "</table>";
-                    nc.setCausalesRechazoLst(lstCausalRechazo);
+//                    nc.setCausalesRechazoLst(lstCausalRechazo);
                 }
                 nc.setCausalDeRechazo(rechazo);
                 Instancia instancia = new Instancia();
@@ -121,6 +121,7 @@ public class PrecierreCierrePage extends GeneralConsultaPage<Instancia> {
 
             totales = notasContablesManager.getDatosDeInstancias(instancias, true);
             setDatos(instancias);
+            LOGGER.info("<<<<<Datos precierre: {}>>>>>", instancias);
             this.paginaActual = ADMIN_PRECIERRE;
 
             if (getDatos().isEmpty() && !hayMensajes()) {

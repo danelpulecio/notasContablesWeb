@@ -92,7 +92,7 @@ public class CargaAltamiraCierreScheduled {
 						throw e;
 					}
 				}
-				LOGGER.info("  Termin: " + DateUtils.getTimestamp() + ": " + f.getName());
+				LOGGER.info("  Terminó: " + DateUtils.getTimestamp() + ": " + f.getName());
 				lbr_bufferReader.close();
 				in.close();
 				lfis_stream.close();

@@ -134,9 +134,9 @@ public class ReportesExcel {
 			cell.setCellStyle(cellstyle);
 
 			// Labels del reporte
-			String[] labels = {"N?MERO RADICACI?N", "N?MERO ASIENTO", "FECHA DE REGISTRO", "FECHA ALTAMIRA", "TIPO", "C?D. SUC. ORIGEN", "NOMBRE SUCURSAL ORIGEN", "ESTADO", "CONCEPTO", "TEMA", "PARTIDA", "NAT1", "COD. SUC. DESTINO",
-					"NOMBRE SUC. DESTINO", "CONTRAPARTIDA", "NAT2", "COD. SUC. DESTINO", "NOMBRE SUC. DESTINO", "DIVISA", "MONTO", "IDENTIFICACI?N 1", "NOMBRE COMPLETO 1", "CONTRATO 1", "IDENTIFICACI?N 2", "NOMBRE COMPLETO 2", "CONTRATO 2",
-					"DESCRIPCI?N"};
+			String[] labels = { "NÚMERO RADICACIÓN", "NÚMERO ASIENTO", "FECHA DE REGISTRO", "FECHA ALTAMIRA", "TIPO", "CÓD. SUC. ORIGEN", "NOMBRE SUCURSAL ORIGEN", "ESTADO", "CONCEPTO", "TEMA", "PARTIDA", "NAT1", "COD. SUC. DESTINO",
+					"NOMBRE SUC. DESTINO", "CONTRAPARTIDA", "NAT2", "COD. SUC. DESTINO", "NOMBRE SUC. DESTINO", "DIVISA", "MONTO", "IDENTIFICACIÓN 1", "NOMBRE COMPLETO 1", "CONTRATO 1", "IDENTIFICACIÓN 2", "NOMBRE COMPLETO 2", "CONTRATO 2",
+					"DESCRIPCIÓN" };
 			row = sh.createRow((short) 1);
 			labelsReport(row, labels, wb);
 
@@ -228,13 +228,13 @@ public class ReportesExcel {
 		// Estado
 		String nombreEstado = "";
 		if (instancia.getEstado().equals("0")) {
-			nombreEstado = "Pendiente de aprobaci?n por Subgenrente, Gerente, ?rea Central";
+			nombreEstado = "Pendiente de aprobación por Subgenrente, Gerente, Área Central";
 		} else if (instancia.getEstado().equals("1")) {
-			nombreEstado = "Pendiente de revisi?n";
+			nombreEstado = "Pendiente de revisión";
 		} else if (instancia.getEstado().equals("2")) {
-			nombreEstado = "Pendiente de aprobaci?n por Padrino - Unidad de An?lisis";
+			nombreEstado = "Pendiente de aprobación por Padrino - Unidad de Análisis";
 		} else if (instancia.getEstado().equals("3")) {
-			nombreEstado = "Pendiente de aprobaci?n ente Autorizador";
+			nombreEstado = "Pendiente de aprobación ente Autorizador";
 		} else if (instancia.getEstado().equals("4")) {
 			nombreEstado = "Precierre";
 		} else if (instancia.getEstado().equals("5")) {
@@ -261,7 +261,7 @@ public class ReportesExcel {
 		cell.setCellValue((detalle.fechaContableTS != null ? StringUtils.getString(detalle.fechaContableTS, "dd-MMM-yyyy") : ""));
 
 		cell = row.createCell((short) 4);
-		cell.setCellValue((notaContable.getTipoNota().equals(NotaContable.NORMAL) ? "Registro" : notaContable.getTipoNota().equals(NotaContable.CRUCE_REFERENCIA) ? "Cancelaci?n de transitorias por referencia de cruce" : "Contabilidad libre"));
+		cell.setCellValue((notaContable.getTipoNota().equals(NotaContable.NORMAL) ? "Registro" : notaContable.getTipoNota().equals(NotaContable.CRUCE_REFERENCIA) ? "Cancelación de transitorias por referencia de cruce" : "Contabilidad libre"));
 
 		cell = row.createCell((short) 5);
 		cell.setCellValue(sucursalOrigen.getCodigo());
@@ -438,7 +438,7 @@ public class ReportesExcel {
 			cell.setCellStyle(cellstyle);
 
 			// Labels del reporte
-			String[] labels = {"COD EMPLEADO", "NOMBRE EMPLEADO", "COD ?REA", "NOMBRE ?REA", "ROL", "DURACI?N PROMDIO"};
+			String[] labels = { "COD EMPLEADO", "NOMBRE EMPLEADO", "COD ÁREA", "NOMBRE ÁREA", "ROL", "DURACIÓN PROMDIO" };
 			row = sh.createRow((short) 1);
 			labelsReport(row, labels, wb);
 

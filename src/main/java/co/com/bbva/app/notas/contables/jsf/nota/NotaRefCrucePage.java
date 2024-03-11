@@ -477,8 +477,8 @@ public class NotaRefCrucePage extends GeneralPage implements IPages, Serializabl
 						
 						try {
 							enviarEMail.sendEmail(usuarioModulo.getEMailModificado(), getUsuarioLogueado().getUsuario().getEMailModificado(),
-									"Mdulo Notas Contables - Registro rechazado",
-									"Por favor ingrese al mdulo de Notas Contables, se le ha asignado un registro que requiere su verificacin");
+									"Módulo Notas Contables - Registro rechazado",
+									"Por favor ingrese al módulo de Notas Contables, se le ha asignado un registro que requiere su verificación");
 						} catch (Exception e) {
 							nuevoMensaje(FacesMessage.SEVERITY_INFO, "Se presentó un error al enviar el correo a la dirección: " + usuarioModulo.getEMailModificado());
 							
@@ -490,7 +490,7 @@ public class NotaRefCrucePage extends GeneralPage implements IPages, Serializabl
 				}
 			} else {
 				nuevoMensaje(FacesMessage.SEVERITY_INFO,
-						"Se presentó un error al rechazar la nota: Verfique que el Aplicativo Notas Contables /n está  abierto en  un único navegador Web y en una nica pestaña. ");
+						"Se presentó un error al rechazar la nota: Verfique que el Aplicativo Notas Contables /n esté  abierto en  un único navegador Web y en una única pestaña. ");
 				return null;
 			}
 		} catch (Exception e) {
@@ -536,7 +536,7 @@ public class NotaRefCrucePage extends GeneralPage implements IPages, Serializabl
 				ocultarPopupAnular = true;
 			} else {
 				nuevoMensaje(FacesMessage.SEVERITY_INFO,
-						"Se presentó un error al anular la nota: Verfique que el Aplicativo Notas Contables /n está  abierto en  un único navegador Web y en una única pestaña. ");
+						"Se presentó un error al anular la nota: Verfique que el Aplicativo Notas Contables /n esté  abierto en  un único navegador Web y en una única pestaña. ");
 				ocultarPopupAnular = false;
 
 				return null;
