@@ -68,8 +68,8 @@
         </style>
     </h:head>
     <!-- Formulario de confirmacion de anulacion-->
-    <p:dialog id="popupAnularNotaLibre" widgetVar="popupAnularNotaLibre" autosized="true" domElementAttachment="form"
-              width="250px">
+    <p:dialog id="popupAnularNotaLibre" widgetVar="popupAnularNotaLibre" autosized="true" domElementAttachment="form" width="250"
+              showEffect="fade" hideEffect="explode" modal="false" position="center center">
         <f:facet name="header">
             <h:panelGroup>
                 <h:outputText value="Confirmación de anulación"/>
@@ -951,9 +951,9 @@
                              value="Enviar a Visto Bueno gt"
                              rendered="#{notaContableLibrePage.nota.codigo gt 0 and notaContableLibrePage.nota.puedeEditar and !empty notaContableLibrePage.temasNotaContable and !empty notaContableLibrePage.anexos}"/>
 
-            <p:commandButton value="Anular" ajax="false"
+            <p:commandButton value="Anular"
                              rendered="#{notaContableLibrePage.nota.codigo gt 0 and notaContableLibrePage.nota.puedeAnular}"
-                             oncomplete="PF('popupAnularNotaLibre').show()"/>
+                             onclick="PF('popupAnularNotaLibre').show()"/>
 
             <p:commandButton value="Cancelar" action="#{notaContableLibrePage.cancelarNota}"
                              update="globalForm:formRegLibre"

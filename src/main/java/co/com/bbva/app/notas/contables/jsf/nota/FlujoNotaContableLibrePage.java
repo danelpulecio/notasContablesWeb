@@ -378,8 +378,8 @@ public class FlujoNotaContableLibrePage extends GeneralPage implements IPages {
 				pendientePage.cargarPendientes();
 				nuevoMensaje(FacesMessage.SEVERITY_INFO, "La nota ha sido anulada correctamente");
 				ocultarPopupAnular = true;
-				PrimeFaces.current().executeScript("PF('popupAnularNotaLibre').hide();PF('popupNotaContableLibre').hide();");
-//				PrimeFaces.current().executeScript("PF('popupNotaContableLibre').hide();");
+				PrimeFaces.current().executeScript("PF('popupAnularNotaLibre').hide();");
+				PrimeFaces.current().executeScript("PF('popupNotaContableLibre').hide();");
 			} else {
 				nuevoMensaje(FacesMessage.SEVERITY_INFO,
 						"Se presentó un error al anular la nota: Verfique que el Aplicativo Notas Contables /n esté  abierto en  un único navegador Web y en una única pestaña. ");
