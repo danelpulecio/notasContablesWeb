@@ -73,12 +73,12 @@
 
 
                                 <p:commandButton value="Generar Archivo Excel"
-                                                 action="#{reporteDocumentoSoportePage.generarArchivoExcel}"
+                                                 actionListener="#{reporteDocumentoSoportePage.generarArchivoExcel}"
                                                  update="globalForm:msgReporteDocumentoSoporte,btnDescarga"/>
 
 
                                 <p:commandButton value="Generar Archivo Validacion"
-                                                 action="#{reporteDocumentoSoportePage.generarArchivoExcelXCcuentas}"
+                                                 actionListener="#{reporteDocumentoSoportePage.generarArchivoExcelXCcuentas}"
                                                  update="globalForm:msgReporteDocumentoSoporte,btnDescarga"/>
 
 
@@ -88,7 +88,7 @@
                                                      oncomplete="PF('editor').show()"
                                                      update="globalForm:editor"
                                                      rendered="#{reporteDocumentoSoportePage.mostrarArchExc}">
-                                        <f:setPropertyActionListener name="codNuevo" value="0" target="0"/>
+
                                     </p:commandButton>
                                 </h:panelGrid>
 

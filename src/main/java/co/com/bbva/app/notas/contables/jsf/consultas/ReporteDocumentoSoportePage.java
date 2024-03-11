@@ -20,7 +20,7 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 
-@SessionScoped
+@ViewScoped
 @Named
 public class ReporteDocumentoSoportePage extends GeneralConsultaPage<Instancia> {
 
