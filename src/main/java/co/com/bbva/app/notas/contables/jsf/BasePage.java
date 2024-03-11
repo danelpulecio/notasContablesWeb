@@ -55,15 +55,20 @@ public abstract class BasePage implements Serializable  {
 		java.util.Properties propiedades = properties.readProperties();
 
 		DIR_SOPORTES = propiedades.getProperty("dirSoportes");
-//     context.getInitParameter("DIR_SOPORTES");
+//      context.getInitParameter("DIR_SOPORTES");
+		
 		DIR_REPORTES_EXCEL = propiedades.getProperty("dirReportesExcel");
-//     DIR_REPORTES_EXCEL = context.getInitParameter("DIR_REPORTES_EXCEL");
-		DIR_RECEPCION_ALTAMIRA = propiedades.getProperty("dirTransmisionAltamira");
-//     DIR_RECEPCION_ALTAMIRA = context.getInitParameter("DIR_RECEPCION_ALTAMIRA");
-		DIR_TRANSMISION_ALTAMIRA = propiedades.getProperty("dirRecepcionAltamira");
-//     DIR_TRANSMISION_ALTAMIRA = context.getInitParameter("DIR_TRANSMISION_ALTAMIRA");
+//      DIR_REPORTES_EXCEL = context.getInitParameter("DIR_REPORTES_EXCEL");
+		
+		DIR_RECEPCION_ALTAMIRA = propiedades.getProperty("dirRecepcionAltamira");
+//      DIR_RECEPCION_ALTAMIRA = context.getInitParameter("DIR_RECEPCION_ALTAMIRA");
+		
+		DIR_TRANSMISION_ALTAMIRA = propiedades.getProperty("dirTransmisionAltamira");
+//      DIR_TRANSMISION_ALTAMIRA = context.getInitParameter("DIR_TRANSMISION_ALTAMIRA");
+		
 		DIR_CARGA = propiedades.getProperty("dirCarga");
-//     DIR_CARGA = context.getInitParameter("DIR_CARGA");
+//      DIR_CARGA = context.getInitParameter("DIR_CARGA");
+		
 //     ACTIVAR_LDAP = "0";
 		ACTIVAR_LDAP = propiedades.getProperty("activar.ldap");
 

@@ -18,22 +18,24 @@
 	<context-param>
 		<description>Directorio que contiene los archivos de precierre y cierre que se envian a altamira</description>
 		<param-name>DIR_TRANSMISION_ALTAMIRA</param-name>
-		<param-value>/app/de/NotasContables/tx/transmision/</param-value>
+		<param-value>/app/RepoArchivos/NotasContables/tx/transmision/</param-value>
 	</context-param>
 	<context-param>
 		<description>Directorio que contiene los archivos de respuesta de altamira al realizar los proceso de precierre y cierre</description>
 		<param-name>DIR_RECEPCION_ALTAMIRA</param-name>
-		<param-value>/app/de/NotasContables/tx/recepcion/</param-value>
+			<param-value>/app/RepoArchivos/NotasContables/tx/recepcion/
+		</param-value>
 	</context-param>
 	<context-param>
 		<description>Directorio que contiene los archivos de carga de datos diarios provenientes de altamira</description>
 		<param-name>DIR_CARGA</param-name>
-		<param-value>/app/de/NotasContables/tx/recepcion/</param-value>
+			<param-value>/app/RepoArchivos/NotasContables/tx/recepcion/
+		</param-value>
 	</context-param>
 	<context-param>
 		<description>Directorio que contiene los archivos de carga provenientes de siro</description>
 		<param-name>DIR_SIRO</param-name>
-		<param-value>/app/de/NotasContables/tx/transmision/siro/</param-value>
+		<param-value>/app/RepoArchivos/NotasContables/tx/transmision/siro/</param-value>
 	</context-param>
 	         
     <context-param>
@@ -67,6 +69,45 @@
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    
+    <servlet>
+		<display-name>ExecuteScheduleServlet</display-name>
+		<servlet-name>ExecuteScheduleServlet</servlet-name>
+		<servlet-class>co.com.bbva.app.notas.contables.servlet.ExecuteScheduleServlet</servlet-class>
+		<init-param>
+			<param-name>cron</param-name>
+			<param-value>0 0/5 * * * ?</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cronCierreHist</param-name>
+			<param-value>0 0 23 * * ?</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cronCierreAnulado</param-name>
+			<param-value>0 30 23 * * ?</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cronCierreAnular</param-name>
+			<param-value>0 0 23 * * ?</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cronActPendiente</param-name>
+			<param-value>0 10 12 * * ?</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cronDeleteFile</param-name>
+			<param-value>0 0/5 * * * ?</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cronDeleteSiro</param-name>
+			<param-value>0 0/5 * * * ?</param-value>
+		</init-param>
+		<init-param>
+			<param-name>mail</param-name>
+			<param-value>ccontable@bbva.com.co</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
 
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
@@ -99,8 +140,6 @@
 	<listener>
 		<listener-class>com.sun.faces.config.ConfigureListener</listener-class>
 	</listener>
-    
-    
     <session-config>
     	<session-timeout>10</session-timeout>
 	</session-config>

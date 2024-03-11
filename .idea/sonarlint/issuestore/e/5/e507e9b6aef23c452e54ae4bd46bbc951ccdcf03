@@ -1,8 +1,8 @@
 
 {
-java:S2293z"YReplace the type specification in this constructor call with the diamond operator ("<>").(¦±Øùýÿÿÿÿ8’éñ®ß1
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(¦±Øùýÿÿÿÿ8’éñ®ß1
 ~
-java:S2629h"\Invoke method(s) only conditionally. Use the built-in formatting to construct this argument.(¯†òíøÿÿÿÿ8•”±Úà1
+java:S2629m"\Invoke method(s) only conditionally. Use the built-in formatting to construct this argument.(¯†òíøÿÿÿÿ8•”±Úà1
 s	java:S116)"WRename this field "DIR_SOPORTES" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ù”ëþ8™”±Úà1
 ~	java:S116*"]Rename this field "DIR_REPORTES_EXCEL" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ªúÒìûÿÿÿÿ8™”±Úà1
 ‚	java:S116+"aRename this field "DIR_RECEPCION_ALTAMIRA" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‰•ü™øÿÿÿÿ8™”±Úà1
@@ -20,17 +20,12 @@ I
 java:S1948&",Make "properties" transient or serializable.(´Å¾ì8š”±Úà1
 N
 java:S14815",Remove this unused "context" local variable.(Œ³±Êùÿÿÿÿ8¹”±Úà1
-X	java:S125:"<This block of commented-out lines of code should be removed.(æ›ÔÁ8º”±Úà1
-]	java:S125<"<This block of commented-out lines of code should be removed.(§Êˆßþÿÿÿÿ8»”±Úà1
-X	java:S125>"<This block of commented-out lines of code should be removed.(½¢Ã›8»”±Úà1
-X	java:S125@"<This block of commented-out lines of code should be removed.(Žäùì8»”±Úà1
-]	java:S125B"<This block of commented-out lines of code should be removed.(½Å£—ûÿÿÿÿ8»”±Úà1
-X	java:S125G"<This block of commented-out lines of code should be removed.(íÂÆÌ8¼”±Úà1
+X	java:S125L"<This block of commented-out lines of code should be removed.(íÂÆÌ8¼”±Úà1
 ˆ
-java:S1130L"lRemove the declaration of thrown exception 'java.io.IOException', as it cannot be thrown from method's body.(¬ø·P8¼”±Úà1
-X	java:S125X"<This block of commented-out lines of code should be removed.(Š‹Ïú8½”±Úà1
+java:S1130Q"lRemove the declaration of thrown exception 'java.io.IOException', as it cannot be thrown from method's body.(¬ø·P8¼”±Úà1
+X	java:S125]"<This block of commented-out lines of code should be removed.(Š‹Ïú8½”±Úà1
 c
-java:S3457h"AFormat specifiers should be used instead of string concatenation.(¯†òíøÿÿÿÿ8½”±Úà1
+java:S3457m"AFormat specifiers should be used instead of string concatenation.(¯†òíøÿÿÿÿ8½”±Úà1
 b
 java:S1128"@Remove this unused import 'javax.faces.context.ExternalContext'.(¢ŸïÞùÿÿÿÿ8‚ðËõá1
 X

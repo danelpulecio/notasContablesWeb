@@ -108,7 +108,7 @@ public class PrecierreCierrePage extends GeneralConsultaPage<Instancia> {
                         causalDeRechazo.setError(rv.getNombre());
                         lstCausalRechazo.add(causalDeRechazo);
                     }
-                    rechazo += "</table>";
+                    rechazo += "</p:dataTable>";
 //                    nc.setCausalesRechazoLst(lstCausalRechazo);
                 }
                 nc.setCausalDeRechazo(rechazo);

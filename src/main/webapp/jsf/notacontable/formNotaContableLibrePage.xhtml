@@ -739,10 +739,21 @@
                         value="#{notaContableLibrePage.usuarioLogueado.sucursal.codigo} - #{notaContableLibrePage.usuarioLogueado.sucursal.nombre}"/>
 
                 <h:outputText value="Fecha Contable" styleClass="propertie"/>
+                
+            	<p:datePicker id="fecha2" value="#{notaContableLibrePage.fechaNota}" 
+					showIcon="true"
+					monthNavigator="true" yearNavigator="true"
+					mindate="#{notaContableLibrePage.minDateTime}"
+					maxdate="#{notaContableLibrePage.maxDateTime}"
+					readonlyInput="true"
+					beforeShow="isDayEnabled" >
+				
+				   
+				   <p:ajax event="dateSelect" listener="#{notaContableLibrePage.validarFecha}" update="globalForm:formRegLibre,globalForm:msgPpalRegistroLibre"/>
+				
+                                     
+				</p:datePicker>
 
-                <p:calendar id="event" value="#{notaContableLibrePage.fechaNota}" showOn="button" navigator="true">
-                    <p:ajax event="dateSelect" listener="#{notaContableLibrePage.validarFecha}" update="formRegLibre"/>
-                </p:calendar>
 
                 <h:outputText value="Descripción" styleClass="propertie"/>
                 <p:inputText value="#{notaContableLibrePage.nota.descripcion}"

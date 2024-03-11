@@ -18,7 +18,7 @@
         <p:column headerText="Estado" sortable="true" width="44px;" sortBy="#{dato.estado}">
             <h:outputText value="#{dato.nombreEstado}"/>
         </p:column>
-        <p:column headerText="Detalle de la nota contable" style="text-align: center; width: 600px">
+        <p:column headerText="Detalle de la nota contable" style="text-align: center; width: 410px">
 
             <!--            <h:panelGrid columns="1" rendered="#{dato.NC.tipoNota eq 'R' }" border="0" style="border-width: 0px;">-->
             <p:dataTable style="border-width: 0px; background-color: transparent;" value="#{dato.NC.temas}"
@@ -120,7 +120,7 @@
                              update="globalForm:popupFlujoNotaContableVer"
                              rendered="#{dato.NC.tipoNota eq 'R' and dato.estado != 1}">
                 <f:setPropertyActionListener for="codNotaVer" value="#{dato.codigoNotaContable}"
-                                             target="#{flujoNotaContablePage.nota.codigo}"/>
+                                             target="#{flujoNotaContablePage.nota.codigo}" converter="javax.faces.Integer"/>
             </p:commandButton>
 
             <p:commandButton value="Ver"
@@ -129,7 +129,7 @@
                              update="globalForm:notaContableLibreVer"
                              rendered="#{dato.NC.tipoNota eq 'L' and dato.estado != 1}">
                 <f:setPropertyActionListener for="codNotaLibreVer" value="#{dato.codigoNotaContable}"
-                                             target="#{flujoNotaContableLibrePage.nota.codigo}"/>
+                                             target="#{flujoNotaContableLibrePage.nota.codigo}" converter="javax.faces.Integer"/>
             </p:commandButton>
 
             <p:commandButton value="Ver"
@@ -138,7 +138,7 @@
                              update="globalForm:popupFlujoNotaContableRefCruceVer"
                              rendered="#{dato.NC.tipoNota eq 'C'}">
                 <f:setPropertyActionListener for="codNotaRefCruceVer" value="#{dato.codigoNotaContable}"
-                                             target="#{notaRefCrucePage.nota.codigo}"/>
+                                             target="#{notaRefCrucePage.nota.codigo}" converter="javax.faces.Integer"/>
             </p:commandButton>
 
         </p:column>
@@ -153,7 +153,7 @@
                 <f:setPropertyActionListener for="codEditar" value="#{dato.codigoNotaContable}"
                                              target="#{flujoNotaContablePage.nota.codigo}"/>
                 <f:setPropertyActionListener for="codUsuEditar" value="#{contablesSessionBean.loginUser.usuario.codigo}"
-                                             target="#{flujoNotaContablePage.nota.codUsuAsignado}"/>
+                                             target="#{flujoNotaContablePage.nota.codUsuAsignado}" converter="javax.faces.Integer"/>
             </p:commandButton>
 
             <p:commandButton value="Ver"
@@ -162,7 +162,7 @@
                              update="globalForm:popupNotaContable"
                              rendered="#{dato.NC.tipoNota eq 'R' and dato.estado eq 1}">
                 <f:setPropertyActionListener for="codConsultar" value="#{dato.codigo}"
-                                             target="#{notaContablePage.nota.codigo}"/>
+                                             target="#{notaContablePage.nota.codigo}" converter="javax.faces.Integer"/>
             </p:commandButton>
 
         </p:column>
@@ -171,7 +171,7 @@
             <p:commandButton value="Consultar" oncomplete="PF('popupFlujo').show()"
                              action="#{flujoSubPage.consultarFlujo}" update="globalForm:popupFlujo">
                 <f:setPropertyActionListener for="codConsultar" value="#{dato.codigo}"
-                                             target="#{flujoSubPage.actividadRealizada.codigoInstancia}"/>
+                                             target="#{flujoSubPage.actividadRealizada.codigoInstancia}" converter="javax.faces.Integer"/>
             </p:commandButton>
         </p:column>
 
@@ -195,5 +195,4 @@
         </f:facet>
 
     </p:dataTable>
-
 </ui:composition>

@@ -39,6 +39,17 @@
                 return false;
             }
 
+			function getDisabledStyleNC(day){
+				   if (!isDayEnabledNC(day)) return 'rich-calendar-boundary-dates disabledDay';
+				}
+
+				function getDisabledStyleRiesgoNC(day){
+				   if (!isDayEnabledRiesgoNC(day)){ 
+				   		return 'rich-calendar-boundary-dates disabledDay';
+				   }
+				}
+            
+
             function validarMontoAlert(value) {
                 var alertCOP = parseFloat(document.getElementById('globalForm:montoAlertaCOP').value);
                 var alertEXT = parseFloat(document.getElementById('globalForm:montoAlertaEXT').value);
@@ -53,6 +64,7 @@
                     alert('Por favor verifique si el importe ingresado es el adecuado.');
                 }
             }
+
         </script>
         <style>
             .disabledDay {
@@ -114,12 +126,21 @@
 
                         <h:panelGrid columns="4" width="100%" cellpadding="0" cellspacing="2">
                             <h:outputText styleClass="bold" value="Fecha Contable"/>
+                            
+							<p:datePicker id="fecha" value="#{notaContablePage.fechaContablePF}" 
+								showIcon="true"
+								monthNavigator="true" yearNavigator="true"
+								mindate="#{notaContablePage.minDateTime}"
+								maxdate="#{notaContablePage.maxDateTime}"
+								readonlyInput="true"
+								beforeShow="isDayEnabledNC" >
+							
+								<p:ajax event="dateSelect" listener="#{notaContablePage.validarFecha}"
+									update="globalForm:fecha,globalForm:informacion,globalForm:msgRegistroNotas"/>
+                                        
+							</p:datePicker>
 
-                            <p:calendar id="fecha" value="#{notaContablePage.fechaContablePF}"
-                                        immediate="false" showOn="button" navigator="true">
-                                <p:ajax event="dateSelect" listener="#{notaContablePage.validarFecha}"
-                                        update="globalForm:fecha,globalForm:informacion"/>
-                            </p:calendar>
+
 
                             <p:commandButton action="#{notaContablePage.cargarModalRiesgo}"
                                              value="Riesgo Operacional"
@@ -581,6 +602,7 @@
 
                             </p:dataTable>
                         </h:panelGrid>
+		                
 		                <h:panelGroup id="msgRegistroNotas">
 		                    <ui:include src="../../common/mensajes.xhtml"/>
 		                </h:panelGroup>
