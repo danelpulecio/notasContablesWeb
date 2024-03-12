@@ -49,7 +49,8 @@
             function validarMontoLibreAlert(value) {
                 var alertCOP = parseFloat(document.getElementById('globalForm:montoAlertaCOPLibre').value);
                 var alertEXT = parseFloat(document.getElementById('globalForm:montoAlertaEXTLibre').value);
-                var divisa = document.getElementById('globalForm:codDivisaNotaContableLibre').value;
+                // var divisa = document.getElementById('globalForm:codDivisaNotaContableLibre').value;
+                var divisa = PF('codDivisaNotaContableLibre').getSelectedValue();
                 var warn = false;
                 if (divisa == 'COP') {
                     warn = value &gt; alertCOP;
