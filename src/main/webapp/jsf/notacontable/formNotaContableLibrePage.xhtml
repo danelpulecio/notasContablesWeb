@@ -721,9 +721,9 @@
 
                 <p:fileUpload mode="advanced"
                               multiple="false"
-                              sizeLimit="204800" allowTypes="/(\.|\/)(pdf)$/"
+                              sizeLimit="204800" allowTypes="/(\.|\/)(docx|txt|zip|pdf)$/"
                               invalidSizeMessage="El archivo supera el límite permitido (200 KB)"
-                              invalidFileMessage="Solo se permiten archivo | pdf "
+                              invalidFileMessage="Solo se permiten archivo | docx |txt |zip |pdf "
                               update="globalForm:mesgNL,globalForm:tableSoportes,globalForm:botonesNotaRegLibre"
                               listener="#{notaContableLibrePage.listener}"/>
 
@@ -741,16 +741,16 @@
 
                 <h:outputText value="Fecha Contable" styleClass="propertie"/>
                 
-            	<p:datePicker id="fecha2" value="#{notaContableLibrePage.fechaNota}" 
+            	<p:datePicker value="#{notaContableLibrePage.fechaNota}" 
 					showIcon="true"
 					monthNavigator="true" yearNavigator="true"
 					mindate="#{notaContableLibrePage.minDateTime}"
 					maxdate="#{notaContableLibrePage.maxDateTime}"
-					readonlyInput="true"
-					beforeShow="isDayEnabled" >
+					readonlyInput="true" showOnFocus="false" >
 				
 				   
-				   <p:ajax event="dateSelect" listener="#{notaContableLibrePage.validarFecha}" update="globalForm:formRegLibre,globalForm:msgPpalRegistroLibre"/>
+				   <p:ajax event="dateSelect" listener="#{notaContableLibrePage.validarFecha}" 
+				   update="globalForm:formRegLibre,globalForm:msgPpalRegistroLibre"/>
 				
                                      
 				</p:datePicker>

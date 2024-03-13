@@ -96,16 +96,13 @@ public abstract class GeneralConsultaPage<T> extends GeneralPage implements IPag
 		boolean control = false;
 		try {
 			if (datosValidos()) {
-				LOGGER.info("GeneralConsultaPage : buscar : EN EL IF DE DATOSVALIDOS ");
 				datos = new ArrayList<T>(_buscar());
 				this.selectedDatos = new ArrayList<T>(); 
 			} else {
-				LOGGER.info("GeneralConsultaPage : buscar : EN EL ELSE DE DATOSVALIDOS ");
 				control = true;
 				datos = new ArrayList<T>();
 			}
 			if (datos.isEmpty() && !control ) {
-				LOGGER.info("GeneralConsultaPage : buscar : NO SE ENCONTRARON RESULTADOS ");
 				nuevoMensaje(FacesMessage.SEVERITY_INFO, "No se encontraron resultados para las caractersticas seleccionadas");
 			}
 		} catch (final Exception e) {

@@ -279,7 +279,7 @@
                     <!-- Opcion de cambio de borrado-->
                     <p:column style="text-align: center;" width="40px">
                         <f:facet name="header"><h:outputText value="Borrar"/></f:facet>
-                        <p:commandButton
+                        <p:commandButton disabled="true"
                                 style="width: 24px; height: 24px; padding: 0; background-image: url('#{request.contextPath}/common/images/delete.png'); background-size: cover; border-radius: 50%;"
                                 value="" alt="Borrar" onclick="PF('popupBorrar').show()"
                                 rendered="#{dato.estado eq 'I'}">

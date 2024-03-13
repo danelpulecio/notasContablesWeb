@@ -76,7 +76,7 @@
                         </p:commandLink>
 
                         <!-- arhivo NC_INDICAPC_NTCON.TXT -->
-                        <p:commandLink actionListener="#{downloadGeneralPage.download}" id="descarga5" styleClass="bold"
+                        <p:commandLink action="#{downloadGeneralPage.download}" id="descarga5" styleClass="bold"
                                        value="#{cierrePage.NC_INDICAPC}" target="_blank"
                                        rendered="#{precierreCierrePage.mostrarArchAlt}" ajax="false">
                             <f:setPropertyActionListener for="type4" value="#{downloadGeneralPage.TRANSMISION_ALTAMIRA}"
