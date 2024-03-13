@@ -538,3 +538,5 @@ Psrc/main/java/co/com/bbva/app/notas/contables/dao/NotaContableTemaRiesgoDAO.jav
 ]src/main/java/co/com/bbva/app/notas/contables/carga/manager/CargaAltamiraCierreScheduled.java,5/e/5e5d6fc48bda00b950eec6a3a1202645e042336a
 ~
 Nsrc/main/java/co/com/bbva/app/notas/contables/controller/PuntosDeVentaDto.java,5/a/5a98173598931b504546c5ba9a7842fcb5dd3469
+l
+<src/main/webapp/jsf/notacontable/flujoNotaRefCrucePage.xhtml,8/d/8d82396d5869badd6c6ac044374c0aba60dba9b0
