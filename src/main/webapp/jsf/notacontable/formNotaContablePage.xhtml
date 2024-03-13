@@ -1008,14 +1008,14 @@
     </p:dialog>
 
     <h:panelGrid columns="1" width="1200px" cellpadding="0" cellspacing="0" id="formulario">
-        <p:panel header="Información básica" style="width: 100%;">
+        <p:panel header="Información básica" style="width: 1155px;">
             <h:panelGrid columns="2">
                 <h:outputText styleClass="bold" value="Sucursal de Origen"/>
 
                 <h:outputText styleClass="bold"
                               value="#{notaContablePage.usuarioLogueado.usuario.codigoAreaModificado} - #{notaContablePage.usuarioLogueado.usuario.nombreAreaModificado}"/>
 
-                <h:outputText styleClass="bold" value="Concepto"/>
+                <h:outputText styleClass="bold" value="Concepto" style="width: 575px"/>
 
                 <h:panelGrid columns="2" id="tipoConcepto">
 
@@ -1038,19 +1038,19 @@
                 </h:panelGrid>
 
                 <h:outputText styleClass="bold" value="Tipo de Evento"/>
-                <p:selectOneMenu value="#{notaContablePage.nota.codigoTipoEvento}"
+                <p:selectOneMenu value="#{notaContablePage.nota.codigoTipoEventoTemp}"
                                  converter="javax.faces.Integer">
-                    <f:selectItem itemValue="" itemLabel="Seleccione una opcion"/>
+                    <f:selectItem itemValue="-1" itemLabel="Seleccione una opcion"/>
                     <f:selectItems value="#{notaContablePage.tiposEvento}"/>
                 </p:selectOneMenu>
 
             </h:panelGrid>
         </p:panel>
-        <p:panel header="Temas del Concepto" style="width: 100%;"
+        <p:panel header="Temas del Concepto" style="width: 1155px;"
                  rendered="#{notaContablePage.nota.codigoConcepto gt 0}">
             <p:dataTable value="#{notaContablePage.temasNotaContable}" var="temaNota" id="tableTemas"
                          rendered="#{! empty notaContablePage.temasNotaContable}" rowKeyVar="rowKey"
-                         width="100%" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
+                         width="1150px" onRowMouseOver="this.style.backgroundColor='#9fbdeb'"
                          onRowMouseOut="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"
                          rowClasses="row1, row2">
 

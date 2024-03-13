@@ -1,29 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-				xmlns:ui="http://java.sun.com/jsf/facelets"
-				xmlns:h="http://java.sun.com/jsf/html"
-				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:p="http://primefaces.org/ui"
-				template="../../common/template.xhtml">
-	<ui:param name="title" value="Nota Contable" />
-	<ui:define name="body">
-	
-		<div style="width: 1200px;" >
-			<h:panelGrid columns="1" width="100%" style="margin-top: 20px;"><h1 align="center">Nota Contable</h1></h:panelGrid>
-			<!--Formulario principal	-->
-			<h:panelGrid columns="1" width="100%" id="panelGridNC" cellpadding="0" cellspacing="0">
-				<p:poll listener="#{notaContablePage.iniciarPagina}" 
-				rendered="#{empty notaContablePage.montos and facesContext.maximumSeverity == null}" 
-				update="globalForm:panelGridNC" interval="0"/>
-				<p:panel header="Nota Cotable"  style="width: 100%;" rendered="#{!empty notaContablePage.montos}">
-					<h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="5" >
-						<ui:include src="formNotaContablePage.xhtml" />	
-					</h:panelGrid>
-				</p:panel>
-<!-- 				<h:panelGroup id="msgNotaContablePage"> -->
-<!-- 					<ui:include src="../../common/mensajes.xhtml" /> -->
-<!-- 				</h:panelGroup> -->
-			</h:panelGrid>	
-		</div>
-	</ui:define>
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../common/template.xhtml">
+    <ui:param name="title" value="Nota Contable"/>
+    <ui:define name="body">
+
+        <div style="width: 1200px;">
+            <p:panel style="width: 1200px">
+                <h:panelGrid columns="1" width="1180px" style="margin-top: 20px;"><h1 align="center">Nota Contable</h1>
+                </h:panelGrid>
+                <!--Formulario principal	-->
+                <h:panelGrid columns="1" width="1180px" id="panelGridNC" cellpadding="0" cellspacing="0">
+                    <p:poll listener="#{notaContablePage.iniciarPagina}"
+                            rendered="#{empty notaContablePage.montos and facesContext.maximumSeverity == null}"
+                            update="globalForm:panelGridNC" interval="0"/>
+                    <p:panel header="Nota Cotable" style="width: 1180px;" rendered="#{!empty notaContablePage.montos}">
+                        <h:panelGrid columns="1" width="1155px" cellpadding="0" cellspacing="5">
+                            <ui:include src="formNotaContablePage.xhtml"/>
+                        </h:panelGrid>
+                    </p:panel>
+                    <!-- 				<h:panelGroup id="msgNotaContablePage"> -->
+                    <!-- 					<ui:include src="../../common/mensajes.xhtml" /> -->
+                    <!-- 				</h:panelGroup> -->
+                </h:panelGrid>
+            </p:panel>
+        </div>
+    </ui:define>
 </ui:composition>

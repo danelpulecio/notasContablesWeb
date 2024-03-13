@@ -153,8 +153,10 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
                 tiposEventoTemporal=getSelectItemList(notasContablesManager.getCV(TipoEvento.class), false);
 //                tiposEvento = getSelectItemList(notasContablesManager.getCV(TipoEvento.class), false);
                 for (SelectItem tipoEvento : tiposEventoTemporal){
-                    tiposEvento.add(new SelectItem(String.valueOf(tipoEvento.getValue()),tipoEvento.getLabel()));
+                    tiposEvento.add(new SelectItem(Integer.parseInt(String.valueOf(tipoEvento.getValue())),tipoEvento.getLabel()));
                 }
+                LOGGER.info("<<<<<<tipo evento value {}>>>>>>", tiposEvento.get(0).getValue());
+                LOGGER.info("<<<<<<tipo evento value class {}>>>>>>", tiposEvento.get(0).getValue().getClass());
 
                 concepto = "";
                 conceptos = new ArrayList<>();
@@ -165,6 +167,8 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
                     nota.setPuedeEditar(true);
                     nota.setPuedeAnular(true);
                     conceptos.add(new SelectItem(nota.getConcepto().getCodigo(), nota.getConcepto().getNombre()));
+                    LOGGER.info("<<<<<<VALOR NOTA CONTABLE {}>>>>>>", nota);
+                    nota.setCodigoTipoEventoTemp(nota.getCodigoTipoEvento().intValue());
                 }
             } else {
                 LOGGER.warn("{} No se tiene parametrizado un autorizador");
@@ -853,6 +857,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 
     public String guardarNota() {
         try {
+            LOGGER.info("nota contable valor : {}", nota);
             LOGGER.info("{} Intentando grabar la Nota Contable");
             LOGGER.info("{} Procesando validaciones y Persistiendo Info.");
             if (validarNota()) {
@@ -913,6 +918,7 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
 
     private boolean validarNota() {
         LOGGER.info("{} Validando campos requeridos");
+        nota.setCodigoTipoEvento(nota.getCodigoTipoEventoTemp());
         LOGGER.info("<<<<nota codigo tipo evento: {}>>>>", nota.getCodigoTipoEvento());
         LOGGER.info("<<<<nota codigo tipo evento class: {}>>>>", nota.getCodigoTipoEvento().getClass());
         validador.validarRequerido(nota.getCodigoTipoEvento(), "Tipo de evento");

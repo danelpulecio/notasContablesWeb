@@ -1,31 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-				xmlns:ui="http://java.sun.com/jsf/facelets"
-				xmlns:h="http://java.sun.com/jsf/html"
-				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:p="http://primefaces.org/ui"
-				template="../../common/template.xhtml">
-				
-	<ui:param name="title" value="Nota Contable Libre" />
-	<ui:define name="body">
-	
-		<div style="width: 1200px;">
-			<h:panelGrid columns="1" width="100%" style="margin-top: 20px;"><h1 align="center">Nota Contable Libre</h1></h:panelGrid>
-			<!--Formulario principal	-->
-			<h:panelGrid columns="1" width="100%" id="panelDivRegLibre" cellpadding="0" cellspacing="0">
-				<p:poll interval="0" listener="#{notaContableLibrePage.iniciarPagina}" update="globalForm:panelDivRegLibre" 
-				rendered="#{empty notaContableLibrePage.diasNoHabiles and facesContext.maximumSeverity == null}"/>
-				
-				<p:panel header="Nota Cotable Libre" style="width: 100%;" id="formularioRegLibre" rendered="#{!empty notaContableLibrePage.diasNoHabiles}">
-					<h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="5" >
-						<ui:include src="formNotaContableLibrePage.xhtml" />	
-					</h:panelGrid>
-				</p:panel>
-			</h:panelGrid>	
-			<h:panelGrid columns="1" width="100%" id="msg" cellpadding="0" cellspacing="0" rendered="#{empty notaContableLibrePage.diasNoHabiles}">
-				<ui:include src="../../common/mensajes.xhtml" /> 
-			</h:panelGrid>
-		</div>
-	</ui:define>
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../common/template.xhtml">
+
+    <ui:param name="title" value="Nota Contable Libre"/>
+    <ui:define name="body">
+
+        <div style="width: 1200px;">
+            <p:panel style="width: 1200px">
+                <h:panelGrid columns="1" width="100%" style="margin-top: 20px;"><h1
+                        align="center">Nota Contable Libre</h1></h:panelGrid>
+                <!--Formulario principal	-->
+                <h:panelGrid columns="1" width="100%" id="panelDivRegLibre" cellpadding="0" cellspacing="0">
+                    <p:poll interval="0" listener="#{notaContableLibrePage.iniciarPagina}"
+                            update="globalForm:panelDivRegLibre"
+                            rendered="#{empty notaContableLibrePage.diasNoHabiles and facesContext.maximumSeverity == null}"/>
+
+                    <p:panel header="Nota Cotable Libre" style="width: 100%;" id="formularioRegLibre"
+                             rendered="#{!empty notaContableLibrePage.diasNoHabiles}">
+                        <h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="5">
+                            <ui:include src="formNotaContableLibrePage.xhtml"/>
+                        </h:panelGrid>
+                    </p:panel>
+                </h:panelGrid>
+                <h:panelGrid columns="1" width="100%" id="msg" cellpadding="0" cellspacing="0"
+                             rendered="#{empty notaContableLibrePage.diasNoHabiles}">
+                    <ui:include src="../../common/mensajes.xhtml"/>
+                </h:panelGrid>
+            </p:panel>
+        </div>
+    </ui:define>
 </ui:composition>

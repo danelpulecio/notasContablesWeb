@@ -30,6 +30,7 @@ public class NotaContable extends CommonVO<NotaContable> implements java.io.Seri
 	private String codigoConceptoSt;
 
 	private Number codigoTipoEvento = 0;
+	private Integer codigoTipoEventoTemp = 0;
 	private String numeroRadicacion = "";
 	private String tipoNota = "";
 	private String descripcion = "";
@@ -302,4 +303,41 @@ public class NotaContable extends CommonVO<NotaContable> implements java.io.Seri
 		codigo = Integer.parseInt(pk.toString());
 	}
 
+	public Integer getCodigoTipoEventoTemp() {
+		return codigoTipoEventoTemp;
+	}
+
+	public void setCodigoTipoEventoTemp(Integer codigoTipoEventoTemp) {
+		this.codigoTipoEventoTemp = codigoTipoEventoTemp;
+	}
+
+	@Override
+	public String toString() {
+		return "NotaContable{" +
+				"codigo=" + codigo +
+				", codigoSucursalOrigen='" + codigoSucursalOrigen + '\'' +
+				", codigoConcepto=" + codigoConcepto +
+				", codigoConceptoSt='" + codigoConceptoSt + '\'' +
+				", codigoTipoEvento=" + codigoTipoEvento +
+				", codigoTipoEventoTemp=" + codigoTipoEventoTemp +
+				", numeroRadicacion='" + numeroRadicacion + '\'' +
+				", tipoNota='" + tipoNota + '\'' +
+				", descripcion='" + descripcion + '\'' +
+				", estado='" + estado + '\'' +
+				", asientoContable='" + asientoContable + '\'' +
+				", concepto=" + concepto +
+				", tipoEvento=" + tipoEvento +
+				", sucursalOrigen=" + sucursalOrigen +
+				", codUsuAsignado=" + codUsuAsignado +
+				", puedeAprobar=" + puedeAprobar +
+				", puedeRechazar=" + puedeRechazar +
+				", puedeAnular=" + puedeAnular +
+				", puedeEditar=" + puedeEditar +
+				", temas=" + temas +
+				", temasCruce=" + temasCruce +
+				", temasLibre=" + temasLibre +
+				", causalDeRechazo='" + causalDeRechazo + '\'' +
+				", rechazos=" + rechazos +
+				'}';
+	}
 }
