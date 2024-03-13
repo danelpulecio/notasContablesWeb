@@ -105,7 +105,7 @@
 
     <!-- Formulario Modal de creacion y edicion de temas por concepto-->
     <p:dialog id="editor" widgetVar="editor" domElementAttachment="form" autosized="true" minHeight="200" minWidth="840"
-              showEffect="fade" hideEffect="explode" modal="true" position="center center">
+              showEffect="fade" hideEffect="explode" modal="false" position="center center">
         <f:facet name="header">
             <h:panelGroup>
                 <h:outputText styleClass="bold" value="Tema: #{notaContablePage.temaActual.tema.nombre}"/>
@@ -116,8 +116,8 @@
         <h:inputHidden id="montoAlertaCOP" value="#{notaContablePage.montoAlertaCOP}"/>
         <h:inputHidden id="montoAlertaEXT" value="#{notaContablePage.montoAlertaEXT}"/>
 
-        <!--         <p:growl id="msgs" showDetail="false" skipDetailIfEqualsSummary="true"/> -->
 
+		
         <!-- Campos del formulario -->
         <h:panelGrid columns="1" width="840" id="informacion" cellpadding="0" cellspacing="0">
             <h:panelGroup>
@@ -127,16 +127,15 @@
                         <h:panelGrid columns="4" width="100%" cellpadding="0" cellspacing="2">
                             <h:outputText styleClass="bold" value="Fecha Contable"/>
                             
-							<p:datePicker id="fecha" value="#{notaContablePage.fechaContablePF}" 
+							<p:datePicker value="#{notaContablePage.fechaContablePF}" 
 								showIcon="true"
 								monthNavigator="true" yearNavigator="true"
 								mindate="#{notaContablePage.minDateTime}"
 								maxdate="#{notaContablePage.maxDateTime}"
-								readonlyInput="false"
-								beforeShow="isDayEnabledNC" >
+								readonlyInput="true" showOnFocus="false">
 							
 								<p:ajax event="dateSelect" listener="#{notaContablePage.validarFecha}"
-									update="globalForm:fecha,globalForm:informacion,globalForm:msgRegistroNotas"/>
+									update="globalForm:informacion,globalForm:msgRegistroNotas"/>
                                         
 							</p:datePicker>
 
@@ -372,7 +371,7 @@
                                 </h:panelGrid>
                             </p:panel>
                         </h:panelGrid>
-                        <h:panelGrid columns="2" width="100%" cellpadding="0" cellspacing="2">
+                        <h:panelGrid columns="2" width="100%" id="idDescripcion" cellpadding="0" cellspacing="2">
 
 
                             <h:outputText styleClass="bold" value="Descripción"/>
@@ -497,9 +496,9 @@
                                     </h:panelGroup>
                                     <p:fileUpload mode="advanced"
                                                   multiple="false"
-                                                  sizeLimit="204800" allowTypes="/(\.|\/)(pdf)$/"
+                                                  sizeLimit="204800" allowTypes="/(\.|\/)(docx|txt|zip|pdf)$/"
                                                   invalidSizeMessage="El archivo supera el límite permitido (200 KB)"
-                                                  invalidFileMessage="Solo se permiten archivo | pdf "
+                                                  invalidFileMessage="Solo se permiten archivo | docx |txt |zip |pdf "
                                                   update="globalForm:messages,globalForm:anexos "
                                                   listener="#{notaContablePage.listener}"/>
 

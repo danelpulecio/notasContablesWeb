@@ -67,7 +67,7 @@ public class ConsultaNotaContablePage extends GeneralConsultaPage<Instancia> {
 			criterio = "1";
 			tiposCriterio.add(new SelectItem("1", "Numero de radicacion"));
 			tiposCriterio.add(new SelectItem("2", "Asiento contable Altamira"));
-			tiposCriterio.add(new SelectItem("3", "Fecha Radicacin Modulo"));
+			tiposCriterio.add(new SelectItem("3", "Fecha Radicación Modulo"));
 		}
 	}
 

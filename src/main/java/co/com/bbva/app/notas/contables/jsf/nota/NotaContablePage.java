@@ -569,6 +569,18 @@ public class NotaContablePage extends FlujoNotaContablePage implements Serializa
             if (temaActual.getRiesgoOperacional().getClaseRiesgoN2() != null) {
                 buscarClaseRiesgoN3();
             }
+            
+			if (temaActual.getRiesgoOperacional().getFechaEvento() != null) {
+				LOGGER.info("NotaContablePage : cargarModalRiesgo : temaActual.getRiesgoOperacional().getFechaEventoPF() : {}", temaActual.getRiesgoOperacional().getFechaEventoPF());
+				LOGGER.info("NotaContablePage : cargarModalRiesgo : temaActual.getRiesgoOperacional().getFechaFinEventoPF() : {}", temaActual.getRiesgoOperacional().getFechaFinEventoPF());
+				LOGGER.info("NotaContablePage : cargarModalRiesgo : temaActual.getRiesgoOperacional().getFechaDescubrimientoEventoPF() : {}", temaActual.getRiesgoOperacional().getFechaDescubrimientoEventoPF());
+				LOGGER.info("NotaContablePage : cargarModalRiesgo : temaActual.getRiesgoOperacional().getFechaRecuperacionPF() : {}", temaActual.getRiesgoOperacional().getFechaRecuperacionPF());
+				
+				temaActual.getRiesgoOperacional().setFechaEventoPF(DateUtils.getDate(temaActual.getRiesgoOperacional().getFechaEvento()));
+				temaActual.getRiesgoOperacional().setFechaFinEventoPF(DateUtils.getDate(temaActual.getRiesgoOperacional().getFechaFinEvento()));
+				temaActual.getRiesgoOperacional().setFechaDescubrimientoEventoPF(DateUtils.getDate(temaActual.getRiesgoOperacional().getFechaDescubrimientoEvento()));
+				temaActual.getRiesgoOperacional().setFechaRecuperacionPF(DateUtils.getDate(temaActual.getRiesgoOperacional().getFechaRecuperacion()));
+			}
 
         } catch (Exception e) {
             lanzarError(e, "Error al inicializar el editor de riesgo operacional para la nota actual");

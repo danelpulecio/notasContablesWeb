@@ -9,11 +9,12 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.util.ArrayList;
 
 @Named
-@SessionScoped
+@ViewScoped
 public class ConsultaMovimientosContablesPage extends ReporteGeneralPage {
 
 	private static final long serialVersionUID = 5090751661160357021L;
@@ -36,20 +37,25 @@ public class ConsultaMovimientosContablesPage extends ReporteGeneralPage {
 	public String buscar() {
 		LOGGER.info("::::: buscar ContulstaMovimientosContablesPage ::::: ");
 		try {
-			tipoNota = "";
-			estado = "6";
-			descripcion = "";
-			super.buscar();
-			for (Instancia ins : getDatos()) {
-				NotaContable nc = ins.getNC();
-				if (nc.getTipoNota().equals(NotaContable.NORMAL)) {
-					nc.setTemas(new ArrayList<NotaContableTema>(notasContablesManager.getTemasPorNotaContable(nc.getCodigo().intValue())));
-				} else if (nc.getTipoNota().equals(NotaContable.LIBRE)) {
-					nc.setTemasLibre(new ArrayList<NotaContableRegistroLibre>(notasContablesManager.getRegistrosNotaContableLibre(nc.getCodigo().intValue())));
-				} else {
-					nc.setTemasCruce(new ArrayList<NotaContableCrucePartidaPendiente>(notasContablesManager.getCrucesPartidasPendientesPorNotaContable(nc.getCodigo().intValue())));
+			
+			if(this.desde != null && this.hasta != null) {
+				tipoNota = "";
+				estado = "6";
+				descripcion = "";
+				super.buscar();
+				for (Instancia ins : getDatos()) {
+					NotaContable nc = ins.getNC();
+					if (nc.getTipoNota().equals(NotaContable.NORMAL)) {
+						nc.setTemas(new ArrayList<NotaContableTema>(notasContablesManager.getTemasPorNotaContable(nc.getCodigo().intValue())));
+					} else if (nc.getTipoNota().equals(NotaContable.LIBRE)) {
+						nc.setTemasLibre(new ArrayList<NotaContableRegistroLibre>(notasContablesManager.getRegistrosNotaContableLibre(nc.getCodigo().intValue())));
+					} else {
+						nc.setTemasCruce(new ArrayList<NotaContableCrucePartidaPendiente>(notasContablesManager.getCrucesPartidasPendientesPorNotaContable(nc.getCodigo().intValue())));
+					}
+					ins.setNC(nc);
 				}
-				ins.setNC(nc);
+			}else {
+				nuevoMensaje(FacesMessage.SEVERITY_WARN, "Debe seleccionar un rango de fechas para realizár la consulta.");
 			}
 		} catch (Exception e) {
 			LOGGER.error("{} Error realizando la busqueda", e);

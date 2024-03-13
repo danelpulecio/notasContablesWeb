@@ -20,7 +20,7 @@ import javax.inject.Named;
 import java.util.*;
 
 @Named
-@SessionScoped
+@ViewScoped
 public class ReporteGeneralPage extends GeneralConsultaPage<Instancia> {
 
 	@Inject
@@ -63,6 +63,9 @@ public class ReporteGeneralPage extends GeneralConsultaPage<Instancia> {
 	protected Date hasta;
 	protected String estado;
 	protected String descripcion;
+	
+    private Date minDateTime;
+    private Date maxDateTime;
 
 	protected List<NotaContableTotal> totales = new ArrayList<NotaContableTotal>();
 
@@ -80,33 +83,36 @@ public class ReporteGeneralPage extends GeneralConsultaPage<Instancia> {
 	@Override
 	protected void _init() {
 		super._init();
+
 		if (sucursales == null || sucursales.isEmpty()) {
 			try {
-				
-//				LOGGER.info("contablesSessionBean.getLoginUser().getUsuario().getCodigo() ---> " + contablesSessionBean.getLoginUser().getUsuario().getCodigo());
-				
-				LOGGER.info("ENTRANDO A CONSULTAR SUCURSALES...");
+
 				sucursales = getSelectItemList(notasContablesManager.getCV(Sucursal.class));
-				LOGGER.info("Init sucursales if {} sucursales.size() ---> ", sucursales.size());
-				
-				LOGGER.info("ENTRANDO A CONSULTAR CONCEPTOS...");
 				conceptos = getSelectItemList(notasContablesManager.getCV(Concepto.class), false);
-				LOGGER.info("Init conceptos if {} conceptos.size() ---> ", conceptos.size());
-				
 				temas = new ArrayList<SelectItem>();
-				
-				LOGGER.info("ENTRANDO A CONSULTAR tiposEvento...");
 				tiposEvento = getSelectItemList(notasContablesManager.getCV(TipoEvento.class), false);
-				LOGGER.info("Init tiposEvento if {} tiposEvento.size() ---> ", tiposEvento.size());
-				
-				LOGGER.info("ENTRANDO A CONSULTAR divisas...");
 				divisas = getSelectItemList(notasContablesManager.getCV(Divisa.class));
-				LOGGER.info("Init divisas if {} divisas.size() ---> ", divisas.size());
 				
 			} catch (Exception e) {
 				LOGGER.error("{} Error inicializando filtro de busqueda" ,e);
 				nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error inicializando filtro de busqueda ");
 			}
+		}
+	}
+	
+	public void validarHasta() {
+		
+		try {
+			Date today = new Date();
+			long oneDay = 24 * 60 * 60 * 1000;
+			
+			minDateTime = new Date(this.desde.getTime());
+			maxDateTime = new Date(this.desde.getTime() + (90 * oneDay));
+			
+		}catch(Exception e) {
+			LOGGER.error("{} Error validando la fecha hasta en consulta movimientos contables",e);
+			nuevoMensaje(FacesMessage.SEVERITY_ERROR, "Error validando la fecha hasta.");
+			
 		}
 	}
 
@@ -383,4 +389,20 @@ public class ReporteGeneralPage extends GeneralConsultaPage<Instancia> {
 		this.tipoNota = tipoNota == null ? "" : tipoNota;
 	}
 
+	public Date getMinDateTime() {
+		return minDateTime;
+	}
+
+	public void setMinDateTime(Date minDateTime) {
+		this.minDateTime = minDateTime;
+	}
+
+	public Date getMaxDateTime() {
+		return maxDateTime;
+	}
+
+	public void setMaxDateTime(Date maxDateTime) {
+		this.maxDateTime = maxDateTime;
+	}
+	
 }
